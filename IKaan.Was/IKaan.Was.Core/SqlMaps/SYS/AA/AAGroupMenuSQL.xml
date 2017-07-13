@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectAAGroupMenu" parameterClass="DataMap" resultClass="AAGroupMenu" >
+			<![CDATA[
+				SELECT  AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					,	AA.GroupID
+					,	AA.MenuID
+					,	AA.UseYn
+				FROM	dbo.AAGroupMenu AA WITH (NOLOCK)
+				WHERE	AA.ID = #ID#				
+			]]>
+		</select>
+		<select id="SelectAAGroupMenuByReference" parameterClass="AAGroupMenu" resultClass="AAGroupMenu" >
+			<![CDATA[
+				SELECT  AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					,	AA.GroupID
+					,	AA.MenuID
+					,	AA.UseYn
+				FROM	dbo.AAGroupMenu AA WITH (NOLOCK)
+				WHERE	AA.GroupID	= #GroupID#
+				AND		AA.MenuID	= #MenuID#
+			]]>
+		</select>
+		<insert id="InsertAAGroupMenu" parameterClass="AAGroupMenu" >
+			<![CDATA[
+				INSERT INTO dbo.AAGroupMenu
+				( 
+					CreateDate, CreateBy, CreateByName,
+					GroupID, MenuID, UseYn
+				)
+				VALUES
+				(
+					GetDate(), #CreateBy#, #CreateByName#,
+					#GroupID#, #MenuID#, #UseYn#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateAAGroupMenu" parameterClass="AAGroupMenu">
+			<![CDATA[
+				UPDATE  dbo.AAGroupMenu
+				SET     UpdateDate	= GetDate()
+					,	UpdateBy	= #UpdateBy#
+					,	UpdateByName= #UpdateByName#
+					
+					,	GroupID		= #GroupID#
+					,	MenuID		= #MenuID#
+					,	UseYn		= #UseYn#
+				WHERE	ID			= #ID#
+			]]>
+		</update>
+		<delete id="DeleteAAGroupMenu" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM dbo.AAGroupMenu WHERE ID = #ID#;
+			]]>
+		</delete>
+	</statements>
+</sqlMap>

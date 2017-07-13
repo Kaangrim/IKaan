@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectAddress" parameterClass="DataMap" resultClass="AddressData" >
+			<![CDATA[
+				SELECT  aa.AddressId
+					,	aa.PostNo
+					,	aa.ZoneNo
+					,	aa.Address1
+					,	aa.Address2
+					,	aa.CreateDate
+					,	aa.CreateBy
+					,	u1.UserName	as CreateByName
+					,	aa.UpdateDate
+					,	aa.UpdateBy
+					,	u2.UserName	as UpdateName
+				FROM	BCAddress aa with (nolock)
+						LEFT JOIN
+							AAUser u1 with (nolock)
+								ON aa.CreateBy = u1.UserId
+						LEFT JOIN
+							AAUser u2 with (nolock)
+								ON aa.UpdateBy = u2.UserId
+				WHERE	1=1				
+			]]>
+			<isPropertyAvailable property="FindText" >
+				<isNotEmpty property="FindText">
+					<![CDATA[
+						AND	(	
+								aa.PostNo	LIKE #FindText# + '%'		OR
+								aa.ZoneNo	LIKE #FindText# + '%'		OR
+								aa.Address1	LIKE '%' + #FindText# + '%'	OR
+								aa.Address2	LIKE '%' + #FindText# + '%'
+							)
+					]]>
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<isPropertyAvailable property="AddressId" >
+				<isNotEmpty property="AddressId">
+					<![CDATA[
+						AND	aa.AddressId = #AddressId#
+					]]>
+				</isNotEmpty>
+			</isPropertyAvailable>
+			<![CDATA[
+				ORDER BY aa.AddressId
+			]]>
+		</select>
+		<insert id="InsertAddress" parameterClass="DataMap" >
+			<![CDATA[
+				INSERT INTO UCD.ADDRESS
+				( 
+					POST_NO, ZONE_NO, ADDRESS1, ADDRESS2, INS_TIME, INS_USER
+				)
+				VALUES
+				( 
+					#POST_NO#, #ZONE_NO#, #ADDRESS1#, #ADDRESS2#, GETDATE(), #INS_USER#
+				)
+			]]>
+			<selectKey type="post" property="ADDRESS_ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ADDRESS_ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateAddress" parameterClass="DataMap">
+			<![CDATA[
+				UPDATE	UCD.ADDRESS
+				SET     POST_NO		= #POST_NO#
+					,	ZONE_NO		= #ZONE_NO#
+					,	ADDRESS1	= #ADDRESS1#
+					,	ADDRESS2	= #ADDRESS2#
+					,	UPD_TIME	= GETDATE()
+					,	UPD_USER	= #INS_USER#
+				WHERE	ADDRESS_ID	= #ADDRESS_ID#
+			]]>
+		</update>
+		<delete id="DeleteAddress" parameterClass="DataMap">
+			<![CDATA[
+				DELETE
+				FROM	UCD.ADDRESS
+				WHERE	ADDRESS_ID = #ADDRESS_ID#
+			]]>
+		</delete>
+
+		<select id="GetAddressId" parameterClass="DataMap" resultClass="Int" >
+			<![CDATA[
+				SELECT  AA.ADDRESS_ID			
+				FROM	UCD.ADDRESS AA
+				WHERE	AA.ADDRESS_ID = #ADDRESS_ID#
+			]]>
+		</select>
+	</statements>
+</sqlMap>

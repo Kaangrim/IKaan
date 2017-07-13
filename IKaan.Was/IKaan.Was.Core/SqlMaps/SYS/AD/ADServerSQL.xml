@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectServer" parameterClass="DataMap" resultClass="ADServer" >
+			<![CDATA[
+				SELECT	ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
+					,	AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.ServerName
+					,	AA.Description
+				FROM	dbo.ADServer AA WITH (NOLOCK)
+				WHERE	1=1
+			]]>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+				AND		AA.ServerName	LIKE '%'+#FindText#+'%'
+			]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY 
+					ROW_NO
+			]]>
+		</select>
+		<insert id="InsertServer" parameterClass="ADServer" >
+			<![CDATA[
+				INSERT INTO dbo.ADServer
+				( 
+					CreateDate, CreateBy, CreateByName,
+					ServerName, Description
+				)
+				VALUES
+				( 
+					GetDate(), #CreateBy#, #CreateByName#,
+					#ServerName#, #Description#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateServer" parameterClass="ADServer">
+			<![CDATA[
+				UPDATE  dbo.ADServer
+				SET     UpdateDate	= #UpdateDate#
+					,	UpdateBy	= #UpdateBy#
+					,	UpdateByName= #UpdateByName#
+					
+					,	ServerName	= #ServerName#
+					,	Description	= #Description#
+				WHERE	ID			= #ID#
+			]]>
+		</update>
+		<delete id="DeleteServer" parameterClass="DataMap">
+			<![CDATA[
+				DELETE 
+				FROM	dbo.ADServer
+				WHERE	ID = #ID#
+			]]>
+		</delete>
+	</statements>
+</sqlMap>

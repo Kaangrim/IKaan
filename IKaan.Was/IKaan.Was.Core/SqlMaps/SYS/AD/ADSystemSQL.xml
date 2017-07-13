@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectSystem" parameterClass="DataMap" resultClass="ADSystem" >
+			<![CDATA[
+				SELECT	ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
+					,	AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.SystemName
+					,	AA.UseYn
+					,	AA.Description
+				FROM	dbo.ADSystem AA WITH (NOLOCK)
+				WHERE	1=1
+			]]>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+				AND		AA.SystemName	LIKE '%'+#FindText#+'%'
+			]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY 
+					ROW_NO
+			]]>
+		</select>
+		<insert id="InsertSystem" parameterClass="ADSystem" >
+			<![CDATA[
+				INSERT INTO dbo.ADSystem
+				( 
+					CreateDate, CreateBy, CreateByName,
+					SystemName, UseYn, Description
+				)
+				VALUES
+				( 
+					GetDate(), #CreateBy#, #CreateByName#,
+					#SystemName#, #UseYn#, #Description#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateSystem" parameterClass="ADSystem">
+			<![CDATA[
+				UPDATE  dbo.ADSystem
+				SET     UpdateDate	= #UpdateDate#
+					,	UpdateBy	= #UpdateBy#
+					,	UpdateByName= #UpdateByName#
+					
+					,	SystemName	= #SystemName#
+					,	UseYn		= #UseYn#
+					,	Description	= #Description#
+				WHERE	ID			= #ID#
+			]]>
+		</update>
+		<delete id="DeleteSystem" parameterClass="DataMap">
+			<![CDATA[
+				DELETE 
+				FROM	dbo.ADSystem
+				WHERE	ID = #ID#
+			]]>
+		</delete>
+	</statements>
+</sqlMap>

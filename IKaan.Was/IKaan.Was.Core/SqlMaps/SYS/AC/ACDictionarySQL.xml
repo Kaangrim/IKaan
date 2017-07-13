@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectACDictionaryList" parameterClass="DataMap" resultClass="ACDictionary" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
+					,	AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					,	AA.LanguageCode
+					,	AA.PhysicalName
+					,	AA.LogicalName
+					,	AA.Description
+				FROM	dbo.ACDictionary AA WITH (NOLOCK)
+				WHERE	1=1
+				AND		AA.LanguageCode = #LanguageCode#
+			]]>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(
+							AA.PhysicalName LIKE '%' + #FindText# + '%'	OR
+							AA.LogicalName LIKE '%' + #FindText# + '%'
+						)
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectACDictionary" parameterClass="DataMap" resultClass="ACDictionary" >
+			<![CDATA[
+				SELECT  AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					,	AA.LanguageCode
+					,	AA.PhysicalName
+					,	AA.LogicalName
+					,	AA.Description
+				FROM	dbo.ACDictionary AA WITH (NOLOCK)
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<insert id="InsertACDictionary" parameterClass="DataMap" >
+			<![CDATA[
+				INSERT INTO dbo.ACDictionary
+				( 
+					CreateDate, CreateBy, CreateByName,
+					LanguageCode, PhysicalName, LogicalName, Description
+				)
+				VALUES
+				( 
+					GetDate(), #CreateBy#, #CreateByName#,
+					#LanguageCode#, #PhysicalName#, #LogicalName#, #Description#
+				)
+			]]>							
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateACDictionary" parameterClass="DataMap">
+			<![CDATA[
+				UPDATE	dbo.ACDictionary
+				SET 	UpdateDate		= GetDate()
+					,	UpdateBy		= #UpdateBy#
+					,	UpdateByName	= #UpdateByName#
+					,	LanguageCode	= #LanguageCode#
+					,	PhysicalName	= #PhysicalName#
+					,	LogicalName		= #LogicalName#
+					,	Description		= #Description#					
+				WHERE	ID				= #ID#
+			]]>
+		</update>
+		<delete id="DeleteACDictionary" parameterClass="DataMap">
+			<![CDATA[
+				DELETE 
+				FROM	dbo.ACDictionary
+				WHERE	ID = #ID#
+			]]>
+		</delete>
+	</statements>
+</sqlMap>

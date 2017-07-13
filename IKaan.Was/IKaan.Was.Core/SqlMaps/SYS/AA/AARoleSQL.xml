@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectAARoleList" parameterClass="DataMap" resultClass="AARole" >
+			<![CDATA[
+				WITH CTE (ID, HierID, Level)
+				AS
+				(
+					SELECT	AA.ID		as ID
+						,	CAST(RIGHT('0000' + 
+									CONVERT(VARCHAR, ROW_NUMBER() OVER (ORDER BY AA.ID)), 4) AS VARCHAR(MAX))	AS HierID
+						,	1																		AS Level
+					FROM	dbo.AARole AA WITH (NOLOCK)
+					WHERE	1=1
+			]]>
+			<isNotEmpty property="ParentID">
+				<![CDATA[
+					And	AA.ID = #ParentID#
+				]]>
+			</isNotEmpty>
+			<isEmpty property="ParentID">
+				<![CDATA[
+					AND	AA.ParentID IS NULL
+				]]>
+			</isEmpty>
+			<![CDATA[
+					UNION ALL
+					SELECT	AA.ID			as ID
+						,	CAST(BB.HierID + 
+								 RIGHT('0000' + CONVERT(VARCHAR, ROW_NUMBER() OVER (ORDER BY AA.ID)), 4) AS VARCHAR(MAX))	AS HierID
+						,	BB.Level + 1																					AS Level
+					FROM	dbo.AARole AA WITH (NOLOCK)
+							INNER JOIN 
+								CTE BB 
+									ON AA.ParentID = BB.ID
+				)
+				SELECT  ROW_NUMBER() OVER (ORDER BY BB.HierID)	AS RowNo
+					,	AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.RoleName
+					,	AA.ParentID
+					,	AA.UseYn
+					,	AA.Description
+					
+					,	BB.HierID
+					,	REPLICATE(' ', (BB.Level -1) * 5) + 
+						CASE 
+							WHEN BB.Level > 1 THEN '▶'
+							ELSE ''
+						END + 
+						AA.RoleName			AS HierName
+					,	BB.Level			as RoleLevel
+					
+				FROM	dbo.AARole AA WITH (NOLOCK)
+						INNER JOIN 
+							CTE BB 
+								ON AA.ID = BB.ID
+				WHERE	1=1				
+			]]>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	AA.RoleName LIKE '%' + #FindText# + '%'
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectAARole" parameterClass="DataMap" resultClass="AARole" >
+			<![CDATA[
+				SELECT  AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					,	AA.RoleName
+					,	AA.ParentID
+					,	AA.UseYn
+					,	AA.Description
+				FROM	dbo.AARole AA WITH (NOLOCK)
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<insert id="InsertAARole" parameterClass="AARole" >
+			<![CDATA[
+				INSERT INTO dbo.AARole
+				( 
+					CreateDate, CreateBy, CreateByName,
+					RoleName, ParentID, UseYn, Description
+				)
+				VALUES
+				(
+					GetDate(), #CreateBy#, #CreateByName#,
+					#RoleName#, #ParentID#, #UseYn#, #Description#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateAARole" parameterClass="AARole">
+			<![CDATA[
+				UPDATE  dbo.AARole
+				SET     UpdateDate	= GetDate()
+					,	UpdateBy	= #UpdateBy#
+					,	UpdateByName= #UpdateByName#
+					
+					,	RoleName	= #RoleName#
+					,	ParentID	= #ParentID#
+					,	UseYn		= #UseYn#
+					,	Description	= #Description#
+				WHERE	ID			= #ID#
+			]]>
+		</update>
+		<delete id="DeleteAARole" parameterClass="DataMap">
+			<![CDATA[
+				DELETE 
+				FROM	dbo.AARole
+				WHERE	ID = #ID#
+			]]>
+		</delete>
+	</statements>
+</sqlMap>

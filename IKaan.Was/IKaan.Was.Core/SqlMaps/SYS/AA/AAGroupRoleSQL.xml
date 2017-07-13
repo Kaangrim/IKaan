@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectAAGroupRole" parameterClass="DataMap" resultClass="AAGroupRole" >
+			<![CDATA[
+				SELECT  AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					,	AA.GroupID
+					,	AA.RoleID
+					,	AA.UseYn
+				FROM	dbo.AAGroupRole AA WITH (NOLOCK)
+				WHERE	AA.ID = #ID#				
+			]]>
+		</select>
+		<select id="SelectAAGroupRoleByReference" parameterClass="AAGroupRole" resultClass="AAGroupRole" >
+			<![CDATA[
+				SELECT  AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					,	AA.GroupID
+					,	AA.RoleID
+					,	AA.UseYn
+				FROM	dbo.AAGroupRole AA WITH (NOLOCK)
+				WHERE	AA.GroupID	= #GroupID#
+				AND		AA.RoleID	= #RoleID#
+			]]>
+		</select>
+		<insert id="InsertAAGroupRole" parameterClass="AAGroupRole" >
+			<![CDATA[
+				INSERT INTO dbo.AAGroupRole
+				( 
+					CreateDate, CreateBy, CreateByName,
+					GroupID, RoleID, UseYn
+				)
+				VALUES
+				(
+					GetDate(), #CreateBy#, #CreateByName#,
+					#GroupID#, #RoleID#, #UseYn#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateAAGroupRole" parameterClass="AAGroupRole">
+			<![CDATA[
+				UPDATE  dbo.AAGroupRole
+				SET     UpdateDate	= GetDate()
+					,	UpdateBy	= #UpdateBy#
+					,	UpdateByName= #UpdateByName#
+					
+					,	GroupID		= #GroupID#
+					,	RoleID		= #RoleID#
+					,	UseYn		= #UseYn#
+				WHERE	ID			= #ID#
+			]]>
+		</update>
+		<delete id="DeleteAAGroupRole" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM dbo.AAGroupRole WHERE ID = #ID#;
+			]]>
+		</delete>
+	</statements>
+</sqlMap>

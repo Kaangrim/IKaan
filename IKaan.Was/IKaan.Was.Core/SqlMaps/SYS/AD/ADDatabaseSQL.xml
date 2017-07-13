@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectDatabase" parameterClass="DataMap" resultClass="ADDatabase" >
+			<![CDATA[
+				SELECT	ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
+					,	AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.DatabaseName
+					,	AA.DbmsType
+					,	AA.ServerID
+					,	BB.ServerName
+					,	AA.ConnectionString
+					,	AA.Description
+				FROM	dbo.ADDatabase AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.ADServer BB WITH (NOLOCK)
+								ON AA.ServerID = BB.ID
+				WHERE	1=1
+			]]>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+				AND		AA.DatabaseName	LIKE '%'+#FindText#+'%'
+			]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY 
+					ROW_NO
+			]]>
+		</select>
+		<insert id="InsertDatabase" parameterClass="ADDatabase" >
+			<![CDATA[
+				INSERT INTO dbo.ADDatabase
+				( 
+					CreateDate, CreateBy, CreateByName,
+					DatabaseName, DbmsType, ServerID, ConnectionString, Description
+				)
+				VALUES
+				( 
+					GetDate(), #CreateBy#, #CreateByName#,
+					#DatabaseName#, #DbmsType#, #ServerID#, #ConnectionString#, #Description#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateDatabase" parameterClass="ADDatabase">
+			<![CDATA[
+				UPDATE  dbo.ADDatabase
+				SET     UpdateDate	= #UpdateDate#
+					,	UpdateBy	= #UpdateBy#
+					,	UpdateByName= #UpdateByName#
+					
+					,	DatabaseName= #DatabaseName#
+					,	DbmsType	= #DbmsType#
+					,	ServerID	= #ServerID#
+					,	ConnectionString	= #ConnectionString#
+					,	Description	= #Description#
+				WHERE	ID			= #ID#
+			]]>
+		</update>
+		<delete id="DeleteDatabase" parameterClass="DataMap">
+			<![CDATA[
+				DELETE 
+				FROM	dbo.ADDatabase
+				WHERE	ID = #ID#
+			]]>
+		</delete>
+	</statements>
+</sqlMap>

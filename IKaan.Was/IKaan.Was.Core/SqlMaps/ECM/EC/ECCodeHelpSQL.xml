@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectCodeHelp" parameterClass="DataMap" resultClass="UMCodeHelp" >
+			<![CDATA[
+				SELECT	AA.CODE
+					,	AA.NAME
+					,	AA.NAME		AS LIST_NAME
+				FROM	UAA.CODES AA WITH (NOLOCK)
+				WHERE	AA.USE_YN	= 'Y'
+				AND		AA.PARENT_CODE	= #PARENT_CODE#
+				ORDER BY AA.SORT_SEQ, AA.NAME ASC
+			]]>
+		</select>
+	</statements>
+</sqlMap>

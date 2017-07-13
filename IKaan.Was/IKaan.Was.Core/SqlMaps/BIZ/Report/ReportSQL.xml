@@ -1,0 +1,173 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="GetSaleInvoiceTran" parameterClass="DataMap" resultClass="SaleInvoiceTran" >
+			<![CDATA[
+				SELECT  AA.SALE_ID							AS SaleID
+					,	AA.SALE_NO							AS SaleNo
+					,	dbo.DateCharToChar10(AA.SALE_DATE)	AS SaleDate
+					,	ISNULL(M3.NAME, AA.SALE_TYPE)		AS SaleType
+					,	ISNULL(M4.NAME, AA.PAY_TYPE)		AS PayType
+					,	AA.CUSTOMER_ID						AS CustomerID
+					,	BB.CUSTOMER_NAME					AS CustomerName
+					,	AA.REMARKS							AS Remarks
+					,	AA.TOT_SALE_QTY						AS SaleQty
+					,	AA.TOT_SALE_AMT						AS SaleAmt
+					,	AA.TOT_DISC_AMT						AS DiscAmt
+					,	AA.TOT_NPAY_AMT						AS NpayAmt
+					,	ROUND(AA.TOT_NPAY_AMT/1.1, 0)		AS SupAmt
+					,	AA.TOT_NPAY_AMT -
+						ROUND(AA.TOT_NPAY_AMT/1.1, 0)		AS TaxAmt
+						
+					,	CASE
+							WHEN ISNULL(CR.BIZ_REG_NO,'') = '' THEN ''
+							ELSE
+								SUBSTRING(CR.BIZ_REG_NO, 1, 3) + '-' +
+								SUBSTRING(CR.BIZ_REG_NO, 4, 2) + '-' +
+								SUBSTRING(CR.BIZ_REG_NO, 6, 5)	
+						END									AS CustomerBizRegNo
+					,	CR.BIZ_NAME							AS CustomerBizName
+					,	CR.REP_NAME							AS CustomerRepName
+					,	CR.BIZ_TYPE							AS CustomerBizType
+					,	CR.BIZ_ITEM							AS CustomerBizItem
+					,	ISNULL(CA.ADDRESS1+' ','') +
+						ISNULL(CA.ADDRESS2, '')				AS CustomerAddress
+						
+					,	MM.COMPANY_ID						AS CompanyID
+					,	MM.COMPANY_NAME						AS CompanyName
+					,	CASE
+							WHEN ISNULL(MM.BIZ_REG_NO,'') = '' THEN ''
+							ELSE
+								SUBSTRING(MM.BIZ_REG_NO, 1, 3) + '-' +
+								SUBSTRING(MM.BIZ_REG_NO, 4, 2) + '-' +
+								SUBSTRING(MM.BIZ_REG_NO, 6, 5)	
+						END									AS CompanyBizRegNo
+					,	MM.BIZ_NAME							AS CompanyBizName
+					,	MM.REP_NAME							AS CompanyRepName
+					,	MM.BIZ_TYPE							AS CompanyBizType
+					,	MM.BIZ_ITEM							AS CompanyBizItem
+					,	MM.ADDRESS							AS CompanyAddress
+					
+				FROM	UBZ.SALE_TRAN AA WITH (NOLOCK)
+						LEFT JOIN
+							UCD.CUSTOMERS BB
+								ON AA.CUSTOMER_ID = BB.CUSTOMER_ID
+						LEFT JOIN
+							UAA.CODES M3
+								ON AA.SALE_TYPE = M3.CODE 
+									AND M3.PARENT_CODE = 'SALE_TYPE'
+						LEFT JOIN
+							UAA.CODES M4
+								ON AA.PAY_TYPE = M4.CODE 
+									AND M4.PARENT_CODE = 'PAY_TYPE'
+						LEFT JOIN
+							UCD.BIZ_REG_CE CR
+								ON BB.BIZ_REG_ID = CR.BIZ_REG_ID
+						LEFT JOIN
+							UCD.ADDRESS CA
+								ON CR.ADDRESS_ID = CA.ADDRESS_ID
+						LEFT JOIN
+						(
+							SELECT	#SALE_ID#					AS SALE_ID
+								,	AA.CUSTOMER_ID				AS COMPANY_ID
+								,	AA.CUSTOMER_NAME			AS COMPANY_NAME
+								,	BB.BIZ_REG_NO				AS BIZ_REG_NO
+								,	BB.BIZ_NAME					AS BIZ_NAME
+								,	BB.REP_NAME					AS REP_NAME
+								,	BB.BIZ_TYPE					AS BIZ_TYPE
+								,	BB.BIZ_ITEM					AS BIZ_ITEM
+								,	ISNULL(CC.ADDRESS1+' ','') +
+									ISNULL(CC.ADDRESS2, '')		AS ADDRESS
+							FROM	UCD.CUSTOMERS AA
+									LEFT JOIN
+										UCD.BIZ_REG_CE BB
+											ON AA.BIZ_REG_ID = BB.BIZ_REG_ID
+									LEFT JOIN
+										UCD.ADDRESS CC
+											ON BB.ADDRESS_ID = CC.ADDRESS_ID
+							WHERE	AA.CUSTOMER_ID = (	SELECT	MAX(CUSTOMER_ID)
+														FROM	UCD.CUSTOMERS
+														WHERE	CUSTOMER_TYPE = 'M'
+														AND		USE_YN = 'Y' )
+						) MM ON AA.SALE_ID = MM.SALE_ID
+				WHERE	AA.SALE_ID	= #SALE_ID#
+			]]>
+		</select>
+		<select id="GetSaleInvoiceTranItem" parameterClass="DataMap" resultClass="SaleInvoiceTranItem" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ITEM_ID)	AS RowNo
+					,	AA.ITEM_ID								AS ItemID
+					,	AA.SALE_ID								AS SaleID
+					,	AA.PRODUCT_ID							AS ProductID
+					,	BB.PRODUCT_CODE							AS ProductCode
+					,	BB.PRODUCT_NAME + CHAR(13) + CHAR(10) +
+						ISNULL(BB.PRODUCT_CODE,'')				AS ProductName
+					,	AA.SALE_PRICE							AS SalePrice
+					,	AA.DISC_RATE							AS DiscRate
+					,	AA.DISC_PRICE							AS DiscPrice
+					,	AA.SALE_QTY								AS SaleQty
+					,	AA.SALE_AMT								AS SaleAmt
+					,	AA.DISC_AMT								AS DiscAmt
+					,	AA.NPAY_AMT								AS NpayAmt
+					,	AA.DISC_TYPE							AS DiscType
+					
+				FROM	UBZ.SALE_TRAN_ITEM AA
+						LEFT JOIN
+							UCD.PRODUCTS BB
+								ON AA.PRODUCT_ID = BB.PRODUCT_ID
+				WHERE	AA.SALE_ID	= #SALE_ID#
+				ORDER BY 
+					RowNo
+			]]>
+		</select>
+		<select id="GetSaleInvoiceList" parameterClass="DataMap" resultClass="SaleInvoiceList" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.SALE_ID)	AS ROW_NO
+					,	AA.SALE_ID
+					,	AA.SALE_NO
+					,	dbo.DateCharToChar10(AA.SALE_DATE)	AS SALE_DATE
+					,	ISNULL(M3.NAME, AA.SALE_TYPE)		AS SALE_TYPE
+					,	ISNULL(M4.NAME, AA.PAY_TYPE)		AS PAY_TYPE
+					,	AA.CUSTOMER_ID
+					,	CC.CUSTOMER_NAME
+					,	AA.REMARKS
+					,	AA.TOT_SALE_QTY						AS SALE_QTY
+					,	AA.TOT_SALE_AMT						AS SALE_AMT
+					,	AA.TOT_DISC_AMT						AS DISC_AMT
+					,	AA.TOT_NPAY_AMT						AS NPAY_AMT
+				FROM	UBZ.SALE_TRAN AA
+						LEFT JOIN
+							UCD.CUSTOMERS CC
+								ON AA.CUSTOMER_ID = CC.CUSTOMER_ID
+						LEFT JOIN
+							UAA.CODES M3
+								ON AA.SALE_TYPE = M3.CODE 
+									AND M3.PARENT_CODE = 'SALE_TYPE'
+						LEFT JOIN
+							UAA.CODES M4
+								ON AA.PAY_TYPE = M4.CODE 
+									AND M4.PARENT_CODE = 'PAY_TYPE'
+				WHERE	1=1
+				AND		AA.CUSTOMER_ID IS NOT NULL
+			]]>
+			<isNotEmpty property="ST_SALE_DATE">
+			<![CDATA[
+				AND		AA.SALE_DATE >= #ST_SALE_DATE#
+			]]>
+			</isNotEmpty>
+			<isNotEmpty property="ED_SALE_DATE">
+			<![CDATA[
+				AND		AA.SALE_DATE <= #ED_SALE_DATE#
+			]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY 
+					ROW_NO
+			]]>
+		</select>
+	</statements>
+</sqlMap>
