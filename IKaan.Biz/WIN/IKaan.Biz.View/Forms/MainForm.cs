@@ -448,12 +448,20 @@ namespace IKaan.Biz.View.Forms
 					SmallImage = MenuResource.menu_system_16x16,
 					LargeImage = MenuResource.menu_system_32x32
 				};
+				var navBarGroupDatabase = new NavBarGroup()
+				{
+					Name = "navBarGroupDatabase",
+					Caption = "Database",
+					SmallImage = MenuResource.menu_system_16x16,
+					LargeImage = MenuResource.menu_system_32x32
+				};
 
 				navBarNavigate.OptionsNavPane.ShowExpandButton = false;
 				//navBarNavigate.Groups.AddRange(new NavBarGroup[] { navBarGroupBusiness, navBarGroupAnalysis, navBarGroupSystem });
-				navBarNavigate.Groups.AddRange(new NavBarGroup[] { navBarGroupBusiness, navBarGroupSystem });
+				navBarNavigate.Groups.AddRange(new NavBarGroup[] { navBarGroupBusiness, navBarGroupSystem, navBarGroupDatabase });
 				navBarGroupBusiness.ControlContainer = new NavBarGroupControlContainer();
 
+				#region Create MenuTree
 				mainMenu = new XTree() { Name = "mainMenu", Dock = DockStyle.Fill };
 				if (mainMenu != null)
 				{
@@ -478,6 +486,7 @@ namespace IKaan.Biz.View.Forms
 
 					mainMenu.StateImageList = imageCollection;
 
+					#region mainMenu.GetStateImage
 					mainMenu.GetStateImage += delegate (object sender, GetStateImageEventArgs e)
 					{
 						if (e.Node.HasChildren)
@@ -510,7 +519,9 @@ namespace IKaan.Biz.View.Forms
 							}
 						}
 					};
+					#endregion
 
+					#region mainMenu.GetSelectImage
 					mainMenu.GetSelectImage += delegate (object sender, GetSelectImageEventArgs e)
 					{
 						if (e.Node.HasChildren)
@@ -518,7 +529,9 @@ namespace IKaan.Biz.View.Forms
 							e.NodeImageIndex = 1;
 						}
 					};
+					#endregion
 
+					#region mainMenu.MouseDoubleClick
 					mainMenu.MouseDoubleClick += delegate (object sender, MouseEventArgs e)
 					{
 						try
@@ -539,7 +552,9 @@ namespace IKaan.Biz.View.Forms
 							MsgBox.Show(ex);
 						}
 					};
+					#endregion
 
+					#region mainMenu.MouseClick
 					mainMenu.MouseClick += delegate (object sender, MouseEventArgs e)
 					{
 						try
@@ -565,7 +580,9 @@ namespace IKaan.Biz.View.Forms
 							MsgBox.Show(ex);
 						}
 					};
+					#endregion
 
+					#region Add Columns
 					mainMenu.AddColumn("MenuName");
 					mainMenu.AddColumn("MenuID", false);
 					mainMenu.AddColumn("ParentID", false);
@@ -582,11 +599,15 @@ namespace IKaan.Biz.View.Forms
 					mainMenu.ParentFieldName = "ParentID";
 					mainMenu.KeyFieldName = "MenuID";
 					mainMenu.RootValue = "MenuGroupBiz";
+					#endregion
 
-					LoadMainMenu();
-					LoadSystemMenu();
+					LoadMainMenu();					
 				}
+				#endregion
 
+				LoadMenuGroup("navBarGroupSystem", "SYS");
+				LoadMenuGroup("navBarGroupDatabase", "RDS");
+				//LoadSystemMenu();
 				navBarNavigate.EndUpdate();
 			}
 			catch (Exception ex)
@@ -643,6 +664,42 @@ namespace IKaan.Biz.View.Forms
 						{
 							navGroup.ItemLinks.Add(navBarNavigate.Items.Add(new DevExpress.XtraNavBar.NavBarItem()
 							{								
+								Caption = model.MenuName.ToStringNullToEmpty(),
+								Tag = model,
+								SmallImage = MenuResource.menu_system_16x16,
+								SmallImageSize = new Size(16, 16)
+							}));
+						}
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				MsgBox.Show(ex);
+			}
+		}
+		
+		private void LoadMenuGroup(string navBarGroupName, string menuGroupName)
+		{
+			try
+			{
+				if (navBarNavigate != null && navBarNavigate.Groups.Where(x => x.Name == navBarGroupName).Any())
+				{
+					var navGroup = navBarNavigate.Groups.Where(x => x.Name == navBarGroupName).FirstOrDefault();
+					navGroup.ItemLinks.Clear();
+
+					var list = WasHandler.GetData<List<UMMainMenu>>("AUTH", "GetMainMenu", null, new DataMap()
+					{
+						{ "UserID", GlobalVar.UserInfo.UserId },
+						{ "MenuGroup", menuGroupName }
+					});
+
+					if (list != null)
+					{
+						foreach (UMMainMenu model in list)
+						{
+							navGroup.ItemLinks.Add(navBarNavigate.Items.Add(new DevExpress.XtraNavBar.NavBarItem()
+							{
 								Caption = model.MenuName.ToStringNullToEmpty(),
 								Tag = model,
 								SmallImage = MenuResource.menu_system_16x16,
