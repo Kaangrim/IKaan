@@ -180,7 +180,7 @@ namespace IKaan.Base.Utils
 			}
 		}
 
-		public static DataSet ExcelToDataSetleDialog(bool isFirstRowDelete = false)
+		public static DataSet ExcelToDataTableDialog(bool isFirstRowDelete = false)
 		{
 			try
 			{

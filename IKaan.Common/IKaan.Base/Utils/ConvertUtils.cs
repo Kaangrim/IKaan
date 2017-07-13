@@ -149,7 +149,7 @@ namespace IKaan.Base.Utils
 		/// <typeparam name="T">반환할 클래스 객체의 형식</typeparam>
 		/// <param name="arr">배열변수</param>
 		/// <returns>T의 배열</returns>
-		public static T[] ArrayToArry<T>(Array arr)
+		public static T[] ArrayToArray<T>(Array arr)
 		{
 			var ret = new T[arr.Length];
 			var tc = TypeDescriptor.GetConverter(typeof(T));

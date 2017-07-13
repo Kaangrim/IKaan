@@ -60,7 +60,7 @@ namespace IKaan.Base.Utils
 			return rtn;
 		}
 
-		public static long GetObjectMerorySize(object obj)
+		public static long GetObjectMemorySize(object obj)
 		{
 			long size = 0;
 			var o = new object();
