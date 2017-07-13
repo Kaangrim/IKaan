@@ -448,6 +448,7 @@ namespace IKaan.Biz.View.Forms
 					SmallImage = MenuResource.menu_system_16x16,
 					LargeImage = MenuResource.menu_system_32x32
 				};
+<<<<<<< HEAD
 				var navBarGroupDatabase = new NavBarGroup()
 				{
 					Name = "navBarGroupDatabase",
@@ -462,6 +463,14 @@ namespace IKaan.Biz.View.Forms
 				navBarGroupBusiness.ControlContainer = new NavBarGroupControlContainer();
 
 				#region Create MenuTree
+=======
+
+				navBarNavigate.OptionsNavPane.ShowExpandButton = false;
+				//navBarNavigate.Groups.AddRange(new NavBarGroup[] { navBarGroupBusiness, navBarGroupAnalysis, navBarGroupSystem });
+				navBarNavigate.Groups.AddRange(new NavBarGroup[] { navBarGroupBusiness, navBarGroupSystem });
+				navBarGroupBusiness.ControlContainer = new NavBarGroupControlContainer();
+
+>>>>>>> 5849e930ff4a3747813c65874c8a2de03827f3b7
 				mainMenu = new XTree() { Name = "mainMenu", Dock = DockStyle.Fill };
 				if (mainMenu != null)
 				{
@@ -486,7 +495,10 @@ namespace IKaan.Biz.View.Forms
 
 					mainMenu.StateImageList = imageCollection;
 
+<<<<<<< HEAD
 					#region mainMenu.GetStateImage
+=======
+>>>>>>> 5849e930ff4a3747813c65874c8a2de03827f3b7
 					mainMenu.GetStateImage += delegate (object sender, GetStateImageEventArgs e)
 					{
 						if (e.Node.HasChildren)
@@ -519,9 +531,13 @@ namespace IKaan.Biz.View.Forms
 							}
 						}
 					};
+<<<<<<< HEAD
 					#endregion
 
 					#region mainMenu.GetSelectImage
+=======
+
+>>>>>>> 5849e930ff4a3747813c65874c8a2de03827f3b7
 					mainMenu.GetSelectImage += delegate (object sender, GetSelectImageEventArgs e)
 					{
 						if (e.Node.HasChildren)
@@ -529,9 +545,13 @@ namespace IKaan.Biz.View.Forms
 							e.NodeImageIndex = 1;
 						}
 					};
+<<<<<<< HEAD
 					#endregion
 
 					#region mainMenu.MouseDoubleClick
+=======
+
+>>>>>>> 5849e930ff4a3747813c65874c8a2de03827f3b7
 					mainMenu.MouseDoubleClick += delegate (object sender, MouseEventArgs e)
 					{
 						try
@@ -552,9 +572,13 @@ namespace IKaan.Biz.View.Forms
 							MsgBox.Show(ex);
 						}
 					};
+<<<<<<< HEAD
 					#endregion
 
 					#region mainMenu.MouseClick
+=======
+
+>>>>>>> 5849e930ff4a3747813c65874c8a2de03827f3b7
 					mainMenu.MouseClick += delegate (object sender, MouseEventArgs e)
 					{
 						try
@@ -580,9 +604,13 @@ namespace IKaan.Biz.View.Forms
 							MsgBox.Show(ex);
 						}
 					};
+<<<<<<< HEAD
 					#endregion
 
 					#region Add Columns
+=======
+
+>>>>>>> 5849e930ff4a3747813c65874c8a2de03827f3b7
 					mainMenu.AddColumn("MenuName");
 					mainMenu.AddColumn("MenuID", false);
 					mainMenu.AddColumn("ParentID", false);
@@ -599,6 +627,7 @@ namespace IKaan.Biz.View.Forms
 					mainMenu.ParentFieldName = "ParentID";
 					mainMenu.KeyFieldName = "MenuID";
 					mainMenu.RootValue = "MenuGroupBiz";
+<<<<<<< HEAD
 					#endregion
 
 					LoadMainMenu();					
@@ -608,6 +637,13 @@ namespace IKaan.Biz.View.Forms
 				LoadMenuGroup("navBarGroupSystem", "SYS");
 				LoadMenuGroup("navBarGroupDatabase", "RDS");
 				//LoadSystemMenu();
+=======
+
+					LoadMainMenu();
+					LoadSystemMenu();
+				}
+
+>>>>>>> 5849e930ff4a3747813c65874c8a2de03827f3b7
 				navBarNavigate.EndUpdate();
 			}
 			catch (Exception ex)
@@ -678,6 +714,7 @@ namespace IKaan.Biz.View.Forms
 				MsgBox.Show(ex);
 			}
 		}
+<<<<<<< HEAD
 		
 		private void LoadMenuGroup(string navBarGroupName, string menuGroupName)
 		{
@@ -714,6 +751,8 @@ namespace IKaan.Biz.View.Forms
 				MsgBox.Show(ex);
 			}
 		}
+=======
+>>>>>>> 5849e930ff4a3747813c65874c8a2de03827f3b7
 
 		public void SetFormTitle()
 		{

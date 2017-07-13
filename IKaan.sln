@@ -33,8 +33,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IKaan.Biz.View.Sys", "IKaan
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IKaan.Biz.View.Biz", "IKaan.Biz\WIN\IKaan.Biz.View.Biz\IKaan.Biz.View.Biz.csproj", "{8BFCD979-C083-41B2-8715-5936A1587986}"
 EndProject
+<<<<<<< HEAD
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WEB", "WEB", "{3209704B-11E6-465C-BCC0-9D57A89C0B8E}"
 EndProject
+=======
+>>>>>>> 5849e930ff4a3747813c65874c8a2de03827f3b7
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
