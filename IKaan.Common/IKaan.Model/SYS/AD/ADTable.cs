@@ -1,0 +1,30 @@
+﻿using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
+using IKaan.Model.Base;
+
+namespace IKaan.Model.SYS.AD
+{
+	[DataContract]
+	public class ADTable: ModelBase
+	{
+		[DataMember]
+		[Display(Name = "데이터베이스ID")]
+		public int DatabaseID { get; set; }
+
+		[DataMember]
+		[Display(Name = "스키마ID")]
+		public int SchemaID { get; set; }
+
+		[DataMember]
+		[Display(Name = "테이블명")]
+		public string TableName { get; set; }
+
+		[DataMember]
+		[Display(Name = "설명")]
+		public string Description { get; set; }
+
+		[DataMember]
+		[Display(Name = "사용여부")]
+		public string UseYn { get; set; }
+	}
+}

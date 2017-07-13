@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectAAUserGroup" parameterClass="DataMap" resultClass="AAUserGroup" >
+			<![CDATA[
+				SELECT  AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					,	AA.UserID
+					,	AA.GroupID
+					,	AA.UseYn
+				FROM	dbo.AAUserGroup AA WITH (NOLOCK)
+				WHERE	AA.ID = #ID#				
+			]]>
+		</select>
+		<select id="SelectAAUserGroupByReference" parameterClass="AAUserGroup" resultClass="AAUserGroup" >
+			<![CDATA[
+				SELECT  AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					,	AA.UserID
+					,	AA.GroupID
+					,	AA.UseYn
+				FROM	dbo.AAUserGroup AA WITH (NOLOCK)
+				WHERE	AA.UserID	= #UserID#
+				AND		AA.GroupID	= #GroupID#
+			]]>
+		</select>
+		<insert id="InsertAAUserGroup" parameterClass="AAUserGroup" >
+			<![CDATA[
+				INSERT INTO dbo.AAUserGroup
+				( 
+					CreateDate, CreateBy, CreateByName,
+					UserID, GroupID, UseYn
+				)
+				VALUES
+				(
+					GetDate(), #CreateBy#, #CreateByName#,
+					#UserID#, #GroupID#, #UseYn#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateAAUserGroup" parameterClass="AAUserGroup">
+			<![CDATA[
+				UPDATE  dbo.AAUserGroup
+				SET     UpdateDate	= GetDate()
+					,	UpdateBy	= #UpdateBy#
+					,	UpdateByName= #UpdateByName#
+					
+					,	UserID		= #UserID#
+					,	GroupID		= #GroupID#
+					,	UseYn		= #UseYn#
+				WHERE	ID			= #ID#
+			]]>
+		</update>
+		<delete id="DeleteAAUserGroup" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM dbo.AAUserGroup WHERE ID = #ID#;
+			]]>
+		</delete>
+	</statements>
+</sqlMap>
