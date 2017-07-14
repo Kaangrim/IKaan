@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using IKaan.Model.Base;
 
@@ -26,5 +27,9 @@ namespace IKaan.Model.SYS.AD
 		[DataMember]
 		[Display(Name = "사용여부")]
 		public string UseYn { get; set; }
+
+		[DataMember]
+		[Display(Name = "컬럼")]
+		public IList<ADColumn> Columns { get; set; }
 	}
 }

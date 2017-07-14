@@ -110,7 +110,8 @@ namespace IKaan.Biz.View.Sys.Forms
 			gridViewButtons.Init();
 			gridViewButtons.AddGridColumns(
 				new XGridColumn() { FieldName = "RowNo" },
-				new XGridColumn() { FieldName = "Checked" },				
+				new XGridColumn() { FieldName = "Checked" },
+				new XGridColumn() { FieldName = "UseYn", Visible = false },
 				new XGridColumn() { FieldName = "ID", HorzAlignment = HorzAlignment.Center, Width = 80, Visible = false },
 				new XGridColumn() { FieldName = "ButtonName", Width = 150 },
 				new XGridColumn() { FieldName = "ButtonType", Width = 100, Visible = false },

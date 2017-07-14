@@ -9,7 +9,7 @@ namespace IKaan.Model.SYS.AD
 	{
 		[DataMember]
 		[Display(Name = "테이블ID")]
-		public int TableID { get; set; }
+		public int? TableID { get; set; }
 
 		[DataMember]
 		[Display(Name = "물리명")]

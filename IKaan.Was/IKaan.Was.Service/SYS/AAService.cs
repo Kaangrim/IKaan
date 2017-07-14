@@ -406,17 +406,10 @@ namespace IKaan.Was.Service.SYS
 						data.MenuID = req.Result.ReturnValue.ToIntegerNullToNull();
 					}
 
-					bool isSkip = false;
-					if (data.ID == null || data.ViewID == null)
-						isSkip = true;
-
-					if(!isSkip)
-					{ 
-						if (data.Checked == "Y")
-							req.SaveSubData<AAMenuView>(data);
-						else
-							req.DeleteSubData<AAMenuView>(data);
-					}
+					if (data.Checked == "Y")
+						req.SaveSubData<AAMenuView>(data);
+					else
+						req.DeleteSubData<AAMenuView>(data);
 
 				}
 			}

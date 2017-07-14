@@ -125,7 +125,7 @@
 
 		<select id="SelectAAViewButtonList" parameterClass="DataMap" resultClass="AAViewButton" >
 			<![CDATA[
-				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID)	as RowNo
+				SELECT  ROW_NUMBER() OVER (ORDER BY CC.ID)	as RowNo
 					,	CASE 
 							WHEN AA.ID IS NULL THEN 'N'
 							ELSE AA.UseYn
@@ -140,7 +140,7 @@
 					,	#ID#								as ViewID
 					,	CC.ID								as ButtonID
 					,	CC.ButtonName
-					,	AA.UseYn
+					,	ISNULL(AA.UseYn,'N')    as UseYn
 					,	AA.LinkViewID
 					,	BB.ViewName							as ViewName					
 					,	DD.ViewName							as LinkViewName

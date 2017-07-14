@@ -155,9 +155,9 @@ namespace IKaan.Was.Service.SYS
 
 				bool isOneRequest = true;
 				List<WasRequest> list = new List<WasRequest>();
-				if (request.Data.GetType() == typeof(List<WasRequest>))
+				if (request.Data != null && request.Data.GetType() == typeof(JArray))
 				{
-					list = (request.Data as List<WasRequest>);
+					list = request.Data.JsonToAnyType<List<WasRequest>>();
 					isOneRequest = false;
 				}
 				else
@@ -165,73 +165,51 @@ namespace IKaan.Was.Service.SYS
 					list.Add(request);
 				}
 
-				DaoFactory.Instance.BeginTransaction();
-				isTran = true;
+				if (request.IsTransaction)
+				{
+					DaoFactory.Instance.BeginTransaction();
+					isTran = true;
+				}
 
 				try
 				{
-					object table_id = null;
-					object column_id = null;
-
 					//테이블
 					if (list.Count > 0)
 					{
-						if (list[0].Data == null)
-							throw new Exception("저장할 데이터가 존재하지 않습니다.");
-
-						ADTable data = list[0].Data as ADTable;						
-
-						if (data.ID.IsNullOrEmpty())
+						foreach (WasRequest req in list)
 						{
-							data.CreateBy = request.User.UserId;
-							data.CreateByName = request.User.UserName;
-							table_id = DaoFactory.Instance.Insert("InsertADTables", data);
-						}
-						else
-						{
-							data.UpdateBy = request.User.UserId;
-							data.UpdateByName = request.User.UserName;
-							DaoFactory.Instance.Update("UpdateADTables", data);
-							table_id = data.ID;
-						}
-						list[0].Error.Number = 0;
-						list[0].Error.Message = "SUCCESS";
-						list[0].Result.ReturnValue = table_id;
-					}
+							if (req.Data == null)
+								throw new Exception("저장할 데이터가 존재하지 않습니다.");
 
-					//컬럼
-					if (list.Count > 1)
-					{						
-						if (list[1].Data != null && list[1].Data.GetType()==typeof(List<ADColumn>))
-						{
-							foreach (ADColumn col in (list[1].Data as IList<ADColumn>))
+							switch (req.ModelName)
 							{
-								if (col.ID.IsNullOrEmpty())
-								{
-									col.CreateBy = request.User.UserId;
-									col.CreateByName = request.User.UserName;
-									column_id = DaoFactory.Instance.Insert("InsertADColumns", col);
-								}
-								else
-								{
-									col.UpdateBy = request.User.UserId;
-									col.UpdateByName = request.User.UserName;
-									DaoFactory.Instance.Update("UpdateADColumn", col);
-									column_id = col.ID;
-								}
+								case "ADSystem":
+									req.SaveData<ADSystem>();
+									break;
+								case "ADServer":
+									req.SaveData<ADServer>();
+									break;
+								case "ADDatabase":
+									req.SaveData<ADDatabase>();
+									break;
+								case "ADSchema":
+									req.SaveData<ADSchema>();
+									break;
+								case "ADTable":
+									var table = req.SaveData<ADTable>();
+									if (table.Columns != null && table.Columns.Count > 0)
+										req.SaveTableColumn(table.Columns);
+									break;
 							}
-							list[1].Error.Number = 0;
-							list[1].Error.Message = "SUCCESS";
-							list[1].Result.ReturnValue = column_id;
 						}
 					}
 
-					if (isTran)
+					if (request.IsTransaction && isTran)
 						DaoFactory.Instance.CommitTransaction();
 				}
 				catch (Exception ex)
 				{
-					if (isTran)
+					if (request.IsTransaction && isTran)
 						DaoFactory.Instance.RollBackTransaction();
 
 					throw new Exception(ex.Message);
@@ -239,7 +217,7 @@ namespace IKaan.Was.Service.SYS
 
 				if (isOneRequest)
 				{
-					request = list[0];					
+					request = list[0];
 				}
 				else
 				{
@@ -265,15 +243,27 @@ namespace IKaan.Was.Service.SYS
 				if (request == null || (request.Data == null && request.SqlId.IsNullOrEmpty()))
 					throw new Exception("처리요청이 없습니다.");
 
+				bool isOneRequest = true;
+				List<WasRequest> list = new List<WasRequest>();
+				if (request.Data != null && request.Data.GetType() == typeof(JArray))
+				{
+					list = request.Data.JsonToAnyType<List<WasRequest>>();
+					isOneRequest = false;
+				}
+				else
+				{
+					list.Add(request);
+				}
+
 				DaoFactory.Instance.BeginTransaction();
 				isTran = true;
 
 				try
 				{
-					foreach (DataMap map in request.Data as List<DataMap>)
+					foreach (WasRequest req in list)
 					{
-						DaoFactory.Instance.Delete("DeleteColumnByTable", map);
-						DaoFactory.Instance.Delete("DeleteADTable", map);
+						DataMap map = req.Data.JsonToAnyType<DataMap>();
+						DaoFactory.Instance.Delete(string.Concat(req.SqlId, req.ModelName), map);
 					}
 
 					if (isTran)
@@ -285,6 +275,15 @@ namespace IKaan.Was.Service.SYS
 						DaoFactory.Instance.RollBackTransaction();
 
 					throw new Exception(ex.Message);
+				}
+
+				if (isOneRequest)
+				{
+					request = list[0];
+				}
+				else
+				{
+					request.Data = list;
 				}
 
 				return request;
@@ -297,43 +296,24 @@ namespace IKaan.Was.Service.SYS
 			}
 		}
 
-		public static WasRequest DeleteColumn(WasRequest request)
+		private static void SaveTableColumn(this WasRequest req, IList<ADColumn> list)
 		{
-			bool isTran = false;
-
 			try
 			{
-				if (request == null || (request.Data == null && request.SqlId.IsNullOrEmpty()))
-					throw new Exception("처리요청이 없습니다.");
-
-				DaoFactory.Instance.BeginTransaction();
-				isTran = true;
-
-				try
+				foreach (var data in list)
 				{
-					foreach (DataMap map in request.Data as List<DataMap>)
+					if (data.TableID == null)
 					{
-						DaoFactory.Instance.Delete("DeleteColumn", map);
+						data.TableID = req.Result.ReturnValue.ToIntegerNullToNull();
 					}
 
-					if (isTran)
-						DaoFactory.Instance.CommitTransaction();
-				}
-				catch (Exception ex)
-				{
-					if (isTran)
-						DaoFactory.Instance.RollBackTransaction();
+					req.SaveSubData<ADColumn>(data);
 
-					throw new Exception(ex.Message);
 				}
-
-				return request;
 			}
-			catch (Exception ex)
+			catch
 			{
-				request.Error.Number = ex.HResult;
-				request.Error.Message = ex.Message;
-				return request;
+				throw;
 			}
 		}
 	}

@@ -78,6 +78,12 @@
     <Compile Include="Forms\AABookmarkForm.designer.cs">
       <DependentUpon>AABookmarkForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ADSystemForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ADSystemForm.designer.cs">
+      <DependentUpon>ADSystemForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\AARoleForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -157,6 +163,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\AABookmarkForm.resx">
       <DependentUpon>AABookmarkForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ADSystemForm.resx">
+      <DependentUpon>ADSystemForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\AARoleForm.resx">
       <DependentUpon>AARoleForm.cs</DependentUpon>
