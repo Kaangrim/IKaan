@@ -81,6 +81,7 @@
   <ItemGroup>
     <Folder Include="BIZ\" />
     <Folder Include="ECM\" />
+    <Folder Include="LIB\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -123,7 +123,8 @@
     <Folder Include="ECM\EM\" />
     <Folder Include="ECM\EP\" />
     <Folder Include="ECM\ES\" />
-    <Folder Include="LIB\" />
+    <Folder Include="LIB\LG\" />
+    <Folder Include="LIB\LM\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
