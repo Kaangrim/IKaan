@@ -60,7 +60,7 @@
 		<update id="UpdateADServer" parameterClass="ADServer">
 			<![CDATA[
 				UPDATE  dbo.ADServer
-				SET     UpdateDate	= #UpdateDate#
+				SET     UpdateDate	= GetDate()
 					,	UpdateBy	= #UpdateBy#
 					,	UpdateByName= #UpdateByName#
 					

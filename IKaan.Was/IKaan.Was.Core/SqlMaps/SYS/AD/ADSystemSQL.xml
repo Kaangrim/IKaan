@@ -61,7 +61,7 @@
 		<update id="UpdateADSystem" parameterClass="ADSystem">
 			<![CDATA[
 				UPDATE  dbo.ADSystem
-				SET     UpdateDate	= #UpdateDate#
+				SET     UpdateDate	= GetDate()
 					,	UpdateBy	= #UpdateBy#
 					,	UpdateByName= #UpdateByName#
 					

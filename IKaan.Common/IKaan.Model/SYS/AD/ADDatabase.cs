@@ -26,5 +26,13 @@ namespace IKaan.Model.SYS.AD
 		[DataMember]
 		[Display(Name = "설명")]
 		public string Description { get; set; }
+
+		[DataMember]
+		[Display(Name = "서버명")]
+		public string ServerName { get; set; }
+
+		[DataMember]
+		[Display(Name = "DBMS유형명")]
+		public string DbmsTypeName { get; set; }
 	}
 }

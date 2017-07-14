@@ -300,7 +300,7 @@ namespace IKaan.Was.Service.SYS
 					foreach (WasRequest req in list)
 					{
 						DataMap map = req.Data.JsonToAnyType<DataMap>();
-						DaoFactory.Instance.Delete(string.Concat(req.SqlId, req.ModelName), map);
+						DaoFactory.Instance.Delete(req.SqlId, map);
 					}
 
 					if (isTran)
@@ -406,11 +406,18 @@ namespace IKaan.Was.Service.SYS
 						data.MenuID = req.Result.ReturnValue.ToIntegerNullToNull();
 					}
 
-					if (data.Checked == "Y")
-						req.SaveSubData<AAMenuView>(data);
+					if (data.ID == null)
+					{
+						if (data.ViewID != null)
+							req.SaveSubData<AAMenuView>(data);
+					}
 					else
-						req.DeleteSubData<AAMenuView>(data);
-
+					{
+						if (data.ViewID != null)
+							req.SaveSubData<AAMenuView>(data);
+						else
+							req.DeleteSubData<AAMenuView>(data);
+					}
 				}
 			}
 			catch

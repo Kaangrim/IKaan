@@ -78,6 +78,30 @@
     <Compile Include="Forms\AABookmarkForm.designer.cs">
       <DependentUpon>AABookmarkForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ADTableForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ADTableForm.designer.cs">
+      <DependentUpon>ADTableForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ADSchemaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ADSchemaForm.designer.cs">
+      <DependentUpon>ADSchemaForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ADDatabaseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ADDatabaseForm.designer.cs">
+      <DependentUpon>ADDatabaseForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ADServerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ADServerForm.designer.cs">
+      <DependentUpon>ADServerForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\ADSystemForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -163,6 +187,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\AABookmarkForm.resx">
       <DependentUpon>AABookmarkForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ADTableForm.resx">
+      <DependentUpon>ADTableForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ADSchemaForm.resx">
+      <DependentUpon>ADSchemaForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ADDatabaseForm.resx">
+      <DependentUpon>ADDatabaseForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ADServerForm.resx">
+      <DependentUpon>ADServerForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ADSystemForm.resx">
       <DependentUpon>ADSystemForm.cs</DependentUpon>

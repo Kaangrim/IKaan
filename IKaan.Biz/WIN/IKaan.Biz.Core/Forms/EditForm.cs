@@ -950,22 +950,22 @@ namespace IKaan.Biz.Core.Forms
 		{
 			try
 			{
-				foreach (LayoutControl lc in Controls.OfType<LayoutControl>().ToList())
-				{
-					foreach (LayoutControlGroup lcg in lc.Items.OfType<LayoutControlGroup>().Where(x => x.Name.ToLower().Equals("lcgroupsearch")))
+				lc.Items.OfType<LayoutControlItem>().Where
+					(x =>
+						x.Parent != null &&
+						x.Parent.Name.Equals("lcGroupSearch") &&
+						x.Control != null &&
+						x.Control.GetType() == typeof(TextEdit)
+					).ToList().ForEach(c =>
 					{
-						foreach (LayoutControlItem lci in lcg.Items.OfType<LayoutControlItem>().Where(x => (x.Control != null && x.Control.GetType() == typeof(TextEdit))))
+						((TextEdit)c.Control).KeyDown += delegate (object sender, KeyEventArgs e)
 						{
-							((TextEdit)lci.Control).KeyDown += delegate (object sender, KeyEventArgs e)
+							if (e.KeyCode == Keys.Enter)
 							{
-								if (e.KeyCode == Keys.Enter)
-								{
-									DataLoad(null);
-								}
-							};
-						}
-					}
-				}
+								DataLoad(null);
+							}
+						};
+					});
 			}
 			catch (Exception ex)
 			{
@@ -985,7 +985,17 @@ namespace IKaan.Biz.Core.Forms
 
 			foreach (PropertyDescriptor prop in properties)
 			{
-				var list = lc.Items.OfType<LayoutControlItem>().Where(x => x.Name.Replace("lcItem", "") == prop.Name && x.Control != null).ToList();
+				var list = lc.Items.OfType<LayoutControlItem>().Where
+					(x => 
+						x.Name.Replace("lcItem", "") == prop.Name && 
+						x.Control != null && 
+						(
+							x.Parent == null || 
+							(
+								x.Parent != null && x.Parent.Name != "lcGroupSearch"
+							)
+						)
+					).ToList();
 
 				foreach (var item in list)
 				{
@@ -1031,7 +1041,17 @@ namespace IKaan.Biz.Core.Forms
 			foreach (PropertyDescriptor prop in properties)
 			{
 				var value = prop.GetValue(data);
-				var item = lc.Items.OfType<LayoutControlItem>().Where(x => x.Name.Replace("lcItem", "") == prop.Name && x.Control != null).FirstOrDefault();
+				var item = lc.Items.OfType<LayoutControlItem>().Where
+					(x =>
+						x.Name.Replace("lcItem", "") == prop.Name &&
+						x.Control != null &&
+						(
+							x.Parent == null ||
+							(
+								x.Parent != null && x.Parent.Name != "lcGroupSearch"
+							)
+						)
+					).FirstOrDefault();
 
 				if (item != null)
 				{
@@ -1102,7 +1122,18 @@ namespace IKaan.Biz.Core.Forms
 
 			foreach (PropertyDescriptor prop in properties)
 			{
-				var item = lc.Items.OfType<LayoutControlItem>().Where(x => x.Name.Replace("lcItem", "") == prop.Name && x.Control != null).FirstOrDefault();
+				var item = lc.Items.OfType<LayoutControlItem>().Where
+					(x =>
+						x.Name.Replace("lcItem", "") == prop.Name &&
+						x.Control != null &&
+						(
+							x.Parent == null ||
+							(
+								x.Parent != null && x.Parent.Name != "lcGroupSearch"
+							)
+						)
+					).FirstOrDefault();
+
 				if (item != null)
 				{
 					if (item.Control.GetType() == typeof(TextEdit))

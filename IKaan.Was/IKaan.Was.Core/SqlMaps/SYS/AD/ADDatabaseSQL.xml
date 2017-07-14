@@ -19,19 +19,29 @@
 					,	AA.DatabaseName
 					,	AA.DbmsType
 					,	AA.ServerID
-					,	BB.ServerName
 					,	AA.ConnectionString
 					,	AA.Description
+					,	BB.ServerName
+					,	M1.Name			as DbmsTypeName
 				FROM	dbo.ADDatabase AA WITH (NOLOCK)
-						LEFT JOIN
+						INNER JOIN
 							dbo.ADServer BB WITH (NOLOCK)
 								ON AA.ServerID = BB.ID
+						LEFT JOIN
+							dbo.ACCode M1 WITH (NOLOCK)
+								ON AA.DbmsType = M1.Code
+									AND M1.ParentCode = 'DbmsType'
 				WHERE	1=1
 			]]>
+			<isNotEmpty property="ServerID">
+				<![CDATA[
+					AND		AA.ServerID = #ServerID#
+				]]>
+			</isNotEmpty>
 			<isNotEmpty property="FindText">
 				<![CDATA[
-				AND		AA.DatabaseName	LIKE '%'+#FindText#+'%'
-			]]>
+					AND		AA.DatabaseName	LIKE '%'+#FindText#+'%'
+				]]>
 			</isNotEmpty>
 			<![CDATA[
 				ORDER BY 
@@ -84,7 +94,7 @@
 		<update id="UpdateADDatabase" parameterClass="ADDatabase">
 			<![CDATA[
 				UPDATE  dbo.ADDatabase
-				SET     UpdateDate	= #UpdateDate#
+				SET     UpdateDate	= GetDate()
 					,	UpdateBy	= #UpdateBy#
 					,	UpdateByName= #UpdateByName#
 					

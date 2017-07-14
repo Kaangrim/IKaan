@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Windows.Forms;
 using IKaan.Base.Map;
+using IKaan.Base.Utils;
 using IKaan.Biz.Core.Model;
 using IKaan.Biz.Core.Variables;
 using IKaan.Biz.Core.Was.Handler;
@@ -11,17 +12,68 @@ namespace IKaan.Biz.Core.Helper
 {
 	public static class CodeHelper
 	{
-		public static IList<LookupSource> GetLookup(string groupCode, string nullText = null)
+		public static IList<LookupSource> GetLookup(string groupCode, string nullText = null, DataMap parameter = null)
 		{
+			if (parameter == null)
+				parameter = new DataMap();
+
 			//글로벌 변수에 정의된 공통코드를 읽어온다.
-			var datasource = GlobalVar.Codes.OfType<UMCodeLookup>().Where(x => x.GroupCode == groupCode).ToList();
+			var datasource = GlobalVar.Codes.OfType<UMCodeLookup>().Where
+				(x => x.GroupCode == groupCode &&
+					(
+						(
+							parameter == null ||
+							parameter.Count == 0
+						) ||
+						(
+							(
+								parameter.GetValue("Option1").IsNullOrEmpty() == false && 
+								x.Option1.ToStringNullToEmpty() == parameter.GetValue("Option1").ToStringNullToEmpty()
+							) ||
+							(
+								parameter.GetValue("Option2").IsNullOrEmpty() == false && 
+								x.Option2.ToStringNullToEmpty() == parameter.GetValue("Option2").ToStringNullToEmpty()
+							) ||
+							(
+								parameter.GetValue("Option3").IsNullOrEmpty() == false && 
+								x.Option3.ToStringNullToEmpty() == parameter.GetValue("Option3").ToStringNullToEmpty()
+							) ||
+							(
+								parameter.GetValue("Option4").IsNullOrEmpty() == false && 
+								x.Option4.ToStringNullToEmpty() == parameter.GetValue("Option4").ToStringNullToEmpty()
+							) ||
+							(
+								parameter.GetValue("Option5").IsNullOrEmpty() == false && 
+								x.Option5.ToStringNullToEmpty() == parameter.GetValue("Option5").ToStringNullToEmpty()
+							) ||
+							(
+								parameter.GetValue("Option6").IsNullOrEmpty() == false && 
+								x.Option6.ToStringNullToEmpty() == parameter.GetValue("Option6").ToStringNullToEmpty()
+							) ||
+							(
+								parameter.GetValue("Option7").IsNullOrEmpty() == false && 
+								x.Option7.ToStringNullToEmpty() == parameter.GetValue("Option7").ToStringNullToEmpty()
+							) ||
+							(
+								parameter.GetValue("Option8").IsNullOrEmpty() == false && 
+								x.Option8.ToStringNullToEmpty() == parameter.GetValue("Option8").ToStringNullToEmpty()
+							) ||
+							(
+								parameter.GetValue("Option9").IsNullOrEmpty() == false && 
+								x.Option9.ToStringNullToEmpty() == parameter.GetValue("Option9").ToStringNullToEmpty()
+							)
+						)
+					)
+				).ToList();
+
 			if (datasource == null)
 				datasource = new List<UMCodeLookup>();
 
 			//글로벌 변수에 정의되지 않은 공통코드라면 서버에 요청한다.
 			if (datasource.Count == 0)
 			{
-				var data = Search(groupCode, new DataMap() { { "UseYn", "Y" } });
+				parameter.SetValue("UseYn", "Y");
+				var data = Search(groupCode, parameter);
 				if (data != null && data.Count > 0)
 				{
 					data.OfType<UMCodeHelp>().ToList().ForEach(x =>
@@ -75,9 +127,8 @@ namespace IKaan.Biz.Core.Helper
 			try
 			{
 				if (parameters == null)
-				{
 					parameters = new DataMap();
-				}
+
 				parameters.SetValue("ParentCode", parentCode);
 				return WasHandler.GetList<UMCodeHelp>("CodeHelp", "GetList", parentCode, parameters);
 			}

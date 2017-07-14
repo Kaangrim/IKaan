@@ -5,6 +5,33 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLColumn-instance" >
 
 	<statements>
+		<select id="SelectADColumnList" parameterClass="DataMap" resultClass="ADColumn" >
+			<![CDATA[
+				SELECT	ROW_NUMBER() OVER (ORDER BY AA.SortOrder)	AS RowNo
+					,	AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.TableID
+					,	AA.PhysicalName
+					,	AA.LogicalName
+					,	AA.Description
+					,	AA.DataType
+					,	AA.NullYn
+					,	AA.PkYn
+					,	AA.FkYn
+					,	AA.IdentityYn
+					,	AA.DefaultValue
+					,	AA.SortOrder
+				FROM	dbo.ADColumn AA WITH (NOLOCK)
+				WHERE	AA.TableID = #TableID#
+				ORDER BY RowNo
+			]]>
+		</select>
 		<select id="SelectADColumn" parameterClass="DataMap" resultClass="ADColumn" >
 			<![CDATA[
 				SELECT	ROW_NUMBER() OVER (ORDER BY AA.SortOrder)	AS RowNo
@@ -31,6 +58,55 @@
 				WHERE	AA.ID = #ID#
 			]]>
 		</select>
+
+		<insert id="InsertADColumn" parameterClass="ADColumn" >
+			<![CDATA[
+				INSERT INTO dbo.ADColumn
+				( 
+					CreateDate, CreateBy, CreateByName,
+					TableID, PhysicalName, LogicalName, Description, 
+					DataType, NullYn, PkYn, FkYn, IdentityYn, DefaultValue, SortOrder
+				)
+				VALUES
+				( 
+					GetDate(), #CreateBy#, #CreateByName#,
+					#TableID#, #PhysicalName#, #LogicalName#, #Description#, 
+					#DataType#, #NullYn#, #PkYn#, #FkYn#, #IdentityYn#, #DefaultValue#, #SortOrder#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateADColumn" parameterClass="ADColumn">
+			<![CDATA[
+				UPDATE  dbo.ADColumn
+				SET     UpdateDate		= GetDate()
+					,	UpdateBy		= #UpdateBy#
+					,	UpdateByName	= #UpdateByName#
+					
+					,	PhysicalName	= #PhysicalName#
+					,	LogicalName		= #LogicalName#
+					,	Description		= #Description#
+					,	DataType		= #DataType#
+					,	NullYn			= #NullYn#
+					,	PkYn			= #PkYn#
+					,	FkYn			= #FkYn#
+					,	IdentityYn		= #IdentityYn#
+					,	DefaultValue	= #DefaultValue#
+					,	SortOrder		= #SortOrder#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
+		<delete id="DeleteADColumn" parameterClass="DataMap">
+			<![CDATA[
+				DELETE 
+				FROM	dbo.ADColumn
+				WHERE	ID = #ID#
+			]]>
+		</delete>
 
 		<select id="SelectADColumnByMSSQL" parameterClass="DataMap" resultClass="ADColumn" >
 			<![CDATA[
@@ -165,8 +241,7 @@
 						dbo.ADColumn YY 
 							ON TT.ID = YY.TableID
 								AND XX.ColumnName = YY.PhysicalName
-				ORDER BY 
-					RowNo
+				ORDER BY RowNo
 			]]>
 		</select>
 		<select id="SelectADColumnByMYSQL" parameterClass="DataMap" resultClass="ADColumn" >
@@ -218,54 +293,5 @@
 					RowNo
 			]]>
 		</select>
-
-		<insert id="InsertADColumn" parameterClass="ADColumn" >
-			<![CDATA[
-				INSERT INTO dbo.ADColumn
-				( 
-					CreateDate, CreateBy, CreateByName,
-					TableID, PhysicalName, LogicalName, Description, 
-					DataType, NullYn, PkYn, FkYn, IdentityYn, DefaultValue, SortOrder
-				)
-				VALUES
-				( 
-					GetDate(), #CreateBy#, #CreateByName#,
-					#TableID#, #PhysicalName#, #LogicalName#, #Description#, 
-					#DataType#, #NullYn#, #PkYn#, #FkYn#, #IdentityYn#, #DefaultValue#, #SortOrder#
-				)
-			]]>
-			<selectKey type="post" property="ID" resultClass="Int">
-				<![CDATA[
-					SELECT @@IDENTITY AS ID
-				]]>
-			</selectKey>
-		</insert>
-		<update id="UpdateADColumn" parameterClass="ADColumn">
-			<![CDATA[
-				UPDATE  dbo.ADColumn
-				SET     UpdateDate		= #UpdateDate#
-					,	UpdateBy		= #UpdateBy#
-					,	UpdateByName	= #UpdateByName#
-					
-					,	PhysicalName	= #PhysicalName#
-					,	LogicalName		= #LogicalName#
-					,	Description		= #Description#
-					,	DataType		= #DataType#
-					,	NullYn			= #NullYn#
-					,	PkYn			= #PkYn#
-					,	FkYn			= #FkYn#
-					,	IdentityYn		= #IdentityYn#
-					,	DefaultValue	= #DefaultValue#
-					,	SortOrder		= #SortOrder#
-				WHERE	ID				= #ID#
-			]]>
-		</update>
-		<delete id="DeleteADColumn" parameterClass="DataMap">
-			<![CDATA[
-				DELETE 
-				FROM	dbo.ADColumn
-				WHERE	ID = #ID#
-			]]>
-		</delete>
 	</statements>
 </sqlMap>

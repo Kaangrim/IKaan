@@ -5,6 +5,60 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
 
 	<statements>
+		<select id="SelectADTableList" parameterClass="DataMap" resultClass="ADTable" >
+			<![CDATA[
+				SELECT	ROW_NUMBER() OVER (ORDER BY BB.SchemaName, AA.TableName)	AS RowNo
+					,	AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.DatabaseID
+					,	AA.SchemaID
+					,	AA.TableName
+					,	AA.Description
+					,	AA.UseYn
+					,	CC.DatabaseName
+					,	BB.SchemaName
+				FROM	dbo.ADTable AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.ADSchema BB WITH (NOLOCK)
+								ON AA.SchemaId = BB.ID
+						LEFT JOIN
+							dbo.ADDatabase CC WITH (NOLOCK)
+								ON AA.DatabaseID = CC.ID
+				WHERE	1=1
+			]]>
+			<isNotEmpty property="ServerID">
+				<![CDATA[
+					AND		CC.ServerID = #ServerID#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="DatabaseID">
+				<![CDATA[
+					AND		AA.DatabaseID = #DatabaseID#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="SchemaID">
+				<![CDATA[
+					AND		AA.SchemaID = #SchemaID#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(
+							AA.TableName	LIKE '%'+#FindText#+'%'	OR
+							AA.Description	LIKE '%'+#FindText#+'%'
+						)
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY RowNo
+			]]>
+		</select>
 		<select id="SelectADTable" parameterClass="DataMap" resultClass="ADTable" >
 			<![CDATA[
 				SELECT	ROW_NUMBER() OVER (ORDER BY BB.SchemaName, AA.TableName)	AS RowNo
@@ -33,56 +87,99 @@
 				WHERE	AA.ID = #ID#
 			]]>
 		</select>
+		
+		<insert id="InsertADTable" parameterClass="ADTable" >
+			<![CDATA[
+				INSERT INTO dbo.ADTable
+				( 
+					CreateDate, CreateBy, CreateByName,
+					DatabaseID, SchemaID, TableName, UseYn, Description
+				)
+				VALUES
+				( 
+					CreateDate, CreateBy, CreateByName,
+					#DatabaseID#, #SchemaID#, #TableName#, #UseYn#, #Description#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateADTables" parameterClass="ADTable">
+			<![CDATA[
+				UPDATE  dbo.ADTable
+				SET     UpdateDate	= GetDate()
+					,	UpdateBy	= #UpdateBy#
+					,	UpdateByName= #UpdateByName#
+					
+					,	DatabaseID	= #DatabaseID#
+					,	SchemaID	= #SchemaID#
+					,	TableName	= #TableName#
+					,	UseYn		= #UseYn#
+					,	Description	= #Description#
+				WHERE	ID			= #ID#
+			]]>
+		</update>
+		<delete id="DeleteADTable" parameterClass="DataMap">
+			<![CDATA[
+				DELETE 
+				FROM	dbo.ADTable
+				WHERE	ID = #ID#
+			]]>
+		</delete>
+
+		<select id="SelectIndex" parameterClass="DataMap" resultClass="DataMap" >
+			<![CDATA[
+				SELECT	DB_NAME(database_id)		AS [DatabaseName]
+				,	OBJECT_NAME(a.object_id)		AS [TableName]
+				,	a.index_id						AS [IndexId]
+				,	b.name							AS [IndexName]
+				,	a.avg_fragmentation_in_percent	AS [AvgFragInPer]
+			FROM	sys.dm_db_index_physical_stats (DB_ID(), OBJECT_ID(''' + @TableName + '''), NULL, NULL, NULL) AS a
+					JOIN sys.indexes AS b ON a.object_id = b.object_id AND a.index_id = b.index_id
+			WHERE	a.database_id = DB_ID()
+			]]>
+		</select>
+
 		<select id="SelectADTableByMSSQL" parameterClass="DataMap" resultClass="ADTable" >
 			<![CDATA[
-				SELECT	ROW_NUMBER() OVER (ORDER BY AA.SchemaName, AA.TableName)	AS RowNo
-					,	AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+				SELECT	ROW_NUMBER() OVER 
+							(ORDER BY aa.schema_name, aa.table_name)	as row_no
 					
-					,	AA.TableID
-					,	AA.SchemaName
-					,	AA.TableName
-					,	AA.Description
-					,	AA.RowCount
-					,	AA.TableSize
-					,	AA.DataSize
-					,	AA.IndexSize
-					,	AA.LastUserSeek
-					,	AA.LastUserScan
-					,	AA.LastUserLookup
-					,	AA.LastUserUpdate
-					,	AA.LastSystemUpdate
+					,	aa.schema_name
+					,	aa.table_id
+					,	aa.table_name
+					,	aa.description
+					,	aa.row_count
+					,	aa.table_size
+					,	aa.data_size
+					,	aa.index_size
+					,	aa.last_user_seek
+					,	aa.last_user_scan
+					,	aa.last_user_lookup
+					,	aa.last_user_update
+					,	aa.last_system_update
 				FROM	(
-							SELECT	C.ID
-								,	C.CreateDate
-								,	C.CreateBy
-								,	C.CreateByName
-								,	C.UpdateDate
-								,	C.UpdateBy
-								,	C.UpdateByName
-								,	CONVERT(VARCHAR, a.object_id)									AS TableID
-								,	SCHEMA_NAME(a.schema_id)										AS SchemaName
-								,	a.name															AS TableName
-								,	convert(nvarchar, isnull(b.value, isnull(c.LogicalName, '')))	AS Description
-								,	isnull(s.row_count, 0)											AS RowCount
+							SELECT	a.object_id									as table_id
+								,	schema_name(a.schema_id)					as schema_name
+								,	a.name										as table_name
+								,	convert(nvarchar, isnull(b.value, ''))		as description
+								,	isnull(s.row_count, 0)						as row_count
 								,	round((isnull(s.reserved_size, 0) + 
-									isnull(s2.reserved_size, 0))/128., 3)							AS TableSize
-								,	round(s.data_size/128., 3)										AS DataSize
+									isnull(s2.reserved_size, 0))/128., 3)		as table_size
+								,	round(s.data_size/128., 3)					as data_size
 								,	round((case 
 											when (isnull(s.used_size, 0) + isnull(s2.used_size, 0)) > s.data_size then 
 												(isnull(s.used_size, 0) + isnull(s2.used_size, 0)) - isnull(s.data_size, 0) 
 											else 0 
-										   end)/128., 3)											AS IndexSize
-								,	u.last_user_seek												AS LastUserSeek
-								,	u.last_user_scan												AS LastUserScan
-								,	u.last_user_lookup												AS LastUserLookup
-								,	u.last_user_update												AS LastUserUpdate
-								,	u.last_system_update											AS LastSystemUpdate
+										   end)/128., 3)						as index_size
+								,	u.last_user_seek							as last_user_seek
+								,	u.last_user_scan							as last_user_scan
+								,	u.last_user_lookup							as last_user_lookup
+								,	u.last_user_update							as last_user_update
+								,	u.last_system_update						as last_system_update
 							FROM	sys.tables a
 									left join
 									(	
@@ -142,129 +239,29 @@
 										and		name	= 'MS_Description'
 									) b 
 										on a.object_id = b.major_id
-									left join dbo.ADTable c 
-										on a.name = c.PhysicalName
-											and c.DatabaseId = #DatabaseId#
 							WHERE	a.type = 'U'
-					) AA
-			WHERE	1=1
+					) aa
+				ORDER BY RowNo
 			]]>
-			<isNotEmpty property="FindText">
-				<![CDATA[
-					AND		(	
-								AA.TableName	LIKE '%'+#FindText#+'%'	OR
-								AA.Description	LIKE '%'+#FindText#+'%'
-							)
-				]]>
-			</isNotEmpty>
-			<isNotEmpty property="ID">
-				<![CDATA[
-					AND		AA.ID = #ID#
-				]]>
-			</isNotEmpty>
-				<![CDATA[
-					ORDER BY 
-						RowNo
-				]]>
 		</select>
 		<select id="SelectADTableByMYSQL" parameterClass="DataMap" resultClass="ADTable" >
 			<![CDATA[
-				SELECT	ROW_NUMBER() OVER (ORDER BY AA.TABLE_NAME)		AS RowNo
-					,	CC.ID
-					,	CC.CreateDate
-					,	CC.CreateBy
-					,	CC.CreateByName
-					,	CC.UpdateDate
-					,	CC.UpdateBy
-					,	CC.UpdateByName
+				SELECT	ROW_NUMBER() OVER 
+							(ORDER BY AA.TABLE_NAME)		AS row_no
 					
-					,	AA.TABLE_TYPE + ' ' + AA.TABLE_NAME				AS TableID
-					,	AA.TABLE_SCHEMA									AS SchemaName
-					,	AA.TABLE_NAME									AS TableName
-					,	AA.TABLE_COMMENT								AS Description
-					,	AA.TABLE_ROWS									AS RowCount
-					,	(AA.DATA_LENGTH + AA.INDEX_LENGTH)/1024/1024	AS TableSize
-					,	AA.DATA_LENGTH/1024/1024						AS DataSize
-					,	AA.INDEX_LENGTH/1024/1024						AS IndexSize
-					,	AA.UPDATE_TIME									AS LastUserUpdate
+					,	AA.TABLE_SCHEMA									AS schema_name
+					,	AA.TABLE_TYPE + ' ' + AA.TABLE_NAME				AS table_id
+					,	AA.TABLE_NAME									AS table_name
+					,	AA.TABLE_COMMENT								AS description
+					,	AA.TABLE_ROWS									AS row_count
+					,	(AA.DATA_LENGTH + AA.INDEX_LENGTH)/1024/1024	AS table_size
+					,	AA.DATA_LENGTH/1024/1024						AS data_size
+					,	AA.INDEX_LENGTH/1024/1024						AS index_size
+					,	AA.UPDATE_TIME									AS last_update
 				FROM	INFORMATION_SCHEMA.TABLES AA
-						LEFT JOIN
-							dbo.ADTable CC
-								ON AA.TABLE_NAME = CC.TableName
-									AND CC.DatabaseId = #DatabaseId#
 				WHERE	AA.TABLE_TYPE	= 'BASE TABLE'
-			]]>
-			<isNotEmpty property="FindText">
-				<![CDATA[
-					AND		(	
-								AA.TABLE_NAME		LIKE '%'+#FindText#+'%'	OR
-								AA.TABLE_COMMENT	LIKE '%'+#FindText#+'%'
-							)
-				]]>
-			</isNotEmpty>
-			<isNotEmpty property="ID">
-				<![CDATA[
-					AND		CC.ID = #ID#
-				]]>
-			</isNotEmpty>
-				<![CDATA[
-					ORDER BY 
-						RowNo
-				]]>
-		</select>
-		
-		<insert id="InsertADTable" parameterClass="ADTable" >
-			<![CDATA[
-				INSERT INTO dbo.ADTable
-				( 
-					CreateDate, CreateBy, CreateByName,
-					DatabaseID, SchemaID, TableName, UseYn, Description
-				)
-				VALUES
-				( 
-					CreateDate, CreateBy, CreateByName,
-					#DatabaseID#, #SchemaID#, #TableName#, #UseYn#, #Description#
-				)
-			]]>
-			<selectKey type="post" property="ID" resultClass="Int">
-				<![CDATA[
-					SELECT @@IDENTITY AS ID
-				]]>
-			</selectKey>
-		</insert>
-		<update id="UpdateADTables" parameterClass="ADTable">
-			<![CDATA[
-				UPDATE  dbo.ADTable
-				SET     UpdateDate	= GetDate()
-					,	UpdateBy	= #UpdateBy#
-					,	UpdateByName= #UpdateByName#
-					
-					,	DatabaseID	= #DatabaseID#
-					,	SchemaID	= #SchemaID#
-					,	TableName	= #TableName#
-					,	UseYn		= #UseYn#
-					,	Description	= #Description#
-				WHERE	ID			= #ID#
-			]]>
-		</update>
-		<delete id="DeleteADTable" parameterClass="DataMap">
-			<![CDATA[
-				DELETE 
-				FROM	dbo.ADTable
-				WHERE	ID = #ID#
-			]]>
-		</delete>
-
-		<select id="SelectIndex" parameterClass="DataMap" resultClass="DataMap" >
-			<![CDATA[
-				SELECT	DB_NAME(database_id)		AS [DatabaseName]
-				,	OBJECT_NAME(a.object_id)		AS [TableName]
-				,	a.index_id						AS [IndexId]
-				,	b.name							AS [IndexName]
-				,	a.avg_fragmentation_in_percent	AS [AvgFragInPer]
-			FROM	sys.dm_db_index_physical_stats (DB_ID(), OBJECT_ID(''' + @TableName + '''), NULL, NULL, NULL) AS a
-					JOIN sys.indexes AS b ON a.object_id = b.object_id AND a.index_id = b.index_id
-			WHERE	a.database_id = DB_ID()
+				AND		AA.TABLE_SCHEMA = #SchemaName#
+				ORDER BY RowNo
 			]]>
 		</select>
 	</statements>

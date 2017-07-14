@@ -18,18 +18,29 @@
 					
 					,	AA.SchemaName
 					,	AA.DatabaseID
-					,	BB.DatabaseName
 					,	AA.Description
+					
+					,	BB.DatabaseName
 				FROM	dbo.ADSchema AA WITH (NOLOCK)
-						LEFT JOIN
+						INNER JOIN
 							dbo.ADDatabase BB WITH (NOLOCK)
 								ON AA.DatabaseID = BB.ID
 				WHERE	1=1
 			]]>
+			<isNotEmpty property="ServerID">
+				<![CDATA[
+					AND		BB.ServerID = #ServerID#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="DatabaseID">
+				<![CDATA[
+					AND		AA.DatabaseID = #DatabaseID#
+				]]>
+			</isNotEmpty>
 			<isNotEmpty property="FindText">
 				<![CDATA[
-				AND		AA.SchemaName	LIKE '%'+#FindText#+'%'
-			]]>
+					AND		AA.SchemaName	LIKE '%'+#FindText#+'%'
+				]]>
 			</isNotEmpty>
 			<![CDATA[
 				ORDER BY 
@@ -49,12 +60,8 @@
 					
 					,	AA.SchemaName
 					,	AA.DatabaseID
-					,	BB.DatabaseName
 					,	AA.Description
 				FROM	dbo.ADSchema AA WITH (NOLOCK)
-						LEFT JOIN
-							dbo.ADDatabase BB WITH (NOLOCK)
-								ON AA.DatabaseID = BB.ID
 				WHERE	AA.ID = #ID#
 			]]>
 		</select>
@@ -80,7 +87,7 @@
 		<update id="UpdateADSchema" parameterClass="ADSchema">
 			<![CDATA[
 				UPDATE  dbo.ADSchema
-				SET     UpdateDate	= #UpdateDate#
+				SET     UpdateDate	= GetDate()
 					,	UpdateBy	= #UpdateBy#
 					,	UpdateByName= #UpdateByName#
 					

@@ -5,6 +5,7 @@ using System.Linq;
 using DevExpress.Utils;
 using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Controls;
+using IKaan.Base.Map;
 using IKaan.Base.Utils;
 using IKaan.Biz.Core.Helper;
 using IKaan.Biz.Core.Utils;
@@ -275,7 +276,7 @@ namespace IKaan.Biz.Core.Controls.Common
 			SetNullText("None");
 		}
 
-		public void BindData(string groupCode, string nullText = null, bool init = false)
+		public void BindData(string groupCode, string nullText = null, bool init = false, DataMap parameter = null)
 		{
 			if (init == true || _IsSetInit == false)
 			{
@@ -301,11 +302,11 @@ namespace IKaan.Biz.Core.Controls.Common
 			}
 
 			//글로벌 변수에 정의된 공통코드를 읽어온다.
-			var datasource = CodeHelper.GetLookup(this.GroupCode, _nullText);
+			var datasource = CodeHelper.GetLookup(this.GroupCode, _nullText, parameter);
 
 			_recordCount = datasource.Count;
 			Properties.DataSource = datasource;
-			
+
 			if (RowCount > 0)
 			{
 				if (value != null)

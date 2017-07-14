@@ -214,7 +214,8 @@ namespace IKaan.Biz.View.Forms
 			barPopupButtonRefresh.ItemClick += delegate (object sender, ItemClickEventArgs e)
 			{
 				LoadMainMenu();
-				LoadSystemMenu();
+				LoadMenuGroup("navBarGroupSystem", "SYS");
+				LoadMenuGroup("navBarGroupDatabase", "RDS");
 			};
 			#endregion
 
@@ -654,43 +655,7 @@ namespace IKaan.Biz.View.Forms
 				MsgBox.Show(ex);
 			}
 		}
-
-		private void LoadSystemMenu()
-		{
-			try
-			{
-				if (navBarNavigate != null && navBarNavigate.Groups.Where(x => x.Name == "navBarGroupSystem").Any())
-				{
-					var navGroup = navBarNavigate.Groups.Where(x => x.Name == "navBarGroupSystem").FirstOrDefault();
-					navGroup.ItemLinks.Clear();
-
-					var list = WasHandler.GetData<List<UMMainMenu>>("AUTH", "GetMainMenu", null, new DataMap()
-					{
-						{ "UserID", GlobalVar.UserInfo.UserId },
-						{ "MenuGroup", "SYS" }
-					});
-
-					if (list != null)
-					{
-						foreach (UMMainMenu model in list)
-						{
-							navGroup.ItemLinks.Add(navBarNavigate.Items.Add(new DevExpress.XtraNavBar.NavBarItem()
-							{								
-								Caption = model.MenuName.ToStringNullToEmpty(),
-								Tag = model,
-								SmallImage = MenuResource.menu_system_16x16,
-								SmallImageSize = new Size(16, 16)
-							}));
-						}
-					}
-				}
-			}
-			catch (Exception ex)
-			{
-				MsgBox.Show(ex);
-			}
-		}
-		
+				
 		private void LoadMenuGroup(string navBarGroupName, string menuGroupName)
 		{
 			try
