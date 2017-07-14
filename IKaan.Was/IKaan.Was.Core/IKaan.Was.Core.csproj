@@ -64,6 +64,7 @@
     <EmbeddedResource Include="Config\SqlMapEcm.config" />
     <EmbeddedResource Include="Config\SqlMapBiz.config" />
     <EmbeddedResource Include="Config\SqlMap.config" />
+    <EmbeddedResource Include="Config\SqlMapLib.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

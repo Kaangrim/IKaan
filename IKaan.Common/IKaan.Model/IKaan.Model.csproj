@@ -48,7 +48,8 @@
     <Compile Include="BIZ\BG\BGCategory.cs" />
     <Compile Include="BIZ\BG\BGGoods.cs" />
     <Compile Include="BIZ\BG\BGGoodsItem.cs" />
-    <Compile Include="BIZ\BM\BMBrand.cs" />
+    <Compile Include="LIB\LM\LMCustomerBrand.cs" />
+    <Compile Include="LIB\LM\LMBrand.cs" />
     <Compile Include="BIZ\BM\BMChannel.cs" />
     <Compile Include="BIZ\BM\BMCustomer.cs" />
     <Compile Include="BIZ\BS\BSOrder.cs" />
@@ -124,7 +125,6 @@
     <Folder Include="ECM\EP\" />
     <Folder Include="ECM\ES\" />
     <Folder Include="LIB\LG\" />
-    <Folder Include="LIB\LM\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
