@@ -30,26 +30,8 @@
 						LEFT JOIN
 							dbo.ADDatabase CC WITH (NOLOCK)
 								ON AA.DatabaseID = CC.ID
-					) AA
-			WHERE	1=1
+				WHERE	AA.ID = #ID#
 			]]>
-			<isNotEmpty property="FindText">
-				<![CDATA[
-					AND		(	
-								AA.TableName	LIKE '%'+#FindText#+'%'	OR
-								AA.Description	LIKE '%'+#FindText#+'%'
-							)
-				]]>
-			</isNotEmpty>
-			<isNotEmpty property="ID">
-				<![CDATA[
-					AND		AA.ID = #ID#
-				]]>
-			</isNotEmpty>
-			<![CDATA[
-					ORDER BY 
-						ROW_NO
-				]]>
 		</select>
 		<select id="SelectADTableByMSSQL" parameterClass="DataMap" resultClass="ADTable" >
 			<![CDATA[
@@ -182,7 +164,7 @@
 			</isNotEmpty>
 				<![CDATA[
 					ORDER BY 
-						ROW_NO
+						RowNo
 				]]>
 		</select>
 		<select id="SelectADTableByMYSQL" parameterClass="DataMap" resultClass="ADTable" >
@@ -227,7 +209,7 @@
 			</isNotEmpty>
 				<![CDATA[
 					ORDER BY 
-						ROW_NO
+						RowNo
 				]]>
 		</select>
 		
@@ -236,12 +218,12 @@
 				INSERT INTO dbo.ADTable
 				( 
 					CreateDate, CreateBy, CreateByName,
-					DatabaseID, SchemaID, PhysicalName, LogicalName, UseYn, Description
+					DatabaseID, SchemaID, TableName, UseYn, Description
 				)
 				VALUES
 				( 
 					CreateDate, CreateBy, CreateByName,
-					#DatabaseID#, #SchemaID#, #PhysicalName#, #LogicalName#, #UseYn#, #Description#
+					#DatabaseID#, #SchemaID#, #TableName#, #UseYn#, #Description#
 				)
 			]]>
 			<selectKey type="post" property="ID" resultClass="Int">
@@ -259,8 +241,7 @@
 					
 					,	DatabaseID	= #DatabaseID#
 					,	SchemaID	= #SchemaID#
-					,	PhysicalName= #PhysicalName#
-					,	LogicalName	= #LogicalName#
+					,	TableName	= #TableName#
 					,	UseYn		= #UseYn#
 					,	Description	= #Description#
 				WHERE	ID			= #ID#

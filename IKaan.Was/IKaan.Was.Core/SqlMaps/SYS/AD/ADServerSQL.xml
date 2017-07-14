@@ -5,7 +5,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
 
 	<statements>
-		<select id="SelectServer" parameterClass="DataMap" resultClass="ADServer" >
+		<select id="SelectADServerList" parameterClass="DataMap" resultClass="ADServer" >
 			<![CDATA[
 				SELECT	ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
 					,	AA.ID
@@ -28,10 +28,17 @@
 			</isNotEmpty>
 			<![CDATA[
 				ORDER BY 
-					ROW_NO
+					RowNo
 			]]>
 		</select>
-		<insert id="InsertServer" parameterClass="ADServer" >
+		<select id="SelectADServer" parameterClass="DataMap" resultClass="ADServer" >
+			<![CDATA[
+				SELECT	*
+				FROM	dbo.ADServer AA WITH (NOLOCK)
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<insert id="InsertADServer" parameterClass="ADServer" >
 			<![CDATA[
 				INSERT INTO dbo.ADServer
 				( 
@@ -50,7 +57,7 @@
 				]]>
 			</selectKey>
 		</insert>
-		<update id="UpdateServer" parameterClass="ADServer">
+		<update id="UpdateADServer" parameterClass="ADServer">
 			<![CDATA[
 				UPDATE  dbo.ADServer
 				SET     UpdateDate	= #UpdateDate#
@@ -62,7 +69,7 @@
 				WHERE	ID			= #ID#
 			]]>
 		</update>
-		<delete id="DeleteServer" parameterClass="DataMap">
+		<delete id="DeleteADServer" parameterClass="DataMap">
 			<![CDATA[
 				DELETE 
 				FROM	dbo.ADServer

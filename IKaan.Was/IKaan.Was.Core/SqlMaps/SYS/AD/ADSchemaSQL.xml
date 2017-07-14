@@ -5,7 +5,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
 
 	<statements>
-		<select id="SelectSchema" parameterClass="DataMap" resultClass="ADSchema" >
+		<select id="SelectADSchemaList" parameterClass="DataMap" resultClass="ADSchema" >
 			<![CDATA[
 				SELECT	ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
 					,	AA.ID
@@ -33,10 +33,32 @@
 			</isNotEmpty>
 			<![CDATA[
 				ORDER BY 
-					ROW_NO
+					RowNo
 			]]>
 		</select>
-		<insert id="InsertSchema" parameterClass="ADSchema" >
+		<select id="SelectADSchema" parameterClass="DataMap" resultClass="ADSchema" >
+			<![CDATA[
+				SELECT	ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
+					,	AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.SchemaName
+					,	AA.DatabaseID
+					,	BB.DatabaseName
+					,	AA.Description
+				FROM	dbo.ADSchema AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.ADDatabase BB WITH (NOLOCK)
+								ON AA.DatabaseID = BB.ID
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<insert id="InsertADSchema" parameterClass="ADSchema" >
 			<![CDATA[
 				INSERT INTO dbo.ADSchema
 				( 
@@ -55,7 +77,7 @@
 				]]>
 			</selectKey>
 		</insert>
-		<update id="UpdateSchema" parameterClass="ADSchema">
+		<update id="UpdateADSchema" parameterClass="ADSchema">
 			<![CDATA[
 				UPDATE  dbo.ADSchema
 				SET     UpdateDate	= #UpdateDate#
@@ -68,7 +90,7 @@
 				WHERE	ID			= #ID#
 			]]>
 		</update>
-		<delete id="DeleteSchema" parameterClass="DataMap">
+		<delete id="DeleteADSchema" parameterClass="DataMap">
 			<![CDATA[
 				DELETE 
 				FROM	dbo.ADSchema

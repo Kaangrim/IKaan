@@ -28,29 +28,7 @@
 					,	AA.DefaultValue
 					,	AA.SortOrder
 				FROM	dbo.ADColumn AA WITH (NOLOCK)
-				WHERE	1=1
-			]]>
-			<isNotEmpty property="FindText">
-				<![CDATA[
-					AND		(
-								AA.PhysicalName	LIKE '%'+#FindText#+'%'	OR
-								AA.LogicalName	LIKE '%'+#FindText#+'%'
-							)
-				]]>
-			</isNotEmpty>
-			<isNotEmpty property="TableID">
-				<![CDATA[
-					AND		AA.TableID = #TableID#
-				]]>
-			</isNotEmpty>
-			<isNotEmpty property="ID">
-				<![CDATA[
-					AND		AA.ID = #ID#
-				]]>
-			</isNotEmpty>
-			<![CDATA[
-				ORDER BY 
-					ROW_NO
+				WHERE	AA.ID = #ID#
 			]]>
 		</select>
 
@@ -188,7 +166,7 @@
 							ON TT.ID = YY.TableID
 								AND XX.ColumnName = YY.PhysicalName
 				ORDER BY 
-					ROW_NO
+					RowNo
 			]]>
 		</select>
 		<select id="SelectADColumnByMYSQL" parameterClass="DataMap" resultClass="ADColumn" >
@@ -237,7 +215,7 @@
 				WHERE	AA.TABLE_NAME	= #TableName#
 				AND		AA.TABLE_SCHEMA	= #SchemaName#
 				ORDER BY 
-					ROW_NO
+					RowNo
 			]]>
 		</select>
 

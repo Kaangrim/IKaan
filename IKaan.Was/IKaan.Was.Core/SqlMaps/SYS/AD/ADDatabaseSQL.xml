@@ -5,7 +5,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
 
 	<statements>
-		<select id="SelectDatabase" parameterClass="DataMap" resultClass="ADDatabase" >
+		<select id="SelectADDatabaseList" parameterClass="DataMap" resultClass="ADDatabase" >
 			<![CDATA[
 				SELECT	ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
 					,	AA.ID
@@ -35,10 +35,34 @@
 			</isNotEmpty>
 			<![CDATA[
 				ORDER BY 
-					ROW_NO
+					RowNo
 			]]>
 		</select>
-		<insert id="InsertDatabase" parameterClass="ADDatabase" >
+		<select id="SelectADDatabase" parameterClass="DataMap" resultClass="ADDatabase" >
+			<![CDATA[
+				SELECT	ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
+					,	AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.DatabaseName
+					,	AA.DbmsType
+					,	AA.ServerID
+					,	BB.ServerName
+					,	AA.ConnectionString
+					,	AA.Description
+				FROM	dbo.ADDatabase AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.ADServer BB WITH (NOLOCK)
+								ON AA.ServerID = BB.ID
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<insert id="InsertADDatabase" parameterClass="ADDatabase" >
 			<![CDATA[
 				INSERT INTO dbo.ADDatabase
 				( 
@@ -57,7 +81,7 @@
 				]]>
 			</selectKey>
 		</insert>
-		<update id="UpdateDatabase" parameterClass="ADDatabase">
+		<update id="UpdateADDatabase" parameterClass="ADDatabase">
 			<![CDATA[
 				UPDATE  dbo.ADDatabase
 				SET     UpdateDate	= #UpdateDate#
@@ -72,7 +96,7 @@
 				WHERE	ID			= #ID#
 			]]>
 		</update>
-		<delete id="DeleteDatabase" parameterClass="DataMap">
+		<delete id="DeleteADDatabase" parameterClass="DataMap">
 			<![CDATA[
 				DELETE 
 				FROM	dbo.ADDatabase

@@ -40,6 +40,10 @@ namespace IKaan.Model.SYS.AD
 		public string FkYn { get; set; }
 
 		[DataMember]
+		[Display(Name = "Identity 여부")]
+		public string IdentityYn { get; set; }
+
+		[DataMember]
 		[Display(Name = "기본값")]
 		public string DefaultValue { get; set; }
 

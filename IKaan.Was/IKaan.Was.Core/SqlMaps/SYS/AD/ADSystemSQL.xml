@@ -29,7 +29,7 @@
 			</isNotEmpty>
 			<![CDATA[
 				ORDER BY 
-					ROW_NO
+					RowNo
 			]]>
 		</select>
 		<select id="SelectADSystem" parameterClass="DataMap" resultClass="ADSystem" >
