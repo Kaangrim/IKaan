@@ -199,8 +199,8 @@ namespace IKaan.Was.Service.LIB
 									break;
 								case "ADTable":
 									var table = req.SaveData<ADTable>();
-									if (table.Columns != null && table.Columns.Count > 0)
-										req.SaveTableColumn(table.Columns);
+									//if (table.Columns != null && table.Columns.Count > 0)
+									//	req.SaveTableColumn(table.Columns);
 									break;
 							}
 						}
