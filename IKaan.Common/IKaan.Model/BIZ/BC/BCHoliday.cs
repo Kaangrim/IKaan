@@ -15,8 +15,9 @@ namespace IKaan.Model.BIZ.BC
 		[Display(Name = "휴일명")]
 		public string HolidayName { get; set; }
 
+
 		[DataMember]
 		[Display(Name = "설명")]
-		public string Description { get; set; }
+		public string Description { get; set; } 
 	}
 }
