@@ -33,11 +33,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IKaan.Biz.View.Sys", "IKaan
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IKaan.Biz.View.Biz", "IKaan.Biz\WIN\IKaan.Biz.View.Biz\IKaan.Biz.View.Biz.csproj", "{8BFCD979-C083-41B2-8715-5936A1587986}"
 EndProject
-<<<<<<< HEAD
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WEB", "WEB", "{3209704B-11E6-465C-BCC0-9D57A89C0B8E}"
 EndProject
-=======
->>>>>>> 5849e930ff4a3747813c65874c8a2de03827f3b7
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IKaan.Biz.View.Lib", "IKaan.Biz.View.Lib\IKaan.Biz.View.Lib.csproj", "{B1E911BA-1930-4E50-BAA9-E19B9C0F144C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -84,6 +83,10 @@ Global
 		{8BFCD979-C083-41B2-8715-5936A1587986}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8BFCD979-C083-41B2-8715-5936A1587986}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8BFCD979-C083-41B2-8715-5936A1587986}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1E911BA-1930-4E50-BAA9-E19B9C0F144C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1E911BA-1930-4E50-BAA9-E19B9C0F144C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1E911BA-1930-4E50-BAA9-E19B9C0F144C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1E911BA-1930-4E50-BAA9-E19B9C0F144C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -101,6 +104,7 @@ Global
 		{E9348656-E4E7-473D-897A-8406A480E773} = {B3CD85A0-6ADA-42E7-A8CD-27288327B28F}
 		{7A92D420-B503-450B-97AA-1EFC46A8603F} = {B3CD85A0-6ADA-42E7-A8CD-27288327B28F}
 		{8BFCD979-C083-41B2-8715-5936A1587986} = {B3CD85A0-6ADA-42E7-A8CD-27288327B28F}
+		{B1E911BA-1930-4E50-BAA9-E19B9C0F144C} = {B3CD85A0-6ADA-42E7-A8CD-27288327B28F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		VisualSVNWorkingCopyRoot = .

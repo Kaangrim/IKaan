@@ -48,118 +48,118 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Forms\AAGroupForm.cs">
+    <Compile Include="AA\AAGroupForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\AAGroupForm.designer.cs">
+    <Compile Include="AA\AAGroupForm.designer.cs">
       <DependentUpon>AAGroupForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\AAButtonForm.cs">
+    <Compile Include="AA\AAButtonForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\AAButtonForm.designer.cs">
+    <Compile Include="AA\AAButtonForm.designer.cs">
       <DependentUpon>AAButtonForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\AALoginLogForm.cs">
+    <Compile Include="AA\AALoginLogForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\AALoginLogForm.designer.cs">
+    <Compile Include="AA\AALoginLogForm.designer.cs">
       <DependentUpon>AALoginLogForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\AAHelpForm.cs">
+    <Compile Include="AA\AAHelpForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\AAHelpForm.designer.cs">
+    <Compile Include="AA\AAHelpForm.designer.cs">
       <DependentUpon>AAHelpForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\AABookmarkForm.cs">
+    <Compile Include="AA\AABookmarkForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\AABookmarkForm.designer.cs">
+    <Compile Include="AA\AABookmarkForm.designer.cs">
       <DependentUpon>AABookmarkForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\ADTableStatisticsForm.cs">
+    <Compile Include="AD\ADTableStatisticsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\ADTableStatisticsForm.designer.cs">
+    <Compile Include="AD\ADTableStatisticsForm.designer.cs">
       <DependentUpon>ADTableStatisticsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\ADTableForm.cs">
+    <Compile Include="AD\ADTableForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\ADTableForm.designer.cs">
+    <Compile Include="AD\ADTableForm.designer.cs">
       <DependentUpon>ADTableForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\ADSchemaForm.cs">
+    <Compile Include="AD\ADSchemaForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\ADSchemaForm.designer.cs">
+    <Compile Include="AD\ADSchemaForm.designer.cs">
       <DependentUpon>ADSchemaForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\ADDatabaseForm.cs">
+    <Compile Include="AD\ADDatabaseForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\ADDatabaseForm.designer.cs">
+    <Compile Include="AD\ADDatabaseForm.designer.cs">
       <DependentUpon>ADDatabaseForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\ADServerForm.cs">
+    <Compile Include="AD\ADServerForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\ADServerForm.designer.cs">
+    <Compile Include="AD\ADServerForm.designer.cs">
       <DependentUpon>ADServerForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\ADSystemForm.cs">
+    <Compile Include="AD\ADSystemForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\ADSystemForm.designer.cs">
+    <Compile Include="AD\ADSystemForm.designer.cs">
       <DependentUpon>ADSystemForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\AARoleForm.cs">
+    <Compile Include="AA\AARoleForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\AARoleForm.designer.cs">
+    <Compile Include="AA\AARoleForm.designer.cs">
       <DependentUpon>AARoleForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\AAUserForm.cs">
+    <Compile Include="AA\AAUserForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\AAUserForm.designer.cs">
+    <Compile Include="AA\AAUserForm.designer.cs">
       <DependentUpon>AAUserForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\AAViewForm.cs">
+    <Compile Include="AA\AAViewForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\AAViewForm.designer.cs">
+    <Compile Include="AA\AAViewForm.designer.cs">
       <DependentUpon>AAViewForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\AAModuleForm.cs">
+    <Compile Include="AA\AAModuleForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\AAModuleForm.designer.cs">
+    <Compile Include="AA\AAModuleForm.designer.cs">
       <DependentUpon>AAModuleForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\AAMenuForm.cs">
+    <Compile Include="AA\AAMenuForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\AAMenuForm.designer.cs">
+    <Compile Include="AA\AAMenuForm.designer.cs">
       <DependentUpon>AAMenuForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\ACCodeForm.cs">
+    <Compile Include="AC\ACCodeForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\ACCodeForm.designer.cs">
+    <Compile Include="AC\ACCodeForm.designer.cs">
       <DependentUpon>ACCodeForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\ACMessageForm.cs">
+    <Compile Include="AC\ACMessageForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\ACMessageForm.designer.cs">
+    <Compile Include="AC\ACMessageForm.designer.cs">
       <DependentUpon>ACMessageForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\ACDictionaryForm.cs">
+    <Compile Include="AC\ACDictionaryForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\ACDictionaryForm.designer.cs">
+    <Compile Include="AC\ACDictionaryForm.designer.cs">
       <DependentUpon>ACDictionaryForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -179,61 +179,61 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Forms\AAGroupForm.resx">
+    <EmbeddedResource Include="AA\AAGroupForm.resx">
       <DependentUpon>AAGroupForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\AAButtonForm.resx">
+    <EmbeddedResource Include="AA\AAButtonForm.resx">
       <DependentUpon>AAButtonForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\AALoginLogForm.resx">
+    <EmbeddedResource Include="AA\AALoginLogForm.resx">
       <DependentUpon>AALoginLogForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\AAHelpForm.resx">
+    <EmbeddedResource Include="AA\AAHelpForm.resx">
       <DependentUpon>AAHelpForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\AABookmarkForm.resx">
+    <EmbeddedResource Include="AA\AABookmarkForm.resx">
       <DependentUpon>AABookmarkForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ADTableStatisticsForm.resx">
+    <EmbeddedResource Include="AD\ADTableStatisticsForm.resx">
       <DependentUpon>ADTableStatisticsForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ADTableForm.resx">
+    <EmbeddedResource Include="AD\ADTableForm.resx">
       <DependentUpon>ADTableForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ADSchemaForm.resx">
+    <EmbeddedResource Include="AD\ADSchemaForm.resx">
       <DependentUpon>ADSchemaForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ADDatabaseForm.resx">
+    <EmbeddedResource Include="AD\ADDatabaseForm.resx">
       <DependentUpon>ADDatabaseForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ADServerForm.resx">
+    <EmbeddedResource Include="AD\ADServerForm.resx">
       <DependentUpon>ADServerForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ADSystemForm.resx">
+    <EmbeddedResource Include="AD\ADSystemForm.resx">
       <DependentUpon>ADSystemForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\AARoleForm.resx">
+    <EmbeddedResource Include="AA\AARoleForm.resx">
       <DependentUpon>AARoleForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\AAUserForm.resx">
+    <EmbeddedResource Include="AA\AAUserForm.resx">
       <DependentUpon>AAUserForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\AAViewForm.resx">
+    <EmbeddedResource Include="AA\AAViewForm.resx">
       <DependentUpon>AAViewForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\AAModuleForm.resx">
+    <EmbeddedResource Include="AA\AAModuleForm.resx">
       <DependentUpon>AAModuleForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\AAMenuForm.resx">
+    <EmbeddedResource Include="AA\AAMenuForm.resx">
       <DependentUpon>AAMenuForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ACCodeForm.resx">
+    <EmbeddedResource Include="AC\ACCodeForm.resx">
       <DependentUpon>ACCodeForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ACMessageForm.resx">
+    <EmbeddedResource Include="AC\ACMessageForm.resx">
       <DependentUpon>ACMessageForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\ACDictionaryForm.resx">
+    <EmbeddedResource Include="AC\ACDictionaryForm.resx">
       <DependentUpon>ACDictionaryForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
