@@ -44,6 +44,8 @@ namespace IKaan.Biz.View.Sys.Forms
 				if (this.IsLoaded)
 					DataLoad(null);
 			};
+
+			btnAddTables.Click += delegate (object sender, EventArgs e) { GetTables(); };
 		}
 
 		protected override void OnShown(EventArgs e)
@@ -132,7 +134,7 @@ namespace IKaan.Biz.View.Sys.Forms
 			gridColumns.AddGridColumns(
 				new XGridColumn() { FieldName = "RowNo" },
 				new XGridColumn() { FieldName = "ID", Visible = false },
-				new XGridColumn() { FieldName = "PysicalName", Width = 100 },
+				new XGridColumn() { FieldName = "PhysicalName", Width = 100 },
 				new XGridColumn() { FieldName = "LogicalName", Width = 100 },
 				new XGridColumn() { FieldName = "Description", Width = 200 },
 				new XGridColumn() { FieldName = "DataType", Width = 100, HorzAlignment = HorzAlignment.Center },
@@ -248,6 +250,21 @@ namespace IKaan.Biz.View.Sys.Forms
 					ShowMsgBox("삭제하였습니다.");
 					callback(arg, null);
 				}
+			}
+			catch (Exception ex)
+			{
+				ShowErrBox(ex);
+			}
+		}
+
+		void GetTables()
+		{
+			try
+			{
+				WasHandler.Execute<ADTable>("AD", "SaveDatabaseToTables", null, new DataMap()
+				{
+					{ "ServerID", lupServerID.EditValue }
+				}, null);
 			}
 			catch (Exception ex)
 			{

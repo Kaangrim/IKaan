@@ -11,7 +11,7 @@ namespace IKaan.Was.Service.Utils
 	{
 		public static WasRequest SetList<T>(this WasRequest req)
 		{
-			var data = req.GetList<T>();
+			var data = req.GetList<T>(req.SqlId);
 			req.Data = data;
 			req.Result.Count = (data == null) ? 0 : data.Count;
 			return req;
@@ -35,7 +35,7 @@ namespace IKaan.Was.Service.Utils
 
 		public static IList<T> GetList<T>(this WasRequest req, string sqlId = null)
 		{
-			if (sqlId.IsNullOrEmpty())
+			if (sqlId.IsNullOrEmpty() || sqlId.Replace("Select", "").IsNullOrEmpty())
 				sqlId = string.Concat(req.SqlId, typeof(T).Name, "List");
 			var parameter = req.Parameter.JsonToAnyType<DataMap>();
 			var data = DaoFactory.Instance.QueryForList<T>(sqlId, parameter);

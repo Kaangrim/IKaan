@@ -55,6 +55,9 @@ namespace IKaan.Was.Service.SYS
 						case "ADColumn":
 							req.SetList<ADColumn>();
 							break;
+						case "ADTableStatistics":
+							req.SetList<ADTableStatistics>();
+							break;
 					}
 				}
 
@@ -314,6 +317,79 @@ namespace IKaan.Was.Service.SYS
 			catch
 			{
 				throw;
+			}
+		}
+
+		public static WasRequest SaveDatabaseToTables(WasRequest request)
+		{
+			bool isTran = false;
+
+			try
+			{
+				if (request == null || (request.Data == null && request.SqlId.IsNullOrEmpty()))
+					throw new Exception("처리요청이 없습니다.");
+
+				bool isOneRequest = true;
+				List<WasRequest> list = new List<WasRequest>();
+				if (request.Data != null && request.Data.GetType() == typeof(JArray))
+				{
+					list = request.Data.JsonToAnyType<List<WasRequest>>();
+					isOneRequest = false;
+				}
+				else
+				{
+					list.Add(request);
+				}
+
+				if (request.IsTransaction)
+				{
+					DaoFactory.Instance.BeginTransaction();
+					isTran = true;
+				}
+
+				try
+				{
+					//테이블
+					if (list.Count > 0)
+					{
+						foreach (WasRequest req in list)
+						{
+							if (req.Data == null)
+								throw new Exception("처리할 데이터가 존재하지 않습니다.");
+
+							var parameters = req.Parameter.JsonToAnyType<DataMap>();
+							var table_list = DaoFactory.Instance.QueryForList<ADTableStatistics>("SelectADTableByMSSQL", parameters);
+
+						}
+					}
+
+					if (request.IsTransaction && isTran)
+						DaoFactory.Instance.CommitTransaction();
+				}
+				catch (Exception ex)
+				{
+					if (request.IsTransaction && isTran)
+						DaoFactory.Instance.RollBackTransaction();
+
+					throw new Exception(ex.Message);
+				}
+
+				if (isOneRequest)
+				{
+					request = list[0];
+				}
+				else
+				{
+					request.Data = list;
+				}
+
+				return request;
+			}
+			catch (Exception ex)
+			{
+				request.Error.Number = ex.HResult;
+				request.Error.Message = ex.Message;
+				return request;
 			}
 		}
 	}

@@ -62,6 +62,7 @@
     <Compile Include="SYS\AA\AAViewButton.cs" />
     <Compile Include="SYS\AA\AAViewRoleButton.cs" />
     <Compile Include="SYS\AC\ACCode.cs" />
+    <Compile Include="SYS\AD\ADTableStatistics.cs" />
     <Compile Include="UserModels\IUMCodeHelp.cs" />
     <Compile Include="UserModels\UMCodeLookup.cs" />
     <Compile Include="UserModels\UMCodeHelp.cs" />

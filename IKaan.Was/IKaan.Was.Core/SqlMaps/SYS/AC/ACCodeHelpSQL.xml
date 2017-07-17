@@ -373,7 +373,7 @@
 					,	aa.DatabaseName						as Value
 					,	ROW_NUMBER() OVER (ORDER BY aa.ID)	as SortOrder
 					,	aa.ServerID							as Option1
-					,	null								as Option2
+					,	aa.DbmsType							as Option2
 					,	null								as Option3
 					,	null								as Option4
 					,	null								as Option5

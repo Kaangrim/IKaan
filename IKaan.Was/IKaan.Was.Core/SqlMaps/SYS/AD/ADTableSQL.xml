@@ -143,43 +143,44 @@
 			]]>
 		</select>
 
-		<select id="SelectADTableByMSSQL" parameterClass="DataMap" resultClass="ADTable" >
+		<select id="SelectADTableByMSSQL" parameterClass="DataMap" resultClass="ADTableStatistics" >
 			<![CDATA[
 				SELECT	ROW_NUMBER() OVER 
-							(ORDER BY aa.schema_name, aa.table_name)	as row_no
+							(ORDER BY aa.SchemaName, aa.TableName)	as RowNo
 					
-					,	aa.schema_name
-					,	aa.table_id
-					,	aa.table_name
-					,	aa.description
-					,	aa.row_count
-					,	aa.table_size
-					,	aa.data_size
-					,	aa.index_size
-					,	aa.last_user_seek
-					,	aa.last_user_scan
-					,	aa.last_user_lookup
-					,	aa.last_user_update
-					,	aa.last_system_update
+					,	aa.SchemaName		as SchemaName
+					,	aa.TableID			as TableID
+					,	aa.TableName		as TableName
+					,	aa.Description		as Description
+					,	aa.RowCnt			as RowCnt
+					,	aa.TableSize		as TableSize
+					,	aa.DataSize			as DataSize
+					,	aa.IndexSize		as IndexSize
+					,	aa.LastUserSeek		as LastUserSeek
+					,	aa.LastUserScan		as LastUserScan
+					,	aa.LastUserLookup	as LastUserLookup
+					,	aa.LastUserUpdate	as LastUserUpdate
+					,	aa.LastSystemUpdate	as LastSystemUpdate
 				FROM	(
-							SELECT	a.object_id									as table_id
-								,	schema_name(a.schema_id)					as schema_name
-								,	a.name										as table_name
-								,	convert(nvarchar, isnull(b.value, ''))		as description
-								,	isnull(s.row_count, 0)						as row_count
+							SELECT	DB_NAME(DB_ID())							as DatabaseName
+								,	schema_name(a.schema_id)					as SchemaName
+								,	a.object_id									as TableID
+								,	a.name										as TableName
+								,	convert(nvarchar, isnull(b.value, ''))		as Description
+								,	isnull(s.row_count, 0)						as RowCnt
 								,	round((isnull(s.reserved_size, 0) + 
-									isnull(s2.reserved_size, 0))/128., 3)		as table_size
-								,	round(s.data_size/128., 3)					as data_size
+									isnull(s2.reserved_size, 0))/128., 3)		as TableSize
+								,	round(s.data_size/128., 3)					as DataSize
 								,	round((case 
 											when (isnull(s.used_size, 0) + isnull(s2.used_size, 0)) > s.data_size then 
 												(isnull(s.used_size, 0) + isnull(s2.used_size, 0)) - isnull(s.data_size, 0) 
 											else 0 
-										   end)/128., 3)						as index_size
-								,	u.last_user_seek							as last_user_seek
-								,	u.last_user_scan							as last_user_scan
-								,	u.last_user_lookup							as last_user_lookup
-								,	u.last_user_update							as last_user_update
-								,	u.last_system_update						as last_system_update
+										   end)/128., 3)						as IndexSize
+								,	u.last_user_seek							as LastUserSeek
+								,	u.last_user_scan							as LastUserScan
+								,	u.last_user_lookup							as LastUserLookup
+								,	u.last_user_update							as LastUserUpdate
+								,	u.last_system_update						as LastSystemUpdate
 							FROM	sys.tables a
 									left join
 									(	
@@ -240,24 +241,36 @@
 									) b 
 										on a.object_id = b.major_id
 							WHERE	a.type = 'U'
-					) aa
+						) aa
+				WHERE	1=1
+			]]>
+			<isNotEmpty property="SchemaName">
+				<![CDATA[
+					AND		aa.SchemaName = #SchemaName#
+				]]>
+			</isNotEmpty>
+			<![CDATA[
 				ORDER BY RowNo
 			]]>
 		</select>
-		<select id="SelectADTableByMYSQL" parameterClass="DataMap" resultClass="ADTable" >
+		<select id="SelectADTableByMYSQL" parameterClass="DataMap" resultClass="ADTableStatistics" >
 			<![CDATA[
 				SELECT	ROW_NUMBER() OVER 
-							(ORDER BY AA.TABLE_NAME)		AS row_no
+							(ORDER BY AA.TABLE_NAME)					as RowNo
 					
-					,	AA.TABLE_SCHEMA									AS schema_name
-					,	AA.TABLE_TYPE + ' ' + AA.TABLE_NAME				AS table_id
-					,	AA.TABLE_NAME									AS table_name
-					,	AA.TABLE_COMMENT								AS description
-					,	AA.TABLE_ROWS									AS row_count
-					,	(AA.DATA_LENGTH + AA.INDEX_LENGTH)/1024/1024	AS table_size
-					,	AA.DATA_LENGTH/1024/1024						AS data_size
-					,	AA.INDEX_LENGTH/1024/1024						AS index_size
-					,	AA.UPDATE_TIME									AS last_update
+					,	AA.TABLE_SCHEMA									as SchemaName
+					,	AA.TABLE_TYPE + ' ' + AA.TABLE_NAME				as TableID
+					,	AA.TABLE_NAME									as TableName
+					,	AA.TABLE_COMMENT								as Description
+					,	AA.TABLE_ROWS									as RowCnt
+					,	(AA.DATA_LENGTH + AA.INDEX_LENGTH)/1024/1024	as TableSize
+					,	AA.DATA_LENGTH/1024/1024						as DataSize
+					,	AA.INDEX_LENGTH/1024/1024						as IndexSize
+					,	null											as LastUserSeek
+					,	null											as LastUserScan
+					,	null											as LastUserLookup
+					,	AA.UPDATE_TIME									as LastUserUpdate
+					,	null											as LastSystemUpdate
 				FROM	INFORMATION_SCHEMA.TABLES AA
 				WHERE	AA.TABLE_TYPE	= 'BASE TABLE'
 				AND		AA.TABLE_SCHEMA = #SchemaName#

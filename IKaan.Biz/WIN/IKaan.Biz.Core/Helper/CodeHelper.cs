@@ -82,7 +82,16 @@ namespace IKaan.Biz.Core.Helper
 						{
 							Code = x.Code,
 							Name = x.Name,
-							ListName = x.Name
+							ListName = x.Name,
+							Option1 = x.Option1.ToStringNullToEmpty(),
+							Option2 = x.Option2.ToStringNullToEmpty(),
+							Option3 = x.Option3.ToStringNullToEmpty(),
+							Option4 = x.Option4.ToStringNullToEmpty(),
+							Option5 = x.Option5.ToStringNullToEmpty(),
+							Option6 = x.Option6.ToStringNullToEmpty(),
+							Option7 = x.Option7.ToStringNullToEmpty(),
+							Option8 = x.Option8.ToStringNullToEmpty(),
+							Option9 = x.Option9.ToStringNullToEmpty()
 						});
 					});
 				}
