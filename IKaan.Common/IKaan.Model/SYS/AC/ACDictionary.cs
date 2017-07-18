@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using IKaan.Model.Base;
 
@@ -22,6 +23,14 @@ namespace IKaan.Model.SYS.AC
 		[DataMember]
 		[Display(Name = "설명")]
 		public string Description { get; set; }
+
+		[DataMember]
+		[Display(Name = "언어명")]
+		public string LanguageName { get; set; }
+
+		[DataMember]
+		[Display(Name = "언어별 리스트")]
+		public IList<ACDictionary> LanguageList { get; set; }
 
 	}
 }

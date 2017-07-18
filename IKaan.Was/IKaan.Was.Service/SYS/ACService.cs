@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
-using IKaan.Model.Base;
 using IKaan.Model.SYS.AC;
 using IKaan.Model.Was;
 using IKaan.Was.Core.Mappers;
@@ -96,6 +95,7 @@ namespace IKaan.Was.Service.SYS
 					{
 						case "ACDictionary":
 							req.SetData<ACDictionary>();
+							(req.Data as ACDictionary).LanguageList = req.GetList<ACDictionary>("SelectACDictionaryLanguageList");
 							break;
 						case "ACMessage":
 							req.SetData<ACMessage>();
@@ -146,14 +146,14 @@ namespace IKaan.Was.Service.SYS
 					list.Add(request);
 				}
 
-				DaoFactory.Instance.BeginTransaction();
-				isTran = true;
+				if (request.IsTransaction)
+				{
+					DaoFactory.Instance.BeginTransaction();
+					isTran = true;
+				}
 
 				try
 				{
-					object id = null;
-
-					//테이블
 					if (list.Count > 0)
 					{
 						foreach (WasRequest req in list)
@@ -161,34 +161,20 @@ namespace IKaan.Was.Service.SYS
 							if (req.Data == null)
 								throw new Exception("저장할 데이터가 존재하지 않습니다.");
 
-							object model = null;
 							switch (req.ModelName)
 							{
 								case "ACDictionary":
-									model = req.Data.JsonToAnyType<ACDictionary>();									
+									var dictionary = req.SaveData<ACDictionary>();
+									if (dictionary.ID != null && dictionary.LanguageList.Count > 0)
+										req.SaveDictionaryLanguage(dictionary);
 									break;
 								case "ACMessage":
-									model = req.Data.JsonToAnyType<ACMessage>();
+									req.SaveData<ACMessage>();
 									break;
 								case "ACCode":
-									model = req.Data.JsonToAnyType<ACCode>();
+									req.SaveData<ACCode>();
 									break;
 							}
-							if (req.SqlId.Equals("Insert") || ((IModelBase)model).ID == default(int))
-							{
-								((IModelBase)model).CreateBy = request.User.UserId;
-								((IModelBase)model).CreateByName = request.User.UserName;
-								id = DaoFactory.Instance.Insert(string.Concat(req.SqlId, req.ModelName), model);
-							}
-							else
-							{
-								((IModelBase)model).UpdateBy = request.User.UserId;
-								((IModelBase)model).UpdateByName = request.User.UserName;
-								DaoFactory.Instance.Update(string.Concat(req.SqlId, req.ModelName), model);
-								id = ((IModelBase)model).ID;
-							}
-
-							req.Result.ReturnValue = id;
 						}
 					}
 
@@ -284,6 +270,38 @@ namespace IKaan.Was.Service.SYS
 				request.Error.Number = ex.HResult;
 				request.Error.Message = ex.Message;
 				return request;
+			}
+		}
+
+		private static void SaveDictionaryLanguage(this WasRequest req, ACDictionary model)
+		{
+			try
+			{
+				foreach (var data in model.LanguageList)
+				{
+					data.Checked = "Y";
+					if (data.PhysicalName == null)
+					{
+						data.PhysicalName = model.PhysicalName;
+					}
+
+					if (data.ID == null)
+					{
+						if (data.LogicalName.IsNullOrEmpty() == false)
+							req.SaveSubData<ACDictionary>(data);
+					}
+					else
+					{
+						if (data.LogicalName.IsNullOrEmpty() == false)
+							req.SaveSubData<ACDictionary>(data);
+						else
+							req.DeleteSubData<ACDictionary>(data);
+					}
+				}
+			}
+			catch
+			{
+				throw;
 			}
 		}
 	}

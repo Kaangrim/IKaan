@@ -52,6 +52,24 @@
 				WHERE	AA.ID = #ID#
 			]]>
 		</select>
+		<select id="SelectACDictionaryByReference" parameterClass="ACDictionary" resultClass="ACDictionary" >
+			<![CDATA[
+				SELECT  AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					,	AA.LanguageCode
+					,	AA.PhysicalName
+					,	AA.LogicalName
+					,	AA.Description
+				FROM	dbo.ACDictionary AA WITH (NOLOCK)
+				WHERE	AA.PhysicalName	= #PhysicalName#
+				AND		AA.LanguageCode	= #LanguageCode#
+			]]>
+		</select>
 		<insert id="InsertACDictionary" parameterClass="DataMap" >
 			<![CDATA[
 				INSERT INTO dbo.ACDictionary
@@ -91,5 +109,36 @@
 				WHERE	ID = #ID#
 			]]>
 		</delete>
+
+		<select id="SelectACDictionaryLanguageList" parameterClass="DataMap" resultClass="ACDictionary" >
+			<![CDATA[
+				SELECT	ROW_NUMBER() OVER (ORDER BY AA.SortOrder, AA.ID)	as RowNo
+					,	BB.ID
+					,	BB.CreateDate
+					,	BB.CreateBy
+					,	BB.CreateByName
+					,	BB.UpdateDate
+					,	BB.UpdateBy
+					,	BB.UpdateByName
+					,	AA.Code				as LanguageCode
+					,	AA.Name				as LanguageName
+					,	BB.PhysicalName
+					,	BB.LogicalName
+					,	BB.Description
+				FROM	dbo.ACCode AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.ACDictionary BB WITH (NOLOCK)
+								ON AA.Code = BB.LanguageCode
+									AND BB.PhysicalName IN 
+											(
+												SELECT	PhysicalName
+												FROM	dbo.ACDictionary WITH (NOLOCK)
+												WHERE	ID = #ID#
+											)
+				WHERE	AA.ParentCode = 'LanguageCode'
+				AND		AA.Code != #LanguageCode#
+				ORDER BY RowNo
+			]]>
+		</select>
 	</statements>
 </sqlMap>

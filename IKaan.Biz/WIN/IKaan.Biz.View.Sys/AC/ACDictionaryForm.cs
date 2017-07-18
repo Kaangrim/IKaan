@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using DevExpress.Utils;
 using DevExpress.XtraGrid.Views.Grid;
 using IKaan.Base.Map;
@@ -17,6 +18,8 @@ namespace IKaan.Biz.View.Sys.AC
 		public ACDictionaryForm()
 		{
 			InitializeComponent();
+
+			lupLanguageCode.EditValueChanged += delegate (object sender, EventArgs e) { DataLoad(null); };
 		}
 
 		protected override void OnShown(EventArgs e)
@@ -34,8 +37,8 @@ namespace IKaan.Biz.View.Sys.AC
 		{
 			base.InitControls();
 
-			lcItemLogicalName.Tag = true;
 			lcItemPhysicalName.Tag = true;
+			lcItemLogicalName.Tag = true;
 
 			SetFieldNames();
 
@@ -45,12 +48,13 @@ namespace IKaan.Biz.View.Sys.AC
 			txtUpdateDate.SetEnable(false);
 			txtUpdateByName.SetEnable(false);
 
-			lupFindLanguage.BindData("LanguageCode");
+			lupLanguageCode.BindData("LanguageCode", null, true);
 			InitGrid();
 		}
 
 		void InitGrid()
 		{
+			#region List
 			gridList.Init();
 			gridList.AddGridColumns
 			(
@@ -85,6 +89,30 @@ namespace IKaan.Biz.View.Sys.AC
 					ShowErrBox(ex);
 				}
 			};
+
+			#endregion
+
+			#region List
+			gridLangList.Init();
+			gridLangList.AddGridColumns
+			(
+				new XGridColumn() { FieldName = "RowNo" },
+				new XGridColumn() { FieldName = "ID", Visible = false },
+				new XGridColumn() { FieldName = "LanguageCode", Visible = false },
+				new XGridColumn() { FieldName = "LanguageName", Width = 200 },
+				new XGridColumn() { FieldName = "LogicalName", Width = 200 },
+				new XGridColumn() { FieldName = "PhysicalName", Visible = false },
+				new XGridColumn() { FieldName = "CreateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
+				new XGridColumn() { FieldName = "CreateByName", Width = 80, HorzAlignment = HorzAlignment.Center },
+				new XGridColumn() { FieldName = "UpdateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
+				new XGridColumn() { FieldName = "UpdateByName", Width = 80, HorzAlignment = HorzAlignment.Center }
+			);
+			gridLangList.SetEditable("LogicalName");
+			gridLangList.SetRespositoryItemTextEdit("LogicalName");
+			gridLangList.SetColumnBackColor(SkinUtils.ForeColor, "RowNo");
+			gridLangList.SetColumnForeColor(SkinUtils.BackColor, "RowNo");
+			gridLangList.ColumnFix("RowNo");
+			#endregion
 		}
 
 		protected override void LoadForm()
@@ -94,17 +122,8 @@ namespace IKaan.Biz.View.Sys.AC
 		}
 		protected override void DataInit()
 		{
-			txtID.Clear();
-			lupLanguageCode.BindData("LanguageCode");
-			txtLogicalName.Clear();
-			txtPhysicalName.Clear();
-			memDescription.Clear();
-
-			txtCreateDate.Clear();
-			txtCreateByName.Clear();
-			txtUpdateDate.Clear();
-			txtUpdateByName.Clear();
-
+			ClearControlData<ACDictionary>();
+			gridLangList.Clear<ACDictionary>();
 			SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true });
 			this.EditMode = EditModeEnum.New;
 			txtLogicalName.Focus();
@@ -114,7 +133,7 @@ namespace IKaan.Biz.View.Sys.AC
 		{
 			var parameters = new DataMap()
 			{
-				{ "LanguageCode", lupFindLanguage.EditValue },
+				{ "LanguageCode", lupLanguageCode.EditValue },
 				{ "FindText", txtFindText.EditValue }
 			};
 			gridList.BindList<ACDictionary>("AC", "GetList", "Select", parameters);
@@ -131,7 +150,7 @@ namespace IKaan.Biz.View.Sys.AC
 			{
 				var parameters = new DataMap()
 				{
-					{ "LanguageCode", lupFindLanguage.EditValue },
+					{ "LanguageCode", lupLanguageCode.EditValue },
 					{ "ID", id }
 				};
 				var data = WasHandler.GetData<ACDictionary>("AC", "GetData", "Select", parameters);
@@ -139,7 +158,7 @@ namespace IKaan.Biz.View.Sys.AC
 					throw new Exception("조회할 데이터가 없습니다.");
 
 				SetControlData(data);
-
+				gridLangList.DataSource = data.LanguageList;
 				SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true, Delete = true });
 				this.EditMode = EditModeEnum.Modify;
 				txtLogicalName.Focus();
@@ -156,6 +175,15 @@ namespace IKaan.Biz.View.Sys.AC
 			try
 			{
 				var model = GetControlData<ACDictionary>();
+				model.LanguageCode = lupLanguageCode.EditValue.ToString();
+
+				List<ACDictionary> languageList = new List<ACDictionary>();
+
+				if (gridLangList.RowCount > 0)
+					languageList = gridLangList.DataSource as List<ACDictionary>;
+
+				model.LanguageList = languageList;
+
 				using (var res = WasHandler.Execute<ACDictionary>("AC", "Save", (this.EditMode == EditModeEnum.New) ? "Insert" : "Update", model, "ID"))
 				{
 					if (res.Error.Number != 0)
