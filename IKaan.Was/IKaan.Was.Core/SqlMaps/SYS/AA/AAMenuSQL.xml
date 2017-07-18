@@ -18,12 +18,12 @@
 					FROM	dbo.AAMenu AA WITH (NOLOCK)
 					WHERE	1=1
 			]]>
-			<isNotEmpty property="ParentID">
+			<isNotEmpty property="MenuGroup">
 				<![CDATA[
-					And	AA.ID = #ParentID#
+					And	AA.ID = #MenuGroup#
 				]]>
 			</isNotEmpty>
-			<isEmpty property="ParentID">
+			<isEmpty property="MenuGroup">
 				<![CDATA[
 					AND	AA.ParentID IS NULL
 				]]>

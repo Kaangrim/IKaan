@@ -11,7 +11,8 @@ namespace IKaan.Biz.Core.Model
 		public string Name { get; set; }
 		[DataMember]
 		public string ListName { get; set; }
-
+		[DataMember]
+		public string Value { get; set; }
 		[DataMember]
 		public string Option1 { get; set; }
 		[DataMember]

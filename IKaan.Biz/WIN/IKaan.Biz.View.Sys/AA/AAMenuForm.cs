@@ -11,7 +11,6 @@ using IKaan.Biz.Core.Model;
 using IKaan.Biz.Core.Utils;
 using IKaan.Biz.Core.Was.Handler;
 using IKaan.Model.SYS.AA;
-using IKaan.Model.Was;
 
 namespace IKaan.Biz.View.Sys.AA
 {
@@ -20,6 +19,8 @@ namespace IKaan.Biz.View.Sys.AA
 		public AAMenuForm()
 		{
 			InitializeComponent();
+
+			lupMenuGroup.EditValueChanged += delegate (object sender, EventArgs e) { DataLoad(null); };
 		}
 
 		protected override void OnShown(EventArgs e)
@@ -47,7 +48,7 @@ namespace IKaan.Biz.View.Sys.AA
 			txtUpdateDate.SetEnable(false);
 			txtUpdateByName.SetEnable(false);
 
-			numSortOrder.SetFormat("D", false);
+			numSortOrder.SetFormat("D", false, HorzAlignment.Near);
 
 			InitCombo();
 			InitGrid();
@@ -55,6 +56,7 @@ namespace IKaan.Biz.View.Sys.AA
 
 		void InitCombo()
 		{
+			lupMenuGroup.BindData("MenuGroup", null, true);
 			lupMenuType.BindData("MenuType", null, true);
 			lupParentID.BindData("MenuList", "없음", true);
 			lupViewID.BindData("ViewList", "없음", true);
@@ -111,7 +113,12 @@ namespace IKaan.Biz.View.Sys.AA
 
 		protected override void DataLoad(object param = null)
 		{
-			gridList.BindList<AAMenu>("AA", "GetList", "Select", new DataMap() { { "FindText", txtFindText.EditValue } });
+			DataMap parameter = new DataMap()
+			{
+				{ "MenuGroup", lupMenuGroup.GetValue(0) },
+				{ "FindText", txtFindText.EditValue }
+			};
+			gridList.BindList<AAMenu>("AA", "GetList", "Select", parameter);
 
 			if (param != null)
 				DetailDataLoad(param);

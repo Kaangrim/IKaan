@@ -8,6 +8,7 @@ using DevExpress.XtraEditors.Controls;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
 using IKaan.Biz.Core.Helper;
+using IKaan.Biz.Core.Model;
 using IKaan.Biz.Core.Utils;
 
 namespace IKaan.Biz.Core.Controls.Common
@@ -39,7 +40,7 @@ namespace IKaan.Biz.Core.Controls.Common
 
 						if (_mNullable && !Properties.Buttons.Cast<EditorButton>().Where(x => x.Kind == ButtonPredefines.Delete).Any())
 						{
-							Properties.Buttons.Add(new EditorButton(ButtonPredefines.Delete));
+							Properties.Buttons.Add(new EditorButton(ButtonPredefines.Delete, "삭제"));
 						}
 						else
 						{
@@ -51,7 +52,7 @@ namespace IKaan.Biz.Core.Controls.Common
 
 						if(!Properties.Buttons.OfType<EditorButton>().Where(x=>x.Kind== ButtonPredefines.Redo).Any())
 						{
-							Properties.Buttons.Add(new EditorButton(ButtonPredefines.Redo));
+							Properties.Buttons.Add(new EditorButton(ButtonPredefines.Redo, "재구성"));
 						}
 					}
 					else
@@ -341,6 +342,36 @@ namespace IKaan.Biz.Core.Controls.Common
 		public int GetSelectedIndex() { return ItemIndex; }
 
 		public void SetSelectedIndex(int index) { ItemIndex = index; }
+
+		public object GetValue(int optionNumber)
+		{
+			var data = this.GetSelectedDataRow() as LookupSource;
+			if (data == null)
+				return string.Empty;
+
+			if (optionNumber == 0)
+				return data.Value;
+			else if (optionNumber == 1)
+				return data.Option1;
+			else if (optionNumber == 2)
+				return data.Option2;
+			else if (optionNumber == 3)
+				return data.Option3;
+			else if (optionNumber == 4)
+				return data.Option4;
+			else if (optionNumber == 5)
+				return data.Option5;
+			else if (optionNumber == 6)
+				return data.Option6;
+			else if (optionNumber == 7)
+				return data.Option7;
+			else if (optionNumber == 8)
+				return data.Option8;
+			else if (optionNumber == 9)
+				return data.Option9;
+
+			return null;
+		}
 
 		public void SetForeColor(Color color)
 		{
