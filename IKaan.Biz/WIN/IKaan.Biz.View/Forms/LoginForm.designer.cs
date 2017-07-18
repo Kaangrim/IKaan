@@ -46,7 +46,6 @@
 			this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
 			this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
 			this.simpleSeparator1 = new DevExpress.XtraLayout.SimpleSeparator();
-			this.simpleSeparator2 = new DevExpress.XtraLayout.SimpleSeparator();
 			this.lcGroupEdit = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.emptySpaceItem10 = new DevExpress.XtraLayout.EmptySpaceItem();
 			this.lcItemLoginId = new DevExpress.XtraLayout.LayoutControlItem();
@@ -57,6 +56,7 @@
 			this.emptySpaceItem12 = new DevExpress.XtraLayout.EmptySpaceItem();
 			this.lcItemIsRemember = new DevExpress.XtraLayout.LayoutControlItem();
 			this.emptySpaceItem8 = new DevExpress.XtraLayout.EmptySpaceItem();
+			this.simpleSeparator3 = new DevExpress.XtraLayout.SimpleSeparator();
 			this.barMessage = new DevExpress.XtraBars.BarStaticItem();
 			this.barStatus = new DevExpress.XtraBars.Bar();
 			this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
@@ -64,7 +64,7 @@
 			this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
 			this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
 			this.barDockControlRight = new DevExpress.XtraBars.BarDockControl();
-			this.simpleSeparator3 = new DevExpress.XtraLayout.SimpleSeparator();
+			this.barAndDockingController1 = new DevExpress.XtraBars.BarAndDockingController(this.components);
 			((System.ComponentModel.ISupportInitialize)(this.chkRemember.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lc)).BeginInit();
 			this.lc.SuspendLayout();
@@ -80,7 +80,6 @@
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.simpleSeparator1)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.simpleSeparator2)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupEdit)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem10)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemLoginId)).BeginInit();
@@ -91,8 +90,9 @@
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem12)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemIsRemember)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem8)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.barManager)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.simpleSeparator3)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.barManager)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.barAndDockingController1)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// chkRemember
@@ -124,7 +124,7 @@
 			this.lc.Name = "lc";
 			this.lc.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new System.Drawing.Rectangle(2847, 250, 250, 350);
 			this.lc.Root = this.lcGroupBase;
-			this.lc.Size = new System.Drawing.Size(490, 443);
+			this.lc.Size = new System.Drawing.Size(490, 440);
 			this.lc.TabIndex = 22;
 			this.lc.Text = "xLayout1";
 			// 
@@ -132,9 +132,9 @@
 			// 
 			this.btnCancel.Appearance.Font = new System.Drawing.Font("Tahoma", 11F);
 			this.btnCancel.Appearance.Options.UseFont = true;
-			this.btnCancel.Location = new System.Drawing.Point(247, 408);
+			this.btnCancel.Location = new System.Drawing.Point(247, 403);
 			this.btnCancel.Name = "btnCancel";
-			this.btnCancel.Size = new System.Drawing.Size(114, 23);
+			this.btnCancel.Size = new System.Drawing.Size(114, 25);
 			this.btnCancel.StyleController = this.lc;
 			this.btnCancel.TabIndex = 9;
 			this.btnCancel.Text = "취소";
@@ -155,9 +155,9 @@
 			this.btnOk.Appearance.Font = new System.Drawing.Font("Tahoma", 11F);
 			this.btnOk.Appearance.Options.UseBackColor = true;
 			this.btnOk.Appearance.Options.UseFont = true;
-			this.btnOk.Location = new System.Drawing.Point(129, 408);
+			this.btnOk.Location = new System.Drawing.Point(129, 403);
 			this.btnOk.Name = "btnOk";
-			this.btnOk.Size = new System.Drawing.Size(114, 23);
+			this.btnOk.Size = new System.Drawing.Size(114, 25);
 			this.btnOk.StyleController = this.lc;
 			this.btnOk.TabIndex = 8;
 			this.btnOk.Text = "확인";
@@ -174,7 +174,7 @@
 			this.picImage.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.Auto;
 			this.picImage.Properties.SizeMode = DevExpress.XtraEditors.Controls.PictureSizeMode.Zoom;
 			this.picImage.Properties.ZoomAccelerationFactor = 1D;
-			this.picImage.Size = new System.Drawing.Size(466, 224);
+			this.picImage.Size = new System.Drawing.Size(466, 223);
 			this.picImage.StyleController = this.lc;
 			this.picImage.TabIndex = 0;
 			this.picImage.TabStop = true;
@@ -204,12 +204,11 @@
             this.layoutControlItem5,
             this.layoutControlItem6,
             this.simpleSeparator1,
-            this.simpleSeparator2,
             this.lcGroupEdit,
             this.simpleSeparator3});
 			this.lcGroupBase.Location = new System.Drawing.Point(0, 0);
 			this.lcGroupBase.Name = "Root";
-			this.lcGroupBase.Size = new System.Drawing.Size(490, 443);
+			this.lcGroupBase.Size = new System.Drawing.Size(490, 440);
 			this.lcGroupBase.TextVisible = false;
 			// 
 			// lcImageLogo
@@ -217,14 +216,14 @@
 			this.lcImageLogo.Control = this.picImage;
 			this.lcImageLogo.Location = new System.Drawing.Point(0, 0);
 			this.lcImageLogo.Name = "lcImageLogo";
-			this.lcImageLogo.Size = new System.Drawing.Size(470, 228);
+			this.lcImageLogo.Size = new System.Drawing.Size(470, 227);
 			this.lcImageLogo.TextSize = new System.Drawing.Size(0, 0);
 			this.lcImageLogo.TextVisible = false;
 			// 
 			// emptySpaceItem1
 			// 
 			this.emptySpaceItem1.AllowHotTrack = false;
-			this.emptySpaceItem1.Location = new System.Drawing.Point(0, 228);
+			this.emptySpaceItem1.Location = new System.Drawing.Point(0, 227);
 			this.emptySpaceItem1.Name = "emptySpaceItem1";
 			this.emptySpaceItem1.Size = new System.Drawing.Size(470, 10);
 			this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
@@ -232,63 +231,54 @@
 			// emptySpaceItem3
 			// 
 			this.emptySpaceItem3.AllowHotTrack = false;
-			this.emptySpaceItem3.Location = new System.Drawing.Point(0, 345);
+			this.emptySpaceItem3.Location = new System.Drawing.Point(0, 344);
 			this.emptySpaceItem3.Name = "emptySpaceItem3";
-			this.emptySpaceItem3.Size = new System.Drawing.Size(470, 50);
+			this.emptySpaceItem3.Size = new System.Drawing.Size(470, 45);
 			this.emptySpaceItem3.TextSize = new System.Drawing.Size(0, 0);
 			// 
 			// emptySpaceItem5
 			// 
 			this.emptySpaceItem5.AllowHotTrack = false;
-			this.emptySpaceItem5.Location = new System.Drawing.Point(0, 396);
+			this.emptySpaceItem5.Location = new System.Drawing.Point(0, 391);
 			this.emptySpaceItem5.Name = "emptySpaceItem5";
-			this.emptySpaceItem5.Size = new System.Drawing.Size(117, 27);
+			this.emptySpaceItem5.Size = new System.Drawing.Size(117, 29);
 			this.emptySpaceItem5.TextSize = new System.Drawing.Size(0, 0);
 			// 
 			// emptySpaceItem6
 			// 
 			this.emptySpaceItem6.AllowHotTrack = false;
-			this.emptySpaceItem6.Location = new System.Drawing.Point(353, 396);
+			this.emptySpaceItem6.Location = new System.Drawing.Point(353, 391);
 			this.emptySpaceItem6.Name = "emptySpaceItem6";
-			this.emptySpaceItem6.Size = new System.Drawing.Size(117, 27);
+			this.emptySpaceItem6.Size = new System.Drawing.Size(117, 29);
 			this.emptySpaceItem6.TextSize = new System.Drawing.Size(0, 0);
 			// 
 			// layoutControlItem5
 			// 
 			this.layoutControlItem5.Control = this.btnOk;
-			this.layoutControlItem5.Location = new System.Drawing.Point(117, 396);
+			this.layoutControlItem5.Location = new System.Drawing.Point(117, 391);
 			this.layoutControlItem5.Name = "layoutControlItem5";
-			this.layoutControlItem5.Size = new System.Drawing.Size(118, 27);
+			this.layoutControlItem5.Size = new System.Drawing.Size(118, 29);
 			this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
 			this.layoutControlItem5.TextVisible = false;
 			// 
 			// layoutControlItem6
 			// 
 			this.layoutControlItem6.Control = this.btnCancel;
-			this.layoutControlItem6.Location = new System.Drawing.Point(235, 396);
+			this.layoutControlItem6.Location = new System.Drawing.Point(235, 391);
 			this.layoutControlItem6.Name = "layoutControlItem6";
-			this.layoutControlItem6.Size = new System.Drawing.Size(118, 27);
+			this.layoutControlItem6.Size = new System.Drawing.Size(118, 29);
 			this.layoutControlItem6.TextSize = new System.Drawing.Size(0, 0);
 			this.layoutControlItem6.TextVisible = false;
 			// 
 			// simpleSeparator1
 			// 
 			this.simpleSeparator1.AllowHotTrack = false;
-			this.simpleSeparator1.Location = new System.Drawing.Point(0, 238);
+			this.simpleSeparator1.Location = new System.Drawing.Point(0, 237);
 			this.simpleSeparator1.Name = "simpleSeparator1";
-			this.simpleSeparator1.Size = new System.Drawing.Size(470, 1);
-			// 
-			// simpleSeparator2
-			// 
-			this.simpleSeparator2.AllowHotTrack = false;
-			this.simpleSeparator2.Location = new System.Drawing.Point(0, 344);
-			this.simpleSeparator2.Name = "simpleSeparator2";
-			this.simpleSeparator2.Size = new System.Drawing.Size(470, 1);
+			this.simpleSeparator1.Size = new System.Drawing.Size(470, 2);
 			// 
 			// lcGroupEdit
 			// 
-			this.lcGroupEdit.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("lcGroupEdit.BackgroundImage")));
-			this.lcGroupEdit.BackgroundImageVisible = true;
 			this.lcGroupEdit.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.emptySpaceItem10,
             this.lcItemLoginId,
@@ -377,6 +367,13 @@
 			this.emptySpaceItem8.Size = new System.Drawing.Size(81, 25);
 			this.emptySpaceItem8.TextSize = new System.Drawing.Size(0, 0);
 			// 
+			// simpleSeparator3
+			// 
+			this.simpleSeparator3.AllowHotTrack = false;
+			this.simpleSeparator3.Location = new System.Drawing.Point(0, 389);
+			this.simpleSeparator3.Name = "simpleSeparator3";
+			this.simpleSeparator3.Size = new System.Drawing.Size(470, 2);
+			// 
 			// barMessage
 			// 
 			this.barMessage.AutoSize = DevExpress.XtraBars.BarStaticItemSize.Spring;
@@ -412,6 +409,7 @@
 			// 
 			this.barManager.Bars.AddRange(new DevExpress.XtraBars.Bar[] {
             this.barStatus});
+			this.barManager.Controller = this.barAndDockingController1;
 			this.barManager.DockControls.Add(this.barDockControlTop);
 			this.barManager.DockControls.Add(this.barDockControlBottom);
 			this.barManager.DockControls.Add(this.barDockControlLeft);
@@ -426,9 +424,9 @@
 			// 
 			this.barDockControlBottom.CausesValidation = false;
 			this.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.barDockControlBottom.Location = new System.Drawing.Point(0, 443);
+			this.barDockControlBottom.Location = new System.Drawing.Point(0, 440);
 			this.barDockControlBottom.Manager = this.barManager;
-			this.barDockControlBottom.Size = new System.Drawing.Size(490, 22);
+			this.barDockControlBottom.Size = new System.Drawing.Size(490, 25);
 			// 
 			// barDockControlLeft
 			// 
@@ -436,7 +434,7 @@
 			this.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left;
 			this.barDockControlLeft.Location = new System.Drawing.Point(0, 0);
 			this.barDockControlLeft.Manager = this.barManager;
-			this.barDockControlLeft.Size = new System.Drawing.Size(0, 443);
+			this.barDockControlLeft.Size = new System.Drawing.Size(0, 440);
 			// 
 			// barDockControlRight
 			// 
@@ -444,14 +442,15 @@
 			this.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right;
 			this.barDockControlRight.Location = new System.Drawing.Point(490, 0);
 			this.barDockControlRight.Manager = this.barManager;
-			this.barDockControlRight.Size = new System.Drawing.Size(0, 443);
+			this.barDockControlRight.Size = new System.Drawing.Size(0, 440);
 			// 
-			// simpleSeparator3
+			// barAndDockingController1
 			// 
-			this.simpleSeparator3.AllowHotTrack = false;
-			this.simpleSeparator3.Location = new System.Drawing.Point(0, 395);
-			this.simpleSeparator3.Name = "simpleSeparator3";
-			this.simpleSeparator3.Size = new System.Drawing.Size(470, 1);
+			this.barAndDockingController1.LookAndFeel.SkinName = "DevExpress Dark Style";
+			this.barAndDockingController1.LookAndFeel.UseDefaultLookAndFeel = false;
+			this.barAndDockingController1.PropertiesBar.AllowLinkLighting = false;
+			this.barAndDockingController1.PropertiesBar.DefaultGlyphSize = new System.Drawing.Size(16, 16);
+			this.barAndDockingController1.PropertiesBar.DefaultLargeGlyphSize = new System.Drawing.Size(32, 32);
 			// 
 			// LoginForm
 			// 
@@ -464,6 +463,7 @@
 			this.Controls.Add(this.barDockControlTop);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
 			this.LookAndFeel.SkinName = "DevExpress Dark Style";
+			this.LookAndFeel.UseDefaultLookAndFeel = false;
 			this.MaximizeBox = false;
 			this.Name = "LoginForm";
 			this.Text = "LoginForm";
@@ -482,7 +482,6 @@
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.simpleSeparator1)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.simpleSeparator2)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupEdit)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem10)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemLoginId)).EndInit();
@@ -493,8 +492,9 @@
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem12)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemIsRemember)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem8)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.barManager)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.simpleSeparator3)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.barManager)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.barAndDockingController1)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -534,8 +534,8 @@
 		private DevExpress.XtraLayout.LayoutControlItem lcItemIsRemember;
 		private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem8;
 		private DevExpress.XtraLayout.SimpleSeparator simpleSeparator1;
-		private DevExpress.XtraLayout.SimpleSeparator simpleSeparator2;
 		private DevExpress.XtraLayout.LayoutControlGroup lcGroupEdit;
 		private DevExpress.XtraLayout.SimpleSeparator simpleSeparator3;
+		private DevExpress.XtraBars.BarAndDockingController barAndDockingController1;
 	}
 }

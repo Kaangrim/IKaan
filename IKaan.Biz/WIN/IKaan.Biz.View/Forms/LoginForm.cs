@@ -68,7 +68,7 @@ namespace IKaan.Biz.View.Forms
 			MaximizeBox = false;
 			MinimizeBox = false;
 			Icon = IconResource.icon;
-			this.BackColor = SkinUtils.FormBackColor;
+			//this.BackColor = SkinUtils.FormBackColor;
 
 			lcItemLoginId.SetFieldName("LoginId");
 			lcItemPassword.SetFieldName("Password");

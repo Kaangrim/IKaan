@@ -2702,14 +2702,10 @@
         6/jw4cOHDx8+bmR8WseHDx8+fPjwceNisf5/ATl8y/vNMHYAAAAASUVORK5CYII=
 </value>
   </data>
-  <data name="lcGroupEdit.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABgAAAAXCAIAAACeQxh6AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wwAADsMBx2+oZAAAACVJREFUOE9j8KISGDWIMBg1iDAYNYgwGDWIMBg1iDAYbAZ5eQEAJLXewE69xwcA
-        AAAASUVORK5CYII=
-</value>
-  </data>
   <metadata name="barManager.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
+  </metadata>
+  <metadata name="barAndDockingController1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>136, 17</value>
   </metadata>
 </root>

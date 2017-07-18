@@ -34,9 +34,9 @@
 		public const string USER_FONT_NAME = "맑은 고딕";
 		public const float USER_FONT_SIZE = 9f;
 		public const bool USER_USE_SKIN = true;
-		public const string USER_MAIN_SKIN = @"Office 2016 Dark";
-		public const string USER_FORM_SKIN = @"Office 2016 Dark";
-		public const string USER_GRID_SKIN = @"Office 2016 Dark";
+		public const string USER_MAIN_SKIN = @"DevExpress Style";       //@"Office 2016 Dark";
+		public const string USER_FORM_SKIN = @"DevExpress Style";
+		public const string USER_GRID_SKIN = @"DevExpress Style";
 		public const bool USER_GRID_EVEN_AND_ODD = true;
 
 		//Dictionary Case

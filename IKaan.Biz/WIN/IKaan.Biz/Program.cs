@@ -40,6 +40,7 @@ namespace IKaan.Biz
 
 				if (GlobalVar.SkinInfo.MainSkin.IsNullOrEmpty() == false)
 				{
+					UserLookAndFeel.Default.Style = LookAndFeelStyle.Skin;
 					UserLookAndFeel.Default.UseDefaultLookAndFeel = true;
 					if (GlobalVar.SkinInfo.MainSkin.ToStringNullToEmpty() != ConstsVar.USER_MAIN_SKIN)
 					{

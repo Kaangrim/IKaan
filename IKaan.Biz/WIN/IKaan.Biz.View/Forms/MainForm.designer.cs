@@ -35,7 +35,8 @@
 			this.barButtonFav = new DevExpress.XtraBars.BarButtonItem();
 			this.barButtonLog = new DevExpress.XtraBars.BarButtonItem();
 			this.barButtonHome = new DevExpress.XtraBars.BarButtonItem();
-			this.skinBarSubItem1 = new DevExpress.XtraBars.SkinBarSubItem();
+			this.barButtonChangeSkin = new DevExpress.XtraBars.SkinBarSubItem();
+			this.barButtonEmail = new DevExpress.XtraBars.BarButtonItem();
 			this.barMainMenu = new DevExpress.XtraBars.Bar();
 			this.barSubItemFile = new DevExpress.XtraBars.BarSubItem();
 			this.barButtonClose = new DevExpress.XtraBars.BarButtonItem();
@@ -94,7 +95,6 @@
 			this.timerHomeShow = new System.Windows.Forms.Timer();
 			this.notifyIcon1 = new System.Windows.Forms.NotifyIcon();
 			this.popupMenuTabPage = new DevExpress.XtraBars.PopupMenu();
-			this.barButtonEmail = new DevExpress.XtraBars.BarButtonItem();
 			((System.ComponentModel.ISupportInitialize)(this.barManager)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.barAndDockingController)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.dockManager)).BeginInit();
@@ -170,11 +170,11 @@
             this.barPopupButtonSave,
             this.barButtonTabPageCloseAll,
             this.barButtonTabPageCloseAllButThis,
-            this.skinBarSubItem1,
+            this.barButtonChangeSkin,
             this.barButtonEmail});
 			this.barManager.MainMenu = this.barMainMenu;
 			this.barManager.MaxItemId = 77;
-			this.barManager.RegistryPath = "JW\\\\Layouts\\\\MainLayout";
+			this.barManager.RegistryPath = "IKaan\\\\Layouts\\\\MainLayout";
 			this.barManager.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemTextEdit1,
             this.repositoryItemLookUpEdit1,
@@ -194,7 +194,7 @@
             new DevExpress.XtraBars.LinkPersistInfo(this.barButtonFav),
             new DevExpress.XtraBars.LinkPersistInfo(this.barButtonLog, true),
             new DevExpress.XtraBars.LinkPersistInfo(this.barButtonHome, true),
-            new DevExpress.XtraBars.LinkPersistInfo(this.skinBarSubItem1, true),
+            new DevExpress.XtraBars.LinkPersistInfo(this.barButtonChangeSkin, true),
             new DevExpress.XtraBars.LinkPersistInfo(this.barButtonEmail)});
 			this.barTools.OptionsBar.AllowQuickCustomization = false;
 			this.barTools.OptionsBar.DrawDragBorder = false;
@@ -237,12 +237,21 @@
 			this.barButtonHome.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barButtonHome.ImageOptions.LargeImage")));
 			this.barButtonHome.Name = "barButtonHome";
 			// 
-			// skinBarSubItem1
+			// barButtonChangeSkin
 			// 
-			this.skinBarSubItem1.Alignment = DevExpress.XtraBars.BarItemLinkAlignment.Right;
-			this.skinBarSubItem1.Caption = "스킨변경";
-			this.skinBarSubItem1.Id = 75;
-			this.skinBarSubItem1.Name = "skinBarSubItem1";
+			this.barButtonChangeSkin.Alignment = DevExpress.XtraBars.BarItemLinkAlignment.Right;
+			this.barButtonChangeSkin.Caption = "스킨변경";
+			this.barButtonChangeSkin.Id = 75;
+			this.barButtonChangeSkin.Name = "barButtonChangeSkin";
+			// 
+			// barButtonEmail
+			// 
+			this.barButtonEmail.Caption = "이메일";
+			this.barButtonEmail.CategoryGuid = new System.Guid("a88229de-4627-4658-b6a2-102960a89e38");
+			this.barButtonEmail.Id = 76;
+			this.barButtonEmail.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonEmail.ImageOptions.Image")));
+			this.barButtonEmail.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barButtonEmail.ImageOptions.LargeImage")));
+			this.barButtonEmail.Name = "barButtonEmail";
 			// 
 			// barMainMenu
 			// 
@@ -761,15 +770,6 @@
 			this.popupMenuTabPage.Manager = this.barManager;
 			this.popupMenuTabPage.Name = "popupMenuTabPage";
 			// 
-			// barButtonEmail
-			// 
-			this.barButtonEmail.Caption = "이메일";
-			this.barButtonEmail.CategoryGuid = new System.Guid("a88229de-4627-4658-b6a2-102960a89e38");
-			this.barButtonEmail.Id = 76;
-			this.barButtonEmail.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonEmail.ImageOptions.Image")));
-			this.barButtonEmail.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barButtonEmail.ImageOptions.LargeImage")));
-			this.barButtonEmail.Name = "barButtonEmail";
-			// 
 			// MainForm
 			// 
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -877,7 +877,7 @@
 		private System.Windows.Forms.WebBrowser wbBlog;
 		private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit repositoryItemLookUpEdit1;
 		private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit repositoryItemTextEdit2;
-		private DevExpress.XtraBars.SkinBarSubItem skinBarSubItem1;
+		private DevExpress.XtraBars.SkinBarSubItem barButtonChangeSkin;
 		private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit repositoryItemTextEdit1;
 		private DevExpress.XtraBars.BarButtonItem barButtonEmail;
 	}
