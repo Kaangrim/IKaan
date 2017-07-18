@@ -106,7 +106,10 @@
 					,	ISNULL((	SELECT	COUNT(*)
 									FROM	dbo.AAMenu BB
 									WHERE	BB.ParentID = AA.ID), 0)	AS ChildCount
-					,	'N'				AS ViewYn
+					,	CASE 
+							WHEN DD.ID IS NULL THEN 'N'
+							ELSE 'Y'
+						END				AS ViewYn
 					,	'N'				AS EditYn
 				FROM	dbo.AAMenu AA WITH (NOLOCK)
 						INNER JOIN 
