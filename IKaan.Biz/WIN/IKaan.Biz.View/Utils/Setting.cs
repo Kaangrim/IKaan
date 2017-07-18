@@ -42,15 +42,12 @@ namespace Ikaan.Biz.View.Utils
 				GlobalVar.SkinInfo.UserFontSize = ConstsVar.USER_FONT_SIZE;
 				AppearanceObject.DefaultFont = new Font(GlobalVar.SkinInfo.UserFontName.ToStringNullToEmpty(), (float)GlobalVar.SkinInfo.UserFontSize);
 
-				GlobalVar.UserInfo.CustomerName = "Kaangridm";
+				GlobalVar.UserInfo.CustomerName = "Kaangrim";
 				GlobalVar.UserInfo.DepartmentName = "Brand Lab";
 				GlobalVar.UserInfo.UserName = "Tester";
 				GlobalVar.SkinInfo.IsVisibleToolbarName = true;
 				GlobalVar.SkinInfo.MainFormState = FormWindowState.Maximized;
 
-				SplashUtils.ShowWait("리소스 데이터를 생성하는 중입니다... 잠시만...");
-
-				DomainUtils.Init();
 
 				//try
 				//{
@@ -68,6 +65,8 @@ namespace Ikaan.Biz.View.Utils
 				//	MsgBox.Show(ex);
 				//}
 
+				SplashUtils.ShowWait("리소스 데이터를 생성하는 중입니다... 잠시만...");
+				DomainUtils.Init();
 				try
 				{
 					DomainUtils.GetDictionary();

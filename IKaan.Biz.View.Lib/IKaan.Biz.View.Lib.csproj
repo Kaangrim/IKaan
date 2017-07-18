@@ -30,8 +30,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DevExpress.Data.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Utils.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraEditors.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraGrid.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraLayout.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -40,11 +47,45 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LM\LMBrandForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LM\LMBrandForm.designer.cs">
+      <DependentUpon>LMBrandForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LM\LMChannelForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LM\LMChannelForm.designer.cs">
+      <DependentUpon>LMChannelForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="LG\" />
-    <Folder Include="LM\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="LM\LMBrandForm.resx">
+      <DependentUpon>LMBrandForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LM\LMChannelForm.resx">
+      <DependentUpon>LMChannelForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\IKaan.Biz\WIN\IKaan.Biz.Core\IKaan.Biz.Core.csproj">
+      <Project>{942b6393-9be6-415c-bfa6-ca3eb166735f}</Project>
+      <Name>IKaan.Biz.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IKaan.Common\IKaan.Base\IKaan.Base.csproj">
+      <Project>{949db77a-078c-4ae7-ba66-a7109848b8c4}</Project>
+      <Name>IKaan.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IKaan.Common\IKaan.Model\IKaan.Model.csproj">
+      <Project>{1eb3a6af-8899-400c-a6ea-e4cff97ce1fc}</Project>
+      <Name>IKaan.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
