@@ -730,7 +730,29 @@ namespace IKaan.Biz.View.Forms
 				MsgBox.Show(ex);
 			}
 		}
-		
+
+		private void ShowEmailPage()
+		{
+			try
+			{
+				CreateChildForm(new UMMenuView()
+				{
+					MenuID = 0,
+					MenuName = "Email",
+					//Image = null,
+					Assembly = "IKaan.Biz.View.dll",
+					Namespace = "IKaan.Biz.View.Forms",
+					Instance = "EmailForm",
+					ViewType = "",
+					ViewButtons = new List<UMMenuViewButton> { new UMMenuViewButton() { ButtonID = 0, ButtonName = "조회", Instance = null } }
+				});
+			}
+			catch (Exception ex)
+			{
+				MsgBox.Show(ex);
+			}
+		}
+
 		private void ToggleDockPanel(DockPanel dock)
 		{
 			if (dock.Visibility == DockVisibility.Visible)
@@ -807,6 +829,9 @@ namespace IKaan.Biz.View.Forms
 						break;
 					case "HOME":
 						ShowHomePage();
+						break;
+					case "EMAIL":
+						ShowEmailPage();
 						break;
 					case "CHANGEPASSWORD":
 						ShowChangePwd();

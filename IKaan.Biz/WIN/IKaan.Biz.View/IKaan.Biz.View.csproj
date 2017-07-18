@@ -59,6 +59,12 @@
     <Compile Include="Forms\DownloadCodeForm.Designer.cs">
       <DependentUpon>DownloadCodeForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\EmailForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\EmailForm.designer.cs">
+      <DependentUpon>EmailForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\HomeForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -115,6 +121,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Forms\DownloadCodeForm.resx">
       <DependentUpon>DownloadCodeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\EmailForm.resx">
+      <DependentUpon>EmailForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\HomeForm.resx">
       <DependentUpon>HomeForm.cs</DependentUpon>
