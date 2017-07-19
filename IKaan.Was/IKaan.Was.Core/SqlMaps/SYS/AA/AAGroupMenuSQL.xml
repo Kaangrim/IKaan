@@ -21,7 +21,7 @@
 				WHERE	AA.ID = #ID#				
 			]]>
 		</select>
-		<select id="SelectAAGroupMenuByReference" parameterClass="AAGroupMenu" resultClass="AAGroupMenu" >
+		<select id="SelectAAGroupMenuExists" parameterClass="AAGroupMenu" resultClass="AAGroupMenu" >
 			<![CDATA[
 				SELECT  AA.ID
 					,	AA.CreateDate

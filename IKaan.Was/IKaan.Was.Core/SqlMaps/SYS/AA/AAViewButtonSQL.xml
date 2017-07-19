@@ -22,7 +22,7 @@
 				WHERE	AA.ID = #ID#				
 			]]>
 		</select>
-		<select id="SelectAAViewButtonByReference" parameterClass="AAViewButton" resultClass="AAViewButton" >
+		<select id="SelectAAViewButtonExists" parameterClass="AAViewButton" resultClass="AAViewButton" >
 			<![CDATA[
 				SELECT  AA.ID
 					,	AA.CreateDate

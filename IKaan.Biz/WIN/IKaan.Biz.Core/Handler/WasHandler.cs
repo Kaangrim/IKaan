@@ -35,10 +35,12 @@ namespace IKaan.Biz.Core.Was.Handler
 				request.DatabaseId = GlobalVar.ServerInfo.DatabaseId;
 
 				//멀티요청인 경우 해당 요청건에 사용자정보를 넣는다.
-				if(request.Data!=null && request.Data.GetType() == typeof(List<WasRequest>))
+				if (request.Data != null && request.Data.GetType() == typeof(List<WasRequest>))
 				{
-					foreach(WasRequest req in (request.Data as List<WasRequest>))
+					foreach (WasRequest req in (request.Data as List<WasRequest>))
 					{
+						if (req.ServiceId.IsNullOrEmpty())
+							req.ServiceId = request.ServiceId;
 						req.User.UserId = GlobalVar.UserInfo.UserId;
 						req.User.UserName = GlobalVar.UserInfo.UserName;
 						req.User.LanguageCode = GlobalVar.UserInfo.LanguageCode;
@@ -53,11 +55,12 @@ namespace IKaan.Biz.Core.Was.Handler
 				}
 				else
 				{
-					throw new Exception(string.Format("{0}{1}{2}{3}{4}", response.StatusCode,
-																		Environment.NewLine,
-																		response.RequestMessage,
-																		Environment.NewLine,
-																		response.ReasonPhrase));
+					throw new Exception(string.Format("{0}{1}{2}{3}{4}", 
+						response.StatusCode,
+						Environment.NewLine,
+						response.RequestMessage,
+						Environment.NewLine,
+						response.ReasonPhrase));
 				}
 			}
 			catch (AggregateException ex)
@@ -66,10 +69,10 @@ namespace IKaan.Biz.Core.Was.Handler
 				string message = string.Empty;
 				for (int i = 0; i < ex.InnerExceptions.Count; i++)
 					message = string.Concat(message,
-												ex.InnerExceptions[i].Message,
-												Environment.NewLine,
-												ex.InnerExceptions[i].StackTrace,
-												Environment.NewLine);
+						ex.InnerExceptions[i].Message,
+						Environment.NewLine,
+						ex.InnerExceptions[i].StackTrace,
+						Environment.NewLine);
 				throw new Exception(message);
 			}
 			catch (Exception ex)

@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectLMBrandSearchList" parameterClass="DataMap" resultClass="LMBrandSearch" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
+					,	AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.Name
+					,	AA.ChannelFitness
+					,	AA.HomePage
+					,	AA.StyleOrSku
+					,	AA.Email
+					,	AA.Phone
+					,	AA.MainGoods
+					,	AA.Category
+					,	AA.Style
+					,	AA.Price
+					,	AA.Description
+					,	AA.TopCategory
+					,	AA.GoodsImageUrl
+					
+				FROM	dbo.LMBrandSearch AA WITH (NOLOCK)
+				WHERE	1=1				
+			]]>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(
+							AA.Name				LIKE '%' + #FindText# + '%' OR
+							AA.ChannelFitness	LIKE '%' + #FindText# + '%' OR
+							AA.HomePage			LIKE '%' + #FindText# + '%' OR
+							AA.StyleOrSku		LIKE '%' + #FindText# + '%' OR
+							AA.Email			LIKE '%' + #FindText# + '%' OR
+							AA.Phone			LIKE '%' + #FindText# + '%' OR
+							AA.MainGoods		LIKE '%' + #FindText# + '%' OR
+							AA.Category			LIKE '%' + #FindText# + '%' OR
+							AA.Style			LIKE '%' + #FindText# + '%' OR
+							AA.Price			LIKE '%' + #FindText# + '%' OR
+							AA.Description		LIKE '%' + #FindText# + '%' OR
+							AA.TopCategory		LIKE '%' + #FindText# + '%'
+						)
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectLMBrandSearch" parameterClass="DataMap" resultClass="LMBrandSearch" >
+			<![CDATA[
+				SELECT  AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.Name
+					,	AA.ChannelFitness
+					,	AA.HomePage
+					,	AA.StyleOrSku
+					,	AA.Email
+					,	AA.Phone
+					,	AA.MainGoods
+					,	AA.Category
+					,	AA.Style
+					,	AA.Price
+					,	AA.Description
+					,	AA.TopCategory
+					,	AA.GoodsImageUrl
+					
+				FROM	dbo.LMBrandSearch AA WITH (NOLOCK)
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<insert id="InsertLMBrandSearch" parameterClass="LMBrandSearch" >
+			<![CDATA[
+				INSERT INTO dbo.LMBrandSearch
+				( 
+					CreateDate, CreateBy, CreateByName,
+					Name, ChannelFitness, HomePage, StyleOrSku, Email, Phone, MainGoods, 
+					Category, Style, Price, Description, TopCategory, GoodsImageUrl
+				)
+				VALUES
+				(
+					GetDate(), #CreateBy#, #CreateByName#,
+					#Name#, #ChannelFitness#, #HomePage#, #StyleOrSku#, #Email#, #Phone#, #MainGoods#, 
+					#Category#, #Style#, #Price#, #Description#, #TopCategory#, #GoodsImageUrl#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateLMBrandSearch" parameterClass="LMBrandSearch">
+			<![CDATA[
+				UPDATE  dbo.LMBrandSearch
+				SET     UpdateDate		= GetDate()
+					,	UpdateBy		= #UpdateBy#
+					,	UpdateByName	= #UpdateByName#
+					
+					,	Name			= #Name#
+					,	ChannelFitness	= #ChannelFitness#
+					,	HomePage		= #HomePage#
+					,	StyleOrSku		= #StyleOrSku#
+					,	Email			= #Email#
+					,	Phone			= #Phone#
+					,	MainGoods		= #MainGoods#
+					,	Category		= #Category#
+					,	Style			= #Style#
+					,	Price			= #Price#
+					,	Description		= #Description#
+					,	TopCategory		= #TopCategory#
+					,	GoodsImageUrl	= #GoodsImageUrl#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
+		<delete id="DeleteLMBrandSearch" parameterClass="DataMap">
+			<![CDATA[
+				DELETE 
+				FROM	dbo.LMBrandSearch
+				WHERE	ID = #ID#
+			]]>
+		</delete>
+	</statements>
+</sqlMap>

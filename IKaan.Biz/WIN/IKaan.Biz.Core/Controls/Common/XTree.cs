@@ -106,7 +106,7 @@ namespace IKaan.Biz.Core.Controls.Common
 				}
 				var col = AddColumn();
 
-				col.Name = "COL_" + fieldName.ToUpper();
+				col.Name = "Column" + fieldName.ToUpper();
 				col.AppearanceCell.Options.UseTextOptions = true;
 				col.AppearanceCell.TextOptions.HAlignment = align;
 				col.Caption = caption;

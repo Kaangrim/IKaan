@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
 using IKaan.Model.LIB.LM;
-using IKaan.Model.SYS.AD;
 using IKaan.Model.Was;
 using IKaan.Was.Core.Mappers;
 using IKaan.Was.Service.Utils;
@@ -41,20 +40,8 @@ namespace IKaan.Was.Service.LIB
 						case "LMBrand":
 							req.SetList<LMBrand>();
 							break;
-						case "ADServer":
-							req.SetList<ADServer>();
-							break;
-						case "ADDatabase":
-							req.SetList<ADDatabase>();
-							break;
-						case "ADSchema":
-							req.SetList<ADSchema>();
-							break;
-						case "ADTable":
-							req.SetList<ADTable>();
-							break;
-						case "ADColumn":
-							req.SetList<ADColumn>();
+						case "LMBrandSearch":
+							req.SetList<LMBrand>();
 							break;
 					}
 				}
@@ -109,20 +96,8 @@ namespace IKaan.Was.Service.LIB
 							req.SetData<LMBrand>();
 							(req.Data as LMBrand).CustomerBrand = req.GetList<LMCustomerBrand>();
 							break;
-						case "ADServer":
-							req.SetData<ADServer>();
-							break;
-						case "ADDatabase":
-							req.SetData<ADDatabase>();
-							break;
-						case "ADSchema":
-							req.SetData<ADSchema>();
-							break;
-						case "ADTable":
-							req.SetData<ADTable>();
-							break;
-						case "ADColumn":
-							req.SetData<ADColumn>();
+						case "LMBrandSearch":
+							req.SetData<LMBrandSearch>();
 							break;
 					}
 				}
@@ -169,7 +144,7 @@ namespace IKaan.Was.Service.LIB
 
 				if (request.IsTransaction)
 				{
-					DaoFactory.Instance.BeginTransaction();
+					DaoFactory.InstanceLib.BeginTransaction();
 					isTran = true;
 				}
 
@@ -185,34 +160,20 @@ namespace IKaan.Was.Service.LIB
 
 							switch (req.ModelName)
 							{
-								case "ADSystem":
-									req.SaveData<ADSystem>();
-									break;
-								case "ADServer":
-									req.SaveData<ADServer>();
-									break;
-								case "ADDatabase":
-									req.SaveData<ADDatabase>();
-									break;
-								case "ADSchema":
-									req.SaveData<ADSchema>();
-									break;
-								case "ADTable":
-									var table = req.SaveData<ADTable>();
-									//if (table.Columns != null && table.Columns.Count > 0)
-									//	req.SaveTableColumn(table.Columns);
+								case "LMBrandSearch":
+									req.SaveData<LMBrandSearch>();
 									break;
 							}
 						}
 					}
 
-					if (request.IsTransaction && isTran)
-						DaoFactory.Instance.CommitTransaction();
+					if (isTran)
+						DaoFactory.InstanceLib.CommitTransaction();
 				}
 				catch (Exception ex)
 				{
-					if (request.IsTransaction && isTran)
-						DaoFactory.Instance.RollBackTransaction();
+					if (isTran)
+						DaoFactory.InstanceLib.RollBackTransaction();
 
 					throw new Exception(ex.Message);
 				}
@@ -257,24 +218,27 @@ namespace IKaan.Was.Service.LIB
 					list.Add(request);
 				}
 
-				DaoFactory.Instance.BeginTransaction();
-				isTran = true;
+				if (request.IsTransaction)
+				{
+					DaoFactory.InstanceLib.BeginTransaction();
+					isTran = true;
+				}
 
 				try
 				{
 					foreach (WasRequest req in list)
 					{
 						DataMap map = req.Data.JsonToAnyType<DataMap>();
-						DaoFactory.Instance.Delete(string.Concat(req.SqlId, req.ModelName), map);
+						DaoFactory.InstanceLib.Delete(string.Concat(req.SqlId, req.ModelName), map);
 					}
 
 					if (isTran)
-						DaoFactory.Instance.CommitTransaction();
+						DaoFactory.InstanceLib.CommitTransaction();
 				}
 				catch (Exception ex)
 				{
 					if (isTran)
-						DaoFactory.Instance.RollBackTransaction();
+						DaoFactory.InstanceLib.RollBackTransaction();
 
 					throw new Exception(ex.Message);
 				}

@@ -426,31 +426,31 @@
 			this.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top;
 			this.barDockControlTop.Location = new System.Drawing.Point(0, 0);
 			this.barDockControlTop.Manager = this.barManager;
-			this.barDockControlTop.Size = new System.Drawing.Size(1084, 52);
+			this.barDockControlTop.Size = new System.Drawing.Size(1084, 53);
 			// 
 			// barDockControlBottom
 			// 
 			this.barDockControlBottom.CausesValidation = false;
 			this.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.barDockControlBottom.Location = new System.Drawing.Point(0, 518);
+			this.barDockControlBottom.Location = new System.Drawing.Point(0, 515);
 			this.barDockControlBottom.Manager = this.barManager;
-			this.barDockControlBottom.Size = new System.Drawing.Size(1084, 24);
+			this.barDockControlBottom.Size = new System.Drawing.Size(1084, 27);
 			// 
 			// barDockControlLeft
 			// 
 			this.barDockControlLeft.CausesValidation = false;
 			this.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left;
-			this.barDockControlLeft.Location = new System.Drawing.Point(0, 52);
+			this.barDockControlLeft.Location = new System.Drawing.Point(0, 53);
 			this.barDockControlLeft.Manager = this.barManager;
-			this.barDockControlLeft.Size = new System.Drawing.Size(0, 466);
+			this.barDockControlLeft.Size = new System.Drawing.Size(0, 462);
 			// 
 			// barDockControlRight
 			// 
 			this.barDockControlRight.CausesValidation = false;
 			this.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right;
-			this.barDockControlRight.Location = new System.Drawing.Point(1084, 52);
+			this.barDockControlRight.Location = new System.Drawing.Point(1084, 53);
 			this.barDockControlRight.Manager = this.barManager;
-			this.barDockControlRight.Size = new System.Drawing.Size(0, 466);
+			this.barDockControlRight.Size = new System.Drawing.Size(0, 462);
 			// 
 			// dockManager
 			// 
@@ -502,18 +502,18 @@
 			this.dpFavorite.FloatVertical = true;
 			this.dpFavorite.ID = new System.Guid("a5e98a7a-fef2-43d9-af20-020bb44847c4");
 			this.dpFavorite.Image = ((System.Drawing.Image)(resources.GetObject("dpFavorite.Image")));
-			this.dpFavorite.Location = new System.Drawing.Point(818, 52);
+			this.dpFavorite.Location = new System.Drawing.Point(818, 53);
 			this.dpFavorite.Name = "dpFavorite";
 			this.dpFavorite.OriginalSize = new System.Drawing.Size(266, 391);
-			this.dpFavorite.Size = new System.Drawing.Size(266, 466);
+			this.dpFavorite.Size = new System.Drawing.Size(266, 462);
 			this.dpFavorite.Text = "Favorite";
 			// 
 			// dockPanel1_Container
 			// 
 			this.dockPanel1_Container.Controls.Add(this.navBarFavorite);
-			this.dockPanel1_Container.Location = new System.Drawing.Point(5, 39);
+			this.dockPanel1_Container.Location = new System.Drawing.Point(5, 23);
 			this.dockPanel1_Container.Name = "dockPanel1_Container";
-			this.dockPanel1_Container.Size = new System.Drawing.Size(257, 423);
+			this.dockPanel1_Container.Size = new System.Drawing.Size(257, 435);
 			this.dockPanel1_Container.TabIndex = 0;
 			// 
 			// navBarFavorite
@@ -531,7 +531,7 @@
 			this.navBarFavorite.OptionsNavPane.ShowExpandButton = false;
 			this.navBarFavorite.OptionsNavPane.ShowGroupImageInHeader = true;
 			this.navBarFavorite.PaintStyleKind = DevExpress.XtraNavBar.NavBarViewKind.NavigationPane;
-			this.navBarFavorite.Size = new System.Drawing.Size(257, 423);
+			this.navBarFavorite.Size = new System.Drawing.Size(257, 435);
 			this.navBarFavorite.StoreDefaultPaintStyleName = true;
 			this.navBarFavorite.TabIndex = 0;
 			this.navBarFavorite.Text = "즐겨찾기";
@@ -552,7 +552,7 @@
 			this.navBarGroupControlContainer1.Appearance.Options.UseBackColor = true;
 			this.navBarGroupControlContainer1.Controls.Add(this.wbBlog);
 			this.navBarGroupControlContainer1.Name = "navBarGroupControlContainer1";
-			this.navBarGroupControlContainer1.Size = new System.Drawing.Size(257, 192);
+			this.navBarGroupControlContainer1.Size = new System.Drawing.Size(257, 222);
 			this.navBarGroupControlContainer1.TabIndex = 0;
 			// 
 			// wbBlog
@@ -561,7 +561,7 @@
 			this.wbBlog.Location = new System.Drawing.Point(0, 0);
 			this.wbBlog.MinimumSize = new System.Drawing.Size(20, 20);
 			this.wbBlog.Name = "wbBlog";
-			this.wbBlog.Size = new System.Drawing.Size(257, 192);
+			this.wbBlog.Size = new System.Drawing.Size(257, 222);
 			this.wbBlog.TabIndex = 0;
 			// 
 			// nbGroupMyMenu
@@ -585,19 +585,19 @@
 			this.dpNavigation.FloatVertical = true;
 			this.dpNavigation.ID = new System.Guid("98baa37f-b8a0-4579-8915-c1e07f9c317f");
 			this.dpNavigation.Image = ((System.Drawing.Image)(resources.GetObject("dpNavigation.Image")));
-			this.dpNavigation.Location = new System.Drawing.Point(0, 52);
+			this.dpNavigation.Location = new System.Drawing.Point(0, 53);
 			this.dpNavigation.Name = "dpNavigation";
 			this.dpNavigation.OriginalSize = new System.Drawing.Size(274, 200);
-			this.dpNavigation.Size = new System.Drawing.Size(274, 466);
+			this.dpNavigation.Size = new System.Drawing.Size(274, 462);
 			this.dpNavigation.Text = "Navigation";
 			// 
 			// dockPanelMainMenu_Container
 			// 
 			this.dockPanelMainMenu_Container.Controls.Add(this.navBarNavigate);
-			this.dockPanelMainMenu_Container.Location = new System.Drawing.Point(4, 39);
+			this.dockPanelMainMenu_Container.Location = new System.Drawing.Point(4, 23);
 			this.dockPanelMainMenu_Container.Name = "dockPanelMainMenu_Container";
 			this.dockPanelMainMenu_Container.Padding = new System.Windows.Forms.Padding(2);
-			this.dockPanelMainMenu_Container.Size = new System.Drawing.Size(265, 423);
+			this.dockPanelMainMenu_Container.Size = new System.Drawing.Size(265, 435);
 			this.dockPanelMainMenu_Container.TabIndex = 0;
 			// 
 			// navBarNavigate
@@ -614,7 +614,7 @@
 			this.navBarNavigate.OptionsNavPane.ExpandedWidth = 261;
 			this.navBarNavigate.OptionsNavPane.ShowExpandButton = false;
 			this.navBarNavigate.PaintStyleKind = DevExpress.XtraNavBar.NavBarViewKind.NavigationPane;
-			this.navBarNavigate.Size = new System.Drawing.Size(261, 419);
+			this.navBarNavigate.Size = new System.Drawing.Size(261, 431);
 			this.navBarNavigate.StoreDefaultPaintStyleName = true;
 			this.navBarNavigate.TabIndex = 1;
 			this.navBarNavigate.Text = "navBarControl1";
@@ -774,8 +774,8 @@
 			// 
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
 			this.ClientSize = new System.Drawing.Size(1084, 542);
-			this.Controls.Add(this.dpNavigation);
 			this.Controls.Add(this.dpFavorite);
+			this.Controls.Add(this.dpNavigation);
 			this.Controls.Add(this.barDockControlLeft);
 			this.Controls.Add(this.barDockControlRight);
 			this.Controls.Add(this.barDockControlBottom);

@@ -21,7 +21,7 @@
 				WHERE	AA.ID = #ID#
 			]]>
 		</select>
-		<select id="SelectAAMenuViewByReference" parameterClass="DataMap" resultClass="AAMenuView" >
+		<select id="SelectAAMenuViewExists" parameterClass="DataMap" resultClass="AAMenuView" >
 			<![CDATA[
 				SELECT  AA.ID
 					,	AA.CreateDate

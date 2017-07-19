@@ -48,6 +48,7 @@
     <Compile Include="BIZ\BG\BGCategory.cs" />
     <Compile Include="BIZ\BG\BGGoods.cs" />
     <Compile Include="BIZ\BG\BGGoodsItem.cs" />
+    <Compile Include="LIB\LM\LMBrandSearch.cs" />
     <Compile Include="LIB\LM\LMCustomerBrand.cs" />
     <Compile Include="LIB\LM\LMBrand.cs" />
     <Compile Include="BIZ\BM\BMChannel.cs" />

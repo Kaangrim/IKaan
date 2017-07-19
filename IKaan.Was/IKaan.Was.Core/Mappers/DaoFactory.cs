@@ -9,8 +9,8 @@ namespace IKaan.Was.Core.Mappers
 		private static object syncLock = new object();
 		private static ISqlMapper mapper = null;
 		private static ISqlMapper mapperBiz = null;
-		private static ISqlMapper mapperEcm = null;
-
+		private static ISqlMapper mapperLib = null;
+		
 		public static ISqlMapper Instance
 		{
 			get
@@ -65,21 +65,21 @@ namespace IKaan.Was.Core.Mappers
 			}
 		}
 
-		public static ISqlMapper InstanceEcm
+		public static ISqlMapper InstanceLib
 		{
 			get
 			{
 				try
 				{
-					if (mapperEcm == null)
+					if (mapperLib == null)
 					{
 						lock (syncLock)
 						{
 							if (mapperBiz == null)
 							{
 								var dom = new DomSqlMapBuilder();
-								var sqlMapConfig = Resources.GetEmbeddedResourceAsXmlDocument("Config.SqlMapEcm.config, IKaan.Was.Core");
-								mapperEcm = dom.Configure(sqlMapConfig);
+								var sqlMapConfig = Resources.GetEmbeddedResourceAsXmlDocument("Config.SqlMapLib.config, IKaan.Was.Core");
+								mapperLib = dom.Configure(sqlMapConfig);
 							}
 						}
 					}
@@ -88,7 +88,7 @@ namespace IKaan.Was.Core.Mappers
 				{
 					throw;
 				}
-				return mapperEcm;
+				return mapperLib;
 			}
 		}
 	}

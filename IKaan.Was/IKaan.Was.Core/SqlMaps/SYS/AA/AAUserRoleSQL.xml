@@ -22,7 +22,7 @@
 				WHERE	AA.ID = #ID#				
 			]]>
 		</select>
-		<select id="SelectAAUserRoleByReference" parameterClass="AAUserRole" resultClass="AAUserRole" >
+		<select id="SelectAAUserRoleExists" parameterClass="AAUserRole" resultClass="AAUserRole" >
 			<![CDATA[
 				SELECT  AA.ID
 					,	AA.CreateDate

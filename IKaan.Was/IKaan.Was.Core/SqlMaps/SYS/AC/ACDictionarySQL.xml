@@ -52,7 +52,7 @@
 				WHERE	AA.ID = #ID#
 			]]>
 		</select>
-		<select id="SelectACDictionaryByReference" parameterClass="ACDictionary" resultClass="ACDictionary" >
+		<select id="SelectACDictionaryExists" parameterClass="ACDictionary" resultClass="ACDictionary" >
 			<![CDATA[
 				SELECT  AA.ID
 					,	AA.CreateDate

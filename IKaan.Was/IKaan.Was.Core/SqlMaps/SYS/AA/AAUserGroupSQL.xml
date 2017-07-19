@@ -21,7 +21,7 @@
 				WHERE	AA.ID = #ID#				
 			]]>
 		</select>
-		<select id="SelectAAUserGroupByReference" parameterClass="AAUserGroup" resultClass="AAUserGroup" >
+		<select id="SelectAAUserGroupExists" parameterClass="AAUserGroup" resultClass="AAUserGroup" >
 			<![CDATA[
 				SELECT  AA.ID
 					,	AA.CreateDate

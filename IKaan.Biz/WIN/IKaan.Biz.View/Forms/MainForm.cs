@@ -474,8 +474,21 @@ namespace IKaan.Biz.View.Forms
 				navBarNavigate.Groups.AddRange(new NavBarGroup[] { navBarGroupBusiness, navBarGroupSystem });
 				navBarGroupBusiness.ControlContainer = new NavBarGroupControlContainer();
 
+				//#region Search TextBox
+				//navBarGroupBusiness.ControlContainer.Controls.Add(new ComboBoxEdit()
+				//{
+				//	Name = "txtFindMenu",
+				//	Dock = DockStyle.Top,
+				//	Margin = new Padding(3)				
+				//});
+				//#endregion
+
 				#region Load TreeMenu
-				mainMenu = new XTree() { Name = "mainMenu", Dock = DockStyle.Fill };
+				mainMenu = new XTree()
+				{
+					Name = "mainMenu",
+					Dock = DockStyle.Fill					
+				};
 				if (mainMenu != null)
 				{
 					navBarGroupBusiness.ControlContainer.Controls.Add(mainMenu);
