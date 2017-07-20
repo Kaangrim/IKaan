@@ -30,19 +30,7 @@ namespace IKaan.Was.Service.Base
 				foreach (WasRequest req in list)
 				{
 					var parameter = req.Parameter.JsonToAnyType<DataMap>();
-					IList<UMCodeHelp> result = new List<UMCodeHelp>();
-					switch(parameter.GetValue("SystemType").ToStringNullToEmpty())
-					{
-						case "BIZ":
-							result = DaoFactory.InstanceBiz.QueryForList<UMCodeHelp>(string.Concat("SelectCodeHelp", req.SqlId), parameter);
-							break;
-						case "ECM":
-							result = DaoFactory.InstanceEcm.QueryForList<UMCodeHelp>(string.Concat("SelectCodeHelp", req.SqlId), parameter);
-							break;
-						default:
-							result = DaoFactory.Instance.QueryForList<UMCodeHelp>(string.Concat("SelectCodeHelp", req.SqlId), parameter);
-							break;
-					}
+					IList<UMCodeHelp> result = DaoFactory.Instance.QueryForList<UMCodeHelp>(string.Concat("SelectCodeHelp", req.SqlId), parameter);
 					req.Data = result;
 					req.Result.Count = (result == null) ? 0 : result.Count;
 				}

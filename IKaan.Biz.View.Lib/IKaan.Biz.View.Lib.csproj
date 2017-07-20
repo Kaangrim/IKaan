@@ -47,6 +47,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LM\LMBrandSearchForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LM\LMBrandSearchForm.designer.cs">
+      <DependentUpon>LMBrandSearchForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="LM\LMBrandForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -65,6 +71,9 @@
     <Folder Include="LG\" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="LM\LMBrandSearchForm.resx">
+      <DependentUpon>LMBrandSearchForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LM\LMBrandForm.resx">
       <DependentUpon>LMBrandForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -86,6 +95,9 @@
       <Project>{1eb3a6af-8899-400c-a6ea-e4cff97ce1fc}</Project>
       <Name>IKaan.Model</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

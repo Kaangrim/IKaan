@@ -40,6 +40,11 @@
 		public const bool USER_GRID_EVEN_AND_ODD = true;
 
 		//Dictionary Case
-		public const string DICTIONARY_CASE = "PascalCase";	//PascalCase, CamelCase, UpperCase
+		public const string DICTIONARY_CASE = "PascalCase"; //PascalCase, CamelCase, UpperCase
+
+		//FTP
+		public const string FTP_URL = @"kaangrim.whoisimg.com";
+		public const string FTP_ID = "kaangrim";
+		public const string FTP_PW = "kaangrim0528";
 	}
 }

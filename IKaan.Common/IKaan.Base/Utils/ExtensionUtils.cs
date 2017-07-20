@@ -196,5 +196,14 @@ namespace IKaan.Base.Utils
 
 			return dt;
 		}
+
+		public static double BytesToMegaBytes(this long bytes)
+		{
+			return (bytes / 1024f) / 1024f;
+		}
+		public static double BytesToKiloBytes(this long kb)
+		{
+			return kb / 1024f;
+		}
 	}
 }

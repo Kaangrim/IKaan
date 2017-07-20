@@ -173,6 +173,16 @@ namespace IKaan.Biz.Core.Resources {
         /// <summary>
         ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
         /// </summary>
+        public static System.Drawing.Bitmap tree_file_16x16 {
+            get {
+                object obj = ResourceManager.GetObject("tree_file_16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
         public static System.Drawing.Bitmap tree_group_collapse_16x16 {
             get {
                 object obj = ResourceManager.GetObject("tree_group_collapse_16x16", resourceCulture);
@@ -276,6 +286,16 @@ namespace IKaan.Biz.Core.Resources {
         public static System.Drawing.Bitmap tree_item_not3_16x16 {
             get {
                 object obj = ResourceManager.GetObject("tree_item_not3_16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
+        public static System.Drawing.Bitmap tree_up_16x16 {
+            get {
+                object obj = ResourceManager.GetObject("tree_up_16x16", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
