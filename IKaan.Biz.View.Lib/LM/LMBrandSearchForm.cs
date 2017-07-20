@@ -96,9 +96,12 @@ namespace IKaan.Biz.View.Lib.LM
 		protected override void DataInit()
 		{
 			ClearControlData<LMBrandSearch>();
+			picBrandLogo.EditValue = null;
+			picBrandImage.EditValue = null;
+
 			SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true });
 			EditMode = EditModeEnum.New;
-			txtName.Focus();
+			txtBrandName.Focus();
 		}
 
 		protected override void DataLoad(object param = null)
@@ -122,7 +125,7 @@ namespace IKaan.Biz.View.Lib.LM
 				SetControlData(model);
 				SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true, Delete = true });
 				this.EditMode = EditModeEnum.Modify;
-				txtName.Focus();
+				txtBrandName.Focus();
 
 			}
 			catch(Exception ex)

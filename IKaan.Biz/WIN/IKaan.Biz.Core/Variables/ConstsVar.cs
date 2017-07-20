@@ -15,7 +15,6 @@
 
 		//Application
 		public const string APP_PATH = @"C:\IKaan";
-
 		public const string APP_CRYPT_KEY = @"IKaan.V2017";
 		public const string APP_PASSWORD = "IKaan.V2017";
 
@@ -46,5 +45,8 @@
 		public const string FTP_URL = @"kaangrim.whoisimg.com";
 		public const string FTP_ID = "kaangrim";
 		public const string FTP_PW = "kaangrim0528";
+
+		public const string FTP_IMG_BRAND_LOGO = @"/LIB/BrandLogo/";
+		public const string FTP_IMG_BRAND_IMAGE = @"/LIB/BrandImage/";
 	}
 }

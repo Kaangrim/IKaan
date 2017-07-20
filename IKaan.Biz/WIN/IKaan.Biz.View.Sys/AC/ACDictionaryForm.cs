@@ -126,7 +126,7 @@ namespace IKaan.Biz.View.Sys.AC
 			gridLangList.Clear<ACDictionary>();
 			SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true });
 			this.EditMode = EditModeEnum.New;
-			txtLogicalName.Focus();
+			txtPhysicalName.Focus();
 		}
 
 		protected override void DataLoad(object param = null)
@@ -161,7 +161,7 @@ namespace IKaan.Biz.View.Sys.AC
 				gridLangList.DataSource = data.LanguageList;
 				SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true, Delete = true });
 				this.EditMode = EditModeEnum.Modify;
-				txtLogicalName.Focus();
+				txtPhysicalName.Focus();
 
 			}
 			catch(Exception ex)
