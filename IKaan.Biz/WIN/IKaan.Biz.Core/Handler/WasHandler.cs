@@ -11,7 +11,7 @@ namespace IKaan.Biz.Core.Was.Handler
 {
 	public static class WasHandler
 	{
-		private const string apiUrl = @"api/Sys";
+		private const string apiUrl = @"api/IKaan";
 
 		public static WasRequest Execute(this WasRequest request)
 		{

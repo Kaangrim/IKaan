@@ -7,13 +7,20 @@ using IKaan.Model.Was;
 
 namespace IKaan.Was.Controllers
 {
-	public class SysController : ApiController
+	public class IKaanController : ApiController
     {
 		private const string assemblyName = @"IKaan.Was.Service";
 		private string serviceType = "SYS";
 
 		public HttpResponseMessage Post(WasRequest request)
 		{
+			if (request.ServiceId.StartsWith("L"))
+				serviceType = "LIB";
+			else if (request.ServiceId.StartsWith("B"))
+				serviceType = "BIZ";
+			else
+				serviceType = "SYS";
+
 			if (request.ServiceId.Equals("CodeHelp"))
 				serviceType = "Base";
 

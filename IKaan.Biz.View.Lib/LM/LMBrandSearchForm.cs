@@ -106,7 +106,7 @@ namespace IKaan.Biz.View.Lib.LM
 
 		protected override void DataLoad(object param = null)
 		{
-			gridList.BindList<LMBrandSearch>("AA", "GetList", "Select", new DataMap() { { "FindText", txtFindText.EditValue } });
+			gridList.BindList<LMBrandSearch>("LM", "GetList", "Select", new DataMap() { { "FindText", txtFindText.EditValue } });
 
 			if (param != null)
 				DetailDataLoad(param);
@@ -118,7 +118,7 @@ namespace IKaan.Biz.View.Lib.LM
 		{
 			try
 			{
-				var model = WasHandler.GetData<LMBrandSearch>("AA", "GetData", "Select", new DataMap() { { "ID", id } });
+				var model = WasHandler.GetData<LMBrandSearch>("LM", "GetData", "Select", new DataMap() { { "ID", id } });
 				if (model == null)
 					throw new Exception("조회할 데이터가 없습니다.");
 
@@ -139,7 +139,7 @@ namespace IKaan.Biz.View.Lib.LM
 			try
 			{
 				var model = this.GetControlData<LMBrandSearch>();
-				using (var res = WasHandler.Execute<LMBrandSearch>("AA", "Save", (this.EditMode == EditModeEnum.New) ? "Insert" : "Update", model, "ID"))
+				using (var res = WasHandler.Execute<LMBrandSearch>("LM", "Save", (this.EditMode == EditModeEnum.New) ? "Insert" : "Update", model, "ID"))
 				{
 					if (res.Error.Number != 0)
 						throw new Exception(res.Error.Message);
@@ -159,7 +159,7 @@ namespace IKaan.Biz.View.Lib.LM
 			try
 			{
 				DataMap map = new DataMap() { { "ID", txtID.EditValue } };
-				using (var res = WasHandler.Execute<DataMap>("AA", "Delete", "DeleteLMBrandSearch", map, "ID"))
+				using (var res = WasHandler.Execute<DataMap>("LM", "Delete", "DeleteLMBrandSearch", map, "ID"))
 				{
 					if (res.Error.Number != 0)
 						throw new Exception(res.Error.Message);

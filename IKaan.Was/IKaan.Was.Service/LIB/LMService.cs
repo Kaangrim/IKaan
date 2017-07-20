@@ -41,7 +41,7 @@ namespace IKaan.Was.Service.LIB
 							req.SetList<LMBrand>();
 							break;
 						case "LMBrandSearch":
-							req.SetList<LMBrand>();
+							req.SetList<LMBrandSearch>();
 							break;
 					}
 				}

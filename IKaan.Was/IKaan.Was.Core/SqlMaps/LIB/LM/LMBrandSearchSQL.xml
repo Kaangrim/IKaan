@@ -16,7 +16,7 @@
 					,	AA.UpdateBy
 					,	AA.UpdateByName
 					
-					,	AA.Name
+					,	AA.BrandName
 					,	AA.ChannelFitness
 					,	AA.HomePage
 					,	AA.StyleOrSku
@@ -36,7 +36,7 @@
 			<isNotEmpty property="FindText">
 				<![CDATA[
 					AND	(
-							AA.Name				LIKE '%' + #FindText# + '%' OR
+							AA.BrandName		LIKE '%' + #FindText# + '%' OR
 							AA.ChannelFitness	LIKE '%' + #FindText# + '%' OR
 							AA.HomePage			LIKE '%' + #FindText# + '%' OR
 							AA.StyleOrSku		LIKE '%' + #FindText# + '%' OR
@@ -65,7 +65,7 @@
 					,	AA.UpdateBy
 					,	AA.UpdateByName
 					
-					,	AA.Name
+					,	AA.BrandName
 					,	AA.ChannelFitness
 					,	AA.HomePage
 					,	AA.StyleOrSku
@@ -88,13 +88,13 @@
 				INSERT INTO dbo.LMBrandSearch
 				( 
 					CreateDate, CreateBy, CreateByName,
-					Name, ChannelFitness, HomePage, StyleOrSku, Email, Phone, MainGoods, 
+					BrandName, ChannelFitness, HomePage, StyleOrSku, Email, Phone, MainGoods, 
 					Category, Style, Price, Description, TopCategory, GoodsImageUrl
 				)
 				VALUES
 				(
 					GetDate(), #CreateBy#, #CreateByName#,
-					#Name#, #ChannelFitness#, #HomePage#, #StyleOrSku#, #Email#, #Phone#, #MainGoods#, 
+					#BrandName#, #ChannelFitness#, #HomePage#, #StyleOrSku#, #Email#, #Phone#, #MainGoods#, 
 					#Category#, #Style#, #Price#, #Description#, #TopCategory#, #GoodsImageUrl#
 				)
 			]]>
@@ -111,7 +111,7 @@
 					,	UpdateBy		= #UpdateBy#
 					,	UpdateByName	= #UpdateByName#
 					
-					,	Name			= #Name#
+					,	BrandName		= #BrandName#
 					,	ChannelFitness	= #ChannelFitness#
 					,	HomePage		= #HomePage#
 					,	StyleOrSku		= #StyleOrSku#

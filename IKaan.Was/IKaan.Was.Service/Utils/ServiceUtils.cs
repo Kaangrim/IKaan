@@ -42,8 +42,17 @@ namespace IKaan.Was.Service.Utils
 		{
 			if (sqlId.IsNullOrEmpty())
 				sqlId = string.Concat(req.SqlId, typeof(T).Name);
+
 			var parameter = req.Parameter.JsonToAnyType<DataMap>();
-			var data = DaoFactory.Instance.QueryForObject<T>(sqlId, parameter);
+			T data = default(T);
+
+			if (req.ServiceId.StartsWith("L"))
+				data = DaoFactory.InstanceLib.QueryForObject<T>(sqlId, parameter);
+			else if (req.ServiceId.StartsWith("B"))
+				data = DaoFactory.InstanceBiz.QueryForObject<T>(sqlId, parameter);
+			else
+				data = DaoFactory.Instance.QueryForObject<T>(sqlId, parameter);
+
 			return data;
 		}
 
