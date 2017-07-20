@@ -48,11 +48,9 @@
     <Compile Include="BIZ\BG\BGCategory.cs" />
     <Compile Include="BIZ\BG\BGGoods.cs" />
     <Compile Include="BIZ\BG\BGGoodsItem.cs" />
-    <Compile Include="LIB\LM\LMBrandSearch.cs" />
+    <Compile Include="BIZ\BM\BMSearchBrand.cs" />
     <Compile Include="LIB\LM\LMCustomerBrand.cs" />
     <Compile Include="LIB\LM\LMBrand.cs" />
-    <Compile Include="BIZ\BM\BMChannel.cs" />
-    <Compile Include="BIZ\BM\BMCustomer.cs" />
     <Compile Include="BIZ\BS\BSOrder.cs" />
     <Compile Include="BIZ\BS\BSOrderItem.cs" />
     <Compile Include="SYS\AA\AABookmarkUser.cs" />
@@ -97,9 +95,7 @@
     <Compile Include="SYS\AA\AAUserRole.cs" />
     <Compile Include="SYS\AA\AAView.cs" />
     <Compile Include="SYS\AA\AAViewRole.cs" />
-    <Compile Include="BIZ\BM\BMBusiness.cs" />
     <Compile Include="BIZ\BC\BCHoliday.cs" />
-    <Compile Include="BIZ\BM\BMAddress.cs" />
     <Compile Include="SYS\AC\ACCalendar.cs" />
     <Compile Include="Enums\ColumnTypeEnum.cs" />
     <Compile Include="Enums\FormatTypeEnum.cs" />

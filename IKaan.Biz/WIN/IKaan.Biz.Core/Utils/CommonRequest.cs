@@ -12,16 +12,17 @@ namespace IKaan.Biz.Core.Utils
 		{
 			try
 			{
-				using (var res = WasHandler.Execute<BMAddress>("Base", "Save", "Address", map, "ID"))
-				{
-					if (res.Error.Number != 0)
-						throw new Exception(res.Error.Message);
+				//using (var res = WasHandler.Execute<BMAddress>("Base", "Save", "Address", map, "ID"))
+				//{
+				//	if (res.Error.Number != 0)
+				//		throw new Exception(res.Error.Message);
 
-					if (res.Result.ReturnValue == null)
-						throw new Exception("반환값이 정확하지 않습니다.");
+				//	if (res.Result.ReturnValue == null)
+				//		throw new Exception("반환값이 정확하지 않습니다.");
 
-					return res.Result.ReturnValue.ToIntegerNullToZero();
-				}
+				//	return res.Result.ReturnValue.ToIntegerNullToZero();
+				//}
+				return 0;
 			}
 			catch
 			{

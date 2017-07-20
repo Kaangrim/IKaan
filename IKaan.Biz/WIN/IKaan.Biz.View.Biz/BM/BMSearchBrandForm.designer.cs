@@ -1,6 +1,6 @@
-﻿namespace IKaan.Biz.View.Lib.LM
+﻿namespace IKaan.Biz.View.Biz.BM
 {
-	partial class LMBrandSearchForm
+	partial class BMSearchBrandForm
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -755,8 +755,8 @@
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(990, 565);
-			this.Name = "LMBrandSearchForm";
-			this.Text = "LMBrandSearchForm";
+			this.Name = "BMSearchBrandForm";
+			this.Text = "BMSearchBrandForm";
 			((System.ComponentModel.ISupportInitialize)(this.lc)).EndInit();
 			this.lc.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupBase)).EndInit();

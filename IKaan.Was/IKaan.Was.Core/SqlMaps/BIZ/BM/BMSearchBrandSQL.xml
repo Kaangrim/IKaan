@@ -5,7 +5,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
 
 	<statements>
-		<select id="SelectLMBrandSearchList" parameterClass="DataMap" resultClass="LMBrandSearch" >
+		<select id="SelectBMSearchBrandList" parameterClass="DataMap" resultClass="BMSearchBrand" >
 			<![CDATA[
 				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
 					,	AA.ID
@@ -31,7 +31,7 @@
 					,	AA.BrandImageUrl
 					,	AA.BrandLogoUrl
 					
-				FROM	dbo.LMBrandSearch AA WITH (NOLOCK)
+				FROM	dbo.BMSearchBrand AA WITH (NOLOCK)
 				WHERE	1=1				
 			]]>
 			<isNotEmpty property="FindText">
@@ -56,7 +56,7 @@
 				ORDER BY RowNo
 			]]>
 		</select>
-		<select id="SelectLMBrandSearch" parameterClass="DataMap" resultClass="LMBrandSearch" >
+		<select id="SelectBMSearchBrand" parameterClass="DataMap" resultClass="BMSearchBrand" >
 			<![CDATA[
 				SELECT  AA.ID
 					,	AA.CreateDate
@@ -81,13 +81,13 @@
 					,	AA.BrandImageUrl
 					,	AA.BrandLogoUrl
 					
-				FROM	dbo.LMBrandSearch AA WITH (NOLOCK)
+				FROM	dbo.BMSearchBrand AA WITH (NOLOCK)
 				WHERE	AA.ID = #ID#
 			]]>
 		</select>
-		<insert id="InsertLMBrandSearch" parameterClass="LMBrandSearch" >
+		<insert id="InsertBMSearchBrand" parameterClass="BMSearchBrand" >
 			<![CDATA[
-				INSERT INTO dbo.LMBrandSearch
+				INSERT INTO dbo.BMSearchBrand
 				( 
 					CreateDate, CreateBy, CreateByName,
 					BrandName, ChannelFitness, HomePage, StyleOrSku, Email, Phone, MainGoods, 
@@ -108,9 +108,9 @@
 				]]>
 			</selectKey>
 		</insert>
-		<update id="UpdateLMBrandSearch" parameterClass="LMBrandSearch">
+		<update id="UpdateBMSearchBrand" parameterClass="BMSearchBrand">
 			<![CDATA[
-				UPDATE  dbo.LMBrandSearch
+				UPDATE  dbo.BMSearchBrand
 				SET     UpdateDate		= GetDate()
 					,	UpdateBy		= #UpdateBy#
 					,	UpdateByName	= #UpdateByName#
@@ -132,10 +132,10 @@
 				WHERE	ID				= #ID#
 			]]>
 		</update>
-		<delete id="DeleteLMBrandSearch" parameterClass="DataMap">
+		<delete id="DeleteBMSearchBrand" parameterClass="DataMap">
 			<![CDATA[
 				DELETE 
-				FROM	dbo.LMBrandSearch
+				FROM	dbo.BMSearchBrand
 				WHERE	ID = #ID#
 			]]>
 		</delete>

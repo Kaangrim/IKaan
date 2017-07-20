@@ -12,13 +12,13 @@ using IKaan.Biz.Core.Model;
 using IKaan.Biz.Core.Utils;
 using IKaan.Biz.Core.Variables;
 using IKaan.Biz.Core.Was.Handler;
-using IKaan.Model.LIB.LM;
+using IKaan.Model.BIZ.BM;
 
-namespace IKaan.Biz.View.Lib.LM
+namespace IKaan.Biz.View.Biz.BM
 {
-	public partial class LMBrandSearchForm : EditForm
+	public partial class BMSearchBrandForm : EditForm
 	{
-		public LMBrandSearchForm()
+		public BMSearchBrandForm()
 		{
 			InitializeComponent();
 
@@ -159,7 +159,7 @@ namespace IKaan.Biz.View.Lib.LM
 
 		protected override void DataInit()
 		{
-			ClearControlData<LMBrandSearch>();
+			ClearControlData<BMSearchBrand>();
 			picBrandLogo.EditValue = null;
 			txtBrandLogoUrl.Tag = null;
 			picBrandImage.EditValue = null;
@@ -172,7 +172,7 @@ namespace IKaan.Biz.View.Lib.LM
 
 		protected override void DataLoad(object param = null)
 		{
-			gridList.BindList<LMBrandSearch>("LM", "GetList", "Select", new DataMap() { { "FindText", txtFindText.EditValue } });
+			gridList.BindList<BMSearchBrand>("BM", "GetList", "Select", new DataMap() { { "FindText", txtFindText.EditValue } });
 
 			if (param != null)
 				DetailDataLoad(param);
@@ -184,7 +184,7 @@ namespace IKaan.Biz.View.Lib.LM
 		{
 			try
 			{
-				var model = WasHandler.GetData<LMBrandSearch>("LM", "GetData", "Select", new DataMap() { { "ID", id } });
+				var model = WasHandler.GetData<BMSearchBrand>("BM", "GetData", "Select", new DataMap() { { "ID", id } });
 				if (model == null)
 					throw new Exception("조회할 데이터가 없습니다.");
 
@@ -256,8 +256,8 @@ namespace IKaan.Biz.View.Lib.LM
 
 		private object DataSave()
 		{
-			var model = this.GetControlData<LMBrandSearch>();
-			using (var res = WasHandler.Execute<LMBrandSearch>("LM", "Save", (this.EditMode == EditModeEnum.New) ? "Insert" : "Update", model, "ID"))
+			var model = this.GetControlData<BMSearchBrand>();
+			using (var res = WasHandler.Execute<BMSearchBrand>("BM", "Save", (this.EditMode == EditModeEnum.New) ? "Insert" : "Update", model, "ID"))
 			{
 				if (res.Error.Number != 0)
 					throw new Exception(res.Error.Message);				
@@ -309,7 +309,7 @@ namespace IKaan.Biz.View.Lib.LM
 		private void DataDelete()
 		{
 			DataMap map = new DataMap() { { "ID", txtID.EditValue } };
-			using (var res = WasHandler.Execute<DataMap>("LM", "Delete", "DeleteLMBrandSearch", map, "ID"))
+			using (var res = WasHandler.Execute<DataMap>("BM", "Delete", "DeleteBMSearchBrand", map, "ID"))
 			{
 				if (res.Error.Number != 0)
 					throw new Exception(res.Error.Message);

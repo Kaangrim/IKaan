@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BIZ\BMService.cs" />
     <Compile Include="LIB\LMService.cs" />
     <Compile Include="SYS\ACService.cs" />
     <Compile Include="SYS\AAService.cs" />
@@ -80,7 +81,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="BIZ\" />
     <Folder Include="ECM\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

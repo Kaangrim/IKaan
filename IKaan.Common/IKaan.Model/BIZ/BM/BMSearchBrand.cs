@@ -2,9 +2,9 @@
 using System.Runtime.Serialization;
 using IKaan.Model.Base;
 
-namespace IKaan.Model.LIB.LM
+namespace IKaan.Model.BIZ.BM
 {
-	public class LMBrandSearch : ModelBase
+	public class BMSearchBrand : ModelBase
 	{
 		[DataMember]
 		[Display(Name = "브랜드명")]

@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
-using IKaan.Model.LIB.LM;
+using IKaan.Model.BIZ.BM;
 using IKaan.Model.Was;
 using IKaan.Was.Core.Mappers;
 using IKaan.Was.Service.Utils;
 using Newtonsoft.Json.Linq;
 
-namespace IKaan.Was.Service.LIB
+namespace IKaan.Was.Service.BIZ
 {
-	public static class LMService
+	public static class BMService
 	{
 		public static WasRequest GetList(WasRequest request)
 		{
@@ -37,8 +37,8 @@ namespace IKaan.Was.Service.LIB
 				{
 					switch (req.ModelName)
 					{
-						case "LMBrand":
-							req.SetList<LMBrand>();
+						case "BMSearchBrand":
+							req.SetList<BMSearchBrand>();
 							break;
 					}
 				}
@@ -89,9 +89,8 @@ namespace IKaan.Was.Service.LIB
 				{
 					switch (req.ModelName)
 					{
-						case "LMBrand":
-							req.SetData<LMBrand>();
-							(req.Data as LMBrand).CustomerBrand = req.GetList<LMCustomerBrand>();
+						case "BMSearchBrand":
+							req.SetData<BMSearchBrand>();
 							break;
 					}
 				}
@@ -138,7 +137,7 @@ namespace IKaan.Was.Service.LIB
 
 				if (request.IsTransaction)
 				{
-					DaoFactory.InstanceLib.BeginTransaction();
+					DaoFactory.InstanceBiz.BeginTransaction();
 					isTran = true;
 				}
 
@@ -152,22 +151,22 @@ namespace IKaan.Was.Service.LIB
 							if (req.Data == null)
 								throw new Exception("저장할 데이터가 존재하지 않습니다.");
 
-							//switch (req.ModelName)
-							//{
-							//	case "LMBrandSearch":
-							//		req.SaveData<LMBrandSearch>();
-							//		break;
-							//}
+							switch (req.ModelName)
+							{
+								case "BMSearchBrand":
+									req.SaveData<BMSearchBrand>();
+									break;
+							}
 						}
 					}
 
 					if (isTran)
-						DaoFactory.InstanceLib.CommitTransaction();
+						DaoFactory.InstanceBiz.CommitTransaction();
 				}
 				catch (Exception ex)
 				{
 					if (isTran)
-						DaoFactory.InstanceLib.RollBackTransaction();
+						DaoFactory.InstanceBiz.RollBackTransaction();
 
 					throw new Exception(ex.Message);
 				}
@@ -214,7 +213,7 @@ namespace IKaan.Was.Service.LIB
 
 				if (request.IsTransaction)
 				{
-					DaoFactory.InstanceLib.BeginTransaction();
+					DaoFactory.InstanceBiz.BeginTransaction();
 					isTran = true;
 				}
 
@@ -227,12 +226,12 @@ namespace IKaan.Was.Service.LIB
 					}
 
 					if (isTran)
-						DaoFactory.InstanceLib.CommitTransaction();
+						DaoFactory.InstanceBiz.CommitTransaction();
 				}
 				catch (Exception ex)
 				{
 					if (isTran)
-						DaoFactory.InstanceLib.RollBackTransaction();
+						DaoFactory.InstanceBiz.RollBackTransaction();
 
 					throw new Exception(ex.Message);
 				}

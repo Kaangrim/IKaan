@@ -53,12 +53,17 @@
     <Compile Include="BG\BGGoodsChannelEditForm.designer.cs">
       <DependentUpon>BGGoodsChannelEditForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="BM\BMSearchBrandForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BM\BMSearchBrandForm.designer.cs">
+      <DependentUpon>BMSearchBrandForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="BC\" />
-    <Folder Include="BM\" />
     <Folder Include="BN\" />
     <Folder Include="BP\" />
     <Folder Include="BS\" />
@@ -81,6 +86,9 @@
   <ItemGroup>
     <EmbeddedResource Include="BG\BGGoodsChannelEditForm.resx">
       <DependentUpon>BGGoodsChannelEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BM\BMSearchBrandForm.resx">
+      <DependentUpon>BMSearchBrandForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
   </ItemGroup>
