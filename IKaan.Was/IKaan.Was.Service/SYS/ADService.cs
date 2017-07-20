@@ -266,7 +266,7 @@ namespace IKaan.Was.Service.SYS
 					foreach (WasRequest req in list)
 					{
 						DataMap map = req.Data.JsonToAnyType<DataMap>();
-						DaoFactory.Instance.Delete(string.Concat(req.SqlId, req.ModelName), map);
+						DaoFactory.Instance.Delete(req.SqlId, map);
 					}
 
 					if (isTran)

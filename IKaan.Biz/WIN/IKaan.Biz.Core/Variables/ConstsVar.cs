@@ -41,12 +41,22 @@
 		//Dictionary Case
 		public const string DICTIONARY_CASE = "PascalCase"; //PascalCase, CamelCase, UpperCase
 
-		//FTP
-		public const string FTP_URL = @"kaangrim.whoisimg.com";
-		public const string FTP_ID = "kaangrim";
-		public const string FTP_PW = "kaangrim0528";
+		//Image Server
+		public const string IMG_FTP_URL = @"kaangrim.whoisimg.com";
+		public const string IMG_FTP_ID = "kaangrim";
+		public const string IMG_FTP_PW = "kaangrim0528";
 
-		public const string FTP_IMG_BRAND_LOGO = @"/LIB/BrandLogo/";
-		public const string FTP_IMG_BRAND_IMAGE = @"/LIB/BrandImage/";
+		public const string DOC_URL = @"http://kaangrim.whoisimg.com";
+		public const string DOC_URL_ROOT = @"/Documents";
+
+		public const string IMG_URL = @"http://kaangrim.whoisimg.com";
+		public const string IMG_URL_ROOT = @"/Images";
+
+		public const string IMG_URL_BRAND = @"/Images/Brand";
+		public const string IMG_URL_GOODS = @"/Images/Goods";
+		public const string IMG_URL_SEARCH_BRAND = @"/Images/SearchBrand";
+
+		public const string FILE_DEFINE_BRAND_LOGO = "{0}_LOGO";	//{0} : 브랜드ID
+		public const string FILE_DEFINE_BRAND_MAIN = "{0}_MAIN";	
 	}
 }

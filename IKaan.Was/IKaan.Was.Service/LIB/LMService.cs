@@ -229,7 +229,7 @@ namespace IKaan.Was.Service.LIB
 					foreach (WasRequest req in list)
 					{
 						DataMap map = req.Data.JsonToAnyType<DataMap>();
-						DaoFactory.InstanceLib.Delete(string.Concat(req.SqlId, req.ModelName), map);
+						DaoFactory.InstanceLib.Delete(req.SqlId, map);
 					}
 
 					if (isTran)

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Drawing.Imaging;
-using System.IO;
 using System.Windows.Forms;
 using DevExpress.Utils;
 using DevExpress.XtraTreeList;
@@ -12,6 +10,7 @@ using IKaan.Biz.Core.Handler;
 using IKaan.Biz.Core.Helper;
 using IKaan.Biz.Core.Model;
 using IKaan.Biz.Core.Resources;
+using IKaan.Biz.Core.Utils;
 using IKaan.Biz.Core.Variables;
 
 namespace IKaan.Biz.View.Sys.AC
@@ -101,7 +100,7 @@ namespace IKaan.Biz.View.Sys.AC
 			#endregion
 			
 			#region MouseClick
-			treeDirectories.MouseClick += delegate (object sender, MouseEventArgs e)
+			treeDirectories.MouseDoubleClick += delegate (object sender, MouseEventArgs e)
 			{
 				try
 				{
@@ -160,7 +159,7 @@ namespace IKaan.Biz.View.Sys.AC
 			#endregion
 
 			#region MouseClick
-			treeFiles.MouseClick += delegate (object sender, MouseEventArgs e)
+			treeFiles.MouseDoubleClick += delegate (object sender, MouseEventArgs e)
 			{
 				try
 				{
@@ -175,7 +174,7 @@ namespace IKaan.Biz.View.Sys.AC
 						}
 						else
 						{
-							string filePath = string.Concat("http://", ConstsVar.FTP_URL, info.Node["FullName"].ToString());
+							string filePath = string.Concat("http://", ConstsVar.IMG_FTP_URL, info.Node["FullName"].ToString());
 							picImage.LoadAsync(filePath);
 							memFileInfo.Text = filePath;
 						}
@@ -256,35 +255,11 @@ namespace IKaan.Biz.View.Sys.AC
 		{
 			try
 			{
-				// Configure open file dialog box 
-				using (OpenFileDialog dlg = new OpenFileDialog())
+				var info = DialogUtils.OpenImageFile();
+				if (info != null)
 				{
-					dlg.Filter = "";
-
-					ImageCodecInfo[] codecs = ImageCodecInfo.GetImageEncoders();
-					string sep = string.Empty;
-
-					foreach (var c in codecs)
-					{
-						string codecName = c.CodecName.Substring(8).Replace("Codec", "Files").Trim();
-						dlg.Filter = String.Format("{0}{1}{2} ({3})|{3}", dlg.Filter, sep, codecName, c.FilenameExtension);
-						sep = "|";
-					}
-
-					dlg.Filter = String.Format("{0}{1}{2} ({3})|{3}", dlg.Filter, sep, "All Files", "*.*");
-
-					dlg.DefaultExt = ".png"; // Default file extension 
-
-					// Show open file dialog box 
-					if (dlg.ShowDialog() == DialogResult.OK)
-					{
-						// Open document 
-						string filePath = dlg.FileName;
-						string fileName = Path.GetFileName(filePath);
-						// Do something with fileName  
-						FTPHandler.Upload(filePath, esPath.Text + "/" + fileName);
-						DetailDataLoad(esPath.Text);
-					}
+					FTPHandler.Upload(info.FullName, esPath.Text + "/" + info.Name);
+					DetailDataLoad(esPath.Text);
 				}
 			}
 			catch(Exception ex)
@@ -297,14 +272,28 @@ namespace IKaan.Biz.View.Sys.AC
 		{
 			try
 			{
-				if (MsgBox.Show("선택한 이미지를 삭제하겠습니까?", "확인!!", MessageBoxButtons.YesNo) != DialogResult.Yes)
-					return;
-
 				var node = treeFiles.FocusedNode;
 				if (node != null)
 				{
-					FTPHandler.Delete(node["FullName"].ToString(), node["Type"].ToString());
-					DetailDataLoad(esPath.Text);
+					string type = node["Type"].ToString();
+					string fullName = node["FullName"].ToStringNullToEmpty();
+
+					if (fullName.IsNullOrEmpty() == false)
+					{
+						if (type == "F")
+						{
+							if (MsgBox.Show("선택한 파일을 삭제하겠습니까?" + Environment.NewLine + fullName, "확인!!", MessageBoxButtons.YesNo) != DialogResult.Yes)
+								return;
+							FTPHandler.DeleteFile(fullName);
+						}
+						else if (type == "D")
+						{
+							if (MsgBox.Show("선택한 폴더를 삭제하겠습니까?" + Environment.NewLine + fullName, "확인!!", MessageBoxButtons.YesNo) != DialogResult.Yes)
+								return;
+							FTPHandler.DeleteDirectory(fullName);
+						}
+						DetailDataLoad(esPath.Text);
+					}
 				}
 			}
 			catch(Exception ex)

@@ -80,18 +80,14 @@
 			this.lcGroupEdit3 = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.picBrandLogo = new DevExpress.XtraEditors.PictureEdit();
 			this.lcItemBrandLogo = new DevExpress.XtraLayout.LayoutControlItem();
-			this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
-			this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
-			this.simpleButton2 = new DevExpress.XtraEditors.SimpleButton();
-			this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
 			this.lcTabGroupEdit4 = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.lcGroupEdit4 = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.picBrandImage = new DevExpress.XtraEditors.PictureEdit();
 			this.lcItemBrandImage = new DevExpress.XtraLayout.LayoutControlItem();
-			this.simpleButton3 = new DevExpress.XtraEditors.SimpleButton();
-			this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
-			this.simpleButton4 = new DevExpress.XtraEditors.SimpleButton();
-			this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
+			this.txtBrandLogoUrl = new DevExpress.XtraEditors.ButtonEdit();
+			this.lcItemBrandLogoUrl = new DevExpress.XtraLayout.LayoutControlItem();
+			this.txtBrandImageUrl = new DevExpress.XtraEditors.ButtonEdit();
+			this.lcItemBrandImageUrl = new DevExpress.XtraLayout.LayoutControlItem();
 			((System.ComponentModel.ISupportInitialize)(this.lc)).BeginInit();
 			this.lc.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupBase)).BeginInit();
@@ -146,23 +142,21 @@
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupEdit3)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.picBrandLogo.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemBrandLogo)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcTabGroupEdit4)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupEdit4)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.picBrandImage.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemBrandImage)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtBrandLogoUrl.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemBrandLogoUrl)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtBrandImageUrl.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemBrandImageUrl)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// lc
 			// 
-			this.lc.Controls.Add(this.simpleButton4);
-			this.lc.Controls.Add(this.simpleButton3);
+			this.lc.Controls.Add(this.txtBrandImageUrl);
+			this.lc.Controls.Add(this.txtBrandLogoUrl);
 			this.lc.Controls.Add(this.picBrandImage);
-			this.lc.Controls.Add(this.simpleButton2);
-			this.lc.Controls.Add(this.simpleButton1);
 			this.lc.Controls.Add(this.picBrandLogo);
 			this.lc.Controls.Add(this.textEdit10);
 			this.lc.Controls.Add(this.textEdit9);
@@ -600,8 +594,8 @@
 			this.lcTab.Location = new System.Drawing.Point(0, 86);
 			this.lcTab.Name = "lcTab";
 			this.lcTab.Padding = new DevExpress.XtraLayout.Utils.Padding(2, 2, 2, 2);
-			this.lcTab.SelectedTabPage = this.lcTabGroupEdit2;
-			this.lcTab.SelectedTabPageIndex = 0;
+			this.lcTab.SelectedTabPage = this.lcTabGroupEdit4;
+			this.lcTab.SelectedTabPageIndex = 2;
 			this.lcTab.Size = new System.Drawing.Size(523, 403);
 			this.lcTab.TabPages.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.lcTabGroupEdit2,
@@ -651,8 +645,7 @@
 			// 
 			this.lcGroupEdit3.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.lcItemBrandLogo,
-            this.layoutControlItem1,
-            this.layoutControlItem2});
+            this.lcItemBrandLogoUrl});
 			this.lcGroupEdit3.Location = new System.Drawing.Point(0, 0);
 			this.lcGroupEdit3.Name = "lcGroupEdit3";
 			this.lcGroupEdit3.Padding = new DevExpress.XtraLayout.Utils.Padding(2, 2, 2, 2);
@@ -666,7 +659,7 @@
 			this.picBrandLogo.Name = "picBrandLogo";
 			this.picBrandLogo.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.Auto;
 			this.picBrandLogo.Properties.ZoomAccelerationFactor = 1D;
-			this.picBrandLogo.Size = new System.Drawing.Size(499, 330);
+			this.picBrandLogo.Size = new System.Drawing.Size(499, 332);
 			this.picBrandLogo.StyleController = this.lc;
 			this.picBrandLogo.TabIndex = 34;
 			// 
@@ -675,45 +668,9 @@
 			this.lcItemBrandLogo.Control = this.picBrandLogo;
 			this.lcItemBrandLogo.Location = new System.Drawing.Point(0, 0);
 			this.lcItemBrandLogo.Name = "lcItemBrandLogo";
-			this.lcItemBrandLogo.Size = new System.Drawing.Size(503, 334);
+			this.lcItemBrandLogo.Size = new System.Drawing.Size(503, 336);
 			this.lcItemBrandLogo.TextSize = new System.Drawing.Size(0, 0);
 			this.lcItemBrandLogo.TextVisible = false;
-			// 
-			// simpleButton1
-			// 
-			this.simpleButton1.Location = new System.Drawing.Point(477, 457);
-			this.simpleButton1.Name = "simpleButton1";
-			this.simpleButton1.Size = new System.Drawing.Size(250, 22);
-			this.simpleButton1.StyleController = this.lc;
-			this.simpleButton1.TabIndex = 36;
-			this.simpleButton1.Text = "simpleButton1";
-			// 
-			// layoutControlItem1
-			// 
-			this.layoutControlItem1.Control = this.simpleButton1;
-			this.layoutControlItem1.Location = new System.Drawing.Point(0, 334);
-			this.layoutControlItem1.Name = "layoutControlItem1";
-			this.layoutControlItem1.Size = new System.Drawing.Size(254, 26);
-			this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
-			this.layoutControlItem1.TextVisible = false;
-			// 
-			// simpleButton2
-			// 
-			this.simpleButton2.Location = new System.Drawing.Point(731, 457);
-			this.simpleButton2.Name = "simpleButton2";
-			this.simpleButton2.Size = new System.Drawing.Size(245, 22);
-			this.simpleButton2.StyleController = this.lc;
-			this.simpleButton2.TabIndex = 37;
-			this.simpleButton2.Text = "simpleButton2";
-			// 
-			// layoutControlItem2
-			// 
-			this.layoutControlItem2.Control = this.simpleButton2;
-			this.layoutControlItem2.Location = new System.Drawing.Point(254, 334);
-			this.layoutControlItem2.Name = "layoutControlItem2";
-			this.layoutControlItem2.Size = new System.Drawing.Size(249, 26);
-			this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
-			this.layoutControlItem2.TextVisible = false;
 			// 
 			// lcTabGroupEdit4
 			// 
@@ -728,8 +685,7 @@
 			// 
 			this.lcGroupEdit4.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.lcItemBrandImage,
-            this.layoutControlItem5,
-            this.layoutControlItem6});
+            this.lcItemBrandImageUrl});
 			this.lcGroupEdit4.Location = new System.Drawing.Point(0, 0);
 			this.lcGroupEdit4.Name = "lcGroupEdit4";
 			this.lcGroupEdit4.Padding = new DevExpress.XtraLayout.Utils.Padding(2, 2, 2, 2);
@@ -743,7 +699,7 @@
 			this.picBrandImage.Name = "picBrandImage";
 			this.picBrandImage.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.Auto;
 			this.picBrandImage.Properties.ZoomAccelerationFactor = 1D;
-			this.picBrandImage.Size = new System.Drawing.Size(499, 330);
+			this.picBrandImage.Size = new System.Drawing.Size(499, 332);
 			this.picBrandImage.StyleController = this.lc;
 			this.picBrandImage.TabIndex = 38;
 			// 
@@ -752,45 +708,47 @@
 			this.lcItemBrandImage.Control = this.picBrandImage;
 			this.lcItemBrandImage.Location = new System.Drawing.Point(0, 0);
 			this.lcItemBrandImage.Name = "lcItemBrandImage";
-			this.lcItemBrandImage.Size = new System.Drawing.Size(503, 334);
+			this.lcItemBrandImage.Size = new System.Drawing.Size(503, 336);
 			this.lcItemBrandImage.TextSize = new System.Drawing.Size(0, 0);
 			this.lcItemBrandImage.TextVisible = false;
 			// 
-			// simpleButton3
+			// txtBrandLogoUrl
 			// 
-			this.simpleButton3.Location = new System.Drawing.Point(477, 457);
-			this.simpleButton3.Name = "simpleButton3";
-			this.simpleButton3.Size = new System.Drawing.Size(247, 22);
-			this.simpleButton3.StyleController = this.lc;
-			this.simpleButton3.TabIndex = 39;
-			this.simpleButton3.Text = "simpleButton3";
+			this.txtBrandLogoUrl.Location = new System.Drawing.Point(599, 459);
+			this.txtBrandLogoUrl.Name = "txtBrandLogoUrl";
+			this.txtBrandLogoUrl.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(),
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Delete)});
+			this.txtBrandLogoUrl.Size = new System.Drawing.Size(377, 20);
+			this.txtBrandLogoUrl.StyleController = this.lc;
+			this.txtBrandLogoUrl.TabIndex = 39;
 			// 
-			// layoutControlItem5
+			// lcItemBrandLogoUrl
 			// 
-			this.layoutControlItem5.Control = this.simpleButton3;
-			this.layoutControlItem5.Location = new System.Drawing.Point(0, 334);
-			this.layoutControlItem5.Name = "layoutControlItem5";
-			this.layoutControlItem5.Size = new System.Drawing.Size(251, 26);
-			this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
-			this.layoutControlItem5.TextVisible = false;
+			this.lcItemBrandLogoUrl.Control = this.txtBrandLogoUrl;
+			this.lcItemBrandLogoUrl.Location = new System.Drawing.Point(0, 336);
+			this.lcItemBrandLogoUrl.Name = "lcItemBrandLogoUrl";
+			this.lcItemBrandLogoUrl.Size = new System.Drawing.Size(503, 24);
+			this.lcItemBrandLogoUrl.TextSize = new System.Drawing.Size(118, 14);
 			// 
-			// simpleButton4
+			// txtBrandImageUrl
 			// 
-			this.simpleButton4.Location = new System.Drawing.Point(728, 457);
-			this.simpleButton4.Name = "simpleButton4";
-			this.simpleButton4.Size = new System.Drawing.Size(248, 22);
-			this.simpleButton4.StyleController = this.lc;
-			this.simpleButton4.TabIndex = 40;
-			this.simpleButton4.Text = "simpleButton4";
+			this.txtBrandImageUrl.Location = new System.Drawing.Point(599, 459);
+			this.txtBrandImageUrl.Name = "txtBrandImageUrl";
+			this.txtBrandImageUrl.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(),
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Delete)});
+			this.txtBrandImageUrl.Size = new System.Drawing.Size(377, 20);
+			this.txtBrandImageUrl.StyleController = this.lc;
+			this.txtBrandImageUrl.TabIndex = 40;
 			// 
-			// layoutControlItem6
+			// lcItemBrandImageUrl
 			// 
-			this.layoutControlItem6.Control = this.simpleButton4;
-			this.layoutControlItem6.Location = new System.Drawing.Point(251, 334);
-			this.layoutControlItem6.Name = "layoutControlItem6";
-			this.layoutControlItem6.Size = new System.Drawing.Size(252, 26);
-			this.layoutControlItem6.TextSize = new System.Drawing.Size(0, 0);
-			this.layoutControlItem6.TextVisible = false;
+			this.lcItemBrandImageUrl.Control = this.txtBrandImageUrl;
+			this.lcItemBrandImageUrl.Location = new System.Drawing.Point(0, 336);
+			this.lcItemBrandImageUrl.Name = "lcItemBrandImageUrl";
+			this.lcItemBrandImageUrl.Size = new System.Drawing.Size(503, 24);
+			this.lcItemBrandImageUrl.TextSize = new System.Drawing.Size(118, 14);
 			// 
 			// LMBrandSearchForm
 			// 
@@ -853,14 +811,14 @@
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupEdit3)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.picBrandLogo.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemBrandLogo)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcTabGroupEdit4)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupEdit4)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.picBrandImage.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemBrandImage)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtBrandLogoUrl.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemBrandLogoUrl)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtBrandImageUrl.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemBrandImageUrl)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -919,17 +877,13 @@
 		private DevExpress.XtraLayout.LayoutControlGroup lcGroupEdit3;
 		private DevExpress.XtraEditors.PictureEdit picBrandLogo;
 		private DevExpress.XtraLayout.LayoutControlItem lcItemBrandLogo;
-		private DevExpress.XtraEditors.SimpleButton simpleButton2;
-		private DevExpress.XtraEditors.SimpleButton simpleButton1;
-		private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
-		private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
 		private DevExpress.XtraLayout.LayoutControlGroup lcTabGroupEdit4;
 		private DevExpress.XtraLayout.LayoutControlGroup lcGroupEdit4;
-		private DevExpress.XtraEditors.SimpleButton simpleButton4;
-		private DevExpress.XtraEditors.SimpleButton simpleButton3;
 		private DevExpress.XtraEditors.PictureEdit picBrandImage;
 		private DevExpress.XtraLayout.LayoutControlItem lcItemBrandImage;
-		private DevExpress.XtraLayout.LayoutControlItem layoutControlItem5;
-		private DevExpress.XtraLayout.LayoutControlItem layoutControlItem6;
+		private DevExpress.XtraEditors.ButtonEdit txtBrandLogoUrl;
+		private DevExpress.XtraLayout.LayoutControlItem lcItemBrandLogoUrl;
+		private DevExpress.XtraEditors.ButtonEdit txtBrandImageUrl;
+		private DevExpress.XtraLayout.LayoutControlItem lcItemBrandImageUrl;
 	}
 }

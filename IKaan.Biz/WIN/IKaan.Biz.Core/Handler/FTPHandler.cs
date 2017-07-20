@@ -14,9 +14,9 @@ namespace IKaan.Biz.Core.Handler
 {
 	public class FTPHandler
 	{
-		private static string url = ConstsVar.FTP_URL;
-		private static string id = ConstsVar.FTP_ID;
-		private static string pw = ConstsVar.FTP_PW;
+		private static string url = ConstsVar.IMG_FTP_URL;
+		private static string id = ConstsVar.IMG_FTP_ID;
+		private static string pw = ConstsVar.IMG_FTP_PW;
 		private static int index = 0;
 		private static int parentID = 0;
 
@@ -35,6 +35,7 @@ namespace IKaan.Biz.Core.Handler
 				ftp.Disconnect();
 			}
 		}
+
 		public static void Upload(string localPath, string remotePath)
 		{
 			try
@@ -48,6 +49,8 @@ namespace IKaan.Biz.Core.Handler
 					ftp.Host = url;
 					ftp.Credentials = new System.Net.NetworkCredential(id, pw);
 					ftp.Connect();
+					if (ftp.FileExists(remotePath))
+						ftp.DeleteFile(remotePath);
 					ftp.UploadFile(localPath, remotePath);
 					ftp.Disconnect();
 				}
@@ -57,7 +60,45 @@ namespace IKaan.Biz.Core.Handler
 				throw;
 			}
 		}
-		public static void Delete(string remotePath, string type)
+		public static string UploadSearchBrand(string localPath, string brandID, string type)
+		{
+			try
+			{
+				if (localPath.IsNullOrEmpty())
+					throw new Exception("로컬 파일 경로가 정확하지 않습니다.");
+
+				string fileName = string.Empty;
+				if (type.Equals("LOGO"))
+					fileName = string.Format(ConstsVar.FILE_DEFINE_BRAND_LOGO, brandID);
+				else if (type.Equals("MAIN"))
+					fileName = string.Format(ConstsVar.FILE_DEFINE_BRAND_MAIN, brandID);
+				else
+					throw new Exception("업로드 이미지 구분이 올바르지 않습니다.");
+
+				string remotePath = ConstsVar.IMG_URL_SEARCH_BRAND + "/" + brandID;
+				string remoteFull = remotePath + "/" + fileName;
+
+				using (var ftp = new FtpClient())
+				{
+					ftp.Host = url;
+					ftp.Credentials = new System.Net.NetworkCredential(id, pw);
+					ftp.Connect();
+					if (ftp.DirectoryExists(remotePath) == false)
+						ftp.CreateDirectory(remotePath);
+					if (ftp.FileExists(remoteFull))
+						ftp.DeleteFile(remoteFull);
+					ftp.UploadFile(localPath, remoteFull);
+					ftp.Disconnect();
+				}
+				return remoteFull;
+			}
+			catch
+			{
+				throw;
+			}
+		}
+
+		public static void DeleteFile(string remotePath)
 		{
 			try
 			{
@@ -69,9 +110,29 @@ namespace IKaan.Biz.Core.Handler
 					ftp.Host = url;
 					ftp.Credentials = new System.Net.NetworkCredential(id, pw);
 					ftp.Connect();
-					if (type == "F")
+					if (ftp.FileExists(remotePath))
 						ftp.DeleteFile(remotePath);
-					else if (type == "D")
+					ftp.Disconnect();
+				}
+			}
+			catch
+			{
+				throw;
+			}
+		}
+		public static void DeleteDirectory(string remotePath)
+		{
+			try
+			{
+				if (remotePath.IsNullOrEmpty())
+					return;
+
+				using (var ftp = new FtpClient())
+				{
+					ftp.Host = url;
+					ftp.Credentials = new System.Net.NetworkCredential(id, pw);
+					ftp.Connect();
+					if (ftp.DirectoryExists(remotePath))
 						ftp.DeleteDirectory(remotePath);
 					ftp.Disconnect();
 				}
