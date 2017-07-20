@@ -8,7 +8,7 @@ namespace IKaan.Model.LIB.LM
 	{
 		[DataMember]
 		[Display(Name = "브랜드명")]
-		public string Name { get; set; }
+		public string BrandName { get; set; }
 
 		[DataMember]
 		[Display(Name = "채널적합도")]
@@ -55,7 +55,11 @@ namespace IKaan.Model.LIB.LM
 		public string TopCategory { get; set; }
 
 		[DataMember]
-		[Display(Name = "이미지")]
-		public string GoodsImageUrl { get; set; }
+		[Display(Name = "브랜드이미지")]
+		public string BrandImageUrl { get; set; }
+
+		[DataMember]
+		[Display(Name = "브랜드로고이미지")]
+		public string BrandLogoUrl { get; set; }
 	}
 }
