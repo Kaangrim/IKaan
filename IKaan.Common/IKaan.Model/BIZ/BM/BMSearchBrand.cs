@@ -55,8 +55,8 @@ namespace IKaan.Model.BIZ.BM
 		public string TopCategory { get; set; }
 
 		[DataMember]
-		[Display(Name = "브랜드이미지")]
-		public string BrandImageUrl { get; set; }
+		[Display(Name = "브랜드대표이미지")]
+		public string BrandMainUrl { get; set; }
 
 		[DataMember]
 		[Display(Name = "브랜드로고이미지")]

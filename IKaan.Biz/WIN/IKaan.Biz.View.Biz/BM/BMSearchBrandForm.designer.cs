@@ -38,10 +38,12 @@
 			this.lcItemID = new DevExpress.XtraLayout.LayoutControlItem();
 			this.txtID = new DevExpress.XtraEditors.TextEdit();
 			this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
-			this.lcItemDescription = new DevExpress.XtraLayout.LayoutControlItem();
-			this.memDescription = new DevExpress.XtraEditors.MemoEdit();
 			this.lcItemBrandName = new DevExpress.XtraLayout.LayoutControlItem();
 			this.txtBrandName = new DevExpress.XtraEditors.TextEdit();
+			this.lcItemTopCategory = new DevExpress.XtraLayout.LayoutControlItem();
+			this.textEdit10 = new DevExpress.XtraEditors.TextEdit();
+			this.lcItemDescription = new DevExpress.XtraLayout.LayoutControlItem();
+			this.memDescription = new DevExpress.XtraEditors.MemoEdit();
 			this.lcItemChannelFitness = new DevExpress.XtraLayout.LayoutControlItem();
 			this.textEdit1 = new DevExpress.XtraEditors.TextEdit();
 			this.lcItemHomePage = new DevExpress.XtraLayout.LayoutControlItem();
@@ -60,8 +62,6 @@
 			this.textEdit8 = new DevExpress.XtraEditors.TextEdit();
 			this.lcItemPrice = new DevExpress.XtraLayout.LayoutControlItem();
 			this.textEdit9 = new DevExpress.XtraEditors.TextEdit();
-			this.lcItemTopCategory = new DevExpress.XtraLayout.LayoutControlItem();
-			this.textEdit10 = new DevExpress.XtraEditors.TextEdit();
 			this.splitterItem1 = new DevExpress.XtraLayout.SplitterItem();
 			this.lcGroupRegInfo = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.lcItemCreateDate = new DevExpress.XtraLayout.LayoutControlItem();
@@ -74,20 +74,20 @@
 			this.txtUpdateByName = new DevExpress.XtraEditors.TextEdit();
 			this.lcGroupEditBase = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.lcTab = new DevExpress.XtraLayout.TabbedControlGroup();
+			this.lcTabGroupEdit4 = new DevExpress.XtraLayout.LayoutControlGroup();
+			this.lcGroupEdit4 = new DevExpress.XtraLayout.LayoutControlGroup();
+			this.lcItemBrandImage = new DevExpress.XtraLayout.LayoutControlItem();
+			this.picBrandMain = new DevExpress.XtraEditors.PictureEdit();
+			this.lcItemBrandMainUrl = new DevExpress.XtraLayout.LayoutControlItem();
+			this.txtBrandMainUrl = new DevExpress.XtraEditors.ButtonEdit();
 			this.lcTabGroupEdit2 = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.lcGroupEdit2 = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.lcTabGroupEdit3 = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.lcGroupEdit3 = new DevExpress.XtraLayout.LayoutControlGroup();
-			this.picBrandLogo = new DevExpress.XtraEditors.PictureEdit();
 			this.lcItemBrandLogo = new DevExpress.XtraLayout.LayoutControlItem();
-			this.lcTabGroupEdit4 = new DevExpress.XtraLayout.LayoutControlGroup();
-			this.lcGroupEdit4 = new DevExpress.XtraLayout.LayoutControlGroup();
-			this.picBrandImage = new DevExpress.XtraEditors.PictureEdit();
-			this.lcItemBrandImage = new DevExpress.XtraLayout.LayoutControlItem();
-			this.txtBrandLogoUrl = new DevExpress.XtraEditors.ButtonEdit();
+			this.picBrandLogo = new DevExpress.XtraEditors.PictureEdit();
 			this.lcItemBrandLogoUrl = new DevExpress.XtraLayout.LayoutControlItem();
-			this.txtBrandImageUrl = new DevExpress.XtraEditors.ButtonEdit();
-			this.lcItemBrandImageUrl = new DevExpress.XtraLayout.LayoutControlItem();
+			this.txtBrandLogoUrl = new DevExpress.XtraEditors.ButtonEdit();
 			((System.ComponentModel.ISupportInitialize)(this.lc)).BeginInit();
 			this.lc.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupBase)).BeginInit();
@@ -100,10 +100,12 @@
 			((System.ComponentModel.ISupportInitialize)(this.lcItemID)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.txtID.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemDescription)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.memDescription.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemBrandName)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.txtBrandName.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemTopCategory)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.textEdit10.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemDescription)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.memDescription.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemChannelFitness)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemHomePage)).BeginInit();
@@ -122,8 +124,6 @@
 			((System.ComponentModel.ISupportInitialize)(this.textEdit8.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemPrice)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.textEdit9.Properties)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemTopCategory)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.textEdit10.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.splitterItem1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupRegInfo)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemCreateDate)).BeginInit();
@@ -136,27 +136,27 @@
 			((System.ComponentModel.ISupportInitialize)(this.txtUpdateByName.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupEditBase)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcTab)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcTabGroupEdit4)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcGroupEdit4)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemBrandImage)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.picBrandMain.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemBrandMainUrl)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtBrandMainUrl.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcTabGroupEdit2)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupEdit2)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcTabGroupEdit3)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupEdit3)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.picBrandLogo.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemBrandLogo)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcTabGroupEdit4)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcGroupEdit4)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.picBrandImage.Properties)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemBrandImage)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.txtBrandLogoUrl.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.picBrandLogo.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemBrandLogoUrl)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.txtBrandImageUrl.Properties)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemBrandImageUrl)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtBrandLogoUrl.Properties)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// lc
 			// 
-			this.lc.Controls.Add(this.txtBrandImageUrl);
+			this.lc.Controls.Add(this.txtBrandMainUrl);
 			this.lc.Controls.Add(this.txtBrandLogoUrl);
-			this.lc.Controls.Add(this.picBrandImage);
+			this.lc.Controls.Add(this.picBrandMain);
 			this.lc.Controls.Add(this.picBrandLogo);
 			this.lc.Controls.Add(this.textEdit10);
 			this.lc.Controls.Add(this.textEdit9);
@@ -201,7 +201,7 @@
 			this.lcGroupFind.Location = new System.Drawing.Point(0, 0);
 			this.lcGroupFind.Name = "lcGroupFind";
 			this.lcGroupFind.Padding = new DevExpress.XtraLayout.Utils.Padding(4, 4, 4, 4);
-			this.lcGroupFind.Size = new System.Drawing.Size(458, 489);
+			this.lcGroupFind.Size = new System.Drawing.Size(459, 489);
 			this.lcGroupFind.Text = "검색";
 			this.lcGroupFind.TextVisible = false;
 			// 
@@ -212,21 +212,21 @@
 			this.lcGroupSearch.Location = new System.Drawing.Point(0, 0);
 			this.lcGroupSearch.Name = "lcGroupSearch";
 			this.lcGroupSearch.Padding = new DevExpress.XtraLayout.Utils.Padding(4, 4, 4, 4);
-			this.lcGroupSearch.Size = new System.Drawing.Size(444, 57);
+			this.lcGroupSearch.Size = new System.Drawing.Size(445, 57);
 			// 
 			// lcItemFindText
 			// 
 			this.lcItemFindText.Control = this.txtFindText;
 			this.lcItemFindText.Location = new System.Drawing.Point(0, 0);
 			this.lcItemFindText.Name = "lcItemFindText";
-			this.lcItemFindText.Size = new System.Drawing.Size(430, 24);
+			this.lcItemFindText.Size = new System.Drawing.Size(431, 24);
 			this.lcItemFindText.TextSize = new System.Drawing.Size(118, 14);
 			// 
 			// txtFindText
 			// 
 			this.txtFindText.Location = new System.Drawing.Point(140, 37);
 			this.txtFindText.Name = "txtFindText";
-			this.txtFindText.Size = new System.Drawing.Size(304, 20);
+			this.txtFindText.Size = new System.Drawing.Size(305, 20);
 			this.txtFindText.StyleController = this.lc;
 			this.txtFindText.TabIndex = 4;
 			// 
@@ -235,7 +235,7 @@
 			this.layoutControlItem3.Control = this.gridList;
 			this.layoutControlItem3.Location = new System.Drawing.Point(0, 57);
 			this.layoutControlItem3.Name = "layoutControlItem3";
-			this.layoutControlItem3.Size = new System.Drawing.Size(444, 418);
+			this.layoutControlItem3.Size = new System.Drawing.Size(445, 418);
 			this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
 			this.layoutControlItem3.TextVisible = false;
 			// 
@@ -260,7 +260,7 @@
 			this.gridList.ReadOnly = false;
 			this.gridList.ShowFooter = false;
 			this.gridList.ShowGroupPanel = false;
-			this.gridList.Size = new System.Drawing.Size(440, 414);
+			this.gridList.Size = new System.Drawing.Size(441, 414);
 			this.gridList.TabIndex = 7;
 			// 
 			// lcGroupEdit1
@@ -273,7 +273,7 @@
 			this.lcGroupEdit1.Location = new System.Drawing.Point(0, 0);
 			this.lcGroupEdit1.Name = "lcGroupEdit1";
 			this.lcGroupEdit1.Padding = new DevExpress.XtraLayout.Utils.Padding(4, 4, 4, 4);
-			this.lcGroupEdit1.Size = new System.Drawing.Size(523, 86);
+			this.lcGroupEdit1.Size = new System.Drawing.Size(522, 86);
 			this.lcGroupEdit1.TextVisible = false;
 			// 
 			// lcItemID
@@ -283,70 +283,86 @@
 			this.lcItemID.Control = this.txtID;
 			this.lcItemID.Location = new System.Drawing.Point(0, 0);
 			this.lcItemID.Name = "lcItemID";
-			this.lcItemID.Size = new System.Drawing.Size(270, 24);
+			this.lcItemID.Size = new System.Drawing.Size(269, 24);
 			this.lcItemID.TextSize = new System.Drawing.Size(118, 17);
 			// 
 			// txtID
 			// 
-			this.txtID.Location = new System.Drawing.Point(596, 11);
+			this.txtID.Location = new System.Drawing.Point(597, 11);
 			this.txtID.Name = "txtID";
-			this.txtID.Size = new System.Drawing.Size(144, 20);
+			this.txtID.Size = new System.Drawing.Size(143, 20);
 			this.txtID.StyleController = this.lc;
 			this.txtID.TabIndex = 5;
 			// 
 			// emptySpaceItem1
 			// 
 			this.emptySpaceItem1.AllowHotTrack = false;
-			this.emptySpaceItem1.Location = new System.Drawing.Point(270, 0);
+			this.emptySpaceItem1.Location = new System.Drawing.Point(269, 0);
 			this.emptySpaceItem1.Name = "emptySpaceItem1";
 			this.emptySpaceItem1.Size = new System.Drawing.Size(239, 24);
 			this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
-			// 
-			// lcItemDescription
-			// 
-			this.lcItemDescription.Control = this.memDescription;
-			this.lcItemDescription.Location = new System.Drawing.Point(0, 216);
-			this.lcItemDescription.Name = "lcItemDescription";
-			this.lcItemDescription.Size = new System.Drawing.Size(499, 78);
-			this.lcItemDescription.TextSize = new System.Drawing.Size(118, 14);
-			// 
-			// memDescription
-			// 
-			this.memDescription.Location = new System.Drawing.Point(601, 341);
-			this.memDescription.Name = "memDescription";
-			this.memDescription.Size = new System.Drawing.Size(373, 74);
-			this.memDescription.StyleController = this.lc;
-			this.memDescription.TabIndex = 14;
 			// 
 			// lcItemBrandName
 			// 
 			this.lcItemBrandName.Control = this.txtBrandName;
 			this.lcItemBrandName.Location = new System.Drawing.Point(0, 24);
 			this.lcItemBrandName.Name = "lcItemBrandName";
-			this.lcItemBrandName.Size = new System.Drawing.Size(509, 24);
+			this.lcItemBrandName.Size = new System.Drawing.Size(508, 24);
 			this.lcItemBrandName.TextSize = new System.Drawing.Size(118, 14);
 			// 
 			// txtBrandName
 			// 
-			this.txtBrandName.Location = new System.Drawing.Point(596, 35);
+			this.txtBrandName.Location = new System.Drawing.Point(597, 35);
 			this.txtBrandName.Name = "txtBrandName";
-			this.txtBrandName.Size = new System.Drawing.Size(383, 20);
+			this.txtBrandName.Size = new System.Drawing.Size(382, 20);
 			this.txtBrandName.StyleController = this.lc;
 			this.txtBrandName.TabIndex = 23;
+			// 
+			// lcItemTopCategory
+			// 
+			this.lcItemTopCategory.Control = this.textEdit10;
+			this.lcItemTopCategory.Location = new System.Drawing.Point(0, 48);
+			this.lcItemTopCategory.Name = "lcItemTopCategory";
+			this.lcItemTopCategory.Size = new System.Drawing.Size(508, 24);
+			this.lcItemTopCategory.TextSize = new System.Drawing.Size(118, 14);
+			// 
+			// textEdit10
+			// 
+			this.textEdit10.Location = new System.Drawing.Point(597, 59);
+			this.textEdit10.Name = "textEdit10";
+			this.textEdit10.Size = new System.Drawing.Size(382, 20);
+			this.textEdit10.StyleController = this.lc;
+			this.textEdit10.TabIndex = 33;
+			// 
+			// lcItemDescription
+			// 
+			this.lcItemDescription.Control = this.memDescription;
+			this.lcItemDescription.Location = new System.Drawing.Point(0, 216);
+			this.lcItemDescription.Name = "lcItemDescription";
+			this.lcItemDescription.Size = new System.Drawing.Size(498, 78);
+			this.lcItemDescription.TextSize = new System.Drawing.Size(118, 14);
+			// 
+			// memDescription
+			// 
+			this.memDescription.Location = new System.Drawing.Point(602, 341);
+			this.memDescription.Name = "memDescription";
+			this.memDescription.Size = new System.Drawing.Size(372, 74);
+			this.memDescription.StyleController = this.lc;
+			this.memDescription.TabIndex = 14;
 			// 
 			// lcItemChannelFitness
 			// 
 			this.lcItemChannelFitness.Control = this.textEdit1;
 			this.lcItemChannelFitness.Location = new System.Drawing.Point(0, 0);
 			this.lcItemChannelFitness.Name = "lcItemChannelFitness";
-			this.lcItemChannelFitness.Size = new System.Drawing.Size(499, 24);
+			this.lcItemChannelFitness.Size = new System.Drawing.Size(498, 24);
 			this.lcItemChannelFitness.TextSize = new System.Drawing.Size(118, 14);
 			// 
 			// textEdit1
 			// 
-			this.textEdit1.Location = new System.Drawing.Point(601, 125);
+			this.textEdit1.Location = new System.Drawing.Point(602, 125);
 			this.textEdit1.Name = "textEdit1";
-			this.textEdit1.Size = new System.Drawing.Size(373, 20);
+			this.textEdit1.Size = new System.Drawing.Size(372, 20);
 			this.textEdit1.StyleController = this.lc;
 			this.textEdit1.TabIndex = 24;
 			// 
@@ -355,14 +371,14 @@
 			this.lcItemHomePage.Control = this.textEdit2;
 			this.lcItemHomePage.Location = new System.Drawing.Point(0, 24);
 			this.lcItemHomePage.Name = "lcItemHomePage";
-			this.lcItemHomePage.Size = new System.Drawing.Size(499, 24);
+			this.lcItemHomePage.Size = new System.Drawing.Size(498, 24);
 			this.lcItemHomePage.TextSize = new System.Drawing.Size(118, 14);
 			// 
 			// textEdit2
 			// 
-			this.textEdit2.Location = new System.Drawing.Point(601, 149);
+			this.textEdit2.Location = new System.Drawing.Point(602, 149);
 			this.textEdit2.Name = "textEdit2";
-			this.textEdit2.Size = new System.Drawing.Size(373, 20);
+			this.textEdit2.Size = new System.Drawing.Size(372, 20);
 			this.textEdit2.StyleController = this.lc;
 			this.textEdit2.TabIndex = 25;
 			// 
@@ -371,14 +387,14 @@
 			this.lcItemStyleOrSku.Control = this.textEdit3;
 			this.lcItemStyleOrSku.Location = new System.Drawing.Point(0, 48);
 			this.lcItemStyleOrSku.Name = "lcItemStyleOrSku";
-			this.lcItemStyleOrSku.Size = new System.Drawing.Size(499, 24);
+			this.lcItemStyleOrSku.Size = new System.Drawing.Size(498, 24);
 			this.lcItemStyleOrSku.TextSize = new System.Drawing.Size(118, 14);
 			// 
 			// textEdit3
 			// 
-			this.textEdit3.Location = new System.Drawing.Point(601, 173);
+			this.textEdit3.Location = new System.Drawing.Point(602, 173);
 			this.textEdit3.Name = "textEdit3";
-			this.textEdit3.Size = new System.Drawing.Size(373, 20);
+			this.textEdit3.Size = new System.Drawing.Size(372, 20);
 			this.textEdit3.StyleController = this.lc;
 			this.textEdit3.TabIndex = 26;
 			// 
@@ -387,14 +403,14 @@
 			this.lcItemEmail.Control = this.textEdit4;
 			this.lcItemEmail.Location = new System.Drawing.Point(0, 72);
 			this.lcItemEmail.Name = "lcItemEmail";
-			this.lcItemEmail.Size = new System.Drawing.Size(499, 24);
+			this.lcItemEmail.Size = new System.Drawing.Size(498, 24);
 			this.lcItemEmail.TextSize = new System.Drawing.Size(118, 14);
 			// 
 			// textEdit4
 			// 
-			this.textEdit4.Location = new System.Drawing.Point(601, 197);
+			this.textEdit4.Location = new System.Drawing.Point(602, 197);
 			this.textEdit4.Name = "textEdit4";
-			this.textEdit4.Size = new System.Drawing.Size(373, 20);
+			this.textEdit4.Size = new System.Drawing.Size(372, 20);
 			this.textEdit4.StyleController = this.lc;
 			this.textEdit4.TabIndex = 27;
 			// 
@@ -403,14 +419,14 @@
 			this.lcItemPhone.Control = this.textEdit5;
 			this.lcItemPhone.Location = new System.Drawing.Point(0, 96);
 			this.lcItemPhone.Name = "lcItemPhone";
-			this.lcItemPhone.Size = new System.Drawing.Size(499, 24);
+			this.lcItemPhone.Size = new System.Drawing.Size(498, 24);
 			this.lcItemPhone.TextSize = new System.Drawing.Size(118, 14);
 			// 
 			// textEdit5
 			// 
-			this.textEdit5.Location = new System.Drawing.Point(601, 221);
+			this.textEdit5.Location = new System.Drawing.Point(602, 221);
 			this.textEdit5.Name = "textEdit5";
-			this.textEdit5.Size = new System.Drawing.Size(373, 20);
+			this.textEdit5.Size = new System.Drawing.Size(372, 20);
 			this.textEdit5.StyleController = this.lc;
 			this.textEdit5.TabIndex = 28;
 			// 
@@ -419,14 +435,14 @@
 			this.lcItemMainGoods.Control = this.textEdit6;
 			this.lcItemMainGoods.Location = new System.Drawing.Point(0, 120);
 			this.lcItemMainGoods.Name = "lcItemMainGoods";
-			this.lcItemMainGoods.Size = new System.Drawing.Size(499, 24);
+			this.lcItemMainGoods.Size = new System.Drawing.Size(498, 24);
 			this.lcItemMainGoods.TextSize = new System.Drawing.Size(118, 14);
 			// 
 			// textEdit6
 			// 
-			this.textEdit6.Location = new System.Drawing.Point(601, 245);
+			this.textEdit6.Location = new System.Drawing.Point(602, 245);
 			this.textEdit6.Name = "textEdit6";
-			this.textEdit6.Size = new System.Drawing.Size(373, 20);
+			this.textEdit6.Size = new System.Drawing.Size(372, 20);
 			this.textEdit6.StyleController = this.lc;
 			this.textEdit6.TabIndex = 29;
 			// 
@@ -435,14 +451,14 @@
 			this.lcItemCategory.Control = this.textEdit7;
 			this.lcItemCategory.Location = new System.Drawing.Point(0, 144);
 			this.lcItemCategory.Name = "lcItemCategory";
-			this.lcItemCategory.Size = new System.Drawing.Size(499, 24);
+			this.lcItemCategory.Size = new System.Drawing.Size(498, 24);
 			this.lcItemCategory.TextSize = new System.Drawing.Size(118, 14);
 			// 
 			// textEdit7
 			// 
-			this.textEdit7.Location = new System.Drawing.Point(601, 269);
+			this.textEdit7.Location = new System.Drawing.Point(602, 269);
 			this.textEdit7.Name = "textEdit7";
-			this.textEdit7.Size = new System.Drawing.Size(373, 20);
+			this.textEdit7.Size = new System.Drawing.Size(372, 20);
 			this.textEdit7.StyleController = this.lc;
 			this.textEdit7.TabIndex = 30;
 			// 
@@ -451,14 +467,14 @@
 			this.lcItemStyle.Control = this.textEdit8;
 			this.lcItemStyle.Location = new System.Drawing.Point(0, 168);
 			this.lcItemStyle.Name = "lcItemStyle";
-			this.lcItemStyle.Size = new System.Drawing.Size(499, 24);
+			this.lcItemStyle.Size = new System.Drawing.Size(498, 24);
 			this.lcItemStyle.TextSize = new System.Drawing.Size(118, 14);
 			// 
 			// textEdit8
 			// 
-			this.textEdit8.Location = new System.Drawing.Point(601, 293);
+			this.textEdit8.Location = new System.Drawing.Point(602, 293);
 			this.textEdit8.Name = "textEdit8";
-			this.textEdit8.Size = new System.Drawing.Size(373, 20);
+			this.textEdit8.Size = new System.Drawing.Size(372, 20);
 			this.textEdit8.StyleController = this.lc;
 			this.textEdit8.TabIndex = 31;
 			// 
@@ -467,37 +483,21 @@
 			this.lcItemPrice.Control = this.textEdit9;
 			this.lcItemPrice.Location = new System.Drawing.Point(0, 192);
 			this.lcItemPrice.Name = "lcItemPrice";
-			this.lcItemPrice.Size = new System.Drawing.Size(499, 24);
+			this.lcItemPrice.Size = new System.Drawing.Size(498, 24);
 			this.lcItemPrice.TextSize = new System.Drawing.Size(118, 14);
 			// 
 			// textEdit9
 			// 
-			this.textEdit9.Location = new System.Drawing.Point(601, 317);
+			this.textEdit9.Location = new System.Drawing.Point(602, 317);
 			this.textEdit9.Name = "textEdit9";
-			this.textEdit9.Size = new System.Drawing.Size(373, 20);
+			this.textEdit9.Size = new System.Drawing.Size(372, 20);
 			this.textEdit9.StyleController = this.lc;
 			this.textEdit9.TabIndex = 32;
-			// 
-			// lcItemTopCategory
-			// 
-			this.lcItemTopCategory.Control = this.textEdit10;
-			this.lcItemTopCategory.Location = new System.Drawing.Point(0, 48);
-			this.lcItemTopCategory.Name = "lcItemTopCategory";
-			this.lcItemTopCategory.Size = new System.Drawing.Size(509, 24);
-			this.lcItemTopCategory.TextSize = new System.Drawing.Size(118, 14);
-			// 
-			// textEdit10
-			// 
-			this.textEdit10.Location = new System.Drawing.Point(596, 59);
-			this.textEdit10.Name = "textEdit10";
-			this.textEdit10.Size = new System.Drawing.Size(383, 20);
-			this.textEdit10.StyleController = this.lc;
-			this.textEdit10.TabIndex = 33;
 			// 
 			// splitterItem1
 			// 
 			this.splitterItem1.AllowHotTrack = true;
-			this.splitterItem1.Location = new System.Drawing.Point(458, 0);
+			this.splitterItem1.Location = new System.Drawing.Point(459, 0);
 			this.splitterItem1.Name = "splitterItem1";
 			this.splitterItem1.Size = new System.Drawing.Size(5, 489);
 			// 
@@ -511,7 +511,7 @@
 			this.lcGroupRegInfo.Location = new System.Drawing.Point(0, 308);
 			this.lcGroupRegInfo.Name = "lcGroupRegInfo";
 			this.lcGroupRegInfo.Padding = new DevExpress.XtraLayout.Utils.Padding(4, 4, 4, 4);
-			this.lcGroupRegInfo.Size = new System.Drawing.Size(513, 62);
+			this.lcGroupRegInfo.Size = new System.Drawing.Size(512, 62);
 			this.lcGroupRegInfo.TextVisible = false;
 			// 
 			// lcItemCreateDate
@@ -524,7 +524,7 @@
 			// 
 			// txtCreateDate
 			// 
-			this.txtCreateDate.Location = new System.Drawing.Point(601, 433);
+			this.txtCreateDate.Location = new System.Drawing.Point(602, 433);
 			this.txtCreateDate.Name = "txtCreateDate";
 			this.txtCreateDate.Size = new System.Drawing.Size(123, 20);
 			this.txtCreateDate.StyleController = this.lc;
@@ -540,7 +540,7 @@
 			// 
 			// txtCreateByName
 			// 
-			this.txtCreateByName.Location = new System.Drawing.Point(601, 457);
+			this.txtCreateByName.Location = new System.Drawing.Point(602, 457);
 			this.txtCreateByName.Name = "txtCreateByName";
 			this.txtCreateByName.Size = new System.Drawing.Size(123, 20);
 			this.txtCreateByName.StyleController = this.lc;
@@ -551,14 +551,14 @@
 			this.lcItemUpdateDate.Control = this.txtUpdateDate;
 			this.lcItemUpdateDate.Location = new System.Drawing.Point(249, 0);
 			this.lcItemUpdateDate.Name = "lcItemUpdateDate";
-			this.lcItemUpdateDate.Size = new System.Drawing.Size(250, 24);
+			this.lcItemUpdateDate.Size = new System.Drawing.Size(249, 24);
 			this.lcItemUpdateDate.TextSize = new System.Drawing.Size(118, 14);
 			// 
 			// txtUpdateDate
 			// 
-			this.txtUpdateDate.Location = new System.Drawing.Point(850, 433);
+			this.txtUpdateDate.Location = new System.Drawing.Point(851, 433);
 			this.txtUpdateDate.Name = "txtUpdateDate";
-			this.txtUpdateDate.Size = new System.Drawing.Size(124, 20);
+			this.txtUpdateDate.Size = new System.Drawing.Size(123, 20);
 			this.txtUpdateDate.StyleController = this.lc;
 			this.txtUpdateDate.TabIndex = 12;
 			// 
@@ -567,14 +567,14 @@
 			this.lcItemUpdateByName.Control = this.txtUpdateByName;
 			this.lcItemUpdateByName.Location = new System.Drawing.Point(249, 24);
 			this.lcItemUpdateByName.Name = "lcItemUpdateByName";
-			this.lcItemUpdateByName.Size = new System.Drawing.Size(250, 24);
+			this.lcItemUpdateByName.Size = new System.Drawing.Size(249, 24);
 			this.lcItemUpdateByName.TextSize = new System.Drawing.Size(118, 14);
 			// 
 			// txtUpdateByName
 			// 
-			this.txtUpdateByName.Location = new System.Drawing.Point(850, 457);
+			this.txtUpdateByName.Location = new System.Drawing.Point(851, 457);
 			this.txtUpdateByName.Name = "txtUpdateByName";
-			this.txtUpdateByName.Size = new System.Drawing.Size(124, 20);
+			this.txtUpdateByName.Size = new System.Drawing.Size(123, 20);
 			this.txtUpdateByName.StyleController = this.lc;
 			this.txtUpdateByName.TabIndex = 13;
 			// 
@@ -584,9 +584,9 @@
 			this.lcGroupEditBase.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.lcGroupEdit1,
             this.lcTab});
-			this.lcGroupEditBase.Location = new System.Drawing.Point(463, 0);
+			this.lcGroupEditBase.Location = new System.Drawing.Point(464, 0);
 			this.lcGroupEditBase.Name = "lcGroupEditBase";
-			this.lcGroupEditBase.Size = new System.Drawing.Size(523, 489);
+			this.lcGroupEditBase.Size = new System.Drawing.Size(522, 489);
 			this.lcGroupEditBase.TextVisible = false;
 			// 
 			// lcTab
@@ -596,11 +596,70 @@
 			this.lcTab.Padding = new DevExpress.XtraLayout.Utils.Padding(2, 2, 2, 2);
 			this.lcTab.SelectedTabPage = this.lcTabGroupEdit4;
 			this.lcTab.SelectedTabPageIndex = 2;
-			this.lcTab.Size = new System.Drawing.Size(523, 403);
+			this.lcTab.Size = new System.Drawing.Size(522, 403);
 			this.lcTab.TabPages.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.lcTabGroupEdit2,
             this.lcTabGroupEdit3,
             this.lcTabGroupEdit4});
+			// 
+			// lcTabGroupEdit4
+			// 
+			this.lcTabGroupEdit4.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.lcGroupEdit4});
+			this.lcTabGroupEdit4.Location = new System.Drawing.Point(0, 0);
+			this.lcTabGroupEdit4.Name = "lcTabGroupEdit4";
+			this.lcTabGroupEdit4.Size = new System.Drawing.Size(512, 370);
+			this.lcTabGroupEdit4.Text = "브랜드이미지";
+			// 
+			// lcGroupEdit4
+			// 
+			this.lcGroupEdit4.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.lcItemBrandImage,
+            this.lcItemBrandMainUrl});
+			this.lcGroupEdit4.Location = new System.Drawing.Point(0, 0);
+			this.lcGroupEdit4.Name = "lcGroupEdit4";
+			this.lcGroupEdit4.Padding = new DevExpress.XtraLayout.Utils.Padding(2, 2, 2, 2);
+			this.lcGroupEdit4.Size = new System.Drawing.Size(512, 370);
+			this.lcGroupEdit4.TextVisible = false;
+			// 
+			// lcItemBrandImage
+			// 
+			this.lcItemBrandImage.Control = this.picBrandMain;
+			this.lcItemBrandImage.Location = new System.Drawing.Point(0, 24);
+			this.lcItemBrandImage.Name = "lcItemBrandImage";
+			this.lcItemBrandImage.Size = new System.Drawing.Size(502, 336);
+			this.lcItemBrandImage.TextSize = new System.Drawing.Size(0, 0);
+			this.lcItemBrandImage.TextVisible = false;
+			// 
+			// picBrandMain
+			// 
+			this.picBrandMain.Cursor = System.Windows.Forms.Cursors.Default;
+			this.picBrandMain.Location = new System.Drawing.Point(478, 147);
+			this.picBrandMain.Name = "picBrandMain";
+			this.picBrandMain.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.Auto;
+			this.picBrandMain.Properties.ZoomAccelerationFactor = 1D;
+			this.picBrandMain.Size = new System.Drawing.Size(498, 332);
+			this.picBrandMain.StyleController = this.lc;
+			this.picBrandMain.TabIndex = 38;
+			// 
+			// lcItemBrandMainUrl
+			// 
+			this.lcItemBrandMainUrl.Control = this.txtBrandMainUrl;
+			this.lcItemBrandMainUrl.Location = new System.Drawing.Point(0, 0);
+			this.lcItemBrandMainUrl.Name = "lcItemBrandMainUrl";
+			this.lcItemBrandMainUrl.Size = new System.Drawing.Size(502, 24);
+			this.lcItemBrandMainUrl.TextSize = new System.Drawing.Size(118, 14);
+			// 
+			// txtBrandMainUrl
+			// 
+			this.txtBrandMainUrl.Location = new System.Drawing.Point(600, 123);
+			this.txtBrandMainUrl.Name = "txtBrandMainUrl";
+			this.txtBrandMainUrl.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(),
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Delete)});
+			this.txtBrandMainUrl.Size = new System.Drawing.Size(376, 20);
+			this.txtBrandMainUrl.StyleController = this.lc;
+			this.txtBrandMainUrl.TabIndex = 40;
 			// 
 			// lcTabGroupEdit2
 			// 
@@ -610,7 +669,7 @@
 			this.lcTabGroupEdit2.Location = new System.Drawing.Point(0, 0);
 			this.lcTabGroupEdit2.Name = "lcTabGroupEdit2";
 			this.lcTabGroupEdit2.Padding = new DevExpress.XtraLayout.Utils.Padding(4, 4, 4, 4);
-			this.lcTabGroupEdit2.Size = new System.Drawing.Size(513, 370);
+			this.lcTabGroupEdit2.Size = new System.Drawing.Size(512, 370);
 			this.lcTabGroupEdit2.Text = "서칭내용";
 			// 
 			// lcGroupEdit2
@@ -629,7 +688,7 @@
 			this.lcGroupEdit2.Location = new System.Drawing.Point(0, 0);
 			this.lcGroupEdit2.Name = "lcGroupEdit2";
 			this.lcGroupEdit2.Padding = new DevExpress.XtraLayout.Utils.Padding(4, 4, 4, 4);
-			this.lcGroupEdit2.Size = new System.Drawing.Size(513, 308);
+			this.lcGroupEdit2.Size = new System.Drawing.Size(512, 308);
 			this.lcGroupEdit2.TextVisible = false;
 			// 
 			// lcTabGroupEdit3
@@ -638,7 +697,7 @@
             this.lcGroupEdit3});
 			this.lcTabGroupEdit3.Location = new System.Drawing.Point(0, 0);
 			this.lcTabGroupEdit3.Name = "lcTabGroupEdit3";
-			this.lcTabGroupEdit3.Size = new System.Drawing.Size(513, 370);
+			this.lcTabGroupEdit3.Size = new System.Drawing.Size(512, 370);
 			this.lcTabGroupEdit3.Text = "로고이미지";
 			// 
 			// lcGroupEdit3
@@ -649,108 +708,49 @@
 			this.lcGroupEdit3.Location = new System.Drawing.Point(0, 0);
 			this.lcGroupEdit3.Name = "lcGroupEdit3";
 			this.lcGroupEdit3.Padding = new DevExpress.XtraLayout.Utils.Padding(2, 2, 2, 2);
-			this.lcGroupEdit3.Size = new System.Drawing.Size(513, 370);
+			this.lcGroupEdit3.Size = new System.Drawing.Size(512, 370);
 			this.lcGroupEdit3.TextVisible = false;
-			// 
-			// picBrandLogo
-			// 
-			this.picBrandLogo.Cursor = System.Windows.Forms.Cursors.Default;
-			this.picBrandLogo.Location = new System.Drawing.Point(477, 123);
-			this.picBrandLogo.Name = "picBrandLogo";
-			this.picBrandLogo.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.Auto;
-			this.picBrandLogo.Properties.ZoomAccelerationFactor = 1D;
-			this.picBrandLogo.Size = new System.Drawing.Size(499, 332);
-			this.picBrandLogo.StyleController = this.lc;
-			this.picBrandLogo.TabIndex = 34;
 			// 
 			// lcItemBrandLogo
 			// 
 			this.lcItemBrandLogo.Control = this.picBrandLogo;
-			this.lcItemBrandLogo.Location = new System.Drawing.Point(0, 0);
+			this.lcItemBrandLogo.Location = new System.Drawing.Point(0, 24);
 			this.lcItemBrandLogo.Name = "lcItemBrandLogo";
-			this.lcItemBrandLogo.Size = new System.Drawing.Size(503, 336);
+			this.lcItemBrandLogo.Size = new System.Drawing.Size(502, 336);
 			this.lcItemBrandLogo.TextSize = new System.Drawing.Size(0, 0);
 			this.lcItemBrandLogo.TextVisible = false;
 			// 
-			// lcTabGroupEdit4
+			// picBrandLogo
 			// 
-			this.lcTabGroupEdit4.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
-            this.lcGroupEdit4});
-			this.lcTabGroupEdit4.Location = new System.Drawing.Point(0, 0);
-			this.lcTabGroupEdit4.Name = "lcTabGroupEdit4";
-			this.lcTabGroupEdit4.Size = new System.Drawing.Size(513, 370);
-			this.lcTabGroupEdit4.Text = "브랜드이미지";
-			// 
-			// lcGroupEdit4
-			// 
-			this.lcGroupEdit4.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
-            this.lcItemBrandImage,
-            this.lcItemBrandImageUrl});
-			this.lcGroupEdit4.Location = new System.Drawing.Point(0, 0);
-			this.lcGroupEdit4.Name = "lcGroupEdit4";
-			this.lcGroupEdit4.Padding = new DevExpress.XtraLayout.Utils.Padding(2, 2, 2, 2);
-			this.lcGroupEdit4.Size = new System.Drawing.Size(513, 370);
-			this.lcGroupEdit4.TextVisible = false;
-			// 
-			// picBrandImage
-			// 
-			this.picBrandImage.Cursor = System.Windows.Forms.Cursors.Default;
-			this.picBrandImage.Location = new System.Drawing.Point(477, 123);
-			this.picBrandImage.Name = "picBrandImage";
-			this.picBrandImage.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.Auto;
-			this.picBrandImage.Properties.ZoomAccelerationFactor = 1D;
-			this.picBrandImage.Size = new System.Drawing.Size(499, 332);
-			this.picBrandImage.StyleController = this.lc;
-			this.picBrandImage.TabIndex = 38;
-			// 
-			// lcItemBrandImage
-			// 
-			this.lcItemBrandImage.Control = this.picBrandImage;
-			this.lcItemBrandImage.Location = new System.Drawing.Point(0, 0);
-			this.lcItemBrandImage.Name = "lcItemBrandImage";
-			this.lcItemBrandImage.Size = new System.Drawing.Size(503, 336);
-			this.lcItemBrandImage.TextSize = new System.Drawing.Size(0, 0);
-			this.lcItemBrandImage.TextVisible = false;
-			// 
-			// txtBrandLogoUrl
-			// 
-			this.txtBrandLogoUrl.Location = new System.Drawing.Point(599, 459);
-			this.txtBrandLogoUrl.Name = "txtBrandLogoUrl";
-			this.txtBrandLogoUrl.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Delete)});
-			this.txtBrandLogoUrl.Size = new System.Drawing.Size(377, 20);
-			this.txtBrandLogoUrl.StyleController = this.lc;
-			this.txtBrandLogoUrl.TabIndex = 39;
+			this.picBrandLogo.Cursor = System.Windows.Forms.Cursors.Default;
+			this.picBrandLogo.Location = new System.Drawing.Point(478, 147);
+			this.picBrandLogo.Name = "picBrandLogo";
+			this.picBrandLogo.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.Auto;
+			this.picBrandLogo.Properties.ZoomAccelerationFactor = 1D;
+			this.picBrandLogo.Size = new System.Drawing.Size(498, 332);
+			this.picBrandLogo.StyleController = this.lc;
+			this.picBrandLogo.TabIndex = 34;
 			// 
 			// lcItemBrandLogoUrl
 			// 
 			this.lcItemBrandLogoUrl.Control = this.txtBrandLogoUrl;
-			this.lcItemBrandLogoUrl.Location = new System.Drawing.Point(0, 336);
+			this.lcItemBrandLogoUrl.Location = new System.Drawing.Point(0, 0);
 			this.lcItemBrandLogoUrl.Name = "lcItemBrandLogoUrl";
-			this.lcItemBrandLogoUrl.Size = new System.Drawing.Size(503, 24);
+			this.lcItemBrandLogoUrl.Size = new System.Drawing.Size(502, 24);
 			this.lcItemBrandLogoUrl.TextSize = new System.Drawing.Size(118, 14);
 			// 
-			// txtBrandImageUrl
+			// txtBrandLogoUrl
 			// 
-			this.txtBrandImageUrl.Location = new System.Drawing.Point(599, 459);
-			this.txtBrandImageUrl.Name = "txtBrandImageUrl";
-			this.txtBrandImageUrl.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+			this.txtBrandLogoUrl.Location = new System.Drawing.Point(600, 123);
+			this.txtBrandLogoUrl.Name = "txtBrandLogoUrl";
+			this.txtBrandLogoUrl.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(),
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Delete)});
-			this.txtBrandImageUrl.Size = new System.Drawing.Size(377, 20);
-			this.txtBrandImageUrl.StyleController = this.lc;
-			this.txtBrandImageUrl.TabIndex = 40;
+			this.txtBrandLogoUrl.Size = new System.Drawing.Size(376, 20);
+			this.txtBrandLogoUrl.StyleController = this.lc;
+			this.txtBrandLogoUrl.TabIndex = 39;
 			// 
-			// lcItemBrandImageUrl
-			// 
-			this.lcItemBrandImageUrl.Control = this.txtBrandImageUrl;
-			this.lcItemBrandImageUrl.Location = new System.Drawing.Point(0, 336);
-			this.lcItemBrandImageUrl.Name = "lcItemBrandImageUrl";
-			this.lcItemBrandImageUrl.Size = new System.Drawing.Size(503, 24);
-			this.lcItemBrandImageUrl.TextSize = new System.Drawing.Size(118, 14);
-			// 
-			// LMBrandSearchForm
+			// BMSearchBrandForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -769,10 +769,12 @@
 			((System.ComponentModel.ISupportInitialize)(this.lcItemID)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.txtID.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemDescription)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.memDescription.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemBrandName)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.txtBrandName.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemTopCategory)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.textEdit10.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemDescription)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.memDescription.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemChannelFitness)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemHomePage)).EndInit();
@@ -791,8 +793,6 @@
 			((System.ComponentModel.ISupportInitialize)(this.textEdit8.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemPrice)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.textEdit9.Properties)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemTopCategory)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.textEdit10.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.splitterItem1)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupRegInfo)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemCreateDate)).EndInit();
@@ -805,20 +805,20 @@
 			((System.ComponentModel.ISupportInitialize)(this.txtUpdateByName.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupEditBase)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcTab)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcTabGroupEdit4)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcGroupEdit4)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemBrandImage)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.picBrandMain.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemBrandMainUrl)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtBrandMainUrl.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcTabGroupEdit2)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupEdit2)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcTabGroupEdit3)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupEdit3)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.picBrandLogo.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemBrandLogo)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcTabGroupEdit4)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcGroupEdit4)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.picBrandImage.Properties)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemBrandImage)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.txtBrandLogoUrl.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.picBrandLogo.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemBrandLogoUrl)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.txtBrandImageUrl.Properties)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemBrandImageUrl)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtBrandLogoUrl.Properties)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -879,11 +879,11 @@
 		private DevExpress.XtraLayout.LayoutControlItem lcItemBrandLogo;
 		private DevExpress.XtraLayout.LayoutControlGroup lcTabGroupEdit4;
 		private DevExpress.XtraLayout.LayoutControlGroup lcGroupEdit4;
-		private DevExpress.XtraEditors.PictureEdit picBrandImage;
+		private DevExpress.XtraEditors.PictureEdit picBrandMain;
 		private DevExpress.XtraLayout.LayoutControlItem lcItemBrandImage;
 		private DevExpress.XtraEditors.ButtonEdit txtBrandLogoUrl;
 		private DevExpress.XtraLayout.LayoutControlItem lcItemBrandLogoUrl;
-		private DevExpress.XtraEditors.ButtonEdit txtBrandImageUrl;
-		private DevExpress.XtraLayout.LayoutControlItem lcItemBrandImageUrl;
+		private DevExpress.XtraEditors.ButtonEdit txtBrandMainUrl;
+		private DevExpress.XtraLayout.LayoutControlItem lcItemBrandMainUrl;
 	}
 }

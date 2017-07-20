@@ -107,7 +107,24 @@ namespace IKaan.Biz.View.Sys.AC
 					var tree = sender as XTree;
 					var info = tree.CalcHitInfo(tree.PointToClient(MousePosition));
 
-					if (info.HitInfoType == HitInfoType.Cell && !info.Node.HasChildren)
+					if (info.HitInfoType == HitInfoType.Cell && !info.Node.HasChildren && info.Node["Type"].ToString() == "D")
+					{
+						DetailDataLoad(info.Node["FullName"].ToStringNullToEmpty());
+					}
+				}
+				catch (Exception ex)
+				{
+					ShowErrBox(ex);
+				}
+			};
+			treeDirectories.MouseClick += delegate (object sender, MouseEventArgs e)
+			{
+				try
+				{
+					var tree = sender as XTree;
+					var info = tree.CalcHitInfo(tree.PointToClient(MousePosition));
+
+					if (info.HitInfoType == HitInfoType.Cell && !info.Node.HasChildren && info.Node["Type"].ToString() == "F")
 					{
 						DetailDataLoad(info.Node["FullName"].ToStringNullToEmpty());
 					}

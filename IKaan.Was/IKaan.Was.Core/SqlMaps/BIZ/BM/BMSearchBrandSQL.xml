@@ -28,7 +28,7 @@
 					,	AA.Price
 					,	AA.Description
 					,	AA.TopCategory
-					,	AA.BrandImageUrl
+					,	AA.BrandMainUrl
 					,	AA.BrandLogoUrl
 					
 				FROM	dbo.BMSearchBrand AA WITH (NOLOCK)
@@ -78,7 +78,7 @@
 					,	AA.Price
 					,	AA.Description
 					,	AA.TopCategory
-					,	AA.BrandImageUrl
+					,	AA.BrandMainUrl
 					,	AA.BrandLogoUrl
 					
 				FROM	dbo.BMSearchBrand AA WITH (NOLOCK)
@@ -92,14 +92,14 @@
 					CreateDate, CreateBy, CreateByName,
 					BrandName, ChannelFitness, HomePage, StyleOrSku, Email, Phone, MainGoods, 
 					Category, Style, Price, Description, TopCategory, 
-					BrandImageUrl, BrandLogoUrl
+					BrandMainUrl, BrandLogoUrl
 				)
 				VALUES
 				(
 					GetDate(), #CreateBy#, #CreateByName#,
 					#BrandName#, #ChannelFitness#, #HomePage#, #StyleOrSku#, #Email#, #Phone#, #MainGoods#, 
 					#Category#, #Style#, #Price#, #Description#, #TopCategory#, 
-					#BrandImageUrl#, #BrandLogoUrl#
+					#BrandMainUrl#, #BrandLogoUrl#
 				)
 			]]>
 			<selectKey type="post" property="ID" resultClass="Int">
@@ -127,7 +127,7 @@
 					,	Price			= #Price#
 					,	Description		= #Description#
 					,	TopCategory		= #TopCategory#
-					,	BrandImageUrl	= #BrandImageUrl#
+					,	BrandMainUrl	= #BrandMainUrl#
 					,	BrandLogoUrl	= #BrandLogoUrl#
 				WHERE	ID				= #ID#
 			]]>

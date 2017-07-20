@@ -55,7 +55,7 @@ namespace IKaan.Biz.View.Biz.BM
 				}
 			};
 
-			txtBrandImageUrl.ButtonClick += delegate (object sender, ButtonPressedEventArgs e)
+			txtBrandMainUrl.ButtonClick += delegate (object sender, ButtonPressedEventArgs e)
 			 {
 				 try
 				 {
@@ -64,17 +64,17 @@ namespace IKaan.Biz.View.Biz.BM
 						 var info = DialogUtils.OpenImageFile();
 						 if (info != null)
 						 {
-							 picBrandImage.LoadAsync(info.FullName);
-							 txtBrandImageUrl.EditValue = info.FullName;
-							 txtBrandImageUrl.Tag = true;
+							 picBrandMain.LoadAsync(info.FullName);
+							 txtBrandMainUrl.EditValue = info.FullName;
+							 txtBrandMainUrl.Tag = true;
 						 }
 					 }
 					 else if (e.Button.Kind == ButtonPredefines.Delete)
 					 {
-						 FTPHandler.DeleteFile(txtBrandImageUrl.Text);
-						 picBrandImage.EditValue = null;
-						 txtBrandImageUrl.EditValue = null;
-						 txtBrandImageUrl.Tag = null;
+						 FTPHandler.DeleteFile(txtBrandMainUrl.Text);
+						 picBrandMain.EditValue = null;
+						 txtBrandMainUrl.EditValue = null;
+						 txtBrandMainUrl.Tag = null;
 						 if (txtID.EditValue.IsNullOrEmpty() == false)
 						 {
 							 var value = DataSave();
@@ -111,6 +111,8 @@ namespace IKaan.Biz.View.Biz.BM
 			txtCreateByName.SetEnable(false);
 			txtUpdateDate.SetEnable(false);
 			txtUpdateByName.SetEnable(false);
+
+			lcTab.SelectedTabPageIndex = 0;
 
 			InitGrid();
 		}
@@ -162,8 +164,8 @@ namespace IKaan.Biz.View.Biz.BM
 			ClearControlData<BMSearchBrand>();
 			picBrandLogo.EditValue = null;
 			txtBrandLogoUrl.Tag = null;
-			picBrandImage.EditValue = null;
-			txtBrandImageUrl.Tag = null;
+			picBrandMain.EditValue = null;
+			txtBrandMainUrl.Tag = null;
 
 			SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true });
 			EditMode = EditModeEnum.New;
@@ -194,10 +196,10 @@ namespace IKaan.Biz.View.Biz.BM
 					string logoUrl = ConstsVar.IMG_URL + model.BrandLogoUrl;
 					picBrandLogo.LoadAsync(logoUrl);
 				}
-				if (model.BrandImageUrl.IsNullOrEmpty() == false)
+				if (model.BrandMainUrl.IsNullOrEmpty() == false)
 				{
-					string imageUrl = ConstsVar.IMG_URL + model.BrandImageUrl;
-					picBrandImage.LoadAsync(imageUrl);
+					string imageUrl = ConstsVar.IMG_URL + model.BrandMainUrl;
+					picBrandMain.LoadAsync(imageUrl);
 				}
 
 				SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true, Delete = true });
@@ -233,16 +235,16 @@ namespace IKaan.Biz.View.Biz.BM
 
 					//브랜드대표이미지 업로드
 					//브랜드대표이지가 변경되었다면 다시 업로드한다.
-					if (txtBrandImageUrl.Tag.ToBooleanNullToFalse())
+					if (txtBrandMainUrl.Tag.ToBooleanNullToFalse())
 					{
-						string mainpath = FTPHandler.UploadSearchBrand(txtBrandImageUrl.Text, id, "MAIN");
-						txtBrandImageUrl.EditValue = mainpath;
+						string mainpath = FTPHandler.UploadSearchBrand(txtBrandMainUrl.Text, id, "MAIN");
+						txtBrandMainUrl.EditValue = mainpath;
 						iChanged++;
 					}
 
 					if (iChanged > 0)
-					{
-						returnValue = DataSave();
+					{						
+						returnValue = DataSave("Update");
 					}
 				}
 				ShowMsgBox("저장하였습니다.");
@@ -254,13 +256,17 @@ namespace IKaan.Biz.View.Biz.BM
 			}
 		}
 
-		private object DataSave()
+		private object DataSave(string sqlId = null)
 		{
 			var model = this.GetControlData<BMSearchBrand>();
-			using (var res = WasHandler.Execute<BMSearchBrand>("BM", "Save", (this.EditMode == EditModeEnum.New) ? "Insert" : "Update", model, "ID"))
+			if (sqlId.IsNullOrEmpty())
+			{
+				sqlId = (this.EditMode == EditModeEnum.New) ? "Insert" : "Update";
+			}
+			using (var res = WasHandler.Execute<BMSearchBrand>("BM", "Save", sqlId, model, "ID"))
 			{
 				if (res.Error.Number != 0)
-					throw new Exception(res.Error.Message);				
+					throw new Exception(res.Error.Message);
 				return res.Result.ReturnValue;
 			}
 		}
@@ -285,7 +291,7 @@ namespace IKaan.Biz.View.Biz.BM
 
 					try
 					{
-						string mainpath = txtBrandImageUrl.Text;
+						string mainpath = txtBrandMainUrl.Text;
 						if (mainpath.IsNullOrEmpty() == false)
 							FTPHandler.DeleteFile(mainpath);
 					}

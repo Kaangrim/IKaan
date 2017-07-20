@@ -307,21 +307,7 @@ namespace IKaan.Biz.Core.Handler
 						});
 					}
 				}
-
-				index++;
-				list.Add(new FtpList()
-				{
-					ID = index,
-					ParentID = 0,
-					Name = rootDir,
-					FullName = rootDir,
-					Size = null,
-					Type = "D",
-					ModifiedDate = null,
-					Checked = "N"
-				});
-
-				parentID = index;
+				
 				var alllist = ftp.GetListing(rootDir, FtpListOption.Modify | FtpListOption.Size).ToList();
 
 				if (alllist != null && alllist.Count > 0)
