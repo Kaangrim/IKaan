@@ -100,23 +100,6 @@ namespace IKaan.Biz.View.Sys.AC
 			#endregion
 			
 			#region MouseClick
-			treeDirectories.MouseDoubleClick += delegate (object sender, MouseEventArgs e)
-			{
-				try
-				{
-					var tree = sender as XTree;
-					var info = tree.CalcHitInfo(tree.PointToClient(MousePosition));
-
-					if (info.HitInfoType == HitInfoType.Cell && !info.Node.HasChildren && info.Node["Type"].ToString() == "D")
-					{
-						DetailDataLoad(info.Node["FullName"].ToStringNullToEmpty());
-					}
-				}
-				catch (Exception ex)
-				{
-					ShowErrBox(ex);
-				}
-			};
 			treeDirectories.MouseClick += delegate (object sender, MouseEventArgs e)
 			{
 				try
@@ -124,7 +107,7 @@ namespace IKaan.Biz.View.Sys.AC
 					var tree = sender as XTree;
 					var info = tree.CalcHitInfo(tree.PointToClient(MousePosition));
 
-					if (info.HitInfoType == HitInfoType.Cell && !info.Node.HasChildren && info.Node["Type"].ToString() == "F")
+					if (info.HitInfoType == HitInfoType.Cell && !info.Node.HasChildren)
 					{
 						DetailDataLoad(info.Node["FullName"].ToStringNullToEmpty());
 					}
@@ -175,7 +158,7 @@ namespace IKaan.Biz.View.Sys.AC
 			};
 			#endregion
 
-			#region MouseClick
+			#region MouseDoubleClick
 			treeFiles.MouseDoubleClick += delegate (object sender, MouseEventArgs e)
 			{
 				try
@@ -183,18 +166,31 @@ namespace IKaan.Biz.View.Sys.AC
 					var tree = sender as XTree;
 					var info = tree.CalcHitInfo(tree.PointToClient(MousePosition));
 
-					if (info.HitInfoType == HitInfoType.Cell && !info.Node.HasChildren)
+					if (info.HitInfoType == HitInfoType.Cell && !info.Node.HasChildren && info.Node["Type"].ToString() == "D")
 					{
-						if (info.Node["Type"].ToString() == "D")
-						{
-							DetailDataLoad(info.Node["FullName"].ToStringNullToEmpty());
-						}
-						else
-						{
-							string filePath = string.Concat("http://", ConstsVar.IMG_FTP_URL, info.Node["FullName"].ToString());
-							picImage.LoadAsync(filePath);
-							memFileInfo.Text = filePath;
-						}
+						DetailDataLoad(info.Node["FullName"].ToStringNullToEmpty());
+					}
+				}
+				catch (Exception ex)
+				{
+					ShowErrBox(ex);
+				}
+			};
+			#endregion
+
+			#region MouseClick
+			treeFiles.MouseClick += delegate (object sender, MouseEventArgs e)
+			{
+				try
+				{
+					var tree = sender as XTree;
+					var info = tree.CalcHitInfo(tree.PointToClient(MousePosition));
+
+					if (info.HitInfoType == HitInfoType.Cell && !info.Node.HasChildren && info.Node["Type"].ToString() == "F")
+					{
+						string filePath = string.Concat(ConstsVar.IMG_URL, info.Node["FullName"].ToString());
+						picImage.LoadAsync(filePath);
+						memFileInfo.Text = filePath;
 					}
 				}
 				catch (Exception ex)

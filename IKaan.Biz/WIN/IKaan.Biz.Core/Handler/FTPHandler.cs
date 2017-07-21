@@ -68,10 +68,12 @@ namespace IKaan.Biz.Core.Handler
 					throw new Exception("로컬 파일 경로가 정확하지 않습니다.");
 
 				string fileName = string.Empty;
+				FileInfo info = new FileInfo(localPath);
+				string ext = info.Extension;
 				if (type.Equals("LOGO"))
-					fileName = string.Format(ConstsVar.FILE_DEFINE_BRAND_LOGO, brandID);
+					fileName = string.Format(ConstsVar.FILE_DEFINE_BRAND_LOGO, brandID) + ext;
 				else if (type.Equals("MAIN"))
-					fileName = string.Format(ConstsVar.FILE_DEFINE_BRAND_MAIN, brandID);
+					fileName = string.Format(ConstsVar.FILE_DEFINE_BRAND_MAIN, brandID) + ext;
 				else
 					throw new Exception("업로드 이미지 구분이 올바르지 않습니다.");
 
