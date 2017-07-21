@@ -254,6 +254,7 @@ namespace IKaan.Biz.Core.Controls.Common
 
 			Columns["Code"].Visible = false;
 			Columns["Name"].Visible = false;
+			Columns["DispName"].Visible = false;
 
 			_mNullable = false;
 			ClearDeleteButton();

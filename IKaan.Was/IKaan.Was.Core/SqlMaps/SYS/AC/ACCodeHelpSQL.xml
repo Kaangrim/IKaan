@@ -194,7 +194,9 @@
 				SELECT	aa.ID								as ID
 					,	CONVERT(VARCHAR, aa.ID)				as Code
 					,	aa.ModuleName						as Name
-					,	aa.ModuleName						as Value
+					,	aa.ModuleName						as ListName
+					,	aa.ModuleName						as DispName
+					,	CONVERT(VARCHAR, aa.ID)				as Value
 					,	ROW_NUMBER() OVER (ORDER BY aa.ID)	as SortOrder
 					,	null								as Option1
 					,	null								as Option2
@@ -255,16 +257,18 @@
 				)
 				SELECT	aa.ID									as ID
 					,	CONVERT(VARCHAR, aa.ID)					as Code
+					,	aa.Name									as Name
 					,	REPLICATE(' ', (aa.Level -1) * 5) + 
 						CASE
 							WHEN aa.Level > 1 then '▶'
 							ELSE ''
 						END + 
-						aa.Name									as Name
-					,	aa.Name									as Value
+						aa.Name									as ListName
+					,	aa.Path									as DispName
+					,	CONVERT(VARCHAR, aa.ID)					as Value
 					,	ROW_NUMBER() OVER (ORDER BY aa.HierID)	as SortOrder
 					,	aa.ID			as Option1
-					,	aa.Path			as Option2
+					,	aa.HierID		as Option2
 					,	null			as Option3
 					,	null			as Option4
 					,	null			as Option5
@@ -309,16 +313,18 @@
 				)
 				SELECT	aa.ID									as ID
 					,	CONVERT(VARCHAR, aa.ID)					as Code
+					,	aa.Name									as Name
 					,	REPLICATE(' ', (aa.Level -1) * 5) + 
 						CASE
 							WHEN aa.Level > 1 then '▶'
 							ELSE ''
 						END + 
-						aa.Name									as Name
-					,	aa.Name									as Value
+						aa.Name									as ListName
+					,	aa.Path									as DispName
+					,	CONVERT(VARCHAR, aa.ID)					as Value
 					,	ROW_NUMBER() OVER (ORDER BY aa.HierID)	as SortOrder
 					,	aa.ID			as Option1
-					,	aa.Path			as Option2
+					,	aa.HierID		as Option2
 					,	null			as Option3
 					,	null			as Option4
 					,	null			as Option5
@@ -336,7 +342,9 @@
 				SELECT	aa.ID								as ID
 					,	CONVERT(VARCHAR, aa.ID)				as Code
 					,	aa.HelpName							as Name
-					,	aa.HelpName							as Value
+					,	aa.HelpName							as ListName
+					,	aa.HelpName							as DispName
+					,	CONVERT(VARCHAR, aa.ID)				as Value
 					,	ROW_NUMBER() OVER (ORDER BY aa.ID)	as SortOrder
 					,	aa.HelpType							as Option1
 					,	null								as Option2
@@ -357,7 +365,9 @@
 				SELECT	aa.ID								as ID
 					,	CONVERT(VARCHAR, aa.ID)				as Code
 					,	aa.ServerName						as Name
-					,	aa.ServerName						as Value
+					,	aa.ServerName						as ListName
+					,	aa.ServerName						as DispName
+					,	CONVERT(VARCHAR, aa.ID)				as Value
 					,	ROW_NUMBER() OVER (ORDER BY aa.ID)	as SortOrder
 					,	null								as Option1
 					,	null								as Option2
@@ -378,7 +388,9 @@
 				SELECT	aa.ID								as ID
 					,	CONVERT(VARCHAR, aa.ID)				as Code
 					,	aa.DatabaseName						as Name
-					,	aa.DatabaseName						as Value
+					,	aa.DatabaseName						as ListName
+					,	aa.DatabaseName						as DispName
+					,	CONVERT(VARCHAR, aa.ID)				as Value
 					,	ROW_NUMBER() OVER (ORDER BY aa.ID)	as SortOrder
 					,	aa.ServerID							as Option1
 					,	aa.DbmsType							as Option2
@@ -407,7 +419,9 @@
 				SELECT	aa.ID								as ID
 					,	CONVERT(VARCHAR, aa.ID)				as Code
 					,	aa.SchemaName						as Name
-					,	aa.SchemaName						as Value
+					,	aa.SchemaName						as ListName
+					,	aa.SchemaName						as DispName
+					,	CONVERT(VARCHAR, aa.ID)				as Value
 					,	ROW_NUMBER() OVER (ORDER BY aa.ID)	as SortOrder
 					,	bb.ServerID							as Option1
 					,	aa.DatabaseID						as Option2
@@ -444,7 +458,9 @@
 				SELECT	aa.ID								as ID
 					,	CONVERT(VARCHAR, aa.ID)				as Code
 					,	aa.TableName						as Name
-					,	aa.TableName						as Value
+					,	aa.TableName						as ListName
+					,	aa.TableName						as DispName
+					,	CONVERT(VARCHAR, aa.ID)				as Value
 					,	ROW_NUMBER() OVER (ORDER BY aa.ID)	as SortOrder
 					,	bb.ServerID							as Option1
 					,	aa.DatabaseID						as Option2

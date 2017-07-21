@@ -82,7 +82,8 @@ namespace IKaan.Biz.Core.Helper
 						{
 							Code = x.Code,
 							Name = x.Name,
-							ListName = x.Name,
+							ListName = x.ListName,
+							DispName = x.DispName,
 							Value = x.Value,
 							Option1 = x.Option1.ToStringNullToEmpty(),
 							Option2 = x.Option2.ToStringNullToEmpty(),
@@ -105,7 +106,8 @@ namespace IKaan.Biz.Core.Helper
 				{
 					Code = null,
 					Name = nullText,
-					ListName = nullText
+					ListName = nullText,
+					DispName = nullText
 				});
 			}
 
@@ -118,6 +120,7 @@ namespace IKaan.Biz.Core.Helper
 						Code = code.Code,
 						Name = code.Name,
 						ListName = code.ListName,
+						DispName = code.DispName,
 						Value = code.Value,
 						Option1 = code.Option1,
 						Option2 = code.Option2,
