@@ -14,6 +14,8 @@ namespace IKaan.Model.UserModels
 		[DataMember]
 		public string ListName { get; set; }
 		[DataMember]
+		public string DispName { get; set; }
+		[DataMember]
 		public string Value { get; set; }
 		[DataMember]
 		public string GroupCode { get; set; }

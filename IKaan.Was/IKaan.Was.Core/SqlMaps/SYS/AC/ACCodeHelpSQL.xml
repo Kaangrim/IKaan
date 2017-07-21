@@ -10,6 +10,8 @@
 				SELECT	AA.ID			as ID
 					,	AA.Code			as Code
 					,	AA.Name			as Name
+					,	AA.Name			as ListName
+					,	AA.Name			as DispName
 					,	AA.Value		as Value
 					,	AA.SortOrder	as SortOrder
 					,	AA.CodeValue01	as Option1
@@ -44,6 +46,8 @@
 				SELECT	AA.ID			as ID
 					,	AA.Code			as Code
 					,	AA.Name			as Name
+					,	AA.Name			as ListName
+					,	AA.Name			as DispName
 					,	AA.Value		as Value
 					,	AA.SortOrder	as SortOrder
 					,	AA.CodeValue01	as Option1
@@ -103,25 +107,27 @@
 									on AA.ParentID = bb.ID
 					WHERE	AA.UseYn = 'Y'
 				)
-				SELECT	aa.ID									as ID
+				SELECT	aa.ID									as ID					
 					,	CONVERT(VARCHAR, aa.ID)					as Code
+					,	aa.Name									as Name
 					,	REPLICATE(' ', (aa.Level -1) * 5) + 
 						CASE
 							WHEN aa.Level > 1 then '▶'
 							ELSE ''
 						END + 
-						aa.Name									as Name
-					,	aa.Name									as Value
+						aa.Name									as ListName
+					,	aa.Path									as DispName
+					,	CONVERT(VARCHAR, aa.ID)					as Value
 					,	ROW_NUMBER() OVER (ORDER BY aa.HierID)	as SortOrder
-					,	aa.ID			as Option1
-					,	aa.Path			as Option2
-					,	null			as Option3
-					,	null			as Option4
-					,	null			as Option5
-					,	null			as Option6
-					,	null			as Option7
-					,	null			as Option8
-					,	null			as Option9
+					,	aa.ID									as Option1
+					,	aa.HierID								as Option2
+					,	null									as Option3
+					,	null									as Option4
+					,	null									as Option5
+					,	null									as Option6
+					,	null									as Option7
+					,	null									as Option8
+					,	null									as Option9
 				FROM	CTE aa
 				ORDER BY 
 					SortOrder, Name
@@ -159,23 +165,25 @@
 				)
 				SELECT	aa.ID									as ID
 					,	CONVERT(VARCHAR, aa.ID)					as Code
+					,	aa.Name									as Name
 					,	REPLICATE(' ', (aa.Level -1) * 5) + 
 						CASE
 							WHEN aa.Level > 1 THEN '▶'
 							ELSE ''
 						END + 
-						aa.Name									as Name
-					,	aa.Name									as Value
+						aa.Name									as ListName
+					,	aa.Path									as DispName
+					,	CONVERT(VARCHAR, aa.ID)					as Value
 					,	ROW_NUMBER() OVER (ORDER BY aa.HierID)	as SortOrder
-					,	aa.ID			as Option1
-					,	aa.Path			as Option2
-					,	null			as Option3
-					,	null			as Option4
-					,	null			as Option5
-					,	null			as Option6
-					,	null			as Option7
-					,	null			as Option8
-					,	null			as Option9
+					,	aa.ID									as Option1
+					,	aa.HierID								as Option2
+					,	null									as Option3
+					,	null									as Option4
+					,	null									as Option5
+					,	null									as Option6
+					,	null									as Option7
+					,	null									as Option8
+					,	null									as Option9
 				FROM	CTE aa
 				ORDER BY 
 					SortOrder, Name
@@ -479,6 +487,7 @@
 				SELECT	AA.Code			as Code
 					,	AA.Name			as Name
 					,	AA.Name			as ListName
+					,	AA.Name			as DispName
 					,	AA.Value		as Value
 					,	AA.ParentCode	as GroupCode
 					,	AA.SortOrder	as SortOrder
@@ -498,6 +507,7 @@
 				SELECT	AA.Code			as Code
 					,	AA.Name			as Name
 					,	AA.Name			as ListName
+					,	AA.Name			as DispName
 					,	AA.Value		as Value
 					,	'CodeGroup'		as GroupCode
 					,	AA.SortOrder	as SortOrder

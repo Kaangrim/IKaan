@@ -249,8 +249,8 @@ namespace IKaan.Biz.Core.Controls.Common
 		{
 			Init();
 			Columns.Clear();
-			SetValueAndDisplayMember("Code", "ListName");
-			AddColumns(new string[] { "Code", "Name", "ListName" });
+			SetValueAndDisplayMember("Code", "DispName");
+			AddColumns(new string[] { "Code", "Name", "ListName", "DispName" });
 
 			Columns["Code"].Visible = false;
 			Columns["Name"].Visible = false;

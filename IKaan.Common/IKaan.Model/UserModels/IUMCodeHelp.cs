@@ -5,6 +5,8 @@
 		int ID { get; set; }		
 		string Code { get; set; }
 		string Name { get; set; }
+		string ListName { get; set; }
+		string DispName { get; set; }
 		string Value { get; set; }
 		int SortOrder { get; set; }
 		object Option1 { get; set; }
