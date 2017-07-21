@@ -285,7 +285,7 @@ namespace IKaan.Was.Service.LIB
 				{
 					if (data.BrandID == null)
 					{
-						data.BrandID = model.ID;
+						//data.BrandID = model.ID;
 					}
 					req.SaveSubData<LMBrandImage>(data);
 				}
