@@ -91,6 +91,7 @@ namespace IKaan.Was.Service.LIB
 					{
 						case "LMBrand":
 							req.SetData<LMBrand>();
+							(req.Data as LMBrand).BrandImage = req.GetList<LMBrandImage>();
 							(req.Data as LMBrand).CustomerBrand = req.GetList<LMCustomerBrand>();
 							break;
 					}
@@ -152,12 +153,13 @@ namespace IKaan.Was.Service.LIB
 							if (req.Data == null)
 								throw new Exception("저장할 데이터가 존재하지 않습니다.");
 
-							//switch (req.ModelName)
-							//{
-							//	case "LMBrandSearch":
-							//		req.SaveData<LMBrandSearch>();
-							//		break;
-							//}
+							switch (req.ModelName)
+							{
+								case "LMBrand":
+									var model = req.SaveData<LMBrand>();
+
+									break;
+							}
 						}
 					}
 
@@ -253,6 +255,44 @@ namespace IKaan.Was.Service.LIB
 				request.Error.Number = ex.HResult;
 				request.Error.Message = ex.Message;
 				return request;
+			}
+		}
+
+		private static void SaveBrandImage(this WasRequest req, List<LMBrandImage> list)
+		{
+			try
+			{
+				foreach (var data in list)
+				{
+					if (data.BrandID == null)
+					{
+						data.BrandID = req.Result.ReturnValue.ToIntegerNullToNull();
+					}					
+					req.SaveSubData<LMBrandImage>(data);
+				}
+			}
+			catch
+			{
+				throw;
+			}
+		}
+
+		private static void SaveCustomerBrand(this WasRequest req, List<LMCustomerBrand> list)
+		{
+			try
+			{
+				foreach (var data in list)
+				{
+					if (data.BrandID == null)
+					{
+						data.BrandID = model.ID;
+					}
+					req.SaveSubData<LMBrandImage>(data);
+				}
+			}
+			catch
+			{
+				throw;
 			}
 		}
 	}

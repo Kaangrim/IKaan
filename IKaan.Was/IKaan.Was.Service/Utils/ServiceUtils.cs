@@ -90,6 +90,7 @@ namespace IKaan.Was.Service.Utils
 						id = DaoFactory.InstanceBiz.Insert(string.Concat(req.SqlId, req.ModelName), model);
 					else
 						id = DaoFactory.Instance.Insert(string.Concat(req.SqlId, req.ModelName), model);
+					((IModelBase)model).ID = id.ToIntegerNullToNull();
 				}
 				else
 				{

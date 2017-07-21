@@ -12,11 +12,32 @@ namespace IKaan.Model.LIB.LM
 		public string BrandName { get; set; }
 
 		[DataMember]
+		[Display(Name = "영문명")]
+		public string EngName { get; set; }
+
+		[DataMember]
+		[Display(Name = "약어명")]
+		public string ShortName { get; set; }
+
+		[DataMember]
+		[Display(Name = "설명")]
+		public string Description { get; set; }
+
+		[DataMember]
+		[Display(Name = "사용여부")]
+		public string UseYn { get; set; }
+
+		[DataMember]
+		[Display(Name = "브랜드 이미지")]
+		public IList<LMBrandImage> BrandImage { get; set; }
+
+		[DataMember]
 		[Display(Name = "거래처, 브랜드")]
 		public IList<LMCustomerBrand> CustomerBrand { get; set; }
 
 		public LMBrand()
 		{
+			BrandImage = new List<LMBrandImage>();
 			CustomerBrand = new List<LMCustomerBrand>();
 		}
 	}

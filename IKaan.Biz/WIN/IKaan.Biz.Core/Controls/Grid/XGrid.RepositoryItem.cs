@@ -11,6 +11,7 @@ using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.Grid;
 using IKaan.Base.Map;
+using IKaan.Base.Utils;
 using IKaan.Biz.Core.Helper;
 using IKaan.Biz.Core.Was.Handler;
 using IKaan.Model.UserModels;
@@ -223,11 +224,6 @@ namespace IKaan.Biz.Core.Controls.Grid
 			return edit;
 		}
 
-		public void SetRepositoryItemLookUpEdit(string fieldName, string valueMember, string displayMember)
-		{
-			SetRepositoryItem(fieldName, GetRepositoryItemLookUpEdit(valueMember, displayMember));
-		}
-
 		public RepositoryItemLookUpEdit GetRepositoryItemLookUpEdit(string valueMember, string displayMember, LookUpColumnInfo[] columns)
 		{
 			var edit = new RepositoryItemLookUpEdit()
@@ -246,8 +242,15 @@ namespace IKaan.Biz.Core.Controls.Grid
 			SetRepositoryItem(fieldName, GetRepositoryItemLookUpEdit(valueMember, displayMember, columns));
 		}
 
-		public void SetRepositoryItemLookUpEdit(string fieldName, string valueMember, string displayMember, string groupCode, string nullText)
+		public void SetRepositoryItemLookUpEdit(string fieldName, string groupCode = null, string nullText = null, string valueMember = null, string displayMember = null)
 		{
+			if (valueMember.IsNullOrEmpty())
+				valueMember = "Code";
+			if (displayMember.IsNullOrEmpty())
+				displayMember = "ListName";
+			if (groupCode.IsNullOrEmpty())
+				groupCode = fieldName;
+
 			RepositoryItemLookUpEdit edit = GetRepositoryItemLookUpEdit(valueMember, displayMember);
 			edit.DataSource = CodeHelper.GetLookup(groupCode, nullText);
 			SetRepositoryItem(fieldName, edit);

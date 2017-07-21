@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Forms;
 using DevExpress.Utils;
 using DevExpress.XtraGrid.Views.Grid;
 using IKaan.Base.Map;
@@ -8,6 +9,7 @@ using IKaan.Biz.Core.Forms;
 using IKaan.Biz.Core.Model;
 using IKaan.Biz.Core.Utils;
 using IKaan.Biz.Core.Was.Handler;
+using IKaan.Model.LIB.LM;
 using IKaan.Model.SYS.AA;
 
 namespace IKaan.Biz.View.Lib.LM
@@ -41,26 +43,25 @@ namespace IKaan.Biz.View.Lib.LM
 			txtCreateByName.SetEnable(false);
 			txtUpdateDate.SetEnable(false);
 			txtUpdateByName.SetEnable(false);
-
-			InitCombo();
+			
 			InitGrid();
-		}
-
-		void InitCombo()
-		{
-			lupParentID.BindData("RoleList", "없음", true);
 		}
 
 		void InitGrid()
 		{
+			#region Brand List
 			gridList.Init();
 			gridList.AddGridColumns(
 				new XGridColumn() { FieldName = "RowNo" },
-				new XGridColumn() { FieldName = "HierID", Visible = false },
-				new XGridColumn() { FieldName = "HierName", CaptionCode = "RoleName", Width = 300 },
-				new XGridColumn() { FieldName = "ID", HorzAlignment = HorzAlignment.Center, Width = 80 },
-				new XGridColumn() { FieldName = "UseYn", HorzAlignment = HorzAlignment.Center, Width = 80, RepositoryItem = gridList.GetRepositoryItemCheckEdit() }
+				new XGridColumn() { FieldName = "ID", Width = 80, HorzAlignment = HorzAlignment.Center },
+				new XGridColumn() { FieldName = "BrandName", Width = 200 },
+				new XGridColumn() { FieldName = "UseYn", Width = 80, HorzAlignment = HorzAlignment.Center },
+				new XGridColumn() { FieldName = "CreateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
+				new XGridColumn() { FieldName = "CreateByName", Width = 80, HorzAlignment = HorzAlignment.Center },
+				new XGridColumn() { FieldName = "UpdateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
+				new XGridColumn() { FieldName = "UpdateByName", Width = 80, HorzAlignment = HorzAlignment.Center }
 			);
+			gridList.SetRepositoryItemCheckEdit("UseYn");
 			gridList.SetColumnBackColor(SkinUtils.ForeColor, "RowNo");
 			gridList.SetColumnForeColor(SkinUtils.BackColor, "RowNo");
 			gridList.ColumnFix("RowNo");
@@ -72,7 +73,7 @@ namespace IKaan.Biz.View.Lib.LM
 
 				try
 				{
-					if (e.Button == System.Windows.Forms.MouseButtons.Left && e.Clicks == 1)
+					if (e.Button == MouseButtons.Left && e.Clicks == 1)
 					{
 						GridView view = sender as GridView;
 						DetailDataLoad(view.GetRowCellValue(e.RowHandle, "ID"));
@@ -83,6 +84,46 @@ namespace IKaan.Biz.View.Lib.LM
 					ShowErrBox(ex);
 				}
 			};
+			#endregion
+
+			#region Brand Image List
+			gridBrandImage.Init();
+			gridBrandImage.AddGridColumns(
+				new XGridColumn() { FieldName = "RowNo" },
+				new XGridColumn() { FieldName = "ID", Visible = false },
+				new XGridColumn() { FieldName = "BrandID", Visible = false },
+				new XGridColumn() { FieldName = "ImageType", Width = 100 },
+				new XGridColumn() { FieldName = "ImageUrl", Width = 300 },
+				new XGridColumn() { FieldName = "CreateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
+				new XGridColumn() { FieldName = "CreateByName", Width = 80, HorzAlignment = HorzAlignment.Center },
+				new XGridColumn() { FieldName = "UpdateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
+				new XGridColumn() { FieldName = "UpdateByName", Width = 80, HorzAlignment = HorzAlignment.Center }
+			);
+			gridBrandImage.SetRepositoryItemLookUpEdit("ImageType");
+			gridBrandImage.SetRepositoryItemButtonEdit("ImageUrl");
+			gridBrandImage.SetColumnBackColor(SkinUtils.ForeColor, "RowNo");
+			gridBrandImage.SetColumnForeColor(SkinUtils.BackColor, "RowNo");
+			gridBrandImage.ColumnFix("RowNo");
+
+			gridBrandImage.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
+			{
+				if (e.RowHandle < 0)
+					return;
+
+				try
+				{
+					if (e.Button == MouseButtons.Left && e.Clicks == 2)
+					{
+						GridView view = sender as GridView;
+						DetailDataLoad(view.GetRowCellValue(e.RowHandle, "ID"));
+					}
+				}
+				catch (Exception ex)
+				{
+					ShowErrBox(ex);
+				}
+			};
+			#endregion
 		}
 
 		protected override void LoadForm()
@@ -93,15 +134,15 @@ namespace IKaan.Biz.View.Lib.LM
 
 		protected override void DataInit()
 		{
-			ClearControlData<AARole>();
+			ClearControlData<LMBrand>();
 			SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true });
 			EditMode = EditModeEnum.New;
-			txtRoleName.Focus();
+			txtBrandName.Focus();
 		}
 
 		protected override void DataLoad(object param = null)
 		{
-			gridList.BindList<AARole>("AA", "GetList", "Select", new DataMap() { { "FindText", txtFindText.EditValue } });
+			gridList.BindList<LMBrand>("LM", "GetList", "Select", new DataMap() { { "FindText", txtFindText.EditValue } });
 
 			if (param != null)
 				DetailDataLoad(param);
@@ -113,14 +154,14 @@ namespace IKaan.Biz.View.Lib.LM
 		{
 			try
 			{
-				var model = WasHandler.GetData<AARole>("AA", "GetData", "Select", new DataMap() { { "ID", id } });
+				var model = WasHandler.GetData<LMBrand>("LM", "GetData", "Select", new DataMap() { { "ID", id } });
 				if (model == null)
 					throw new Exception("조회할 데이터가 없습니다.");
 
 				SetControlData(model);
 				SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true, Delete = true });
 				this.EditMode = EditModeEnum.Modify;
-				txtRoleName.Focus();
+				txtBrandName.Focus();
 
 			}
 			catch(Exception ex)
@@ -133,8 +174,8 @@ namespace IKaan.Biz.View.Lib.LM
 		{
 			try
 			{
-				var model = this.GetControlData<AARole>();
-				using (var res = WasHandler.Execute<AARole>("AA", "Save", (this.EditMode == EditModeEnum.New) ? "Insert" : "Update", model, "ID"))
+				var model = this.GetControlData<LMBrand>();
+				using (var res = WasHandler.Execute<LMBrand>("LM", "Save", (this.EditMode == EditModeEnum.New) ? "Insert" : "Update", model, "ID"))
 				{
 					if (res.Error.Number != 0)
 						throw new Exception(res.Error.Message);
@@ -154,7 +195,7 @@ namespace IKaan.Biz.View.Lib.LM
 			try
 			{
 				DataMap map = new DataMap() { { "ID", txtID.EditValue } };
-				using (var res = WasHandler.Execute<DataMap>("AA", "Delete", "DeleteAARole", map, "ID"))
+				using (var res = WasHandler.Execute<DataMap>("LM", "Delete", "DeleteLMBrand", map, "ID"))
 				{
 					if (res.Error.Number != 0)
 						throw new Exception(res.Error.Message);
