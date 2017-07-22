@@ -32,15 +32,11 @@ namespace IKaan.Biz.View.Sys.AC
 				{
 					txtCode.Properties.MaxLength = (row as LookupSource).MaxLength;
 					if ((row as LookupSource).MaxLength == 0)
-					{
-						esCodeLength.TextVisible = false;
-					}
+						esCodeLength.Text = " (Max Length: 20)";
 					else
-					{
-						esCodeLength.Text = " **Max Length: " + (row as LookupSource).MaxLength.ToString();
-						esCodeLength.AppearanceItemCaption.ForeColor = Color.Red;
-						esCodeLength.TextVisible = true;
-					}
+						esCodeLength.Text = " (Max Length: " + (row as LookupSource).MaxLength.ToString() + ")";
+					esCodeLength.AppearanceItemCaption.ForeColor = Color.Red;
+
 					SetOptionTextAndLable(lookup, (row as LookupSource).Option1, lcItemCodeValue01);
 					SetOptionTextAndLable(lookup, (row as LookupSource).Option2, lcItemCodeValue02);
 					SetOptionTextAndLable(lookup, (row as LookupSource).Option3, lcItemCodeValue03);
