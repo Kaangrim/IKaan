@@ -16,6 +16,8 @@ namespace IKaan.Biz.Core.Model
 		[DataMember]
 		public string Value { get; set; }
 		[DataMember]
+		public int MaxLength { get; set; }
+		[DataMember]
 		public string Option1 { get; set; }
 		[DataMember]
 		public string Option2 { get; set; }

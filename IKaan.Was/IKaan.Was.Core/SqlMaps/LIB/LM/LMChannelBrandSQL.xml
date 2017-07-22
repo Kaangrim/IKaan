@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectLMChannelBrandList" parameterClass="DataMap" resultClass="LMChannelBrand" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
+					,	AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.ChannelID
+					,	AA.BrandID
+					,	AA.StartDate
+					,	AA.EndDate
+					,	AA.ChannelMargin
+					,	AA.BrandMargin
+					
+					,	BB.ChannelName
+					,	CC.BrandName
+					
+				FROM	dbo.LMChannelBrand AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.LMChannel BB WITH (NOLOCK)
+								ON AA.ChannelID = BB.ID
+						LEFT JOIN
+							dbo.LMBrand CC WITH (NOLOCK)
+								ON AA.BrandID = CC.ID
+				WHERE	1=1				
+			]]>
+			<isNotEmpty property="ChannelID">
+				<![CDATA[
+					AND		AA.ChannelID = #ChannelID#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="BrandID">
+				<![CDATA[
+					AND		AA.BrandID = #BrandID#
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectLMChannelBrand" parameterClass="DataMap" resultClass="LMChannelBrand" >
+			<![CDATA[
+				SELECT  AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.ChannelID
+					,	AA.BrandID
+					,	AA.StartDate
+					,	AA.EndDate
+					,	AA.ChannelMargin
+					,	AA.BrandMargin
+					
+					,	BB.CustomerName
+					,	CC.BrandName
+					
+				FROM	dbo.LMChannelBrand AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.LMChannel BB WITH (NOLOCK)
+								ON AA.ChannelID = BB.ID
+						LEFT JOIN
+							dbo.LMBrand CC WITH (NOLOCK)
+								ON AA.BrandID = CC.ID
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<insert id="InsertLMChannelBrand" parameterClass="LMChannelBrand" >
+			<![CDATA[
+				INSERT INTO dbo.LMChannelBrand
+				( 
+					CreateDate, CreateBy, CreateByName,
+					ChannelID, BrandID, StartDate, EndDate, 
+					ChannelMargin, BrandMargin
+				)
+				VALUES
+				(
+					GetDate(), #CreateBy#, #CreateByName#,
+					#ChannelID#, #BrandID#, #StartDate#, #EndDate#, 
+					#ChannelMargin#, #BrandMargin#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateLMChannelBrand" parameterClass="LMChannelBrand">
+			<![CDATA[
+				UPDATE  dbo.LMChannelBrand
+				SET     UpdateDate		= GetDate()
+					,	UpdateBy		= #UpdateBy#
+					,	UpdateByName	= #UpdateByName#
+					
+					,	ChannelID		= #ChannelID#
+					,	BrandID			= #BrandID#
+					,	StartDate		= #StartDate#
+					,	EndDate			= #EndDate#
+					,	ChannelMargin	= #ChannelMargin#
+					,	BrandMargin		= #BrandMargin#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
+		<delete id="DeleteLMChannelBrand" parameterClass="DataMap">
+			<![CDATA[
+				DELETE 
+				FROM	dbo.LMChannelBrand
+				WHERE	ID = #ID#
+			]]>
+		</delete>
+	</statements>
+</sqlMap>

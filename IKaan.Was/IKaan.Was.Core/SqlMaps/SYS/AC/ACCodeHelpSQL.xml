@@ -14,6 +14,7 @@
 					,	AA.Name			as DispName
 					,	AA.Value		as Value
 					,	AA.SortOrder	as SortOrder
+					,	AA.MaxLength	as MaxLength
 					,	AA.CodeValue01	as Option1
 					,	AA.CodeValue02	as Option2
 					,	AA.CodeValue03	as Option3
@@ -50,6 +51,7 @@
 					,	AA.Name			as DispName
 					,	AA.Value		as Value
 					,	AA.SortOrder	as SortOrder
+					,	AA.MaxLength	as MaxLength
 					,	AA.CodeValue01	as Option1
 					,	AA.CodeValue02	as Option2
 					,	AA.CodeValue03	as Option3
@@ -119,6 +121,7 @@
 					,	aa.Path									as DispName
 					,	CONVERT(VARCHAR, aa.ID)					as Value
 					,	ROW_NUMBER() OVER (ORDER BY aa.HierID)	as SortOrder
+					,	0										as MaxLength
 					,	aa.ID									as Option1
 					,	aa.HierID								as Option2
 					,	null									as Option3
@@ -175,6 +178,7 @@
 					,	aa.Path									as DispName
 					,	CONVERT(VARCHAR, aa.ID)					as Value
 					,	ROW_NUMBER() OVER (ORDER BY aa.HierID)	as SortOrder
+					,	0										as MaxLength
 					,	aa.ID									as Option1
 					,	aa.HierID								as Option2
 					,	null									as Option3
@@ -198,6 +202,7 @@
 					,	aa.ModuleName						as DispName
 					,	CONVERT(VARCHAR, aa.ID)				as Value
 					,	ROW_NUMBER() OVER (ORDER BY aa.ID)	as SortOrder
+					,	0									as MaxLength
 					,	null								as Option1
 					,	null								as Option2
 					,	null								as Option3
@@ -267,6 +272,7 @@
 					,	aa.Path									as DispName
 					,	CONVERT(VARCHAR, aa.ID)					as Value
 					,	ROW_NUMBER() OVER (ORDER BY aa.HierID)	as SortOrder
+					,	0										as MaxLength
 					,	aa.ID			as Option1
 					,	aa.HierID		as Option2
 					,	null			as Option3
@@ -323,6 +329,7 @@
 					,	aa.Path									as DispName
 					,	CONVERT(VARCHAR, aa.ID)					as Value
 					,	ROW_NUMBER() OVER (ORDER BY aa.HierID)	as SortOrder
+					,	0										as MaxLength
 					,	aa.ID			as Option1
 					,	aa.HierID		as Option2
 					,	null			as Option3
@@ -346,6 +353,7 @@
 					,	aa.HelpName							as DispName
 					,	CONVERT(VARCHAR, aa.ID)				as Value
 					,	ROW_NUMBER() OVER (ORDER BY aa.ID)	as SortOrder
+					,	0									as MaxLength
 					,	aa.HelpType							as Option1
 					,	null								as Option2
 					,	null								as Option3
@@ -369,6 +377,7 @@
 					,	aa.ServerName						as DispName
 					,	CONVERT(VARCHAR, aa.ID)				as Value
 					,	ROW_NUMBER() OVER (ORDER BY aa.ID)	as SortOrder
+					,	0									as MaxLength
 					,	null								as Option1
 					,	null								as Option2
 					,	null								as Option3
@@ -392,6 +401,7 @@
 					,	aa.DatabaseName						as DispName
 					,	CONVERT(VARCHAR, aa.ID)				as Value
 					,	ROW_NUMBER() OVER (ORDER BY aa.ID)	as SortOrder
+					,	0									as MaxLength
 					,	aa.ServerID							as Option1
 					,	aa.DbmsType							as Option2
 					,	null								as Option3
@@ -423,6 +433,7 @@
 					,	aa.SchemaName						as DispName
 					,	CONVERT(VARCHAR, aa.ID)				as Value
 					,	ROW_NUMBER() OVER (ORDER BY aa.ID)	as SortOrder
+					,	0									as MaxLength
 					,	bb.ServerID							as Option1
 					,	aa.DatabaseID						as Option2
 					,	null								as Option3
@@ -462,6 +473,7 @@
 					,	aa.TableName						as DispName
 					,	CONVERT(VARCHAR, aa.ID)				as Value
 					,	ROW_NUMBER() OVER (ORDER BY aa.ID)	as SortOrder
+					,	0									as MaxLength
 					,	bb.ServerID							as Option1
 					,	aa.DatabaseID						as Option2
 					,	aa.SchemaID							as Option3
@@ -507,6 +519,7 @@
 					,	AA.Value		as Value
 					,	AA.ParentCode	as GroupCode
 					,	AA.SortOrder	as SortOrder
+					,	AA.MaxLength	as MaxLength
 					,	AA.CodeValue01	as Option1
 					,	AA.CodeValue02	as Option2
 					,	AA.CodeValue03	as Option3
@@ -527,6 +540,7 @@
 					,	AA.Value		as Value
 					,	'CodeGroup'		as GroupCode
 					,	AA.SortOrder	as SortOrder
+					,	AA.MaxLength	as MaxLength
 					,	AA.CodeValue01	as Option1
 					,	AA.CodeValue02	as Option2
 					,	AA.CodeValue03	as Option3

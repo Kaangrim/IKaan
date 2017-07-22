@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using DevExpress.Utils;
 using DevExpress.XtraGrid.Views.Grid;
@@ -10,7 +11,6 @@ using IKaan.Biz.Core.Model;
 using IKaan.Biz.Core.Utils;
 using IKaan.Biz.Core.Was.Handler;
 using IKaan.Model.LIB.LM;
-using IKaan.Model.SYS.AA;
 
 namespace IKaan.Biz.View.Lib.LM
 {
@@ -124,6 +124,50 @@ namespace IKaan.Biz.View.Lib.LM
 				}
 			};
 			#endregion
+
+			#region Brand Customer List
+			gridBrandCustomer.Init();
+			gridBrandCustomer.AddGridColumns(
+				new XGridColumn() { FieldName = "RowNo" },
+				new XGridColumn() { FieldName = "ID", Visible = false },
+				new XGridColumn() { FieldName = "BrandID", Visible = false },
+				new XGridColumn() { FieldName = "CustomerID", Visible = false },
+				new XGridColumn() { FieldName = "PersonID", Visible = false },
+				new XGridColumn() { FieldName = "StartDate", Width = 80 },
+				new XGridColumn() { FieldName = "EndDate", Width = 80 },
+				new XGridColumn() { FieldName = "CustomerName", Width = 200 },
+				new XGridColumn() { FieldName = "PersonName", Width = 100 },
+				new XGridColumn() { FieldName = "CreateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
+				new XGridColumn() { FieldName = "CreateByName", Width = 80, HorzAlignment = HorzAlignment.Center },
+				new XGridColumn() { FieldName = "UpdateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
+				new XGridColumn() { FieldName = "UpdateByName", Width = 80, HorzAlignment = HorzAlignment.Center }
+			);
+			gridBrandCustomer.SetColumnBackColor(SkinUtils.ForeColor, "RowNo");
+			gridBrandCustomer.SetColumnForeColor(SkinUtils.BackColor, "RowNo");
+			gridBrandCustomer.ColumnFix("RowNo");
+			#endregion
+
+			#region Brand Channel List
+			gridBrandChannel.Init();
+			gridBrandChannel.AddGridColumns(
+				new XGridColumn() { FieldName = "RowNo" },
+				new XGridColumn() { FieldName = "ID", Visible = false },
+				new XGridColumn() { FieldName = "BrandID", Visible = false },
+				new XGridColumn() { FieldName = "ChannelID", Visible = false },
+				new XGridColumn() { FieldName = "StartDate", Width = 80 },
+				new XGridColumn() { FieldName = "EndDate", Width = 80 },
+				new XGridColumn() { FieldName = "ChannelName", Width = 200 },
+				new XGridColumn() { FieldName = "ChannelMargin", Width = 100, HorzAlignment = HorzAlignment.Far, FormatType = FormatType.Numeric, FormatString = "N2" },
+				new XGridColumn() { FieldName = "BrandMargin", Width = 100, HorzAlignment = HorzAlignment.Far, FormatType = FormatType.Numeric, FormatString = "N2" },
+				new XGridColumn() { FieldName = "CreateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
+				new XGridColumn() { FieldName = "CreateByName", Width = 80, HorzAlignment = HorzAlignment.Center },
+				new XGridColumn() { FieldName = "UpdateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
+				new XGridColumn() { FieldName = "UpdateByName", Width = 80, HorzAlignment = HorzAlignment.Center }
+			);
+			gridBrandChannel.SetColumnBackColor(SkinUtils.ForeColor, "RowNo");
+			gridBrandChannel.SetColumnForeColor(SkinUtils.BackColor, "RowNo");
+			gridBrandChannel.ColumnFix("RowNo");
+			#endregion
 		}
 
 		protected override void LoadForm()
@@ -135,6 +179,10 @@ namespace IKaan.Biz.View.Lib.LM
 		protected override void DataInit()
 		{
 			ClearControlData<LMBrand>();
+			gridBrandImage.Clear<LMBrandImage>();
+			gridBrandCustomer.Clear<LMCustomerBrand>();
+			gridBrandChannel.Clear<LMChannelBrand>();
+
 			SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true });
 			EditMode = EditModeEnum.New;
 			txtBrandName.Focus();
@@ -158,7 +206,22 @@ namespace IKaan.Biz.View.Lib.LM
 				if (model == null)
 					throw new Exception("조회할 데이터가 없습니다.");
 
+				IList<LMBrandImage> brandImage = new List<LMBrandImage>();
+				IList<LMCustomerBrand> brandCustomer = new List<LMCustomerBrand>();
+				IList<LMChannelBrand> brandChannel = new List<LMChannelBrand>();
+
+				if (model.BrandImage != null)
+					brandImage = model.BrandImage;
+				if (model.BrandCustomer != null)
+					brandCustomer = model.BrandCustomer;
+				if (model.BrandChannel != null)
+					brandChannel = model.BrandChannel;
+
 				SetControlData(model);
+				gridBrandImage.DataSource = brandImage;
+				gridBrandCustomer.DataSource = brandCustomer;
+				gridBrandChannel.DataSource = brandChannel;
+
 				SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true, Delete = true });
 				this.EditMode = EditModeEnum.Modify;
 				txtBrandName.Focus();
@@ -175,6 +238,13 @@ namespace IKaan.Biz.View.Lib.LM
 			try
 			{
 				var model = this.GetControlData<LMBrand>();
+				List<LMBrandImage> brandImage = new List<LMBrandImage>();
+
+				if (gridBrandImage.RowCount > 0)
+					brandImage = gridBrandImage.DataSource as List<LMBrandImage>;
+
+				model.BrandImage = brandImage;
+
 				using (var res = WasHandler.Execute<LMBrand>("LM", "Save", (this.EditMode == EditModeEnum.New) ? "Insert" : "Update", model, "ID"))
 				{
 					if (res.Error.Number != 0)

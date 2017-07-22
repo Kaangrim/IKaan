@@ -85,6 +85,7 @@ namespace IKaan.Biz.Core.Helper
 							ListName = x.ListName,
 							DispName = x.DispName,
 							Value = x.Value,
+							MaxLength = x.MaxLength,
 							Option1 = x.Option1.ToStringNullToEmpty(),
 							Option2 = x.Option2.ToStringNullToEmpty(),
 							Option3 = x.Option3.ToStringNullToEmpty(),
@@ -107,7 +108,8 @@ namespace IKaan.Biz.Core.Helper
 					Code = null,
 					Name = nullText,
 					ListName = nullText,
-					DispName = nullText
+					DispName = nullText,
+					MaxLength = 0
 				});
 			}
 
@@ -122,6 +124,7 @@ namespace IKaan.Biz.Core.Helper
 						ListName = code.ListName,
 						DispName = code.DispName,
 						Value = code.Value,
+						MaxLength = code.MaxLength,
 						Option1 = code.Option1,
 						Option2 = code.Option2,
 						Option3 = code.Option3,

@@ -40,6 +40,9 @@ namespace IKaan.Was.Service.LIB
 						case "LMBrand":
 							req.SetList<LMBrand>();
 							break;
+						case "LMChannel":
+							req.SetList<LMChannel>();
+							break;
 					}
 				}
 
@@ -92,7 +95,10 @@ namespace IKaan.Was.Service.LIB
 						case "LMBrand":
 							req.SetData<LMBrand>();
 							(req.Data as LMBrand).BrandImage = req.GetList<LMBrandImage>();
-							(req.Data as LMBrand).CustomerBrand = req.GetList<LMCustomerBrand>();
+							break;
+						case "LMChannel":
+							req.SetData<LMChannel>();
+							(req.Data as LMChannel).ChannelBrand = req.GetList<LMChannelBrand>();
 							break;
 					}
 				}
@@ -156,8 +162,18 @@ namespace IKaan.Was.Service.LIB
 							switch (req.ModelName)
 							{
 								case "LMBrand":
-									var model = req.SaveData<LMBrand>();
-
+									var brand = req.SaveData<LMBrand>();
+									if (brand != null)
+									{
+										req.SaveBrandImage(brand);
+									}
+									break;
+								case "LMChannel":
+									var channel = req.SaveData<LMChannel>();
+									if (channel != null)
+									{
+										req.SaveChannelBrand(channel);
+									}
 									break;
 							}
 						}
@@ -258,17 +274,17 @@ namespace IKaan.Was.Service.LIB
 			}
 		}
 
-		private static void SaveBrandImage(this WasRequest req, List<LMBrandImage> list)
+		private static void SaveBrandImage(this WasRequest req, LMBrand model)
 		{
 			try
 			{
-				foreach (var data in list)
+				foreach (var data in model.BrandImage)
 				{
 					if (data.BrandID == null)
 					{
-						data.BrandID = req.Result.ReturnValue.ToIntegerNullToNull();
+						data.BrandID = model.ID;
 					}					
-					req.SaveSubData<LMBrandImage>(data);
+					req.SaveSubData<LMBrandImage>(data, false);
 				}
 			}
 			catch
@@ -277,17 +293,36 @@ namespace IKaan.Was.Service.LIB
 			}
 		}
 
-		private static void SaveCustomerBrand(this WasRequest req, List<LMCustomerBrand> list)
+		private static void SaveCustomerBrand(this WasRequest req, LMBrand model)
 		{
 			try
 			{
-				foreach (var data in list)
+				foreach (var data in model.BrandCustomer)
 				{
 					if (data.BrandID == null)
 					{
-						//data.BrandID = model.ID;
+						data.BrandID = model.ID;
 					}
-					req.SaveSubData<LMBrandImage>(data);
+					req.SaveSubData<LMBrandImage>(data, false);
+				}
+			}
+			catch
+			{
+				throw;
+			}
+		}
+
+		private static void SaveChannelBrand(this WasRequest req, LMChannel model)
+		{
+			try
+			{
+				foreach (var data in model.ChannelBrand)
+				{
+					if (data.ChannelID == null)
+					{
+						data.ChannelID = model.ID;
+					}
+					req.SaveSubData<LMChannelBrand>(data, false);
 				}
 			}
 			catch

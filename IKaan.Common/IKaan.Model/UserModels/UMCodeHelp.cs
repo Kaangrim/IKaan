@@ -20,6 +20,8 @@ namespace IKaan.Model.UserModels
 		[DataMember]
 		public int SortOrder { get; set; }
 		[DataMember]
+		public int MaxLength { get; set; }
+		[DataMember]
 		public object Option1 { get; set; }
 		[DataMember]
 		public object Option2 { get; set; }

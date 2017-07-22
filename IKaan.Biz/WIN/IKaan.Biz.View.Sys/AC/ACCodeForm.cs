@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 using DevExpress.Utils;
 using DevExpress.XtraEditors;
@@ -29,6 +30,17 @@ namespace IKaan.Biz.View.Sys.AC
 				var row = lookup.GetSelectedDataRow();
 				if (row != null)
 				{
+					txtCode.Properties.MaxLength = (row as LookupSource).MaxLength;
+					if ((row as LookupSource).MaxLength == 0)
+					{
+						esCodeLength.TextVisible = false;
+					}
+					else
+					{
+						esCodeLength.Text = " **Max Length: " + (row as LookupSource).MaxLength.ToString();
+						esCodeLength.AppearanceItemCaption.ForeColor = Color.Red;
+						esCodeLength.TextVisible = true;
+					}
 					SetOptionTextAndLable(lookup, (row as LookupSource).Option1, lcItemCodeValue01);
 					SetOptionTextAndLable(lookup, (row as LookupSource).Option2, lcItemCodeValue02);
 					SetOptionTextAndLable(lookup, (row as LookupSource).Option3, lcItemCodeValue03);
@@ -38,7 +50,6 @@ namespace IKaan.Biz.View.Sys.AC
 					SetOptionTextAndLable(lookup, (row as LookupSource).Option7, lcItemCodeValue07);
 					SetOptionTextAndLable(lookup, (row as LookupSource).Option8, lcItemCodeValue08);
 					SetOptionTextAndLable(lookup, (row as LookupSource).Option9, lcItemCodeValue09);
-
 				}
 			};
 		}
@@ -107,6 +118,7 @@ namespace IKaan.Biz.View.Sys.AC
 
 		void InitCombo()
 		{
+			lupCodeGroup.BindData("CodeGroup", "All");
 			lupParentCode.BindData("CodeGroup", "ROOT", true);
 		}
 
@@ -120,6 +132,8 @@ namespace IKaan.Biz.View.Sys.AC
 				new XGridColumn() { FieldName = "ID", Caption = "ID", HorzAlignment = HorzAlignment.Center, Width = 80, Visible = false },
 				new XGridColumn() { FieldName = "Code", Width = 120 },
 				new XGridColumn() { FieldName = "Value", CaptionCode = "CodeValue", Width = 120 },
+				new XGridColumn() { FieldName = "MaxLength", Width = 80, HorzAlignment = HorzAlignment.Far, FormatType = FormatType.Numeric, FormatString = "N0" },
+				new XGridColumn() { FieldName = "SortOrder", Width = 80, HorzAlignment = HorzAlignment.Far, FormatType = FormatType.Numeric, FormatString = "N0" },
 				new XGridColumn() { FieldName = "UseYn", HorzAlignment = HorzAlignment.Center, Width = 80, RepositoryItem = gridList.GetRepositoryItemCheckEdit() },
 				new XGridColumn() { FieldName = "CodeValue01", Width = 100 },
 				new XGridColumn() { FieldName = "CodeValue02", Width = 100 },
@@ -194,7 +208,11 @@ namespace IKaan.Biz.View.Sys.AC
 
 		protected override void DataLoad(object param = null)
 		{
-			gridList.BindList<ACCode>("AC", "GetList", "Select", new DataMap() { { "FindText", txtFindText.EditValue } });
+			gridList.BindList<ACCode>("AC", "GetList", "Select", new DataMap()
+			{
+				{ "ParentCode", lupCodeGroup.EditValue },
+				{ "FindText", txtFindText.EditValue }
+			});
 
 			if (param != null)
 				DetailDataLoad(param);

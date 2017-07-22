@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Windows.Forms;
 using DevExpress.Utils;
 using DevExpress.XtraGrid.Views.Grid;
 using IKaan.Base.Map;
@@ -8,7 +10,7 @@ using IKaan.Biz.Core.Forms;
 using IKaan.Biz.Core.Model;
 using IKaan.Biz.Core.Utils;
 using IKaan.Biz.Core.Was.Handler;
-using IKaan.Model.SYS.AA;
+using IKaan.Model.LIB.LM;
 
 namespace IKaan.Biz.View.Lib.LM
 {
@@ -48,19 +50,28 @@ namespace IKaan.Biz.View.Lib.LM
 
 		void InitCombo()
 		{
-			lupParentID.BindData("RoleList", "없음", true);
+			lupFindChannelType.BindData("ChannelType", "All");
+			lupFindUseYn.BindData("Yn", "All");
+			lupChannelType.BindData("ChannelType");
 		}
 
 		void InitGrid()
 		{
+			#region Channel List
 			gridList.Init();
 			gridList.AddGridColumns(
-				new XGridColumn() { FieldName = "RowNo" },
-				new XGridColumn() { FieldName = "HierID", Visible = false },
-				new XGridColumn() { FieldName = "HierName", CaptionCode = "RoleName", Width = 300 },
-				new XGridColumn() { FieldName = "ID", HorzAlignment = HorzAlignment.Center, Width = 80 },
-				new XGridColumn() { FieldName = "UseYn", HorzAlignment = HorzAlignment.Center, Width = 80, RepositoryItem = gridList.GetRepositoryItemCheckEdit() }
+				new XGridColumn() { FieldName = "RowNo", Width = 40 },
+				new XGridColumn() { FieldName = "ID", Width = 80, HorzAlignment = HorzAlignment.Center },
+				new XGridColumn() { FieldName = "ChannelCode", Width = 80 },
+				new XGridColumn() { FieldName = "ChannelName", Width = 150 },
+				new XGridColumn() { FieldName = "ChannelTypeName", Width = 100 },
+				new XGridColumn() { FieldName = "UseYn", Width = 80, HorzAlignment = HorzAlignment.Center },
+				new XGridColumn() { FieldName = "CreateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
+				new XGridColumn() { FieldName = "CreateByName", Width = 80, HorzAlignment = HorzAlignment.Center },
+				new XGridColumn() { FieldName = "UpdateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
+				new XGridColumn() { FieldName = "UpdateByName", Width = 80, HorzAlignment = HorzAlignment.Center }
 			);
+			gridList.SetRepositoryItemCheckEdit("UseYn");
 			gridList.SetColumnBackColor(SkinUtils.ForeColor, "RowNo");
 			gridList.SetColumnForeColor(SkinUtils.BackColor, "RowNo");
 			gridList.ColumnFix("RowNo");
@@ -72,7 +83,7 @@ namespace IKaan.Biz.View.Lib.LM
 
 				try
 				{
-					if (e.Button == System.Windows.Forms.MouseButtons.Left && e.Clicks == 1)
+					if (e.Button == MouseButtons.Left && e.Clicks == 1)
 					{
 						GridView view = sender as GridView;
 						DetailDataLoad(view.GetRowCellValue(e.RowHandle, "ID"));
@@ -83,6 +94,29 @@ namespace IKaan.Biz.View.Lib.LM
 					ShowErrBox(ex);
 				}
 			};
+			#endregion
+
+			#region Channel Brand List
+			gridChannelBrand.Init();
+			gridChannelBrand.AddGridColumns(
+				new XGridColumn() { FieldName = "RowNo", Width = 40 },
+				new XGridColumn() { FieldName = "ID", Visible = false },
+				new XGridColumn() { FieldName = "ChannelID", Visible = false },
+				new XGridColumn() { FieldName = "StartDate", Width = 80, HorzAlignment = HorzAlignment.Center },
+				new XGridColumn() { FieldName = "EndDate", Width = 80, HorzAlignment = HorzAlignment.Center },
+				new XGridColumn() { FieldName = "BrandID", Visible = false },
+				new XGridColumn() { FieldName = "BrandName", Width = 150 },
+				new XGridColumn() { FieldName = "ChannelMargin", Width = 100, HorzAlignment = HorzAlignment.Far, FormatType = FormatType.Numeric, FormatString = "N2" },
+				new XGridColumn() { FieldName = "BrandMargin", Width = 100, HorzAlignment = HorzAlignment.Far, FormatType = FormatType.Numeric, FormatString = "N2" },
+				new XGridColumn() { FieldName = "CreateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
+				new XGridColumn() { FieldName = "CreateByName", Width = 80, HorzAlignment = HorzAlignment.Center },
+				new XGridColumn() { FieldName = "UpdateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
+				new XGridColumn() { FieldName = "UpdateByName", Width = 80, HorzAlignment = HorzAlignment.Center }
+			);
+			gridChannelBrand.SetColumnBackColor(SkinUtils.ForeColor, "RowNo");
+			gridChannelBrand.SetColumnForeColor(SkinUtils.BackColor, "RowNo");
+			gridChannelBrand.ColumnFix("RowNo");
+			#endregion
 		}
 
 		protected override void LoadForm()
@@ -93,15 +127,17 @@ namespace IKaan.Biz.View.Lib.LM
 
 		protected override void DataInit()
 		{
-			ClearControlData<AARole>();
+			ClearControlData<LMChannel>();
+			gridChannelBrand.Clear<LMChannelBrand>();
+
 			SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true });
 			EditMode = EditModeEnum.New;
-			txtRoleName.Focus();
+			txtChannelName.Focus();
 		}
 
 		protected override void DataLoad(object param = null)
 		{
-			gridList.BindList<AARole>("AA", "GetList", "Select", new DataMap() { { "FindText", txtFindText.EditValue } });
+			gridList.BindList<LMChannel>("LM", "GetList", "Select", new DataMap() { { "FindText", txtFindText.EditValue } });
 
 			if (param != null)
 				DetailDataLoad(param);
@@ -113,14 +149,21 @@ namespace IKaan.Biz.View.Lib.LM
 		{
 			try
 			{
-				var model = WasHandler.GetData<AARole>("AA", "GetData", "Select", new DataMap() { { "ID", id } });
+				var model = WasHandler.GetData<LMChannel>("LM", "GetData", "Select", new DataMap() { { "ID", id } });
 				if (model == null)
 					throw new Exception("조회할 데이터가 없습니다.");
 
+				IList<LMChannelBrand> channelBrand = new List<LMChannelBrand>();
+
+				if (model.ChannelBrand != null)
+					channelBrand = model.ChannelBrand;
+
 				SetControlData(model);
+				gridChannelBrand.DataSource = channelBrand;
+
 				SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true, Delete = true });
 				this.EditMode = EditModeEnum.Modify;
-				txtRoleName.Focus();
+				txtChannelName.Focus();
 
 			}
 			catch(Exception ex)
@@ -133,8 +176,15 @@ namespace IKaan.Biz.View.Lib.LM
 		{
 			try
 			{
-				var model = this.GetControlData<AARole>();
-				using (var res = WasHandler.Execute<AARole>("AA", "Save", (this.EditMode == EditModeEnum.New) ? "Insert" : "Update", model, "ID"))
+				var model = this.GetControlData<LMChannel>();
+				List<LMChannelBrand> channelBrand = new List<LMChannelBrand>();
+
+				if (gridChannelBrand.RowCount > 0)
+					channelBrand = gridChannelBrand.DataSource as List<LMChannelBrand>;
+
+				model.ChannelBrand = channelBrand;
+
+				using (var res = WasHandler.Execute<LMChannel>("LM", "Save", (this.EditMode == EditModeEnum.New) ? "Insert" : "Update", model, "ID"))
 				{
 					if (res.Error.Number != 0)
 						throw new Exception(res.Error.Message);
@@ -154,7 +204,7 @@ namespace IKaan.Biz.View.Lib.LM
 			try
 			{
 				DataMap map = new DataMap() { { "ID", txtID.EditValue } };
-				using (var res = WasHandler.Execute<DataMap>("AA", "Delete", "DeleteAARole", map, "ID"))
+				using (var res = WasHandler.Execute<DataMap>("LM", "Delete", "DeleteLMChannel", map, "ID"))
 				{
 					if (res.Error.Number != 0)
 						throw new Exception(res.Error.Message);

@@ -68,6 +68,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="SqlMaps\LIB\LM\LMChannelBrandSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\LIB\LM\LMChannelSQL.xml" />
     <EmbeddedResource Include="SqlMaps\LIB\LM\LMBrandImageSQL.xml" />
     <EmbeddedResource Include="SqlMaps\LIB\LM\LMCustomerBrandSQL.xml" />
     <EmbeddedResource Include="SqlMaps\LIB\LM\LMBrandSQL.xml" />

@@ -113,17 +113,21 @@ namespace IKaan.Was.Service.Utils
 			}
 		}
 
-		public static void SaveSubData<T>(this WasRequest req, object data)
+		public static void SaveSubData<T>(this WasRequest req, object data, bool existsChecked = true)
 		{
 			try
 			{
 				T rm = default(T);
-				if (req.ServiceId.StartsWith("L"))
-					rm = DaoFactory.InstanceLib.QueryForObject<T>(string.Concat("Select", typeof(T).Name, "Exists"), data);
-				else if (req.ServiceId.StartsWith("B"))
-					rm = DaoFactory.InstanceBiz.QueryForObject<T>(string.Concat("Select", typeof(T).Name, "Exists"), data);
-				else
-					rm = DaoFactory.Instance.QueryForObject<T>(string.Concat("Select", typeof(T).Name, "Exists"), data);
+
+				if (existsChecked)
+				{
+					if (req.ServiceId.StartsWith("L"))
+						rm = DaoFactory.InstanceLib.QueryForObject<T>(string.Concat("Select", typeof(T).Name, "Exists"), data);
+					else if (req.ServiceId.StartsWith("B"))
+						rm = DaoFactory.InstanceBiz.QueryForObject<T>(string.Concat("Select", typeof(T).Name, "Exists"), data);
+					else
+						rm = DaoFactory.Instance.QueryForObject<T>(string.Concat("Select", typeof(T).Name, "Exists"), data);
+				}
 
 				if (rm == null || ((IModelBase)rm).ID == null)
 				{
@@ -159,7 +163,7 @@ namespace IKaan.Was.Service.Utils
 				throw;
 			}
 		}
-
+		
 		public static void DeleteSubData<T>(this WasRequest req, object data)
 		{
 			try

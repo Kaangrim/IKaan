@@ -47,17 +47,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LM\LMBrandForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="LM\LMBrandForm.designer.cs">
-      <DependentUpon>LMBrandForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="LM\LMChannelForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="LM\LMChannelForm.designer.cs">
       <DependentUpon>LMChannelForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LM\LMBrandForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LM\LMBrandForm.designer.cs">
+      <DependentUpon>LMBrandForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -65,11 +65,11 @@
     <Folder Include="LG\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="LM\LMBrandForm.resx">
-      <DependentUpon>LMBrandForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="LM\LMChannelForm.resx">
       <DependentUpon>LMChannelForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LM\LMBrandForm.resx">
+      <DependentUpon>LMBrandForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
   </ItemGroup>

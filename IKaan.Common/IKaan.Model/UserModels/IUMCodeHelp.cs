@@ -9,6 +9,7 @@
 		string DispName { get; set; }
 		string Value { get; set; }
 		int SortOrder { get; set; }
+		int MaxLength { get; set; }
 		object Option1 { get; set; }
 		object Option2 { get; set; }
 		object Option3 { get; set; }

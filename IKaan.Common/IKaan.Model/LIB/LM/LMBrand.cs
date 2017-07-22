@@ -33,12 +33,17 @@ namespace IKaan.Model.LIB.LM
 
 		[DataMember]
 		[Display(Name = "거래처, 브랜드")]
-		public IList<LMCustomerBrand> CustomerBrand { get; set; }
+		public IList<LMCustomerBrand> BrandCustomer { get; set; }
+
+		[DataMember]
+		[Display(Name = "채널, 브랜드")]
+		public IList<LMChannelBrand> BrandChannel { get; set; }
 
 		public LMBrand()
 		{
 			BrandImage = new List<LMBrandImage>();
-			CustomerBrand = new List<LMCustomerBrand>();
+			BrandCustomer = new List<LMCustomerBrand>();
+			BrandChannel = new List<LMChannelBrand>();
 		}
 	}
 }
