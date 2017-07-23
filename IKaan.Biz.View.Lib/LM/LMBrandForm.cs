@@ -19,6 +19,9 @@ namespace IKaan.Biz.View.Lib.LM
 		public LMBrandForm()
 		{
 			InitializeComponent();
+
+			btnAddImage.Click += delegate (object sender, EventArgs e) { AddImage(); };
+			btnDeleteImage.Click += delegate (object sender, EventArgs e) { DeleteImage(); };
 		}
 
 		protected override void OnShown(EventArgs e)
@@ -115,7 +118,13 @@ namespace IKaan.Biz.View.Lib.LM
 					if (e.Button == MouseButtons.Left && e.Clicks == 2)
 					{
 						GridView view = sender as GridView;
-						DetailDataLoad(view.GetRowCellValue(e.RowHandle, "ID"));
+						AddImage(new DataMap()
+						{
+							{ "ID", view.GetRowCellValue(e.RowHandle, "ID") },
+							{ "BrandID", view.GetRowCellValue(e.RowHandle, "BrandID") },
+							{ "ImageType", view.GetRowCellValue(e.RowHandle, "ImageType") },
+							{ "ImageUrl", view.GetRowCellValue(e.RowHandle, "ImageUrl") }
+						});
 					}
 				}
 				catch (Exception ex)
@@ -183,6 +192,9 @@ namespace IKaan.Biz.View.Lib.LM
 			gridBrandCustomer.Clear<LMCustomerBrand>();
 			gridBrandChannel.Clear<LMChannelBrand>();
 
+			btnAddImage.Enabled = false;
+			btnDeleteImage.Enabled = false;
+
 			SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true });
 			EditMode = EditModeEnum.New;
 			txtBrandName.Focus();
@@ -202,7 +214,11 @@ namespace IKaan.Biz.View.Lib.LM
 		{
 			try
 			{
-				var model = WasHandler.GetData<LMBrand>("LM", "GetData", "Select", new DataMap() { { "ID", id } });
+				var model = WasHandler.GetData<LMBrand>("LM", "GetData", "Select", new DataMap()
+				{
+					{ "ID", id },
+					{ "BrandID", id }
+				});
 				if (model == null)
 					throw new Exception("조회할 데이터가 없습니다.");
 
@@ -221,6 +237,12 @@ namespace IKaan.Biz.View.Lib.LM
 				gridBrandImage.DataSource = brandImage;
 				gridBrandCustomer.DataSource = brandCustomer;
 				gridBrandChannel.DataSource = brandChannel;
+
+				btnAddImage.Enabled = true;
+				if (gridBrandImage.RowCount > 0)
+					btnDeleteImage.Enabled = true;
+				else
+					btnDeleteImage.Enabled = false;
 
 				SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true, Delete = true });
 				this.EditMode = EditModeEnum.Modify;
@@ -272,6 +294,62 @@ namespace IKaan.Biz.View.Lib.LM
 
 					ShowMsgBox("삭제하였습니다.");
 					callback(arg, null);
+				}
+			}
+			catch (Exception ex)
+			{
+				ShowErrBox(ex);
+			}
+		}
+
+		private void AddImage(DataMap parameter = null)
+		{
+			try
+			{
+				if (parameter == null)
+				{
+					parameter = new DataMap()
+					{
+						{ "ID", null },
+						{ "BrandID", txtID.EditValue },
+						{ "ImageType", null },
+						{ "ImageUrl", null }
+					};
+				}
+				using (LMBrandImageForm form = new LMBrandImageForm()
+				{
+					Text = "브랜드이미지",
+					StartPosition = FormStartPosition.CenterScreen,
+					ParamsData = parameter
+				})
+				{					
+					if (form.ShowDialog() == DialogResult.OK)
+					{
+						DetailDataLoad(txtID.EditValue);
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				ShowErrBox(ex);
+			}
+		}
+
+		private void DeleteImage()
+		{
+			try
+			{
+				if (gridBrandImage.FocusedRowHandle < 0)
+					return;
+
+				DataMap map = new DataMap() { { "ID", gridBrandImage.GetValue(gridBrandImage.FocusedRowHandle, "ID") } };
+				using (var res = WasHandler.Execute<DataMap>("LM", "Delete", "DeleteLMBrandImage", map, "ID"))
+				{
+					if (res.Error.Number != 0)
+						throw new Exception(res.Error.Message);
+
+					ShowMsgBox("삭제하였습니다.");
+					DetailDataLoad(txtID.EditValue);
 				}
 			}
 			catch (Exception ex)

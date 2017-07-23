@@ -175,6 +175,9 @@ namespace IKaan.Was.Service.LIB
 										req.SaveChannelBrand(channel);
 									}
 									break;
+								case "LMBrandImage":
+									req.SaveData<LMBrandImage>();
+									break;
 							}
 						}
 					}

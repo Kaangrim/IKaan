@@ -99,6 +99,39 @@ namespace IKaan.Biz.Core.Handler
 				throw;
 			}
 		}
+		public static string UploadBrand(string localPath, string brandID, string type)
+		{
+			try
+			{
+				if (localPath.IsNullOrEmpty())
+					throw new Exception("로컬 파일 경로가 정확하지 않습니다.");
+
+				
+				FileInfo info = new FileInfo(localPath);
+				string ext = info.Extension;
+				string fileName = brandID + "_" + type + ext;
+				string remotePath = ConstsVar.IMG_URL_BRAND + "/" + brandID;
+				string remoteFull = remotePath + "/" + fileName;
+
+				using (var ftp = new FtpClient())
+				{
+					ftp.Host = url;
+					ftp.Credentials = new System.Net.NetworkCredential(id, pw);
+					ftp.Connect();
+					if (ftp.DirectoryExists(remotePath) == false)
+						ftp.CreateDirectory(remotePath);
+					if (ftp.FileExists(remoteFull))
+						ftp.DeleteFile(remoteFull);
+					ftp.UploadFile(localPath, remoteFull);
+					ftp.Disconnect();
+				}
+				return remoteFull;
+			}
+			catch
+			{
+				throw;
+			}
+		}
 
 		public static void DeleteFile(string remotePath)
 		{
