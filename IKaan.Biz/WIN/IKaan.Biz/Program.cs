@@ -71,7 +71,7 @@ namespace IKaan.Biz
 				using (var f = new LoginForm()
 				{
 					Name = "LoginForm",
-					Text = "로그인"
+					Text = "Sign In"
 				})
 				{
 					if (f.ShowDialog() != DialogResult.OK)

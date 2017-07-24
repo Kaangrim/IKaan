@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using DevExpress.Utils;
+using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Views.Grid;
 using IKaan.Base.Map;
 using IKaan.Biz.Core.Controls.Grid;
@@ -19,6 +20,11 @@ namespace IKaan.Biz.View.Lib.LM
 		public LMChannelForm()
 		{
 			InitializeComponent();
+
+			btnAddBrand.Click += delegate (object sender, EventArgs e) { DataNewChannelBrand(); };
+			btnDeleteBrand.Click += delegate (object sender, EventArgs e) { DataDeleteChannelBrand(); };
+			btnAddCustomer.Click += delegate (object sender, EventArgs e) { DataNewChannelCustomer(); };
+			btnDeleteCustomer.Click += delegate (object sender, EventArgs e) { DataDeleteChannelCustomer(); };
 		}
 
 		protected override void OnShown(EventArgs e)
@@ -117,6 +123,26 @@ namespace IKaan.Biz.View.Lib.LM
 			gridChannelBrand.SetColumnForeColor(SkinUtils.BackColor, "RowNo");
 			gridChannelBrand.ColumnFix("RowNo");
 			#endregion
+
+			#region Channel Customer List
+			gridChannelCustomer.Init();
+			gridChannelCustomer.AddGridColumns(
+				new XGridColumn() { FieldName = "RowNo", Width = 40 },
+				new XGridColumn() { FieldName = "ID", Visible = false },
+				new XGridColumn() { FieldName = "ChannelID", Visible = false },
+				new XGridColumn() { FieldName = "StartDate", Width = 80, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "D" },
+				new XGridColumn() { FieldName = "EndDate", Width = 80, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "D" },
+				new XGridColumn() { FieldName = "CustomerID", Visible = false },
+				new XGridColumn() { FieldName = "CustomerName", Width = 200 },
+				new XGridColumn() { FieldName = "CreateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
+				new XGridColumn() { FieldName = "CreateByName", Width = 80, HorzAlignment = HorzAlignment.Center },
+				new XGridColumn() { FieldName = "UpdateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
+				new XGridColumn() { FieldName = "UpdateByName", Width = 80, HorzAlignment = HorzAlignment.Center }
+			);
+			gridChannelCustomer.SetColumnBackColor(SkinUtils.ForeColor, "RowNo");
+			gridChannelCustomer.SetColumnForeColor(SkinUtils.BackColor, "RowNo");
+			gridChannelCustomer.ColumnFix("RowNo");
+			#endregion
 		}
 
 		protected override void LoadForm()
@@ -129,6 +155,12 @@ namespace IKaan.Biz.View.Lib.LM
 		{
 			ClearControlData<LMChannel>();
 			gridChannelBrand.Clear<LMChannelBrand>();
+			gridChannelCustomer.Clear<LMCustomerChannel>();
+
+			btnAddBrand.Enabled = false;
+			btnDeleteBrand.Enabled = false;
+			btnAddCustomer.Enabled = false;
+			btnDeleteCustomer.Enabled = false;
 
 			SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true });
 			EditMode = EditModeEnum.New;
@@ -154,12 +186,21 @@ namespace IKaan.Biz.View.Lib.LM
 					throw new Exception("조회할 데이터가 없습니다.");
 
 				IList<LMChannelBrand> channelBrand = new List<LMChannelBrand>();
+				IList<LMCustomerChannel> channelCustomer = new List<LMCustomerChannel>();
 
 				if (model.ChannelBrand != null)
 					channelBrand = model.ChannelBrand;
+				if (model.ChannelCustomer != null)
+					channelCustomer = model.ChannelCustomer;
 
 				SetControlData(model);
 				gridChannelBrand.DataSource = channelBrand;
+				gridChannelCustomer.DataSource = channelCustomer;
+
+				btnAddBrand.Enabled = 
+					btnDeleteBrand.Enabled = 
+					btnAddCustomer.Enabled = 
+					btnDeleteCustomer.Enabled = true;
 
 				SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true, Delete = true });
 				this.EditMode = EditModeEnum.Modify;
@@ -178,11 +219,15 @@ namespace IKaan.Biz.View.Lib.LM
 			{
 				var model = this.GetControlData<LMChannel>();
 				List<LMChannelBrand> channelBrand = new List<LMChannelBrand>();
+				List<LMCustomerChannel> channelCustomer = new List<LMCustomerChannel>();
 
 				if (gridChannelBrand.RowCount > 0)
 					channelBrand = gridChannelBrand.DataSource as List<LMChannelBrand>;
+				if (gridChannelCustomer.RowCount > 0)
+					channelCustomer = gridChannelCustomer.DataSource as List<LMCustomerChannel>;
 
 				model.ChannelBrand = channelBrand;
+				model.ChannelCustomer = channelCustomer;
 
 				using (var res = WasHandler.Execute<LMChannel>("LM", "Save", (this.EditMode == EditModeEnum.New) ? "Insert" : "Update", model, "ID"))
 				{
@@ -217,6 +262,23 @@ namespace IKaan.Biz.View.Lib.LM
 			{
 				ShowErrBox(ex);
 			}
+		}
+
+		private void DataNewChannelBrand()
+		{
+			gridChannelBrand.AddNewRow();
+		}
+		private void DataDeleteChannelBrand()
+		{
+
+		}
+		private void DataNewChannelCustomer()
+		{
+			gridChannelCustomer.AddNewRow();
+		}
+		private void DataDeleteChannelCustomer()
+		{
+
 		}
 	}
 }

@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Windows.Forms;
-using DevExpress.Utils;
 using DevExpress.XtraEditors;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
 using IKaan.Biz.Core.Forms;
 using IKaan.Biz.Core.Helper;
 using IKaan.Biz.Core.Resources;
-using IKaan.Biz.Core.Utils;
 using IKaan.Biz.Core.Variables;
 using IKaan.Biz.Core.Was.Handler;
 using IKaan.Model.UserModels;
@@ -22,7 +20,6 @@ namespace IKaan.Biz.View.Forms
 			Initialize();
 
 			btnOk.Click += delegate (object sender, EventArgs e) { doLogin(); };
-			btnCancel.Click += delegate (object sender, EventArgs e) { Close(); };
 
 			txtLoginId.GotFocus += delegate (object sender, EventArgs e)
 			{
@@ -70,11 +67,8 @@ namespace IKaan.Biz.View.Forms
 			Icon = IconResource.icon;
 			//this.BackColor = SkinUtils.FormBackColor;
 
-			lcItemLoginId.SetFieldName("LoginId");
-			lcItemPassword.SetFieldName("Password");
-
-			lcItemLoginId.AppearanceItemCaption.TextOptions.HAlignment = 
-				lcItemPassword.AppearanceItemCaption.TextOptions.HAlignment = HorzAlignment.Far;
+			lcItemLoginId.Text = "Username or Email";
+			lcItemPassword.Text = "Password";
 			
 			txtLoginId.EditValue = RegistryUtils.GetValue(ConstsVar.REGISTRY_LOGIN_INFO, "LoginId");
 			txtPassword.EditValue = RegistryUtils.GetValue(ConstsVar.REGISTRY_LOGIN_INFO, "Password");

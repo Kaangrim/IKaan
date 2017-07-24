@@ -99,6 +99,7 @@ namespace IKaan.Was.Service.LIB
 						case "LMChannel":
 							req.SetData<LMChannel>();
 							(req.Data as LMChannel).ChannelBrand = req.GetList<LMChannelBrand>();
+							(req.Data as LMChannel).ChannelCustomer = req.GetList<LMCustomerChannel>();
 							break;
 					}
 				}
@@ -173,6 +174,7 @@ namespace IKaan.Was.Service.LIB
 									if (channel != null)
 									{
 										req.SaveChannelBrand(channel);
+										req.SaveChannelCustomer(channel);
 									}
 									break;
 								case "LMBrandImage":
@@ -326,6 +328,25 @@ namespace IKaan.Was.Service.LIB
 						data.ChannelID = model.ID;
 					}
 					req.SaveSubData<LMChannelBrand>(data, false);
+				}
+			}
+			catch
+			{
+				throw;
+			}
+		}
+
+		private static void SaveChannelCustomer(this WasRequest req, LMChannel model)
+		{
+			try
+			{
+				foreach (var data in model.ChannelCustomer)
+				{
+					if (data.ChannelID == null)
+					{
+						data.ChannelID = model.ID;
+					}
+					req.SaveSubData<LMCustomerChannel>(data, false);
 				}
 			}
 			catch
