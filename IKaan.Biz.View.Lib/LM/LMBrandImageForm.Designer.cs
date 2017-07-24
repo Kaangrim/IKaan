@@ -28,8 +28,8 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions1 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
-			this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
+			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions2 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+			this.esImagePath = new DevExpress.XtraLayout.EmptySpaceItem();
 			this.lcGroupEdit = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.lcItemImageType = new DevExpress.XtraLayout.LayoutControlItem();
 			this.lupImageType = new IKaan.Biz.Core.Controls.Common.XLookup();
@@ -51,7 +51,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.lc)).BeginInit();
 			this.lc.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupBase)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.esImagePath)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupEdit)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemImageType)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lupImageType.Properties)).BeginInit();
@@ -95,16 +95,20 @@
 			this.lcGroupBase.Padding = new DevExpress.XtraLayout.Utils.Padding(0, 0, 0, 0);
 			this.lcGroupBase.Size = new System.Drawing.Size(790, 396);
 			// 
-			// emptySpaceItem1
+			// esImagePath
 			// 
-			this.emptySpaceItem1.AllowHotTrack = false;
-			this.emptySpaceItem1.Location = new System.Drawing.Point(0, 96);
-			this.emptySpaceItem1.MaxSize = new System.Drawing.Size(0, 20);
-			this.emptySpaceItem1.MinSize = new System.Drawing.Size(10, 20);
-			this.emptySpaceItem1.Name = "emptySpaceItem1";
-			this.emptySpaceItem1.Size = new System.Drawing.Size(380, 20);
-			this.emptySpaceItem1.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
-			this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
+			this.esImagePath.AllowHotTrack = false;
+			this.esImagePath.AppearanceItemCaption.Options.UseTextOptions = true;
+			this.esImagePath.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Far;
+			this.esImagePath.Location = new System.Drawing.Point(0, 96);
+			this.esImagePath.MaxSize = new System.Drawing.Size(0, 20);
+			this.esImagePath.MinSize = new System.Drawing.Size(10, 20);
+			this.esImagePath.Name = "esImagePath";
+			this.esImagePath.Size = new System.Drawing.Size(380, 20);
+			this.esImagePath.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
+			this.esImagePath.Text = " ";
+			this.esImagePath.TextSize = new System.Drawing.Size(96, 0);
+			this.esImagePath.TextVisible = true;
 			// 
 			// lcGroupEdit
 			// 
@@ -112,7 +116,7 @@
             this.lcItemImageType,
             this.lcItemImageID,
             this.lcButtonUpload,
-            this.emptySpaceItem1,
+            this.esImagePath,
             this.esMessage,
             this.emptySpaceItem3,
             this.lcButtonDelete,
@@ -142,7 +146,7 @@
 			this.lupImageType.NullText = "[EditValue is null]";
 			this.lupImageType.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions2, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
 			this.lupImageType.SelectedIndex = -1;
 			this.lupImageType.Size = new System.Drawing.Size(276, 20);
 			this.lupImageType.StyleController = this.lc;
@@ -199,8 +203,7 @@
 			this.esMessage.Name = "esMessage";
 			this.esMessage.Size = new System.Drawing.Size(380, 240);
 			this.esMessage.Text = " ";
-			this.esMessage.TextSize = new System.Drawing.Size(96, 0);
-			this.esMessage.TextVisible = true;
+			this.esMessage.TextSize = new System.Drawing.Size(0, 0);
 			// 
 			// emptySpaceItem3
 			// 
@@ -304,7 +307,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.lc)).EndInit();
 			this.lc.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupBase)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.esImagePath)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupEdit)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemImageType)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lupImageType.Properties)).EndInit();
@@ -328,7 +331,7 @@
 
 		#endregion
 
-		private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem1;
+		private DevExpress.XtraLayout.EmptySpaceItem esImagePath;
 		private DevExpress.XtraLayout.LayoutControlGroup lcGroupEdit;
 		private DevExpress.XtraEditors.PictureEdit picImage;
 		private DevExpress.XtraLayout.LayoutControlItem lcItemImage;

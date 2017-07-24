@@ -52,6 +52,9 @@
     <Compile Include="LIB\LM\LMChannel.cs" />
     <Compile Include="LIB\LM\LMBrandImage.cs" />
     <Compile Include="LIB\LM\LMChannelBrand.cs" />
+    <Compile Include="LIB\LM\LMCustomer.cs" />
+    <Compile Include="LIB\LM\LMCustomerBank.cs" />
+    <Compile Include="LIB\LM\LMCustomerChannel.cs" />
     <Compile Include="LIB\LM\LMCustomerBrand.cs" />
     <Compile Include="LIB\LM\LMBrand.cs" />
     <Compile Include="BIZ\BS\BSOrder.cs" />

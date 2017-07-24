@@ -1,5 +1,4 @@
 ﻿using System;
-using DevExpress.XtraEditors.Controls;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
 using IKaan.Biz.Core.Enum;
@@ -15,18 +14,30 @@ namespace IKaan.Biz.View.Lib.LM
 {
 	public partial class LMBrandImageForm : EditForm
 	{
+		private string loadUrl = string.Empty;
+
 		public LMBrandImageForm()
 		{
 			InitializeComponent();
+
 			btnUpload.Click += delegate (object sender, EventArgs e) { UploadImage(); };
 			btnDelete.Click += delegate (object sender, EventArgs e) { DeleteImage(); };
 			picImage.EditValueChanged += delegate (object sender, EventArgs e)
 			{
-				txtImagePath.EditValue = picImage.GetLoadedImageLocation();
-				if (picImage.EditValue != null)
+				if (this.IsLoaded)
 				{
-					btnUpload.Enabled = true;
+					txtImagePath.EditValue = picImage.GetLoadedImageLocation();
+					if (picImage.EditValue.IsNullOrEmpty() == false)
+					{
+						btnUpload.Enabled = true;
+					}
 				}
+			};
+			picImage.LoadCompleted += delegate (object sender, EventArgs e)
+			{
+				txtImagePath.EditValue = loadUrl;
+				btnUpload.Enabled = false;
+				btnDelete.Enabled = true;
 			};
 		}
 
@@ -54,7 +65,7 @@ namespace IKaan.Biz.View.Lib.LM
 
 			InitCombo();
 
-			esMessage.Text = "이미지서버 경로: " + ConstsVar.IMG_URL_BRAND;
+			esImagePath.Text = "이미지서버 경로: " + ConstsVar.IMG_URL_BRAND;
 		}
 
 		private void InitCombo()
@@ -62,14 +73,9 @@ namespace IKaan.Biz.View.Lib.LM
 			lupImageType.BindData("ImageType");
 		}
 
-		protected override void LoadForm()
-		{
-			base.LoadForm();
-			DataLoad(this.ParamsData);
-		}
-
 		protected override void DataInit()
 		{
+			loadUrl = string.Empty;
 			txtImageID.Clear();
 			txtImagePath.Clear();
 			picImage.EditValue = null;
@@ -104,10 +110,11 @@ namespace IKaan.Biz.View.Lib.LM
 
 				txtImageID.EditValue = (param as DataMap).GetValue("ID");
 				lupImageType.EditValue = (param as DataMap).GetValue("ImageType");
-				picImage.LoadAsync(ConstsVar.IMG_URL + (param as DataMap).GetValue("ImageUrl").ToString());
-				txtImagePath.EditValue = (param as DataMap).GetValue("ImageUrl");
 
-				btnDelete.Enabled = true;
+				loadUrl = (param as DataMap).GetValue("ImageUrl").ToString();
+				picImage.LoadAsync(ConstsVar.IMG_URL + loadUrl);
+				txtImagePath.EditValue = loadUrl;
+
 				EditMode = EditModeEnum.Modify;
 				lupImageType.Focus();
 			}

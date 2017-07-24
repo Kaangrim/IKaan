@@ -356,7 +356,6 @@ namespace IKaan.Biz.Core.Forms
 				barStaticMessage.Caption = string.Empty;
 				barStaticTotalRecords.Caption = string.Empty;
 				barStaticEditMode.Caption = EditMode.ToString().ToUpper();
-							
 
 				InitButtons();
 				InitControls();

@@ -320,7 +320,8 @@ namespace IKaan.Biz.View.Lib.LM
 				{
 					Text = "브랜드이미지",
 					StartPosition = FormStartPosition.CenterScreen,
-					ParamsData = parameter
+					ParamsData = parameter,
+					IsLoadingRefresh = true
 				})
 				{					
 					if (form.ShowDialog() == DialogResult.OK)

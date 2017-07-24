@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using IKaan.Model.Base;
 
@@ -16,11 +17,11 @@ namespace IKaan.Model.LIB.LM
 
 		[DataMember]
 		[Display(Name = "시작일")]
-		public string StartDate { get; set; }
+		public DateTime StartDate { get; set; }
 
 		[DataMember]
 		[Display(Name = "종료일")]
-		public string EndDate { get; set; }
+		public DateTime EndDate { get; set; }
 
 		[DataMember]
 		[Display(Name = "채널마진")]
