@@ -20,12 +20,12 @@ namespace IKaan.Model.LIB.LM
 		public string EngName { get; set; }
 
 		[DataMember]
-		[Display(Name = "사업자ID")]
-		public int? BizID { get; set; }
+		[Display(Name = "사용여부")]
+		public string UseYn { get; set; }
 
 		[DataMember]
-		[Display(Name = "주소ID")]
-		public int? AddressID { get; set; }
+		[Display(Name = "설명")]
+		public string Description { get; set; }
 
 		[DataMember]
 		[Display(Name = "거래처, 은행 매핑")]
@@ -39,11 +39,21 @@ namespace IKaan.Model.LIB.LM
 		[Display(Name = "거래처, 채널 매핑")]
 		public IList<LMCustomerChannel> CustomerChannel { get; set; }
 
+		[DataMember]
+		[Display(Name = "거래처, 주소 매핑")]
+		public IList<LMCustomerAddress> CustomerAddress { get; set; }
+
+		[DataMember]
+		[Display(Name = "거래처, 사업자 매핑")]
+		public IList<LMCustomerBusiness> CustomerBusiness { get; set; }
+
 		public LMCustomer()
 		{
 			CustomerBank = new List<LMCustomerBank>();
 			CustomerBrand = new List<LMCustomerBrand>();
 			CustomerChannel = new List<LMCustomerChannel>();
+			CustomerAddress = new List<LMCustomerAddress>();
+			CustomerBusiness = new List<LMCustomerBusiness>();
 		}
 	}
 }

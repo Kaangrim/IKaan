@@ -68,6 +68,15 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="SqlMaps\LIB\LM\LMCustomerBusinessSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\LIB\LM\LMCustomerAddressSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\LIB\LM\LMCustomerBankSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\LIB\LG\LGGoodsPriceSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\LIB\LG\LGGoodsImageSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\LIB\LG\LGGoodsDetailSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\LIB\LG\LGGoodsSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\LIB\LM\LMCustomerSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\LIB\LM\LMCustomerChannelSQL.xml" />
     <EmbeddedResource Include="SqlMaps\LIB\LM\LMChannelBrandSQL.xml" />
     <EmbeddedResource Include="SqlMaps\LIB\LM\LMChannelSQL.xml" />
     <EmbeddedResource Include="SqlMaps\LIB\LM\LMBrandImageSQL.xml" />
@@ -129,7 +138,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="SqlMaps\BIZ\BV\" />
-    <Folder Include="SqlMaps\LIB\LG\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
