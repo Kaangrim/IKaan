@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectBMBrandList" parameterClass="DataMap" resultClass="BMBrand" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
+					,	AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.BrandName
+					,	AA.EngName
+					,	AA.ShortName
+					,	AA.Description
+					,	AA.UseYn
+					
+				FROM	dbo.BMBrand AA WITH (NOLOCK)
+				WHERE	1=1				
+			]]>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(
+							AA.BrandName		LIKE '%' + #FindText# + '%' OR
+							AA.EngName			LIKE '%' + #FindText# + '%' OR
+							AA.ShortName		LIKE '%' + #FindText# + '%'
+						)
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectBMBrand" parameterClass="DataMap" resultClass="BMBrand" >
+			<![CDATA[
+				SELECT  AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.BrandName
+					,	AA.EngName
+					,	AA.ShortName
+					,	AA.Description
+					,	AA.UseYn
+					
+				FROM	dbo.BMBrand AA WITH (NOLOCK)
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<insert id="InsertBMBrand" parameterClass="BMBrand" >
+			<![CDATA[
+				INSERT INTO dbo.BMBrand
+				( 
+					CreateDate, CreateBy, CreateByName,
+					BrandName, EngName, ShortName, Description, UseYn
+				)
+				VALUES
+				(
+					GetDate(), #CreateBy#, #CreateByName#,
+					#BrandName#, #EngName#, #ShortName#, #Description#, #UseYn#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateBMBrand" parameterClass="BMBrand">
+			<![CDATA[
+				UPDATE  dbo.BMBrand
+				SET     UpdateDate		= GetDate()
+					,	UpdateBy		= #UpdateBy#
+					,	UpdateByName	= #UpdateByName#
+					
+					,	BrandName		= #BrandName#
+					,	EngName			= #EngName#
+					,	ShortName		= #ShortName#
+					,	Description		= #Description#
+					,	UseYn			= #UseYn#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
+		<delete id="DeleteBMBrand" parameterClass="DataMap">
+			<![CDATA[
+				DELETE 
+				FROM	dbo.BMBrand
+				WHERE	ID = #ID#
+			]]>
+		</delete>
+	</statements>
+</sqlMap>

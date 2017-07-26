@@ -37,6 +37,12 @@ namespace IKaan.Was.Service.BIZ
 				{
 					switch (req.ModelName)
 					{
+						case "BMBrand":
+							req.SetList<BMBrand>();
+							break;
+						case "BMChannel":
+							req.SetList<BMChannel>();
+							break;
 						case "BMSearchBrand":
 							req.SetList<BMSearchBrand>();
 							break;
@@ -89,6 +95,15 @@ namespace IKaan.Was.Service.BIZ
 				{
 					switch (req.ModelName)
 					{
+						case "BMBrand":
+							req.SetData<BMBrand>();
+							(req.Data as BMBrand).BrandImage = req.GetList<BMBrandImage>();
+							break;
+						case "BMChannel":
+							req.SetData<BMChannel>();
+							(req.Data as BMChannel).ChannelBrand = req.GetList<BMChannelBrand>();
+							(req.Data as BMChannel).ChannelCustomer = req.GetList<BMCustomerChannel>();
+							break;
 						case "BMSearchBrand":
 							req.SetData<BMSearchBrand>();
 							break;
@@ -153,6 +168,24 @@ namespace IKaan.Was.Service.BIZ
 
 							switch (req.ModelName)
 							{
+								case "BMBrand":
+									var brand = req.SaveData<BMBrand>();
+									if (brand != null)
+									{
+										req.SaveBrandImage(brand);
+									}
+									break;
+								case "BMChannel":
+									var channel = req.SaveData<BMChannel>();
+									if (channel != null)
+									{
+										req.SaveChannelBrand(channel);
+										req.SaveChannelCustomer(channel);
+									}
+									break;
+								case "BMBrandImage":
+									req.SaveData<BMBrandImage>();
+									break;
 								case "BMSearchBrand":
 									req.SaveData<BMSearchBrand>();
 									break;
@@ -252,6 +285,82 @@ namespace IKaan.Was.Service.BIZ
 				request.Error.Number = ex.HResult;
 				request.Error.Message = ex.Message;
 				return request;
+			}
+		}
+
+		private static void SaveBrandImage(this WasRequest req, BMBrand model)
+		{
+			try
+			{
+				foreach (var data in model.BrandImage)
+				{
+					if (data.BrandID == null)
+					{
+						data.BrandID = model.ID;
+					}
+					req.SaveSubData<BMBrandImage>(data, false);
+				}
+			}
+			catch
+			{
+				throw;
+			}
+		}
+
+		private static void SaveCustomerBrand(this WasRequest req, BMBrand model)
+		{
+			try
+			{
+				foreach (var data in model.BrandCustomer)
+				{
+					if (data.BrandID == null)
+					{
+						data.BrandID = model.ID;
+					}
+					req.SaveSubData<BMBrandImage>(data, false);
+				}
+			}
+			catch
+			{
+				throw;
+			}
+		}
+
+		private static void SaveChannelBrand(this WasRequest req, BMChannel model)
+		{
+			try
+			{
+				foreach (var data in model.ChannelBrand)
+				{
+					if (data.ChannelID == null)
+					{
+						data.ChannelID = model.ID;
+					}
+					req.SaveSubData<BMChannelBrand>(data, false);
+				}
+			}
+			catch
+			{
+				throw;
+			}
+		}
+
+		private static void SaveChannelCustomer(this WasRequest req, BMChannel model)
+		{
+			try
+			{
+				foreach (var data in model.ChannelCustomer)
+				{
+					if (data.ChannelID == null)
+					{
+						data.ChannelID = model.ID;
+					}
+					req.SaveSubData<BMCustomerChannel>(data, false);
+				}
+			}
+			catch
+			{
+				throw;
 			}
 		}
 	}

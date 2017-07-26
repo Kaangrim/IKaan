@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectBGGoodsPriceList" parameterClass="DataMap" resultClass="BGGoodsPrice" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
+					,	AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.GoodsID
+					,	AA.Currency
+					,	AA.ListPrice
+					,	AA.SalePrice
+					
+					,	M1.Name			as CurrencyName
+					
+				FROM	dbo.BGGoodsPrice AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.ACCode M1 WITH (NOLOCK)
+								ON AA.Currency = M1.Code
+									AND M1.ParentCode = 'Currency'
+				WHERE	AA.GoodsID = #GoodsID#
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectBGGoodsPrice" parameterClass="DataMap" resultClass="BGGoodsPrice" >
+			<![CDATA[
+				SELECT  AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.GoodsID
+					,	AA.Currency
+					,	AA.ListPrice
+					,	AA.SalePrice
+					
+				FROM	dbo.BGGoodsPrice AA WITH (NOLOCK)
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<insert id="InsertBGGoodsPrice" parameterClass="BGGoodsPrice" >
+			<![CDATA[
+				INSERT INTO dbo.BGGoodsPrice
+				( 
+					CreateDate, CreateBy, CreateByName,
+					GoodsID, Currency, ListPrice, SalePrice
+				)
+				VALUES
+				(
+					GetDate(), #CreateBy#, #CreateByName#,
+					#GoodsID#, #Currency#, #ListPrice#, #SalePrice#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateBGGoodsPrice" parameterClass="BGGoodsPrice">
+			<![CDATA[
+				UPDATE  dbo.BGGoodsPrice
+				SET     UpdateDate		= GetDate()
+					,	UpdateBy		= #UpdateBy#
+					,	UpdateByName	= #UpdateByName#
+					
+					,	GoodsID			= #GoodsID#
+					,	Currnecy		= #Currency#
+					,	ListPrice		= #ListPrice#
+					,	SalePrice		= #SalePrice#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
+		<delete id="DeleteBGGoodsPrice" parameterClass="DataMap">
+			<![CDATA[
+				DELETE 
+				FROM	dbo.BGGoodsPrice
+				WHERE	ID = #ID#
+			]]>
+		</delete>
+	</statements>
+</sqlMap>

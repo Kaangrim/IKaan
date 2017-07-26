@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
-using IKaan.Model.LIB.LM;
 using IKaan.Model.Was;
 using IKaan.Was.Core.Mappers;
-using IKaan.Was.Service.Utils;
 using Newtonsoft.Json.Linq;
 
 namespace IKaan.Was.Service.LIB
@@ -37,11 +35,7 @@ namespace IKaan.Was.Service.LIB
 				{
 					switch (req.ModelName)
 					{
-						case "LMBrand":
-							req.SetList<LMBrand>();
-							break;
-						case "LMChannel":
-							req.SetList<LMChannel>();
+						default:
 							break;
 					}
 				}
@@ -92,14 +86,7 @@ namespace IKaan.Was.Service.LIB
 				{
 					switch (req.ModelName)
 					{
-						case "LMBrand":
-							req.SetData<LMBrand>();
-							(req.Data as LMBrand).BrandImage = req.GetList<LMBrandImage>();
-							break;
-						case "LMChannel":
-							req.SetData<LMChannel>();
-							(req.Data as LMChannel).ChannelBrand = req.GetList<LMChannelBrand>();
-							(req.Data as LMChannel).ChannelCustomer = req.GetList<LMCustomerChannel>();
+						default:
 							break;
 					}
 				}
@@ -162,23 +149,7 @@ namespace IKaan.Was.Service.LIB
 
 							switch (req.ModelName)
 							{
-								case "LMBrand":
-									var brand = req.SaveData<LMBrand>();
-									if (brand != null)
-									{
-										req.SaveBrandImage(brand);
-									}
-									break;
-								case "LMChannel":
-									var channel = req.SaveData<LMChannel>();
-									if (channel != null)
-									{
-										req.SaveChannelBrand(channel);
-										req.SaveChannelCustomer(channel);
-									}
-									break;
-								case "LMBrandImage":
-									req.SaveData<LMBrandImage>();
+								default:
 									break;
 							}
 						}
@@ -276,82 +247,6 @@ namespace IKaan.Was.Service.LIB
 				request.Error.Number = ex.HResult;
 				request.Error.Message = ex.Message;
 				return request;
-			}
-		}
-
-		private static void SaveBrandImage(this WasRequest req, LMBrand model)
-		{
-			try
-			{
-				foreach (var data in model.BrandImage)
-				{
-					if (data.BrandID == null)
-					{
-						data.BrandID = model.ID;
-					}					
-					req.SaveSubData<LMBrandImage>(data, false);
-				}
-			}
-			catch
-			{
-				throw;
-			}
-		}
-
-		private static void SaveCustomerBrand(this WasRequest req, LMBrand model)
-		{
-			try
-			{
-				foreach (var data in model.BrandCustomer)
-				{
-					if (data.BrandID == null)
-					{
-						data.BrandID = model.ID;
-					}
-					req.SaveSubData<LMBrandImage>(data, false);
-				}
-			}
-			catch
-			{
-				throw;
-			}
-		}
-
-		private static void SaveChannelBrand(this WasRequest req, LMChannel model)
-		{
-			try
-			{
-				foreach (var data in model.ChannelBrand)
-				{
-					if (data.ChannelID == null)
-					{
-						data.ChannelID = model.ID;
-					}
-					req.SaveSubData<LMChannelBrand>(data, false);
-				}
-			}
-			catch
-			{
-				throw;
-			}
-		}
-
-		private static void SaveChannelCustomer(this WasRequest req, LMChannel model)
-		{
-			try
-			{
-				foreach (var data in model.ChannelCustomer)
-				{
-					if (data.ChannelID == null)
-					{
-						data.ChannelID = model.ID;
-					}
-					req.SaveSubData<LMCustomerChannel>(data, false);
-				}
-			}
-			catch
-			{
-				throw;
 			}
 		}
 	}

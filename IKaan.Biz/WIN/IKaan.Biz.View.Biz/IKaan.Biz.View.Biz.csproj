@@ -53,11 +53,41 @@
     <Compile Include="BG\BGGoodsChannelEditForm.designer.cs">
       <DependentUpon>BGGoodsChannelEditForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="BG\BGGoodsEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BG\BGGoodsEditForm.designer.cs">
+      <DependentUpon>BGGoodsEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BG\BGGoodsListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BG\BGGoodsListForm.designer.cs">
+      <DependentUpon>BGGoodsListForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="BM\BMSearchBrandForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="BM\BMSearchBrandForm.designer.cs">
       <DependentUpon>BMSearchBrandForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BM\BMBrandForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BM\BMBrandForm.designer.cs">
+      <DependentUpon>BMBrandForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BM\BMBrandImageForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BM\BMBrandImageForm.Designer.cs">
+      <DependentUpon>BMBrandImageForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BM\BMChannelForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BM\BMChannelForm.designer.cs">
+      <DependentUpon>BMChannelForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -87,8 +117,23 @@
     <EmbeddedResource Include="BG\BGGoodsChannelEditForm.resx">
       <DependentUpon>BGGoodsChannelEditForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="BG\BGGoodsEditForm.resx">
+      <DependentUpon>BGGoodsEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BG\BGGoodsListForm.resx">
+      <DependentUpon>BGGoodsListForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="BM\BMSearchBrandForm.resx">
       <DependentUpon>BMSearchBrandForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BM\BMBrandForm.resx">
+      <DependentUpon>BMBrandForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BM\BMBrandImageForm.resx">
+      <DependentUpon>BMBrandImageForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BM\BMChannelForm.resx">
+      <DependentUpon>BMChannelForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
   </ItemGroup>

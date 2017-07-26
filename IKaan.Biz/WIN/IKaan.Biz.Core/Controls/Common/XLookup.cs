@@ -166,8 +166,9 @@ namespace IKaan.Biz.Core.Controls.Common
 
 		public void Init()
 		{
+			Properties.TextEditStyle = TextEditStyles.Standard;
 			Properties.BestFitMode = BestFitMode.BestFit;
-			Properties.SearchMode = SearchMode.AutoComplete;
+			Properties.SearchMode = SearchMode.AutoFilter;
 			Properties.AutoSearchColumnIndex = 1;
 			Properties.AllowNullInput = DefaultBoolean.False;
 			Properties.ShowHeader = false;

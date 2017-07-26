@@ -28,15 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoginForm));
 			this.chkRemember = new DevExpress.XtraEditors.CheckEdit();
 			this.lc = new DevExpress.XtraLayout.LayoutControl();
+			this.lblForgot = new DevExpress.XtraEditors.HyperlinkLabelControl();
 			this.picBanner = new DevExpress.XtraEditors.PictureEdit();
-			this.barManager = new DevExpress.XtraBars.BarManager(this.components);
+			this.barManager = new DevExpress.XtraBars.BarManager();
 			this.barStatus = new DevExpress.XtraBars.Bar();
 			this.barMessage = new DevExpress.XtraBars.BarStaticItem();
-			this.barAndDockingController1 = new DevExpress.XtraBars.BarAndDockingController(this.components);
+			this.barAndDockingController1 = new DevExpress.XtraBars.BarAndDockingController();
 			this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
 			this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
 			this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
@@ -46,29 +46,26 @@
 			this.picImage = new DevExpress.XtraEditors.PictureEdit();
 			this.txtPassword = new DevExpress.XtraEditors.TextEdit();
 			this.lcGroupBase = new DevExpress.XtraLayout.LayoutControlGroup();
-			this.lcImageMain = new DevExpress.XtraLayout.LayoutControlItem();
-			this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
-			this.lcItemBanner = new DevExpress.XtraLayout.LayoutControlItem();
-			this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
-			this.simpleSeparator1 = new DevExpress.XtraLayout.SimpleSeparator();
-			this.simpleSeparator2 = new DevExpress.XtraLayout.SimpleSeparator();
 			this.lcGroupImageMain = new DevExpress.XtraLayout.LayoutControlGroup();
+			this.lcImageMain = new DevExpress.XtraLayout.LayoutControlItem();
 			this.lcGroupBanner = new DevExpress.XtraLayout.LayoutControlGroup();
-			this.emptySpaceItem10 = new DevExpress.XtraLayout.EmptySpaceItem();
-			this.lcItemLoginId = new DevExpress.XtraLayout.LayoutControlItem();
+			this.lcItemBanner = new DevExpress.XtraLayout.LayoutControlItem();
+			this.lcGroupEdit = new DevExpress.XtraLayout.LayoutControlGroup();
+			this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
 			this.emptySpaceItem4 = new DevExpress.XtraLayout.EmptySpaceItem();
+			this.lcItemLoginId = new DevExpress.XtraLayout.LayoutControlItem();
+			this.emptySpaceItem10 = new DevExpress.XtraLayout.EmptySpaceItem();
 			this.emptySpaceItem7 = new DevExpress.XtraLayout.EmptySpaceItem();
 			this.lcItemPassword = new DevExpress.XtraLayout.LayoutControlItem();
 			this.emptySpaceItem11 = new DevExpress.XtraLayout.EmptySpaceItem();
-			this.emptySpaceItem12 = new DevExpress.XtraLayout.EmptySpaceItem();
-			this.lcItemIsRemember = new DevExpress.XtraLayout.LayoutControlItem();
 			this.emptySpaceItem8 = new DevExpress.XtraLayout.EmptySpaceItem();
+			this.lcItemIsRemember = new DevExpress.XtraLayout.LayoutControlItem();
+			this.emptySpaceItem12 = new DevExpress.XtraLayout.EmptySpaceItem();
+			this.emptySpaceItem3 = new DevExpress.XtraLayout.EmptySpaceItem();
 			this.emptySpaceItem5 = new DevExpress.XtraLayout.EmptySpaceItem();
 			this.lcButtonOK = new DevExpress.XtraLayout.LayoutControlItem();
 			this.emptySpaceItem6 = new DevExpress.XtraLayout.EmptySpaceItem();
-			this.emptySpaceItem3 = new DevExpress.XtraLayout.EmptySpaceItem();
-			this.lcGroupEdit = new DevExpress.XtraLayout.LayoutControlGroup();
-			this.lblForgot = new DevExpress.XtraEditors.HyperlinkLabelControl();
+			this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
 			this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
 			this.emptySpaceItem9 = new DevExpress.XtraLayout.EmptySpaceItem();
 			((System.ComponentModel.ISupportInitialize)(this.chkRemember.Properties)).BeginInit();
@@ -81,28 +78,26 @@
 			((System.ComponentModel.ISupportInitialize)(this.picImage.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.txtPassword.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupBase)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcImageMain)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemBanner)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.simpleSeparator1)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.simpleSeparator2)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupImageMain)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcImageMain)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupBanner)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem10)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemLoginId)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemBanner)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcGroupEdit)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem4)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemLoginId)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem10)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem7)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemPassword)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem11)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem12)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemIsRemember)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem8)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemIsRemember)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem12)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem5)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcButtonOK)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem6)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcGroupEdit)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem9)).BeginInit();
 			this.SuspendLayout();
@@ -110,7 +105,7 @@
 			// chkRemember
 			// 
 			this.chkRemember.EditValue = "N";
-			this.chkRemember.Location = new System.Drawing.Point(477, 235);
+			this.chkRemember.Location = new System.Drawing.Point(477, 233);
 			this.chkRemember.Name = "chkRemember";
 			this.chkRemember.Properties.AutoWidth = true;
 			this.chkRemember.Properties.Caption = "Remember";
@@ -135,9 +130,19 @@
 			this.lc.Name = "lc";
 			this.lc.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new System.Drawing.Rectangle(582, 488, 540, 591);
 			this.lc.Root = this.lcGroupBase;
-			this.lc.Size = new System.Drawing.Size(790, 343);
+			this.lc.Size = new System.Drawing.Size(790, 346);
 			this.lc.TabIndex = 22;
 			this.lc.Text = "xLayout1";
+			// 
+			// lblForgot
+			// 
+			this.lblForgot.Cursor = System.Windows.Forms.Cursors.Hand;
+			this.lblForgot.Location = new System.Drawing.Point(676, 315);
+			this.lblForgot.Name = "lblForgot";
+			this.lblForgot.Size = new System.Drawing.Size(97, 14);
+			this.lblForgot.StyleController = this.lc;
+			this.lblForgot.TabIndex = 13;
+			this.lblForgot.Text = "Forgot Password?\r\n";
 			// 
 			// picBanner
 			// 
@@ -211,9 +216,9 @@
 			// 
 			this.barDockControlBottom.CausesValidation = false;
 			this.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.barDockControlBottom.Location = new System.Drawing.Point(0, 343);
+			this.barDockControlBottom.Location = new System.Drawing.Point(0, 346);
 			this.barDockControlBottom.Manager = this.barManager;
-			this.barDockControlBottom.Size = new System.Drawing.Size(790, 25);
+			this.barDockControlBottom.Size = new System.Drawing.Size(790, 22);
 			// 
 			// barDockControlLeft
 			// 
@@ -221,7 +226,7 @@
 			this.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left;
 			this.barDockControlLeft.Location = new System.Drawing.Point(0, 0);
 			this.barDockControlLeft.Manager = this.barManager;
-			this.barDockControlLeft.Size = new System.Drawing.Size(0, 343);
+			this.barDockControlLeft.Size = new System.Drawing.Size(0, 346);
 			// 
 			// barDockControlRight
 			// 
@@ -229,11 +234,11 @@
 			this.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right;
 			this.barDockControlRight.Location = new System.Drawing.Point(790, 0);
 			this.barDockControlRight.Manager = this.barManager;
-			this.barDockControlRight.Size = new System.Drawing.Size(0, 343);
+			this.barDockControlRight.Size = new System.Drawing.Size(0, 346);
 			// 
 			// txtLoginId
 			// 
-			this.txtLoginId.Location = new System.Drawing.Point(477, 158);
+			this.txtLoginId.Location = new System.Drawing.Point(477, 156);
 			this.txtLoginId.Name = "txtLoginId";
 			this.txtLoginId.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
 			this.txtLoginId.Properties.Appearance.Options.UseFont = true;
@@ -250,9 +255,9 @@
 			this.btnOk.Appearance.Options.UseFont = true;
 			this.btnOk.Appearance.Options.UseForeColor = true;
 			this.btnOk.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-			this.btnOk.Location = new System.Drawing.Point(551, 270);
+			this.btnOk.Location = new System.Drawing.Point(551, 267);
 			this.btnOk.Name = "btnOk";
-			this.btnOk.Size = new System.Drawing.Size(140, 26);
+			this.btnOk.Size = new System.Drawing.Size(140, 24);
 			this.btnOk.StyleController = this.lc;
 			this.btnOk.TabIndex = 8;
 			this.btnOk.Text = "Sign In";
@@ -271,14 +276,14 @@
 			this.picImage.Properties.ShowMenu = false;
 			this.picImage.Properties.SizeMode = DevExpress.XtraEditors.Controls.PictureSizeMode.Squeeze;
 			this.picImage.Properties.ZoomAccelerationFactor = 1D;
-			this.picImage.Size = new System.Drawing.Size(436, 309);
+			this.picImage.Size = new System.Drawing.Size(436, 312);
 			this.picImage.StyleController = this.lc;
 			this.picImage.TabIndex = 0;
 			this.picImage.TabStop = true;
 			// 
 			// txtPassword
 			// 
-			this.txtPassword.Location = new System.Drawing.Point(477, 205);
+			this.txtPassword.Location = new System.Drawing.Point(477, 203);
 			this.txtPassword.Name = "txtPassword";
 			this.txtPassword.Properties.Appearance.Font = new System.Drawing.Font("Tahoma", 12F);
 			this.txtPassword.Properties.Appearance.Options.UseFont = true;
@@ -298,25 +303,37 @@
             this.lcGroupEdit});
 			this.lcGroupBase.Location = new System.Drawing.Point(0, 0);
 			this.lcGroupBase.Name = "Root";
-			this.lcGroupBase.Size = new System.Drawing.Size(790, 343);
+			this.lcGroupBase.Size = new System.Drawing.Size(790, 346);
 			this.lcGroupBase.TextVisible = false;
+			// 
+			// lcGroupImageMain
+			// 
+			this.lcGroupImageMain.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.lcImageMain});
+			this.lcGroupImageMain.Location = new System.Drawing.Point(0, 0);
+			this.lcGroupImageMain.Name = "lcGroupImageMain";
+			this.lcGroupImageMain.Padding = new DevExpress.XtraLayout.Utils.Padding(2, 2, 2, 2);
+			this.lcGroupImageMain.Size = new System.Drawing.Size(450, 326);
+			this.lcGroupImageMain.TextVisible = false;
 			// 
 			// lcImageMain
 			// 
 			this.lcImageMain.Control = this.picImage;
 			this.lcImageMain.Location = new System.Drawing.Point(0, 0);
 			this.lcImageMain.Name = "lcImageMain";
-			this.lcImageMain.Size = new System.Drawing.Size(440, 313);
+			this.lcImageMain.Size = new System.Drawing.Size(440, 316);
 			this.lcImageMain.TextSize = new System.Drawing.Size(0, 0);
 			this.lcImageMain.TextVisible = false;
 			// 
-			// emptySpaceItem2
+			// lcGroupBanner
 			// 
-			this.emptySpaceItem2.AllowHotTrack = false;
-			this.emptySpaceItem2.Location = new System.Drawing.Point(0, 203);
-			this.emptySpaceItem2.Name = "emptySpaceItem2";
-			this.emptySpaceItem2.Size = new System.Drawing.Size(209, 18);
-			this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
+			this.lcGroupBanner.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.lcItemBanner});
+			this.lcGroupBanner.Location = new System.Drawing.Point(450, 0);
+			this.lcGroupBanner.Name = "lcGroupBanner";
+			this.lcGroupBanner.Padding = new DevExpress.XtraLayout.Utils.Padding(2, 2, 2, 2);
+			this.lcGroupBanner.Size = new System.Drawing.Size(320, 92);
+			this.lcGroupBanner.TextVisible = false;
 			// 
 			// lcItemBanner
 			// 
@@ -330,169 +347,10 @@
 			this.lcItemBanner.TextSize = new System.Drawing.Size(0, 0);
 			this.lcItemBanner.TextVisible = false;
 			// 
-			// emptySpaceItem1
-			// 
-			this.emptySpaceItem1.AllowHotTrack = false;
-			this.emptySpaceItem1.Location = new System.Drawing.Point(0, 0);
-			this.emptySpaceItem1.Name = "emptySpaceItem1";
-			this.emptySpaceItem1.Size = new System.Drawing.Size(310, 30);
-			this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
-			// 
-			// simpleSeparator1
-			// 
-			this.simpleSeparator1.AllowHotTrack = false;
-			this.simpleSeparator1.Location = new System.Drawing.Point(0, 30);
-			this.simpleSeparator1.Name = "simpleSeparator1";
-			this.simpleSeparator1.Size = new System.Drawing.Size(310, 2);
-			// 
-			// simpleSeparator2
-			// 
-			this.simpleSeparator2.AllowHotTrack = false;
-			this.simpleSeparator2.Location = new System.Drawing.Point(0, 149);
-			this.simpleSeparator2.Name = "simpleSeparator2";
-			this.simpleSeparator2.Size = new System.Drawing.Size(310, 2);
-			// 
-			// lcGroupImageMain
-			// 
-			this.lcGroupImageMain.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
-            this.lcImageMain});
-			this.lcGroupImageMain.Location = new System.Drawing.Point(0, 0);
-			this.lcGroupImageMain.Name = "lcGroupImageMain";
-			this.lcGroupImageMain.Padding = new DevExpress.XtraLayout.Utils.Padding(2, 2, 2, 2);
-			this.lcGroupImageMain.Size = new System.Drawing.Size(450, 323);
-			this.lcGroupImageMain.TextVisible = false;
-			// 
-			// lcGroupBanner
-			// 
-			this.lcGroupBanner.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
-            this.lcItemBanner});
-			this.lcGroupBanner.Location = new System.Drawing.Point(450, 0);
-			this.lcGroupBanner.Name = "lcGroupBanner";
-			this.lcGroupBanner.Padding = new DevExpress.XtraLayout.Utils.Padding(2, 2, 2, 2);
-			this.lcGroupBanner.Size = new System.Drawing.Size(320, 92);
-			this.lcGroupBanner.TextVisible = false;
-			// 
-			// emptySpaceItem10
-			// 
-			this.emptySpaceItem10.AllowHotTrack = false;
-			this.emptySpaceItem10.Location = new System.Drawing.Point(300, 32);
-			this.emptySpaceItem10.MaxSize = new System.Drawing.Size(10, 0);
-			this.emptySpaceItem10.MinSize = new System.Drawing.Size(10, 10);
-			this.emptySpaceItem10.Name = "emptySpaceItem10";
-			this.emptySpaceItem10.Size = new System.Drawing.Size(10, 47);
-			this.emptySpaceItem10.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
-			this.emptySpaceItem10.TextSize = new System.Drawing.Size(0, 0);
-			// 
-			// lcItemLoginId
-			// 
-			this.lcItemLoginId.Control = this.txtLoginId;
-			this.lcItemLoginId.Location = new System.Drawing.Point(10, 32);
-			this.lcItemLoginId.Name = "lcItemLoginId";
-			this.lcItemLoginId.Size = new System.Drawing.Size(290, 47);
-			this.lcItemLoginId.TextLocation = DevExpress.Utils.Locations.Top;
-			this.lcItemLoginId.TextSize = new System.Drawing.Size(85, 14);
-			// 
-			// emptySpaceItem4
-			// 
-			this.emptySpaceItem4.AllowHotTrack = false;
-			this.emptySpaceItem4.Location = new System.Drawing.Point(0, 32);
-			this.emptySpaceItem4.MaxSize = new System.Drawing.Size(10, 0);
-			this.emptySpaceItem4.MinSize = new System.Drawing.Size(10, 10);
-			this.emptySpaceItem4.Name = "emptySpaceItem4";
-			this.emptySpaceItem4.Size = new System.Drawing.Size(10, 47);
-			this.emptySpaceItem4.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
-			this.emptySpaceItem4.TextSize = new System.Drawing.Size(0, 0);
-			// 
-			// emptySpaceItem7
-			// 
-			this.emptySpaceItem7.AllowHotTrack = false;
-			this.emptySpaceItem7.Location = new System.Drawing.Point(0, 79);
-			this.emptySpaceItem7.Name = "emptySpaceItem7";
-			this.emptySpaceItem7.Size = new System.Drawing.Size(10, 47);
-			this.emptySpaceItem7.TextSize = new System.Drawing.Size(0, 0);
-			// 
-			// lcItemPassword
-			// 
-			this.lcItemPassword.Control = this.txtPassword;
-			this.lcItemPassword.Location = new System.Drawing.Point(10, 79);
-			this.lcItemPassword.Name = "lcItemPassword";
-			this.lcItemPassword.Size = new System.Drawing.Size(290, 47);
-			this.lcItemPassword.TextLocation = DevExpress.Utils.Locations.Top;
-			this.lcItemPassword.TextSize = new System.Drawing.Size(85, 14);
-			// 
-			// emptySpaceItem11
-			// 
-			this.emptySpaceItem11.AllowHotTrack = false;
-			this.emptySpaceItem11.Location = new System.Drawing.Point(300, 79);
-			this.emptySpaceItem11.Name = "emptySpaceItem11";
-			this.emptySpaceItem11.Size = new System.Drawing.Size(10, 47);
-			this.emptySpaceItem11.TextSize = new System.Drawing.Size(0, 0);
-			// 
-			// emptySpaceItem12
-			// 
-			this.emptySpaceItem12.AllowHotTrack = false;
-			this.emptySpaceItem12.Location = new System.Drawing.Point(300, 126);
-			this.emptySpaceItem12.Name = "emptySpaceItem12";
-			this.emptySpaceItem12.Size = new System.Drawing.Size(10, 23);
-			this.emptySpaceItem12.TextSize = new System.Drawing.Size(0, 0);
-			// 
-			// lcItemIsRemember
-			// 
-			this.lcItemIsRemember.Control = this.chkRemember;
-			this.lcItemIsRemember.ControlAlignment = System.Drawing.ContentAlignment.MiddleLeft;
-			this.lcItemIsRemember.Location = new System.Drawing.Point(10, 126);
-			this.lcItemIsRemember.Name = "lcItemIsRemember";
-			this.lcItemIsRemember.Size = new System.Drawing.Size(290, 23);
-			this.lcItemIsRemember.Text = " ";
-			this.lcItemIsRemember.TextSize = new System.Drawing.Size(0, 0);
-			this.lcItemIsRemember.TextVisible = false;
-			// 
-			// emptySpaceItem8
-			// 
-			this.emptySpaceItem8.AllowHotTrack = false;
-			this.emptySpaceItem8.Location = new System.Drawing.Point(0, 126);
-			this.emptySpaceItem8.Name = "emptySpaceItem8";
-			this.emptySpaceItem8.Size = new System.Drawing.Size(10, 23);
-			this.emptySpaceItem8.TextSize = new System.Drawing.Size(0, 0);
-			// 
-			// emptySpaceItem5
-			// 
-			this.emptySpaceItem5.AllowHotTrack = false;
-			this.emptySpaceItem5.Location = new System.Drawing.Point(0, 161);
-			this.emptySpaceItem5.Name = "emptySpaceItem5";
-			this.emptySpaceItem5.Size = new System.Drawing.Size(84, 30);
-			this.emptySpaceItem5.TextSize = new System.Drawing.Size(0, 0);
-			// 
-			// lcButtonOK
-			// 
-			this.lcButtonOK.Control = this.btnOk;
-			this.lcButtonOK.Location = new System.Drawing.Point(84, 161);
-			this.lcButtonOK.Name = "lcButtonOK";
-			this.lcButtonOK.Size = new System.Drawing.Size(144, 30);
-			this.lcButtonOK.TextSize = new System.Drawing.Size(0, 0);
-			this.lcButtonOK.TextVisible = false;
-			// 
-			// emptySpaceItem6
-			// 
-			this.emptySpaceItem6.AllowHotTrack = false;
-			this.emptySpaceItem6.Location = new System.Drawing.Point(228, 161);
-			this.emptySpaceItem6.Name = "emptySpaceItem6";
-			this.emptySpaceItem6.Size = new System.Drawing.Size(82, 30);
-			this.emptySpaceItem6.TextSize = new System.Drawing.Size(0, 0);
-			// 
-			// emptySpaceItem3
-			// 
-			this.emptySpaceItem3.AllowHotTrack = false;
-			this.emptySpaceItem3.Location = new System.Drawing.Point(0, 151);
-			this.emptySpaceItem3.Name = "emptySpaceItem3";
-			this.emptySpaceItem3.Size = new System.Drawing.Size(310, 10);
-			this.emptySpaceItem3.TextSize = new System.Drawing.Size(0, 0);
-			// 
 			// lcGroupEdit
 			// 
 			this.lcGroupEdit.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.emptySpaceItem1,
-            this.simpleSeparator1,
             this.emptySpaceItem4,
             this.lcItemLoginId,
             this.emptySpaceItem10,
@@ -502,7 +360,6 @@
             this.emptySpaceItem8,
             this.lcItemIsRemember,
             this.emptySpaceItem12,
-            this.simpleSeparator2,
             this.emptySpaceItem3,
             this.emptySpaceItem5,
             this.lcButtonOK,
@@ -513,23 +370,145 @@
 			this.lcGroupEdit.Location = new System.Drawing.Point(450, 92);
 			this.lcGroupEdit.Name = "lcGroupEdit";
 			this.lcGroupEdit.Padding = new DevExpress.XtraLayout.Utils.Padding(2, 2, 2, 2);
-			this.lcGroupEdit.Size = new System.Drawing.Size(320, 231);
+			this.lcGroupEdit.Size = new System.Drawing.Size(320, 234);
 			this.lcGroupEdit.TextVisible = false;
 			// 
-			// lblForgot
+			// emptySpaceItem1
 			// 
-			this.lblForgot.Cursor = System.Windows.Forms.Cursors.Hand;
-			this.lblForgot.Location = new System.Drawing.Point(676, 312);
-			this.lblForgot.Name = "lblForgot";
-			this.lblForgot.Size = new System.Drawing.Size(97, 14);
-			this.lblForgot.StyleController = this.lc;
-			this.lblForgot.TabIndex = 13;
-			this.lblForgot.Text = "Forgot Password?\r\n";
+			this.emptySpaceItem1.AllowHotTrack = false;
+			this.emptySpaceItem1.Location = new System.Drawing.Point(0, 0);
+			this.emptySpaceItem1.Name = "emptySpaceItem1";
+			this.emptySpaceItem1.Size = new System.Drawing.Size(310, 30);
+			this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
+			// 
+			// emptySpaceItem4
+			// 
+			this.emptySpaceItem4.AllowHotTrack = false;
+			this.emptySpaceItem4.Location = new System.Drawing.Point(0, 30);
+			this.emptySpaceItem4.MaxSize = new System.Drawing.Size(10, 0);
+			this.emptySpaceItem4.MinSize = new System.Drawing.Size(10, 10);
+			this.emptySpaceItem4.Name = "emptySpaceItem4";
+			this.emptySpaceItem4.Size = new System.Drawing.Size(10, 47);
+			this.emptySpaceItem4.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
+			this.emptySpaceItem4.TextSize = new System.Drawing.Size(0, 0);
+			// 
+			// lcItemLoginId
+			// 
+			this.lcItemLoginId.Control = this.txtLoginId;
+			this.lcItemLoginId.Location = new System.Drawing.Point(10, 30);
+			this.lcItemLoginId.Name = "lcItemLoginId";
+			this.lcItemLoginId.Size = new System.Drawing.Size(290, 47);
+			this.lcItemLoginId.TextLocation = DevExpress.Utils.Locations.Top;
+			this.lcItemLoginId.TextSize = new System.Drawing.Size(85, 14);
+			// 
+			// emptySpaceItem10
+			// 
+			this.emptySpaceItem10.AllowHotTrack = false;
+			this.emptySpaceItem10.Location = new System.Drawing.Point(300, 30);
+			this.emptySpaceItem10.MaxSize = new System.Drawing.Size(10, 0);
+			this.emptySpaceItem10.MinSize = new System.Drawing.Size(10, 10);
+			this.emptySpaceItem10.Name = "emptySpaceItem10";
+			this.emptySpaceItem10.Size = new System.Drawing.Size(10, 47);
+			this.emptySpaceItem10.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
+			this.emptySpaceItem10.TextSize = new System.Drawing.Size(0, 0);
+			// 
+			// emptySpaceItem7
+			// 
+			this.emptySpaceItem7.AllowHotTrack = false;
+			this.emptySpaceItem7.Location = new System.Drawing.Point(0, 77);
+			this.emptySpaceItem7.Name = "emptySpaceItem7";
+			this.emptySpaceItem7.Size = new System.Drawing.Size(10, 47);
+			this.emptySpaceItem7.TextSize = new System.Drawing.Size(0, 0);
+			// 
+			// lcItemPassword
+			// 
+			this.lcItemPassword.Control = this.txtPassword;
+			this.lcItemPassword.Location = new System.Drawing.Point(10, 77);
+			this.lcItemPassword.Name = "lcItemPassword";
+			this.lcItemPassword.Size = new System.Drawing.Size(290, 47);
+			this.lcItemPassword.TextLocation = DevExpress.Utils.Locations.Top;
+			this.lcItemPassword.TextSize = new System.Drawing.Size(85, 14);
+			// 
+			// emptySpaceItem11
+			// 
+			this.emptySpaceItem11.AllowHotTrack = false;
+			this.emptySpaceItem11.Location = new System.Drawing.Point(300, 77);
+			this.emptySpaceItem11.Name = "emptySpaceItem11";
+			this.emptySpaceItem11.Size = new System.Drawing.Size(10, 47);
+			this.emptySpaceItem11.TextSize = new System.Drawing.Size(0, 0);
+			// 
+			// emptySpaceItem8
+			// 
+			this.emptySpaceItem8.AllowHotTrack = false;
+			this.emptySpaceItem8.Location = new System.Drawing.Point(0, 124);
+			this.emptySpaceItem8.Name = "emptySpaceItem8";
+			this.emptySpaceItem8.Size = new System.Drawing.Size(10, 23);
+			this.emptySpaceItem8.TextSize = new System.Drawing.Size(0, 0);
+			// 
+			// lcItemIsRemember
+			// 
+			this.lcItemIsRemember.Control = this.chkRemember;
+			this.lcItemIsRemember.ControlAlignment = System.Drawing.ContentAlignment.MiddleLeft;
+			this.lcItemIsRemember.Location = new System.Drawing.Point(10, 124);
+			this.lcItemIsRemember.Name = "lcItemIsRemember";
+			this.lcItemIsRemember.Size = new System.Drawing.Size(290, 23);
+			this.lcItemIsRemember.Text = " ";
+			this.lcItemIsRemember.TextSize = new System.Drawing.Size(0, 0);
+			this.lcItemIsRemember.TextVisible = false;
+			// 
+			// emptySpaceItem12
+			// 
+			this.emptySpaceItem12.AllowHotTrack = false;
+			this.emptySpaceItem12.Location = new System.Drawing.Point(300, 124);
+			this.emptySpaceItem12.Name = "emptySpaceItem12";
+			this.emptySpaceItem12.Size = new System.Drawing.Size(10, 23);
+			this.emptySpaceItem12.TextSize = new System.Drawing.Size(0, 0);
+			// 
+			// emptySpaceItem3
+			// 
+			this.emptySpaceItem3.AllowHotTrack = false;
+			this.emptySpaceItem3.Location = new System.Drawing.Point(0, 147);
+			this.emptySpaceItem3.Name = "emptySpaceItem3";
+			this.emptySpaceItem3.Size = new System.Drawing.Size(310, 11);
+			this.emptySpaceItem3.TextSize = new System.Drawing.Size(0, 0);
+			// 
+			// emptySpaceItem5
+			// 
+			this.emptySpaceItem5.AllowHotTrack = false;
+			this.emptySpaceItem5.Location = new System.Drawing.Point(0, 158);
+			this.emptySpaceItem5.Name = "emptySpaceItem5";
+			this.emptySpaceItem5.Size = new System.Drawing.Size(84, 28);
+			this.emptySpaceItem5.TextSize = new System.Drawing.Size(0, 0);
+			// 
+			// lcButtonOK
+			// 
+			this.lcButtonOK.Control = this.btnOk;
+			this.lcButtonOK.Location = new System.Drawing.Point(84, 158);
+			this.lcButtonOK.Name = "lcButtonOK";
+			this.lcButtonOK.Size = new System.Drawing.Size(144, 28);
+			this.lcButtonOK.TextSize = new System.Drawing.Size(0, 0);
+			this.lcButtonOK.TextVisible = false;
+			// 
+			// emptySpaceItem6
+			// 
+			this.emptySpaceItem6.AllowHotTrack = false;
+			this.emptySpaceItem6.Location = new System.Drawing.Point(228, 158);
+			this.emptySpaceItem6.Name = "emptySpaceItem6";
+			this.emptySpaceItem6.Size = new System.Drawing.Size(82, 28);
+			this.emptySpaceItem6.TextSize = new System.Drawing.Size(0, 0);
+			// 
+			// emptySpaceItem2
+			// 
+			this.emptySpaceItem2.AllowHotTrack = false;
+			this.emptySpaceItem2.Location = new System.Drawing.Point(0, 206);
+			this.emptySpaceItem2.Name = "emptySpaceItem2";
+			this.emptySpaceItem2.Size = new System.Drawing.Size(209, 18);
+			this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
 			// 
 			// layoutControlItem1
 			// 
 			this.layoutControlItem1.Control = this.lblForgot;
-			this.layoutControlItem1.Location = new System.Drawing.Point(209, 203);
+			this.layoutControlItem1.Location = new System.Drawing.Point(209, 206);
 			this.layoutControlItem1.Name = "layoutControlItem1";
 			this.layoutControlItem1.Size = new System.Drawing.Size(101, 18);
 			this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
@@ -538,9 +517,9 @@
 			// emptySpaceItem9
 			// 
 			this.emptySpaceItem9.AllowHotTrack = false;
-			this.emptySpaceItem9.Location = new System.Drawing.Point(0, 191);
+			this.emptySpaceItem9.Location = new System.Drawing.Point(0, 186);
 			this.emptySpaceItem9.Name = "emptySpaceItem9";
-			this.emptySpaceItem9.Size = new System.Drawing.Size(310, 12);
+			this.emptySpaceItem9.Size = new System.Drawing.Size(310, 20);
 			this.emptySpaceItem9.TextSize = new System.Drawing.Size(0, 0);
 			// 
 			// LoginForm
@@ -566,28 +545,26 @@
 			((System.ComponentModel.ISupportInitialize)(this.picImage.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.txtPassword.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupBase)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcImageMain)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemBanner)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.simpleSeparator1)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.simpleSeparator2)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupImageMain)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcImageMain)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupBanner)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem10)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemLoginId)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemBanner)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcGroupEdit)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem4)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemLoginId)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem10)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem7)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemPassword)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem11)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem12)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemIsRemember)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem8)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemIsRemember)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem12)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem5)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcButtonOK)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem6)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcGroupEdit)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem9)).EndInit();
 			this.ResumeLayout(false);
@@ -613,11 +590,9 @@
 		private DevExpress.XtraBars.BarDockControl barDockControlLeft;
 		private DevExpress.XtraBars.BarDockControl barDockControlRight;
 		private DevExpress.XtraBars.BarManager barManager;
-		private DevExpress.XtraLayout.SimpleSeparator simpleSeparator1;
 		private DevExpress.XtraBars.BarAndDockingController barAndDockingController1;
 		private DevExpress.XtraEditors.PictureEdit picBanner;
 		private DevExpress.XtraLayout.LayoutControlItem lcItemBanner;
-		private DevExpress.XtraLayout.SimpleSeparator simpleSeparator2;
 		private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem2;
 		private DevExpress.XtraLayout.LayoutControlGroup lcGroupImageMain;
 		private DevExpress.XtraLayout.LayoutControlGroup lcGroupBanner;

@@ -68,6 +68,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="SqlMaps\LIB\LG\LGGoodsItemSQL.xml" />
     <EmbeddedResource Include="SqlMaps\LIB\LM\LMCustomerBusinessSQL.xml" />
     <EmbeddedResource Include="SqlMaps\LIB\LM\LMCustomerAddressSQL.xml" />
     <EmbeddedResource Include="SqlMaps\LIB\LM\LMCustomerBankSQL.xml" />
@@ -116,13 +117,25 @@
     <EmbeddedResource Include="SqlMaps\SYS\AA\AAUserSQL.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="SqlMaps\BIZ\BG\BGGoodsDetailSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\BIZ\BG\BGGoodsImageSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\BIZ\BG\BGGoodsItemSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\BIZ\BG\BGGoodsPriceSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\BIZ\BG\BGGoodsSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\BIZ\BM\BMBrandImageSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\BIZ\BM\BMBrandSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\BIZ\BM\BMChannelBrandSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\BIZ\BM\BMChannelSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\BIZ\BM\BMCustomerAddressSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\BIZ\BM\BMCustomerBankSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\BIZ\BM\BMCustomerBrandSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\BIZ\BM\BMCustomerBusinessSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\BIZ\BM\BMCustomerChannelSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\BIZ\BM\BMCustomerSQL.xml" />
     <Content Include="SqlMaps\BIZ\BP\PurchaseSQL.xml" />
     <Content Include="SqlMaps\BIZ\BS\SalesSQL.xml" />
     <Content Include="SqlMaps\BIZ\BC\AddressSQL.xml" />
     <Content Include="SqlMaps\BIZ\BC\BizRegCeSQL.xml" />
-    <Content Include="SqlMaps\BIZ\BM\CustomerAddressSQL.xml" />
-    <Content Include="SqlMaps\BIZ\BM\CustomerPhonesSQL.xml" />
-    <Content Include="SqlMaps\BIZ\BM\CustomersSQL.xml" />
     <EmbeddedResource Include="SqlMaps\BIZ\BC\BCCodeHelpSQL.xml" />
     <Content Include="SqlMaps\BIZ\Report\ReportSQL.xml" />
   </ItemGroup>

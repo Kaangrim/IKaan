@@ -48,55 +48,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LG\LGGoodsEditForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="LG\LGGoodsEditForm.designer.cs">
-      <DependentUpon>LGGoodsEditForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="LG\LGGoodsListForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="LG\LGGoodsListForm.designer.cs">
-      <DependentUpon>LGGoodsListForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="LM\LMBrandImageForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="LM\LMBrandImageForm.Designer.cs">
-      <DependentUpon>LMBrandImageForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="LM\LMChannelForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="LM\LMChannelForm.designer.cs">
-      <DependentUpon>LMChannelForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="LM\LMBrandForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="LM\LMBrandForm.designer.cs">
-      <DependentUpon>LMBrandForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <EmbeddedResource Include="LG\LGGoodsEditForm.resx">
-      <DependentUpon>LGGoodsEditForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="LG\LGGoodsListForm.resx">
-      <DependentUpon>LGGoodsListForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="LM\LMBrandImageForm.resx">
-      <DependentUpon>LMBrandImageForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="LM\LMChannelForm.resx">
-      <DependentUpon>LMChannelForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="LM\LMBrandForm.resx">
-      <DependentUpon>LMBrandForm.cs</DependentUpon>
-    </EmbeddedResource>
+    <Folder Include="LG\" />
+    <Folder Include="LM\" />
+  </ItemGroup>
+  <ItemGroup>
     <EmbeddedResource Include="Properties\licenses.licx" />
   </ItemGroup>
   <ItemGroup>

@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectBGGoodsList" parameterClass="DataMap" resultClass="BGGoods" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
+					,	AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.GoodsNo
+					,	AA.BrandID
+					,	AA.Age
+					,	AA.Gender
+					,	AA.Season
+					,	AA.Origin
+					,	AA.CategoryID
+					,	AA.UseYn
+					,	AA.AbroadYn
+					
+					,	BB.GoodsName
+					
+				FROM	dbo.BGGoods AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.BGGoodsDetail BB WITH (NOLOCK)
+								ON AA.ID = BB.GoodsID
+									AND BB.LanguageCode = #LanguageCode#
+						LEFT JOIN
+							dbo.LMBrand CC WITH (NOLOCK)
+								ON AA.BrandID = CC.ID
+				WHERE	1=1				
+			]]>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(
+							AA.GoodsNo			LIKE '%' + #FindText# + '%' OR
+							BB.GoodsName		LIKE '%' + #FindText# + '%'
+						)
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="GoodsNo">
+				<![CDATA[
+					AND		AA.GoodsNo	= #GoodsNo#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="GoodsName">
+				<![CDATA[
+					AND		BB.GoodsName	LIKE '%'+#GoodsName#+'%'
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="BrandID">
+				<![CDATA[
+					AND		AA.BrandID	= #BrandID#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="CategoryID">
+				<![CDATA[
+					AND		AA.CategoryID	= #CategoryID#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="Age">
+				<![CDATA[
+					AND		AA.Age	= #Age#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="Gender">
+				<![CDATA[
+					AND		AA.Gender	= #Gender#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="Season">
+				<![CDATA[
+					AND		AA.Season	= #Season#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="Origin">
+				<![CDATA[
+					AND		AA.Origin	= #Origin#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="UseYn">
+				<![CDATA[
+					AND		AA.UseYn	= #UseYn#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="AbroadYn">
+				<![CDATA[
+					AND		AA.AbroadYn	= #AbroadYn#
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectBGGoods" parameterClass="DataMap" resultClass="BGGoods" >
+			<![CDATA[
+				SELECT  AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.GoodsNo
+					,	AA.BrandID
+					,	AA.Age
+					,	AA.Gender
+					,	AA.Season
+					,	AA.Origin
+					,	AA.CategoryID
+					,	AA.UseYn
+					,	AA.AbroadYn
+					
+					,	BB.GoodsName
+					,	BB.Description
+					
+				FROM	dbo.BGGoods AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.BGGoodsDetail BB WITH (NOLOCK)
+								ON AA.ID = BB.GoodsID
+									AND BB.LanguageCode = #LanguageCode#
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<insert id="InsertBGGoods" parameterClass="BGGoods" >
+			<![CDATA[
+				INSERT INTO dbo.BGGoods
+				( 
+					CreateDate, CreateBy, CreateByName,
+					GoodsNo, BrandID, Age, Gender, Season, Origin, CategoryID, UseYn, AbroadYn
+				)
+				VALUES
+				(
+					GetDate(), #CreateBy#, #CreateByName#,
+					#GoodsNo#, #BrandID#, #Age#, #Gender#, #Season#, #Origin#, #CategoryID#, #UseYn#, #AbroadYn#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateBGGoods" parameterClass="BGGoods">
+			<![CDATA[
+				UPDATE  dbo.BGGoods
+				SET     UpdateDate		= GetDate()
+					,	UpdateBy		= #UpdateBy#
+					,	UpdateByName	= #UpdateByName#
+					
+					,	GoodsNo			= #GoodsNo#
+					,	BrandID			= #BrandID#
+					,	Age				= #Age#
+					,	Gender			= #Gender#
+					,	Season			= #Season#
+					,	Origin			= #Origin#
+					,	CategoryID		= #CategoryID#
+					,	UseYn			= #UseYn#
+					,	AbroadYn		= #AbroadYn#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
+		<delete id="DeleteBGGoods" parameterClass="DataMap">
+			<![CDATA[
+				DELETE 
+				FROM	dbo.BGGoods
+				WHERE	ID = #ID#
+			]]>
+		</delete>
+	</statements>
+</sqlMap>
