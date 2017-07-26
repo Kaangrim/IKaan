@@ -423,8 +423,7 @@ namespace IKaan.Biz.View.Forms
 			{
 				dpFavorite.Visibility = DockVisibility.AutoHide;
 				//dpFavorite.Visibility = DockVisibility.Hidden;
-				nbGroupBookMark.Visible = false;
-				nbGroupMyMenu.Visible = false;
+				//nbGroupBookMark.Visible = false;
 				barButtonFav.Visibility = BarItemVisibility.Never;
 			}
 			catch (Exception ex)
@@ -766,14 +765,14 @@ namespace IKaan.Biz.View.Forms
 			}
 		}
 
-		private void ShowWebPage(string type)
+		private void ShowWebPage()
 		{
 			try
 			{
 				CreateChildForm(new UMMenuView()
 				{
 					MenuID = 0,
-					MenuName = type,
+					MenuName = "Web",
 					//Image = null,
 					Assembly = "IKaan.Biz.View.dll",
 					Namespace = "IKaan.Biz.View.Forms",
@@ -868,11 +867,8 @@ namespace IKaan.Biz.View.Forms
 					case "EMAIL":
 						ShowEmailPage();
 						break;
-					case "SMAPS1":
-						ShowWebPage(e.Item.Tag.ToString().ToUpper());
-						break;
-					case "SMAPS2":
-						ShowWebPage(e.Item.Tag.ToString().ToUpper());
+					case "WEB":
+						ShowWebPage();
 						break;
 					case "CHANGEPASSWORD":
 						ShowChangePwd();
@@ -915,10 +911,6 @@ namespace IKaan.Biz.View.Forms
 			try
 			{
 				var formName = string.Format("{0}_{1}", data.MenuID.ToString("000000"), data.Instance);
-
-				if (data.MenuName.StartsWith("SMAPS"))
-					formName = data.Instance + "_" + data.MenuName;
-
 				var bOpened = ExistsChildForm(formName);
 				if (bOpened)
 				{
@@ -945,10 +937,12 @@ namespace IKaan.Biz.View.Forms
 
 				form.Name = formName;
 				form.Text = data.MenuName;
-				form.MdiParent = this;
 				form.Padding = new Padding(2);
 				form.MenuId = data.MenuID;
-				//form.TabImage = data.Image;
+				form.TabImage = MenuResource.Window_16x16;
+				form.Icon = Icon.FromHandle(MenuResource.Window_16x16.GetHicon());
+				form.MdiParent = this;
+
 				if (!string.IsNullOrEmpty(data.ViewType))
 				{
 					switch (data.ViewType.ToStringNullToEmpty())

@@ -311,7 +311,7 @@ namespace IKaan.Biz.Core.Forms
 		{
 			barTools.ItemLinks.OfType<BarButtonItemLink>().Where(x => x.Item.Name.Contains("barButton")).ToList().ForEach(x =>
 			{
-				if (GlobalVar.SkinInfo.IsVisibleToolbarName)
+				if (GlobalVar.SkinInfo.IsVisibleToolbarName && x.Item.Name.EndsWith("Close") == false && x.Item.Name.EndsWith("Help") == false)
 				{
 					x.Item.PaintStyle = BarItemPaintStyle.CaptionGlyph;
 				}

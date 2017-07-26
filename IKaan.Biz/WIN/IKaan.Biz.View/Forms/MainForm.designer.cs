@@ -37,6 +37,7 @@
 			this.barButtonHome = new DevExpress.XtraBars.BarButtonItem();
 			this.barButtonChangeSkin = new DevExpress.XtraBars.SkinBarSubItem();
 			this.barButtonEmail = new DevExpress.XtraBars.BarButtonItem();
+			this.barButtonWeb = new DevExpress.XtraBars.BarButtonItem();
 			this.barMainMenu = new DevExpress.XtraBars.Bar();
 			this.barSubItemFile = new DevExpress.XtraBars.BarSubItem();
 			this.barButtonClose = new DevExpress.XtraBars.BarButtonItem();
@@ -64,10 +65,9 @@
 			this.dpFavorite = new DevExpress.XtraBars.Docking.DockPanel();
 			this.dockPanel1_Container = new DevExpress.XtraBars.Docking.ControlContainer();
 			this.navBarFavorite = new DevExpress.XtraNavBar.NavBarControl();
-			this.nbGroupBlog = new DevExpress.XtraNavBar.NavBarGroup();
+			this.nbGroupSearch = new DevExpress.XtraNavBar.NavBarGroup();
 			this.navBarGroupControlContainer1 = new DevExpress.XtraNavBar.NavBarGroupControlContainer();
 			this.wbBlog = new System.Windows.Forms.WebBrowser();
-			this.nbGroupMyMenu = new DevExpress.XtraNavBar.NavBarGroup();
 			this.nbGroupBookMark = new DevExpress.XtraNavBar.NavBarGroup();
 			this.dpNavigation = new DevExpress.XtraBars.Docking.DockPanel();
 			this.dockPanelMainMenu_Container = new DevExpress.XtraBars.Docking.ControlContainer();
@@ -95,8 +95,6 @@
 			this.timerHomeShow = new System.Windows.Forms.Timer();
 			this.notifyIcon1 = new System.Windows.Forms.NotifyIcon();
 			this.popupMenuTabPage = new DevExpress.XtraBars.PopupMenu();
-			this.barButtonSmaps1 = new DevExpress.XtraBars.BarButtonItem();
-			this.barButtonSmaps2 = new DevExpress.XtraBars.BarButtonItem();
 			((System.ComponentModel.ISupportInitialize)(this.barManager)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.barAndDockingController)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.dockManager)).BeginInit();
@@ -174,8 +172,7 @@
             this.barButtonTabPageCloseAllButThis,
             this.barButtonChangeSkin,
             this.barButtonEmail,
-            this.barButtonSmaps1,
-            this.barButtonSmaps2});
+            this.barButtonWeb});
 			this.barManager.MainMenu = this.barMainMenu;
 			this.barManager.MaxItemId = 79;
 			this.barManager.RegistryPath = "IKaan\\\\Layouts\\\\MainLayout";
@@ -200,8 +197,7 @@
             new DevExpress.XtraBars.LinkPersistInfo(this.barButtonHome, true),
             new DevExpress.XtraBars.LinkPersistInfo(this.barButtonChangeSkin, true),
             new DevExpress.XtraBars.LinkPersistInfo(this.barButtonEmail, true),
-            new DevExpress.XtraBars.LinkPersistInfo(this.barButtonSmaps1, true),
-            new DevExpress.XtraBars.LinkPersistInfo(this.barButtonSmaps2)});
+            new DevExpress.XtraBars.LinkPersistInfo(this.barButtonWeb, true)});
 			this.barTools.OptionsBar.AllowQuickCustomization = false;
 			this.barTools.OptionsBar.DrawDragBorder = false;
 			this.barTools.OptionsBar.UseWholeRow = true;
@@ -258,6 +254,15 @@
 			this.barButtonEmail.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonEmail.ImageOptions.Image")));
 			this.barButtonEmail.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barButtonEmail.ImageOptions.LargeImage")));
 			this.barButtonEmail.Name = "barButtonEmail";
+			// 
+			// barButtonWeb
+			// 
+			this.barButtonWeb.Caption = "Web";
+			this.barButtonWeb.CategoryGuid = new System.Guid("a88229de-4627-4658-b6a2-102960a89e38");
+			this.barButtonWeb.Id = 78;
+			this.barButtonWeb.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonSmaps.ImageOptions.Image")));
+			this.barButtonWeb.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barButtonSmaps.ImageOptions.LargeImage")));
+			this.barButtonWeb.Name = "barButtonWeb";
 			// 
 			// barMainMenu
 			// 
@@ -524,12 +529,11 @@
 			// 
 			// navBarFavorite
 			// 
-			this.navBarFavorite.ActiveGroup = this.nbGroupBlog;
+			this.navBarFavorite.ActiveGroup = this.nbGroupSearch;
 			this.navBarFavorite.Controls.Add(this.navBarGroupControlContainer1);
 			this.navBarFavorite.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.navBarFavorite.Groups.AddRange(new DevExpress.XtraNavBar.NavBarGroup[] {
-            this.nbGroupBlog,
-            this.nbGroupMyMenu,
+            this.nbGroupSearch,
             this.nbGroupBookMark});
 			this.navBarFavorite.Location = new System.Drawing.Point(0, 0);
 			this.navBarFavorite.Name = "navBarFavorite";
@@ -542,15 +546,15 @@
 			this.navBarFavorite.TabIndex = 0;
 			this.navBarFavorite.Text = "즐겨찾기";
 			// 
-			// nbGroupBlog
+			// nbGroupSearch
 			// 
-			this.nbGroupBlog.Caption = "Blog";
-			this.nbGroupBlog.ControlContainer = this.navBarGroupControlContainer1;
-			this.nbGroupBlog.Expanded = true;
-			this.nbGroupBlog.GroupClientHeight = 194;
-			this.nbGroupBlog.GroupStyle = DevExpress.XtraNavBar.NavBarGroupStyle.ControlContainer;
-			this.nbGroupBlog.LargeImage = ((System.Drawing.Image)(resources.GetObject("nbGroupBlog.LargeImage")));
-			this.nbGroupBlog.Name = "nbGroupBlog";
+			this.nbGroupSearch.Caption = "Search";
+			this.nbGroupSearch.ControlContainer = this.navBarGroupControlContainer1;
+			this.nbGroupSearch.Expanded = true;
+			this.nbGroupSearch.GroupClientHeight = 194;
+			this.nbGroupSearch.GroupStyle = DevExpress.XtraNavBar.NavBarGroupStyle.ControlContainer;
+			this.nbGroupSearch.LargeImage = ((System.Drawing.Image)(resources.GetObject("nbGroupSearch.LargeImage")));
+			this.nbGroupSearch.Name = "nbGroupSearch";
 			// 
 			// navBarGroupControlContainer1
 			// 
@@ -558,7 +562,7 @@
 			this.navBarGroupControlContainer1.Appearance.Options.UseBackColor = true;
 			this.navBarGroupControlContainer1.Controls.Add(this.wbBlog);
 			this.navBarGroupControlContainer1.Name = "navBarGroupControlContainer1";
-			this.navBarGroupControlContainer1.Size = new System.Drawing.Size(257, 192);
+			this.navBarGroupControlContainer1.Size = new System.Drawing.Size(257, 242);
 			this.navBarGroupControlContainer1.TabIndex = 0;
 			// 
 			// wbBlog
@@ -567,15 +571,8 @@
 			this.wbBlog.Location = new System.Drawing.Point(0, 0);
 			this.wbBlog.MinimumSize = new System.Drawing.Size(20, 20);
 			this.wbBlog.Name = "wbBlog";
-			this.wbBlog.Size = new System.Drawing.Size(257, 192);
+			this.wbBlog.Size = new System.Drawing.Size(257, 242);
 			this.wbBlog.TabIndex = 0;
-			// 
-			// nbGroupMyMenu
-			// 
-			this.nbGroupMyMenu.Caption = "My Menu";
-			this.nbGroupMyMenu.LargeImage = ((System.Drawing.Image)(resources.GetObject("nbGroupMyMenu.LargeImage")));
-			this.nbGroupMyMenu.Name = "nbGroupMyMenu";
-			this.nbGroupMyMenu.Visible = false;
 			// 
 			// nbGroupBookMark
 			// 
@@ -704,15 +701,13 @@
 			// 
 			this.barButtonTabPageCloseAll.Caption = "모든 화면 닫기";
 			this.barButtonTabPageCloseAll.Id = 65;
-			this.barButtonTabPageCloseAll.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonTabPageCloseAll.ImageOptions.Image")));
 			this.barButtonTabPageCloseAll.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barButtonTabPageCloseAll.ImageOptions.LargeImage")));
 			this.barButtonTabPageCloseAll.Name = "barButtonTabPageCloseAll";
 			// 
 			// barButtonTabPageCloseAllButThis
 			// 
-			this.barButtonTabPageCloseAllButThis.Caption = "이 화면을 제외하고 모든 화면 닫기";
+			this.barButtonTabPageCloseAllButThis.Caption = "이 창을 제외하고 모든 닫기";
 			this.barButtonTabPageCloseAllButThis.Id = 66;
-			this.barButtonTabPageCloseAllButThis.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonTabPageCloseAllButThis.ImageOptions.Image")));
 			this.barButtonTabPageCloseAllButThis.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barButtonTabPageCloseAllButThis.ImageOptions.LargeImage")));
 			this.barButtonTabPageCloseAllButThis.Name = "barButtonTabPageCloseAllButThis";
 			// 
@@ -776,23 +771,6 @@
 			this.popupMenuTabPage.Manager = this.barManager;
 			this.popupMenuTabPage.Name = "popupMenuTabPage";
 			// 
-			// barButtonSmaps1
-			// 
-			this.barButtonSmaps1.Caption = "SMAPS ADMIN1";
-			this.barButtonSmaps1.CategoryGuid = new System.Guid("a88229de-4627-4658-b6a2-102960a89e38");
-			this.barButtonSmaps1.Id = 77;
-			this.barButtonSmaps1.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonSmaps1.ImageOptions.Image")));
-			this.barButtonSmaps1.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barButtonSmaps1.ImageOptions.LargeImage")));
-			this.barButtonSmaps1.Name = "barButtonSmaps1";
-			// 
-			// barButtonSmaps2
-			// 
-			this.barButtonSmaps2.Caption = "SMAPS ADMIN2";
-			this.barButtonSmaps2.CategoryGuid = new System.Guid("a88229de-4627-4658-b6a2-102960a89e38");
-			this.barButtonSmaps2.Id = 78;
-			this.barButtonSmaps2.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonSmaps2.ImageOptions.Image")));
-			this.barButtonSmaps2.Name = "barButtonSmaps2";
-			// 
 			// MainForm
 			// 
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -854,7 +832,6 @@
 		private DevExpress.XtraBars.Docking.DockPanel dpFavorite;
 		private DevExpress.XtraBars.Docking.ControlContainer dockPanel1_Container;
 		private DevExpress.XtraNavBar.NavBarControl navBarFavorite;
-		private DevExpress.XtraNavBar.NavBarGroup nbGroupMyMenu;
 		private DevExpress.XtraNavBar.NavBarGroup nbGroupBookMark;
 		private DevExpress.XtraBars.BarStaticItem barStatusBarDatetime;
 		private DevExpress.XtraBars.BarStaticItem barStatusBarMessage;
@@ -895,7 +872,7 @@
 		private DevExpress.XtraBars.BarButtonItem barButtonTabPageCloseAllButThis;
 		private DevExpress.XtraNavBar.NavBarControl navBarNavigate;
 		private DevExpress.XtraNavBar.NavBarGroup navBarGroup1;
-		private DevExpress.XtraNavBar.NavBarGroup nbGroupBlog;
+		private DevExpress.XtraNavBar.NavBarGroup nbGroupSearch;
 		private DevExpress.XtraNavBar.NavBarGroupControlContainer navBarGroupControlContainer1;
 		private System.Windows.Forms.WebBrowser wbBlog;
 		private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit repositoryItemLookUpEdit1;
@@ -903,7 +880,6 @@
 		private DevExpress.XtraBars.SkinBarSubItem barButtonChangeSkin;
 		private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit repositoryItemTextEdit1;
 		private DevExpress.XtraBars.BarButtonItem barButtonEmail;
-		private DevExpress.XtraBars.BarButtonItem barButtonSmaps1;
-		private DevExpress.XtraBars.BarButtonItem barButtonSmaps2;
+		private DevExpress.XtraBars.BarButtonItem barButtonWeb;
 	}
 }

@@ -1,66 +1,31 @@
 ﻿using System;
+using System.Windows.Forms;
 using IKaan.Base.Utils;
 using IKaan.Biz.Core.Forms;
-using IKaan.Biz.Core.Model;
 
 namespace IKaan.Biz.View.Forms
 {
-	public partial class WebForm : EditForm
+	public partial class WebForm : BaseForm
 	{
 		public WebForm()
 		{
 			InitializeComponent();
+			Init();
 
-			wb.DocumentCompleted += delegate (object sender, System.Windows.Forms.WebBrowserDocumentCompletedEventArgs e) { doDocumentCompleted(); };
+			txtUrl.EditValueChanged += delegate (object sender, EventArgs e) { DataLoad(); };
+			txtUrl.KeyDown += delegate (object sender, KeyEventArgs e) { if (e.KeyCode == Keys.Enter) DataLoad(); };
 		}
 
-		protected override void InitButtons()
+		private void Init()
 		{
-			base.InitButtons();
-			SetToolbarButtons(new ToolbarButtons() { Refresh = true });
+			this.Padding = new Padding(4);
+			txtUrl.EditValue = @"http://insight.withit.co.kr";
 		}
 
-		protected override void InitControls()
+		private void DataLoad()
 		{
-			base.InitControls();
-			SetFieldNames();
-		}
-
-		protected override void LoadForm()
-		{
-			base.LoadForm();
-			DataLoad();
-		}
-
-		protected override void DataLoad(object param = null)
-		{
-			string url1 = @"http://insight.withit.co.kr";
-			string url2 = @"http://app.withit.co.kr";
-
-			if (this.Text.ToStringNullToEmpty() == "SMAPS1")
-				wb.Navigate(new Uri(url1));
-			else if (this.Text.ToStringNullToEmpty() == "SMAPS2")
-				wb.Navigate(new Uri(url2));
-		}
-
-		private void doDocumentCompleted()
-		{
-			try
-			{
-				//var el_id = wb.GetElement("input", "mail", null, null, 0);
-				//if (el_id != null)
-				//{
-				//	el_id.SetAttribute("value", txtLoginId.Text);
-				//	var el_pw = wb.GetElement("input", "passwd", null, null, 0);
-				//	if (el_pw != null)
-				//		el_pw.SetAttribute("value", txtLoginPw.Text);
-				//	wbPage.Document.InvokeScript("chk");
-				//}
-			}
-			catch(Exception ex)
-			{
-				ShowErrBox(ex);
-			}
+			if (txtUrl.EditValue.IsNullOrEmpty() == false)
+				wb.Navigate(new Uri(txtUrl.Text));
 		}
 	}
 }

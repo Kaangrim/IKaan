@@ -257,7 +257,6 @@
 			this.barTitle.ItemAppearance.Normal.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Bold);
 			this.barTitle.ItemAppearance.Normal.Options.UseFont = true;
 			this.barTitle.Name = "barTitle";
-			this.barTitle.TextAlignment = System.Drawing.StringAlignment.Near;
 			// 
 			// barStatus
 			// 
@@ -284,7 +283,6 @@
 			this.barStaticMessage.Id = 0;
 			this.barStaticMessage.Name = "barStaticMessage";
 			this.barStaticMessage.Size = new System.Drawing.Size(32, 0);
-			this.barStaticMessage.TextAlignment = System.Drawing.StringAlignment.Near;
 			this.barStaticMessage.Width = 32;
 			// 
 			// barStaticTotalRecords
@@ -293,7 +291,6 @@
 			this.barStaticTotalRecords.CategoryGuid = new System.Guid("5ec799ad-04c4-4dc1-b808-b4da40b4d58e");
 			this.barStaticTotalRecords.Id = 15;
 			this.barStaticTotalRecords.Name = "barStaticTotalRecords";
-			this.barStaticTotalRecords.TextAlignment = System.Drawing.StringAlignment.Near;
 			// 
 			// barStaticEditMode
 			// 
@@ -301,7 +298,6 @@
 			this.barStaticEditMode.CategoryGuid = new System.Guid("5ec799ad-04c4-4dc1-b808-b4da40b4d58e");
 			this.barStaticEditMode.Id = 14;
 			this.barStaticEditMode.Name = "barStaticEditMode";
-			this.barStaticEditMode.TextAlignment = System.Drawing.StringAlignment.Near;
 			// 
 			// barStaticViewName
 			// 
@@ -309,7 +305,6 @@
 			this.barStaticViewName.CategoryGuid = new System.Guid("5ec799ad-04c4-4dc1-b808-b4da40b4d58e");
 			this.barStaticViewName.Id = 16;
 			this.barStaticViewName.Name = "barStaticViewName";
-			this.barStaticViewName.TextAlignment = System.Drawing.StringAlignment.Near;
 			// 
 			// barAndDockingController
 			// 
@@ -355,7 +350,6 @@
 			this.barStaticItemBlank.CategoryGuid = new System.Guid("dc5db40c-8502-47c0-9ffc-98d280c2c66a");
 			this.barStaticItemBlank.Id = 21;
 			this.barStaticItemBlank.Name = "barStaticItemBlank";
-			this.barStaticItemBlank.TextAlignment = System.Drawing.StringAlignment.Near;
 			// 
 			// barHeaderItem1
 			// 
