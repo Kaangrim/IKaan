@@ -95,6 +95,8 @@
 			this.timerHomeShow = new System.Windows.Forms.Timer();
 			this.notifyIcon1 = new System.Windows.Forms.NotifyIcon();
 			this.popupMenuTabPage = new DevExpress.XtraBars.PopupMenu();
+			this.barButtonSmaps1 = new DevExpress.XtraBars.BarButtonItem();
+			this.barButtonSmaps2 = new DevExpress.XtraBars.BarButtonItem();
 			((System.ComponentModel.ISupportInitialize)(this.barManager)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.barAndDockingController)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.dockManager)).BeginInit();
@@ -171,9 +173,11 @@
             this.barButtonTabPageCloseAll,
             this.barButtonTabPageCloseAllButThis,
             this.barButtonChangeSkin,
-            this.barButtonEmail});
+            this.barButtonEmail,
+            this.barButtonSmaps1,
+            this.barButtonSmaps2});
 			this.barManager.MainMenu = this.barMainMenu;
-			this.barManager.MaxItemId = 77;
+			this.barManager.MaxItemId = 79;
 			this.barManager.RegistryPath = "IKaan\\\\Layouts\\\\MainLayout";
 			this.barManager.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemTextEdit1,
@@ -195,7 +199,9 @@
             new DevExpress.XtraBars.LinkPersistInfo(this.barButtonLog, true),
             new DevExpress.XtraBars.LinkPersistInfo(this.barButtonHome, true),
             new DevExpress.XtraBars.LinkPersistInfo(this.barButtonChangeSkin, true),
-            new DevExpress.XtraBars.LinkPersistInfo(this.barButtonEmail, true)});
+            new DevExpress.XtraBars.LinkPersistInfo(this.barButtonEmail, true),
+            new DevExpress.XtraBars.LinkPersistInfo(this.barButtonSmaps1, true),
+            new DevExpress.XtraBars.LinkPersistInfo(this.barButtonSmaps2)});
 			this.barTools.OptionsBar.AllowQuickCustomization = false;
 			this.barTools.OptionsBar.DrawDragBorder = false;
 			this.barTools.OptionsBar.UseWholeRow = true;
@@ -770,6 +776,23 @@
 			this.popupMenuTabPage.Manager = this.barManager;
 			this.popupMenuTabPage.Name = "popupMenuTabPage";
 			// 
+			// barButtonSmaps1
+			// 
+			this.barButtonSmaps1.Caption = "SMAPS ADMIN1";
+			this.barButtonSmaps1.CategoryGuid = new System.Guid("a88229de-4627-4658-b6a2-102960a89e38");
+			this.barButtonSmaps1.Id = 77;
+			this.barButtonSmaps1.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonSmaps1.ImageOptions.Image")));
+			this.barButtonSmaps1.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barButtonSmaps1.ImageOptions.LargeImage")));
+			this.barButtonSmaps1.Name = "barButtonSmaps1";
+			// 
+			// barButtonSmaps2
+			// 
+			this.barButtonSmaps2.Caption = "SMAPS ADMIN2";
+			this.barButtonSmaps2.CategoryGuid = new System.Guid("a88229de-4627-4658-b6a2-102960a89e38");
+			this.barButtonSmaps2.Id = 78;
+			this.barButtonSmaps2.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonSmaps2.ImageOptions.Image")));
+			this.barButtonSmaps2.Name = "barButtonSmaps2";
+			// 
 			// MainForm
 			// 
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -880,5 +903,7 @@
 		private DevExpress.XtraBars.SkinBarSubItem barButtonChangeSkin;
 		private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit repositoryItemTextEdit1;
 		private DevExpress.XtraBars.BarButtonItem barButtonEmail;
+		private DevExpress.XtraBars.BarButtonItem barButtonSmaps1;
+		private DevExpress.XtraBars.BarButtonItem barButtonSmaps2;
 	}
 }

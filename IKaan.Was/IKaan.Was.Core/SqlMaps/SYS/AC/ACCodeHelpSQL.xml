@@ -529,7 +529,7 @@
 					,	null								as Option7
 					,	null								as Option8
 					,	null								as Option9
-				FROM	IKBIZ.dbo.LMBrand aa WITH (NOLOCK)
+				FROM	IKBIZ.dbo.BMBrand aa WITH (NOLOCK)
 				WHERE	aa.UseYn = 'Y'
 				ORDER BY 
 					SortOrder, Name
@@ -547,7 +547,7 @@
 						,	CONVERT(VARCHAR(1000), 
 								RIGHT('000000' + CONVERT(VARCHAR, AA.SortOrder, AA.ID), 6))	as HierID
 						,	1																as Level
-					FROM	IKBIZ.dbo.LGCategory aa
+					FROM	IKBIZ.dbo.BGCategory aa
 					WHERE	AA.ParentID IS NULL
 					AND		AA.UseYn = 'Y'
 					UNION ALL
@@ -559,7 +559,7 @@
 								bb.HierID + '-' + 
 								RIGHT('000000'+CONVERT(VARCHAR, AA.SortOrder, AA.ID), 6))	as HierID
 						,	bb.Level + 1													as Level
-					FROM	IKBIZ.dbo.LGCategory aa
+					FROM	IKBIZ.dbo.BGCategory aa
 							INNER JOIN 
 								CTE bb 
 									on AA.ParentID = bb.ID

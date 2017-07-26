@@ -65,6 +65,12 @@
     <Compile Include="BG\BGGoodsListForm.designer.cs">
       <DependentUpon>BGGoodsListForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="BG\BGCategoryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BG\BGCategoryForm.designer.cs">
+      <DependentUpon>BGCategoryForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="BM\BMSearchBrandForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -122,6 +128,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="BG\BGGoodsListForm.resx">
       <DependentUpon>BGGoodsListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BG\BGCategoryForm.resx">
+      <DependentUpon>BGCategoryForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="BM\BMSearchBrandForm.resx">
       <DependentUpon>BMSearchBrandForm.cs</DependentUpon>

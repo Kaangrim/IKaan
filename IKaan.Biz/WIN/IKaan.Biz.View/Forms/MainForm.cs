@@ -766,6 +766,28 @@ namespace IKaan.Biz.View.Forms
 			}
 		}
 
+		private void ShowWebPage(string type)
+		{
+			try
+			{
+				CreateChildForm(new UMMenuView()
+				{
+					MenuID = 0,
+					MenuName = type,
+					//Image = null,
+					Assembly = "IKaan.Biz.View.dll",
+					Namespace = "IKaan.Biz.View.Forms",
+					Instance = "WebForm",
+					ViewType = "",
+					ViewButtons = new List<UMMenuViewButton> { new UMMenuViewButton() { ButtonID = 0, ButtonName = "조회", Instance = null } },
+				});
+			}
+			catch (Exception ex)
+			{
+				MsgBox.Show(ex);
+			}
+		}
+
 		private void ToggleDockPanel(DockPanel dock)
 		{
 			if (dock.Visibility == DockVisibility.Visible)
@@ -846,6 +868,12 @@ namespace IKaan.Biz.View.Forms
 					case "EMAIL":
 						ShowEmailPage();
 						break;
+					case "SMAPS1":
+						ShowWebPage(e.Item.Tag.ToString().ToUpper());
+						break;
+					case "SMAPS2":
+						ShowWebPage(e.Item.Tag.ToString().ToUpper());
+						break;
 					case "CHANGEPASSWORD":
 						ShowChangePwd();
 						break;
@@ -887,6 +915,10 @@ namespace IKaan.Biz.View.Forms
 			try
 			{
 				var formName = string.Format("{0}_{1}", data.MenuID.ToString("000000"), data.Instance);
+
+				if (data.MenuName.StartsWith("SMAPS"))
+					formName = data.Instance + "_" + data.MenuName;
+
 				var bOpened = ExistsChildForm(formName);
 				if (bOpened)
 				{
