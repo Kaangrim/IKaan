@@ -12,7 +12,7 @@
 					SELECT	AA.ID			as ID
 						,	AA.Code			as Code
 						,	1				AS CodeLevel
-						,	CAST(RIGHT('0000' + CONVERT(VARCHAR, ROW_NUMBER() OVER (ORDER BY AA.SortOrder, AA.ID)), 4) AS VARCHAR(MAX))	as HierID
+						,	CAST(RIGHT('0000' + CONVERT(VARCHAR, ROW_NUMBER() OVER (ORDER BY AA.Name, AA.ID)), 4) AS VARCHAR(MAX))	as HierID
 					FROM	dbo.ACCode AA WITH (NOLOCK)
 					WHERE	1=1
 			]]>

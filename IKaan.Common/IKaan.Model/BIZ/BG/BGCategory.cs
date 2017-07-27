@@ -45,6 +45,38 @@ namespace IKaan.Model.BIZ.BG
 
 		[DataMember]
 		[Display(Name = "정렬순서")]
-		public string SortOrder { get; set; }
+		public int SortOrder { get; set; }
+
+		[DataMember]
+		[Display(Name = "계층ID")]
+		public string HierID { get; set; }
+
+		[DataMember]
+		[Display(Name = "계층명")]
+		public string HierName { get; set; }
+
+		[DataMember]
+		[Display(Name = "단계")]
+		public int Level { get; set; }
+
+		[DataMember]
+		[Display(Name = "카테고리1명")]
+		public string Category1Name { get; set; }
+
+		[DataMember]
+		[Display(Name = "카테고리2명")]
+		public string Category2Name { get; set; }
+
+		[DataMember]
+		[Display(Name = "카테고리3명")]
+		public string Category3Name { get; set; }
+
+		[DataMember]
+		[Display(Name = "카테고리4명")]
+		public string Category4Name { get; set; }
+
+		[DataMember]
+		[Display(Name = "카테고리5명")]
+		public string Category5Name { get; set; }
 	}
 }

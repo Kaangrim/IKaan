@@ -135,6 +135,8 @@
     <EmbeddedResource Include="SqlMaps\BIZ\BG\BGCategorySQL.xml" />
     <EmbeddedResource Include="SqlMaps\BIZ\BG\BGInfoNoticeSQL.xml" />
     <EmbeddedResource Include="SqlMaps\BIZ\BG\BGInfoNoticeItemSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\BIZ\BM\BMBusinessSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\BIZ\BM\BMAddressSQL.xml" />
     <Content Include="SqlMaps\BIZ\BP\PurchaseSQL.xml" />
     <Content Include="SqlMaps\BIZ\BS\SalesSQL.xml" />
     <Content Include="SqlMaps\BIZ\BC\AddressSQL.xml" />

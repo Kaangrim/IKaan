@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectBMBusinessList" parameterClass="DataMap" resultClass="BMBusiness" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
+					,	AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.BizType					
+					,	AA.BizNo
+					,	AA.BizName
+					,	AA.RepName
+					,	AA.BizKind
+					,	AA.BizItem
+					,	AA.Status
+					
+				FROM	IKBIZ.dbo.BMBusiness AA WITH (NOLOCK)
+						LEFT JOIN
+							IKBAS.dbo.ACCode M1 WITH (NOLOCK)
+								ON AA.BizType = M1.Code
+									AND M1.ParentCode = 'BizType'
+				WHERE	1=1				
+			]]>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(
+							AA.BizNo	LIKE '%' + #FindText# + '%' OR
+							AA.BizName	LIKE '%' + #FindText# + '%' OR
+							AA.RepName	LIKE '%' + #FindText# + '%' OR
+							AA.BizKind	LIKE '%' + #FindText# + '%' OR
+							AA.BizItem	LIKE '%' + #FindText# + '%'
+						)
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="Status">
+				<![CDATA[
+					AND	AA.Status = #Status#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="BizType">
+				<![CDATA[
+					AND	AA.BizType = #BizType#
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectBMBusiness" parameterClass="DataMap" resultClass="BMBusiness" >
+			<![CDATA[
+				SELECT  AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.BizType
+					,	AA.BizNo
+					,	AA.BizName
+					,	AA.RepName
+					,	AA.BizKind
+					,	AA.BizItem
+					,	AA.Status
+					,	AA.AddressID
+					,	BB.PostalCode
+					,	BB.City
+					,	BB.StateProvince
+					,	BB.Country
+					,	BB.AddressLine1
+					,	BB.AddressLine2
+					
+				FROM	dbo.BMBusiness AA WITH (NOLOCK)
+						LEFT JOIN
+							IKBIZ.dbo.BMAddress BB WITH (NOLOCK)
+								ON AA.AddressID = BB.ID
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<insert id="InsertBMBusiness" parameterClass="BMBusiness" >
+			<![CDATA[
+				INSERT INTO dbo.BMBusiness
+				( 
+					CreateDate, CreateBy, CreateByName,
+					BizType, BizNo, BizName, RepName, BizKind, BizItem, AddressID, Status
+				)
+				VALUES
+				(
+					GetDate(), #CreateBy#, #CreateByName#,
+					#BizType#, #BizNo#, #BizName#, #RepName#, #BizKind#, #BizItem#, #AddressID#, #Status#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateBMBusiness" parameterClass="BMBusiness">
+			<![CDATA[
+				UPDATE  dbo.BMBusiness
+				SET     UpdateDate		= GetDate()
+					,	UpdateBy		= #UpdateBy#
+					,	UpdateByName	= #UpdateByName#
+					
+					,	BizType			= #BizType#
+					,	BizNo			= #BizNo#
+					,	BizName			= #BizName#
+					,	RepName			= #RepName#
+					,	BizKind			= #BizKind#
+					,	BizItem			= #BizItem#
+					,	Status			= #Status#
+					,	AddressID		= #AddressID#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
+		<delete id="DeleteBMBusiness" parameterClass="DataMap">
+			<![CDATA[
+				DELETE 
+				FROM	dbo.BMBusiness
+				WHERE	ID = #ID#
+			]]>
+		</delete>
+
+		<select id="SelectBMBusinessCustomerList" parameterClass="DataMap" resultClass="BMCustomerBusiness" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
+					,	AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.BusinessID
+					,	AA.CustomerID
+					,	BB.CustomerName
+					,	AA.StartDate
+					,	AA.EndDate
+					
+				FROM	IKBIZ.dbo.BMCustomerBusiness AA WITH (NOLOCK)
+						LEFT JOIN
+							IKBIZ.dbo.BMCustomer BB WITH (NOLOCK)
+								ON AA.CustomerID = BB.ID
+				WHERE	AA.BusinessID = #BusinessID#
+				ORDER BY RowNo
+			]]>
+		</select>
+	</statements>
+</sqlMap>

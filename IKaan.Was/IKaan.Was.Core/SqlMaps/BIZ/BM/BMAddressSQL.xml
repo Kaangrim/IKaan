@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectBMAddressList" parameterClass="DataMap" resultClass="BMAddress" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
+					,	AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.AddressID
+					,	AA.PostalCode
+					,	AA.City
+					,	AA.StateProvince
+					,	AA.Country
+					,	AA.AddressLine1
+					,	AA.AddressLine2
+					
+				FROM	IKBIZ.dbo.BMAddress AA WITH (NOLOCK)
+				WHERE	1=1
+			]]>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(
+							AA.PostalCode		LIKE '%' + #FindText# + '%' OR
+							AA.City				LIKE '%' + #FindText# + '%' OR
+							AA.StateProvince	LIKE '%' + #FindText# + '%' OR
+							AA.Country			LIKE '%' + #FindText# + '%' OR
+							AA.AddressLine1		LIKE '%' + #FindText# + '%' OR
+							AA.AddressLine2		LIKE '%' + #FindText# + '%'
+						)
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectBMAddress" parameterClass="DataMap" resultClass="BMAddress" >
+			<![CDATA[
+				SELECT  AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.PostalCode
+					,	AA.City
+					,	AA.StateProvince
+					,	AA.Country
+					,	AA.AddressLine1
+					,	AA.AddressLine2
+					
+				FROM	dbo.BMAddress AA WITH (NOLOCK)
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<insert id="InsertBMAddress" parameterClass="BMAddress" >
+			<![CDATA[
+				INSERT INTO dbo.BMAddress
+				( 
+					CreateDate, CreateBy, CreateByName,
+					PostalCode, City, StateProvince, Country, AddressLine1, AddressLine2
+				)
+				VALUES
+				(
+					GetDate(), #CreateBy#, #CreateByName#,
+					#PostalCode#, #City#, #StateProvince#, #Country#, #AddressLine1#, #AddressLine2#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateBMAddress" parameterClass="BMAddress">
+			<![CDATA[
+				UPDATE  dbo.BMAddress
+				SET     UpdateDate		= GetDate()
+					,	UpdateBy		= #UpdateBy#
+					,	UpdateByName	= #UpdateByName#
+					
+					,	PostalCode		= #PostalCode#
+					,	City			= #City#
+					,	StateProvince	= #StateProvince#
+					,	Country			= #Country#
+					,	AddressLine1	= #AddressLine1#
+					,	AddressLine2	= #AddressLine2#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
+		<delete id="DeleteBMAddress" parameterClass="DataMap">
+			<![CDATA[
+				DELETE 
+				FROM	dbo.BMAddress
+				WHERE	ID = #ID#
+			]]>
+		</delete>
+	</statements>
+</sqlMap>

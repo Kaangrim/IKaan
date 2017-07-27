@@ -88,17 +88,24 @@
 					,	AA.UpdateDate
 					,	AA.UpdateBy
 					,	AA.UpdateByName
+					
 					,	AA.CategoryName
 					,	AA.ParentID
 					,	AA.InfoNoticeID
 					,	AA.SortOrder
 					,	AA.UseYn
 					
-					,	C1.Name			as Category1
-					,	C2.Name			as Category2
-					,	C3.Name			as Category3
-					,	C4.Name			as Category4
-					,	C5.Name			as Category5
+					,	AA.Category1
+					,	AA.Category2
+					,	AA.Category3
+					,	AA.Category4
+					,	AA.Category5
+					
+					,	C1.CategoryName			as Category1Name
+					,	C2.CategoryName			as Category2Name
+					,	C3.CategoryName			as Category3Name
+					,	C4.CategoryName			as Category4Name
+					,	C5.CategoryName			as Category5Name
 					
 				FROM	dbo.BGCategory AA WITH (NOLOCK)
 						LEFT JOIN

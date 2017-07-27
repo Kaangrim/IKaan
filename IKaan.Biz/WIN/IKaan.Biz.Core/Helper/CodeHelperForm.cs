@@ -258,9 +258,6 @@ namespace IKaan.Biz.Core.Helper
 					{
 						gridList.SetMerge(mergeFields.ToArray());
 					}
-
-					gridList.SetColumnBackColor(SkinUtils.ForeColor, this.CodeField);
-					gridList.SetColumnForeColor(SkinUtils.BackColor, this.CodeField);
 				}
 			}
 			catch (Exception ex)

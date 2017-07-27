@@ -49,16 +49,19 @@ namespace IKaan.Biz.View.Biz.BG
 			txtCategory4.SetEnable(false);
 			txtCategory5.SetEnable(false);
 
+			txtCategory1Name.SetEnable(false);
+			txtCategory2Name.SetEnable(false);
+			txtCategory3Name.SetEnable(false);
+			txtCategory4Name.SetEnable(false);
+			txtCategory5Name.SetEnable(false);
+
 			spnSortOrder.SetFormat("D", false, HorzAlignment.Near);
 
-			InitCombo();
-			InitGrid();
-		}
-
-		void InitCombo()
-		{
 			lupFindCategoryID.BindData("CategoryList", "All");
 			lupParentID.BindData("CategoryList", "Root");
+			txtInfoNoticeID.CodeGroup = "InfoNoticeList";
+
+			InitGrid();
 		}
 
 		void InitGrid()

@@ -76,7 +76,7 @@
 			</isEmpty>
 			<![CDATA[
 				ORDER BY 
-					SortOrder, Name
+					Name, ID
 			]]>
 		</select>
 		<select id="SelectCodeHelpMenuList" parameterClass="DataMap" resultClass="UMCodeHelp" >
@@ -592,6 +592,31 @@
 					SortOrder, Name
 			]]>
 		</select>
+		<select id="SelectCodeHelpInfoNoticeList" parameterClass="DataMap" resultClass="UMCodeHelp" >
+			<![CDATA[
+				SELECT	aa.ID								as ID
+					,	CONVERT(VARCHAR, aa.ID)				as Code
+					,	aa.InfoNoticeName					as Name
+					,	aa.InfoNoticeName					as ListName
+					,	aa.InfoNoticeName					as DispName
+					,	CONVERT(VARCHAR, aa.ID)				as Value
+					,	ROW_NUMBER() OVER (ORDER BY aa.ID)	as SortOrder
+					,	0									as MaxLength
+					,	null								as Option1
+					,	null								as Option2
+					,	null								as Option3
+					,	null								as Option4
+					,	null								as Option5
+					,	null								as Option6
+					,	null								as Option7
+					,	null								as Option8
+					,	null								as Option9
+				FROM	IKBIZ.dbo.BGInfoNotice aa WITH (NOLOCK)
+				WHERE	aa.UseYn = 'Y'
+				ORDER BY 
+					SortOrder, Name
+			]]>
+		</select>
 
 		<select id="SelectCodeLookup" parameterClass="DataMap" resultClass="UMCodeLookup" >
 			<![CDATA[
@@ -601,7 +626,7 @@
 					,	AA.Name			as DispName
 					,	AA.Value		as Value
 					,	AA.ParentCode	as GroupCode
-					,	AA.SortOrder	as SortOrder
+					,	ROW_NUMBER() OVER (PARTITION BY AA.ParentCode ORDER BY AA.SortOrder, AA.Name)	as SortOrder
 					,	AA.MaxLength	as MaxLength
 					,	AA.CodeValue01	as Option1
 					,	AA.CodeValue02	as Option2
@@ -622,7 +647,7 @@
 					,	AA.Name			as DispName
 					,	AA.Value		as Value
 					,	'CodeGroup'		as GroupCode
-					,	AA.SortOrder	as SortOrder
+					,	ROW_NUMBER() OVER (ORDER BY AA.Name, AA.SortOrder, AA.ID)	as SortOrder
 					,	AA.MaxLength	as MaxLength
 					,	AA.CodeValue01	as Option1
 					,	AA.CodeValue02	as Option2

@@ -21,6 +21,6 @@ namespace IKaan.Model.BIZ.BG
 
 		[DataMember]
 		[Display(Name = "정렬순서")]
-		public string SortOrder { get; set; }
+		public int SortOrder { get; set; }
 	}
 }

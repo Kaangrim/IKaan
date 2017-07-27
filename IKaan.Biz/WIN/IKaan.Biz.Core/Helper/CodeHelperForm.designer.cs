@@ -28,6 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions2 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
 			this.lc = new DevExpress.XtraLayout.LayoutControl();
 			this.lupUseYn = new IKaan.Biz.Core.Controls.Common.XLookup();
 			this.txtFindText = new DevExpress.XtraEditors.TextEdit();
@@ -74,7 +75,8 @@
 			this.lupUseYn.Name = "lupUseYn";
 			this.lupUseYn.NullText = "[EditValue is null]";
 			this.lupUseYn.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo),
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions2, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
 			this.lupUseYn.SelectedIndex = -1;
 			this.lupUseYn.Size = new System.Drawing.Size(140, 20);
 			this.lupUseYn.StyleController = this.lc;
@@ -115,7 +117,6 @@
 			// 
 			// layoutControlGroup1
 			// 
-			this.layoutControlGroup1.BackgroundImage = global::IKaan.Biz.Core.Resources.BackgroundResource.back_gray;
 			this.layoutControlGroup1.BackgroundImageVisible = true;
 			this.layoutControlGroup1.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
 			this.layoutControlGroup1.GroupBordersVisible = false;
@@ -129,7 +130,6 @@
 			// 
 			// lcGroupSearch
 			// 
-			this.lcGroupSearch.BackgroundImage = global::IKaan.Biz.Core.Resources.BackgroundResource.back_gray;
 			this.lcGroupSearch.BackgroundImageVisible = true;
 			this.lcGroupSearch.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.lcItemFindText,

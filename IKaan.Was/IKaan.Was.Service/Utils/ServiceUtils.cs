@@ -74,12 +74,15 @@ namespace IKaan.Was.Service.Utils
 			return data;
 		}
 
-		public static T SaveData<T>(this WasRequest req)
+		public static T SaveData<T>(this WasRequest req, object data = null)
 		{
 			try
 			{
-				object id = null;
+				object id = null;				
 				var model = req.Data.JsonToAnyType<T>();
+				if (data != null)
+					model = (T)data;
+
 				if (req.SqlId.Equals("Insert") || ((IModelBase)model).ID == default(int))
 				{
 					((IModelBase)model).CreateBy = req.User.UserId;

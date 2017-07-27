@@ -46,6 +46,8 @@
 			this.ClientSize = new System.Drawing.Size(478, 488);
 			this.Controls.Add(this.wb);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+			this.LookAndFeel.SkinName = "Office 2016 Dark";
+			this.LookAndFeel.UseDefaultLookAndFeel = false;
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
 			this.Name = "SearchPostCodeForm";

@@ -34,6 +34,11 @@
 						)
 				]]>
 			</isNotEmpty>
+			<isNotEmpty property="UseYn">
+				<![CDATA[
+					AND	AA.UseYn = #UseYn#
+				]]>
+			</isNotEmpty>
 			<![CDATA[
 				ORDER BY RowNo
 			]]>

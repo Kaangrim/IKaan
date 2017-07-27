@@ -110,40 +110,14 @@ namespace IKaan.Biz.Core.Controls.Grid
 			SetRepositoryItem(fieldName, GetRespositoryItemTextEdit());
 		}
 
-		public RepositoryItemSpinEdit GetRepositoryItemSpinEdit(int precision, int? bestFitWidth = null)
-		{
-			var formatString = (precision == 0) ? "D" : string.Format("F{0}", precision);
-			var edit = new RepositoryItemSpinEdit()
-			{
-				EditMask = formatString,
-				AllowFocused = true
-			};
-			edit.Appearance.TextOptions.HAlignment = HorzAlignment.Far;
-			edit.DisplayFormat.FormatType = FormatType.Numeric;
-			edit.DisplayFormat.FormatString = formatString;
-			edit.EditFormat.FormatType = FormatType.Numeric;
-			edit.EditFormat.FormatString = formatString;
-			edit.Mask.UseMaskAsDisplayFormat = true;
-			if (bestFitWidth != null)
-			{
-				edit.BestFitWidth = (int)bestFitWidth;
-			}
-			return edit;
-		}
-
-		public void SetRepositoryItemSpinEdit(string fieldName, int precision, int? bestFitWidth = null)
-		{
-			SetRepositoryItem(fieldName, GetRepositoryItemSpinEdit(precision, bestFitWidth));
-		}
-
-		public RepositoryItemSpinEdit GetRepositoryItemSpinEdit(string formatString, int? bestFitWidth = null, bool buttonClear = false)
+		public RepositoryItemSpinEdit GetRepositoryItemSpinEdit(string formatString, int? bestFitWidth = null, bool buttonClear = false, HorzAlignment hAlign = HorzAlignment.Far)
 		{
 			var edit = new RepositoryItemSpinEdit()
 			{
 				EditMask = formatString,
 				AllowFocused = true
 			};
-			edit.Appearance.TextOptions.HAlignment = HorzAlignment.Far;
+			edit.Appearance.TextOptions.HAlignment = hAlign;
 			edit.DisplayFormat.FormatType = FormatType.Numeric;
 			edit.DisplayFormat.FormatString = formatString;
 			edit.EditFormat.FormatType = FormatType.Numeric;
@@ -160,9 +134,9 @@ namespace IKaan.Biz.Core.Controls.Grid
 			return edit;
 		}
 
-		public void SetRepositoryItemSpinEdit(string fieldName, string formatString, int? bestFitWidth = null, bool buttonClear = false)
+		public void SetRepositoryItemSpinEdit(string fieldName, string formatString, int? bestFitWidth = null, bool buttonClear = false, HorzAlignment hAlign = HorzAlignment.Far)
 		{
-			SetRepositoryItem(fieldName, GetRepositoryItemSpinEdit(formatString, bestFitWidth, buttonClear));
+			SetRepositoryItem(fieldName, GetRepositoryItemSpinEdit(formatString, bestFitWidth, buttonClear, hAlign));
 		}
 
 		public RepositoryItemDateEdit GetRepositoryItemDateEdit(string formatString, int? bestFitWidth = 110)

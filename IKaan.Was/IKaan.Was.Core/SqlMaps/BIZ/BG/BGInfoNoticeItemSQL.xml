@@ -7,7 +7,7 @@
 	<statements>
 		<select id="SelectBGInfoNoticeItemList" parameterClass="DataMap" resultClass="BGInfoNoticeItem" >
 			<![CDATA[
-				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID)	AS RowNo
 					,	AA.ID
 					,	AA.CreateDate
 					,	AA.CreateBy

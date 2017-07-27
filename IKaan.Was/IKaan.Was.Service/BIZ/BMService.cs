@@ -37,6 +37,12 @@ namespace IKaan.Was.Service.BIZ
 				{
 					switch (req.ModelName)
 					{
+						case "BMAddress":
+							req.SetList<BMAddress>();
+							break;
+						case "BMBusiness":
+							req.SetList<BMBusiness>();
+							break;
 						case "BMBrand":
 							req.SetList<BMBrand>();
 							break;
@@ -95,6 +101,13 @@ namespace IKaan.Was.Service.BIZ
 				{
 					switch (req.ModelName)
 					{
+						case "BMAddress":
+							req.SetData<BMAddress>();
+							break;
+						case "BMBusiness":
+							req.SetData<BMBusiness>();
+							(req.Data as BMBusiness).Address = req.GetData<BMAddress>();
+							break;
 						case "BMBrand":
 							req.SetData<BMBrand>();
 							(req.Data as BMBrand).BrandImage = req.GetList<BMBrandImage>();
@@ -168,6 +181,9 @@ namespace IKaan.Was.Service.BIZ
 
 							switch (req.ModelName)
 							{
+								case "BMBusiness":
+									req.SaveBusiness();
+									break;
 								case "BMBrand":
 									var brand = req.SaveData<BMBrand>();
 									if (brand != null)
@@ -362,6 +378,31 @@ namespace IKaan.Was.Service.BIZ
 			{
 				throw;
 			}
+		}
+
+		private static void SaveBusiness(this WasRequest req)
+		{
+			BMBusiness model = req.Data.JsonToAnyType<BMBusiness>();
+			BMAddress address = model.Address;
+			if (address == null)
+				address = new BMAddress();
+			if (model.AddressID != null)
+				address.ID = model.AddressID;
+			if (address.ID == null || address.ID == default(int))
+			{
+				address.CreateBy = req.User.UserId;
+				address.CreateByName = req.User.UserName;
+				object id = DaoFactory.InstanceBiz.Insert("InsertBMAddress", address);
+				address.ID = id.ToIntegerNullToNull();
+				model.AddressID = id.ToIntegerNullToNull();
+			}
+			else
+			{
+				address.UpdateBy = req.User.UserId;
+				address.UpdateByName = req.User.UserName;
+				DaoFactory.InstanceBiz.Update("UpdateBMAddress", address);
+			}			
+			req.SaveData<BMBusiness>(model);
 		}
 	}
 }

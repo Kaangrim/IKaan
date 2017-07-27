@@ -46,7 +46,9 @@ namespace IKaan.Biz.View.Biz.BM
 			txtCreateByName.SetEnable(false);
 			txtUpdateDate.SetEnable(false);
 			txtUpdateByName.SetEnable(false);
-			
+
+			lupFindUseYn.BindData("Yn", "All");
+
 			InitGrid();
 		}
 
@@ -202,7 +204,11 @@ namespace IKaan.Biz.View.Biz.BM
 
 		protected override void DataLoad(object param = null)
 		{
-			gridList.BindList<BMBrand>("BM", "GetList", "Select", new DataMap() { { "FindText", txtFindText.EditValue } });
+			gridList.BindList<BMBrand>("BM", "GetList", "Select", new DataMap()
+			{
+				{ "FindText", txtFindText.EditValue },
+				{ "UseYn", lupFindUseYn.EditValue }
+			});
 
 			if (param != null)
 				DetailDataLoad(param);

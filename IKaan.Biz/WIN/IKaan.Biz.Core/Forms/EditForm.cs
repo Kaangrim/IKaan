@@ -990,8 +990,9 @@ namespace IKaan.Biz.Core.Forms
 			{
 				var list = lc.Items.OfType<LayoutControlItem>().Where
 					(x => 
-						x.Name.Replace("lcItem", "") == prop.Name && 
+						x.Name.StartsWith("lcItem") && 
 						x.Control != null && 
+						x.Control.Name.EndsWith(prop.Name) &&
 						(
 							x.Parent == null || 
 							(
@@ -1046,8 +1047,9 @@ namespace IKaan.Biz.Core.Forms
 				var value = prop.GetValue(data);
 				var item = lc.Items.OfType<LayoutControlItem>().Where
 					(x =>
-						x.Name.Replace("lcItem", "") == prop.Name &&
+						x.Name.StartsWith("lcItem") &&
 						x.Control != null &&
+						x.Control.Name.EndsWith(prop.Name) &&
 						(
 							x.Parent == null ||
 							(
@@ -1127,8 +1129,9 @@ namespace IKaan.Biz.Core.Forms
 			{
 				var item = lc.Items.OfType<LayoutControlItem>().Where
 					(x =>
-						x.Name.Replace("lcItem", "") == prop.Name &&
+						x.Name.StartsWith("lcItem") &&
 						x.Control != null &&
+						x.Control.Name.EndsWith(prop.Name) &&
 						(
 							x.Parent == null ||
 							(
@@ -1141,7 +1144,10 @@ namespace IKaan.Biz.Core.Forms
 				{
 					if (item.Control.GetType() == typeof(TextEdit))
 					{
-						prop.SetValue(data, (item.Control as TextEdit).EditValue);
+						if ((item.Control as TextEdit).EditValue.IsNullOrEmpty() && prop.PropertyType != typeof(string))
+							prop.SetValue(data, null);
+						else
+							prop.SetValue(data, (item.Control as TextEdit).EditValue);
 					}
 					else if (item.Control.GetType() == typeof(MemoEdit))
 					{

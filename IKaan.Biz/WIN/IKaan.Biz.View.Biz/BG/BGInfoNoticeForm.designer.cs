@@ -1,4 +1,4 @@
-﻿namespace IKaan.Biz.View.Biz.BM
+﻿namespace IKaan.Biz.View.Biz.BG
 {
 	partial class BGInfoNoticeForm
 	{

@@ -98,6 +98,7 @@ namespace IKaan.Was.Service.BIZ
 							break;
 						case "BGInfoNotice":
 							req.SetData<BGInfoNotice>();
+							(req.Data as BGInfoNotice).Items = req.GetList<BGInfoNoticeItem>();
 							break;
 					}
 				}
@@ -281,6 +282,8 @@ namespace IKaan.Was.Service.BIZ
 				var model2 = DaoFactory.InstanceBiz.QueryForObject<BGCategory>("SelectBGCategory", new DataMap() { { "ID", parentID } });
 				if (model2 != null && model2.ParentID != null)
 					parentID = model2.ParentID;
+				else
+					parentID = null;
 			}
 
 			DataMap map = new DataMap();

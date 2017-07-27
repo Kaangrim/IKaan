@@ -4,29 +4,39 @@ using System.Windows.Forms;
 using DevExpress.Utils;
 using DevExpress.XtraGrid.Views.Grid;
 using IKaan.Base.Map;
+using IKaan.Base.Utils;
 using IKaan.Biz.Core.Controls.Grid;
 using IKaan.Biz.Core.Enum;
 using IKaan.Biz.Core.Forms;
 using IKaan.Biz.Core.Model;
+using IKaan.Biz.Core.PostCode;
 using IKaan.Biz.Core.Utils;
 using IKaan.Biz.Core.Was.Handler;
-using IKaan.Model.BIZ.BG;
+using IKaan.Model.BIZ.BM;
 
-namespace IKaan.Biz.View.Biz.BG
+namespace IKaan.Biz.View.Biz.BM
 {
-	public partial class BGInfoNoticeForm : EditForm
+	public partial class BMBusinessForm : EditForm
 	{
-		public BGInfoNoticeForm()
+		public BMBusinessForm()
 		{
 			InitializeComponent();
 
-			btnAddItem.Click += delegate (object sender, EventArgs e)
+			txtPostalCode.ButtonClick += delegate (object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
 			{
-				gridItems.AddNewRow();
-			};
-			btnDeleteItem.Click += delegate (object sender, EventArgs e)
-			{
-				
+				if(e.Button.Kind== DevExpress.XtraEditors.Controls.ButtonPredefines.Ellipsis)
+				{
+					PostalCode data = SearchPostCode.Find();
+					if (data != null)
+					{
+						if (data.PostalNo.IsNullOrEmpty())
+							txtPostalCode.EditValue = data.ZoneCode;
+						else
+							txtPostalCode.EditValue = data.ZoneCode + "(" + data.PostalNo + ")";
+						txtAddressLine1.EditValue = data.Address1;
+						txtAddressLine2.EditValue = data.Address2;
+					}
+				}
 			};
 		}
 
@@ -53,8 +63,19 @@ namespace IKaan.Biz.View.Biz.BG
 			txtUpdateDate.SetEnable(false);
 			txtUpdateByName.SetEnable(false);
 
-			lupFindUseYn.BindData("Yn", "All");
+			txtAddressID.SetEnable(false);
+
+			InitCombo();
 			InitGrid();
+		}
+
+		void InitCombo()
+		{
+			lupFindBizType.BindData("BizType", "All");
+			lupFindStatus.BindData("Yn", "All");
+			lupBizType.BindData("BizType");
+			lupCountry.BindData("Country");
+			lupStatus.BindData("BizStatus");			
 		}
 
 		void InitGrid()
@@ -62,16 +83,20 @@ namespace IKaan.Biz.View.Biz.BG
 			#region List
 			gridList.Init();
 			gridList.AddGridColumns(
-				new XGridColumn() { FieldName = "RowNo" },
+				new XGridColumn() { FieldName = "RowNo", Width = 40 },
 				new XGridColumn() { FieldName = "ID", Width = 80, HorzAlignment = HorzAlignment.Center },
-				new XGridColumn() { FieldName = "InfoNoticeName", Width = 200 },
-				new XGridColumn() { FieldName = "UseYn", Width = 80, HorzAlignment = HorzAlignment.Center },
+				new XGridColumn() { FieldName = "BizTypeName", Width = 100 },
+				new XGridColumn() { FieldName = "BizNo", Width = 100, HorzAlignment = HorzAlignment.Center },
+				new XGridColumn() { FieldName = "BizName", Width = 150 },
+				new XGridColumn() { FieldName = "RepName", Width = 100 },
+				new XGridColumn() { FieldName = "BizKind", Width = 100 },
+				new XGridColumn() { FieldName = "BizItem", Width = 100 },
+				new XGridColumn() { FieldName = "Status", Width = 80, HorzAlignment = HorzAlignment.Center },
 				new XGridColumn() { FieldName = "CreateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
 				new XGridColumn() { FieldName = "CreateByName", Width = 80, HorzAlignment = HorzAlignment.Center },
 				new XGridColumn() { FieldName = "UpdateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
 				new XGridColumn() { FieldName = "UpdateByName", Width = 80, HorzAlignment = HorzAlignment.Center }
 			);
-			gridList.SetRepositoryItemCheckEdit("UseYn");
 			gridList.SetColumnBackColor(SkinUtils.ForeColor, "RowNo");
 			gridList.SetColumnForeColor(SkinUtils.BackColor, "RowNo");
 			gridList.ColumnFix("RowNo");
@@ -96,27 +121,24 @@ namespace IKaan.Biz.View.Biz.BG
 			};
 			#endregion
 
-			#region Item List
-			gridItems.Init();
-			gridItems.AddGridColumns(
-				new XGridColumn() { FieldName = "RowNo" },
+			#region Customer List
+			gridCustomers.Init();
+			gridCustomers.AddGridColumns(
+				new XGridColumn() { FieldName = "RowNo", Width = 40 },
 				new XGridColumn() { FieldName = "ID", Visible = false },
-				new XGridColumn() { FieldName = "InfoNoticeID", Visible = false },
-				new XGridColumn() { FieldName = "ItemName", CaptionCode = "InfoNoticeItemName", Width = 200 },
-				new XGridColumn() { FieldName = "UseYn", Width = 80 },
-				new XGridColumn() { FieldName = "SortOrder", Width = 80, HorzAlignment = HorzAlignment.Near },
+				new XGridColumn() { FieldName = "BusinessID", Visible = false },
+				new XGridColumn() { FieldName = "CustomerID", Visible = false },				
+				new XGridColumn() { FieldName = "CustomerName", Width = 150 },
+				new XGridColumn() { FieldName = "StartDate", Width = 80, HorzAlignment = HorzAlignment.Center },
+				new XGridColumn() { FieldName = "EndDate", Width = 80, HorzAlignment = HorzAlignment.Center },
 				new XGridColumn() { FieldName = "CreateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
 				new XGridColumn() { FieldName = "CreateByName", Width = 80, HorzAlignment = HorzAlignment.Center },
 				new XGridColumn() { FieldName = "UpdateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
 				new XGridColumn() { FieldName = "UpdateByName", Width = 80, HorzAlignment = HorzAlignment.Center }
 			);
-			gridItems.SetEditable("ItemName", "UseYn", "SortOrder");
-			gridItems.SetRespositoryItemTextEdit("ItemName");
-			gridItems.SetRepositoryItemCheckEdit("UseYn");
-			gridItems.SetRepositoryItemSpinEdit("SortOrder", "D", null, true, HorzAlignment.Near);
-			gridItems.SetColumnBackColor(SkinUtils.ForeColor, "RowNo");
-			gridItems.SetColumnForeColor(SkinUtils.BackColor, "RowNo");
-			gridItems.ColumnFix("RowNo");
+			gridCustomers.SetColumnBackColor(SkinUtils.ForeColor, "RowNo");
+			gridCustomers.SetColumnForeColor(SkinUtils.BackColor, "RowNo");
+			gridCustomers.ColumnFix("RowNo");
 			#endregion
 		}
 
@@ -128,23 +150,21 @@ namespace IKaan.Biz.View.Biz.BG
 
 		protected override void DataInit()
 		{
-			ClearControlData<BGInfoNotice>();
-			gridItems.Clear<BGInfoNoticeItem>();
-
-			btnAddItem.Enabled = false;
-			btnDeleteItem.Enabled = false;
+			ClearControlData<BMBusiness>();
+			gridCustomers.Clear<BMCustomerBusiness>();
 
 			SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true });
 			EditMode = EditModeEnum.New;
-			txtInfoNoticeName.Focus();
+			txtBizNo.Focus();
 		}
 
 		protected override void DataLoad(object param = null)
 		{
-			gridList.BindList<BGInfoNotice>("BG", "GetList", "Select", new DataMap()
+			gridList.BindList<BMBusiness>("BM", "GetList", "Select", new DataMap()
 			{
 				{ "FindText", txtFindText.EditValue },
-				{ "UseYn", lupFindUseYn.EditValue }
+				{ "Status", lupFindStatus.EditValue },
+				{ "BizType", lupFindBizType.EditValue }
 			});
 
 			if (param != null)
@@ -157,31 +177,21 @@ namespace IKaan.Biz.View.Biz.BG
 		{
 			try
 			{
-				var model = WasHandler.GetData<BGInfoNotice>("BG", "GetData", "Select", new DataMap()
-				{
-					{ "ID", id },
-					{ "InfoNoticeID", id }
-				});
+				var model = WasHandler.GetData<BMBusiness>("BM", "GetData", "Select", new DataMap() { { "ID", id } });
 				if (model == null)
 					throw new Exception("조회할 데이터가 없습니다.");
 
-				IList<BGInfoNoticeItem> items = new List<BGInfoNoticeItem>();
+				IList<BMCustomerBusiness> customers = new List<BMCustomerBusiness>();
 
-				if (model.Items != null)
-					items = model.Items;
+				if (model.Customers != null)
+					customers = model.Customers;
 
 				SetControlData(model);
-				gridItems.DataSource = items;
-
-				btnAddItem.Enabled = true;
-				if (gridItems.RowCount > 0)
-					btnDeleteItem.Enabled = true;
-				else
-					btnDeleteItem.Enabled = false;
+				gridCustomers.DataSource = customers;
 
 				SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true, Delete = true });
 				this.EditMode = EditModeEnum.Modify;
-				txtInfoNoticeName.Focus();
+				txtBizNo.Focus();
 
 			}
 			catch(Exception ex)
@@ -194,15 +204,25 @@ namespace IKaan.Biz.View.Biz.BG
 		{
 			try
 			{
-				var model = this.GetControlData<BGInfoNotice>();
-				List<BGInfoNoticeItem> items = new List<BGInfoNoticeItem>();
+				var model = this.GetControlData<BMBusiness>();
+				model.Address = new BMAddress()
+				{
+					ID = model.AddressID,
+					PostalCode = txtPostalCode.EditValue.ToStringNullToEmpty(),
+					City = txtCity.EditValue.ToStringNullToEmpty(),
+					StateProvince = txtStateProvince.EditValue.ToStringNullToEmpty(),
+					Country = lupCountry.EditValue.ToStringNullToEmpty(),
+					AddressLine1 = txtAddressLine1.EditValue.ToStringNullToEmpty(),
+					AddressLine2 = txtAddressLine2.EditValue.ToStringNullToEmpty()
+				};
+				List<BMCustomerBusiness> customers = new List<BMCustomerBusiness>();
 
-				if (gridItems.RowCount > 0)
-					items = gridItems.DataSource as List<BGInfoNoticeItem>;
+				if (gridCustomers.RowCount > 0)
+					customers = gridCustomers.DataSource as List<BMCustomerBusiness>;
 
-				model.Items = items;
+				model.Customers = customers;
 
-				using (var res = WasHandler.Execute<BGInfoNotice>("BG", "Save", (this.EditMode == EditModeEnum.New) ? "Insert" : "Update", model, "ID"))
+				using (var res = WasHandler.Execute<BMBusiness>("BM", "Save", (this.EditMode == EditModeEnum.New) ? "Insert" : "Update", model, "ID"))
 				{
 					if (res.Error.Number != 0)
 						throw new Exception(res.Error.Message);
@@ -222,7 +242,7 @@ namespace IKaan.Biz.View.Biz.BG
 			try
 			{
 				DataMap map = new DataMap() { { "ID", txtID.EditValue } };
-				using (var res = WasHandler.Execute<DataMap>("BG", "Delete", "DeleteBGInfoNotice", map, "ID"))
+				using (var res = WasHandler.Execute<DataMap>("BM", "Delete", "DeleteBMBusiness", map, "ID"))
 				{
 					if (res.Error.Number != 0)
 						throw new Exception(res.Error.Message);
