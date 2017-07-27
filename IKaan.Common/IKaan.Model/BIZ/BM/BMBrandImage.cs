@@ -4,6 +4,7 @@ using IKaan.Model.Base;
 
 namespace IKaan.Model.BIZ.BM
 {
+	[DataContract]
 	public class BMBrandImage : ModelBase
 	{
 		[DataMember]

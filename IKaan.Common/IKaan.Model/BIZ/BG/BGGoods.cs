@@ -5,6 +5,7 @@ using IKaan.Model.Base;
 
 namespace IKaan.Model.BIZ.BG
 {
+	[DataContract]
 	public class BGGoods : ModelBase
 	{
 		[DataMember]

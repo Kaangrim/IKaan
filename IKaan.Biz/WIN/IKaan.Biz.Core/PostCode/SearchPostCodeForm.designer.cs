@@ -1,6 +1,6 @@
-﻿namespace IKaan.Biz.View.Forms
+﻿namespace IKaan.Biz.Core.PostCode
 {
-	partial class HomeForm
+	partial class SearchPostCodeForm
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -20,7 +20,6 @@
 			base.Dispose(disposing);
 		}
 
-
 		#region Windows Form Designer generated code
 
 		/// <summary>
@@ -35,21 +34,23 @@
 			// wb
 			// 
 			this.wb.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.wb.Location = new System.Drawing.Point(4, 4);
+			this.wb.Location = new System.Drawing.Point(0, 0);
 			this.wb.MinimumSize = new System.Drawing.Size(20, 20);
 			this.wb.Name = "wb";
-			this.wb.Size = new System.Drawing.Size(990, 560);
-			this.wb.TabIndex = 0;
+			this.wb.Size = new System.Drawing.Size(478, 488);
+			this.wb.TabIndex = 4;
 			// 
-			// HomeForm
+			// SearchPostCodeForm
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(998, 568);
+			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+			this.ClientSize = new System.Drawing.Size(478, 488);
 			this.Controls.Add(this.wb);
-			this.Name = "HomeForm";
-			this.Padding = new System.Windows.Forms.Padding(4);
-			this.Text = "HomeForm";
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+			this.MaximizeBox = false;
+			this.MinimizeBox = false;
+			this.Name = "SearchPostCodeForm";
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+			this.Text = "우편번호검색";
 			this.ResumeLayout(false);
 
 		}

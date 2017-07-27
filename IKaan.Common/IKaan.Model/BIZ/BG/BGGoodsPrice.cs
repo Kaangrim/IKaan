@@ -4,6 +4,7 @@ using IKaan.Model.Base;
 
 namespace IKaan.Model.BIZ.BG
 {
+	[DataContract]
 	public class BGGoodsPrice : ModelBase
 	{
 		[DataMember]

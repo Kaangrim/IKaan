@@ -41,6 +41,9 @@ namespace IKaan.Was.Service.BIZ
 						case "BGCategory":
 							req.SetList<BGCategory>();
 							break;
+						case "BGInfoNotice":
+							req.SetList<BGInfoNotice>();
+							break;
 					}
 				}
 
@@ -92,6 +95,9 @@ namespace IKaan.Was.Service.BIZ
 					{
 						case "BGCategory":
 							req.SetData<BGCategory>();
+							break;
+						case "BGInfoNotice":
+							req.SetData<BGInfoNotice>();
 							break;
 					}
 				}
@@ -156,6 +162,11 @@ namespace IKaan.Was.Service.BIZ
 							{
 								case "BGCategory":
 									req.SaveCategory();
+									break;
+								case "BGInfoNotice":
+									var infoNotice = req.SaveData<BGInfoNotice>();
+									if (infoNotice != null)
+										req.SaveInfoNoticeItem(infoNotice);
 									break;
 							}
 						}
@@ -281,17 +292,17 @@ namespace IKaan.Was.Service.BIZ
 			DaoFactory.InstanceBiz.Update("UpdateBGCategoryLevel", map);
 		}
 
-		private static void SaveBrandImage(this WasRequest req, BMBrand model)
+		private static void SaveInfoNoticeItem(this WasRequest req, BGInfoNotice model)
 		{
 			try
 			{
-				foreach (var data in model.BrandImage)
+				foreach (var data in model.Items)
 				{
-					if (data.BrandID == null)
+					if (data.InfoNoticeID == null)
 					{
-						data.BrandID = model.ID;
+						data.InfoNoticeID = model.ID;
 					}
-					req.SaveSubData<BMBrandImage>(data, false);
+					req.SaveSubData<BGInfoNoticeItem>(data, false);
 				}
 			}
 			catch

@@ -449,6 +449,13 @@ namespace IKaan.Biz.View.Forms
 					SmallImage = MenuResource.menu_business_16x16,
 					LargeImage = MenuResource.menu_business_32x32
 				};
+				var navBarGroupLibrary = new NavBarGroup()
+				{
+					Name = "navBarGroupLibrary",
+					Caption = "Library",
+					SmallImage = MenuResource.menu_system_16x16,
+					LargeImage = MenuResource.menu_system_32x32
+				};
 				var navBarGroupSystem = new NavBarGroup()
 				{
 					Name = "navBarGroupSystem",
@@ -466,12 +473,12 @@ namespace IKaan.Biz.View.Forms
 
 				navBarNavigate.OptionsNavPane.ShowExpandButton = false;
 				//navBarNavigate.Groups.AddRange(new NavBarGroup[] { navBarGroupBusiness, navBarGroupAnalysis, navBarGroupSystem });
-				navBarNavigate.Groups.AddRange(new NavBarGroup[] { navBarGroupBusiness, navBarGroupSystem, navBarGroupDatabase });
+				navBarNavigate.Groups.AddRange(new NavBarGroup[] { navBarGroupBusiness, navBarGroupLibrary, navBarGroupSystem, navBarGroupDatabase });
 				navBarGroupBusiness.ControlContainer = new NavBarGroupControlContainer();
 ;
 				//navBarNavigate.Groups.AddRange(new NavBarGroup[] { navBarGroupBusiness, navBarGroupAnalysis, navBarGroupSystem });
-				navBarNavigate.Groups.AddRange(new NavBarGroup[] { navBarGroupBusiness, navBarGroupSystem });
-				navBarGroupBusiness.ControlContainer = new NavBarGroupControlContainer();
+				//navBarNavigate.Groups.AddRange(new NavBarGroup[] { navBarGroupBusiness, navBarGroupSystem });
+				//navBarGroupBusiness.ControlContainer = new NavBarGroupControlContainer();
 
 				//#region Search TextBox
 				//navBarGroupBusiness.ControlContainer.Controls.Add(new ComboBoxEdit()
@@ -630,6 +637,7 @@ namespace IKaan.Biz.View.Forms
 				}
 				#endregion
 
+				LoadMenuGroup("navBarGroupLibrary", "LIB");
 				LoadMenuGroup("navBarGroupSystem", "SYS");
 				LoadMenuGroup("navBarGroupDatabase", "RDS");
 

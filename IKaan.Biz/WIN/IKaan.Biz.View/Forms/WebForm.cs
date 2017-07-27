@@ -6,7 +6,7 @@ using IKaan.Biz.Core.Model;
 
 namespace IKaan.Biz.View.Forms
 {
-	public partial class WebForm : BaseForm
+	public partial class WebForm : EditForm
 	{
 		public WebForm()
 		{
@@ -24,16 +24,15 @@ namespace IKaan.Biz.View.Forms
 			txtUrl.KeyDown += delegate (object sender, KeyEventArgs e) { if (e.KeyCode == Keys.Enter) DataLoad(); };
 		}
 
-		private void Init()
+		protected override void InitButtons()
 		{
-			this.Padding = new Padding(4);
-			txtUrl.EditValue = @"http://insight.withit.co.kr";
+			base.InitButtons();
+			SetToolbarButtons(new ToolbarButtons() { });
 		}
-
-		protected override void LoadForm()
+		protected override void InitControls()
 		{
-			base.LoadForm();
-			Init();
+			base.InitControls();
+			SetFieldNames();
 
 			lupWebUrl.BindData("WebUrl");
 		}

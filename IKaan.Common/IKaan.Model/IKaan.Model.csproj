@@ -45,6 +45,8 @@
   <ItemGroup>
     <Compile Include="Attributes\CustomPropertyAttribute.cs" />
     <Compile Include="Base\IModelBase.cs" />
+    <Compile Include="BIZ\BG\BGInfoNoticeItem.cs" />
+    <Compile Include="BIZ\BG\BGInfoNotice.cs" />
     <Compile Include="BIZ\BG\BGCategory.cs" />
     <Compile Include="BIZ\BM\BMSearchBrand.cs" />
     <Compile Include="BIZ\BG\BGGoodsPrice.cs" />
