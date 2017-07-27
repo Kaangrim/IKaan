@@ -133,7 +133,7 @@
 			this.barButtonRefresh.Id = 11;
 			this.barButtonRefresh.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonRefresh.ImageOptions.Image")));
 			this.barButtonRefresh.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barButtonRefresh.ImageOptions.LargeImage")));
-			this.barButtonRefresh.ItemShortcut = new DevExpress.XtraBars.BarShortcut(System.Windows.Forms.Keys.F5);
+			this.barButtonRefresh.ItemShortcut = new DevExpress.XtraBars.BarShortcut(System.Windows.Forms.Keys.F3);
 			this.barButtonRefresh.Name = "barButtonRefresh";
 			this.barButtonRefresh.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph;
 			// 
@@ -145,7 +145,7 @@
 			this.barButtonNew.Id = 1;
 			this.barButtonNew.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonNew.ImageOptions.Image")));
 			this.barButtonNew.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barButtonNew.ImageOptions.LargeImage")));
-			this.barButtonNew.ItemShortcut = new DevExpress.XtraBars.BarShortcut(System.Windows.Forms.Keys.F2);
+			this.barButtonNew.ItemShortcut = new DevExpress.XtraBars.BarShortcut(System.Windows.Forms.Keys.F4);
 			this.barButtonNew.Name = "barButtonNew";
 			this.barButtonNew.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph;
 			// 
@@ -157,7 +157,7 @@
 			this.barButtonSave.Id = 2;
 			this.barButtonSave.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonSave.ImageOptions.Image")));
 			this.barButtonSave.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barButtonSave.ImageOptions.LargeImage")));
-			this.barButtonSave.ItemShortcut = new DevExpress.XtraBars.BarShortcut(System.Windows.Forms.Keys.F6);
+			this.barButtonSave.ItemShortcut = new DevExpress.XtraBars.BarShortcut(System.Windows.Forms.Keys.F5);
 			this.barButtonSave.Name = "barButtonSave";
 			this.barButtonSave.PaintStyle = DevExpress.XtraBars.BarItemPaintStyle.CaptionGlyph;
 			// 
@@ -169,7 +169,7 @@
 			this.barButtonSaveAndNew.Id = 3;
 			this.barButtonSaveAndNew.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonSaveAndNew.ImageOptions.Image")));
 			this.barButtonSaveAndNew.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barButtonSaveAndNew.ImageOptions.LargeImage")));
-			this.barButtonSaveAndNew.ItemShortcut = new DevExpress.XtraBars.BarShortcut(System.Windows.Forms.Keys.F7);
+			this.barButtonSaveAndNew.ItemShortcut = new DevExpress.XtraBars.BarShortcut(System.Windows.Forms.Keys.F6);
 			this.barButtonSaveAndNew.Name = "barButtonSaveAndNew";
 			// 
 			// barButtonSaveAndClose
@@ -180,7 +180,7 @@
 			this.barButtonSaveAndClose.Id = 4;
 			this.barButtonSaveAndClose.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonSaveAndClose.ImageOptions.Image")));
 			this.barButtonSaveAndClose.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barButtonSaveAndClose.ImageOptions.LargeImage")));
-			this.barButtonSaveAndClose.ItemShortcut = new DevExpress.XtraBars.BarShortcut(System.Windows.Forms.Keys.F8);
+			this.barButtonSaveAndClose.ItemShortcut = new DevExpress.XtraBars.BarShortcut(System.Windows.Forms.Keys.F7);
 			this.barButtonSaveAndClose.Name = "barButtonSaveAndClose";
 			// 
 			// barButtonDelete
@@ -191,7 +191,7 @@
 			this.barButtonDelete.Id = 5;
 			this.barButtonDelete.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonDelete.ImageOptions.Image")));
 			this.barButtonDelete.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barButtonDelete.ImageOptions.LargeImage")));
-			this.barButtonDelete.ItemShortcut = new DevExpress.XtraBars.BarShortcut(System.Windows.Forms.Keys.F4);
+			this.barButtonDelete.ItemShortcut = new DevExpress.XtraBars.BarShortcut(System.Windows.Forms.Keys.F8);
 			this.barButtonDelete.Name = "barButtonDelete";
 			// 
 			// barButtonCancel
@@ -202,7 +202,7 @@
 			this.barButtonCancel.Id = 7;
 			this.barButtonCancel.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonCancel.ImageOptions.Image")));
 			this.barButtonCancel.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barButtonCancel.ImageOptions.LargeImage")));
-			this.barButtonCancel.ItemShortcut = new DevExpress.XtraBars.BarShortcut(System.Windows.Forms.Keys.F10);
+			this.barButtonCancel.ItemShortcut = new DevExpress.XtraBars.BarShortcut(System.Windows.Forms.Keys.F9);
 			this.barButtonCancel.Name = "barButtonCancel";
 			// 
 			// barButtonExport
@@ -213,7 +213,7 @@
 			this.barButtonExport.Id = 8;
 			this.barButtonExport.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonExport.ImageOptions.Image")));
 			this.barButtonExport.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barButtonExport.ImageOptions.LargeImage")));
-			this.barButtonExport.ItemShortcut = new DevExpress.XtraBars.BarShortcut(System.Windows.Forms.Keys.F11);
+			this.barButtonExport.ItemShortcut = new DevExpress.XtraBars.BarShortcut(System.Windows.Forms.Keys.F10);
 			this.barButtonExport.Name = "barButtonExport";
 			// 
 			// barButtonPrint
@@ -224,7 +224,7 @@
 			this.barButtonPrint.Id = 9;
 			this.barButtonPrint.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonPrint.ImageOptions.Image")));
 			this.barButtonPrint.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barButtonPrint.ImageOptions.LargeImage")));
-			this.barButtonPrint.ItemShortcut = new DevExpress.XtraBars.BarShortcut((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P));
+			this.barButtonPrint.ItemShortcut = new DevExpress.XtraBars.BarShortcut(System.Windows.Forms.Keys.F11);
 			this.barButtonPrint.Name = "barButtonPrint";
 			// 
 			// barButtonHelp

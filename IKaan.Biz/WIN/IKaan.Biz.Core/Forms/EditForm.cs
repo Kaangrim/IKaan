@@ -311,14 +311,18 @@ namespace IKaan.Biz.Core.Forms
 		{
 			barTools.ItemLinks.OfType<BarButtonItemLink>().Where(x => x.Item.Name.Contains("barButton")).ToList().ForEach(x =>
 			{
-				if (GlobalVar.SkinInfo.IsVisibleToolbarName && x.Item.Name.EndsWith("Close") == false && x.Item.Name.EndsWith("Help") == false)
-				{
-					x.Item.PaintStyle = BarItemPaintStyle.CaptionGlyph;
-				}
-				else
-				{
-					x.Item.PaintStyle = BarItemPaintStyle.Standard;
-				}
+				x.Item.PaintStyle = BarItemPaintStyle.Standard;
+				//if (GlobalVar.SkinInfo.IsVisibleToolbarName && 
+				//	x.Item.Name.EndsWith("Close") == false && 
+				//	x.Item.Name.EndsWith("Help") == false &&
+				//	x.Item.Name.EndsWith("Refresh") == false)
+				//{
+				//	x.Item.PaintStyle = BarItemPaintStyle.CaptionGlyph;
+				//}
+				//else
+				//{
+				//	x.Item.PaintStyle = BarItemPaintStyle.Standard;
+				//}
 			});
 		}
 

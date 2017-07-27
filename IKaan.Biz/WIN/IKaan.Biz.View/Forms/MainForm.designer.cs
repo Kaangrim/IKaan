@@ -260,8 +260,8 @@
 			this.barButtonWeb.Caption = "Web";
 			this.barButtonWeb.CategoryGuid = new System.Guid("a88229de-4627-4658-b6a2-102960a89e38");
 			this.barButtonWeb.Id = 78;
-			this.barButtonWeb.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonSmaps.ImageOptions.Image")));
-			this.barButtonWeb.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barButtonSmaps.ImageOptions.LargeImage")));
+			this.barButtonWeb.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonWeb.ImageOptions.Image")));
+			this.barButtonWeb.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barButtonWeb.ImageOptions.LargeImage")));
 			this.barButtonWeb.Name = "barButtonWeb";
 			// 
 			// barMainMenu
@@ -562,7 +562,7 @@
 			this.navBarGroupControlContainer1.Appearance.Options.UseBackColor = true;
 			this.navBarGroupControlContainer1.Controls.Add(this.wbBlog);
 			this.navBarGroupControlContainer1.Name = "navBarGroupControlContainer1";
-			this.navBarGroupControlContainer1.Size = new System.Drawing.Size(257, 242);
+			this.navBarGroupControlContainer1.Size = new System.Drawing.Size(257, 268);
 			this.navBarGroupControlContainer1.TabIndex = 0;
 			// 
 			// wbBlog
@@ -571,7 +571,7 @@
 			this.wbBlog.Location = new System.Drawing.Point(0, 0);
 			this.wbBlog.MinimumSize = new System.Drawing.Size(20, 20);
 			this.wbBlog.Name = "wbBlog";
-			this.wbBlog.Size = new System.Drawing.Size(257, 242);
+			this.wbBlog.Size = new System.Drawing.Size(257, 268);
 			this.wbBlog.TabIndex = 0;
 			// 
 			// nbGroupBookMark

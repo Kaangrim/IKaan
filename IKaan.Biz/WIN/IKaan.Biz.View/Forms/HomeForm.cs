@@ -30,7 +30,7 @@ namespace IKaan.Biz.View.Forms
 
 		private void doHomeRefresh()
 		{
-			string url = @"http://pc.shopping2.naver.com/home/p/index.nhn#";
+			string url = @"https://demos.devexpress.com/Dashboard/?mode=viewer&dashboardId=SalesOverview"; //@"http://pc.shopping2.naver.com/home/p/index.nhn#";
 			if (GlobalVar.MainInfo.HomePage.IsNullOrEmpty() == false)
 				url = GlobalVar.MainInfo.HomePage.ToStringNullToEmpty();
 			wb.Navigate(new Uri(url));

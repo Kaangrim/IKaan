@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using IKaan.Base.Utils;
 using IKaan.Biz.Core.Forms;
+using IKaan.Biz.Core.Model;
 
 namespace IKaan.Biz.View.Forms
 {
@@ -10,8 +11,15 @@ namespace IKaan.Biz.View.Forms
 		public WebForm()
 		{
 			InitializeComponent();
-			Init();
 
+			lupWebUrl.EditValueChanged += delegate (object sender, EventArgs e)
+			{
+				LookupSource data = lupWebUrl.GetSelectedDataRow() as LookupSource;
+				if (data != null)
+				{
+					txtUrl.EditValue = data.Value;
+				}
+			};
 			txtUrl.EditValueChanged += delegate (object sender, EventArgs e) { DataLoad(); };
 			txtUrl.KeyDown += delegate (object sender, KeyEventArgs e) { if (e.KeyCode == Keys.Enter) DataLoad(); };
 		}
@@ -20,6 +28,14 @@ namespace IKaan.Biz.View.Forms
 		{
 			this.Padding = new Padding(4);
 			txtUrl.EditValue = @"http://insight.withit.co.kr";
+		}
+
+		protected override void LoadForm()
+		{
+			base.LoadForm();
+			Init();
+
+			lupWebUrl.BindData("WebUrl");
 		}
 
 		private void DataLoad()
