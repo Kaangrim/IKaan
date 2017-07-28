@@ -34,6 +34,8 @@ namespace IKaan.Biz.Core.Was.Handler
 				request.User.LanguageCode = GlobalVar.UserInfo.LanguageCode;
 				request.DatabaseId = GlobalVar.ServerInfo.DatabaseId;
 
+				bool isTransaction = false;
+
 				//멀티요청인 경우 해당 요청건에 사용자정보를 넣는다.
 				if (request.Data != null && request.Data.GetType() == typeof(List<WasRequest>))
 				{
@@ -44,8 +46,15 @@ namespace IKaan.Biz.Core.Was.Handler
 						req.User.UserId = GlobalVar.UserInfo.UserId;
 						req.User.UserName = GlobalVar.UserInfo.UserName;
 						req.User.LanguageCode = GlobalVar.UserInfo.LanguageCode;
+						if (req.SqlId.ToStringNullToEmpty().StartsWith("Insert") ||
+							req.SqlId.ToStringNullToEmpty().StartsWith("Update") ||
+							req.SqlId.ToStringNullToEmpty().StartsWith("Delete"))
+							isTransaction = true;
+
+						req.IsTransaction = isTransaction;
 					}
 				}
+				request.IsTransaction = isTransaction;
 
 				//서버에 처리요청을 보낸디ㅏ.
 				var response = http.PostAsJsonAsync(apiUrl, request).Result;

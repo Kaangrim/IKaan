@@ -26,8 +26,19 @@ namespace IKaan.Biz.View.Sys.AC
 
 			lupParentCode.EditValueChanged += delegate (object sender, EventArgs e)
 			{
-				XLookup lookup = sender as XLookup;
-				var row = lookup.GetSelectedDataRow();
+				CodeGroupChanged();
+			};
+			lupCodeGroup.EditValueChanged += delegate (object sender, EventArgs e)
+			{
+				DataLoad(null);
+			};
+		}
+
+		void CodeGroupChanged()
+		{
+			try
+			{
+				var row = lupParentCode.GetSelectedDataRow();
 				if (row != null)
 				{
 					txtCode.Properties.MaxLength = (row as LookupSource).MaxLength;
@@ -37,17 +48,21 @@ namespace IKaan.Biz.View.Sys.AC
 						esCodeLength.Text = " (Max Length: " + (row as LookupSource).MaxLength.ToString() + ")";
 					esCodeLength.AppearanceItemCaption.ForeColor = Color.Red;
 
-					SetOptionTextAndLable(lookup, (row as LookupSource).Option1, lcItemCodeValue01);
-					SetOptionTextAndLable(lookup, (row as LookupSource).Option2, lcItemCodeValue02);
-					SetOptionTextAndLable(lookup, (row as LookupSource).Option3, lcItemCodeValue03);
-					SetOptionTextAndLable(lookup, (row as LookupSource).Option4, lcItemCodeValue04);
-					SetOptionTextAndLable(lookup, (row as LookupSource).Option5, lcItemCodeValue05);
-					SetOptionTextAndLable(lookup, (row as LookupSource).Option6, lcItemCodeValue06);
-					SetOptionTextAndLable(lookup, (row as LookupSource).Option7, lcItemCodeValue07);
-					SetOptionTextAndLable(lookup, (row as LookupSource).Option8, lcItemCodeValue08);
-					SetOptionTextAndLable(lookup, (row as LookupSource).Option9, lcItemCodeValue09);
+					SetOptionTextAndLable(lupParentCode, (row as LookupSource).Option1, lcItemCodeValue01);
+					SetOptionTextAndLable(lupParentCode, (row as LookupSource).Option2, lcItemCodeValue02);
+					SetOptionTextAndLable(lupParentCode, (row as LookupSource).Option3, lcItemCodeValue03);
+					SetOptionTextAndLable(lupParentCode, (row as LookupSource).Option4, lcItemCodeValue04);
+					SetOptionTextAndLable(lupParentCode, (row as LookupSource).Option5, lcItemCodeValue05);
+					SetOptionTextAndLable(lupParentCode, (row as LookupSource).Option6, lcItemCodeValue06);
+					SetOptionTextAndLable(lupParentCode, (row as LookupSource).Option7, lcItemCodeValue07);
+					SetOptionTextAndLable(lupParentCode, (row as LookupSource).Option8, lcItemCodeValue08);
+					SetOptionTextAndLable(lupParentCode, (row as LookupSource).Option9, lcItemCodeValue09);
 				}
-			};
+			}
+			catch (Exception ex)
+			{
+				ShowErrBox(ex);
+			}
 		}
 
 		void SetOptionTextAndLable(XLookup lookup, string value, LayoutControlItem layout)
@@ -222,6 +237,8 @@ namespace IKaan.Biz.View.Sys.AC
 			{
 				var data = WasHandler.GetData<ACCode>("AC", "GetData", "Select", new DataMap() { { "ID", id } });
 				SetControlData(data);
+				CodeGroupChanged();
+
 				SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true, Delete = true });
 				this.EditMode = EditModeEnum.Modify;
 				txtCode.Focus();

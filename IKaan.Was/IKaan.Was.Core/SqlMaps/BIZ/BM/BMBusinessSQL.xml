@@ -24,6 +24,8 @@
 					,	AA.BizItem
 					,	AA.Status
 					
+					,	M1.Name			as BizTypeName
+					
 				FROM	IKBIZ.dbo.BMBusiness AA WITH (NOLOCK)
 						LEFT JOIN
 							IKBAS.dbo.ACCode M1 WITH (NOLOCK)

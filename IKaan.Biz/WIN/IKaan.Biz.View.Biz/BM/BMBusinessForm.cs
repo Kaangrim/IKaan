@@ -153,6 +153,13 @@ namespace IKaan.Biz.View.Biz.BM
 			ClearControlData<BMBusiness>();
 			gridCustomers.Clear<BMCustomerBusiness>();
 
+			txtAddressID.Clear();
+			txtPostalCode.Clear();
+			txtCity.Clear();
+			txtStateProvince.Clear();
+			txtAddressLine1.Clear();
+			txtAddressLine2.Clear();
+
 			SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true });
 			EditMode = EditModeEnum.New;
 			txtBizNo.Focus();
@@ -187,6 +194,14 @@ namespace IKaan.Biz.View.Biz.BM
 					customers = model.Customers;
 
 				SetControlData(model);
+
+				lupCountry.EditValue = model.Address.Country;
+				txtPostalCode.EditValue = model.Address.PostalCode;
+				txtCity.EditValue = model.Address.City;
+				txtStateProvince.EditValue = model.Address.StateProvince;
+				txtAddressLine1.EditValue = model.Address.AddressLine1;
+				txtAddressLine2.EditValue = model.Address.AddressLine2;
+
 				gridCustomers.DataSource = customers;
 
 				SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true, Delete = true });
