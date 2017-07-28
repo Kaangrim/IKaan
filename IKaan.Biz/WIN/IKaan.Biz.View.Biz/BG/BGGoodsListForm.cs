@@ -76,8 +76,6 @@ namespace IKaan.Biz.View.Biz.BG
 				new XGridColumn() { FieldName = "UpdateByName", Width = 80, HorzAlignment = HorzAlignment.Center }
 			);
 			gridList.SetRepositoryItemCheckEdit("UseYn");
-			gridList.SetColumnBackColor(SkinUtils.ForeColor, "RowNo");
-			gridList.SetColumnForeColor(SkinUtils.BackColor, "RowNo");
 			gridList.ColumnFix("RowNo");
 
 			gridList.RowCellClick += delegate (object sender, RowCellClickEventArgs e)

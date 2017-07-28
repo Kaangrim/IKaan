@@ -55,8 +55,6 @@ namespace IKaan.Biz.View.Sys.AA
 				new XGridColumn() { FieldName = "FirstLoginDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
 				new XGridColumn() { FieldName = "LastLoginDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" }
 			);
-			gridList.SetColumnBackColor(SkinUtils.ForeColor, "RowNo");
-			gridList.SetColumnForeColor(SkinUtils.BackColor, "RowNo");
 			gridList.ColumnFix("RowNo");
 
 			gridList.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
@@ -95,8 +93,6 @@ namespace IKaan.Biz.View.Sys.AA
 				new XGridColumn() { FieldName = "IpAddress", Width = 100, HorzAlignment = HorzAlignment.Center },
 				new XGridColumn() { FieldName = "MacAddress", Width = 150, HorzAlignment = HorzAlignment.Center }
 			);
-			gridLogList.SetColumnBackColor(SkinUtils.ForeColor, "RowNo");
-			gridLogList.SetColumnForeColor(SkinUtils.BackColor, "RowNo");
 			gridLogList.ColumnFix("RowNo");
 			#endregion
 		}

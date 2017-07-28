@@ -157,8 +157,6 @@ namespace IKaan.Biz.View.Sys.AC
 				new XGridColumn() { FieldName = "CodeValue09", Width = 100 },
 				new XGridColumn() { FieldName = "CodeValue10", Width = 100 }
 			);
-			gridList.SetColumnBackColor(SkinUtils.ForeColor, "RowNo");
-			gridList.SetColumnForeColor(SkinUtils.BackColor, "RowNo");
 			gridList.ColumnFix("RowNo");
 
 			gridList.RowCellClick += delegate (object sender, RowCellClickEventArgs e)

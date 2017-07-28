@@ -1,22 +1,42 @@
 ﻿using System;
+using System.Windows.Forms;
 using DevExpress.Utils;
 using DevExpress.XtraGrid.Views.Grid;
 using IKaan.Base.Map;
+using IKaan.Base.Utils;
 using IKaan.Biz.Core.Controls.Grid;
 using IKaan.Biz.Core.Enum;
 using IKaan.Biz.Core.Forms;
 using IKaan.Biz.Core.Model;
+using IKaan.Biz.Core.PostCode;
 using IKaan.Biz.Core.Utils;
 using IKaan.Biz.Core.Was.Handler;
-using IKaan.Model.SYS.AD;
+using IKaan.Model.BIZ.BM;
 
-namespace IKaan.Biz.View.Sys.AD
+namespace IKaan.Biz.View.Biz.BM
 {
-	public partial class ADSystemForm : EditForm
+	public partial class BMAddressForm : EditForm
 	{
-		public ADSystemForm()
+		public BMAddressForm()
 		{
 			InitializeComponent();
+
+			txtPostalCode.ButtonClick += delegate (object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
+			{
+				if (e.Button.Kind == DevExpress.XtraEditors.Controls.ButtonPredefines.Ellipsis)
+				{
+					PostalCode data = SearchPostCode.Find();
+					if (data != null)
+					{
+						if (data.PostalNo.IsNullOrEmpty())
+							txtPostalCode.EditValue = data.ZoneCode;
+						else
+							txtPostalCode.EditValue = data.ZoneCode + "(" + data.PostalNo + ")";
+						txtAddressLine1.EditValue = data.Address1;
+						txtAddressLine2.EditValue = data.Address2;
+					}
+				}
+			};
 		}
 
 		protected override void OnShown(EventArgs e)
@@ -48,16 +68,23 @@ namespace IKaan.Biz.View.Sys.AD
 
 		void InitCombo()
 		{
+			lupFindCountry.BindData("Country", "All");
+			lupCountry.BindData("Country");
 		}
 
 		void InitGrid()
 		{
+			#region List
 			gridList.Init();
 			gridList.AddGridColumns(
-				new XGridColumn() { FieldName = "RowNo" },
+				new XGridColumn() { FieldName = "RowNo", Width = 40 },
 				new XGridColumn() { FieldName = "ID", Visible = false },
-				new XGridColumn() { FieldName = "SystemName", Width = 300 },
-				new XGridColumn() { FieldName = "UseYn", HorzAlignment = HorzAlignment.Center, Width = 80, RepositoryItem = gridList.GetRepositoryItemCheckEdit() },
+				new XGridColumn() { FieldName = "CountryName", Width = 150 },
+				new XGridColumn() { FieldName = "PostalCode", Width = 100 },
+				new XGridColumn() { FieldName = "AddressLine1", Width = 150 },
+				new XGridColumn() { FieldName = "AddressLine2", Width = 150 },
+				new XGridColumn() { FieldName = "City", Width = 100 },
+				new XGridColumn() { FieldName = "StateProvince", Width = 100 },
 				new XGridColumn() { FieldName = "CreateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
 				new XGridColumn() { FieldName = "CreateByName", Width = 80, HorzAlignment = HorzAlignment.Center },
 				new XGridColumn() { FieldName = "UpdateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
@@ -72,7 +99,7 @@ namespace IKaan.Biz.View.Sys.AD
 
 				try
 				{
-					if (e.Button == System.Windows.Forms.MouseButtons.Left && e.Clicks == 1)
+					if (e.Button == MouseButtons.Left && e.Clicks == 1)
 					{
 						GridView view = sender as GridView;
 						DetailDataLoad(view.GetRowCellValue(e.RowHandle, "ID"));
@@ -83,6 +110,7 @@ namespace IKaan.Biz.View.Sys.AD
 					ShowErrBox(ex);
 				}
 			};
+			#endregion
 		}
 
 		protected override void LoadForm()
@@ -93,15 +121,20 @@ namespace IKaan.Biz.View.Sys.AD
 
 		protected override void DataInit()
 		{
-			ClearControlData<ADSystem>();
+			ClearControlData<BMAddress>();
+
 			SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true });
 			EditMode = EditModeEnum.New;
-			txtSystemName.Focus();
+			lupCountry.Focus();
 		}
 
 		protected override void DataLoad(object param = null)
 		{
-			gridList.BindList<ADSystem>("AD", "GetList", "Select", new DataMap() { { "FindText", txtFindText.EditValue } });
+			gridList.BindList<BMAddress>("BM", "GetList", "Select", new DataMap()
+			{
+				{ "FindText", txtFindText.EditValue },
+				{ "BizType", lupFindCountry.EditValue }
+			});
 
 			if (param != null)
 				DetailDataLoad(param);
@@ -113,14 +146,15 @@ namespace IKaan.Biz.View.Sys.AD
 		{
 			try
 			{
-				var model = WasHandler.GetData<ADSystem>("AD", "GetData", "Select", new DataMap() { { "ID", id } });
+				var model = WasHandler.GetData<BMAddress>("BM", "GetData", "Select", new DataMap() { { "ID", id } });
 				if (model == null)
 					throw new Exception("조회할 데이터가 없습니다.");
 
 				SetControlData(model);
+
 				SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true, Delete = true });
 				this.EditMode = EditModeEnum.Modify;
-				txtSystemName.Focus();
+				lupCountry.Focus();
 
 			}
 			catch(Exception ex)
@@ -133,8 +167,8 @@ namespace IKaan.Biz.View.Sys.AD
 		{
 			try
 			{
-				var model = this.GetControlData<ADSystem>();
-				using (var res = WasHandler.Execute<ADSystem>("AD", "Save", (this.EditMode == EditModeEnum.New) ? "Insert" : "Update", model, "ID"))
+				var model = this.GetControlData<BMAddress>();
+				using (var res = WasHandler.Execute<BMAddress>("BM", "Save", (this.EditMode == EditModeEnum.New) ? "Insert" : "Update", model, "ID"))
 				{
 					if (res.Error.Number != 0)
 						throw new Exception(res.Error.Message);
@@ -154,7 +188,7 @@ namespace IKaan.Biz.View.Sys.AD
 			try
 			{
 				DataMap map = new DataMap() { { "ID", txtID.EditValue } };
-				using (var res = WasHandler.Execute<DataMap>("AA", "Delete", "DeleteADSystem", map, "ID"))
+				using (var res = WasHandler.Execute<DataMap>("BM", "Delete", "DeleteBMAddress", map, "ID"))
 				{
 					if (res.Error.Number != 0)
 						throw new Exception(res.Error.Message);

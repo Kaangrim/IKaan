@@ -67,8 +67,6 @@ namespace IKaan.Biz.View.Sys.AC
 				new XGridColumn() { FieldName = "UpdateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
 				new XGridColumn() { FieldName = "UpdateByName", Width = 80, HorzAlignment = HorzAlignment.Center }
 			);
-			gridList.SetColumnBackColor(SkinUtils.ForeColor, "RowNo");
-			gridList.SetColumnForeColor(SkinUtils.BackColor, "RowNo");
 			gridList.ColumnFix("RowNo");
 
 			gridList.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
@@ -109,8 +107,6 @@ namespace IKaan.Biz.View.Sys.AC
 			);
 			gridLangList.SetEditable("LogicalName");
 			gridLangList.SetRespositoryItemTextEdit("LogicalName");
-			gridLangList.SetColumnBackColor(SkinUtils.ForeColor, "RowNo");
-			gridLangList.SetColumnForeColor(SkinUtils.BackColor, "RowNo");
 			gridLangList.ColumnFix("RowNo");
 			#endregion
 		}

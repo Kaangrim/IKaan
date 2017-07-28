@@ -67,8 +67,6 @@ namespace IKaan.Biz.View.Biz.BM
 				new XGridColumn() { FieldName = "UpdateByName", Width = 80, HorzAlignment = HorzAlignment.Center }
 			);
 			gridList.SetRepositoryItemCheckEdit("UseYn");
-			gridList.SetColumnBackColor(SkinUtils.ForeColor, "RowNo");
-			gridList.SetColumnForeColor(SkinUtils.BackColor, "RowNo");
 			gridList.ColumnFix("RowNo");
 
 			gridList.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
@@ -106,8 +104,6 @@ namespace IKaan.Biz.View.Biz.BM
 			);
 			gridBrandImage.SetRepositoryItemLookUpEdit("ImageType");
 			gridBrandImage.SetRepositoryItemButtonEdit("ImageUrl");
-			gridBrandImage.SetColumnBackColor(SkinUtils.ForeColor, "RowNo");
-			gridBrandImage.SetColumnForeColor(SkinUtils.BackColor, "RowNo");
 			gridBrandImage.ColumnFix("RowNo");
 
 			gridBrandImage.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
@@ -153,8 +149,6 @@ namespace IKaan.Biz.View.Biz.BM
 				new XGridColumn() { FieldName = "UpdateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
 				new XGridColumn() { FieldName = "UpdateByName", Width = 80, HorzAlignment = HorzAlignment.Center }
 			);
-			gridBrandCustomer.SetColumnBackColor(SkinUtils.ForeColor, "RowNo");
-			gridBrandCustomer.SetColumnForeColor(SkinUtils.BackColor, "RowNo");
 			gridBrandCustomer.ColumnFix("RowNo");
 			#endregion
 
@@ -175,8 +169,6 @@ namespace IKaan.Biz.View.Biz.BM
 				new XGridColumn() { FieldName = "UpdateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
 				new XGridColumn() { FieldName = "UpdateByName", Width = 80, HorzAlignment = HorzAlignment.Center }
 			);
-			gridBrandChannel.SetColumnBackColor(SkinUtils.ForeColor, "RowNo");
-			gridBrandChannel.SetColumnForeColor(SkinUtils.BackColor, "RowNo");
 			gridBrandChannel.ColumnFix("RowNo");
 			#endregion
 		}

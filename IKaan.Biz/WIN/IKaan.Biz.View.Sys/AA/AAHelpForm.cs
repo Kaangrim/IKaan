@@ -60,8 +60,6 @@ namespace IKaan.Biz.View.Sys.AA
 				new XGridColumn() { FieldName = "HelpName", Width = 200 },
 				new XGridColumn() { FieldName = "HelpTypeName", HorzAlignment = HorzAlignment.Center, Width = 100 }
 			);
-			gridList.SetColumnBackColor(SkinUtils.ForeColor, "RowNo");
-			gridList.SetColumnForeColor(SkinUtils.BackColor, "RowNo");
 			gridList.ColumnFix("RowNo");
 
 			gridList.RowCellClick += delegate (object sender, RowCellClickEventArgs e)

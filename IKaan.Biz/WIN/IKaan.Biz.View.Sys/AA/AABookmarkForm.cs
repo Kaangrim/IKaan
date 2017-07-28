@@ -53,8 +53,6 @@ namespace IKaan.Biz.View.Sys.AA
 				new XGridColumn() { FieldName = "UserName", Width = 100 },
 				new XGridColumn() { FieldName = "BookmarkCount", HorzAlignment = HorzAlignment.Center, Width = 80 }
 			);
-			gridList.SetColumnBackColor(SkinUtils.ForeColor, "RowNo");
-			gridList.SetColumnForeColor(SkinUtils.BackColor, "RowNo");
 			gridList.ColumnFix("RowNo");
 
 			gridList.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
@@ -87,8 +85,6 @@ namespace IKaan.Biz.View.Sys.AA
 				new XGridColumn() { FieldName = "MenuName", Width = 300 },
 				new XGridColumn() { FieldName = "SortOrder", HorzAlignment = HorzAlignment.Center, Width = 80 }
 			);
-			gridBookmark.SetColumnBackColor(SkinUtils.ForeColor, "RowNo");
-			gridBookmark.SetColumnForeColor(SkinUtils.BackColor, "RowNo");
 			gridBookmark.ColumnFix("RowNo");
 			#endregion
 		}

@@ -70,8 +70,6 @@ namespace IKaan.Biz.View.Sys.AA
 				new XGridColumn() { FieldName = "UpdateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
 				new XGridColumn() { FieldName = "UpdateByName", Width = 80, HorzAlignment = HorzAlignment.Center }
 			);
-			gridList.SetColumnBackColor(SkinUtils.ForeColor, "RowNo");
-			gridList.SetColumnForeColor(SkinUtils.BackColor, "RowNo");
 			gridList.ColumnFix("RowNo");
 
 			gridList.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
@@ -109,8 +107,6 @@ namespace IKaan.Biz.View.Sys.AA
 			);
 			gridGroupRole.SetEditable("Checked");
 			gridGroupRole.SetRepositoryItemCheckEdit("Checked");
-			gridGroupRole.SetColumnBackColor(SkinUtils.ForeColor, "RowNo");
-			gridGroupRole.SetColumnForeColor(SkinUtils.BackColor, "RowNo");
 			gridGroupRole.ColumnFix("RowNo");
 			gridGroupRole.ColumnFix("Checked");
 			#endregion
@@ -130,8 +126,6 @@ namespace IKaan.Biz.View.Sys.AA
 			);
 			gridGroupMenu.SetEditable("Checked");
 			gridGroupMenu.SetRepositoryItemCheckEdit("Checked");
-			gridGroupMenu.SetColumnBackColor(SkinUtils.ForeColor, "RowNo");
-			gridGroupMenu.SetColumnForeColor(SkinUtils.BackColor, "RowNo");
 			gridGroupMenu.ColumnFix("RowNo");
 			gridGroupMenu.ColumnFix("Checked");
 			#endregion

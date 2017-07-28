@@ -95,8 +95,6 @@ namespace IKaan.Biz.View.Sys.AD
 				new XGridColumn() { FieldName = "LastUserUpdate", Width = 150 },
 				new XGridColumn() { FieldName = "LastSystemUpdate", Width = 150 }
 			);
-			gridList.SetColumnBackColor(SkinUtils.ForeColor, "RowNo");
-			gridList.SetColumnForeColor(SkinUtils.BackColor, "RowNo");
 			gridList.ColumnFix("RowNo");
 			#endregion
 		}

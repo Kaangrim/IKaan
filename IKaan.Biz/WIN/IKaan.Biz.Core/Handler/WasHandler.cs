@@ -54,6 +54,13 @@ namespace IKaan.Biz.Core.Was.Handler
 						req.IsTransaction = isTransaction;
 					}
 				}
+				else
+				{
+					if (request.SqlId.ToStringNullToEmpty().StartsWith("Insert") ||
+						request.SqlId.ToStringNullToEmpty().StartsWith("Update") ||
+						request.SqlId.ToStringNullToEmpty().StartsWith("Delete"))
+						isTransaction = true;
+				}
 				request.IsTransaction = isTransaction;
 
 				//서버에 처리요청을 보낸디ㅏ.

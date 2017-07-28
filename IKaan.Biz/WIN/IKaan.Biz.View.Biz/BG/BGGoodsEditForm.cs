@@ -62,8 +62,6 @@ namespace IKaan.Biz.View.Biz.BG
 				new XGridColumn() { FieldName = "UpdateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
 				new XGridColumn() { FieldName = "UpdateByName", Width = 80, HorzAlignment = HorzAlignment.Center }
 			);
-			gridAttrList.SetColumnBackColor(SkinUtils.ForeColor, "RowNo");
-			gridAttrList.SetColumnForeColor(SkinUtils.BackColor, "RowNo");
 			gridAttrList.ColumnFix("RowNo");
 			#endregion
 

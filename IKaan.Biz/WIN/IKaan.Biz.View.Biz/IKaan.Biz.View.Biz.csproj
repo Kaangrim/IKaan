@@ -77,6 +77,12 @@
     <Compile Include="BG\BGInfoNoticeForm.designer.cs">
       <DependentUpon>BGInfoNoticeForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="BM\BMAddressForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BM\BMAddressForm.designer.cs">
+      <DependentUpon>BMAddressForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="BM\BMBusinessForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -107,7 +113,6 @@
     <Compile Include="BM\BMChannelForm.designer.cs">
       <DependentUpon>BMChannelForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -146,6 +151,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="BG\BGInfoNoticeForm.resx">
       <DependentUpon>BGInfoNoticeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BM\BMAddressForm.resx">
+      <DependentUpon>BMAddressForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="BM\BMBusinessForm.resx">
       <DependentUpon>BMBusinessForm.cs</DependentUpon>

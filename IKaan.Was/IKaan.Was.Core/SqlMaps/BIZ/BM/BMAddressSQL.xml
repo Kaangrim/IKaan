@@ -16,15 +16,20 @@
 					,	AA.UpdateBy
 					,	AA.UpdateByName
 					
-					,	AA.AddressID
+					,	AA.Country
 					,	AA.PostalCode
 					,	AA.City
-					,	AA.StateProvince
-					,	AA.Country
+					,	AA.StateProvince					
 					,	AA.AddressLine1
 					,	AA.AddressLine2
 					
+					,	M1.Name				as CountryName
+					
 				FROM	IKBIZ.dbo.BMAddress AA WITH (NOLOCK)
+						LEFT JOIN
+							IKBAS.dbo.ACCode M1 WITH (NOLOCK)
+								ON AA.Country = M1.Code
+									AND M1.ParentCode = 'Country'
 				WHERE	1=1
 			]]>
 			<isNotEmpty property="FindText">

@@ -30,5 +30,9 @@ namespace IKaan.Model.BIZ.BM
 		[DataMember]
 		[Display(Name = "주소2")]
 		public string AddressLine2 { get; set; }
+
+		[DataMember]
+		[Display(Name = "국가명")]
+		public string CountryName { get; set; }
 	}
 }
