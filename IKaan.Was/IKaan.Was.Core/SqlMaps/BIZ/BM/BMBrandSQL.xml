@@ -19,10 +19,24 @@
 					,	AA.BrandName
 					,	AA.EngName
 					,	AA.ShortName
+					,	AA.HomePage
+					,	AA.BrandCategory
+					,	AA.BrandStyle
 					,	AA.Description
 					,	AA.UseYn
 					
+					,	M1.Name				as BrandCategoryName
+					,	M2.Name				as BrandStyleName
+					
 				FROM	dbo.BMBrand AA WITH (NOLOCK)
+						LEFT JOIN
+							IKBAS.dbo.ACCode M1 WITH (NOLOCK)
+								ON AA.BrandCategory = M1.Code
+									AND M1.ParentCode = 'BrandCategory'
+						LEFT JOIN
+							IKBAS.dbo.ACCode M2 WITH (NOLOCK)
+								ON AA.BrandStyle = M2.Code
+									AND M2.ParentCode = 'BrandStyle'
 				WHERE	1=1				
 			]]>
 			<isNotEmpty property="FindText">
@@ -37,6 +51,16 @@
 			<isNotEmpty property="UseYn">
 				<![CDATA[
 					AND	AA.UseYn = #UseYn#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="BrandCategory">
+				<![CDATA[
+					AND	AA.BrandCategory = #BrandCategory#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="BrandStyle">
+				<![CDATA[
+					AND	AA.BrandStyle = #BrandStyle#
 				]]>
 			</isNotEmpty>
 			<![CDATA[
@@ -56,10 +80,19 @@
 					,	AA.BrandName
 					,	AA.EngName
 					,	AA.ShortName
+					,	AA.HomePage
+					,	AA.BrandCategory
+					,	AA.BrandStyle
 					,	AA.Description
 					,	AA.UseYn
 					
+					,	BB.ImageUrl
+					
 				FROM	dbo.BMBrand AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.BMBrandImage BB WITH (NOLOCK)
+								ON AA.ID = BB.BrandID
+									AND BB.ImageType = '11'
 				WHERE	AA.ID = #ID#
 			]]>
 		</select>
@@ -68,12 +101,12 @@
 				INSERT INTO dbo.BMBrand
 				( 
 					CreateDate, CreateBy, CreateByName,
-					BrandName, EngName, ShortName, Description, UseYn
+					BrandName, EngName, ShortName, HomePage, BrandCategory, BrandStyle, Description, UseYn
 				)
 				VALUES
 				(
 					GetDate(), #CreateBy#, #CreateByName#,
-					#BrandName#, #EngName#, #ShortName#, #Description#, #UseYn#
+					#BrandName#, #EngName#, #ShortName#, #HomePage#, #BrandCategory#, #BrandStyle#, #Description#, #UseYn#
 				)
 			]]>
 			<selectKey type="post" property="ID" resultClass="Int">
@@ -92,6 +125,9 @@
 					,	BrandName		= #BrandName#
 					,	EngName			= #EngName#
 					,	ShortName		= #ShortName#
+					,	HomePage		= #HomePage#
+					,	BrandCategory	= #BrandCategory#
+					,	BrandStyle		= #BrandStyle#
 					,	Description		= #Description#
 					,	UseYn			= #UseYn#
 				WHERE	ID				= #ID#
@@ -99,9 +135,7 @@
 		</update>
 		<delete id="DeleteBMBrand" parameterClass="DataMap">
 			<![CDATA[
-				DELETE 
-				FROM	dbo.BMBrand
-				WHERE	ID = #ID#
+				DELETE FROM dbo.BMBrand WHERE ID = #ID#;
 			]]>
 		</delete>
 	</statements>

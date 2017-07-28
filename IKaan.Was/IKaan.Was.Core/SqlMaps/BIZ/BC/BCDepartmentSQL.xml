@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectBCDepartmentList" parameterClass="DataMap" resultClass="BCDepartment" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
+					,	AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.DepartmentName
+					,	AA.ParentID
+					,	AA.UseYn
+					,	AA.EmployeeID
+					
+					,	BB.EmployeeName
+					
+				FROM	IKBIZ.dbo.BCDepartment AA WITH (NOLOCK)
+						INNER JOIN
+							dbo.BCEmployee BB WITH (NOLOCK)
+								ON AA.EmployeeID = BB.ID
+				WHERE	1=1
+			]]>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(
+							AA.DepartmentName	LIKE '%' + #FindText# + '%'
+						)
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectBCDepartment" parameterClass="DataMap" resultClass="BCDepartment" >
+			<![CDATA[
+				SELECT  AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.DepartmentName
+					,	AA.ParentID
+					,	AA.UseYn
+					,	AA.EmployeeID
+					
+				FROM	dbo.BCDepartment AA WITH (NOLOCK)
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<insert id="InsertBCDepartment" parameterClass="BCDepartment" >
+			<![CDATA[
+				INSERT INTO dbo.BCDepartment
+				( 
+					CreateDate, CreateBy, CreateByName,
+					DepartmentName, ParentID, UseYn, EmployeeID
+				)
+				VALUES
+				(
+					GetDate(), #CreateBy#, #CreateByName#,
+					#DepartmentName#, #ParentID#, #UseYn#, #EmployeeID#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateBCDepartment" parameterClass="BCDepartment">
+			<![CDATA[
+				UPDATE  dbo.BCDepartment
+				SET     UpdateDate		= GetDate()
+					,	UpdateBy		= #UpdateBy#
+					,	UpdateByName	= #UpdateByName#
+					
+					,	DepartmentName	= #DepartmentName#
+					,	ParentID		= #ParentID#
+					,	UseYn			= #UseYn#
+					,	EmployeeID		= #EmployeeID#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
+		<delete id="DeleteBCDepartment" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM dbo.BCDepartment WHERE ID = #ID#;
+			]]>
+		</delete>
+	</statements>
+</sqlMap>

@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectBMBrandManagerList" parameterClass="DataMap" resultClass="BMBrandManager" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID)	AS RowNo
+					,	AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.BrandID
+					,	AA.StartDate
+					,	AA.EndDate
+					,	AA.EmployeeID
+					
+					,	EE.EmplyeeNo
+					,	EE.EmployeeName
+					,	EE.UseYn
+					,	EE.PersonID
+					
+					,	BB.PersonType
+					,	BB.PersonName
+					,	BB.EngName
+					,	BB.Email
+					,	BB.PhoneNo1
+					,	BB.PhoneNo2
+					,	BB.FaxNo
+					,	BB.ImageUrl
+					
+				FROM	dbo.BMBrandManager AA WITH (NOLOCK)
+						INNER JOIN
+							dbo.BCEmployee EE WITH (NOLOCK)
+								ON AA.EmployeeID = EE.ID
+						INNER JOIN
+							dbo.BMPerson BB WITH (NOLOCK)
+								ON EE.PersonID = BB.ID
+				WHERE	AA.BrandID = #BrandID#
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectBMBrandManager" parameterClass="DataMap" resultClass="BMBrandManager" >
+			<![CDATA[
+				SELECT  AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.BrandID
+					,	AA.EmployeeID
+					,	AA.StartDate
+					,	AA.EndDate
+					
+				FROM	dbo.BMBrandManager AA WITH (NOLOCK)
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<insert id="InsertBMBrandManager" parameterClass="BMBrandManager" >
+			<![CDATA[
+				INSERT INTO dbo.BMBrandManager
+				( 
+					CreateDate, CreateBy, CreateByName,
+					BrandID, EmployeeID, StartDate, EndDate
+				)
+				VALUES
+				(
+					GetDate(), #CreateBy#, #CreateByName#,
+					#BrandID#, #EmployeeID#, #StartDate#, #EndDate#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateBMBrandManager" parameterClass="BMBrandManager">
+			<![CDATA[
+				UPDATE  dbo.BMBrandManager
+				SET     UpdateDate		= GetDate()
+					,	UpdateBy		= #UpdateBy#
+					,	UpdateByName	= #UpdateByName#
+					
+					,	EmployeeID		= #EmployeeID#
+					,	StartDate		= #StartDate#
+					,	EndDate			= #EndDate#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
+		<delete id="DeleteBMBrandManager" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM dbo.BMBrandManager WHERE ID = #ID#;
+			]]>
+		</delete>
+	</statements>
+</sqlMap>

@@ -120,6 +120,7 @@
     <Folder Include="BN\" />
     <Folder Include="BP\" />
     <Folder Include="BS\" />
+    <Folder Include="BT\" />
     <Folder Include="BV\" />
   </ItemGroup>
   <ItemGroup>

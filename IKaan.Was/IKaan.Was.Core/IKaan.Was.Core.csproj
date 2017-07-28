@@ -108,6 +108,9 @@
     <EmbeddedResource Include="SqlMaps\SYS\AD\ADServerSQL.xml" />
     <EmbeddedResource Include="SqlMaps\SYS\AD\ADSystemSQL.xml" />
     <EmbeddedResource Include="SqlMaps\AUTH\AuthSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\BIZ\BC\BCEmployeeSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\BIZ\BC\BCDepartmentSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\BIZ\BC\BCAppointmentSQL.xml" />
     <Content Include="SqlMaps\BIZ\BC\CalendarSQL.xml" />
     <EmbeddedResource Include="SqlMaps\SYS\AC\ACMessageSQL.xml" />
     <EmbeddedResource Include="SqlMaps\SYS\AD\ADTableSQL.xml" />
@@ -137,10 +140,13 @@
     <EmbeddedResource Include="SqlMaps\BIZ\BG\BGInfoNoticeItemSQL.xml" />
     <EmbeddedResource Include="SqlMaps\BIZ\BM\BMBusinessSQL.xml" />
     <EmbeddedResource Include="SqlMaps\BIZ\BM\BMAddressSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\BIZ\BM\BMBrandContactSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\BIZ\BM\BMPersonSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\BIZ\BM\BMBrandManagerSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\BIZ\BM\BMChannelContactSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\BIZ\BM\BMChannelManagerSQL.xml" />
     <Content Include="SqlMaps\BIZ\BP\PurchaseSQL.xml" />
     <Content Include="SqlMaps\BIZ\BS\SalesSQL.xml" />
-    <Content Include="SqlMaps\BIZ\BC\AddressSQL.xml" />
-    <Content Include="SqlMaps\BIZ\BC\BizRegCeSQL.xml" />
     <EmbeddedResource Include="SqlMaps\BIZ\BC\BCCodeHelpSQL.xml" />
     <Content Include="SqlMaps\BIZ\Report\ReportSQL.xml" />
   </ItemGroup>

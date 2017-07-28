@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectBMBrandContactList" parameterClass="DataMap" resultClass="BMBrandContact" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID)	AS RowNo
+					,	AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.BrandID
+					,	AA.Position
+					,	AA.PersonID
+					
+					,	BB.PersonType
+					,	BB.PersonName
+					,	BB.EngName
+					,	BB.Email
+					,	BB.PhoneNo1
+					,	BB.PhoneNo2
+					,	BB.FaxNo
+					,	BB.ImageUrl
+					
+				FROM	dbo.BMBrandContact AA WITH (NOLOCK)
+						INNER JOIN
+							dbo.BMPerson BB WITH (NOLOCK)
+								ON AA.PersonID = BB.ID
+				WHERE	AA.BrandID = #BrandID#
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectBMBrandContact" parameterClass="DataMap" resultClass="BMBrandContact" >
+			<![CDATA[
+				SELECT  AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.BrandID
+					,	AA.Position
+					,	AA.PersonID
+					
+				FROM	dbo.BMBrandContact AA WITH (NOLOCK)
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<insert id="InsertBMBrandContact" parameterClass="BMBrandContact" >
+			<![CDATA[
+				INSERT INTO dbo.BMBrandContact
+				( 
+					CreateDate, CreateBy, CreateByName,
+					BrandID, Position, PersonID
+				)
+				VALUES
+				(
+					GetDate(), #CreateBy#, #CreateByName#,
+					#BrandID#, #Position#, #PersonID#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateBMBrandContact" parameterClass="BMBrandContact">
+			<![CDATA[
+				UPDATE  dbo.BMBrandContact
+				SET     UpdateDate		= GetDate()
+					,	UpdateBy		= #UpdateBy#
+					,	UpdateByName	= #UpdateByName#
+					
+					,	Position		= #Position#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
+		<delete id="DeleteBMBrandContact" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM dbo.BMBrandContact WHERE ID = #ID#;
+			]]>
+		</delete>
+	</statements>
+</sqlMap>

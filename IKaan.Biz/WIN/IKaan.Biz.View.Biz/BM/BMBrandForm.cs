@@ -9,6 +9,7 @@ using IKaan.Biz.Core.Enum;
 using IKaan.Biz.Core.Forms;
 using IKaan.Biz.Core.Model;
 using IKaan.Biz.Core.Utils;
+using IKaan.Biz.Core.Variables;
 using IKaan.Biz.Core.Was.Handler;
 using IKaan.Model.BIZ.BM;
 
@@ -47,7 +48,12 @@ namespace IKaan.Biz.View.Biz.BM
 			txtUpdateDate.SetEnable(false);
 			txtUpdateByName.SetEnable(false);
 
+			lupFindBrandCategory.BindData("BrandCategory", "All");
+			lupFindBrandStyle.BindData("BrandStyle", "All");
 			lupFindUseYn.BindData("Yn", "All");
+			lupFindUseYn.EditValue = "Y";
+			lupBrandCategory.BindData("BrandCategory");
+			lupBrandStyle.BindData("BrandStyle");
 
 			InitGrid();
 		}
@@ -60,6 +66,8 @@ namespace IKaan.Biz.View.Biz.BM
 				new XGridColumn() { FieldName = "RowNo" },
 				new XGridColumn() { FieldName = "ID", Width = 80, HorzAlignment = HorzAlignment.Center },
 				new XGridColumn() { FieldName = "BrandName", Width = 200 },
+				new XGridColumn() { FieldName = "BrandCategoryName", Width = 100 },
+				new XGridColumn() { FieldName = "BrandStyleName", Width = 100 },
 				new XGridColumn() { FieldName = "UseYn", Width = 80, HorzAlignment = HorzAlignment.Center },
 				new XGridColumn() { FieldName = "CreateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
 				new XGridColumn() { FieldName = "CreateByName", Width = 80, HorzAlignment = HorzAlignment.Center },
@@ -182,6 +190,7 @@ namespace IKaan.Biz.View.Biz.BM
 		protected override void DataInit()
 		{
 			ClearControlData<BMBrand>();
+			picBrandLogo.EditValue = null;
 			gridBrandImage.Clear<BMBrandImage>();
 			gridBrandCustomer.Clear<BMCustomerBrand>();
 			gridBrandChannel.Clear<BMChannelBrand>();
@@ -232,6 +241,8 @@ namespace IKaan.Biz.View.Biz.BM
 					brandChannel = model.BrandChannel;
 
 				SetControlData(model);
+				picBrandLogo.LoadAsync(ConstsVar.IMG_URL + model.ImageUrl);
+
 				gridBrandImage.DataSource = brandImage;
 				gridBrandCustomer.DataSource = brandCustomer;
 				gridBrandChannel.DataSource = brandChannel;
