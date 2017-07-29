@@ -38,6 +38,7 @@
 			this.emptySpaceItem5 = new DevExpress.XtraLayout.EmptySpaceItem();
 			this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
 			this.lcItemMessage = new DevExpress.XtraLayout.LayoutControlItem();
+			this.styleController1 = new DevExpress.XtraEditors.StyleController();
 			((System.ComponentModel.ISupportInitialize)(this.lc)).BeginInit();
 			this.lc.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.memMessage.Properties)).BeginInit();
@@ -47,6 +48,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem5)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemMessage)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.styleController1)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// lc
@@ -59,7 +61,8 @@
 			this.lc.Name = "lc";
 			this.lc.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new System.Drawing.Rectangle(792, 231, 569, 350);
 			this.lc.Root = this.lcGroupBase;
-			this.lc.Size = new System.Drawing.Size(598, 368);
+			this.lc.Size = new System.Drawing.Size(606, 368);
+			this.lc.StyleController = this.styleController1;
 			this.lc.TabIndex = 5;
 			this.lc.Text = "xLayout1";
 			// 
@@ -70,7 +73,7 @@
 			this.btnOk.Appearance.Options.UseFont = true;
 			this.btnOk.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnOk.ImageOptions.Image")));
 			this.btnOk.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
-			this.btnOk.Location = new System.Drawing.Point(242, 334);
+			this.btnOk.Location = new System.Drawing.Point(245, 334);
 			this.btnOk.Name = "btnOk";
 			this.btnOk.Size = new System.Drawing.Size(114, 22);
 			this.btnOk.StyleController = this.lc;
@@ -85,7 +88,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.memMessage.Location = new System.Drawing.Point(12, 12);
 			this.memMessage.Name = "memMessage";
-			this.memMessage.Size = new System.Drawing.Size(574, 294);
+			this.memMessage.Size = new System.Drawing.Size(582, 294);
 			this.memMessage.StyleController = this.lc;
 			this.memMessage.TabIndex = 4;
 			// 
@@ -102,7 +105,7 @@
             this.lcItemMessage});
 			this.lcGroupBase.Location = new System.Drawing.Point(0, 0);
 			this.lcGroupBase.Name = "Root";
-			this.lcGroupBase.Size = new System.Drawing.Size(598, 368);
+			this.lcGroupBase.Size = new System.Drawing.Size(606, 368);
 			this.lcGroupBase.TextVisible = false;
 			// 
 			// emptySpaceItem2
@@ -112,7 +115,7 @@
 			this.emptySpaceItem2.MaxSize = new System.Drawing.Size(0, 24);
 			this.emptySpaceItem2.MinSize = new System.Drawing.Size(10, 24);
 			this.emptySpaceItem2.Name = "emptySpaceItem2";
-			this.emptySpaceItem2.Size = new System.Drawing.Size(578, 24);
+			this.emptySpaceItem2.Size = new System.Drawing.Size(586, 24);
 			this.emptySpaceItem2.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
 			this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
 			// 
@@ -121,21 +124,21 @@
 			this.emptySpaceItem4.AllowHotTrack = false;
 			this.emptySpaceItem4.Location = new System.Drawing.Point(0, 322);
 			this.emptySpaceItem4.Name = "emptySpaceItem4";
-			this.emptySpaceItem4.Size = new System.Drawing.Size(230, 26);
+			this.emptySpaceItem4.Size = new System.Drawing.Size(233, 26);
 			this.emptySpaceItem4.TextSize = new System.Drawing.Size(0, 0);
 			// 
 			// emptySpaceItem5
 			// 
 			this.emptySpaceItem5.AllowHotTrack = false;
-			this.emptySpaceItem5.Location = new System.Drawing.Point(348, 322);
+			this.emptySpaceItem5.Location = new System.Drawing.Point(351, 322);
 			this.emptySpaceItem5.Name = "emptySpaceItem5";
-			this.emptySpaceItem5.Size = new System.Drawing.Size(230, 26);
+			this.emptySpaceItem5.Size = new System.Drawing.Size(235, 26);
 			this.emptySpaceItem5.TextSize = new System.Drawing.Size(0, 0);
 			// 
 			// layoutControlItem2
 			// 
 			this.layoutControlItem2.Control = this.btnOk;
-			this.layoutControlItem2.Location = new System.Drawing.Point(230, 322);
+			this.layoutControlItem2.Location = new System.Drawing.Point(233, 322);
 			this.layoutControlItem2.MaxSize = new System.Drawing.Size(118, 26);
 			this.layoutControlItem2.MinSize = new System.Drawing.Size(118, 26);
 			this.layoutControlItem2.Name = "layoutControlItem2";
@@ -149,17 +152,25 @@
 			this.lcItemMessage.Control = this.memMessage;
 			this.lcItemMessage.Location = new System.Drawing.Point(0, 0);
 			this.lcItemMessage.Name = "lcItemMessage";
-			this.lcItemMessage.Size = new System.Drawing.Size(578, 298);
+			this.lcItemMessage.Size = new System.Drawing.Size(586, 298);
 			this.lcItemMessage.TextSize = new System.Drawing.Size(0, 0);
 			this.lcItemMessage.TextVisible = false;
 			// 
+			// styleController1
+			// 
+			this.styleController1.LookAndFeel.SkinName = "Office 2016 Colorful";
+			this.styleController1.LookAndFeel.UseDefaultLookAndFeel = false;
+			// 
 			// MsgBoxForm
 			// 
+			this.Appearance.BackColor = System.Drawing.Color.White;
+			this.Appearance.Options.UseBackColor = true;
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(598, 368);
+			this.ClientSize = new System.Drawing.Size(606, 368);
 			this.Controls.Add(this.lc);
-			this.LookAndFeel.SkinName = "DevExpress Dark Style";
+			this.LookAndFeel.SkinName = "Office 2016 Dark";
+			this.LookAndFeel.UseDefaultLookAndFeel = false;
 			this.Name = "MsgBoxForm";
 			this.Text = "ErrorMessageBox";
 			((System.ComponentModel.ISupportInitialize)(this.lc)).EndInit();
@@ -171,6 +182,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem5)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemMessage)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.styleController1)).EndInit();
 			this.ResumeLayout(false);
 
         }
@@ -185,5 +197,6 @@
 		private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem5;
 		private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
 		private DevExpress.XtraLayout.LayoutControlItem lcItemMessage;
+		private DevExpress.XtraEditors.StyleController styleController1;
 	}
 }

@@ -186,6 +186,11 @@
     <Compile Include="PostCode\SearchPostCodeForm.designer.cs">
       <DependentUpon>SearchPostCodeForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\ButtonResource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -308,6 +313,10 @@
       <DependentUpon>SearchPostCodeForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\ButtonResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ButtonResource.Designer.cs</LastGenOutput>

@@ -62,7 +62,7 @@ namespace IKaan.Was.Service.Utils
 				sqlId = string.Concat(req.SqlId, typeof(T).Name, "List");
 			var parameter = req.Parameter.JsonToAnyType<DataMap>();
 
-			IList<T> data = null;
+			IList<T> data = new List<T>();
 
 			if (req.ServiceId.StartsWith("L"))
 				data = DaoFactory.InstanceLib.QueryForList<T>(sqlId, parameter);

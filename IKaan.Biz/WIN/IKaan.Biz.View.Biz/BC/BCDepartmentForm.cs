@@ -159,7 +159,7 @@ namespace IKaan.Biz.View.Biz.BC
 				var model = WasHandler.GetData<BCDepartment>("BC", "GetData", "Select", new DataMap()
 				{
 					{ "ID", id },
-					{ "EmployeeID", id }
+					{ "DepartmentID", id }
 				});
 				if (model == null)
 					throw new Exception("조회할 데이터가 없습니다.");

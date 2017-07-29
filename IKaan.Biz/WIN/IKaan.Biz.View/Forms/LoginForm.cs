@@ -67,9 +67,6 @@ namespace IKaan.Biz.View.Forms
 			Icon = IconResource.logo;
 			//this.BackColor = SkinUtils.FormBackColor;
 
-			lcItemLoginId.Text = "Username or Email";
-			lcItemPassword.Text = "Password";
-			
 			txtLoginId.EditValue = RegistryUtils.GetValue(ConstsVar.REGISTRY_LOGIN_INFO, "LoginId");
 			txtPassword.EditValue = RegistryUtils.GetValue(ConstsVar.REGISTRY_LOGIN_INFO, "Password");
 

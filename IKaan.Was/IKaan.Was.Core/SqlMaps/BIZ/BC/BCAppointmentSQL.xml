@@ -24,11 +24,15 @@
 					,	AA.EndDate
 					
 					,	BB.DepartmentName
+					,	EE.EmployeeName
 					
 				FROM	IKBIZ.dbo.BCAppointment AA WITH (NOLOCK)
-						INNER JOIN
+						LEFT JOIN
 							IKBIZ.dbo.BCDepartment BB WITH (NOLOCK)
 								ON AA.DepartmentID = BB.ID
+						LEFT JOIN
+							IKBIZ.dbo.BCEmployee EE WITH (NOLOCK)
+								ON AA.EmployeeID = EE.ID
 				WHERE	1=1
 			]]>
 			<isNotEmpty property="FindText">
