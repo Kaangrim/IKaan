@@ -195,7 +195,6 @@
             new DevExpress.XtraBars.LinkPersistInfo(this.barButtonFav),
             new DevExpress.XtraBars.LinkPersistInfo(this.barButtonLog, true),
             new DevExpress.XtraBars.LinkPersistInfo(this.barButtonHome, true),
-            new DevExpress.XtraBars.LinkPersistInfo(this.barButtonChangeSkin, true),
             new DevExpress.XtraBars.LinkPersistInfo(this.barButtonEmail, true),
             new DevExpress.XtraBars.LinkPersistInfo(this.barButtonWeb, true)});
 			this.barTools.OptionsBar.AllowQuickCustomization = false;
@@ -427,6 +426,7 @@
 			// 
 			// barAndDockingController
 			// 
+			this.barAndDockingController.LookAndFeel.SkinName = "Office 2016 Colorful";
 			this.barAndDockingController.PropertiesBar.AllowLinkLighting = false;
 			this.barAndDockingController.PropertiesBar.DefaultGlyphSize = new System.Drawing.Size(16, 16);
 			this.barAndDockingController.PropertiesBar.DefaultLargeGlyphSize = new System.Drawing.Size(32, 32);
@@ -784,6 +784,7 @@
 			this.IsMdiContainer = true;
 			this.KeyPreview = true;
 			this.LookAndFeel.SkinName = "Office 2016 Dark";
+			this.LookAndFeel.UseDefaultLookAndFeel = false;
 			this.Name = "MainForm";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
 			this.Text = "MainForm";

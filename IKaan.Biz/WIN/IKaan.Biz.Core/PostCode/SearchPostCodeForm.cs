@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using DevExpress.XtraEditors;
 using IKaan.Biz.Core.Helper;
 using IKaan.Biz.Core.Model;
+using IKaan.Biz.Core.Variables;
 using Newtonsoft.Json.Linq;
 
 namespace IKaan.Biz.Core.PostCode
@@ -48,6 +49,9 @@ namespace IKaan.Biz.Core.PostCode
 		{
 			try
 			{
+				this.LookAndFeel.UseDefaultLookAndFeel = false;
+				this.LookAndFeel.SetSkinStyle(GlobalVar.SkinInfo.FormSkin);
+
 				wb.ObjectForScripting = this;
 				wb.AllowWebBrowserDrop = false;
 				//wb.IsWebBrowserContextMenuEnabled = false;

@@ -1,4 +1,5 @@
 ﻿using DevExpress.XtraWaitForm;
+using IKaan.Biz.Core.Variables;
 
 namespace IKaan.Biz.Core.Splash
 {
@@ -12,6 +13,9 @@ namespace IKaan.Biz.Core.Splash
 
 		private void Init()
 		{
+			this.TargetLookAndFeel.UseDefaultLookAndFeel = false;
+			this.TargetLookAndFeel.SetSkinStyle(GlobalVar.SkinInfo.MainSkin);
+
 			progressPanel1.AutoHeight = false;
 		}
 

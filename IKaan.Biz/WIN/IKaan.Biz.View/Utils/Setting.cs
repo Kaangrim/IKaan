@@ -28,6 +28,7 @@ namespace Ikaan.Biz.View.Utils
 				GlobalVar.SkinInfo.IsUseSkin = ConstsVar.USER_USE_SKIN;
 				GlobalVar.SkinInfo.MainSkin = ConstsVar.USER_MAIN_SKIN;
 				GlobalVar.SkinInfo.FormSkin = ConstsVar.USER_FORM_SKIN;
+				GlobalVar.SkinInfo.FormSubSkin = ConstsVar.USER_FORM_SUB_SKIN;
 				GlobalVar.SkinInfo.GridSkin = ConstsVar.USER_GRID_SKIN;
 				GlobalVar.SkinInfo.IsGridEvenAndOdd = ConstsVar.USER_GRID_EVEN_AND_ODD;
 

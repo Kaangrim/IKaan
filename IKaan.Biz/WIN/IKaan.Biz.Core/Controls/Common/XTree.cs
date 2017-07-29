@@ -22,7 +22,6 @@ namespace IKaan.Biz.Core.Controls.Common
 			Initialize();
 		}
 
-
 		public void Initialize()
 		{
 			try

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MsgBoxForm));
 			this.lc = new DevExpress.XtraLayout.LayoutControl();
 			this.btnOk = new DevExpress.XtraEditors.SimpleButton();
@@ -38,7 +39,7 @@
 			this.emptySpaceItem5 = new DevExpress.XtraLayout.EmptySpaceItem();
 			this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
 			this.lcItemMessage = new DevExpress.XtraLayout.LayoutControlItem();
-			this.styleController1 = new DevExpress.XtraEditors.StyleController();
+			this.sc = new DevExpress.XtraEditors.StyleController(this.components);
 			((System.ComponentModel.ISupportInitialize)(this.lc)).BeginInit();
 			this.lc.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.memMessage.Properties)).BeginInit();
@@ -48,7 +49,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem5)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemMessage)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.styleController1)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.sc)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// lc
@@ -62,7 +63,7 @@
 			this.lc.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new System.Drawing.Rectangle(792, 231, 569, 350);
 			this.lc.Root = this.lcGroupBase;
 			this.lc.Size = new System.Drawing.Size(606, 368);
-			this.lc.StyleController = this.styleController1;
+			this.lc.StyleController = this.sc;
 			this.lc.TabIndex = 5;
 			this.lc.Text = "xLayout1";
 			// 
@@ -156,10 +157,10 @@
 			this.lcItemMessage.TextSize = new System.Drawing.Size(0, 0);
 			this.lcItemMessage.TextVisible = false;
 			// 
-			// styleController1
+			// sc
 			// 
-			this.styleController1.LookAndFeel.SkinName = "Office 2016 Colorful";
-			this.styleController1.LookAndFeel.UseDefaultLookAndFeel = false;
+			this.sc.LookAndFeel.SkinName = "Office 2016 Colorful";
+			this.sc.LookAndFeel.UseDefaultLookAndFeel = false;
 			// 
 			// MsgBoxForm
 			// 
@@ -182,7 +183,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem5)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemMessage)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.styleController1)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.sc)).EndInit();
 			this.ResumeLayout(false);
 
         }
@@ -197,6 +198,6 @@
 		private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem5;
 		private DevExpress.XtraLayout.LayoutControlItem layoutControlItem2;
 		private DevExpress.XtraLayout.LayoutControlItem lcItemMessage;
-		private DevExpress.XtraEditors.StyleController styleController1;
+		private DevExpress.XtraEditors.StyleController sc;
 	}
 }

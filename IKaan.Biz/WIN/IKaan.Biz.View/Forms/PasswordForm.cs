@@ -3,7 +3,6 @@ using IKaan.Base.Map;
 using IKaan.Base.Utils;
 using IKaan.Biz.Core.Forms;
 using IKaan.Biz.Core.Helper;
-using IKaan.Biz.Core.Utils;
 using IKaan.Biz.Core.Variables;
 using IKaan.Biz.Core.Was.Handler;
 
@@ -24,7 +23,11 @@ namespace IKaan.Biz.View.Forms
 
 		void Init()
 		{
-			this.BackColor = SkinUtils.FormBackColor;
+			this.LookAndFeel.UseDefaultLookAndFeel =
+				sc.LookAndFeel.UseDefaultLookAndFeel = false;
+
+			this.LookAndFeel.SetSkinStyle(GlobalVar.SkinInfo.FormSkin);
+			sc.LookAndFeel.SetSkinStyle(GlobalVar.SkinInfo.FormSubSkin);
 
 			lcItemPwd1.Text = "현재비밀번호:";
 			lcItemPwd2.Text = "변경비밀번호:";

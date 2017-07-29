@@ -1,5 +1,6 @@
 ﻿using IKaan.Base.Utils;
 using IKaan.Biz.Core.Utils;
+using IKaan.Biz.Core.Variables;
 
 namespace IKaan.Biz.Core.Forms
 {
@@ -13,6 +14,12 @@ namespace IKaan.Biz.Core.Forms
 
 		private void Initialize()
 		{
+			this.LookAndFeel.UseDefaultLookAndFeel =
+				sc.LookAndFeel.UseDefaultLookAndFeel = false;
+
+			this.LookAndFeel.SetSkinStyle(GlobalVar.SkinInfo.FormSkin);
+			sc.LookAndFeel.SetSkinStyle(GlobalVar.SkinInfo.FormSubSkin);
+
 			richEditor.ReadOnly = true;
 
 			lc.SetFieldName();

@@ -28,7 +28,8 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions2 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+			this.components = new System.ComponentModel.Container();
+			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions1 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
 			this.lc = new DevExpress.XtraLayout.LayoutControl();
 			this.lupUseYn = new IKaan.Biz.Core.Controls.Common.XLookup();
 			this.txtFindText = new DevExpress.XtraEditors.TextEdit();
@@ -39,7 +40,7 @@
 			this.lcItemUseYn = new DevExpress.XtraLayout.LayoutControlItem();
 			this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
 			this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
-			this.styleController1 = new DevExpress.XtraEditors.StyleController();
+			this.sc = new DevExpress.XtraEditors.StyleController(this.components);
 			((System.ComponentModel.ISupportInitialize)(this.lc)).BeginInit();
 			this.lc.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.lupUseYn.Properties)).BeginInit();
@@ -50,7 +51,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.lcItemUseYn)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.styleController1)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.sc)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// lc
@@ -65,7 +66,7 @@
 			this.lc.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new System.Drawing.Rectangle(540, 254, 250, 350);
 			this.lc.Root = this.layoutControlGroup1;
 			this.lc.Size = new System.Drawing.Size(516, 440);
-			this.lc.StyleController = this.styleController1;
+			this.lc.StyleController = this.sc;
 			this.lc.TabIndex = 0;
 			this.lc.Text = "xLayout1";
 			// 
@@ -79,7 +80,7 @@
 			this.lupUseYn.NullText = "[EditValue is null]";
 			this.lupUseYn.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions2, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
 			this.lupUseYn.SelectedIndex = -1;
 			this.lupUseYn.Size = new System.Drawing.Size(152, 20);
 			this.lupUseYn.StyleController = this.lc;
@@ -177,10 +178,10 @@
 			this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
 			this.layoutControlItem1.TextVisible = false;
 			// 
-			// styleController1
+			// sc
 			// 
-			this.styleController1.LookAndFeel.SkinName = "Office 2016 Colorful";
-			this.styleController1.LookAndFeel.UseDefaultLookAndFeel = false;
+			this.sc.LookAndFeel.SkinName = "Office 2016 Colorful";
+			this.sc.LookAndFeel.UseDefaultLookAndFeel = false;
 			// 
 			// CodeHelperForm
 			// 
@@ -207,7 +208,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.lcItemUseYn)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.styleController1)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.sc)).EndInit();
 			this.ResumeLayout(false);
 
 		}
@@ -224,6 +225,6 @@
 		private Controls.Common.XLookup lupUseYn;
 		private DevExpress.XtraLayout.LayoutControlItem lcItemUseYn;
 		private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem1;
-		private DevExpress.XtraEditors.StyleController styleController1;
+		private DevExpress.XtraEditors.StyleController sc;
 	}
 }

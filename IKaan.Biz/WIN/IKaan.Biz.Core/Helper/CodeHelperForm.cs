@@ -10,6 +10,7 @@ using IKaan.Base.Utils;
 using IKaan.Biz.Core.Controls.Grid;
 using IKaan.Biz.Core.Forms;
 using IKaan.Biz.Core.Utils;
+using IKaan.Biz.Core.Variables;
 
 namespace IKaan.Biz.Core.Helper
 {
@@ -65,6 +66,11 @@ namespace IKaan.Biz.Core.Helper
 
 		private void Initialize()
 		{
+			this.LookAndFeel.UseDefaultLookAndFeel =
+				sc.LookAndFeel.UseDefaultLookAndFeel = false;
+			this.LookAndFeel.SetSkinStyle(GlobalVar.SkinInfo.FormSkin);
+			sc.LookAndFeel.SetSkinStyle(GlobalVar.SkinInfo.FormSubSkin);
+
 			Parameters = new DataMap();
 		}
 

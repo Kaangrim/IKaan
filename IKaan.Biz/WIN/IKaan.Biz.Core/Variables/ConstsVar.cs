@@ -34,7 +34,8 @@
 		public const float USER_FONT_SIZE = 9f;
 		public const bool USER_USE_SKIN = true;
 		public const string USER_MAIN_SKIN = @"Office 2016 Colorful";       //@"Office 2016 Dark";
-		public const string USER_FORM_SKIN = @"Office 2016 Colorful";       //DevExpress Style
+		public const string USER_FORM_SKIN = @"Office 2016 Dark";       //DevExpress Style
+		public const string USER_FORM_SUB_SKIN = @"Office 2016 Colorful";
 		public const string USER_GRID_SKIN = @"Office 2016 Colorful";
 		public const bool USER_GRID_EVEN_AND_ODD = true;
 

@@ -304,18 +304,10 @@ namespace IKaan.Biz.View.Forms
 
 		private void InitSkin()
 		{
-			if (GlobalVar.SkinInfo.MainSkin.IsNullOrEmpty() == false)
-			{
-				this.LookAndFeel.UseDefaultLookAndFeel =
-						barAndDockingController.LookAndFeel.UseDefaultLookAndFeel = false;
-				this.LookAndFeel.SetSkinStyle(GlobalVar.SkinInfo.MainSkin.ToStringNullToEmpty());
-				barAndDockingController.LookAndFeel.SetSkinStyle(GlobalVar.SkinInfo.MainSkin.ToStringNullToEmpty());
-			}
-			else
-			{
-				this.LookAndFeel.UseDefaultLookAndFeel =
-						barAndDockingController.LookAndFeel.UseDefaultLookAndFeel = true;
-			}
+			this.LookAndFeel.UseDefaultLookAndFeel = 
+					barAndDockingController.LookAndFeel.UseDefaultLookAndFeel = false;
+			this.LookAndFeel.SetSkinStyle(GlobalVar.SkinInfo.MainSkin);
+			barAndDockingController.LookAndFeel.SetSkinStyle(GlobalVar.SkinInfo.MainSkin);
 		}
 
 		private void LoadFormLayout()
@@ -493,8 +485,12 @@ namespace IKaan.Biz.View.Forms
 				mainMenu = new XTree()
 				{
 					Name = "mainMenu",
-					Dock = DockStyle.Fill					
+					Dock = DockStyle.Fill
 				};
+
+				mainMenu.LookAndFeel.UseDefaultLookAndFeel = false;
+				mainMenu.LookAndFeel.SetSkinStyle(GlobalVar.SkinInfo.MainSkin);
+
 				if (mainMenu != null)
 				{
 					navBarGroupBusiness.ControlContainer.Controls.Add(mainMenu);

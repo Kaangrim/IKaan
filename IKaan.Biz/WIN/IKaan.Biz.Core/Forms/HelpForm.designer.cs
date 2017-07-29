@@ -28,6 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.components = new System.ComponentModel.Container();
 			this.lc = new DevExpress.XtraLayout.LayoutControl();
 			this.txtUpdateUserName = new DevExpress.XtraEditors.TextEdit();
 			this.txtInsertUserName = new DevExpress.XtraEditors.TextEdit();
@@ -45,6 +46,7 @@
 			this.lcItemUpdateDtime = new DevExpress.XtraLayout.LayoutControlItem();
 			this.lcItemInsertUserName = new DevExpress.XtraLayout.LayoutControlItem();
 			this.lcItemUpdateUserName = new DevExpress.XtraLayout.LayoutControlItem();
+			this.sc = new DevExpress.XtraEditors.StyleController(this.components);
 			((System.ComponentModel.ISupportInitialize)(this.lc)).BeginInit();
 			this.lc.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.txtUpdateUserName.Properties)).BeginInit();
@@ -62,6 +64,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.lcItemUpdateDtime)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemInsertUserName)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemUpdateUserName)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.sc)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// lc
@@ -79,6 +82,7 @@
 			this.lc.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new System.Drawing.Rectangle(721, 252, 250, 350);
 			this.lc.Root = this.lcGroupBase;
 			this.lc.Size = new System.Drawing.Size(592, 572);
+			this.lc.StyleController = this.sc;
 			this.lc.TabIndex = 0;
 			this.lc.Text = "xLayout1";
 			// 
@@ -132,7 +136,6 @@
 			// 
 			// lcGroupBase
 			// 
-			this.lcGroupBase.BackgroundImage = global::IKaan.Biz.Core.Resources.BackgroundResource.back_gray;
 			this.lcGroupBase.BackgroundImageVisible = true;
 			this.lcGroupBase.EnableIndentsWithoutBorders = DevExpress.Utils.DefaultBoolean.True;
 			this.lcGroupBase.GroupBordersVisible = false;
@@ -227,15 +230,22 @@
 			this.lcItemUpdateUserName.Size = new System.Drawing.Size(279, 24);
 			this.lcItemUpdateUserName.TextSize = new System.Drawing.Size(129, 14);
 			// 
+			// sc
+			// 
+			this.sc.LookAndFeel.SkinName = "Office 2016 Colorful";
+			this.sc.LookAndFeel.UseDefaultLookAndFeel = false;
+			// 
 			// HelpForm
 			// 
-			this.Appearance.BackColor = System.Drawing.Color.DimGray;
+			this.Appearance.BackColor = System.Drawing.Color.White;
 			this.Appearance.Options.UseBackColor = true;
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(592, 572);
 			this.Controls.Add(this.lc);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
+			this.LookAndFeel.SkinName = "Office 2016 Dark";
+			this.LookAndFeel.UseDefaultLookAndFeel = false;
 			this.Name = "HelpForm";
 			this.Text = "HelpForm";
 			((System.ComponentModel.ISupportInitialize)(this.lc)).EndInit();
@@ -255,6 +265,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.lcItemUpdateDtime)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemInsertUserName)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemUpdateUserName)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.sc)).EndInit();
 			this.ResumeLayout(false);
 
 		}
@@ -278,5 +289,6 @@
 		private DevExpress.XtraLayout.LayoutControlItem lcItemUpdateDtime;
 		private DevExpress.XtraLayout.LayoutControlItem lcItemInsertUserName;
 		private DevExpress.XtraLayout.LayoutControlItem lcItemUpdateUserName;
+		private DevExpress.XtraEditors.StyleController sc;
 	}
 }

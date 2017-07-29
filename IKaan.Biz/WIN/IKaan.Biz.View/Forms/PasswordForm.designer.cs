@@ -45,6 +45,7 @@
 			this.emptySpaceItem6 = new DevExpress.XtraLayout.EmptySpaceItem();
 			this.simpleSeparator1 = new DevExpress.XtraLayout.SimpleSeparator();
 			this.simpleSeparator2 = new DevExpress.XtraLayout.SimpleSeparator();
+			this.sc = new DevExpress.XtraEditors.StyleController();
 			((System.ComponentModel.ISupportInitialize)(this.lc)).BeginInit();
 			this.lc.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.txtChkPwd.Properties)).BeginInit();
@@ -62,6 +63,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem6)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.simpleSeparator1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.simpleSeparator2)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.sc)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// lc
@@ -72,11 +74,13 @@
 			this.lc.Controls.Add(this.txtChgPwd);
 			this.lc.Controls.Add(this.txtCurPwd);
 			this.lc.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.lc.ForeColor = System.Drawing.SystemColors.ControlText;
 			this.lc.Location = new System.Drawing.Point(0, 0);
 			this.lc.Name = "lc";
 			this.lc.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new System.Drawing.Rectangle(572, 173, 596, 350);
 			this.lc.Root = this.lcGroupBase;
 			this.lc.Size = new System.Drawing.Size(392, 270);
+			this.lc.StyleController = this.sc;
 			this.lc.TabIndex = 0;
 			// 
 			// btnConfirm
@@ -139,6 +143,8 @@
 			// 
 			// lcItemPwd1
 			// 
+			this.lcItemPwd1.AppearanceItemCaption.ForeColor = System.Drawing.SystemColors.ControlText;
+			this.lcItemPwd1.AppearanceItemCaption.Options.UseForeColor = true;
 			this.lcItemPwd1.Control = this.txtCurPwd;
 			this.lcItemPwd1.Location = new System.Drawing.Point(0, 115);
 			this.lcItemPwd1.Name = "lcItemPwd1";
@@ -147,6 +153,8 @@
 			// 
 			// lcItemPwd2
 			// 
+			this.lcItemPwd2.AppearanceItemCaption.ForeColor = System.Drawing.SystemColors.ControlText;
+			this.lcItemPwd2.AppearanceItemCaption.Options.UseForeColor = true;
 			this.lcItemPwd2.Control = this.txtChgPwd;
 			this.lcItemPwd2.Location = new System.Drawing.Point(0, 139);
 			this.lcItemPwd2.Name = "lcItemPwd2";
@@ -155,6 +163,8 @@
 			// 
 			// lcItemPwd3
 			// 
+			this.lcItemPwd3.AppearanceItemCaption.ForeColor = System.Drawing.SystemColors.ControlText;
+			this.lcItemPwd3.AppearanceItemCaption.Options.UseForeColor = true;
 			this.lcItemPwd3.Control = this.txtChkPwd;
 			this.lcItemPwd3.Location = new System.Drawing.Point(0, 163);
 			this.lcItemPwd3.Name = "lcItemPwd3";
@@ -224,12 +234,21 @@
 			this.simpleSeparator2.Name = "simpleSeparator2";
 			this.simpleSeparator2.Size = new System.Drawing.Size(372, 1);
 			// 
+			// sc
+			// 
+			this.sc.LookAndFeel.SkinName = "Office 2016 Colorful";
+			this.sc.LookAndFeel.UseDefaultLookAndFeel = false;
+			// 
 			// PasswordForm
 			// 
+			this.Appearance.BackColor = System.Drawing.Color.White;
+			this.Appearance.Options.UseBackColor = true;
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(392, 270);
 			this.Controls.Add(this.lc);
+			this.LookAndFeel.SkinName = "Office 2016 Dark";
+			this.LookAndFeel.UseDefaultLookAndFeel = false;
 			this.Name = "PasswordForm";
 			this.Text = "PasswordForm";
 			((System.ComponentModel.ISupportInitialize)(this.lc)).EndInit();
@@ -249,6 +268,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem6)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.simpleSeparator1)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.simpleSeparator2)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.sc)).EndInit();
 			this.ResumeLayout(false);
 
         }
@@ -271,5 +291,6 @@
 		private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem6;
 		private DevExpress.XtraLayout.SimpleSeparator simpleSeparator1;
 		private DevExpress.XtraLayout.SimpleSeparator simpleSeparator2;
+		private DevExpress.XtraEditors.StyleController sc;
 	}
 }

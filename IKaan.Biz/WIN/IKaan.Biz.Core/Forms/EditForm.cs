@@ -89,7 +89,7 @@ namespace IKaan.Biz.Core.Forms
 					this.LookAndFeel.UseDefaultLookAndFeel = 
 						barAndDockingController.LookAndFeel.UseDefaultLookAndFeel = false;
 					this.LookAndFeel.SetSkinStyle(GlobalVar.SkinInfo.FormSkin.ToStringNullToEmpty());
-					barAndDockingController.LookAndFeel.SetSkinStyle(GlobalVar.SkinInfo.FormSkin.ToStringNullToEmpty());
+					barAndDockingController.LookAndFeel.SetSkinStyle(GlobalVar.SkinInfo.FormSubSkin.ToStringNullToEmpty());
 				}
 				else
 				{

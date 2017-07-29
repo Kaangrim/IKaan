@@ -76,6 +76,7 @@
 			this.lc.Controls.Add(this.prgDictionary);
 			this.lc.Margin = new System.Windows.Forms.Padding(0);
 			this.lc.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new System.Drawing.Rectangle(2916, 98, 450, 400);
+			this.lc.OptionsView.UseDefaultDragAndDropRendering = false;
 			this.lc.Padding = new System.Windows.Forms.Padding(2);
 			this.lc.Size = new System.Drawing.Size(598, 226);
 			// 
@@ -112,46 +113,46 @@
 			this.lcItemDictionary.Control = this.prgDictionary;
 			this.lcItemDictionary.Location = new System.Drawing.Point(150, 55);
 			this.lcItemDictionary.Name = "lcItemDictionary";
-			this.lcItemDictionary.Size = new System.Drawing.Size(422, 20);
+			this.lcItemDictionary.Size = new System.Drawing.Size(422, 22);
 			this.lcItemDictionary.TextSize = new System.Drawing.Size(87, 14);
 			// 
 			// prgDictionary
 			// 
 			this.prgDictionary.Location = new System.Drawing.Point(256, 70);
 			this.prgDictionary.Name = "prgDictionary";
-			this.prgDictionary.Size = new System.Drawing.Size(327, 16);
+			this.prgDictionary.Size = new System.Drawing.Size(327, 18);
 			this.prgDictionary.StyleController = this.lc;
 			this.prgDictionary.TabIndex = 4;
 			// 
 			// lcItemMessage
 			// 
 			this.lcItemMessage.Control = this.prgMessage;
-			this.lcItemMessage.Location = new System.Drawing.Point(150, 75);
+			this.lcItemMessage.Location = new System.Drawing.Point(150, 77);
 			this.lcItemMessage.Name = "lcItemMessage";
-			this.lcItemMessage.Size = new System.Drawing.Size(422, 20);
+			this.lcItemMessage.Size = new System.Drawing.Size(422, 22);
 			this.lcItemMessage.TextSize = new System.Drawing.Size(87, 14);
 			// 
 			// prgMessage
 			// 
-			this.prgMessage.Location = new System.Drawing.Point(256, 90);
+			this.prgMessage.Location = new System.Drawing.Point(256, 92);
 			this.prgMessage.Name = "prgMessage";
-			this.prgMessage.Size = new System.Drawing.Size(327, 16);
+			this.prgMessage.Size = new System.Drawing.Size(327, 18);
 			this.prgMessage.StyleController = this.lc;
 			this.prgMessage.TabIndex = 5;
 			// 
 			// lcItemCodes
 			// 
 			this.lcItemCodes.Control = this.prgCodes;
-			this.lcItemCodes.Location = new System.Drawing.Point(150, 95);
+			this.lcItemCodes.Location = new System.Drawing.Point(150, 99);
 			this.lcItemCodes.Name = "lcItemCodes";
-			this.lcItemCodes.Size = new System.Drawing.Size(422, 20);
+			this.lcItemCodes.Size = new System.Drawing.Size(422, 22);
 			this.lcItemCodes.TextSize = new System.Drawing.Size(87, 14);
 			// 
 			// prgCodes
 			// 
-			this.prgCodes.Location = new System.Drawing.Point(256, 110);
+			this.prgCodes.Location = new System.Drawing.Point(256, 114);
 			this.prgCodes.Name = "prgCodes";
-			this.prgCodes.Size = new System.Drawing.Size(327, 16);
+			this.prgCodes.Size = new System.Drawing.Size(327, 18);
 			this.prgCodes.StyleController = this.lc;
 			this.prgCodes.TabIndex = 6;
 			// 
@@ -166,23 +167,23 @@
 			// emptySpaceItem2
 			// 
 			this.emptySpaceItem2.AllowHotTrack = false;
-			this.emptySpaceItem2.Location = new System.Drawing.Point(150, 115);
+			this.emptySpaceItem2.Location = new System.Drawing.Point(150, 121);
 			this.emptySpaceItem2.Name = "emptySpaceItem2";
-			this.emptySpaceItem2.Size = new System.Drawing.Size(422, 40);
+			this.emptySpaceItem2.Size = new System.Drawing.Size(422, 37);
 			this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
 			// 
 			// emptySpaceItem3
 			// 
 			this.emptySpaceItem3.AllowHotTrack = false;
-			this.emptySpaceItem3.Location = new System.Drawing.Point(150, 181);
+			this.emptySpaceItem3.Location = new System.Drawing.Point(150, 184);
 			this.emptySpaceItem3.Name = "emptySpaceItem3";
-			this.emptySpaceItem3.Size = new System.Drawing.Size(422, 19);
+			this.emptySpaceItem3.Size = new System.Drawing.Size(422, 16);
 			this.emptySpaceItem3.TextSize = new System.Drawing.Size(0, 0);
 			// 
 			// lcButtonDownload
 			// 
 			this.lcButtonDownload.Control = this.btnDownload;
-			this.lcButtonDownload.Location = new System.Drawing.Point(311, 155);
+			this.lcButtonDownload.Location = new System.Drawing.Point(311, 158);
 			this.lcButtonDownload.MaxSize = new System.Drawing.Size(100, 26);
 			this.lcButtonDownload.MinSize = new System.Drawing.Size(100, 26);
 			this.lcButtonDownload.Name = "lcButtonDownload";
@@ -193,7 +194,8 @@
 			// 
 			// btnDownload
 			// 
-			this.btnDownload.Location = new System.Drawing.Point(326, 170);
+			this.btnDownload.BackgroundImage = global::Ikaan.Biz.View.Properties.Resources.back_gray;
+			this.btnDownload.Location = new System.Drawing.Point(326, 173);
 			this.btnDownload.Name = "btnDownload";
 			this.btnDownload.Size = new System.Drawing.Size(96, 22);
 			this.btnDownload.StyleController = this.lc;
@@ -203,7 +205,7 @@
 			// emptySpaceItem4
 			// 
 			this.emptySpaceItem4.AllowHotTrack = false;
-			this.emptySpaceItem4.Location = new System.Drawing.Point(150, 155);
+			this.emptySpaceItem4.Location = new System.Drawing.Point(150, 158);
 			this.emptySpaceItem4.Name = "emptySpaceItem4";
 			this.emptySpaceItem4.Size = new System.Drawing.Size(161, 26);
 			this.emptySpaceItem4.TextSize = new System.Drawing.Size(0, 0);
@@ -211,7 +213,7 @@
 			// emptySpaceItem5
 			// 
 			this.emptySpaceItem5.AllowHotTrack = false;
-			this.emptySpaceItem5.Location = new System.Drawing.Point(411, 155);
+			this.emptySpaceItem5.Location = new System.Drawing.Point(411, 158);
 			this.emptySpaceItem5.Name = "emptySpaceItem5";
 			this.emptySpaceItem5.Size = new System.Drawing.Size(161, 26);
 			this.emptySpaceItem5.TextSize = new System.Drawing.Size(0, 0);
@@ -252,10 +254,13 @@
 			// 
 			// DownloadCodeForm
 			// 
+			this.Appearance.BackColor = System.Drawing.Color.White;
+			this.Appearance.Options.UseBackColor = true;
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(598, 248);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+			this.LookAndFeel.SkinName = "Office 2016 Dark";
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
 			this.Name = "DownloadCodeForm";

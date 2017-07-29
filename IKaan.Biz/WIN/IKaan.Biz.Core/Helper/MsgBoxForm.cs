@@ -1,6 +1,7 @@
 ﻿using System.Windows.Forms;
 using DevExpress.XtraEditors;
 using IKaan.Biz.Core.Resources;
+using IKaan.Biz.Core.Variables;
 
 namespace IKaan.Biz.Core.Helper
 {
@@ -23,6 +24,11 @@ namespace IKaan.Biz.Core.Helper
 
 		private void Init()
 		{
+			this.LookAndFeel.UseDefaultLookAndFeel =
+				sc.LookAndFeel.UseDefaultLookAndFeel = false;
+			this.LookAndFeel.SetSkinStyle(GlobalVar.SkinInfo.FormSkin);
+			sc.LookAndFeel.SetSkinStyle(GlobalVar.SkinInfo.FormSubSkin);
+
 			FormBorderStyle = FormBorderStyle.FixedDialog;
 			StartPosition = FormStartPosition.CenterScreen;
 			Icon = IconResource.comment;

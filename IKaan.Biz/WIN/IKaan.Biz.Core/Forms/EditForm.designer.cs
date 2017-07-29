@@ -28,8 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditForm));
-			this.barManager = new DevExpress.XtraBars.BarManager();
+			this.barManager = new DevExpress.XtraBars.BarManager(this.components);
 			this.barTools = new DevExpress.XtraBars.Bar();
 			this.barButtonRefresh = new DevExpress.XtraBars.BarButtonItem();
 			this.barButtonNew = new DevExpress.XtraBars.BarButtonItem();
@@ -48,7 +49,7 @@
 			this.barStaticTotalRecords = new DevExpress.XtraBars.BarStaticItem();
 			this.barStaticEditMode = new DevExpress.XtraBars.BarStaticItem();
 			this.barStaticViewName = new DevExpress.XtraBars.BarStaticItem();
-			this.barAndDockingController = new DevExpress.XtraBars.BarAndDockingController();
+			this.barAndDockingController = new DevExpress.XtraBars.BarAndDockingController(this.components);
 			this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
 			this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
 			this.barDockControlLeft = new DevExpress.XtraBars.BarDockControl();
@@ -57,10 +58,12 @@
 			this.barHeaderItem1 = new DevExpress.XtraBars.BarHeaderItem();
 			this.lc = new DevExpress.XtraLayout.LayoutControl();
 			this.lcGroupBase = new DevExpress.XtraLayout.LayoutControlGroup();
+			this.scBase = new DevExpress.XtraEditors.StyleController(this.components);
 			((System.ComponentModel.ISupportInitialize)(this.barManager)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.barAndDockingController)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lc)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupBase)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.scBase)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// barManager
@@ -308,6 +311,9 @@
 			// 
 			// barAndDockingController
 			// 
+			this.barAndDockingController.LookAndFeel.SkinName = "Office 2016 Colorful";
+			this.barAndDockingController.LookAndFeel.UseDefaultLookAndFeel = false;
+			this.barAndDockingController.PropertiesBar.AllowLinkLighting = false;
 			this.barAndDockingController.PropertiesBar.DefaultGlyphSize = new System.Drawing.Size(16, 16);
 			this.barAndDockingController.PropertiesBar.DefaultLargeGlyphSize = new System.Drawing.Size(32, 32);
 			// 
@@ -360,11 +366,13 @@
 			// lc
 			// 
 			this.lc.AllowCustomization = false;
+			this.lc.BackColor = System.Drawing.SystemColors.Control;
 			this.lc.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.lc.Location = new System.Drawing.Point(0, 44);
 			this.lc.Name = "lc";
 			this.lc.Root = this.lcGroupBase;
 			this.lc.Size = new System.Drawing.Size(998, 411);
+			this.lc.StyleController = this.scBase;
 			this.lc.TabIndex = 4;
 			this.lc.Text = "lc";
 			// 
@@ -377,8 +385,15 @@
 			this.lcGroupBase.Size = new System.Drawing.Size(998, 411);
 			this.lcGroupBase.TextVisible = false;
 			// 
+			// scBase
+			// 
+			this.scBase.LookAndFeel.SkinName = "Office 2016 Colorful";
+			this.scBase.LookAndFeel.UseDefaultLookAndFeel = false;
+			// 
 			// EditForm
 			// 
+			this.Appearance.BackColor = System.Drawing.Color.White;
+			this.Appearance.Options.UseBackColor = true;
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(998, 477);
@@ -387,11 +402,14 @@
 			this.Controls.Add(this.barDockControlRight);
 			this.Controls.Add(this.barDockControlBottom);
 			this.Controls.Add(this.barDockControlTop);
+			this.LookAndFeel.SkinName = "Office 2016 Dark";
+			this.LookAndFeel.UseDefaultLookAndFeel = false;
 			this.Name = "EditForm";
 			((System.ComponentModel.ISupportInitialize)(this.barManager)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.barAndDockingController)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lc)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupBase)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.scBase)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -427,5 +445,6 @@
 		private DevExpress.XtraBars.BarAndDockingController barAndDockingController;
 		private DevExpress.XtraBars.BarStaticItem barTitle;
 		private DevExpress.XtraBars.BarHeaderItem barHeaderItem1;
+		private DevExpress.XtraEditors.StyleController scBase;
 	}
 }
