@@ -18,14 +18,18 @@ namespace IKaan.Model.BIZ.BM
 
 		[DataMember]
 		[Display(Name = "시작일")]
-		public DateTime StartDate { get; set; }
+		public DateTime? StartDate { get; set; }
 
 		[DataMember]
 		[Display(Name = "종료일")]
-		public DateTime EndDate { get; set; }
+		public DateTime? EndDate { get; set; }
 
 		[DataMember]
-		[Display(Name = "사람정보")]
-		public BMPerson Person { get; set; }
+		[Display(Name = "사원명")]
+		public string EmployeeName { get; set; }
+
+		[DataMember]
+		[Display(Name = "부서명")]
+		public string DepartmentName { get; set; }
 	}
 }

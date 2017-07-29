@@ -19,16 +19,14 @@
 					,	AA.CustomerType
 					,	AA.CustomerName
 					,	AA.EngName
-					,	AA.BizID
-					,	AA.AddressID
-					
-					,	BB.BizNo
-					,	BB.RepName
+					,	AA.UseYn
+					,	AA.Description
 					
 				FROM	dbo.BMCustomer AA WITH (NOLOCK)
 						LEFT JOIN
-							dbo.LMBusiness BB WITH (NOLOCK)
-								ON AA.BizID = BB.ID
+							IKBAS.dbo.ACCode M1 WITH (NOLOCK)
+								ON AA.CustomerType = M1.Code
+									AND M1.ParentCode = 'CustomerType'
 				WHERE	1=1				
 			]]>
 			<isNotEmpty property="FindText">
@@ -56,41 +54,10 @@
 					,	AA.CustomerType
 					,	AA.CustomerName
 					,	AA.EngName
-					,	AA.BizID
-					,	AA.AddressID
-					
-					,	BB.BizNo
-					,	BB.BizName
-					,	BB.RepName
-					,	BB.BizType
-					,	BB.BizItem
-					,	BB.AddressID
-					,	BB.TaxType
-					
-					,	B1.PostalCode
-					,	B1.City
-					,	B1.StateProvince
-					,	B1.Country
-					,	B1.AddressLine1
-					,	B1.AddressLine2
-					
-					,	CC.PostalCode
-					,	CC.City
-					,	CC.StateProvince
-					,	CC.Country
-					,	CC.AddressLine1
-					,	CC.AddressLine2
+					,	AA.UseYn
+					,	AA.Description
 					
 				FROM	dbo.BMCustomer AA WITH (NOLOCK)
-						LEFT JOIN
-							dbo.LMBusiness BB WITH (NOLOCK)
-								ON AA.BizID = BB.ID
-						LEFT JOIN
-							dbo.LMAddress B1 WITH (NOLOCK)
-								ON BB.AddressID = B1.ID
-						LEFT JOIN
-							dbo.LMAddress CC WITH (NOLOCK)
-								ON AA.AddressID = CC.ID
 				WHERE	AA.ID = #ID#
 			]]>
 		</select>
@@ -99,12 +66,12 @@
 				INSERT INTO dbo.BMCustomer
 				( 
 					CreateDate, CreateBy, CreateByName,
-					CustomerType, CustomerName, EngName, BizID, AddressID
+					CustomerType, CustomerName, EngName, UseYn, Description
 				)
 				VALUES
 				(
 					GetDate(), #CreateBy#, #CreateByName#,
-					#CustomerType#, #CustomerName#, #EngName#, #BizID#, #AddressID#
+					#CustomerType#, #CustomerName#, #EngName#, #UseYn#, #Description#
 				)
 			]]>
 			<selectKey type="post" property="ID" resultClass="Int">
@@ -123,16 +90,15 @@
 					,	CustomerType	= #CustomerType#
 					,	CustomerName	= #CustomerName#
 					,	EngName			= #EngName#
-					,	BizID			= #BizID#
-					,	AddressID		= #AddressID#
+					,	UseYn			= #UseYn#
+					,	Description		= #Description#
+					
 				WHERE	ID				= #ID#
 			]]>
 		</update>
 		<delete id="DeleteBMCustomer" parameterClass="DataMap">
 			<![CDATA[
-				DELETE 
-				FROM	dbo.BMCustomer
-				WHERE	ID = #ID#
+				DELETE FROM dbo.BMCustomer WHERE ID = #ID#;
 			]]>
 		</delete>
 	</statements>

@@ -64,7 +64,7 @@ namespace IKaan.Biz.View.Forms
 			StartPosition = FormStartPosition.CenterScreen;
 			MaximizeBox = false;
 			MinimizeBox = false;
-			Icon = IconResource.icon;
+			Icon = IconResource.logo;
 			//this.BackColor = SkinUtils.FormBackColor;
 
 			lcItemLoginId.Text = "Username or Email";

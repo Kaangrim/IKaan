@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using IKaan.Model.Base;
 
@@ -12,15 +13,23 @@ namespace IKaan.Model.BIZ.BM
 		public int? BrandID { get; set; }
 
 		[DataMember]
-		[Display(Name = "포지션")]
-		public string Position { get; set; }
+		[Display(Name = "사원ID")]
+		public int? EmployeeID { get; set; }
 
 		[DataMember]
-		[Display(Name = "사람ID")]
-		public int? PersonID { get; set; }
+		[Display(Name = "시작일")]
+		public DateTime? StartDate { get; set; }
 
 		[DataMember]
-		[Display(Name = "사람정보")]
-		public BMPerson Person { get; set; }
+		[Display(Name = "종료일")]
+		public DateTime? EndDate { get; set; }
+
+		[DataMember]
+		[Display(Name = "사원명")]
+		public string EmployeeName { get; set; }
+
+		[DataMember]
+		[Display(Name = "부서명")]
+		public string DepartmentName { get; set; }
 	}
 }

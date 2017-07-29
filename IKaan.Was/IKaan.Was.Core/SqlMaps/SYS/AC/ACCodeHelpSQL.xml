@@ -618,6 +618,89 @@
 			]]>
 		</select>
 
+		<select id="SelectCodeHelpDepartmentList" parameterClass="DataMap" resultClass="UMCodeHelp" >
+			<![CDATA[
+				WITH CTE (ID, Name, Path, ParentID, HierID, Level)
+				AS
+				(
+					SELECT	AA.ID																	as ID
+						,	AA.DepartmentName														as Name
+						,	CONVERT(VARCHAR(1000), AA.DepartmentName)								as Path
+						,	AA.ParentID																as ParentID
+						,	CONVERT(VARCHAR(1000), 
+								RIGHT('000000' + CONVERT(VARCHAR, AA.DepartmentName, AA.ID), 6))	as HierID
+						,	1																		as Level
+					FROM	IKBIZ.dbo.BCDepartment aa
+					WHERE	AA.ParentID IS NULL
+					AND		AA.UseYn = 'Y'
+					UNION ALL
+					SELECT	AA.ID																as ID
+						,	AA.DepartmentName													as Name
+						,	CONVERT(VARCHAR(1000), bb.Path + ' ▶ ' + AA.DepartmentName)			as Path
+						,	AA.ParentID															as ParentID
+						,	CONVERT(VARCHAR(1000), 
+								bb.HierID + '-' + 
+								RIGHT('000000'+CONVERT(VARCHAR, AA.DepartmentName, AA.ID), 6))	as HierID
+						,	bb.Level + 1														as Level
+					FROM	IKBIZ.dbo.BCDepartment aa
+							INNER JOIN 
+								CTE bb 
+									on AA.ParentID = bb.ID
+					WHERE	AA.UseYn = 'Y'
+				)
+				SELECT	aa.ID									as ID					
+					,	CONVERT(VARCHAR, aa.ID)					as Code
+					,	aa.Name									as Name
+					,	REPLICATE(' ', (aa.Level -1) * 5) + 
+						CASE
+							WHEN aa.Level > 1 then '▶'
+							ELSE ''
+						END + 
+						aa.Name									as ListName
+					,	aa.Path									as DispName
+					,	CONVERT(VARCHAR, aa.ID)					as Value
+					,	ROW_NUMBER() OVER (ORDER BY aa.HierID)	as SortOrder
+					,	0										as MaxLength
+					,	aa.ID									as Option1
+					,	aa.HierID								as Option2
+					,	null									as Option3
+					,	null									as Option4
+					,	null									as Option5
+					,	null									as Option6
+					,	null									as Option7
+					,	null									as Option8
+					,	null									as Option9
+				FROM	CTE aa
+				ORDER BY 
+					SortOrder, Name
+			]]>
+		</select>
+		<select id="SelectCodeHelpEmployeeList" parameterClass="DataMap" resultClass="UMCodeHelp" >
+			<![CDATA[
+				SELECT	aa.ID									as ID
+					,	CONVERT(VARCHAR, aa.ID)					as Code
+					,	aa.EmployeeName							as Name
+					,	aa.EmployeeName							as ListName
+					,	aa.EmployeeName							as DispName
+					,	CONVERT(VARCHAR, aa.ID)					as Value
+					,	ROW_NUMBER() OVER 
+							(ORDER BY aa.EmployeeName, aa.ID)	as SortOrder
+					,	0										as MaxLength
+					,	null									as Option1
+					,	null									as Option2
+					,	null									as Option3
+					,	null									as Option4
+					,	null									as Option5
+					,	null									as Option6
+					,	null									as Option7
+					,	null									as Option8
+					,	null									as Option9
+				FROM	IKBIZ.dbo.BCEmployee aa WITH (NOLOCK)
+				WHERE	aa.UseYn = 'Y'
+				ORDER BY SortOrder
+			]]>
+		</select>
+
 		<select id="SelectCodeLookup" parameterClass="DataMap" resultClass="UMCodeLookup" >
 			<![CDATA[
 				SELECT	AA.Code			as Code

@@ -9,8 +9,8 @@ namespace IKaan.Model.BIZ.BG
 	public class BGGoods : ModelBase
 	{
 		[DataMember]
-		[Display(Name = "상품번호")]
-		public string GoodsNo { get; set; }
+		[Display(Name = "스타일번호")]
+		public string StyleNo { get; set; }
 
 		[DataMember]
 		[Display(Name = "브랜드ID")]
@@ -23,6 +23,10 @@ namespace IKaan.Model.BIZ.BG
 		[DataMember]
 		[Display(Name = "성별")]
 		public string Gender { get; set; }
+
+		[DataMember]
+		[Display(Name = "출시년도")]
+		public string ReleaseYear { get; set; }
 
 		[DataMember]
 		[Display(Name = "시즌")]

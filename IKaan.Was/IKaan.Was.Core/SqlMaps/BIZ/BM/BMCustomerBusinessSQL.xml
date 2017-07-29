@@ -37,7 +37,9 @@
 					,	AA.UpdateByName
 					
 					,	AA.CustomerID
-					,	AA.AddressID
+					,	AA.BusinessID
+					,	AA.StartDate
+					,	AA.EndDate
 					
 				FROM	dbo.BMCustomerBusiness AA WITH (NOLOCK)
 				WHERE	AA.ID = #ID#
@@ -48,12 +50,12 @@
 				INSERT INTO dbo.BMCustomerBusiness
 				( 
 					CreateDate, CreateBy, CreateByName,
-					CustomerID, AddressID
+					CustomerID, BusinessID, StartDate, EndDate
 				)
 				VALUES
 				(
 					GetDate(), #CreateBy#, #CreateByName#,
-					#CustomerID#, #AddressID#
+					#CustomerID#, #BusinessID#, #StartDate#, #EndDate#
 				)
 			]]>
 			<selectKey type="post" property="ID" resultClass="Int">
@@ -70,15 +72,15 @@
 					,	UpdateByName	= #UpdateByName#
 					
 					,	CustomerID		= #CustomerID#
-					,	AddressID		= #AddressID#
+					,	BusinessID		= #BusinessID#
+					,	StartDate		= #StartDate#
+					,	EndDate			= #EndDate#
 				WHERE	ID				= #ID#
 			]]>
 		</update>
 		<delete id="DeleteBMCustomerBusiness" parameterClass="DataMap">
 			<![CDATA[
-				DELETE 
-				FROM	dbo.BMCustomerBusiness
-				WHERE	ID = #ID#
+				DELETE FROM dbo.BMCustomerBusiness WHERE ID = #ID#;
 			]]>
 		</delete>
 	</statements>

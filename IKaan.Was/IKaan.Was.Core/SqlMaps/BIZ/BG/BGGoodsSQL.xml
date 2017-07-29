@@ -16,10 +16,11 @@
 					,	AA.UpdateBy
 					,	AA.UpdateByName
 					
-					,	AA.GoodsNo
+					,	AA.StyleNo
 					,	AA.BrandID
 					,	AA.Age
 					,	AA.Gender
+					,	AA.ReleaseYear
 					,	AA.Season
 					,	AA.Origin
 					,	AA.CategoryID
@@ -27,6 +28,7 @@
 					,	AA.AbroadYn
 					
 					,	BB.GoodsName
+					,	CC.BrandName
 					
 				FROM	dbo.BGGoods AA WITH (NOLOCK)
 						LEFT JOIN
@@ -41,14 +43,14 @@
 			<isNotEmpty property="FindText">
 				<![CDATA[
 					AND	(
-							AA.GoodsNo			LIKE '%' + #FindText# + '%' OR
-							BB.GoodsName		LIKE '%' + #FindText# + '%'
+							AA.StyleNo		LIKE '%' + #FindText# + '%' OR
+							BB.GoodsName	LIKE '%' + #FindText# + '%'
 						)
 				]]>
 			</isNotEmpty>
 			<isNotEmpty property="GoodsNo">
 				<![CDATA[
-					AND		AA.GoodsNo	= #GoodsNo#
+					AND		AA.StyleNo	= #StyleNo#
 				]]>
 			</isNotEmpty>
 			<isNotEmpty property="GoodsName">
@@ -110,10 +112,11 @@
 					,	AA.UpdateBy
 					,	AA.UpdateByName
 					
-					,	AA.GoodsNo
+					,	AA.StyleNo
 					,	AA.BrandID
 					,	AA.Age
 					,	AA.Gender
+					,	AA.ReleaseYear
 					,	AA.Season
 					,	AA.Origin
 					,	AA.CategoryID
@@ -136,12 +139,12 @@
 				INSERT INTO dbo.BGGoods
 				( 
 					CreateDate, CreateBy, CreateByName,
-					GoodsNo, BrandID, Age, Gender, Season, Origin, CategoryID, UseYn, AbroadYn
+					StyleNo, BrandID, Age, Gender, ReleaseYear, Season, Origin, CategoryID, UseYn, AbroadYn
 				)
 				VALUES
 				(
 					GetDate(), #CreateBy#, #CreateByName#,
-					#GoodsNo#, #BrandID#, #Age#, #Gender#, #Season#, #Origin#, #CategoryID#, #UseYn#, #AbroadYn#
+					#StyleNo#, #BrandID#, #Age#, #Gender#, #ReleaseYear#, #Season#, #Origin#, #CategoryID#, #UseYn#, #AbroadYn#
 				)
 			]]>
 			<selectKey type="post" property="ID" resultClass="Int">
@@ -157,10 +160,11 @@
 					,	UpdateBy		= #UpdateBy#
 					,	UpdateByName	= #UpdateByName#
 					
-					,	GoodsNo			= #GoodsNo#
+					,	StyleNo			= #StyleNo#
 					,	BrandID			= #BrandID#
 					,	Age				= #Age#
 					,	Gender			= #Gender#
+					,	ReleaseYear		= #ReleaseYear#
 					,	Season			= #Season#
 					,	Origin			= #Origin#
 					,	CategoryID		= #CategoryID#
@@ -171,9 +175,7 @@
 		</update>
 		<delete id="DeleteBGGoods" parameterClass="DataMap">
 			<![CDATA[
-				DELETE 
-				FROM	dbo.BGGoods
-				WHERE	ID = #ID#
+				DELETE FROM dbo.BGGoods WHERE ID = #ID#;
 			]]>
 		</delete>
 	</statements>

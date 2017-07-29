@@ -47,6 +47,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BC\BCEmployeeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BC\BCEmployeeForm.designer.cs">
+      <DependentUpon>BCEmployeeForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BC\BCDepartmentForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BC\BCDepartmentForm.designer.cs">
+      <DependentUpon>BCDepartmentForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="BG\BGGoodsChannelEditForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -116,7 +128,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="BC\" />
     <Folder Include="BN\" />
     <Folder Include="BP\" />
     <Folder Include="BS\" />
@@ -138,6 +149,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="BC\BCEmployeeForm.resx">
+      <DependentUpon>BCEmployeeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BC\BCDepartmentForm.resx">
+      <DependentUpon>BCDepartmentForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="BG\BGGoodsChannelEditForm.resx">
       <DependentUpon>BGGoodsChannelEditForm.cs</DependentUpon>
     </EmbeddedResource>

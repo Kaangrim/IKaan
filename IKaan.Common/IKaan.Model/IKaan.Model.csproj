@@ -46,6 +46,7 @@
     <Compile Include="Attributes\CustomPropertyAttribute.cs" />
     <Compile Include="Base\IModelBase.cs" />
     <Compile Include="BIZ\BC\BCAppointment.cs" />
+    <Compile Include="BIZ\BC\BCDepartmentHist.cs" />
     <Compile Include="BIZ\BC\BCEmployee.cs" />
     <Compile Include="BIZ\BC\BCDepartment.cs" />
     <Compile Include="BIZ\BG\BGInfoNoticeItem.cs" />

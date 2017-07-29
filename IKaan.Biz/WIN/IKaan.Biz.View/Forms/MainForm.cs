@@ -291,7 +291,7 @@ namespace IKaan.Biz.View.Forms
 		
 		private void Init()
 		{
-			this.Icon = IconResource.icon;
+			this.Icon = IconResource.logo;
 			this.barManager.Items.OfType<BarButtonItem>().ToList().ForEach(x => x.Tag = x.Name.Replace("barButton", string.Empty));
 			this.dockPanelLog.Padding = new Padding(2);
 

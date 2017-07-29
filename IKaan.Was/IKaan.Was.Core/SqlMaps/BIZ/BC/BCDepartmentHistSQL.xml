@@ -5,7 +5,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
 
 	<statements>
-		<select id="SelectBCAppointmentList" parameterClass="DataMap" resultClass="BCAppointment" >
+		<select id="SelectBCDepartmentHistList" parameterClass="DataMap" resultClass="BCDepartmentHist" >
 			<![CDATA[
 				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
 					,	AA.ID
@@ -16,19 +16,19 @@
 					,	AA.UpdateBy
 					,	AA.UpdateByName
 					
-					,	AA.EmployeeID
-					,	AA.DepartmentID
-					,	AA.MainYn
-					,	AA.Position
 					,	AA.StartDate
 					,	AA.EndDate
+					,	AA.DepartmentName
+					,	AA.ParentID
+					,	AA.UseYn
+					,	AA.ManagerID
 					
-					,	BB.DepartmentName
+					,	BB.EmployeeName	aa ManagerName
 					
-				FROM	IKBIZ.dbo.BCAppointment AA WITH (NOLOCK)
+				FROM	IKBIZ.dbo.BCDepartmentHist AA WITH (NOLOCK)
 						INNER JOIN
-							IKBIZ.dbo.BCDepartment BB WITH (NOLOCK)
-								ON AA.DepartmentID = BB.ID
+							dbo.BCEmployee BB WITH (NOLOCK)
+								ON AA.ManagerID = BB.ID
 				WHERE	1=1
 			]]>
 			<isNotEmpty property="FindText">
@@ -42,7 +42,7 @@
 				ORDER BY RowNo
 			]]>
 		</select>
-		<select id="SelectBCAppointment" parameterClass="DataMap" resultClass="BCAppointment" >
+		<select id="SelectBCDepartmentHist" parameterClass="DataMap" resultClass="BCDepartmentHist" >
 			<![CDATA[
 				SELECT  AA.ID
 					,	AA.CreateDate
@@ -52,28 +52,33 @@
 					,	AA.UpdateBy
 					,	AA.UpdateByName
 					
-					,	AA.EmployeeID
-					,	AA.DepartmentID
-					,	AA.MainYn
-					,	AA.Position
 					,	AA.StartDate
 					,	AA.EndDate
+					,	AA.DepartmentName
+					,	AA.ParentID
+					,	AA.UseYn
+					,	AA.ManagerID
 					
-				FROM	dbo.BCAppointment AA WITH (NOLOCK)
+					,	BB.EmployeeName	aa ManagerName
+					
+				FROM	dbo.BCDepartmentHist AA WITH (NOLOCK)
+						INNER JOIN
+							dbo.BCEmployee BB WITH (NOLOCK)
+								ON AA.ManagerID = BB.ID
 				WHERE	AA.ID = #ID#
 			]]>
 		</select>
-		<insert id="InsertBCAppointment" parameterClass="BCAppointment" >
+		<insert id="InsertBCDepartmentHist" parameterClass="BCDepartmentHist" >
 			<![CDATA[
-				INSERT INTO dbo.BCAppointment
+				INSERT INTO dbo.BCDepartmentHist
 				( 
 					CreateDate, CreateBy, CreateByName,
-					EmployeeID, DepartmentID, MainYn, Position, StartDate, EndDate
+					DepartmentName, ParentID, UseYn, ManagerID, StartDate, EndDate
 				)
 				VALUES
 				(
-					GetDate(), #CreateBy#, #CreateByName#,					
-					#EmployeeID#, #DepartmentID#, #MainYn#, #Position#, #StartDate#, #EndDate#
+					GetDate(), #CreateBy#, #CreateByName#,
+					#DepartmentName#, #ParentID#, #UseYn#, #ManagerID#, #StartDate#, #EndDate#
 				)
 			]]>
 			<selectKey type="post" property="ID" resultClass="Int">
@@ -82,25 +87,25 @@
 				]]>
 			</selectKey>
 		</insert>
-		<update id="UpdateBCAppointment" parameterClass="BCAppointment">
+		<update id="UpdateBCDepartmentHist" parameterClass="BCDepartmentHist">
 			<![CDATA[
-				UPDATE  dbo.BCAppointment
+				UPDATE  dbo.BCDepartmentHist
 				SET     UpdateDate		= GetDate()
 					,	UpdateBy		= #UpdateBy#
 					,	UpdateByName	= #UpdateByName#
 					
-					,	EmployeeID		= #EmployeeID#
-					,	DepartmentID	= #DepartmentID#
-					,	MainYn			= #MainYn#
-					,	Position		= #Position#
+					,	DepartmentName	= #DepartmentName#
+					,	ParentID		= #ParentID#
+					,	UseYn			= #UseYn#
+					,	ManagerID		= #ManagerID#
 					,	StartDate		= #StartDate#
 					,	EndDate			= #EndDate#
 				WHERE	ID				= #ID#
 			]]>
 		</update>
-		<delete id="DeleteBCAppointment" parameterClass="DataMap">
+		<delete id="DeleteBCDepartmentHist" parameterClass="DataMap">
 			<![CDATA[
-				DELETE FROM dbo.BCAppointment WHERE ID = #ID#;
+				DELETE FROM dbo.BCDepartmentHist WHERE ID = #ID#;
 			]]>
 		</delete>
 	</statements>

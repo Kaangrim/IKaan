@@ -343,7 +343,7 @@
     <Content Include="Resources\Icons\comment.ico" />
     <Content Include="Resources\Icons\cost.ico" />
     <Content Include="Resources\Icons\featured.ico" />
-    <Content Include="Resources\Icons\icon.ico" />
+    <Content Include="Resources\Icons\logo.ico" />
     <Content Include="Resources\Icons\link.ico" />
     <Content Include="Resources\Icons\logout.ico" />
     <Content Include="Resources\Icons\plus.ico" />

@@ -7,7 +7,41 @@
 	<statements>
 		<select id="SelectBCDepartmentList" parameterClass="DataMap" resultClass="BCDepartment" >
 			<![CDATA[
-				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
+				WITH CTE (ID, HierID, Level, SeqNo)
+				AS
+				(
+					SELECT	AA.ID		as ID
+						,	CAST(RIGHT('0000' + 
+									CONVERT(VARCHAR, ROW_NUMBER() OVER (ORDER BY AA.DepartmentName, AA.ID)), 4) AS VARCHAR(MAX))	AS HierID
+						,	1																			AS Level
+						,	CAST(ROW_NUMBER() OVER (ORDER BY AA.DepartmentName, AA.ID) AS VARCHAR(MAX))	AS SeqNo
+					FROM	dbo.BCDepartment AA WITH (NOLOCK)
+					WHERE	1=1
+			]]>
+			<isNotEmpty property="ParentID">
+				<![CDATA[
+					And	AA.ID = #ParentID#
+				]]>
+			</isNotEmpty>
+			<isEmpty property="ParentID">
+				<![CDATA[
+					AND	AA.ParentID IS NULL
+				]]>
+			</isEmpty>
+			<![CDATA[
+					UNION ALL
+					SELECT	AA.ID			as ID
+						,	CAST(BB.HierID + 
+								 RIGHT('0000' + CONVERT(VARCHAR, ROW_NUMBER() OVER (ORDER BY AA.DepartmentName, AA.ID)), 4) AS VARCHAR(MAX))	AS HierID
+						,	BB.Level + 1																										AS Level
+						,	CAST(BB.SeqNo + '.' + 
+								 CONVERT(VARCHAR, ROW_NUMBER() OVER (ORDER BY AA.DepartmentName, AA.ID)) AS VARCHAR(MAX))						AS SeqNo
+					FROM	dbo.BCDepartment AA WITH (NOLOCK)
+							INNER JOIN 
+								CTE BB 
+									ON AA.ParentID = BB.ID
+				)
+				SELECT  ROW_NUMBER() OVER (ORDER BY BB.HierID)	AS RowNo
 					,	AA.ID
 					,	AA.CreateDate
 					,	AA.CreateBy
@@ -18,22 +52,27 @@
 					
 					,	AA.DepartmentName
 					,	AA.ParentID
+					,	AA.ManagerID
 					,	AA.UseYn
-					,	AA.EmployeeID
 					
-					,	BB.EmployeeName
+					,	EE.EmployeeName		as ManagerName
 					
-				FROM	IKBIZ.dbo.BCDepartment AA WITH (NOLOCK)
-						INNER JOIN
-							dbo.BCEmployee BB WITH (NOLOCK)
-								ON AA.EmployeeID = BB.ID
-				WHERE	1=1
+					,	BB.HierID
+					,	REPLICATE(' ', (BB.Level -1) * 5) + BB.SeqNo + '. ' + AA.DepartmentName	AS HierName
+					,	BB.Level		
+					
+				FROM	dbo.BCDepartment AA WITH (NOLOCK)
+						INNER JOIN 
+							CTE BB 
+								ON AA.ID = BB.ID
+						LEFT JOIN
+							IKBIZ.dbo.BCEmployee EE WITH (NOLOCK)
+								ON AA.ManagerID = EE.ID
+				WHERE	1=1				
 			]]>
 			<isNotEmpty property="FindText">
 				<![CDATA[
-					AND	(
-							AA.DepartmentName	LIKE '%' + #FindText# + '%'
-						)
+					AND	AA.DepartmentName LIKE '%' + #FindText# + '%'
 				]]>
 			</isNotEmpty>
 			<![CDATA[
@@ -53,9 +92,14 @@
 					,	AA.DepartmentName
 					,	AA.ParentID
 					,	AA.UseYn
-					,	AA.EmployeeID
+					,	AA.ManagerID
+					
+					,	BB.EmployeeName	as ManagerName
 					
 				FROM	dbo.BCDepartment AA WITH (NOLOCK)
+						INNER JOIN
+							dbo.BCEmployee BB WITH (NOLOCK)
+								ON AA.ManagerID = BB.ID
 				WHERE	AA.ID = #ID#
 			]]>
 		</select>
@@ -64,12 +108,12 @@
 				INSERT INTO dbo.BCDepartment
 				( 
 					CreateDate, CreateBy, CreateByName,
-					DepartmentName, ParentID, UseYn, EmployeeID
+					DepartmentName, ParentID, UseYn, ManagerID
 				)
 				VALUES
 				(
 					GetDate(), #CreateBy#, #CreateByName#,
-					#DepartmentName#, #ParentID#, #UseYn#, #EmployeeID#
+					#DepartmentName#, #ParentID#, #UseYn#, #ManagerID#
 				)
 			]]>
 			<selectKey type="post" property="ID" resultClass="Int">
@@ -88,7 +132,7 @@
 					,	DepartmentName	= #DepartmentName#
 					,	ParentID		= #ParentID#
 					,	UseYn			= #UseYn#
-					,	EmployeeID		= #EmployeeID#
+					,	ManagerID		= #ManagerID#
 				WHERE	ID				= #ID#
 			]]>
 		</update>

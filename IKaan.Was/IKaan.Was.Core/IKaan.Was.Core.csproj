@@ -111,7 +111,8 @@
     <EmbeddedResource Include="SqlMaps\BIZ\BC\BCEmployeeSQL.xml" />
     <EmbeddedResource Include="SqlMaps\BIZ\BC\BCDepartmentSQL.xml" />
     <EmbeddedResource Include="SqlMaps\BIZ\BC\BCAppointmentSQL.xml" />
-    <Content Include="SqlMaps\BIZ\BC\CalendarSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\BIZ\BC\BCDepartmentHistSQL.xml" />
+    <Content Include="SqlMaps\SYS\AC\CalendarSQL.xml" />
     <EmbeddedResource Include="SqlMaps\SYS\AC\ACMessageSQL.xml" />
     <EmbeddedResource Include="SqlMaps\SYS\AD\ADTableSQL.xml" />
     <EmbeddedResource Include="SqlMaps\SYS\AC\ACDictionarySQL.xml" />
@@ -147,7 +148,6 @@
     <EmbeddedResource Include="SqlMaps\BIZ\BM\BMChannelManagerSQL.xml" />
     <Content Include="SqlMaps\BIZ\BP\PurchaseSQL.xml" />
     <Content Include="SqlMaps\BIZ\BS\SalesSQL.xml" />
-    <EmbeddedResource Include="SqlMaps\BIZ\BC\BCCodeHelpSQL.xml" />
     <Content Include="SqlMaps\BIZ\Report\ReportSQL.xml" />
   </ItemGroup>
   <ItemGroup>

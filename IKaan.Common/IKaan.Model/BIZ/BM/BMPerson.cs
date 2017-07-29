@@ -34,5 +34,9 @@ namespace IKaan.Model.BIZ.BM
 		[DataMember]
 		[Display(Name = "팩스번호")]
 		public string FaxNo { get; set; }
+
+		[DataMember]
+		[Display(Name = "이미지URL")]
+		public string ImageUrl { get; set; }
 	}
 }
