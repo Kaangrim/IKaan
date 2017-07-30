@@ -31,6 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DevExpress.Data.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Printing.v17.1.Core, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Utils.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraEditors.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraGrid.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
@@ -47,6 +48,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BC\BCAppointmentForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BC\BCAppointmentForm.Designer.cs">
+      <DependentUpon>BCAppointmentForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="BC\BCEmployeeForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -149,6 +156,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="BC\BCAppointmentForm.resx">
+      <DependentUpon>BCAppointmentForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="BC\BCEmployeeForm.resx">
       <DependentUpon>BCEmployeeForm.cs</DependentUpon>
     </EmbeddedResource>

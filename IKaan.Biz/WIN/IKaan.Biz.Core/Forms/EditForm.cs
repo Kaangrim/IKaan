@@ -992,7 +992,7 @@ namespace IKaan.Biz.Core.Forms
 					(x => 
 						x.Name.StartsWith("lcItem") && 
 						x.Control != null && 
-						x.Control.Name.EndsWith(prop.Name) &&
+						x.Control.Name.Remove(0, 3).Equals(prop.Name) &&
 						(
 							x.Parent == null || 
 							(
@@ -1049,7 +1049,7 @@ namespace IKaan.Biz.Core.Forms
 					(x =>
 						x.Name.StartsWith("lcItem") &&
 						x.Control != null &&
-						x.Control.Name.EndsWith(prop.Name) &&
+						x.Control.Name.Remove(0, 3).Equals(prop.Name) &&
 						(
 							x.Parent == null ||
 							(
@@ -1132,7 +1132,7 @@ namespace IKaan.Biz.Core.Forms
 					(x =>
 						x.Name.StartsWith("lcItem") &&
 						x.Control != null &&
-						x.Control.Name.EndsWith(prop.Name) &&
+						x.Control.Name.Remove(0, 3).Equals(prop.Name) &&
 						(
 							x.Parent == null ||
 							(

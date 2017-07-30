@@ -33,6 +33,10 @@ namespace IKaan.Model.BIZ.BC
 		public DateTime? EndDate { get; set; }
 
 		[DataMember]
+		[Display(Name = "설명")]
+		public string Description { get; set; }
+
+		[DataMember]
 		[Display(Name = "부서명")]
 		public string DepartmentName { get; set; }
 

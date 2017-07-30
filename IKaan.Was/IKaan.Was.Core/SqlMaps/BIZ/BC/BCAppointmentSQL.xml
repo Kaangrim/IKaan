@@ -69,6 +69,7 @@
 					,	AA.Position
 					,	AA.StartDate
 					,	AA.EndDate
+					,	AA.Description
 					
 				FROM	dbo.BCAppointment AA WITH (NOLOCK)
 				WHERE	AA.ID = #ID#
@@ -79,12 +80,12 @@
 				INSERT INTO dbo.BCAppointment
 				( 
 					CreateDate, CreateBy, CreateByName,
-					EmployeeID, DepartmentID, MainYn, Position, StartDate, EndDate
+					EmployeeID, DepartmentID, MainYn, Position, StartDate, EndDate, Description
 				)
 				VALUES
 				(
 					GetDate(), #CreateBy#, #CreateByName#,					
-					#EmployeeID#, #DepartmentID#, #MainYn#, #Position#, #StartDate#, #EndDate#
+					#EmployeeID#, #DepartmentID#, #MainYn#, #Position#, #StartDate#, #EndDate#, #Description#
 				)
 			]]>
 			<selectKey type="post" property="ID" resultClass="Int">
@@ -106,6 +107,7 @@
 					,	Position		= #Position#
 					,	StartDate		= #StartDate#
 					,	EndDate			= #EndDate#
+					,	Description		= #Description#
 				WHERE	ID				= #ID#
 			]]>
 		</update>
@@ -114,5 +116,66 @@
 				DELETE FROM dbo.BCAppointment WHERE ID = #ID#;
 			]]>
 		</delete>
+
+		<select id="SelectBCAppointmentDuplicate" parameterClass="DataMap" resultClass="BCAppointment" >
+			<![CDATA[
+				SELECT  AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.EmployeeID
+					,	AA.DepartmentID
+					,	AA.MainYn
+					,	AA.Position
+					,	AA.StartDate
+					,	AA.EndDate
+					,	AA.Description
+					
+				FROM	dbo.BCAppointment AA WITH (NOLOCK)
+				WHERE	AA.EmployeeID	= #EmployeeID#
+				AND		AA.StartDate	= #StartDate#
+			]]>
+		</select>
+		<select id="SelectBCAppointmentBefore" parameterClass="DataMap" resultClass="BCAppointment" >
+			<![CDATA[
+				SELECT  AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.EmployeeID
+					,	AA.DepartmentID
+					,	AA.MainYn
+					,	AA.Position
+					,	AA.StartDate
+					,	AA.EndDate
+					,	AA.Description
+					
+				FROM	dbo.BCAppointment AA WITH (NOLOCK)
+				WHERE	AA.EmployeeID	= #EmployeeID#
+				AND		AA.StartDate	= (	SELECT	Max(StartDate)
+											FROM	IKBIZ.dbo.BCAppointment
+											WHERE	EmployeeID	= #EmployeeID#
+											AND		StartDate	< #StartDate# )
+			]]>
+		</select>
+		<update id="UpdateBCAppointmentBefore" parameterClass="BCAppointment">
+			<![CDATA[
+				UPDATE  dbo.BCAppointment
+				SET     UpdateDate		= GetDate()
+					,	UpdateBy		= #UpdateBy#
+					,	UpdateByName	= #UpdateByName#
+					
+					,	EndDate			= #EndDate#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
 	</statements>
 </sqlMap>

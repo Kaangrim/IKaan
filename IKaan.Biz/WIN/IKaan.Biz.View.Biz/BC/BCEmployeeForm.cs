@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Windows.Forms;
 using DevExpress.Utils;
-using DevExpress.XtraEditors.Repository;
 using DevExpress.XtraGrid.Views.Grid;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
 using IKaan.Biz.Core.Controls.Grid;
 using IKaan.Biz.Core.Enum;
 using IKaan.Biz.Core.Forms;
-using IKaan.Biz.Core.Helper;
 using IKaan.Biz.Core.Model;
 using IKaan.Biz.Core.Utils;
 using IKaan.Biz.Core.Variables;
@@ -26,11 +24,7 @@ namespace IKaan.Biz.View.Biz.BC
 
 			btnAddLine.Click += delegate (object sender, EventArgs e)
 			{
-				int rowIndex = gridAppointment.AddNewRow();
-				if (rowIndex < 0)
-					return;
-				gridAppointment.SetValue(rowIndex, "EmployeeID", txtID.EditValue);
-				gridAppointment.SetValue(rowIndex, "StatDate", DateTime.Now);
+				ShowAppointmentForm(null);
 			};
 			btnDelLine.Click += delegate (object sender, EventArgs e)
 			{
@@ -134,38 +128,19 @@ namespace IKaan.Biz.View.Biz.BC
 				new XGridColumn() { FieldName = "UpdateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
 				new XGridColumn() { FieldName = "UpdateByName", Width = 80, HorzAlignment = HorzAlignment.Center }
 			);
-			gridAppointment.SetRepositoryItemButtonEdit("DepartmentName");
-			(gridAppointment.MainView.Columns["DepartmentName"].ColumnEdit as RepositoryItemButtonEdit).ButtonClick += delegate (object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
-			{
-				if (e.Button.Kind == DevExpress.XtraEditors.Controls.ButtonPredefines.Ellipsis)
-				{
-					SearchDepartment(null);
-				}
-			};
-			(gridAppointment.MainView.Columns["DepartmentName"].ColumnEdit as RepositoryItemButtonEdit).KeyDown += delegate (object sender, KeyEventArgs e)
-			{
-				if (e.KeyCode == Keys.Enter)
-				{
-					SearchDepartment(new DataMap() { { "FindText", gridAppointment.GetValue(gridAppointment.FocusedRowHandle, "DepartmentName") } });
-				}
-				else if(e.KeyCode== Keys.Delete)
-				{
-					gridAppointment.SetValue(gridAppointment.FocusedRowHandle, "DepartmentID", null);
-					gridAppointment.SetValue(gridAppointment.FocusedRowHandle, "DepartmentName", null);
-				}
-			};
 			gridAppointment.ColumnFix("RowNo");
-			#endregion
-		}
-
-		private void SearchDepartment(DataMap parameter)
-		{
-			DataMap data = CodeHelper.ShowForm("DepartmentList", parameter, null);
-			if (data != null)
+			gridAppointment.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
 			{
-				gridAppointment.SetValue(gridAppointment.FocusedRowHandle, "DepartmentID", data.GetValue("Code"));
-				gridAppointment.SetValue(gridAppointment.FocusedRowHandle, "DepartmentName", data.GetValue("Name"));
-			}
+				if (e.RowHandle < 0)
+					return;
+
+				if (e.Button == MouseButtons.Left && e.Clicks == 2)
+				{
+					GridView view = sender as GridView;
+					ShowAppointmentForm(view.GetRowCellValue(e.RowHandle, "ID"));
+				}
+			};
+			#endregion
 		}
 
 		protected override void LoadForm()
@@ -328,6 +303,26 @@ namespace IKaan.Biz.View.Biz.BC
 			catch(Exception ex)
 			{
 				ShowErrBox(ex);
+			}
+		}
+
+		private void ShowAppointmentForm(object id = null)
+		{
+			using (BCAppointmentForm form = new BCAppointmentForm())
+			{
+				form.Text = "발령등록";
+				form.StartPosition = FormStartPosition.CenterScreen;
+				form.IsLoadingRefresh = true;
+				form.ParamsData = new DataMap()
+				{
+					{ "EmployeeID", txtID.EditValue },
+					{ "ID", id }
+				};
+
+				if (form.ShowDialog() == DialogResult.OK)
+				{
+					DetailDataLoad(txtID.EditValue);
+				}
 			}
 		}
 	}
