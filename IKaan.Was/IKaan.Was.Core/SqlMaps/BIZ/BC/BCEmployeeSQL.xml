@@ -21,19 +21,18 @@
 					,	AA.UseYn
 					,	AA.PersonID
 					
-					,	EE.PersonType
-					,	EE.PersonName
-					,	EE.EngName
-					,	EE.Email
-					,	EE.PhoneNo1
-					,	EE.PhoneNo2
-					,	EE.FaxNo
-					,	EE.ImageUrl
+					,	DD.DepartmentName
+					,	BB.Position
 					
 				FROM	IKBIZ.dbo.BCEmployee AA WITH (NOLOCK)
 						LEFT JOIN
-							dbo.BMPerson EE WITH (NOLOCK)
-								ON AA.PersonID = EE.ID
+							dbo.BCAppointment BB WITH (NOLOCK)
+								ON AA.ID = BB.EmployeeID
+									AND BB.StartDate <= CONVERT(DATETIME, CONVERT(VARCHAR(8), GETDATE(), 112), 112)
+									AND ISNULL(BB.EndDate, CONVERT(DATETIME, '29991231', 112)) >= CONVERT(DATETIME, CONVERT(VARCHAR(8), GETDATE(), 112), 112)
+						LEFT JOIN
+							dbo.BCDepartment DD WITH (NOLOCK)
+								ON BB.DepartmentID = DD.ID
 				WHERE	1=1
 			]]>
 			<isNotEmpty property="FindText">
@@ -46,13 +45,7 @@
 			</isNotEmpty>
 			<isNotEmpty property="DepartmentID">
 				<![CDATA[
-					AND	(
-							AA.ID	IN (SELECT	EmployeeID 
-										FROM	IKBIZ.dbo.BCAppointment
-										WHERE	DepartmentID = #DepartmentID#
-										AND		StartDate	<= CONVERT(DATETIME, CONVERT(VARCHAR(8), GETDATE(), 112), 112)
-										AND		EndDate		>= CONVERT(DATETIME, CONVERT(VARCHAR(8), GETDATE(), 112), 112))
-						)
+					AND	BB.DepartmentID = #DepartmentID#
 				]]>
 			</isNotEmpty>
 			<![CDATA[

@@ -460,14 +460,11 @@ namespace IKaan.Was.Service.BIZ
 						if ((appointment.ID == null && dup.ID != null) || appointment.ID != dup.ID)
 							throw new Exception("이미 동일한 일자에 등록된 내역이 존재합니다.");
 
-						dup.DepartmentID = appointment.DepartmentID;
-						dup.MainYn = appointment.MainYn;
-						dup.Description = appointment.Description;
-						dup.UpdateBy = req.User.UserId;
-						dup.UpdateByName = req.User.UserName;
+						appointment.UpdateBy = req.User.UserId;
+						appointment.UpdateByName = req.User.UserName;
 
-						DaoFactory.InstanceBiz.Update("UpdateBCAppointment", dup);
-						id = dup.ID;
+						DaoFactory.InstanceBiz.Update("UpdateBCAppointment", appointment);
+						id = appointment.ID;
 					}
 					else
 					{

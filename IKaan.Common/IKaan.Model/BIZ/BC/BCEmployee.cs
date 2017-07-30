@@ -26,6 +26,14 @@ namespace IKaan.Model.BIZ.BC
 		public int? PersonID { get; set; }
 
 		[DataMember]
+		[Display(Name = "부서명")]
+		public string DepartmentName { get; set; }
+
+		[DataMember]
+		[Display(Name = "포지션")]
+		public string Position { get; set; }
+
+		[DataMember]
 		[Display(Name = "사람")]
 		public BMPerson Person { get; set; }
 
