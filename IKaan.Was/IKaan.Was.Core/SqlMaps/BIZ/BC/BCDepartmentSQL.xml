@@ -95,11 +95,16 @@
 					,	AA.ManagerID
 					
 					,	BB.EmployeeName	as ManagerName
+					,	DD.StartDate
 					
 				FROM	dbo.BCDepartment AA WITH (NOLOCK)
-						INNER JOIN
+						LEFT JOIN
 							dbo.BCEmployee BB WITH (NOLOCK)
 								ON AA.ManagerID = BB.ID
+						LEFT JOIN
+							IKBIZ.dbo.BCDepartmentHist DD WITH (NOLOCK)
+								ON AA.ID = DD.DepartmentID
+									AND DD.EndDate IS NULL
 				WHERE	AA.ID = #ID#
 			]]>
 		</select>

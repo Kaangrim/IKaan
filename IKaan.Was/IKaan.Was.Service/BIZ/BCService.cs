@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
 using IKaan.Model.BIZ.BC;
+using IKaan.Model.BIZ.BM;
 using IKaan.Model.Was;
 using IKaan.Was.Core.Mappers;
 using IKaan.Was.Service.Utils;
@@ -99,13 +100,10 @@ namespace IKaan.Was.Service.BIZ
 							req.SetData<BCAppointment>();
 							break;
 						case "BCDepartment":
-							req.SetData<BCDepartment>();
-							(req.Data as BCDepartment).Appointments = req.GetList<BCAppointment>();
-							(req.Data as BCDepartment).History = req.GetList<BCDepartmentHist>();
+							req.GetDepartment();
 							break;
 						case "BCEmployee":
-							req.SetData<BCEmployee>();
-							(req.Data as BCEmployee).Appointments = req.GetList<BCAppointment>();
+							req.GetEmployee();
 							break;
 					}
 				}
@@ -172,10 +170,10 @@ namespace IKaan.Was.Service.BIZ
 									req.SaveData<BCAppointment>();
 									break;
 								case "BCDepartment":
-									req.SaveData<BCDepartment>();
+									req.SaveDepartment();
 									break;
 								case "BCEmployee":
-									req.SaveData<BCEmployee>();
+									req.SaveEmployee();
 									break;
 							}
 						}
@@ -273,6 +271,171 @@ namespace IKaan.Was.Service.BIZ
 				request.Error.Number = ex.HResult;
 				request.Error.Message = ex.Message;
 				return request;
+			}
+		}
+
+		private static BCDepartment GetDepartment(this WasRequest req)
+		{
+			try
+			{
+				DataMap parameter = req.Parameter.JsonToAnyType<DataMap>();
+				BCDepartment department = DaoFactory.InstanceBiz.QueryForObject<BCDepartment>("SelectBCDepartment", parameter);
+				if (department != null)
+				{
+					//부서이력
+					parameter = new DataMap() { { "DepartmentID", department.ID } };
+					IList<BCDepartmentHist> history = DaoFactory.InstanceBiz.QueryForList<BCDepartmentHist>("SelectBCDepartmentHistList", parameter);
+					department.History = history;
+
+					//발령정보
+					parameter = new DataMap() { { "DepartmentID", department.ID } };
+					IList<BCAppointment> appointments = DaoFactory.InstanceBiz.QueryForList<BCAppointment>("SelectBCAppointmentList", parameter);
+					department.Appointments = appointments;
+				}
+				req.Data = department;
+				req.Result.Count = 1;
+				return department;
+			}
+			catch
+			{
+				throw;
+			}
+		}
+
+		private static BCEmployee GetEmployee(this WasRequest req)
+		{
+			try
+			{
+				DataMap parameter = req.Parameter.JsonToAnyType<DataMap>();
+				BCEmployee employee = DaoFactory.InstanceBiz.QueryForObject<BCEmployee>("SelectBCEmployee", parameter);
+				if (employee != null)
+				{
+					//사람정보 가져오기
+					parameter = new DataMap() { { "ID", employee.PersonID } };
+					BMPerson person = DaoFactory.InstanceBiz.QueryForObject<BMPerson>("SelectBMPerson", parameter);
+					employee.Person = person;
+
+					//발령정보 가져오기
+					parameter = new DataMap() { { "EmployeeID", employee.ID } };
+					IList<BCAppointment> appointments = DaoFactory.InstanceBiz.QueryForList<BCAppointment>("SelectBCAppointmentList", parameter);
+					employee.Appointments = appointments;
+				}
+				req.Data = employee;
+				req.Result.Count = 1;
+				return employee;
+			}
+			catch
+			{
+				throw;
+			}
+		}
+
+		private static void SaveDepartment(this WasRequest req)
+		{
+			try
+			{
+				BCDepartment department = req.Data.JsonToAnyType<BCDepartment>();
+				department = req.SaveData<BCDepartment>(department);
+				if (department != null)
+				{
+					DataMap parameter = new DataMap()
+					{
+						{ "DepartmentID", department.ID },
+						{ "StartDate", department.StartDate }
+					};
+
+					BCDepartmentHist equal = DaoFactory.InstanceBiz.QueryForObject<BCDepartmentHist>("SelectBCDepartmentHistEqual", parameter);
+					if (equal != null)
+					{
+						//시작일이 동일한 경우 업데이트한다.
+						equal.DepartmentName = department.DepartmentName;
+						equal.ParentID = department.ParentID;
+						equal.ManagerID = department.ManagerID;
+						equal.UpdateBy = req.User.UserId;
+						equal.UpdateByName = req.User.UserName;
+
+						DaoFactory.InstanceBiz.Update("UpdateBCDepartmentHist", equal);
+					}
+					else
+					{
+						//동일 시작일의 데이터가 없는 경우
+						//직전 이력을 찾아서 종료일을 변경한 후 새로운 이력을 저장한다.
+						BCDepartmentHist before = DaoFactory.InstanceBiz.QueryForObject<BCDepartmentHist>("SelectBCDepartmentHistBefore", parameter);
+						if (before != null)
+						{
+							before.EndDate = department.StartDate.Value.AddDays(-1);
+							before.UpdateBy = req.User.UserId;
+							before.UpdateByName = req.User.UserName;
+
+							DaoFactory.InstanceBiz.Update("UpdateBCDepartmentHistBefore", before);
+						}
+
+						//새로운 이력을 저장한다.
+						BCDepartmentHist history = new BCDepartmentHist()
+						{
+							DepartmentID = department.ID,
+							DepartmentName = department.DepartmentName,
+							ParentID = department.ParentID,
+							ManagerID = department.ManagerID,
+							StartDate = department.StartDate,
+							EndDate = null,
+							CreateBy = req.User.UserId,
+							CreateByName = req.User.UserName
+						};
+						DaoFactory.InstanceBiz.Insert("InsertBCDepartmentHist", history);
+					}
+
+					req.Result.Count = 1;
+					req.Result.ReturnValue = department.ID;
+					req.Error.Number = 0;
+				}
+			}
+			catch
+			{
+				throw;
+			}
+		}
+
+		private static void SaveEmployee(this WasRequest req)
+		{
+			try
+			{
+				object personID = null;
+				BCEmployee employee = req.Data.JsonToAnyType<BCEmployee>();
+
+				if (employee != null)
+				{
+					if (employee.Person != null)
+					{
+						if (employee.PersonID != null)
+						{
+							employee.Person.ID = employee.PersonID;
+							employee.Person.UpdateBy = req.User.UserId;
+							employee.Person.UpdateByName = req.User.UserName;
+
+							DaoFactory.InstanceBiz.Update("UpdateBMPerson", employee.Person);
+							personID = employee.PersonID;
+						}
+						else
+						{
+							employee.Person.CreateBy = req.User.UserId;
+							employee.Person.CreateByName = req.User.UserName;
+
+							personID = DaoFactory.InstanceBiz.Insert("InsertBMPerson", employee.Person);
+						}
+					}
+
+					employee.PersonID = personID.ToIntegerNullToNull();
+					employee = req.SaveData<BCEmployee>(employee);
+
+					req.Result.Count = 1;
+					req.Result.ReturnValue = employee.ID;
+					req.Error.Number = 0;
+				}
+			}
+			catch
+			{
+				throw;
 			}
 		}
 	}

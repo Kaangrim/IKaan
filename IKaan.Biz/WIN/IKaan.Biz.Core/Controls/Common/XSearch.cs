@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
 using DevExpress.XtraEditors;
@@ -110,9 +109,9 @@ namespace IKaan.Biz.Core.Controls.Common
 
 		private void Initialize()
 		{
-			CodeGroup = "CODES";
-			CodeField = "CODE";
-			NameField = "NAME";
+			CodeGroup = "Codes";
+			CodeField = "Code";
+			NameField = "Name";
 			DisplayFields = new string[] { CodeField, NameField };
 			Text = "코드검색";
 			txtCodeId.SetEnable(false);

@@ -36,6 +36,9 @@ namespace IKaan.Biz.View.Biz.BC
 		{
 			base.InitControls();
 
+			lcItemDepartmentName.Tag = true;
+			lcItemStartDate.Tag = true;
+
 			SetFieldNames();
 
 			txtID.SetEnable(false);
@@ -47,6 +50,8 @@ namespace IKaan.Biz.View.Biz.BC
 			lupFindDepartment.BindData("DepartmentList", "All");
 			lupParentID.BindData("DepartmentList", "Root");
 			txtEmployeeID.CodeGroup = "EmployeeList";
+
+			datStartDate.Init(CalendarViewType.DayView);
 
 			InitGrid();
 		}
@@ -90,14 +95,16 @@ namespace IKaan.Biz.View.Biz.BC
 			};
 			#endregion
 
-			#region Appointment
-			gridAppointment.Init();
-			gridAppointment.AddGridColumns(
+			#region History
+			gridHistory.Init();
+			gridHistory.AddGridColumns(
 				new XGridColumn() { FieldName = "RowNo" },
 				new XGridColumn() { FieldName = "ID", Visible = false },
 				new XGridColumn() { FieldName = "DepartmentID", Visible = false },
-				new XGridColumn() { FieldName = "EmployeeID", Visible = false },
-				new XGridColumn() { FieldName = "EmployeeName", Width = 100, HorzAlignment = HorzAlignment.Center },
+				new XGridColumn() { FieldName = "DepartmentName", Width = 150 },
+				new XGridColumn() { FieldName = "ParentID", Visible = false },
+				new XGridColumn() { FieldName = "ManagerID", Visible = false },
+				new XGridColumn() { FieldName = "ManagerName", Width = 100 },
 				new XGridColumn() { FieldName = "StartDate", Width = 80, HorzAlignment = HorzAlignment.Center },
 				new XGridColumn() { FieldName = "EndDate", Width = 80, HorzAlignment = HorzAlignment.Center },
 				new XGridColumn() { FieldName = "CreateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
@@ -105,7 +112,7 @@ namespace IKaan.Biz.View.Biz.BC
 				new XGridColumn() { FieldName = "UpdateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
 				new XGridColumn() { FieldName = "UpdateByName", Width = 80, HorzAlignment = HorzAlignment.Center }
 			);
-			gridAppointment.ColumnFix("RowNo");
+			gridHistory.ColumnFix("RowNo");
 			#endregion
 
 			#region Appointment
@@ -136,6 +143,8 @@ namespace IKaan.Biz.View.Biz.BC
 		protected override void DataInit()
 		{
 			ClearControlData<BCDepartment>();
+			gridHistory.Clear<BCDepartmentHist>();
+			gridAppointment.Clear<BCAppointment>();
 
 			SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true });
 			EditMode = EditModeEnum.New;
@@ -165,6 +174,12 @@ namespace IKaan.Biz.View.Biz.BC
 					throw new Exception("조회할 데이터가 없습니다.");
 
 				SetControlData(model);
+
+				if (model != null)
+				{
+					gridHistory.DataSource = model.History;
+					gridAppointment.DataSource = model.Appointments;
+				}
 
 				SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true, Delete = true });
 				this.EditMode = EditModeEnum.Modify;

@@ -16,29 +16,20 @@
 					,	AA.UpdateBy
 					,	AA.UpdateByName
 					
-					,	AA.StartDate
-					,	AA.EndDate
+					,	AA.DepartmentID
 					,	AA.DepartmentName
 					,	AA.ParentID
-					,	AA.UseYn
 					,	AA.ManagerID
+					,	AA.StartDate
+					,	AA.EndDate
 					
-					,	BB.EmployeeName	aa ManagerName
+					,	EE.EmployeeName	as ManagerName
 					
 				FROM	IKBIZ.dbo.BCDepartmentHist AA WITH (NOLOCK)
-						INNER JOIN
-							dbo.BCEmployee BB WITH (NOLOCK)
-								ON AA.ManagerID = BB.ID
-				WHERE	1=1
-			]]>
-			<isNotEmpty property="FindText">
-				<![CDATA[
-					AND	(
-							AA.DepartmentName	LIKE '%' + #FindText# + '%'
-						)
-				]]>
-			</isNotEmpty>
-			<![CDATA[
+						LEFT JOIN
+							dbo.BCEmployee EE WITH (NOLOCK)
+								ON AA.ManagerID = EE.ID
+				WHERE	AA.DepartmentID = #DepartmentID#
 				ORDER BY RowNo
 			]]>
 		</select>
@@ -52,19 +43,14 @@
 					,	AA.UpdateBy
 					,	AA.UpdateByName
 					
-					,	AA.StartDate
-					,	AA.EndDate
+					,	AA.DepartmentID
 					,	AA.DepartmentName
 					,	AA.ParentID
-					,	AA.UseYn
 					,	AA.ManagerID
-					
-					,	BB.EmployeeName	aa ManagerName
+					,	AA.StartDate
+					,	AA.EndDate
 					
 				FROM	dbo.BCDepartmentHist AA WITH (NOLOCK)
-						INNER JOIN
-							dbo.BCEmployee BB WITH (NOLOCK)
-								ON AA.ManagerID = BB.ID
 				WHERE	AA.ID = #ID#
 			]]>
 		</select>
@@ -73,12 +59,12 @@
 				INSERT INTO dbo.BCDepartmentHist
 				( 
 					CreateDate, CreateBy, CreateByName,
-					DepartmentName, ParentID, UseYn, ManagerID, StartDate, EndDate
+					DepartmentID, DepartmentName, ParentID, ManagerID, StartDate, EndDate
 				)
 				VALUES
 				(
 					GetDate(), #CreateBy#, #CreateByName#,
-					#DepartmentName#, #ParentID#, #UseYn#, #ManagerID#, #StartDate#, #EndDate#
+					#DepartmentID#, #DepartmentName#, #ParentID#, #ManagerID#, #StartDate#, #EndDate#
 				)
 			]]>
 			<selectKey type="post" property="ID" resultClass="Int">
@@ -94,9 +80,9 @@
 					,	UpdateBy		= #UpdateBy#
 					,	UpdateByName	= #UpdateByName#
 					
+					,	DepartmentID	= #DepartmentID#
 					,	DepartmentName	= #DepartmentName#
 					,	ParentID		= #ParentID#
-					,	UseYn			= #UseYn#
 					,	ManagerID		= #ManagerID#
 					,	StartDate		= #StartDate#
 					,	EndDate			= #EndDate#
@@ -108,5 +94,64 @@
 				DELETE FROM dbo.BCDepartmentHist WHERE ID = #ID#;
 			]]>
 		</delete>
+
+		<select id="SelectBCDepartmentHistEqual" parameterClass="DataMap" resultClass="BCDepartmentHist" >
+			<![CDATA[
+				SELECT  AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.DepartmentID
+					,	AA.DepartmentName
+					,	AA.ParentID
+					,	AA.ManagerID
+					,	AA.StartDate
+					,	AA.EndDate
+					
+				FROM	dbo.BCDepartmentHist AA WITH (NOLOCK)
+				WHERE	AA.DepartmentID = #DepartmentID#
+				AND		AA.StartDate	= #StartDate#
+			]]>
+		</select>
+		<select id="SelectBCDepartmentHistBefore" parameterClass="DataMap" resultClass="BCDepartmentHist" >
+			<![CDATA[
+				SELECT  AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.DepartmentID
+					,	AA.DepartmentName
+					,	AA.ParentID
+					,	AA.ManagerID
+					,	AA.StartDate
+					,	AA.EndDate
+					
+				FROM	dbo.BCDepartmentHist AA WITH (NOLOCK)
+				WHERE	AA.DepartmentID = #DepartmentID#
+				AND		AA.StartDate	= (	SELECT	MAX(StartDate)
+											FROM	IKBIZ.dbo.BCDepartmentHist
+											WHERE	DepartmentID	= #DepartmentID#
+											AND		StartDate		< #StartDate# )
+			]]>
+		</select>
+		<update id="UpdateBCDepartmentHistBefore" parameterClass="BCDepartmentHist">
+			<![CDATA[
+				UPDATE  dbo.BCDepartmentHist
+				SET     UpdateDate		= GetDate()
+					,	UpdateBy		= #UpdateBy#
+					,	UpdateByName	= #UpdateByName#
+					
+					,	EndDate			= #EndDate#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
 	</statements>
 </sqlMap>

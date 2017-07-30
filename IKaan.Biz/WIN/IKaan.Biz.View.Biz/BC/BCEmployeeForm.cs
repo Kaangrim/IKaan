@@ -1,16 +1,19 @@
 ﻿using System;
 using System.Windows.Forms;
 using DevExpress.Utils;
+using DevExpress.XtraEditors.Repository;
 using DevExpress.XtraGrid.Views.Grid;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
 using IKaan.Biz.Core.Controls.Grid;
 using IKaan.Biz.Core.Enum;
 using IKaan.Biz.Core.Forms;
+using IKaan.Biz.Core.Helper;
 using IKaan.Biz.Core.Model;
-using IKaan.Biz.Core.PostCode;
 using IKaan.Biz.Core.Utils;
+using IKaan.Biz.Core.Variables;
 using IKaan.Biz.Core.Was.Handler;
+using IKaan.Model.BIZ.BC;
 using IKaan.Model.BIZ.BM;
 
 namespace IKaan.Biz.View.Biz.BC
@@ -21,21 +24,24 @@ namespace IKaan.Biz.View.Biz.BC
 		{
 			InitializeComponent();
 
-			txtPostalCode.ButtonClick += delegate (object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
+			btnAddLine.Click += delegate (object sender, EventArgs e)
 			{
-				if (e.Button.Kind == DevExpress.XtraEditors.Controls.ButtonPredefines.Ellipsis)
-				{
-					PostalCode data = SearchPostCode.Find();
-					if (data != null)
-					{
-						if (data.PostalNo.IsNullOrEmpty())
-							txtPostalCode.EditValue = data.ZoneCode;
-						else
-							txtPostalCode.EditValue = data.ZoneCode + "(" + data.PostalNo + ")";
-						txtAddressLine1.EditValue = data.Address1;
-						txtAddressLine2.EditValue = data.Address2;
-					}
-				}
+				int rowIndex = gridAppointment.AddNewRow();
+				if (rowIndex < 0)
+					return;
+				gridAppointment.SetValue(rowIndex, "EmployeeID", txtID.EditValue);
+				gridAppointment.SetValue(rowIndex, "StatDate", DateTime.Now);
+			};
+			btnDelLine.Click += delegate (object sender, EventArgs e)
+			{
+				int rowIndex = gridAppointment.FocusedRowHandle;
+				if (rowIndex < 0)
+					return;
+
+				if (gridAppointment.GetValue(rowIndex, "ID") == null)
+					gridAppointment.MainView.DeleteRow(rowIndex);
+				else
+					DataDeleteAppointment();
 			};
 		}
 
@@ -54,6 +60,9 @@ namespace IKaan.Biz.View.Biz.BC
 		{
 			base.InitControls();
 
+			lcItemEmployeeNo.Tag = true;
+			lcItemEmployeeName.Tag = true;
+
 			SetFieldNames();
 
 			txtID.SetEnable(false);
@@ -61,15 +70,12 @@ namespace IKaan.Biz.View.Biz.BC
 			txtCreateByName.SetEnable(false);
 			txtUpdateDate.SetEnable(false);
 			txtUpdateByName.SetEnable(false);
+			txtPersonID.SetEnable(false);
+			txtImageUrl.SetEnable(false);
 
-			InitCombo();
+			lupFindDepartment.BindData("DepartmentList", "All");
+
 			InitGrid();
-		}
-
-		void InitCombo()
-		{
-			lupFindCountry.BindData("Country", "All");
-			lupCountry.BindData("Country");
 		}
 
 		void InitGrid()
@@ -79,17 +85,17 @@ namespace IKaan.Biz.View.Biz.BC
 			gridList.AddGridColumns(
 				new XGridColumn() { FieldName = "RowNo", Width = 40 },
 				new XGridColumn() { FieldName = "ID", Visible = false },
-				new XGridColumn() { FieldName = "CountryName", Width = 150 },
-				new XGridColumn() { FieldName = "PostalCode", Width = 100 },
-				new XGridColumn() { FieldName = "AddressLine1", Width = 150 },
-				new XGridColumn() { FieldName = "AddressLine2", Width = 150 },
-				new XGridColumn() { FieldName = "City", Width = 100 },
-				new XGridColumn() { FieldName = "StateProvince", Width = 100 },
+				new XGridColumn() { FieldName = "EmployeeName", Width = 100 },
+				new XGridColumn() { FieldName = "EmployeeNo", Width = 100 },
+				new XGridColumn() { FieldName = "DepartmentName", Width = 150 },
+				new XGridColumn() { FieldName = "Position", Width = 100 },
+				new XGridColumn() { FieldName = "UseYn", Width = 80, HorzAlignment = HorzAlignment.Center },
 				new XGridColumn() { FieldName = "CreateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
 				new XGridColumn() { FieldName = "CreateByName", Width = 80, HorzAlignment = HorzAlignment.Center },
 				new XGridColumn() { FieldName = "UpdateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
 				new XGridColumn() { FieldName = "UpdateByName", Width = 80, HorzAlignment = HorzAlignment.Center }
 			);
+			gridList.SetRepositoryItemCheckEdit("UseYn");
 			gridList.ColumnFix("RowNo");
 
 			gridList.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
@@ -111,6 +117,55 @@ namespace IKaan.Biz.View.Biz.BC
 				}
 			};
 			#endregion
+
+			#region Appointment List
+			gridAppointment.Init();
+			gridAppointment.AddGridColumns(
+				new XGridColumn() { FieldName = "RowNo", Width = 40 },
+				new XGridColumn() { FieldName = "ID", Visible = false },
+				new XGridColumn() { FieldName = "EmployeeID", Visible = false },
+				new XGridColumn() { FieldName = "DepartmentID", Visible = false },
+				new XGridColumn() { FieldName = "StartDate", Width = 80, HorzAlignment = HorzAlignment.Center },
+				new XGridColumn() { FieldName = "EndDate", Width = 80, HorzAlignment = HorzAlignment.Center },
+				new XGridColumn() { FieldName = "DepartmentName", Width = 150 },
+				new XGridColumn() { FieldName = "Position", Width = 100 },
+				new XGridColumn() { FieldName = "CreateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
+				new XGridColumn() { FieldName = "CreateByName", Width = 80, HorzAlignment = HorzAlignment.Center },
+				new XGridColumn() { FieldName = "UpdateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
+				new XGridColumn() { FieldName = "UpdateByName", Width = 80, HorzAlignment = HorzAlignment.Center }
+			);
+			gridAppointment.SetRepositoryItemButtonEdit("DepartmentName");
+			(gridAppointment.MainView.Columns["DepartmentName"].ColumnEdit as RepositoryItemButtonEdit).ButtonClick += delegate (object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
+			{
+				if (e.Button.Kind == DevExpress.XtraEditors.Controls.ButtonPredefines.Ellipsis)
+				{
+					SearchDepartment(null);
+				}
+			};
+			(gridAppointment.MainView.Columns["DepartmentName"].ColumnEdit as RepositoryItemButtonEdit).KeyDown += delegate (object sender, KeyEventArgs e)
+			{
+				if (e.KeyCode == Keys.Enter)
+				{
+					SearchDepartment(new DataMap() { { "FindText", gridAppointment.GetValue(gridAppointment.FocusedRowHandle, "DepartmentName") } });
+				}
+				else if(e.KeyCode== Keys.Delete)
+				{
+					gridAppointment.SetValue(gridAppointment.FocusedRowHandle, "DepartmentID", null);
+					gridAppointment.SetValue(gridAppointment.FocusedRowHandle, "DepartmentName", null);
+				}
+			};
+			gridAppointment.ColumnFix("RowNo");
+			#endregion
+		}
+
+		private void SearchDepartment(DataMap parameter)
+		{
+			DataMap data = CodeHelper.ShowForm("DepartmentList", parameter, null);
+			if (data != null)
+			{
+				gridAppointment.SetValue(gridAppointment.FocusedRowHandle, "DepartmentID", data.GetValue("Code"));
+				gridAppointment.SetValue(gridAppointment.FocusedRowHandle, "DepartmentName", data.GetValue("Name"));
+			}
 		}
 
 		protected override void LoadForm()
@@ -121,19 +176,32 @@ namespace IKaan.Biz.View.Biz.BC
 
 		protected override void DataInit()
 		{
-			ClearControlData<BMAddress>();
+			ClearControlData<BCEmployee>();
+
+			txtEngName.Clear();
+			txtEmail.Clear();
+			txtPhoneNo1.Clear();
+			txtPhoneNo2.Clear();
+			txtFaxNo.Clear();
+			picImage.EditValue = null;
+			txtImageUrl.Clear();
+
+			gridAppointment.Clear<BCAppointment>();
+
+			btnAddLine.Enabled =
+				btnDelLine.Enabled = false;
 
 			SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true });
 			EditMode = EditModeEnum.New;
-			lupCountry.Focus();
+			txtEmployeeNo.Focus();
 		}
 
 		protected override void DataLoad(object param = null)
 		{
-			gridList.BindList<BMAddress>("BM", "GetList", "Select", new DataMap()
+			gridList.BindList<BCEmployee>("BC", "GetList", "Select", new DataMap()
 			{
 				{ "FindText", txtFindText.EditValue },
-				{ "BizType", lupFindCountry.EditValue }
+				{ "DepartmentID", lupFindDepartment.EditValue }
 			});
 
 			if (param != null)
@@ -146,15 +214,30 @@ namespace IKaan.Biz.View.Biz.BC
 		{
 			try
 			{
-				var model = WasHandler.GetData<BMAddress>("BM", "GetData", "Select", new DataMap() { { "ID", id } });
+				var model = WasHandler.GetData<BCEmployee>("BC", "GetData", "Select", new DataMap() { { "ID", id } });
 				if (model == null)
 					throw new Exception("조회할 데이터가 없습니다.");
 
 				SetControlData(model);
+				if (model.Person == null)
+					model.Person = new BMPerson();
+
+				picImage.LoadAsync(ConstsVar.IMG_URL + model.Person.ImageUrl);
+				txtImageUrl.EditValue = model.Person.ImageUrl;
+				txtEngName.EditValue = model.Person.EngName;
+				txtEmail.EditValue = model.Person.Email;
+				txtPhoneNo1.EditValue = model.Person.PhoneNo1;
+				txtPhoneNo2.EditValue = model.Person.PhoneNo2;
+				txtFaxNo.EditValue = model.Person.FaxNo;
+
+				gridAppointment.DataSource = model.Appointments;
+
+				btnAddLine.Enabled = true;
+				btnDelLine.Enabled = true;
 
 				SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true, Delete = true });
 				this.EditMode = EditModeEnum.Modify;
-				lupCountry.Focus();
+				txtEmployeeNo.Focus();
 
 			}
 			catch(Exception ex)
@@ -167,8 +250,22 @@ namespace IKaan.Biz.View.Biz.BC
 		{
 			try
 			{
-				var model = this.GetControlData<BMAddress>();
-				using (var res = WasHandler.Execute<BMAddress>("BM", "Save", (this.EditMode == EditModeEnum.New) ? "Insert" : "Update", model, "ID"))
+				if (DataValidate() == false) return;
+
+				var model = this.GetControlData<BCEmployee>();
+				model.Person = new BMPerson()
+				{
+					PersonType = "",
+					PersonName = txtEmployeeName.EditValue.ToString(),
+					EngName = txtEngName.EditValue.ToStringNullToEmpty(),
+					Email = txtEmail.EditValue.ToStringNullToEmpty(),
+					PhoneNo1 = txtPhoneNo1.EditValue.ToStringNullToEmpty(),
+					PhoneNo2 = txtPhoneNo2.EditValue.ToStringNullToEmpty(),
+					FaxNo = txtFaxNo.EditValue.ToStringNullToEmpty(),
+					ImageUrl = txtImageUrl.EditValue.ToStringNullToEmpty()
+				};
+
+				using (var res = WasHandler.Execute<BCEmployee>("BC", "Save", (this.EditMode == EditModeEnum.New) ? "Insert" : "Update", model, "ID"))
 				{
 					if (res.Error.Number != 0)
 						throw new Exception(res.Error.Message);
@@ -187,8 +284,12 @@ namespace IKaan.Biz.View.Biz.BC
 		{
 			try
 			{
-				DataMap map = new DataMap() { { "ID", txtID.EditValue } };
-				using (var res = WasHandler.Execute<DataMap>("BM", "Delete", "DeleteBMAddress", map, "ID"))
+				DataMap map = new DataMap()
+				{
+					{ "ID", txtID.EditValue },
+					{ "PersonID", txtPersonID.EditValue }
+				};
+				using (var res = WasHandler.Execute<DataMap>("BC", "Delete", "DeleteBCEmployee", map, "ID"))
 				{
 					if (res.Error.Number != 0)
 						throw new Exception(res.Error.Message);
@@ -198,6 +299,33 @@ namespace IKaan.Biz.View.Biz.BC
 				}
 			}
 			catch (Exception ex)
+			{
+				ShowErrBox(ex);
+			}
+		}
+
+		private void DataDeleteAppointment()
+		{
+			try
+			{
+				if (gridAppointment.FocusedRowHandle < 0)
+					throw new Exception("처리할 건이 없습니다.");
+
+				object id = gridAppointment.GetValue(gridAppointment.FocusedRowHandle, "ID");
+				DataMap map = new DataMap()
+				{
+					{ "ID", id }
+				};
+				using (var res = WasHandler.Execute<DataMap>("BC", "Delete", "DeleteBCAppointment", map, "ID"))
+				{
+					if (res.Error.Number != 0)
+						throw new Exception(res.Error.Message);
+
+					ShowMsgBox("삭제하였습니다.");
+					DetailDataLoad(txtID.EditValue);
+				}
+			}
+			catch(Exception ex)
 			{
 				ShowErrBox(ex);
 			}

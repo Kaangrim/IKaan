@@ -21,19 +21,19 @@
 					,	AA.UseYn
 					,	AA.PersonID
 					
-					,	BB.PersonType
-					,	BB.PersonName
-					,	BB.EngName
-					,	BB.Email
-					,	BB.PhoneNo1
-					,	BB.PhoneNo2
-					,	BB.FaxNo
-					,	BB.ImageUrl
+					,	EE.PersonType
+					,	EE.PersonName
+					,	EE.EngName
+					,	EE.Email
+					,	EE.PhoneNo1
+					,	EE.PhoneNo2
+					,	EE.FaxNo
+					,	EE.ImageUrl
 					
 				FROM	IKBIZ.dbo.BCEmployee AA WITH (NOLOCK)
-						INNER JOIN
-							dbo.BMPerson BB WITH (NOLOCK)
-								ON EE.PersonID = BB.ID
+						LEFT JOIN
+							dbo.BMPerson EE WITH (NOLOCK)
+								ON AA.PersonID = EE.ID
 				WHERE	1=1
 			]]>
 			<isNotEmpty property="FindText">
@@ -41,6 +41,17 @@
 					AND	(
 							AA.EmployeeNo		LIKE '%' + #FindText# + '%' OR
 							AA.EmployeeName		LIKE '%' + #FindText# + '%'
+						)
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="DepartmentID">
+				<![CDATA[
+					AND	(
+							AA.ID	IN (SELECT	EmployeeID 
+										FROM	IKBIZ.dbo.BCAppointment
+										WHERE	DepartmentID = #DepartmentID#
+										AND		StartDate	<= CONVERT(DATETIME, CONVERT(VARCHAR(8), GETDATE(), 112), 112)
+										AND		EndDate		>= CONVERT(DATETIME, CONVERT(VARCHAR(8), GETDATE(), 112), 112))
 						)
 				]]>
 			</isNotEmpty>
@@ -103,6 +114,7 @@
 		<delete id="DeleteBCEmployee" parameterClass="DataMap">
 			<![CDATA[
 				DELETE FROM dbo.BCEmployee WHERE ID = #ID#;
+				DELETE FROM dbo.BMPerson WHERE ID = #PersonID#;
 			]]>
 		</delete>
 	</statements>

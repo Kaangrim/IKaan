@@ -1088,7 +1088,8 @@ namespace IKaan.Biz.Core.Forms
 					}
 					else if (item.Control.GetType() == typeof(DateEdit))
 					{
-						if (prop.PropertyType == typeof(DateTime))
+						if (prop.PropertyType == typeof(DateTime) ||
+							prop.PropertyType == typeof(DateTime?))
 						{
 							(item.Control as DateEdit).EditValue = value;
 						}
@@ -1194,7 +1195,8 @@ namespace IKaan.Biz.Core.Forms
 						}
 						else
 						{
-							if (prop.PropertyType == typeof(DateTime?) || prop.PropertyType == typeof(DateTime))
+							if (prop.PropertyType == typeof(DateTime?) || 
+								prop.PropertyType == typeof(DateTime))
 								prop.SetValue(data, (item.Control as DateEdit).EditValue);
 							else if (prop.PropertyType == typeof(string))
 								prop.SetValue(data, (item.Control as DateEdit).GetDateChar8());

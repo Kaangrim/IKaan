@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using IKaan.Model.Base;
+using IKaan.Model.BIZ.BM;
 
 namespace IKaan.Model.BIZ.BC
 {
@@ -22,7 +23,11 @@ namespace IKaan.Model.BIZ.BC
 
 		[DataMember]
 		[Display(Name = "사람ID")]
-		public string PersonID { get; set; }
+		public int? PersonID { get; set; }
+
+		[DataMember]
+		[Display(Name = "사람")]
+		public BMPerson Person { get; set; }
 
 		[DataMember]
 		[Display(Name = "발령사항")]
@@ -30,6 +35,7 @@ namespace IKaan.Model.BIZ.BC
 
 		public BCEmployee()
 		{
+			Person = new BMPerson();
 			Appointments = new List<BCAppointment>();
 		}
 	}

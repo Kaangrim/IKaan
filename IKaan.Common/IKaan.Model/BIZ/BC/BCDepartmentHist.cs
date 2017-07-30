@@ -9,6 +9,10 @@ namespace IKaan.Model.BIZ.BC
 	public class BCDepartmentHist : ModelBase
 	{
 		[DataMember]
+		[Display(Name = "부서ID")]
+		public int? DepartmentID { get; set; }
+
+		[DataMember]
 		[Display(Name = "부서명")]
 		public string DepartmentName { get; set; }
 
@@ -17,19 +21,15 @@ namespace IKaan.Model.BIZ.BC
 		public int? ParentID { get; set; }
 
 		[DataMember]
-		[Display(Name = "사용여부")]
-		public string UseYn { get; set; }
-
-		[DataMember]
 		[Display(Name = "부서장ID")]
-		public string ManagerID { get; set; }
+		public int? ManagerID { get; set; }
 
 		[DataMember]
 		[Display(Name = "시작일")]
-		public DateTime StartDate { get; set; }
+		public DateTime? StartDate { get; set; }
 
 		[DataMember]
 		[Display(Name = "종료일")]
-		public DateTime EndDate { get; set; }
+		public DateTime? EndDate { get; set; }
 	}
 }

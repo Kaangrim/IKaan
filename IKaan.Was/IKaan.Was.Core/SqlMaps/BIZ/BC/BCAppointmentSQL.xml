@@ -35,10 +35,17 @@
 								ON AA.EmployeeID = EE.ID
 				WHERE	1=1
 			]]>
-			<isNotEmpty property="FindText">
+			<isNotEmpty property="DepartmentID">
 				<![CDATA[
 					AND	(
-							AA.DepartmentName	LIKE '%' + #FindText# + '%'
+							AA.DepartmentID = #DepartmentID#
+						)
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="EmployeeID">
+				<![CDATA[
+					AND	(
+							AA.EmployeeID = #EmployeeID#
 						)
 				]]>
 			</isNotEmpty>
