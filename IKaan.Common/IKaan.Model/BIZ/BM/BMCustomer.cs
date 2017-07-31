@@ -61,6 +61,10 @@ namespace IKaan.Model.BIZ.BM
 		public string AddressLine2 { get; set; }
 
 		[DataMember]
+		[Display(Name = "거래처유형명")]
+		public string CustomerTypeName { get; set; }
+
+		[DataMember]
 		[Display(Name = "거래처, 은행 매핑")]
 		public IList<BMCustomerBank> BankList { get; set; }
 

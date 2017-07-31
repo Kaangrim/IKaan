@@ -21,7 +21,14 @@
 					,	AA.StartDate
 					,	AA.EndDate
 					
+					,	BB.BizNo
+					,	BB.BizName
+					,	BB.RepName
+					
 				FROM	dbo.BMCustomerBusiness AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.BMBusiness BB WITH (NOLOCK)
+								ON AA.BusinessID = BB.ID
 				WHERE	AA.CustomerID = #CustomerID#
 				ORDER BY RowNo
 			]]>
@@ -83,5 +90,82 @@
 				DELETE FROM dbo.BMCustomerBusiness WHERE ID = #ID#;
 			]]>
 		</delete>
+
+		<select id="SelectBMCustomerBusinessDuplicate" parameterClass="DataMap" resultClass="BMCustomerBusiness" >
+			<![CDATA[
+				SELECT  AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.CustomerID
+					,	AA.BusinessID
+					,	AA.StartDate
+					,	AA.EndDate
+					
+				FROM	dbo.BMCustomerBusiness AA WITH (NOLOCK)
+				WHERE	AA.CustomerID	= #CustomerID#
+				AND		AA.StartDate	= #StartDate# 
+			]]>
+		</select>
+		<select id="SelectBMCustomerBusinessBefore" parameterClass="DataMap" resultClass="BMCustomerBusiness" >
+			<![CDATA[
+				SELECT  AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.CustomerID
+					,	AA.BusinessID
+					,	AA.StartDate
+					,	AA.EndDate
+					
+				FROM	dbo.BMCustomerBusiness AA WITH (NOLOCK)
+				WHERE	AA.CustomerID	= #CustomerID#
+				AND		AA.StartDate	= (	SELECT	MAX(StartDate)
+											FROM	DBO.BMCustomerBusiness
+											WHERE	CustomerID	= #CustomerID#
+											AND		StartDate	< #StartDate# )
+			]]>
+		</select>
+		<select id="SelectBMCustomerBusinessAfter" parameterClass="DataMap" resultClass="BMCustomerBusiness" >
+			<![CDATA[
+				SELECT  AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.CustomerID
+					,	AA.BusinessID
+					,	AA.StartDate
+					,	AA.EndDate
+					
+				FROM	dbo.BMCustomerBusiness AA WITH (NOLOCK)
+				WHERE	AA.CustomerID	= #CustomerID#
+				AND		AA.StartDate	= (	SELECT	MIN(StartDate)
+											FROM	DBO.BMCustomerBusiness
+											WHERE	CustomerID	= #CustomerID#
+											AND		StartDate	> #StartDate# )
+			]]>
+		</select>
+		<update id="UpdateBMCustomerBusinessEndDate" parameterClass="BMCustomerBusiness">
+			<![CDATA[
+				UPDATE  dbo.BMCustomerBusiness
+				SET     UpdateDate		= GetDate()
+					,	UpdateBy		= #UpdateBy#
+					,	UpdateByName	= #UpdateByName#					
+					,	EndDate			= #EndDate#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
 	</statements>
 </sqlMap>

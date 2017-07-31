@@ -4,6 +4,7 @@ using IKaan.Base.Utils;
 using IKaan.Biz.Core.Enum;
 using IKaan.Biz.Core.Forms;
 using IKaan.Biz.Core.Model;
+using IKaan.Biz.Core.PostCode;
 using IKaan.Biz.Core.Utils;
 using IKaan.Biz.Core.Was.Handler;
 using IKaan.Model.BIZ.BM;
@@ -15,7 +16,26 @@ namespace IKaan.Biz.View.Biz.BM
 		public BMCustomerBusinessForm ()
 		{
 			InitializeComponent();
+
+			txtBizNo.ButtonClick += delegate (object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
+			{
+				
+			};
+			txtPostalCode.ButtonClick += delegate (object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
+			{
+				if(e.Button.Kind== DevExpress.XtraEditors.Controls.ButtonPredefines.Ellipsis)
+				{
+					var data = SearchPostCode.Find();
+					if (data != null)
+					{
+						txtPostalCode.EditValue = data.ZoneCode + "(" + data.PostalNo + ")";
+						txtAddressLine1.EditValue = data.Address1;
+						txtAddressLine2.EditValue = data.Address2;
+					}
+				}
+			};
 		}
+
 		protected override void OnShown(EventArgs e)
 		{
 			base.OnShown(e);
@@ -43,6 +63,10 @@ namespace IKaan.Biz.View.Biz.BM
 
 			datStartDate.Init(CalendarViewType.DayView);
 
+			lupBizType.BindData("BizType");
+			lupCountry.BindData("Country");
+			lupStatus.BindData("BizStatus");
+
 			txtCustomerID.EditValue = (this.ParamsData as DataMap).GetValue("CustomerID");
 			txtCustomerID.EditText = (this.ParamsData as DataMap).GetValue("CustomerName");
 		}
@@ -56,7 +80,7 @@ namespace IKaan.Biz.View.Biz.BM
 
 			try
 			{
-				DataMap parameter = new DataMap() { { "ID", (param as DataMap).GetValue("ID") } };
+				DataMap parameter = new DataMap(){ { "ID", (param as DataMap).GetValue("ID") } };
 				var model = WasHandler.GetData<BMCustomerBusiness>("BM", "GetData", "Select", parameter);
 				if (model == null)
 					throw new Exception("조회할 데이터가 없습니다.");
@@ -120,6 +144,7 @@ namespace IKaan.Biz.View.Biz.BM
 				model.Business = new BMBusiness()
 				{
 					ID = model.BusinessID,
+					BizType = lupBizType.EditValue.ToStringNullToNull(),
 					BizNo = txtBizNo.EditValue.ToStringNullToNull(),
 					BizName = txtBizName.EditValue.ToStringNullToNull(),
 					RepName = txtRepName.EditValue.ToStringNullToNull(),

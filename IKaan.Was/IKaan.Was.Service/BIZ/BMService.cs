@@ -52,6 +52,9 @@ namespace IKaan.Was.Service.BIZ
 						case "BMSearchBrand":
 							req.SetList<BMSearchBrand>();
 							break;
+						case "BMCustomer":
+							req.SetList<BMCustomer>();
+							break;
 					}
 				}
 
@@ -137,6 +140,12 @@ namespace IKaan.Was.Service.BIZ
 							break;
 						case "BMSearchBrand":
 							req.SetData<BMSearchBrand>();
+							break;
+						case "BMCustomer":
+							req.GetCustomer();
+							break;
+						case "BMCustomerBusiness":
+							req.GetCustomerBusiness();
 							break;
 					}
 				}
@@ -225,6 +234,12 @@ namespace IKaan.Was.Service.BIZ
 									break;
 								case "BMSearchBrand":
 									req.SaveData<BMSearchBrand>();
+									break;
+								case "BMCustomer":
+									req.SaveCustomer();
+									break;
+								case "BMCustomerBusiness":
+									req.SaveCustomerBusiness();
 									break;
 							}
 						}
@@ -322,6 +337,152 @@ namespace IKaan.Was.Service.BIZ
 				request.Error.Number = ex.HResult;
 				request.Error.Message = ex.Message;
 				return request;
+			}
+		}
+
+		public static WasRequest SavePersonImageUrl(WasRequest request)
+		{
+			bool isTran = false;
+
+			try
+			{
+				if (request == null || (request.Data == null && request.SqlId.IsNullOrEmpty()))
+					throw new Exception("처리요청이 없습니다.");
+
+				bool isOneRequest = true;
+				List<WasRequest> list = new List<WasRequest>();
+				if (request.Data != null && request.Data.GetType() == typeof(JArray))
+				{
+					list = request.Data.JsonToAnyType<List<WasRequest>>();
+					isOneRequest = false;
+				}
+				else
+				{
+					list.Add(request);
+				}
+
+				if (request.IsTransaction)
+				{
+					DaoFactory.InstanceBiz.BeginTransaction();
+					isTran = true;
+				}
+
+				try
+				{
+					//테이블
+					if (list.Count > 0)
+					{
+						foreach (WasRequest req in list)
+						{
+							if (req.Data == null)
+								throw new Exception("저장할 데이터가 존재하지 않습니다.");
+
+							DataMap parameter = req.Data.JsonToAnyType<DataMap>();
+							DaoFactory.InstanceBiz.Update("UpdateBMPersonImageUrl", parameter);
+						}
+					}
+
+					if (isTran)
+						DaoFactory.InstanceBiz.CommitTransaction();
+				}
+				catch (Exception ex)
+				{
+					if (isTran)
+						DaoFactory.InstanceBiz.RollBackTransaction();
+
+					throw new Exception(ex.Message);
+				}
+
+				if (isOneRequest)
+				{
+					request = list[0];
+				}
+				else
+				{
+					request.Data = list;
+				}
+
+				return request;
+			}
+			catch (Exception ex)
+			{
+				request.Error.Number = ex.HResult;
+				request.Error.Message = ex.Message;
+				return request;
+			}
+		}
+
+		private static BMCustomer GetCustomer(this WasRequest req)
+		{
+			try
+			{
+				DataMap parameter = req.Parameter.JsonToAnyType<DataMap>();
+				BMCustomer customer = DaoFactory.InstanceBiz.QueryForObject<BMCustomer>("SelectBMCustomer", parameter);
+				if (customer != null)
+				{
+					parameter = new DataMap() { { "CustomerID", customer.ID } };
+
+					//주소
+					customer.AddressList = DaoFactory.InstanceBiz.QueryForList<BMCustomerAddress>("SelectBMCustomerAddressList", parameter);
+					if (customer.AddressList == null)
+						customer.AddressList = new List<BMCustomerAddress>();
+
+					//계좌
+					customer.BankList = DaoFactory.InstanceBiz.QueryForList<BMCustomerBank>("SelectBMCustomerBankList", parameter);
+					if (customer.BankList == null)
+						customer.BankList = new List<BMCustomerBank>();
+
+					//사업자
+					customer.BusinessList = DaoFactory.InstanceBiz.QueryForList<BMCustomerBusiness>("SelectBMCustomerBusinessList", parameter);
+					if (customer.BusinessList == null)
+						customer.BusinessList = new List<BMCustomerBusiness>();
+
+					//브랜드
+					customer.BrandList = DaoFactory.InstanceBiz.QueryForList<BMCustomerBrand>("SelectBMCustomerBrandList", parameter);
+					if (customer.BrandList == null)
+						customer.BrandList = new List<BMCustomerBrand>();
+
+					//채널
+					customer.ChannelList = DaoFactory.InstanceBiz.QueryForList<BMCustomerChannel>("SelectBMCustomerChannelList", parameter);
+					if (customer.ChannelList == null)
+						customer.ChannelList = new List<BMCustomerChannel>();
+				}
+				req.Data = customer;
+				req.Result.Count = 1;
+				return customer;
+			}
+			catch
+			{
+				throw;
+			}
+		}
+
+		private static BMCustomerBusiness GetCustomerBusiness(this WasRequest req)
+		{
+			try
+			{
+				DataMap parameter = req.Parameter.JsonToAnyType<DataMap>();
+				BMCustomerBusiness customer = DaoFactory.InstanceBiz.QueryForObject<BMCustomerBusiness>("SelectBMCustomerBusiness", parameter);
+				if (customer != null)
+				{
+					//사업자
+					parameter = new DataMap() { { "ID", customer.BusinessID } };
+					customer.Business = DaoFactory.InstanceBiz.QueryForObject<BMBusiness>("SelectBMBusiness", parameter);
+
+					//주소
+					if (customer.Business != null)
+					{
+						parameter = new DataMap() { { "ID", customer.Business.AddressID } };
+						customer.Business.Address = DaoFactory.InstanceBiz.QueryForObject<BMAddress>("SelectBMAddress", parameter);
+					}
+				}
+				req.Data = customer;
+				req.Result.Count = 1;
+				return customer;
+			}
+			catch
+			{
+				throw;
 			}
 		}
 
@@ -688,75 +849,252 @@ namespace IKaan.Was.Service.BIZ
 			req.SaveData<BMBusiness>(model);
 		}
 
-		public static WasRequest SavePersonImageUrl(WasRequest request)
+		private static void SaveCustomer(this WasRequest req)
 		{
-			bool isTran = false;
-
 			try
 			{
-				if (request == null || (request.Data == null && request.SqlId.IsNullOrEmpty()))
-					throw new Exception("처리요청이 없습니다.");
+				BMCustomer customer = req.Data.JsonToAnyType<BMCustomer>();
+				customer = req.SaveData<BMCustomer>(customer);
 
-				bool isOneRequest = true;
-				List<WasRequest> list = new List<WasRequest>();
-				if (request.Data != null && request.Data.GetType() == typeof(JArray))
+				if (customer != null)
 				{
-					list = request.Data.JsonToAnyType<List<WasRequest>>();
-					isOneRequest = false;
-				}
-				else
-				{
-					list.Add(request);
-				}
-
-				if (request.IsTransaction)
-				{
-					DaoFactory.InstanceBiz.BeginTransaction();
-					isTran = true;
-				}
-
-				try
-				{
-					//테이블
-					if (list.Count > 0)
+					//거래처 주소
+					if (customer.AddressList != null && customer.AddressList.Count > 0)
 					{
-						foreach (WasRequest req in list)
+						foreach (var data in customer.AddressList)
 						{
-							if (req.Data == null)
-								throw new Exception("저장할 데이터가 존재하지 않습니다.");
+							if (data.ID == null || data.ID == default(int))
+							{
+								data.CustomerID = customer.ID;
+								data.CreateBy = req.User.UserId;
+								data.CreateByName = req.User.UserName;
 
-							DataMap parameter = req.Data.JsonToAnyType<DataMap>();
-							DaoFactory.InstanceBiz.Update("UpdateBMPersonImageUrl", parameter);
+								DaoFactory.InstanceBiz.Insert("InsertBMCustomerAddress", data);
+							}
+							else
+							{
+								if (data.Modified)
+								{
+									data.UpdateBy = req.User.UserId;
+									data.UpdateByName = req.User.UserName;
+
+									DaoFactory.InstanceBiz.Update("UpdateBMCustomerAddress", data);
+								}
+							}
 						}
 					}
 
-					if (isTran)
-						DaoFactory.InstanceBiz.CommitTransaction();
-				}
-				catch (Exception ex)
-				{
-					if (isTran)
-						DaoFactory.InstanceBiz.RollBackTransaction();
+					//거래처 계좌정보
+					if (customer.BankList != null && customer.BankList.Count > 0)
+					{
+						foreach (var data in customer.BankList)
+						{
+							if (data.ID == null || data.ID == default(int))
+							{
+								data.CustomerID = customer.ID;
+								data.CreateBy = req.User.UserId;
+								data.CreateByName = req.User.UserName;
 
-					throw new Exception(ex.Message);
-				}
+								DaoFactory.InstanceBiz.Insert("InsertBMCustomerBank", data);
+							}
+							else
+							{
+								if (data.Modified)
+								{
+									data.UpdateBy = req.User.UserId;
+									data.UpdateByName = req.User.UserName;
 
-				if (isOneRequest)
-				{
-					request = list[0];
-				}
-				else
-				{
-					request.Data = list;
-				}
+									DaoFactory.InstanceBiz.Update("UpdateBMCustomerBank", data);
+								}
+							}
+						}
+					}
 
-				return request;
+					//거래처 브랜드
+					if (customer.BrandList != null && customer.BrandList.Count > 0)
+					{
+						foreach (var data in customer.BrandList)
+						{
+							if (data.ID == null || data.ID == default(int))
+							{
+								data.CustomerID = customer.ID;
+								data.CreateBy = req.User.UserId;
+								data.CreateByName = req.User.UserName;
+
+								DaoFactory.InstanceBiz.Insert("InsertBMCustomerBrand", data);
+							}
+							else
+							{
+								if (data.Modified)
+								{
+									data.UpdateBy = req.User.UserId;
+									data.UpdateByName = req.User.UserName;
+
+									DaoFactory.InstanceBiz.Update("UpdateBMCustomerBrand", data);
+								}
+							}
+						}
+					}
+
+					//거래처 채널
+					if (customer.ChannelList != null && customer.ChannelList.Count > 0)
+					{
+						foreach (var data in customer.ChannelList)
+						{
+							if (data.ID == null || data.ID == default(int))
+							{
+								data.CustomerID = customer.ID;
+								data.CreateBy = req.User.UserId;
+								data.CreateByName = req.User.UserName;
+
+								DaoFactory.InstanceBiz.Insert("InsertBMCustomerChannel", data);
+							}
+							else
+							{
+								if (data.Modified)
+								{
+									data.UpdateBy = req.User.UserId;
+									data.UpdateByName = req.User.UserName;
+
+									DaoFactory.InstanceBiz.Update("UpdateBMCustomerChannel", data);
+								}
+							}
+						}
+					}
+
+					req.Result.Count = 1;
+					req.Result.ReturnValue = customer.ID;
+					req.Error.Number = 0;
+				}
 			}
-			catch (Exception ex)
+			catch
 			{
-				request.Error.Number = ex.HResult;
-				request.Error.Message = ex.Message;
-				return request;
+				throw;
+			}
+		}
+
+		private static void SaveCustomerBusiness(this WasRequest req)
+		{
+			try
+			{
+				object customerId = null;
+				object addressId = null;
+				object businessId = null;
+
+				BMCustomerBusiness customer = req.Data.JsonToAnyType<BMCustomerBusiness>();
+				if (customer != null)
+				{
+					if (customer.Business != null)
+					{
+						if (customer.Business.Address != null)
+						{
+							if (customer.Business.AddressID.IsNullOrDefault())
+							{
+								customer.Business.Address.CreateBy = req.User.UserId;
+								customer.Business.Address.CreateByName = req.User.UserName;
+
+								addressId = DaoFactory.InstanceBiz.Insert("InsertBMAddress", customer.Business.Address);
+								customer.Business.Address.ID = addressId.ToIntegerNullToNull();
+								customer.Business.AddressID = customer.Business.Address.ID;
+							}
+							else
+							{
+								customer.Business.Address.ID = customer.Business.AddressID;
+								customer.Business.Address.UpdateBy = req.User.UserId;
+								customer.Business.Address.UpdateByName = req.User.UserName;
+
+								DaoFactory.InstanceBiz.Update("UpdateBMAddress", customer.Business.Address);
+							}
+						}
+
+						if (customer.BusinessID.IsNullOrDefault())
+						{
+							customer.Business.CreateBy = req.User.UserId;
+							customer.Business.CreateByName = req.User.UserName;
+
+							businessId = DaoFactory.InstanceBiz.Insert("InsertBMBusiness", customer.Business);
+							customer.Business.ID = businessId.ToIntegerNullToNull();
+							customer.BusinessID = customer.Business.ID;
+						}
+						else
+						{
+							customer.Business.UpdateBy = req.User.UserId;
+							customer.Business.UpdateByName = req.User.UserName;
+
+							DaoFactory.InstanceBiz.Update("UpdateBMBusiness", customer.Business);
+						}
+					}
+
+					//시작일, 종료일 이력을 체크하여 저장한다.
+					//이력이 변경되는 건인 경우에는 직전 이력의 종료일을 -1로 설정한다.
+					//직후 이력이 존재하는 경우에는 저장하는 데이터의 종료일을 직후 이력의 시작일 -1로 설정한다.
+					DataMap map = new DataMap()
+					{
+						{ "CustomerID", customer.CustomerID },
+						{ "StartDate", customer.StartDate }
+					};
+
+					BMCustomerBusiness dup = DaoFactory.InstanceBiz.QueryForObject<BMCustomerBusiness>("SelectBMCustomerBusinessDuplicate", map);
+					if (dup != null)
+					{
+						if (customer.ID.IsNullOrDefault())
+						{
+							throw new Exception("동일 시작일로 등록된 데이터가 존재합니다.");
+						}
+						else
+						{
+							if (customer.ID != dup.ID)
+								throw new Exception("동일 시작일로 등록된 데이터가 존재합니다.");
+
+							customer.UpdateBy = req.User.UserId;
+							customer.UpdateByName = req.User.UserName;
+
+							DaoFactory.InstanceBiz.Update("UpdateBMCustomerBusiness", customer);
+						}
+					}
+					else
+					{
+						var before = DaoFactory.InstanceBiz.QueryForObject<BMCustomerBusiness>("SelectBMCustomerBusinessBefore", map);
+						if (before != null)
+						{
+							before.UpdateBy = req.User.UserId;
+							before.UpdateByName = req.User.UserName;
+							before.EndDate = customer.StartDate.Value.AddDays(-1);
+
+							DaoFactory.InstanceBiz.Update("UpdateBMCustomerBusinessEndDate", before);
+						}
+
+						var after = DaoFactory.InstanceBiz.QueryForObject<BMCustomerBusiness>("SelectBMCustomerBusinessAfter", map);
+						if (after != null)
+						{
+							customer.EndDate = after.StartDate.Value.AddDays(-1);
+						}
+
+						if (customer.ID.IsNullOrDefault())
+						{
+							customer.CreateBy = req.User.UserId;
+							customer.CreateByName = req.User.UserName;
+
+							customerId = DaoFactory.InstanceBiz.Insert("InsertBMCustomerBusiness", customer);
+							customer.ID = customerId.ToIntegerNullToNull();
+						}
+						else
+						{
+							customer.UpdateBy = req.User.UserId;
+							customer.UpdateByName = req.User.UserName;
+
+							DaoFactory.InstanceBiz.Update("UpdateBMCustomerBusiness", customer);
+						}
+					}
+
+					req.Result.Count = 1;
+					req.Result.ReturnValue = customer.ID;
+					req.Error.Number = 0;
+				}
+			}
+			catch
+			{
+				throw;
 			}
 		}
 	}

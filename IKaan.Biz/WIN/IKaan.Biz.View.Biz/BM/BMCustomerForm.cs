@@ -178,6 +178,7 @@ namespace IKaan.Biz.View.Biz.BM
 			gridAddress.Init();
 			gridAddress.AddGridColumns(
 				new XGridColumn() { FieldName = "RowNo" },
+				new XGridColumn() { FieldName = "Modified", Visible = false },
 				new XGridColumn() { FieldName = "ID", Visible = false },
 				new XGridColumn() { FieldName = "CustomerID", Visible = false },
 				new XGridColumn() { FieldName = "AddressID", Visible = false },
@@ -209,12 +210,14 @@ namespace IKaan.Biz.View.Biz.BM
 					}
 				}
 			};
+			gridAddress.CellValueChanged += this.GridCellValueChanged;
 			#endregion
 
 			#region Channel List
 			gridChannel.Init();
 			gridChannel.AddGridColumns(
 				new XGridColumn() { FieldName = "RowNo" },
+				new XGridColumn() { FieldName = "Modified", Visible = false },
 				new XGridColumn() { FieldName = "ID", Visible = false },
 				new XGridColumn() { FieldName = "CustomerID", Visible = false },
 				new XGridColumn() { FieldName = "ChannelID", Visible = false },
@@ -256,6 +259,7 @@ namespace IKaan.Biz.View.Biz.BM
 			gridBank.Init();
 			gridBank.AddGridColumns(
 				new XGridColumn() { FieldName = "RowNo" },
+				new XGridColumn() { FieldName = "Modified", Visible = false },
 				new XGridColumn() { FieldName = "ID", Visible = false },
 				new XGridColumn() { FieldName = "CustomerID", Visible = false },
 				new XGridColumn() { FieldName = "BankName", Width = 150 },
@@ -277,6 +281,7 @@ namespace IKaan.Biz.View.Biz.BM
 			gridBrand.Init();
 			gridBrand.AddGridColumns(
 				new XGridColumn() { FieldName = "RowNo" },
+				new XGridColumn() { FieldName = "Modified", Visible = false },
 				new XGridColumn() { FieldName = "ID", Visible = false },
 				new XGridColumn() { FieldName = "CustomerID", Visible = false },
 				new XGridColumn() { FieldName = "BrandID", Visible = false },
@@ -296,6 +301,18 @@ namespace IKaan.Biz.View.Biz.BM
 			#endregion
 		}
 
+		private void GridCellValueChanged(object sender, DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs e)
+		{
+			if (e.RowHandle < 0)
+				return;
+
+			GridView view = sender as GridView;
+			if (gridAddress.GetValue(e.RowHandle, e.Column.FieldName).ToStringNullToEmpty() != view.GetRowCellValue(e.RowHandle, e.Column.FieldName).ToStringNullToEmpty())
+			{
+				view.SetRowCellValue(e.RowHandle, "Modified", true);
+			}
+		}
+
 		protected override void LoadForm()
 		{
 			base.LoadForm();
@@ -312,15 +329,11 @@ namespace IKaan.Biz.View.Biz.BM
 			gridBrand.Clear<BMCustomerBrand>();
 			gridChannel.Clear<BMCustomerChannel>();
 
-			btnAddAddress.Enabled =
-				btnDelAddress.Enabled = false;
-			btnAddBrand.Enabled =
-				btnDelBrand.Enabled = false;
+			btnDelAddress.Enabled = false;
+			btnDelBrand.Enabled = false;
 			btnAddBusiness.Enabled = false;
-			btnAddBank.Enabled =
-				btnDelBank.Enabled = false;
-			btnAddChannel.Enabled =
-				btnDelChannel.Enabled = false;
+			btnDelBank.Enabled = false;
+			btnDelChannel.Enabled = false;
 
 			SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true });
 			EditMode = EditModeEnum.New;
@@ -372,6 +385,16 @@ namespace IKaan.Biz.View.Biz.BM
 				gridBrand.DataSource = model.BrandList;
 				gridBusiness.DataSource = model.BusinessList;
 				gridChannel.DataSource = model.ChannelList;
+
+				btnAddBusiness.Enabled = true;
+				if (gridAddress.RowCount > 0)
+					btnDelAddress.Enabled = true;
+				if (gridBank.RowCount > 0)
+					btnDelBank.Enabled = true;
+				if (gridBrand.RowCount > 0)
+					btnDelBrand.Enabled = true;
+				if (gridChannel.RowCount > 0)
+					btnDelChannel.Enabled = true;
 
 				SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true, Delete = true });
 				this.EditMode = EditModeEnum.Modify;

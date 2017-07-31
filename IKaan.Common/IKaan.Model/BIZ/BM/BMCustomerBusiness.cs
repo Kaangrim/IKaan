@@ -25,6 +25,18 @@ namespace IKaan.Model.BIZ.BM
 		public DateTime? EndDate { get; set; }
 
 		[DataMember]
+		[Display(Name = "사업자번호")]
+		public string BizNo { get; set; }
+
+		[DataMember]
+		[Display(Name = "상호")]
+		public string BizName { get; set; }
+
+		[DataMember]
+		[Display(Name = "대표자")]
+		public string RepName { get; set; }
+
+		[DataMember]
 		[Display(Name = "사업자정보")]
 		public BMBusiness Business { get; set; }
 	}

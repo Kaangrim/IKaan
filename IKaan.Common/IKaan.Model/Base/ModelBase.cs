@@ -8,6 +8,10 @@ namespace IKaan.Model.Base
 	public class ModelBase: IModelBase
 	{
 		[DataMember]
+		[Display(Name = "변경여부")]
+		public bool Modified { get; set; }
+
+		[DataMember]
 		[Display(Name = "선택여부")]
 		public string Checked { get; set; }
 

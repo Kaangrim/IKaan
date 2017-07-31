@@ -22,6 +22,8 @@
 					,	AA.UseYn
 					,	AA.Description
 					
+					,	M1.Name			as CustomerTypeName
+					
 				FROM	dbo.BMCustomer AA WITH (NOLOCK)
 						LEFT JOIN
 							IKBAS.dbo.ACCode M1 WITH (NOLOCK)

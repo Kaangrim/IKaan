@@ -186,6 +186,24 @@ namespace IKaan.Base.Utils
 			return string.IsNullOrEmpty(obj.ToStringNullToEmpty());
 		}
 
+		public static bool IsNullOrDefault(this object obj)
+		{
+			if (obj == null)
+				return true;
+
+			if (obj.GetType() == typeof(int) || obj.GetType() == typeof(int?))
+			{
+				if (obj.ToIntegerNullToNull() == null || obj.ToIntegerNullToNull() == default(int))
+					return true;
+				else
+					return false;
+			}
+			else
+			{
+				return false;
+			}
+		}
+
 		public static DataTable ToEmptyDataTable(Dictionary<string, Type> columns)
 		{
 			var dt = new DataTable();

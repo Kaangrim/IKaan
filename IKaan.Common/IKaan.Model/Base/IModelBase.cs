@@ -4,6 +4,7 @@ namespace IKaan.Model.Base
 {
 	public interface IModelBase
 	{
+		bool Modified { get; set; }
 		string Checked { get; set; }
 		int? RowNo { get; set; }
 		int? ID { get; set; }
