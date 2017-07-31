@@ -28,7 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions2 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions1 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BCEmployeeForm));
 			this.lcGroupFind = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.lcGroupSearch = new DevExpress.XtraLayout.LayoutControlGroup();
@@ -49,6 +49,20 @@
 			this.txtEmail = new DevExpress.XtraEditors.TextEdit();
 			this.lcItemEmployeeNo = new DevExpress.XtraLayout.LayoutControlItem();
 			this.txtEmployeeNo = new DevExpress.XtraEditors.TextEdit();
+			this.lcItemImage = new DevExpress.XtraLayout.LayoutControlItem();
+			this.picImage = new DevExpress.XtraEditors.PictureEdit();
+			this.lcItemFaxNo = new DevExpress.XtraLayout.LayoutControlItem();
+			this.txtFaxNo = new DevExpress.XtraEditors.TextEdit();
+			this.lcItemPhoneNo1 = new DevExpress.XtraLayout.LayoutControlItem();
+			this.txtPhoneNo1 = new DevExpress.XtraEditors.TextEdit();
+			this.lcItemPhoneNo2 = new DevExpress.XtraLayout.LayoutControlItem();
+			this.txtPhoneNo2 = new DevExpress.XtraEditors.TextEdit();
+			this.lcItemImageUrl = new DevExpress.XtraLayout.LayoutControlItem();
+			this.txtImageUrl = new DevExpress.XtraEditors.TextEdit();
+			this.lcItemUseYn = new DevExpress.XtraLayout.LayoutControlItem();
+			this.chkUseYn = new DevExpress.XtraEditors.CheckEdit();
+			this.lcItemPersonID = new DevExpress.XtraLayout.LayoutControlItem();
+			this.txtPersonID = new DevExpress.XtraEditors.TextEdit();
 			this.splitterItem1 = new DevExpress.XtraLayout.SplitterItem();
 			this.lcGroupRegInfo = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.lcItemCreateDate = new DevExpress.XtraLayout.LayoutControlItem();
@@ -64,26 +78,16 @@
 			this.lcGroupEdit2 = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
 			this.gridAppointment = new IKaan.Biz.Core.Controls.Grid.XGrid();
-			this.picImage = new DevExpress.XtraEditors.PictureEdit();
-			this.lcItemImage = new DevExpress.XtraLayout.LayoutControlItem();
-			this.txtFaxNo = new DevExpress.XtraEditors.TextEdit();
-			this.lcItemFaxNo = new DevExpress.XtraLayout.LayoutControlItem();
-			this.txtPhoneNo1 = new DevExpress.XtraEditors.TextEdit();
-			this.lcItemPhoneNo1 = new DevExpress.XtraLayout.LayoutControlItem();
-			this.txtPhoneNo2 = new DevExpress.XtraEditors.TextEdit();
-			this.lcItemPhoneNo2 = new DevExpress.XtraLayout.LayoutControlItem();
-			this.txtImageUrl = new DevExpress.XtraEditors.TextEdit();
-			this.lcItemImageUrl = new DevExpress.XtraLayout.LayoutControlItem();
-			this.chkUseYn = new DevExpress.XtraEditors.CheckEdit();
-			this.lcItemUseYn = new DevExpress.XtraLayout.LayoutControlItem();
-			this.txtPersonID = new DevExpress.XtraEditors.TextEdit();
-			this.lcItemPersonID = new DevExpress.XtraLayout.LayoutControlItem();
-			this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
 			this.lcGroupEdit2Buttons = new DevExpress.XtraLayout.LayoutControlGroup();
-			this.btnAddLine = new DevExpress.XtraEditors.SimpleButton();
+			this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
 			this.lcButtonAddLine = new DevExpress.XtraLayout.LayoutControlItem();
-			this.btnDelLine = new DevExpress.XtraEditors.SimpleButton();
+			this.btnAddLine = new DevExpress.XtraEditors.SimpleButton();
 			this.lcButtonDelLine = new DevExpress.XtraLayout.LayoutControlItem();
+			this.btnDelLine = new DevExpress.XtraEditors.SimpleButton();
+			this.btnUploadImage = new DevExpress.XtraEditors.SimpleButton();
+			this.lcButtonUpload = new DevExpress.XtraLayout.LayoutControlItem();
+			this.btnDeleteImage = new DevExpress.XtraEditors.SimpleButton();
+			this.lcButtonDeleteImage = new DevExpress.XtraLayout.LayoutControlItem();
 			((System.ComponentModel.ISupportInitialize)(this.lc)).BeginInit();
 			this.lc.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupBase)).BeginInit();
@@ -105,6 +109,20 @@
 			((System.ComponentModel.ISupportInitialize)(this.txtEmail.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemEmployeeNo)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.txtEmployeeNo.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemImage)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.picImage.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemFaxNo)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtFaxNo.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemPhoneNo1)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtPhoneNo1.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemPhoneNo2)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtPhoneNo2.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemImageUrl)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtImageUrl.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemUseYn)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.chkUseYn.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemPersonID)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtPersonID.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.splitterItem1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupRegInfo)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemCreateDate)).BeginInit();
@@ -119,28 +137,18 @@
 			((System.ComponentModel.ISupportInitialize)(this.lcTab)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupEdit2)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.picImage.Properties)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemImage)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.txtFaxNo.Properties)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemFaxNo)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.txtPhoneNo1.Properties)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemPhoneNo1)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.txtPhoneNo2.Properties)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemPhoneNo2)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.txtImageUrl.Properties)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemImageUrl)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.chkUseYn.Properties)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemUseYn)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.txtPersonID.Properties)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemPersonID)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupEdit2Buttons)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcButtonAddLine)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcButtonDelLine)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcButtonUpload)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcButtonDeleteImage)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// lc
 			// 
+			this.lc.Controls.Add(this.btnDeleteImage);
+			this.lc.Controls.Add(this.btnUploadImage);
 			this.lc.Controls.Add(this.btnDelLine);
 			this.lc.Controls.Add(this.btnAddLine);
 			this.lc.Controls.Add(this.txtPersonID);
@@ -165,7 +173,7 @@
 			this.lc.Controls.Add(this.txtFindText);
 			this.lc.Location = new System.Drawing.Point(0, 44);
 			this.lc.Margin = new System.Windows.Forms.Padding(0);
-			this.lc.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new System.Drawing.Rectangle(1061, 367, 457, 350);
+			this.lc.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new System.Drawing.Rectangle(256, 535, 457, 350);
 			this.lc.OptionsView.UseDefaultDragAndDropRendering = false;
 			this.lc.Padding = new System.Windows.Forms.Padding(2);
 			this.lc.Size = new System.Drawing.Size(990, 499);
@@ -188,7 +196,7 @@
 			this.lcGroupFind.Location = new System.Drawing.Point(0, 0);
 			this.lcGroupFind.Name = "lcGroupFind";
 			this.lcGroupFind.Padding = new DevExpress.XtraLayout.Utils.Padding(4, 4, 4, 4);
-			this.lcGroupFind.Size = new System.Drawing.Size(450, 495);
+			this.lcGroupFind.Size = new System.Drawing.Size(451, 495);
 			this.lcGroupFind.Text = "검색";
 			this.lcGroupFind.TextVisible = false;
 			// 
@@ -200,21 +208,21 @@
 			this.lcGroupSearch.Location = new System.Drawing.Point(0, 0);
 			this.lcGroupSearch.Name = "lcGroupSearch";
 			this.lcGroupSearch.Padding = new DevExpress.XtraLayout.Utils.Padding(4, 4, 4, 4);
-			this.lcGroupSearch.Size = new System.Drawing.Size(436, 81);
+			this.lcGroupSearch.Size = new System.Drawing.Size(437, 81);
 			// 
 			// lcItemFindText
 			// 
 			this.lcItemFindText.Control = this.txtFindText;
 			this.lcItemFindText.Location = new System.Drawing.Point(0, 24);
 			this.lcItemFindText.Name = "lcItemFindText";
-			this.lcItemFindText.Size = new System.Drawing.Size(422, 24);
+			this.lcItemFindText.Size = new System.Drawing.Size(423, 24);
 			this.lcItemFindText.TextSize = new System.Drawing.Size(122, 14);
 			// 
 			// txtFindText
 			// 
 			this.txtFindText.Location = new System.Drawing.Point(144, 61);
 			this.txtFindText.Name = "txtFindText";
-			this.txtFindText.Size = new System.Drawing.Size(292, 20);
+			this.txtFindText.Size = new System.Drawing.Size(293, 20);
 			this.txtFindText.StyleController = this.lc;
 			this.txtFindText.TabIndex = 4;
 			// 
@@ -223,7 +231,7 @@
 			this.lcItemFindDepartment.Control = this.lupFindDepartment;
 			this.lcItemFindDepartment.Location = new System.Drawing.Point(0, 0);
 			this.lcItemFindDepartment.Name = "lcItemFindDepartment";
-			this.lcItemFindDepartment.Size = new System.Drawing.Size(422, 24);
+			this.lcItemFindDepartment.Size = new System.Drawing.Size(423, 24);
 			this.lcItemFindDepartment.TextSize = new System.Drawing.Size(122, 14);
 			// 
 			// lupFindDepartment
@@ -236,9 +244,9 @@
 			this.lupFindDepartment.NullText = "[EditValue is null]";
 			this.lupFindDepartment.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions2, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
 			this.lupFindDepartment.SelectedIndex = -1;
-			this.lupFindDepartment.Size = new System.Drawing.Size(292, 20);
+			this.lupFindDepartment.Size = new System.Drawing.Size(293, 20);
 			this.lupFindDepartment.StyleController = this.lc;
 			this.lupFindDepartment.TabIndex = 43;
 			this.lupFindDepartment.ValueMember = "";
@@ -248,7 +256,7 @@
 			this.layoutControlItem3.Control = this.gridList;
 			this.layoutControlItem3.Location = new System.Drawing.Point(0, 81);
 			this.layoutControlItem3.Name = "layoutControlItem3";
-			this.layoutControlItem3.Size = new System.Drawing.Size(436, 400);
+			this.layoutControlItem3.Size = new System.Drawing.Size(437, 400);
 			this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
 			this.layoutControlItem3.TextVisible = false;
 			// 
@@ -273,7 +281,7 @@
 			this.gridList.ReadOnly = false;
 			this.gridList.ShowFooter = false;
 			this.gridList.ShowGroupPanel = false;
-			this.gridList.Size = new System.Drawing.Size(432, 396);
+			this.gridList.Size = new System.Drawing.Size(433, 396);
 			this.gridList.TabIndex = 7;
 			// 
 			// lcGroupEdit1
@@ -285,16 +293,18 @@
             this.lcItemEmail,
             this.lcItemEmployeeNo,
             this.lcItemImage,
-            this.lcItemFaxNo,
             this.lcItemPhoneNo1,
             this.lcItemPhoneNo2,
-            this.lcItemImageUrl,
             this.lcItemUseYn,
-            this.lcItemPersonID});
+            this.lcItemPersonID,
+            this.lcItemFaxNo,
+            this.lcItemImageUrl,
+            this.lcButtonUpload,
+            this.lcButtonDeleteImage});
 			this.lcGroupEdit1.Location = new System.Drawing.Point(0, 0);
 			this.lcGroupEdit1.Name = "lcGroupEdit1";
 			this.lcGroupEdit1.Padding = new DevExpress.XtraLayout.Utils.Padding(4, 4, 4, 4);
-			this.lcGroupEdit1.Size = new System.Drawing.Size(524, 229);
+			this.lcGroupEdit1.Size = new System.Drawing.Size(523, 253);
 			this.lcGroupEdit1.TextVisible = false;
 			// 
 			// lcItemID
@@ -304,14 +314,14 @@
 			this.lcItemID.Control = this.txtID;
 			this.lcItemID.Location = new System.Drawing.Point(0, 0);
 			this.lcItemID.Name = "lcItemID";
-			this.lcItemID.Size = new System.Drawing.Size(236, 24);
+			this.lcItemID.Size = new System.Drawing.Size(235, 24);
 			this.lcItemID.TextSize = new System.Drawing.Size(122, 17);
 			// 
 			// txtID
 			// 
-			this.txtID.Location = new System.Drawing.Point(599, 11);
+			this.txtID.Location = new System.Drawing.Point(600, 11);
 			this.txtID.Name = "txtID";
-			this.txtID.Size = new System.Drawing.Size(106, 20);
+			this.txtID.Size = new System.Drawing.Size(105, 20);
 			this.txtID.StyleController = this.lc;
 			this.txtID.TabIndex = 5;
 			// 
@@ -320,14 +330,14 @@
 			this.lcItemEmployeeName.Control = this.txtEmployeeName;
 			this.lcItemEmployeeName.Location = new System.Drawing.Point(0, 48);
 			this.lcItemEmployeeName.Name = "lcItemEmployeeName";
-			this.lcItemEmployeeName.Size = new System.Drawing.Size(310, 24);
+			this.lcItemEmployeeName.Size = new System.Drawing.Size(309, 24);
 			this.lcItemEmployeeName.TextSize = new System.Drawing.Size(122, 14);
 			// 
 			// txtEmployeeName
 			// 
-			this.txtEmployeeName.Location = new System.Drawing.Point(599, 59);
+			this.txtEmployeeName.Location = new System.Drawing.Point(600, 59);
 			this.txtEmployeeName.Name = "txtEmployeeName";
-			this.txtEmployeeName.Size = new System.Drawing.Size(180, 20);
+			this.txtEmployeeName.Size = new System.Drawing.Size(179, 20);
 			this.txtEmployeeName.StyleController = this.lc;
 			this.txtEmployeeName.TabIndex = 37;
 			// 
@@ -336,14 +346,14 @@
 			this.lcItemEngName.Control = this.txtEngName;
 			this.lcItemEngName.Location = new System.Drawing.Point(0, 72);
 			this.lcItemEngName.Name = "lcItemEngName";
-			this.lcItemEngName.Size = new System.Drawing.Size(310, 24);
+			this.lcItemEngName.Size = new System.Drawing.Size(309, 24);
 			this.lcItemEngName.TextSize = new System.Drawing.Size(122, 14);
 			// 
 			// txtEngName
 			// 
-			this.txtEngName.Location = new System.Drawing.Point(599, 83);
+			this.txtEngName.Location = new System.Drawing.Point(600, 83);
 			this.txtEngName.Name = "txtEngName";
-			this.txtEngName.Size = new System.Drawing.Size(180, 20);
+			this.txtEngName.Size = new System.Drawing.Size(179, 20);
 			this.txtEngName.StyleController = this.lc;
 			this.txtEngName.TabIndex = 39;
 			// 
@@ -352,14 +362,14 @@
 			this.lcItemEmail.Control = this.txtEmail;
 			this.lcItemEmail.Location = new System.Drawing.Point(0, 119);
 			this.lcItemEmail.Name = "lcItemEmail";
-			this.lcItemEmail.Size = new System.Drawing.Size(310, 24);
+			this.lcItemEmail.Size = new System.Drawing.Size(309, 24);
 			this.lcItemEmail.TextSize = new System.Drawing.Size(122, 14);
 			// 
 			// txtEmail
 			// 
-			this.txtEmail.Location = new System.Drawing.Point(599, 130);
+			this.txtEmail.Location = new System.Drawing.Point(600, 130);
 			this.txtEmail.Name = "txtEmail";
-			this.txtEmail.Size = new System.Drawing.Size(180, 20);
+			this.txtEmail.Size = new System.Drawing.Size(179, 20);
 			this.txtEmail.StyleController = this.lc;
 			this.txtEmail.TabIndex = 40;
 			// 
@@ -368,21 +378,143 @@
 			this.lcItemEmployeeNo.Control = this.txtEmployeeNo;
 			this.lcItemEmployeeNo.Location = new System.Drawing.Point(0, 24);
 			this.lcItemEmployeeNo.Name = "lcItemEmployeeNo";
-			this.lcItemEmployeeNo.Size = new System.Drawing.Size(310, 24);
+			this.lcItemEmployeeNo.Size = new System.Drawing.Size(309, 24);
 			this.lcItemEmployeeNo.TextSize = new System.Drawing.Size(122, 14);
 			// 
 			// txtEmployeeNo
 			// 
-			this.txtEmployeeNo.Location = new System.Drawing.Point(599, 35);
+			this.txtEmployeeNo.Location = new System.Drawing.Point(600, 35);
 			this.txtEmployeeNo.Name = "txtEmployeeNo";
-			this.txtEmployeeNo.Size = new System.Drawing.Size(180, 20);
+			this.txtEmployeeNo.Size = new System.Drawing.Size(179, 20);
 			this.txtEmployeeNo.StyleController = this.lc;
 			this.txtEmployeeNo.TabIndex = 35;
+			// 
+			// lcItemImage
+			// 
+			this.lcItemImage.Control = this.picImage;
+			this.lcItemImage.Location = new System.Drawing.Point(309, 0);
+			this.lcItemImage.MaxSize = new System.Drawing.Size(200, 0);
+			this.lcItemImage.MinSize = new System.Drawing.Size(200, 24);
+			this.lcItemImage.Name = "lcItemImage";
+			this.lcItemImage.Size = new System.Drawing.Size(200, 213);
+			this.lcItemImage.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
+			this.lcItemImage.TextSize = new System.Drawing.Size(0, 0);
+			this.lcItemImage.TextVisible = false;
+			// 
+			// picImage
+			// 
+			this.picImage.Cursor = System.Windows.Forms.Cursors.Default;
+			this.picImage.Location = new System.Drawing.Point(783, 11);
+			this.picImage.Name = "picImage";
+			this.picImage.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.Auto;
+			this.picImage.Properties.SizeMode = DevExpress.XtraEditors.Controls.PictureSizeMode.Squeeze;
+			this.picImage.Properties.ZoomAccelerationFactor = 1D;
+			this.picImage.Size = new System.Drawing.Size(196, 209);
+			this.picImage.StyleController = this.lc;
+			this.picImage.TabIndex = 45;
+			// 
+			// lcItemFaxNo
+			// 
+			this.lcItemFaxNo.Control = this.txtFaxNo;
+			this.lcItemFaxNo.Location = new System.Drawing.Point(0, 191);
+			this.lcItemFaxNo.Name = "lcItemFaxNo";
+			this.lcItemFaxNo.Size = new System.Drawing.Size(309, 24);
+			this.lcItemFaxNo.TextSize = new System.Drawing.Size(122, 14);
+			// 
+			// txtFaxNo
+			// 
+			this.txtFaxNo.Location = new System.Drawing.Point(600, 202);
+			this.txtFaxNo.Name = "txtFaxNo";
+			this.txtFaxNo.Size = new System.Drawing.Size(179, 20);
+			this.txtFaxNo.StyleController = this.lc;
+			this.txtFaxNo.TabIndex = 46;
+			// 
+			// lcItemPhoneNo1
+			// 
+			this.lcItemPhoneNo1.Control = this.txtPhoneNo1;
+			this.lcItemPhoneNo1.Location = new System.Drawing.Point(0, 143);
+			this.lcItemPhoneNo1.Name = "lcItemPhoneNo1";
+			this.lcItemPhoneNo1.Size = new System.Drawing.Size(309, 24);
+			this.lcItemPhoneNo1.TextSize = new System.Drawing.Size(122, 14);
+			// 
+			// txtPhoneNo1
+			// 
+			this.txtPhoneNo1.Location = new System.Drawing.Point(600, 154);
+			this.txtPhoneNo1.Name = "txtPhoneNo1";
+			this.txtPhoneNo1.Size = new System.Drawing.Size(179, 20);
+			this.txtPhoneNo1.StyleController = this.lc;
+			this.txtPhoneNo1.TabIndex = 47;
+			// 
+			// lcItemPhoneNo2
+			// 
+			this.lcItemPhoneNo2.Control = this.txtPhoneNo2;
+			this.lcItemPhoneNo2.Location = new System.Drawing.Point(0, 167);
+			this.lcItemPhoneNo2.Name = "lcItemPhoneNo2";
+			this.lcItemPhoneNo2.Size = new System.Drawing.Size(309, 24);
+			this.lcItemPhoneNo2.TextSize = new System.Drawing.Size(122, 14);
+			// 
+			// txtPhoneNo2
+			// 
+			this.txtPhoneNo2.Location = new System.Drawing.Point(600, 178);
+			this.txtPhoneNo2.Name = "txtPhoneNo2";
+			this.txtPhoneNo2.Size = new System.Drawing.Size(179, 20);
+			this.txtPhoneNo2.StyleController = this.lc;
+			this.txtPhoneNo2.TabIndex = 48;
+			// 
+			// lcItemImageUrl
+			// 
+			this.lcItemImageUrl.Control = this.txtImageUrl;
+			this.lcItemImageUrl.Location = new System.Drawing.Point(0, 215);
+			this.lcItemImageUrl.Name = "lcItemImageUrl";
+			this.lcItemImageUrl.Size = new System.Drawing.Size(309, 24);
+			this.lcItemImageUrl.TextSize = new System.Drawing.Size(122, 14);
+			// 
+			// txtImageUrl
+			// 
+			this.txtImageUrl.Location = new System.Drawing.Point(600, 226);
+			this.txtImageUrl.Name = "txtImageUrl";
+			this.txtImageUrl.Size = new System.Drawing.Size(179, 20);
+			this.txtImageUrl.StyleController = this.lc;
+			this.txtImageUrl.TabIndex = 49;
+			// 
+			// lcItemUseYn
+			// 
+			this.lcItemUseYn.Control = this.chkUseYn;
+			this.lcItemUseYn.Location = new System.Drawing.Point(0, 96);
+			this.lcItemUseYn.Name = "lcItemUseYn";
+			this.lcItemUseYn.Size = new System.Drawing.Size(309, 23);
+			this.lcItemUseYn.TextSize = new System.Drawing.Size(122, 14);
+			// 
+			// chkUseYn
+			// 
+			this.chkUseYn.Location = new System.Drawing.Point(600, 107);
+			this.chkUseYn.Name = "chkUseYn";
+			this.chkUseYn.Properties.Caption = "";
+			this.chkUseYn.Size = new System.Drawing.Size(179, 19);
+			this.chkUseYn.StyleController = this.lc;
+			this.chkUseYn.TabIndex = 50;
+			// 
+			// lcItemPersonID
+			// 
+			this.lcItemPersonID.Control = this.txtPersonID;
+			this.lcItemPersonID.Location = new System.Drawing.Point(235, 0);
+			this.lcItemPersonID.Name = "lcItemPersonID";
+			this.lcItemPersonID.Size = new System.Drawing.Size(74, 24);
+			this.lcItemPersonID.TextSize = new System.Drawing.Size(0, 0);
+			this.lcItemPersonID.TextVisible = false;
+			// 
+			// txtPersonID
+			// 
+			this.txtPersonID.Location = new System.Drawing.Point(709, 11);
+			this.txtPersonID.Name = "txtPersonID";
+			this.txtPersonID.Size = new System.Drawing.Size(70, 20);
+			this.txtPersonID.StyleController = this.lc;
+			this.txtPersonID.TabIndex = 51;
 			// 
 			// splitterItem1
 			// 
 			this.splitterItem1.AllowHotTrack = true;
-			this.splitterItem1.Location = new System.Drawing.Point(450, 0);
+			this.splitterItem1.Location = new System.Drawing.Point(451, 0);
 			this.splitterItem1.Name = "splitterItem1";
 			this.splitterItem1.Size = new System.Drawing.Size(12, 495);
 			// 
@@ -393,10 +525,10 @@
             this.lcItemCreateByName,
             this.lcItemUpdateDate,
             this.lcItemUpdateByName});
-			this.lcGroupRegInfo.Location = new System.Drawing.Point(0, 229);
+			this.lcGroupRegInfo.Location = new System.Drawing.Point(0, 253);
 			this.lcGroupRegInfo.Name = "lcGroupRegInfo";
 			this.lcGroupRegInfo.Padding = new DevExpress.XtraLayout.Utils.Padding(4, 4, 4, 4);
-			this.lcGroupRegInfo.Size = new System.Drawing.Size(524, 62);
+			this.lcGroupRegInfo.Size = new System.Drawing.Size(523, 62);
 			this.lcGroupRegInfo.TextVisible = false;
 			// 
 			// lcItemCreateDate
@@ -409,7 +541,7 @@
 			// 
 			// txtCreateDate
 			// 
-			this.txtCreateDate.Location = new System.Drawing.Point(599, 240);
+			this.txtCreateDate.Location = new System.Drawing.Point(600, 264);
 			this.txtCreateDate.Name = "txtCreateDate";
 			this.txtCreateDate.Size = new System.Drawing.Size(118, 20);
 			this.txtCreateDate.StyleController = this.lc;
@@ -425,7 +557,7 @@
 			// 
 			// txtCreateByName
 			// 
-			this.txtCreateByName.Location = new System.Drawing.Point(599, 264);
+			this.txtCreateByName.Location = new System.Drawing.Point(600, 288);
 			this.txtCreateByName.Name = "txtCreateByName";
 			this.txtCreateByName.Size = new System.Drawing.Size(118, 20);
 			this.txtCreateByName.StyleController = this.lc;
@@ -436,14 +568,14 @@
 			this.lcItemUpdateDate.Control = this.txtUpdateDate;
 			this.lcItemUpdateDate.Location = new System.Drawing.Point(248, 0);
 			this.lcItemUpdateDate.Name = "lcItemUpdateDate";
-			this.lcItemUpdateDate.Size = new System.Drawing.Size(262, 24);
+			this.lcItemUpdateDate.Size = new System.Drawing.Size(261, 24);
 			this.lcItemUpdateDate.TextSize = new System.Drawing.Size(122, 14);
 			// 
 			// txtUpdateDate
 			// 
-			this.txtUpdateDate.Location = new System.Drawing.Point(847, 240);
+			this.txtUpdateDate.Location = new System.Drawing.Point(848, 264);
 			this.txtUpdateDate.Name = "txtUpdateDate";
-			this.txtUpdateDate.Size = new System.Drawing.Size(132, 20);
+			this.txtUpdateDate.Size = new System.Drawing.Size(131, 20);
 			this.txtUpdateDate.StyleController = this.lc;
 			this.txtUpdateDate.TabIndex = 12;
 			// 
@@ -452,14 +584,14 @@
 			this.lcItemUpdateByName.Control = this.txtUpdateByName;
 			this.lcItemUpdateByName.Location = new System.Drawing.Point(248, 24);
 			this.lcItemUpdateByName.Name = "lcItemUpdateByName";
-			this.lcItemUpdateByName.Size = new System.Drawing.Size(262, 24);
+			this.lcItemUpdateByName.Size = new System.Drawing.Size(261, 24);
 			this.lcItemUpdateByName.TextSize = new System.Drawing.Size(122, 14);
 			// 
 			// txtUpdateByName
 			// 
-			this.txtUpdateByName.Location = new System.Drawing.Point(847, 264);
+			this.txtUpdateByName.Location = new System.Drawing.Point(848, 288);
 			this.txtUpdateByName.Name = "txtUpdateByName";
-			this.txtUpdateByName.Size = new System.Drawing.Size(132, 20);
+			this.txtUpdateByName.Size = new System.Drawing.Size(131, 20);
 			this.txtUpdateByName.StyleController = this.lc;
 			this.txtUpdateByName.TabIndex = 13;
 			// 
@@ -470,19 +602,19 @@
             this.lcGroupEdit1,
             this.lcGroupRegInfo,
             this.lcTab});
-			this.lcGroupEditBase.Location = new System.Drawing.Point(462, 0);
+			this.lcGroupEditBase.Location = new System.Drawing.Point(463, 0);
 			this.lcGroupEditBase.Name = "lcGroupEditBase";
-			this.lcGroupEditBase.Size = new System.Drawing.Size(524, 495);
+			this.lcGroupEditBase.Size = new System.Drawing.Size(523, 495);
 			this.lcGroupEditBase.TextVisible = false;
 			// 
 			// lcTab
 			// 
-			this.lcTab.Location = new System.Drawing.Point(0, 291);
+			this.lcTab.Location = new System.Drawing.Point(0, 315);
 			this.lcTab.Name = "lcTab";
 			this.lcTab.Padding = new DevExpress.XtraLayout.Utils.Padding(2, 2, 2, 2);
 			this.lcTab.SelectedTabPage = this.lcGroupEdit2;
 			this.lcTab.SelectedTabPageIndex = 0;
-			this.lcTab.Size = new System.Drawing.Size(524, 204);
+			this.lcTab.Size = new System.Drawing.Size(523, 180);
 			this.lcTab.TabPages.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.lcGroupEdit2});
 			// 
@@ -495,7 +627,7 @@
 			this.lcGroupEdit2.Location = new System.Drawing.Point(0, 0);
 			this.lcGroupEdit2.Name = "lcGroupEdit2";
 			this.lcGroupEdit2.Padding = new DevExpress.XtraLayout.Utils.Padding(4, 4, 4, 4);
-			this.lcGroupEdit2.Size = new System.Drawing.Size(514, 168);
+			this.lcGroupEdit2.Size = new System.Drawing.Size(513, 144);
 			this.lcGroupEdit2.Text = "Appointment";
 			// 
 			// layoutControlItem1
@@ -503,7 +635,7 @@
 			this.layoutControlItem1.Control = this.gridAppointment;
 			this.layoutControlItem1.Location = new System.Drawing.Point(0, 36);
 			this.layoutControlItem1.Name = "layoutControlItem1";
-			this.layoutControlItem1.Size = new System.Drawing.Size(514, 132);
+			this.layoutControlItem1.Size = new System.Drawing.Size(513, 108);
 			this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
 			this.layoutControlItem1.TextVisible = false;
 			// 
@@ -514,7 +646,7 @@
 			this.gridAppointment.Editable = true;
 			this.gridAppointment.FocusedRowHandle = -2147483648;
 			this.gridAppointment.GridViewType = IKaan.Biz.Core.Controls.Grid.GridViewType.GridView;
-			this.gridAppointment.Location = new System.Drawing.Point(471, 362);
+			this.gridAppointment.Location = new System.Drawing.Point(472, 386);
 			this.gridAppointment.Name = "gridAppointment";
 			this.gridAppointment.PageFooterCenter = null;
 			this.gridAppointment.PageFooterLeft = null;
@@ -528,139 +660,8 @@
 			this.gridAppointment.ReadOnly = false;
 			this.gridAppointment.ShowFooter = false;
 			this.gridAppointment.ShowGroupPanel = false;
-			this.gridAppointment.Size = new System.Drawing.Size(510, 128);
+			this.gridAppointment.Size = new System.Drawing.Size(509, 104);
 			this.gridAppointment.TabIndex = 44;
-			// 
-			// picImage
-			// 
-			this.picImage.Cursor = System.Windows.Forms.Cursors.Default;
-			this.picImage.Location = new System.Drawing.Point(783, 11);
-			this.picImage.Name = "picImage";
-			this.picImage.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.Auto;
-			this.picImage.Properties.SizeMode = DevExpress.XtraEditors.Controls.PictureSizeMode.Squeeze;
-			this.picImage.Properties.ZoomAccelerationFactor = 1D;
-			this.picImage.Size = new System.Drawing.Size(196, 187);
-			this.picImage.StyleController = this.lc;
-			this.picImage.TabIndex = 45;
-			// 
-			// lcItemImage
-			// 
-			this.lcItemImage.Control = this.picImage;
-			this.lcItemImage.Location = new System.Drawing.Point(310, 0);
-			this.lcItemImage.MaxSize = new System.Drawing.Size(200, 0);
-			this.lcItemImage.MinSize = new System.Drawing.Size(200, 24);
-			this.lcItemImage.Name = "lcItemImage";
-			this.lcItemImage.Size = new System.Drawing.Size(200, 191);
-			this.lcItemImage.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
-			this.lcItemImage.TextSize = new System.Drawing.Size(0, 0);
-			this.lcItemImage.TextVisible = false;
-			// 
-			// txtFaxNo
-			// 
-			this.txtFaxNo.Location = new System.Drawing.Point(599, 202);
-			this.txtFaxNo.Name = "txtFaxNo";
-			this.txtFaxNo.Size = new System.Drawing.Size(180, 20);
-			this.txtFaxNo.StyleController = this.lc;
-			this.txtFaxNo.TabIndex = 46;
-			// 
-			// lcItemFaxNo
-			// 
-			this.lcItemFaxNo.Control = this.txtFaxNo;
-			this.lcItemFaxNo.Location = new System.Drawing.Point(0, 191);
-			this.lcItemFaxNo.Name = "lcItemFaxNo";
-			this.lcItemFaxNo.Size = new System.Drawing.Size(310, 24);
-			this.lcItemFaxNo.TextSize = new System.Drawing.Size(122, 14);
-			// 
-			// txtPhoneNo1
-			// 
-			this.txtPhoneNo1.Location = new System.Drawing.Point(599, 154);
-			this.txtPhoneNo1.Name = "txtPhoneNo1";
-			this.txtPhoneNo1.Size = new System.Drawing.Size(180, 20);
-			this.txtPhoneNo1.StyleController = this.lc;
-			this.txtPhoneNo1.TabIndex = 47;
-			// 
-			// lcItemPhoneNo1
-			// 
-			this.lcItemPhoneNo1.Control = this.txtPhoneNo1;
-			this.lcItemPhoneNo1.Location = new System.Drawing.Point(0, 143);
-			this.lcItemPhoneNo1.Name = "lcItemPhoneNo1";
-			this.lcItemPhoneNo1.Size = new System.Drawing.Size(310, 24);
-			this.lcItemPhoneNo1.TextSize = new System.Drawing.Size(122, 14);
-			// 
-			// txtPhoneNo2
-			// 
-			this.txtPhoneNo2.Location = new System.Drawing.Point(599, 178);
-			this.txtPhoneNo2.Name = "txtPhoneNo2";
-			this.txtPhoneNo2.Size = new System.Drawing.Size(180, 20);
-			this.txtPhoneNo2.StyleController = this.lc;
-			this.txtPhoneNo2.TabIndex = 48;
-			// 
-			// lcItemPhoneNo2
-			// 
-			this.lcItemPhoneNo2.Control = this.txtPhoneNo2;
-			this.lcItemPhoneNo2.Location = new System.Drawing.Point(0, 167);
-			this.lcItemPhoneNo2.Name = "lcItemPhoneNo2";
-			this.lcItemPhoneNo2.Size = new System.Drawing.Size(310, 24);
-			this.lcItemPhoneNo2.TextSize = new System.Drawing.Size(122, 14);
-			// 
-			// txtImageUrl
-			// 
-			this.txtImageUrl.Location = new System.Drawing.Point(783, 202);
-			this.txtImageUrl.Name = "txtImageUrl";
-			this.txtImageUrl.Size = new System.Drawing.Size(196, 20);
-			this.txtImageUrl.StyleController = this.lc;
-			this.txtImageUrl.TabIndex = 49;
-			// 
-			// lcItemImageUrl
-			// 
-			this.lcItemImageUrl.Control = this.txtImageUrl;
-			this.lcItemImageUrl.Location = new System.Drawing.Point(310, 191);
-			this.lcItemImageUrl.Name = "lcItemImageUrl";
-			this.lcItemImageUrl.Size = new System.Drawing.Size(200, 24);
-			this.lcItemImageUrl.TextSize = new System.Drawing.Size(0, 0);
-			this.lcItemImageUrl.TextVisible = false;
-			// 
-			// chkUseYn
-			// 
-			this.chkUseYn.Location = new System.Drawing.Point(599, 107);
-			this.chkUseYn.Name = "chkUseYn";
-			this.chkUseYn.Properties.Caption = "";
-			this.chkUseYn.Size = new System.Drawing.Size(180, 19);
-			this.chkUseYn.StyleController = this.lc;
-			this.chkUseYn.TabIndex = 50;
-			// 
-			// lcItemUseYn
-			// 
-			this.lcItemUseYn.Control = this.chkUseYn;
-			this.lcItemUseYn.Location = new System.Drawing.Point(0, 96);
-			this.lcItemUseYn.Name = "lcItemUseYn";
-			this.lcItemUseYn.Size = new System.Drawing.Size(310, 23);
-			this.lcItemUseYn.TextSize = new System.Drawing.Size(122, 14);
-			// 
-			// txtPersonID
-			// 
-			this.txtPersonID.Location = new System.Drawing.Point(709, 11);
-			this.txtPersonID.Name = "txtPersonID";
-			this.txtPersonID.Size = new System.Drawing.Size(70, 20);
-			this.txtPersonID.StyleController = this.lc;
-			this.txtPersonID.TabIndex = 51;
-			// 
-			// lcItemPersonID
-			// 
-			this.lcItemPersonID.Control = this.txtPersonID;
-			this.lcItemPersonID.Location = new System.Drawing.Point(236, 0);
-			this.lcItemPersonID.Name = "lcItemPersonID";
-			this.lcItemPersonID.Size = new System.Drawing.Size(74, 24);
-			this.lcItemPersonID.TextSize = new System.Drawing.Size(0, 0);
-			this.lcItemPersonID.TextVisible = false;
-			// 
-			// emptySpaceItem1
-			// 
-			this.emptySpaceItem1.AllowHotTrack = false;
-			this.emptySpaceItem1.Location = new System.Drawing.Point(180, 0);
-			this.emptySpaceItem1.Name = "emptySpaceItem1";
-			this.emptySpaceItem1.Size = new System.Drawing.Size(324, 26);
-			this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
 			// 
 			// lcGroupEdit2Buttons
 			// 
@@ -671,18 +672,16 @@
 			this.lcGroupEdit2Buttons.Location = new System.Drawing.Point(0, 0);
 			this.lcGroupEdit2Buttons.Name = "lcGroupEdit2Buttons";
 			this.lcGroupEdit2Buttons.Padding = new DevExpress.XtraLayout.Utils.Padding(2, 2, 2, 2);
-			this.lcGroupEdit2Buttons.Size = new System.Drawing.Size(514, 36);
+			this.lcGroupEdit2Buttons.Size = new System.Drawing.Size(513, 36);
 			this.lcGroupEdit2Buttons.TextVisible = false;
 			// 
-			// btnAddLine
+			// emptySpaceItem1
 			// 
-			this.btnAddLine.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnAddLine.ImageOptions.Image")));
-			this.btnAddLine.Location = new System.Drawing.Point(476, 331);
-			this.btnAddLine.Name = "btnAddLine";
-			this.btnAddLine.Size = new System.Drawing.Size(86, 22);
-			this.btnAddLine.StyleController = this.lc;
-			this.btnAddLine.TabIndex = 52;
-			this.btnAddLine.Text = "추가";
+			this.emptySpaceItem1.AllowHotTrack = false;
+			this.emptySpaceItem1.Location = new System.Drawing.Point(180, 0);
+			this.emptySpaceItem1.Name = "emptySpaceItem1";
+			this.emptySpaceItem1.Size = new System.Drawing.Size(323, 26);
+			this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
 			// 
 			// lcButtonAddLine
 			// 
@@ -696,15 +695,15 @@
 			this.lcButtonAddLine.TextSize = new System.Drawing.Size(0, 0);
 			this.lcButtonAddLine.TextVisible = false;
 			// 
-			// btnDelLine
+			// btnAddLine
 			// 
-			this.btnDelLine.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnDelLine.ImageOptions.Image")));
-			this.btnDelLine.Location = new System.Drawing.Point(566, 331);
-			this.btnDelLine.Name = "btnDelLine";
-			this.btnDelLine.Size = new System.Drawing.Size(86, 22);
-			this.btnDelLine.StyleController = this.lc;
-			this.btnDelLine.TabIndex = 53;
-			this.btnDelLine.Text = "삭제";
+			this.btnAddLine.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnAddLine.ImageOptions.Image")));
+			this.btnAddLine.Location = new System.Drawing.Point(477, 355);
+			this.btnAddLine.Name = "btnAddLine";
+			this.btnAddLine.Size = new System.Drawing.Size(86, 22);
+			this.btnAddLine.StyleController = this.lc;
+			this.btnAddLine.TabIndex = 52;
+			this.btnAddLine.Text = "추가";
 			// 
 			// lcButtonDelLine
 			// 
@@ -717,6 +716,52 @@
 			this.lcButtonDelLine.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
 			this.lcButtonDelLine.TextSize = new System.Drawing.Size(0, 0);
 			this.lcButtonDelLine.TextVisible = false;
+			// 
+			// btnDelLine
+			// 
+			this.btnDelLine.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnDelLine.ImageOptions.Image")));
+			this.btnDelLine.Location = new System.Drawing.Point(567, 355);
+			this.btnDelLine.Name = "btnDelLine";
+			this.btnDelLine.Size = new System.Drawing.Size(86, 22);
+			this.btnDelLine.StyleController = this.lc;
+			this.btnDelLine.TabIndex = 53;
+			this.btnDelLine.Text = "삭제";
+			// 
+			// btnUploadImage
+			// 
+			this.btnUploadImage.Location = new System.Drawing.Point(783, 224);
+			this.btnUploadImage.Name = "btnUploadImage";
+			this.btnUploadImage.Size = new System.Drawing.Size(96, 22);
+			this.btnUploadImage.StyleController = this.lc;
+			this.btnUploadImage.TabIndex = 54;
+			this.btnUploadImage.Text = "이미지업로드";
+			// 
+			// lcButtonUpload
+			// 
+			this.lcButtonUpload.Control = this.btnUploadImage;
+			this.lcButtonUpload.Location = new System.Drawing.Point(309, 213);
+			this.lcButtonUpload.Name = "lcButtonUpload";
+			this.lcButtonUpload.Size = new System.Drawing.Size(100, 26);
+			this.lcButtonUpload.TextSize = new System.Drawing.Size(0, 0);
+			this.lcButtonUpload.TextVisible = false;
+			// 
+			// btnDeleteImage
+			// 
+			this.btnDeleteImage.Location = new System.Drawing.Point(883, 224);
+			this.btnDeleteImage.Name = "btnDeleteImage";
+			this.btnDeleteImage.Size = new System.Drawing.Size(96, 22);
+			this.btnDeleteImage.StyleController = this.lc;
+			this.btnDeleteImage.TabIndex = 55;
+			this.btnDeleteImage.Text = "이미지삭제";
+			// 
+			// lcButtonDeleteImage
+			// 
+			this.lcButtonDeleteImage.Control = this.btnDeleteImage;
+			this.lcButtonDeleteImage.Location = new System.Drawing.Point(409, 213);
+			this.lcButtonDeleteImage.Name = "lcButtonDeleteImage";
+			this.lcButtonDeleteImage.Size = new System.Drawing.Size(100, 26);
+			this.lcButtonDeleteImage.TextSize = new System.Drawing.Size(0, 0);
+			this.lcButtonDeleteImage.TextVisible = false;
 			// 
 			// BCEmployeeForm
 			// 
@@ -749,6 +794,20 @@
 			((System.ComponentModel.ISupportInitialize)(this.txtEmail.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemEmployeeNo)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.txtEmployeeNo.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemImage)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.picImage.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemFaxNo)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtFaxNo.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemPhoneNo1)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtPhoneNo1.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemPhoneNo2)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtPhoneNo2.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemImageUrl)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtImageUrl.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemUseYn)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.chkUseYn.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemPersonID)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtPersonID.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.splitterItem1)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupRegInfo)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemCreateDate)).EndInit();
@@ -763,24 +822,12 @@
 			((System.ComponentModel.ISupportInitialize)(this.lcTab)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupEdit2)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.picImage.Properties)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemImage)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.txtFaxNo.Properties)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemFaxNo)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.txtPhoneNo1.Properties)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemPhoneNo1)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.txtPhoneNo2.Properties)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemPhoneNo2)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.txtImageUrl.Properties)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemImageUrl)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.chkUseYn.Properties)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemUseYn)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.txtPersonID.Properties)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemPersonID)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupEdit2Buttons)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcButtonAddLine)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcButtonDelLine)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcButtonUpload)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcButtonDeleteImage)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -841,5 +888,9 @@
 		private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem1;
 		private DevExpress.XtraLayout.LayoutControlItem lcButtonAddLine;
 		private DevExpress.XtraLayout.LayoutControlItem lcButtonDelLine;
+		private DevExpress.XtraEditors.SimpleButton btnUploadImage;
+		private DevExpress.XtraLayout.LayoutControlItem lcButtonUpload;
+		private DevExpress.XtraEditors.SimpleButton btnDeleteImage;
+		private DevExpress.XtraLayout.LayoutControlItem lcButtonDeleteImage;
 	}
 }

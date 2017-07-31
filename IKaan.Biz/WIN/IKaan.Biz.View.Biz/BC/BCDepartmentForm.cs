@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using DevExpress.Utils;
 using DevExpress.XtraGrid.Views.Grid;
 using IKaan.Base.Map;
+using IKaan.Base.Utils;
 using IKaan.Biz.Core.Controls.Grid;
 using IKaan.Biz.Core.Enum;
 using IKaan.Biz.Core.Forms;
@@ -10,7 +11,6 @@ using IKaan.Biz.Core.Model;
 using IKaan.Biz.Core.Utils;
 using IKaan.Biz.Core.Was.Handler;
 using IKaan.Model.BIZ.BC;
-using IKaan.Model.BIZ.BG;
 
 namespace IKaan.Biz.View.Biz.BC
 {
@@ -49,7 +49,7 @@ namespace IKaan.Biz.View.Biz.BC
 
 			lupFindDepartment.BindData("DepartmentList", "All");
 			lupParentID.BindData("DepartmentList", "Root");
-			txtEmployeeID.CodeGroup = "EmployeeList";
+			txtManagerID.CodeGroup = "EmployeeList";
 
 			datStartDate.Init(CalendarViewType.DayView);
 
@@ -143,6 +143,8 @@ namespace IKaan.Biz.View.Biz.BC
 		protected override void DataInit()
 		{
 			ClearControlData<BCDepartment>();
+			txtManagerID.Clear();
+
 			gridHistory.Clear<BCDepartmentHist>();
 			gridAppointment.Clear<BCAppointment>();
 
@@ -174,6 +176,8 @@ namespace IKaan.Biz.View.Biz.BC
 					throw new Exception("조회할 데이터가 없습니다.");
 
 				SetControlData(model);
+				txtManagerID.EditValue = model.ManagerID;
+				txtManagerID.EditText = model.ManagerName;
 
 				if (model != null)
 				{
@@ -197,6 +201,7 @@ namespace IKaan.Biz.View.Biz.BC
 			try
 			{
 				var model = this.GetControlData<BCDepartment>();
+				model.ManagerID = txtManagerID.EditValue.ToIntegerNullToNull();
 
 				using (var res = WasHandler.Execute<BCDepartment>("BC", "Save", (this.EditMode == EditModeEnum.New) ? "Insert" : "Update", model, "ID"))
 				{

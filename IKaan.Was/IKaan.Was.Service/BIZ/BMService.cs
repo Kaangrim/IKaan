@@ -404,5 +404,77 @@ namespace IKaan.Was.Service.BIZ
 			}			
 			req.SaveData<BMBusiness>(model);
 		}
+
+		public static WasRequest SavePersonImageUrl(WasRequest request)
+		{
+			bool isTran = false;
+
+			try
+			{
+				if (request == null || (request.Data == null && request.SqlId.IsNullOrEmpty()))
+					throw new Exception("처리요청이 없습니다.");
+
+				bool isOneRequest = true;
+				List<WasRequest> list = new List<WasRequest>();
+				if (request.Data != null && request.Data.GetType() == typeof(JArray))
+				{
+					list = request.Data.JsonToAnyType<List<WasRequest>>();
+					isOneRequest = false;
+				}
+				else
+				{
+					list.Add(request);
+				}
+
+				if (request.IsTransaction)
+				{
+					DaoFactory.InstanceBiz.BeginTransaction();
+					isTran = true;
+				}
+
+				try
+				{
+					//테이블
+					if (list.Count > 0)
+					{
+						foreach (WasRequest req in list)
+						{
+							if (req.Data == null)
+								throw new Exception("저장할 데이터가 존재하지 않습니다.");
+
+							DataMap parameter = req.Data.JsonToAnyType<DataMap>();
+							DaoFactory.InstanceBiz.Update("UpdateBMPersonImageUrl", parameter);
+						}
+					}
+
+					if (isTran)
+						DaoFactory.InstanceBiz.CommitTransaction();
+				}
+				catch (Exception ex)
+				{
+					if (isTran)
+						DaoFactory.InstanceBiz.RollBackTransaction();
+
+					throw new Exception(ex.Message);
+				}
+
+				if (isOneRequest)
+				{
+					request = list[0];
+				}
+				else
+				{
+					request.Data = list;
+				}
+
+				return request;
+			}
+			catch (Exception ex)
+			{
+				request.Error.Number = ex.HResult;
+				request.Error.Message = ex.Message;
+				return request;
+			}
+		}
 	}
 }

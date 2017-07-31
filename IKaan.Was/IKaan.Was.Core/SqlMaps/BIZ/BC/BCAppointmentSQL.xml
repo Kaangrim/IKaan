@@ -166,6 +166,32 @@
 											AND		StartDate	< #StartDate# )
 			]]>
 		</select>
+		<select id="SelectBCAppointmentAfter" parameterClass="DataMap" resultClass="BCAppointment" >
+			<![CDATA[
+				SELECT  AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.EmployeeID
+					,	AA.DepartmentID
+					,	AA.MainYn
+					,	AA.Position
+					,	AA.StartDate
+					,	AA.EndDate
+					,	AA.Description
+					
+				FROM	dbo.BCAppointment AA WITH (NOLOCK)
+				WHERE	AA.EmployeeID	= #EmployeeID#
+				AND		AA.StartDate	= (	SELECT	Min(StartDate)
+											FROM	IKBIZ.dbo.BCAppointment
+											WHERE	EmployeeID	= #EmployeeID#
+											AND		StartDate	> #StartDate# )
+			]]>
+		</select>
 		<update id="UpdateBCAppointmentBefore" parameterClass="BCAppointment">
 			<![CDATA[
 				UPDATE  dbo.BCAppointment

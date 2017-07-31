@@ -1162,7 +1162,8 @@ namespace IKaan.Biz.Core.Forms
 						}
 						else
 						{
-							if (prop.PropertyType == typeof(int?) || prop.PropertyType == typeof(int))
+							if (prop.PropertyType == typeof(int?) || 
+								prop.PropertyType == typeof(int))
 								prop.SetValue(data, (item.Control as XLookup).EditValue.ToIntegerNullToNull());
 							else
 								prop.SetValue(data, (item.Control as XLookup).EditValue.ToString());
@@ -1177,7 +1178,16 @@ namespace IKaan.Biz.Core.Forms
 					}
 					else if (item.Control.GetType() == typeof(XSearch))
 					{
-						prop.SetValue(data, (item.Control as XSearch).EditValue);
+						if ((item.Control as XSearch).EditValue.IsNullOrEmpty())
+							prop.SetValue(data, null);
+						else
+						{
+							if (prop.PropertyType == typeof(int) ||
+								prop.PropertyType == typeof(int?))
+								prop.SetValue(data, (item.Control as XSearch).EditValue.ToIntegerNullToNull());
+							else
+								prop.SetValue(data, (item.Control as XSearch).EditValue);
+						}
 					}
 					else if (item.Control.GetType() == typeof(DateEdit))
 					{

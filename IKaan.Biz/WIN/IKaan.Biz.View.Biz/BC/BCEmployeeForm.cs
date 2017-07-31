@@ -7,6 +7,7 @@ using IKaan.Base.Utils;
 using IKaan.Biz.Core.Controls.Grid;
 using IKaan.Biz.Core.Enum;
 using IKaan.Biz.Core.Forms;
+using IKaan.Biz.Core.Handler;
 using IKaan.Biz.Core.Model;
 using IKaan.Biz.Core.Utils;
 using IKaan.Biz.Core.Variables;
@@ -18,6 +19,8 @@ namespace IKaan.Biz.View.Biz.BC
 {
 	public partial class BCEmployeeForm : EditForm
 	{
+		private string loadUrl = string.Empty;
+
 		public BCEmployeeForm()
 		{
 			InitializeComponent();
@@ -28,14 +31,29 @@ namespace IKaan.Biz.View.Biz.BC
 			};
 			btnDelLine.Click += delegate (object sender, EventArgs e)
 			{
-				int rowIndex = gridAppointment.FocusedRowHandle;
-				if (rowIndex < 0)
-					return;
-
-				if (gridAppointment.GetValue(rowIndex, "ID") == null)
-					gridAppointment.MainView.DeleteRow(rowIndex);
-				else
-					DataDeleteAppointment();
+				DataDeleteAppointment();
+			};
+			picImage.EditValueChanged += delegate (object sender, EventArgs e)
+			{
+				if (this.IsLoaded)
+				{
+					txtImageUrl.EditValue = picImage.GetLoadedImageLocation();
+					if (picImage.EditValue.IsNullOrEmpty() == false)
+					{
+						btnUploadImage.Enabled = true;
+					}
+				}
+			};
+			picImage.LoadCompleted += delegate (object sender, EventArgs e)
+			{
+				txtImageUrl.EditValue = loadUrl;
+				btnUploadImage.Enabled = false;
+				if (picImage.EditValue != null)
+					btnDeleteImage.Enabled = true;
+			};
+			btnUploadImage.Click += delegate (object sender, EventArgs e)
+			{
+				UploadImage();
 			};
 		}
 
@@ -160,11 +178,17 @@ namespace IKaan.Biz.View.Biz.BC
 			txtFaxNo.Clear();
 			picImage.EditValue = null;
 			txtImageUrl.Clear();
+			loadUrl = string.Empty;
 
 			gridAppointment.Clear<BCAppointment>();
 
 			btnAddLine.Enabled =
 				btnDelLine.Enabled = false;
+
+			picImage.Properties.ShowMenu = false;
+
+			btnUploadImage.Enabled = false;
+			btnDeleteImage.Enabled = false;
 
 			SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true });
 			EditMode = EditModeEnum.New;
@@ -197,8 +221,10 @@ namespace IKaan.Biz.View.Biz.BC
 				if (model.Person == null)
 					model.Person = new BMPerson();
 
-				picImage.LoadAsync(ConstsVar.IMG_URL + model.Person.ImageUrl);
-				txtImageUrl.EditValue = model.Person.ImageUrl;
+				loadUrl = model.Person.ImageUrl;
+				picImage.LoadAsync(ConstsVar.IMG_URL + loadUrl);
+				txtImageUrl.EditValue = loadUrl;
+
 				txtEngName.EditValue = model.Person.EngName;
 				txtEmail.EditValue = model.Person.Email;
 				txtPhoneNo1.EditValue = model.Person.PhoneNo1;
@@ -209,6 +235,11 @@ namespace IKaan.Biz.View.Biz.BC
 
 				btnAddLine.Enabled = true;
 				btnDelLine.Enabled = true;
+
+				if (txtPersonID.EditValue.ToStringNullToEmpty() != "")
+				{
+					picImage.Properties.ShowMenu = true;
+				}
 
 				SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true, Delete = true });
 				this.EditMode = EditModeEnum.Modify;
@@ -323,6 +354,65 @@ namespace IKaan.Biz.View.Biz.BC
 				{
 					DetailDataLoad(txtID.EditValue);
 				}
+			}
+		}
+
+		private void UploadImage()
+		{
+			try
+			{
+				if (txtPersonID.EditValue == null)
+					return;
+
+				string url = FTPHandler.UploadPerson(picImage.GetLoadedImageLocation(), txtPersonID.EditValue.ToString());
+				DataMap map = new DataMap()
+				{
+					{ "ID", txtPersonID.EditValue },
+					{ "ImageUrl", url }
+				};
+
+				using (var res = WasHandler.Execute<DataMap>("BM", "SavePersonImageUrl", "UpdateBMPersonImageUrl", map, "ID"))
+				{
+					if (res.Error.Number != 0)
+						throw new Exception(res.Error.Message);
+
+					ShowMsgBox("업로드하였습니다.");
+				}
+			}
+			catch (Exception ex)
+			{
+				ShowErrBox(ex);
+			}
+		}
+
+		private void DeleteImage()
+		{
+			try
+			{
+				if (txtPersonID.EditValue == null)
+					return;
+
+				FTPHandler.DeleteFile(txtImageUrl.EditValue.ToString());
+
+				DataMap map = new DataMap()
+				{
+					{ "ID", txtPersonID.EditValue },
+					{ "ImageUrl", null }
+				};
+				using (var res = WasHandler.Execute<DataMap>("BM", "SavePersonImageUrl", "UpdateBMPersonImageUrl", map, "ID"))
+				{
+					if (res.Error.Number != 0)
+						throw new Exception(res.Error.Message);
+
+					ShowMsgBox("삭제하였습니다.");
+					picImage.EditValue = null;
+					txtImageUrl.EditValue = null;
+					loadUrl = string.Empty;
+				}
+			}
+			catch (Exception ex)
+			{
+				ShowErrBox(ex);
 			}
 		}
 	}

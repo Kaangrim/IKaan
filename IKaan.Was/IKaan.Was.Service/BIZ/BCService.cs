@@ -369,7 +369,7 @@ namespace IKaan.Was.Service.BIZ
 
 							DaoFactory.InstanceBiz.Update("UpdateBCDepartmentHistBefore", before);
 						}
-
+						
 						//새로운 이력을 저장한다.
 						BCDepartmentHist history = new BCDepartmentHist()
 						{
@@ -456,15 +456,21 @@ namespace IKaan.Was.Service.BIZ
 					BCAppointment dup = DaoFactory.InstanceBiz.QueryForObject<BCAppointment>("SelectBCAppointmentDuplicate", parameter);
 					if (dup != null)
 					{
+						if (appointment.ID == null)
+						{
+							throw new Exception("동일한 일자에 등록된 내역이 존재합니다.");
+						}
+						else
+						{
+							if (appointment.ID != dup.ID)
+								throw new Exception("동일한 일자에 등록된 내역이 존재합니다.");
 
-						if ((appointment.ID == null && dup.ID != null) || appointment.ID != dup.ID)
-							throw new Exception("이미 동일한 일자에 등록된 내역이 존재합니다.");
+							appointment.UpdateBy = req.User.UserId;
+							appointment.UpdateByName = req.User.UserName;
 
-						appointment.UpdateBy = req.User.UserId;
-						appointment.UpdateByName = req.User.UserName;
-
-						DaoFactory.InstanceBiz.Update("UpdateBCAppointment", appointment);
-						id = appointment.ID;
+							DaoFactory.InstanceBiz.Update("UpdateBCAppointment", appointment);
+							id = appointment.ID;
+						}						
 					}
 					else
 					{
@@ -480,10 +486,28 @@ namespace IKaan.Was.Service.BIZ
 							DaoFactory.InstanceBiz.Update("UpdateBCAppointmentBefore", before);
 						}
 
-						appointment.CreateBy = req.User.UserId;
-						appointment.CreateByName = req.User.UserName;
+						//이후에 등록된 이력이 존재하는 경우 종료일을 이후 등록된 내역의 시작일 (-1)일로 설정한다.
+						BCAppointment after = DaoFactory.InstanceBiz.QueryForObject<BCAppointment>("SelectBCAppointmentAfter", parameter);
+						if (after != null)
+						{
+							appointment.EndDate = after.StartDate.Value.AddDays(-1);
+						}
 
-						id = DaoFactory.InstanceBiz.Insert("InsertBCAppointment", appointment);
+						if (appointment.ID == null)
+						{
+							appointment.CreateBy = req.User.UserId;
+							appointment.CreateByName = req.User.UserName;
+
+							id = DaoFactory.InstanceBiz.Insert("InsertBCAppointment", appointment);
+						}
+						else
+						{
+							appointment.UpdateBy = req.User.UserId;
+							appointment.UpdateByName = req.User.UserName;
+
+							DaoFactory.InstanceBiz.Update("UpdateBCAppointment", appointment);
+							id = appointment.ID;
+						}
 					}
 
 					req.Result.Count = 1;
@@ -496,5 +520,6 @@ namespace IKaan.Was.Service.BIZ
 				throw;
 			}
 		}
+
 	}
 }

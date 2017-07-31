@@ -31,5 +31,9 @@ namespace IKaan.Model.BIZ.BC
 		[DataMember]
 		[Display(Name = "종료일")]
 		public DateTime? EndDate { get; set; }
+
+		[DataMember]
+		[Display(Name = "매니저명")]
+		public string ManagerName { get; set; }
 	}
 }

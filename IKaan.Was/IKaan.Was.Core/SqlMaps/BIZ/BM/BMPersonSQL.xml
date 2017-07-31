@@ -115,5 +115,17 @@
 				DELETE FROM dbo.BMPerson WHERE ID = #ID#;
 			]]>
 		</delete>
+
+		<update id="UpdateBMPersonImageUrl" parameterClass="DataMap">
+			<![CDATA[
+				UPDATE  dbo.BMPerson
+				SET     UpdateDate		= GetDate()
+					,	UpdateBy		= #UpdateBy#
+					,	UpdateByName	= #UpdateByName#
+					
+					,	ImageUrl		= #ImageUrl#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
 	</statements>
 </sqlMap>
