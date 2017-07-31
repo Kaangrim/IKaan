@@ -418,6 +418,7 @@ namespace IKaan.Was.Service.BIZ
 						}
 						else
 						{
+							employee.Person.PersonType = "E";
 							employee.Person.CreateBy = req.User.UserId;
 							employee.Person.CreateByName = req.User.UserName;
 

@@ -23,14 +23,20 @@ namespace Ikaan.Biz.View.Forms
 		protected override void InitButtons()
 		{
 			VisibleToolbar = false;
+			VisibleStatusbar = false;
 		}
 
 		protected override void InitControls()
 		{
 			SetFieldNames();
-			lcItemDictionary.SetFieldCaption("용어사전");
-			lcItemMessage.SetFieldCaption("표준메시지");
-			lcItemCodes.SetFieldCaption("공통코드");
+
+			lcItemDictionary.Text = "표준용어사전";
+			lcItemMessage.Text = "표준메시지";
+			lcItemCodes.Text = "공통코드";
+
+			lcItemDictionary.AppearanceItemCaption.TextOptions.HAlignment =
+				lcItemMessage.AppearanceItemCaption.TextOptions.HAlignment =
+				lcItemCodes.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Near;
 		}
 
 		private void doDownload()

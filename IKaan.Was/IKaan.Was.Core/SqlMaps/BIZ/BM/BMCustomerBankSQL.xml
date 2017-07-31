@@ -80,9 +80,7 @@
 		</update>
 		<delete id="DeleteBMCustomerBank" parameterClass="DataMap">
 			<![CDATA[
-				DELETE 
-				FROM	dbo.BMCustomerBank
-				WHERE	ID = #ID#
+				DELETE FROM dbo.BMCustomerBank WHERE ID = #ID#;
 			]]>
 		</delete>
 	</statements>

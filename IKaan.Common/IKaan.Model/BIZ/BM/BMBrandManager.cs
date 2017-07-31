@@ -25,6 +25,10 @@ namespace IKaan.Model.BIZ.BM
 		public DateTime? EndDate { get; set; }
 
 		[DataMember]
+		[Display(Name = "설명")]
+		public string Description { get; set; }
+
+		[DataMember]
 		[Display(Name = "사원명")]
 		public string EmployeeName { get; set; }
 

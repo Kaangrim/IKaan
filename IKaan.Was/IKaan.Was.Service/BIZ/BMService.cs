@@ -110,12 +110,30 @@ namespace IKaan.Was.Service.BIZ
 							break;
 						case "BMBrand":
 							req.SetData<BMBrand>();
-							(req.Data as BMBrand).BrandImage = req.GetList<BMBrandImage>();
+							(req.Data as BMBrand).Images = req.GetList<BMBrandImage>();
+							(req.Data as BMBrand).Customers = req.GetList<BMCustomerBrand>();
+							(req.Data as BMBrand).Channels = req.GetList<BMChannelBrand>();
+							(req.Data as BMBrand).Contacts = req.GetList<BMBrandContact>();
+							(req.Data as BMBrand).Managers = req.GetList<BMBrandManager>();
+							break;
+						case "BMBrandContact":
+							req.SetData<BMBrandContact>();
+							break;
+						case "BMBrandManager":
+							req.SetData<BMBrandManager>();
 							break;
 						case "BMChannel":
 							req.SetData<BMChannel>();
-							(req.Data as BMChannel).ChannelBrand = req.GetList<BMChannelBrand>();
-							(req.Data as BMChannel).ChannelCustomer = req.GetList<BMCustomerChannel>();
+							(req.Data as BMChannel).Brands = req.GetList<BMChannelBrand>();
+							(req.Data as BMChannel).Customers = req.GetList<BMCustomerChannel>();
+							(req.Data as BMChannel).Contacts = req.GetList<BMChannelContact>();
+							(req.Data as BMChannel).Managers = req.GetList<BMChannelManager>();
+							break;
+						case "BMChannelContact":
+							req.SetData<BMChannelContact>();
+							break;
+						case "BMChannelManager":
+							req.SetData<BMChannelManager>();
 							break;
 						case "BMSearchBrand":
 							req.SetData<BMSearchBrand>();
@@ -185,22 +203,25 @@ namespace IKaan.Was.Service.BIZ
 									req.SaveBusiness();
 									break;
 								case "BMBrand":
-									var brand = req.SaveData<BMBrand>();
-									if (brand != null)
-									{
-										req.SaveBrandImage(brand);
-									}
-									break;
-								case "BMChannel":
-									var channel = req.SaveData<BMChannel>();
-									if (channel != null)
-									{
-										req.SaveChannelBrand(channel);
-										req.SaveChannelCustomer(channel);
-									}
+									req.SaveBrand();
 									break;
 								case "BMBrandImage":
 									req.SaveData<BMBrandImage>();
+									break;
+								case "BMBrandContact":
+									req.SaveBrandContact();
+									break;
+								case "BMBrandManager":
+									req.SaveBrandManager();
+									break;
+								case "BMChannel":
+									req.SaveChannel();
+									break;
+								case "BMChannelContact":
+									req.SaveChannelContact();
+									break;
+								case "BMChannelManager":
+									req.SaveChannelManager();
 									break;
 								case "BMSearchBrand":
 									req.SaveData<BMSearchBrand>();
@@ -304,17 +325,18 @@ namespace IKaan.Was.Service.BIZ
 			}
 		}
 
-		private static void SaveBrandImage(this WasRequest req, BMBrand model)
+		private static void SaveBrand(this WasRequest req)
 		{
 			try
 			{
-				foreach (var data in model.BrandImage)
+				BMBrand brand = req.Data.JsonToAnyType<BMBrand>();
+				brand = req.SaveData<BMBrand>(brand);
+
+				if (brand != null)
 				{
-					if (data.BrandID == null)
-					{
-						data.BrandID = model.ID;
-					}
-					req.SaveSubData<BMBrandImage>(data, false);
+					req.Result.Count = 1;
+					req.Result.ReturnValue = brand.ID;
+					req.Error.Number = 0;
 				}
 			}
 			catch
@@ -323,17 +345,64 @@ namespace IKaan.Was.Service.BIZ
 			}
 		}
 
-		private static void SaveCustomerBrand(this WasRequest req, BMBrand model)
+		private static void SaveBrandContact(this WasRequest req)
 		{
 			try
 			{
-				foreach (var data in model.BrandCustomer)
+				BMBrandContact contact = req.Data.JsonToAnyType<BMBrandContact>();
+				if (contact != null)
 				{
-					if (data.BrandID == null)
+					BMPerson person = new BMPerson()
 					{
-						data.BrandID = model.ID;
+						ID = contact.PersonID,
+						PersonName = contact.PersonName,
+						PersonType = "B",
+						Email = contact.Email,
+						PhoneNo1 = contact.PhoneNo1,
+						PhoneNo2 = contact.PhoneNo2,
+						FaxNo = contact.FaxNo
+					};
+
+					object contactID = null;
+					object personID = null;
+
+					if (person.ID == null)
+					{
+						person.CreateBy = req.User.UserId;
+						person.CreateByName = req.User.UserName;
+
+						personID = DaoFactory.InstanceBiz.Insert("InsertBMPerson", person);
 					}
-					req.SaveSubData<BMBrandImage>(data, false);
+					else
+					{
+						person.UpdateBy = req.User.UserId;
+						person.UpdateByName = req.User.UserName;
+
+						DaoFactory.InstanceBiz.Update("UpdateBMPerson", person);
+						personID = person.ID;
+					}
+
+					contact.PersonID = personID.ToIntegerNullToNull();
+
+					if (contact.ID == null)
+					{
+						contact.CreateBy = req.User.UserId;
+						contact.CreateByName = req.User.UserName;
+
+						contactID = DaoFactory.InstanceBiz.Insert("InsertBMBrandContact", contact);
+					}
+					else
+					{
+						contact.UpdateBy = req.User.UserId;
+						contact.UpdateByName = req.User.UserName;
+
+						DaoFactory.InstanceBiz.Update("UpdateBMBrandContact", contact);
+						contactID = contact.ID;
+					}
+
+					req.Result.Count = 1;
+					req.Result.ReturnValue = contactID;
+					req.Error.Number = 0;
 				}
 			}
 			catch
@@ -342,17 +411,81 @@ namespace IKaan.Was.Service.BIZ
 			}
 		}
 
-		private static void SaveChannelBrand(this WasRequest req, BMChannel model)
+		private static void SaveBrandManager(this WasRequest req)
 		{
 			try
 			{
-				foreach (var data in model.ChannelBrand)
+				object id = null;
+				BMBrandManager manager = req.Data.JsonToAnyType<BMBrandManager>();
+				if (manager != null)
 				{
-					if (data.ChannelID == null)
+					DataMap map = new DataMap()
 					{
-						data.ChannelID = model.ID;
+						{ "BrandID", manager.BrandID },
+						{ "StartDate", manager.StartDate }
+					};
+
+					BMBrandManager dup = DaoFactory.InstanceBiz.QueryForObject<BMBrandManager>("SelectBMBrandManagerDuplicate", map);
+					if (dup != null)
+					{
+						if (manager.ID == null)
+						{
+							throw new Exception("동일 시작일로 등록된 데이터가 존재합니다.");
+						}
+						else
+						{
+							if (manager.ID != dup.ID)
+								throw new Exception("동일 시작일로 등록된 데이터가 존재합니다.");
+
+							manager.UpdateBy = req.User.UserId;
+							manager.UpdateByName = req.User.UserName;
+
+							DaoFactory.InstanceBiz.Update("UpdateBMBrandManager", manager);
+							id = manager.ID;
+						}
 					}
-					req.SaveSubData<BMChannelBrand>(data, false);
+					else
+					{
+						var before = DaoFactory.InstanceBiz.QueryForObject<BMBrandManager>("SelectBMBrandManagerBefore", map);
+						if (before != null)
+						{
+							before.EndDate = manager.StartDate.Value.AddDays(-1);
+							before.UpdateBy = req.User.UserId;
+							before.UpdateByName = req.User.UserName;
+
+							DaoFactory.InstanceBiz.Update("UpdateBMBrandManagerEndDate", before);
+						}
+
+						var after = DaoFactory.InstanceBiz.QueryForObject<BMBrandManager>("SelectBMBrandManagerAfter", map);
+						if (after != null)
+						{
+							manager.EndDate = after.StartDate.Value.AddDays(-1);							
+						}
+						else
+						{
+							manager.EndDate = null;
+						}
+
+						if (manager.ID != null)
+						{
+							manager.UpdateBy = req.User.UserId;
+							manager.UpdateByName = req.User.UserName;
+
+							DaoFactory.InstanceBiz.Update("UpdateBMBrandManager", manager);
+							id = manager.ID;
+						}
+						else
+						{
+							manager.CreateBy = req.User.UserId;
+							manager.CreateByName = req.User.UserName;
+
+							id = DaoFactory.InstanceBiz.Insert("InsertBMBrandManager", manager);
+						}
+					}
+
+					req.Result.Count = 1;
+					req.Result.ReturnValue = id;
+					req.Error.Number = 0;
 				}
 			}
 			catch
@@ -361,17 +494,167 @@ namespace IKaan.Was.Service.BIZ
 			}
 		}
 
-		private static void SaveChannelCustomer(this WasRequest req, BMChannel model)
+		private static void SaveChannel(this WasRequest req)
 		{
 			try
 			{
-				foreach (var data in model.ChannelCustomer)
+				BMChannel channel = req.Data.JsonToAnyType<BMChannel>();
+				channel = req.SaveData<BMChannel>(channel);
+
+				if (channel != null)
 				{
-					if (data.ChannelID == null)
+					req.Result.Count = 1;
+					req.Result.ReturnValue = channel.ID;
+					req.Error.Number = 0;
+				}
+			}
+			catch
+			{
+				throw;
+			}
+		}
+
+		private static void SaveChannelContact(this WasRequest req)
+		{
+			try
+			{
+				BMChannelContact contact = req.Data.JsonToAnyType<BMChannelContact>();
+				if (contact != null)
+				{
+					BMPerson person = new BMPerson()
 					{
-						data.ChannelID = model.ID;
+						ID = contact.PersonID,
+						PersonName = contact.PersonName,
+						PersonType = "C",
+						Email = contact.Email,
+						PhoneNo1 = contact.PhoneNo1,
+						PhoneNo2 = contact.PhoneNo2,
+						FaxNo = contact.FaxNo
+					};
+
+					object contactID = null;
+					object personID = null;
+
+					if (person.ID == null)
+					{
+						person.CreateBy = req.User.UserId;
+						person.CreateByName = req.User.UserName;
+
+						personID = DaoFactory.InstanceBiz.Insert("InsertBMPerson", person);
 					}
-					req.SaveSubData<BMCustomerChannel>(data, false);
+					else
+					{
+						person.UpdateBy = req.User.UserId;
+						person.UpdateByName = req.User.UserName;
+
+						DaoFactory.InstanceBiz.Update("UpdateBMPerson", person);
+						personID = person.ID;
+					}
+
+					contact.PersonID = personID.ToIntegerNullToNull();
+
+					if (contact.ID == null)
+					{
+						contact.CreateBy = req.User.UserId;
+						contact.CreateByName = req.User.UserName;
+
+						contactID = DaoFactory.InstanceBiz.Insert("InsertBMChannelContact", contact);
+					}
+					else
+					{
+						contact.UpdateBy = req.User.UserId;
+						contact.UpdateByName = req.User.UserName;
+
+						DaoFactory.InstanceBiz.Update("UpdateBMChannelContact", contact);
+						contactID = contact.ID;
+					}
+
+					req.Result.Count = 1;
+					req.Result.ReturnValue = contactID;
+					req.Error.Number = 0;
+				}
+			}
+			catch
+			{
+				throw;
+			}
+		}
+
+		private static void SaveChannelManager(this WasRequest req)
+		{
+			try
+			{
+				object id = null;
+				BMChannelManager manager = req.Data.JsonToAnyType<BMChannelManager>();
+				if (manager != null)
+				{
+					DataMap map = new DataMap()
+					{
+						{ "ChannelID", manager.ChannelID },
+						{ "StartDate", manager.StartDate }
+					};
+
+					BMBrandManager dup = DaoFactory.InstanceBiz.QueryForObject<BMBrandManager>("SelectBMChannelManagerDuplicate", map);
+					if (dup != null)
+					{
+						if (manager.ID == null)
+						{
+							throw new Exception("동일 시작일로 등록된 데이터가 존재합니다.");
+						}
+						else
+						{
+							if (manager.ID != dup.ID)
+								throw new Exception("동일 시작일로 등록된 데이터가 존재합니다.");
+
+							manager.UpdateBy = req.User.UserId;
+							manager.UpdateByName = req.User.UserName;
+
+							DaoFactory.InstanceBiz.Update("UpdateBMChannelManager", manager);
+							id = manager.ID;
+						}
+					}
+					else
+					{
+						var before = DaoFactory.InstanceBiz.QueryForObject<BMBrandManager>("SelectBMChannelManagerBefore", map);
+						if (before != null)
+						{
+							before.EndDate = manager.StartDate.Value.AddDays(-1);
+							before.UpdateBy = req.User.UserId;
+							before.UpdateByName = req.User.UserName;
+
+							DaoFactory.InstanceBiz.Update("UpdateBMChannelManagerEndDate", before);
+						}
+
+						var after = DaoFactory.InstanceBiz.QueryForObject<BMBrandManager>("SelectBMChannelManagerAfter", map);
+						if (after != null)
+						{
+							manager.EndDate = after.StartDate.Value.AddDays(-1);
+						}
+						else
+						{
+							manager.EndDate = null;
+						}
+
+						if (manager.ID != null)
+						{
+							manager.UpdateBy = req.User.UserId;
+							manager.UpdateByName = req.User.UserName;
+
+							DaoFactory.InstanceBiz.Update("UpdateBMChannelManager", manager);
+							id = manager.ID;
+						}
+						else
+						{
+							manager.CreateBy = req.User.UserId;
+							manager.CreateByName = req.User.UserName;
+
+							id = DaoFactory.InstanceBiz.Insert("InsertBMChannelManager", manager);
+						}
+					}
+
+					req.Result.Count = 1;
+					req.Result.ReturnValue = id;
+					req.Error.Number = 0;
 				}
 			}
 			catch

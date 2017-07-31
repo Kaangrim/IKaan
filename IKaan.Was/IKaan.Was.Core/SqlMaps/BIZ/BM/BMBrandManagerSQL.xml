@@ -21,7 +21,7 @@
 					,	AA.EndDate
 					,	AA.EmployeeID
 					
-					,	EE.EmplyeeNo
+					,	EE.EmployeeNo
 					,	EE.EmployeeName
 					,	EE.UseYn
 					,	EE.PersonID
@@ -60,8 +60,14 @@
 					,	AA.EmployeeID
 					,	AA.StartDate
 					,	AA.EndDate
+					,	AA.Description
+					
+					,	EE.EmployeeName
 					
 				FROM	dbo.BMBrandManager AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.BCEmployee EE WITH (NOLOCK)
+								ON AA.EmployeeID = EE.ID
 				WHERE	AA.ID = #ID#
 			]]>
 		</select>
@@ -70,12 +76,12 @@
 				INSERT INTO dbo.BMBrandManager
 				( 
 					CreateDate, CreateBy, CreateByName,
-					BrandID, EmployeeID, StartDate, EndDate
+					BrandID, EmployeeID, StartDate, EndDate, Description
 				)
 				VALUES
 				(
 					GetDate(), #CreateBy#, #CreateByName#,
-					#BrandID#, #EmployeeID#, #StartDate#, #EndDate#
+					#BrandID#, #EmployeeID#, #StartDate#, #EndDate#, #Description#
 				)
 			]]>
 			<selectKey type="post" property="ID" resultClass="Int">
@@ -94,6 +100,7 @@
 					,	EmployeeID		= #EmployeeID#
 					,	StartDate		= #StartDate#
 					,	EndDate			= #EndDate#
+					,	Description		= #Description#
 				WHERE	ID				= #ID#
 			]]>
 		</update>
@@ -102,5 +109,85 @@
 				DELETE FROM dbo.BMBrandManager WHERE ID = #ID#;
 			]]>
 		</delete>
+
+		<select id="SelectBMBrandManagerDuplicate" parameterClass="DataMap" resultClass="BMBrandManager" >
+			<![CDATA[
+				SELECT  AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.BrandID
+					,	AA.EmployeeID
+					,	AA.StartDate
+					,	AA.EndDate
+					,	AA.Description
+					
+				FROM	dbo.BMBrandManager AA WITH (NOLOCK)
+				WHERE	AA.BrandID	= #BrandID#
+				AND		AA.StartDate= #StartDate#
+			]]>
+		</select>
+		<select id="SelectBMBrandManagerBefore" parameterClass="DataMap" resultClass="BMBrandManager" >
+			<![CDATA[
+				SELECT  AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.BrandID
+					,	AA.EmployeeID
+					,	AA.StartDate
+					,	AA.EndDate
+					,	AA.Description
+					
+				FROM	dbo.BMBrandManager AA WITH (NOLOCK)
+				WHERE	AA.BrandID = #BrandID#
+				AND		AA.StartDate	= (	SELECT	MAX(StartDate)
+											FROM	dbo.BMBrandManager
+											WHERE	BrandID		= #BrandID#
+											AND		StartDate	< #StartDate# )
+			]]>
+		</select>
+		<select id="SelectBMBrandManagerAfter" parameterClass="DataMap" resultClass="BMBrandManager" >
+			<![CDATA[
+				SELECT  AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.BrandID
+					,	AA.EmployeeID
+					,	AA.StartDate
+					,	AA.EndDate
+					,	AA.Description
+					
+				FROM	dbo.BMBrandManager AA WITH (NOLOCK)
+				WHERE	AA.BrandID = #BrandID#
+				AND		AA.StartDate	= (	SELECT	MIN(StartDate)
+											FROM	dbo.BMBrandManager
+											WHERE	BrandID		= #BrandID#
+											AND		StartDate	> #StartDate# )
+			]]>
+		</select>
+		<update id="UpdateBMBrandManagerEndDate" parameterClass="BMBrandManager">
+			<![CDATA[
+				UPDATE  dbo.BMBrandManager
+				SET     UpdateDate		= GetDate()
+					,	UpdateBy		= #UpdateBy#
+					,	UpdateByName	= #UpdateByName#					
+					,	EndDate			= #EndDate#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
 	</statements>
 </sqlMap>

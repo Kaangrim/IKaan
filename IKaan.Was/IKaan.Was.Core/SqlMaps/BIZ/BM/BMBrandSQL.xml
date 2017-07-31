@@ -135,6 +135,9 @@
 		</update>
 		<delete id="DeleteBMBrand" parameterClass="DataMap">
 			<![CDATA[
+				DELETE FROM dbo.BMBrandContact WHERE BrandID = #ID#;
+				DELETE FROM dbo.BMBrandManager WHERE BrandID = #ID#;
+				DELETE FROM dbo.BMBrandImage WHERE BrandID = #ID#;
 				DELETE FROM dbo.BMBrand WHERE ID = #ID#;
 			]]>
 		</delete>

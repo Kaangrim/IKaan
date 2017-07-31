@@ -38,16 +38,26 @@ namespace IKaan.Model.BIZ.BM
 
 		[DataMember]
 		[Display(Name = "채널, 브랜드")]
-		public IList<BMChannelBrand> ChannelBrand { get; set; }
+		public IList<BMChannelBrand> Brands { get; set; }
 
 		[DataMember]
 		[Display(Name = "채널, 거래처")]
-		public IList<BMCustomerChannel> ChannelCustomer { get; set; }
+		public IList<BMCustomerChannel> Customers { get; set; }
+
+		[DataMember]
+		[Display(Name = "채널, 담당자")]
+		public IList<BMChannelContact> Contacts { get; set; }
+
+		[DataMember]
+		[Display(Name = "채널, 관리자")]
+		public IList<BMChannelManager> Managers { get; set; }
 
 		public BMChannel()
 		{
-			ChannelBrand = new List<BMChannelBrand>();
-			ChannelCustomer = new List<BMCustomerChannel>();
+			Brands = new List<BMChannelBrand>();
+			Customers = new List<BMCustomerChannel>();
+			Contacts = new List<BMChannelContact>();
+			Managers = new List<BMChannelManager>();
 		}
 	}
 }

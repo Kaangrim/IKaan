@@ -28,13 +28,13 @@
 					
 				FROM	dbo.BMCustomerBrand AA WITH (NOLOCK)
 						LEFT JOIN
-							dbo.LMCustomer BB WITH (NOLOCK)
+							dbo.BMCustomer BB WITH (NOLOCK)
 								ON AA.CustomerID = BB.ID
 						LEFT JOIN
-							dbo.LMBrand CC WITH (NOLOCK)
+							dbo.BMBrand CC WITH (NOLOCK)
 								ON AA.BrandID = CC.ID
 						LEFT JOIN
-							dbo.LMPerson DD WITH (NOLOCK)
+							dbo.BMPerson DD WITH (NOLOCK)
 								ON AA.PersonID = DD.ID
 				WHERE	1=1				
 			]]>
@@ -74,13 +74,13 @@
 					
 				FROM	dbo.BMCustomerBrand AA WITH (NOLOCK)
 						LEFT JOIN
-							dbo.LMCustomer BB WITH (NOLOCK)
+							dbo.BMCustomer BB WITH (NOLOCK)
 								ON AA.CustomerID = BB.ID
 						LEFT JOIN
-							dbo.LMBrand CC WITH (NOLOCK)
+							dbo.BMBrand CC WITH (NOLOCK)
 								ON AA.BrandID = CC.ID
 						LEFT JOIN
-							dbo.LMPerson DD WITH (NOLOCK)
+							dbo.BMPerson DD WITH (NOLOCK)
 								ON AA.PersonID = DD.ID
 				WHERE	AA.ID = #ID#
 			]]>
@@ -121,9 +121,7 @@
 		</update>
 		<delete id="DeleteBMCustomerBrand" parameterClass="DataMap">
 			<![CDATA[
-				DELETE 
-				FROM	dbo.BMCustomerBrand
-				WHERE	ID = #ID#
+				DELETE FROM dbo.BMCustomerBrand WHERE ID = #ID#;
 			]]>
 		</delete>
 	</statements>

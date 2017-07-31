@@ -102,6 +102,30 @@
     <Compile Include="BM\BMAddressForm.designer.cs">
       <DependentUpon>BMAddressForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="BM\BMChannelManagerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BM\BMChannelManagerForm.Designer.cs">
+      <DependentUpon>BMChannelManagerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BM\BMChannelContactForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BM\BMChannelContactForm.Designer.cs">
+      <DependentUpon>BMChannelContactForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BM\BMBrandManagerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BM\BMBrandManagerForm.Designer.cs">
+      <DependentUpon>BMBrandManagerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BM\BMBrandContactForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BM\BMBrandContactForm.Designer.cs">
+      <DependentUpon>BMBrandContactForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="BM\BMBusinessForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -182,6 +206,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="BM\BMAddressForm.resx">
       <DependentUpon>BMAddressForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BM\BMChannelManagerForm.resx">
+      <DependentUpon>BMChannelManagerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BM\BMChannelContactForm.resx">
+      <DependentUpon>BMChannelContactForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BM\BMBrandManagerForm.resx">
+      <DependentUpon>BMBrandManagerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BM\BMBrandContactForm.resx">
+      <DependentUpon>BMBrandContactForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="BM\BMBusinessForm.resx">
       <DependentUpon>BMBusinessForm.cs</DependentUpon>

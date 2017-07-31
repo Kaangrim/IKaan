@@ -26,10 +26,10 @@
 					
 				FROM	dbo.BMCustomerChannel AA WITH (NOLOCK)
 						LEFT JOIN
-							dbo.LMCustomer BB WITH (NOLOCK)
+							dbo.BMCustomer BB WITH (NOLOCK)
 								ON AA.CustomerID = BB.ID
 						LEFT JOIN
-							dbo.LMChannel CC WITH (NOLOCK)
+							dbo.BMChannel CC WITH (NOLOCK)
 								ON AA.ChannelID = CC.ID
 				WHERE	1=1				
 			]]>
@@ -67,10 +67,10 @@
 					
 				FROM	dbo.BMCustomerChannel AA WITH (NOLOCK)
 						LEFT JOIN
-							dbo.LMCustomer BB WITH (NOLOCK)
+							dbo.BMCustomer BB WITH (NOLOCK)
 								ON AA.CustomerID = BB.ID
 						LEFT JOIN
-							dbo.LMChannel CC WITH (NOLOCK)
+							dbo.BMChannel CC WITH (NOLOCK)
 								ON AA.ChannelID = CC.ID
 				WHERE	AA.ID = #ID#
 			]]>
@@ -110,9 +110,7 @@
 		</update>
 		<delete id="DeleteBMCustomerChannel" parameterClass="DataMap">
 			<![CDATA[
-				DELETE 
-				FROM	dbo.BMCustomerChannel
-				WHERE	ID = #ID#
+				DELETE FROM dbo.BMCustomerChannel WHERE ID = #ID#;
 			]]>
 		</delete>
 	</statements>

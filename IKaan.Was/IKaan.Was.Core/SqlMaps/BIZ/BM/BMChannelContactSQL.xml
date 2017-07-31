@@ -19,6 +19,7 @@
 					,	AA.ChannelID
 					,	AA.Position
 					,	AA.PersonID
+					,	AA.AssignedTask
 					
 					,	BB.PersonType
 					,	BB.PersonName
@@ -30,7 +31,7 @@
 					,	BB.ImageUrl
 					
 				FROM	dbo.BMChannelContact AA WITH (NOLOCK)
-						INNER JOIN
+						LEFT JOIN
 							dbo.BMPerson BB WITH (NOLOCK)
 								ON AA.PersonID = BB.ID
 				WHERE	AA.ChannelID = #ChannelID#
@@ -48,10 +49,21 @@
 					,	AA.UpdateByName
 					
 					,	AA.ChannelID
-					,	AA.Position
 					,	AA.PersonID
+					,	AA.Position
+					,	AA.AssignedTask
+					
+					,	PP.PersonName
+					,	PP.PersonType
+					,	PP.Email
+					,	PP.PhoneNo1
+					,	PP.PhoneNo2
+					,	PP.FaxNo
 					
 				FROM	dbo.BMChannelContact AA WITH (NOLOCK)
+						LEFT JOIN
+							IKBIZ.dbo.BMPerson PP WITH (NOLOCK)
+								ON AA.PersonID = PP.ID
 				WHERE	AA.ID = #ID#
 			]]>
 		</select>
@@ -60,12 +72,12 @@
 				INSERT INTO dbo.BMChannelContact
 				( 
 					CreateDate, CreateBy, CreateByName,
-					ChannelID, Position, PersonID
+					ChannelID, PersonID, Position, AssignedTask, Description
 				)
 				VALUES
 				(
 					GetDate(), #CreateBy#, #CreateByName#,
-					#ChannelID#, #Position#, #PersonID#
+					#ChannelID#, #PersonID#, #Position#, #AssignedTask#, #Description#
 				)
 			]]>
 			<selectKey type="post" property="ID" resultClass="Int">
@@ -82,6 +94,8 @@
 					,	UpdateByName	= #UpdateByName#
 					
 					,	Position		= #Position#
+					,	AssignedTask	= #AssignedTask#
+					,	Description		= #Description#
 				WHERE	ID				= #ID#
 			]]>
 		</update>

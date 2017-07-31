@@ -54,21 +54,31 @@ namespace IKaan.Model.BIZ.BM
 
 		[DataMember]
 		[Display(Name = "브랜드 이미지")]
-		public IList<BMBrandImage> BrandImage { get; set; }
+		public IList<BMBrandImage> Images { get; set; }
 
 		[DataMember]
 		[Display(Name = "거래처, 브랜드")]
-		public IList<BMCustomerBrand> BrandCustomer { get; set; }
+		public IList<BMCustomerBrand> Customers { get; set; }
 
 		[DataMember]
 		[Display(Name = "채널, 브랜드")]
-		public IList<BMChannelBrand> BrandChannel { get; set; }
+		public IList<BMChannelBrand> Channels { get; set; }
+
+		[DataMember]
+		[Display(Name = "브랜드 연락처")]
+		public IList<BMBrandContact> Contacts { get; set; }
+
+		[DataMember]
+		[Display(Name = "브랜드 담당자")]
+		public IList<BMBrandManager> Managers { get; set; }
 
 		public BMBrand()
 		{
-			BrandImage = new List<BMBrandImage>();
-			BrandCustomer = new List<BMCustomerBrand>();
-			BrandChannel = new List<BMChannelBrand>();
+			Images = new List<BMBrandImage>();
+			Customers = new List<BMCustomerBrand>();
+			Channels = new List<BMChannelBrand>();
+			Contacts = new List<BMBrandContact>();
+			Managers = new List<BMBrandManager>();
 		}
 	}
 }

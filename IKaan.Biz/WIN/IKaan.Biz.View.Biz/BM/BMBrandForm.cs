@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using DevExpress.Utils;
 using DevExpress.XtraGrid.Views.Grid;
 using IKaan.Base.Map;
+using IKaan.Base.Utils;
 using IKaan.Biz.Core.Controls.Grid;
 using IKaan.Biz.Core.Enum;
 using IKaan.Biz.Core.Forms;
@@ -23,6 +24,9 @@ namespace IKaan.Biz.View.Biz.BM
 
 			btnAddImage.Click += delegate (object sender, EventArgs e) { AddImage(); };
 			btnDeleteImage.Click += delegate (object sender, EventArgs e) { DeleteImage(); };
+
+			btnAddContact.Click += delegate (object sender, EventArgs e) { ShowContactForm(null); };
+			btnAddManager.Click += delegate (object sender, EventArgs e) { ShowManagerForm(null); };
 		}
 
 		protected override void OnShown(EventArgs e)
@@ -40,6 +44,8 @@ namespace IKaan.Biz.View.Biz.BM
 		{
 			base.InitControls();
 
+			lcItemBrandName.Tag = true;
+
 			SetFieldNames();
 
 			txtID.SetEnable(false);
@@ -56,11 +62,13 @@ namespace IKaan.Biz.View.Biz.BM
 			lupBrandStyle.BindData("BrandStyle");
 
 			InitGrid();
+
+			lcTab.SelectedTabPageIndex = 0;
 		}
 
 		void InitGrid()
 		{
-			#region Brand List
+			#region List
 			gridList.Init();
 			gridList.AddGridColumns(
 				new XGridColumn() { FieldName = "RowNo" },
@@ -97,9 +105,9 @@ namespace IKaan.Biz.View.Biz.BM
 			};
 			#endregion
 
-			#region Brand Image List
-			gridBrandImage.Init();
-			gridBrandImage.AddGridColumns(
+			#region Image List
+			gridImages.Init();
+			gridImages.AddGridColumns(
 				new XGridColumn() { FieldName = "RowNo" },
 				new XGridColumn() { FieldName = "ID", Visible = false },
 				new XGridColumn() { FieldName = "BrandID", Visible = false },
@@ -110,11 +118,11 @@ namespace IKaan.Biz.View.Biz.BM
 				new XGridColumn() { FieldName = "UpdateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
 				new XGridColumn() { FieldName = "UpdateByName", Width = 80, HorzAlignment = HorzAlignment.Center }
 			);
-			gridBrandImage.SetRepositoryItemLookUpEdit("ImageType");
-			gridBrandImage.SetRepositoryItemButtonEdit("ImageUrl");
-			gridBrandImage.ColumnFix("RowNo");
+			gridImages.SetRepositoryItemLookUpEdit("ImageType");
+			gridImages.SetRepositoryItemButtonEdit("ImageUrl");
+			gridImages.ColumnFix("RowNo");
 
-			gridBrandImage.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
+			gridImages.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
 			{
 				if (e.RowHandle < 0)
 					return;
@@ -140,9 +148,9 @@ namespace IKaan.Biz.View.Biz.BM
 			};
 			#endregion
 
-			#region Brand Customer List
-			gridBrandCustomer.Init();
-			gridBrandCustomer.AddGridColumns(
+			#region Customer List
+			gridCustomers.Init();
+			gridCustomers.AddGridColumns(
 				new XGridColumn() { FieldName = "RowNo" },
 				new XGridColumn() { FieldName = "ID", Visible = false },
 				new XGridColumn() { FieldName = "BrandID", Visible = false },
@@ -157,12 +165,12 @@ namespace IKaan.Biz.View.Biz.BM
 				new XGridColumn() { FieldName = "UpdateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
 				new XGridColumn() { FieldName = "UpdateByName", Width = 80, HorzAlignment = HorzAlignment.Center }
 			);
-			gridBrandCustomer.ColumnFix("RowNo");
+			gridCustomers.ColumnFix("RowNo");
 			#endregion
 
-			#region Brand Channel List
-			gridBrandChannel.Init();
-			gridBrandChannel.AddGridColumns(
+			#region Channel List
+			gridChannels.Init();
+			gridChannels.AddGridColumns(
 				new XGridColumn() { FieldName = "RowNo" },
 				new XGridColumn() { FieldName = "ID", Visible = false },
 				new XGridColumn() { FieldName = "BrandID", Visible = false },
@@ -177,7 +185,101 @@ namespace IKaan.Biz.View.Biz.BM
 				new XGridColumn() { FieldName = "UpdateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
 				new XGridColumn() { FieldName = "UpdateByName", Width = 80, HorzAlignment = HorzAlignment.Center }
 			);
-			gridBrandChannel.ColumnFix("RowNo");
+			gridChannels.ColumnFix("RowNo");
+			#endregion
+
+			#region Contact List
+			gridContacts.Init();
+			gridContacts.AddGridColumns(
+				new XGridColumn() { FieldName = "RowNo" },
+				new XGridColumn() { FieldName = "ID", Visible = false },
+				new XGridColumn() { FieldName = "BrandID", Visible = false },
+				new XGridColumn() { FieldName = "PersonID", Visible = false },
+				new XGridColumn() { FieldName = "PersonName", CaptionCode = "ContactName", Width = 100, HorzAlignment = HorzAlignment.Center },
+				new XGridColumn() { FieldName = "Position", Width = 100, HorzAlignment = HorzAlignment.Center },
+				new XGridColumn() { FieldName = "Email", Width = 150 },
+				new XGridColumn() { FieldName = "PhoneNo1", Width = 100 },
+				new XGridColumn() { FieldName = "PhoneNo2", Width = 100 },
+				new XGridColumn() { FieldName = "FaxNo", Width = 100 },
+				new XGridColumn() { FieldName = "CreateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
+				new XGridColumn() { FieldName = "CreateByName", Width = 80, HorzAlignment = HorzAlignment.Center },
+				new XGridColumn() { FieldName = "UpdateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
+				new XGridColumn() { FieldName = "UpdateByName", Width = 80, HorzAlignment = HorzAlignment.Center }
+			);
+			gridContacts.ColumnFix("RowNo");
+			gridContacts.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
+			{
+				if (e.RowHandle < 0)
+					return;
+
+				if (e.Button == MouseButtons.Left && e.Clicks == 2)
+				{
+					GridView view = sender as GridView;
+					ShowContactForm(view.GetRowCellValue(e.RowHandle, "ID"));
+				}
+			};
+			#endregion
+
+			#region Manager List
+			gridManagers.Init();
+			gridManagers.AddGridColumns(
+				new XGridColumn() { FieldName = "RowNo" },
+				new XGridColumn() { FieldName = "ID", Visible = false },
+				new XGridColumn() { FieldName = "BrandID", Visible = false },
+				new XGridColumn() { FieldName = "EmployeeID", Visible = false },
+				new XGridColumn() { FieldName = "StartDate", Width = 100, HorzAlignment = HorzAlignment.Center },
+				new XGridColumn() { FieldName = "EndDate", Width = 100, HorzAlignment = HorzAlignment.Center },
+				new XGridColumn() { FieldName = "EmployeeName", Width = 100, HorzAlignment = HorzAlignment.Center },
+				new XGridColumn() { FieldName = "CreateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
+				new XGridColumn() { FieldName = "CreateByName", Width = 80, HorzAlignment = HorzAlignment.Center },
+				new XGridColumn() { FieldName = "UpdateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
+				new XGridColumn() { FieldName = "UpdateByName", Width = 80, HorzAlignment = HorzAlignment.Center }
+			);
+			gridManagers.ColumnFix("RowNo");
+			gridManagers.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
+			{
+				if (e.RowHandle < 0)
+					return;
+
+				if (e.Button == MouseButtons.Left && e.Clicks == 2)
+				{
+					GridView view = sender as GridView;
+					ShowManagerForm(view.GetRowCellValue(e.RowHandle, "ID"));
+				}
+			};
+			//gridManagers.SetEditable("EmployeeName", "StartDate");
+			//gridManagers.SetRepositoryItemButtonEdit("EmployeeName");
+			//(gridManagers.MainView.Columns["EmployeeName"].ColumnEdit as RepositoryItemButtonEdit).ButtonClick += delegate (object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
+			//{
+			//	if(e.Button.Kind== DevExpress.XtraEditors.Controls.ButtonPredefines.Ellipsis)
+			//	{
+			//		DataMap data = CodeHelper.ShowForm("EmployeeList", null, null);
+			//		if (data != null)
+			//		{
+			//			gridManagers.SetValue(gridManagers.FocusedRowHandle, "EmployeeID", data.GetValue("Code"));
+			//			gridManagers.SetValue(gridManagers.FocusedRowHandle, "EmployeeName", data.GetValue("Name"));
+			//		}
+			//	}
+			//};
+			//(gridManagers.MainView.Columns["EmployeeName"].ColumnEdit as RepositoryItemButtonEdit).KeyDown += delegate (object sender, KeyEventArgs e)
+			//{
+			//	if(e.KeyCode== Keys.Enter)
+			//	{
+			//		object findtext = gridManagers.GetValue(gridManagers.FocusedRowHandle, "EmployeeName");
+			//		DataMap data = CodeHelper.ShowForm("EmployeeList", new DataMap() { { "FindText", findtext } }, null);
+			//		if (data != null)
+			//		{
+			//			gridManagers.SetValue(gridManagers.FocusedRowHandle, "EmployeeID", data.GetValue("Code"));
+			//			gridManagers.SetValue(gridManagers.FocusedRowHandle, "EmployeeName", data.GetValue("Name"));
+			//		}
+			//	}
+			//	else if(e.KeyCode== Keys.Delete)
+			//	{
+			//		object findtext = gridManagers.GetValue(gridManagers.FocusedRowHandle, "EmployeeName");
+			//		if (findtext.IsNullOrEmpty())
+			//			gridManagers.SetValue(gridManagers.FocusedRowHandle, "EmployeeID", null);
+			//	}
+			//};
 			#endregion
 		}
 
@@ -191,12 +293,16 @@ namespace IKaan.Biz.View.Biz.BM
 		{
 			ClearControlData<BMBrand>();
 			picBrandLogo.EditValue = null;
-			gridBrandImage.Clear<BMBrandImage>();
-			gridBrandCustomer.Clear<BMCustomerBrand>();
-			gridBrandChannel.Clear<BMChannelBrand>();
+			gridImages.Clear<BMBrandImage>();
+			gridCustomers.Clear<BMCustomerBrand>();
+			gridChannels.Clear<BMChannelBrand>();
+			gridContacts.Clear<BMBrandContact>();
+			gridManagers.Clear<BMBrandManager>();
 
-			btnAddImage.Enabled = false;
-			btnDeleteImage.Enabled = false;
+			btnAddImage.Enabled = 
+				btnDeleteImage.Enabled =
+				btnAddContact.Enabled =
+				btnAddManager.Enabled = false;
 
 			SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true });
 			EditMode = EditModeEnum.New;
@@ -221,37 +327,40 @@ namespace IKaan.Biz.View.Biz.BM
 		{
 			try
 			{
-				var model = WasHandler.GetData<BMBrand>("BM", "GetData", "Select", new DataMap()
+				DataMap parameter = new DataMap()
 				{
 					{ "ID", id },
 					{ "BrandID", id }
-				});
+				};
+				var model = WasHandler.GetData<BMBrand>("BM", "GetData", "Select", parameter);
 				if (model == null)
 					throw new Exception("조회할 데이터가 없습니다.");
 
-				IList<BMBrandImage> brandImage = new List<BMBrandImage>();
-				IList<BMCustomerBrand> brandCustomer = new List<BMCustomerBrand>();
-				IList<BMChannelBrand> brandChannel = new List<BMChannelBrand>();
-
-				if (model.BrandImage != null)
-					brandImage = model.BrandImage;
-				if (model.BrandCustomer != null)
-					brandCustomer = model.BrandCustomer;
-				if (model.BrandChannel != null)
-					brandChannel = model.BrandChannel;
+				if (model.Images == null)
+					model.Images = new List<BMBrandImage>();
+				if (model.Customers == null)
+					model.Customers = new List<BMCustomerBrand>();
+				if (model.Channels == null)
+					model.Channels = new List<BMChannelBrand>();
+				if (model.Contacts == null)
+					model.Contacts = new List<BMBrandContact>();
+				if (model.Managers == null)
+					model.Managers = new List<BMBrandManager>();
 
 				SetControlData(model);
 				picBrandLogo.LoadAsync(ConstsVar.IMG_URL + model.ImageUrl);
 
-				gridBrandImage.DataSource = brandImage;
-				gridBrandCustomer.DataSource = brandCustomer;
-				gridBrandChannel.DataSource = brandChannel;
+				gridImages.DataSource = model.Images;
+				gridCustomers.DataSource = model.Customers;
+				gridChannels.DataSource = model.Channels;
+				gridContacts.DataSource = model.Contacts;
+				gridManagers.DataSource = model.Managers;
 
-				btnAddImage.Enabled = true;
-				if (gridBrandImage.RowCount > 0)
-					btnDeleteImage.Enabled = true;
-				else
-					btnDeleteImage.Enabled = false;
+				btnAddImage.Enabled =
+					btnAddContact.Enabled =
+					btnAddManager.Enabled = true;
+
+				btnDeleteImage.Enabled = (gridImages.RowCount > 0) ? true : false;
 
 				SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true, Delete = true });
 				this.EditMode = EditModeEnum.Modify;
@@ -269,12 +378,6 @@ namespace IKaan.Biz.View.Biz.BM
 			try
 			{
 				var model = this.GetControlData<BMBrand>();
-				List<BMBrandImage> brandImage = new List<BMBrandImage>();
-
-				if (gridBrandImage.RowCount > 0)
-					brandImage = gridBrandImage.DataSource as List<BMBrandImage>;
-
-				model.BrandImage = brandImage;
 
 				using (var res = WasHandler.Execute<BMBrand>("BM", "Save", (this.EditMode == EditModeEnum.New) ? "Insert" : "Update", model, "ID"))
 				{
@@ -349,10 +452,10 @@ namespace IKaan.Biz.View.Biz.BM
 		{
 			try
 			{
-				if (gridBrandImage.FocusedRowHandle < 0)
+				if (gridImages.FocusedRowHandle < 0)
 					return;
 
-				DataMap map = new DataMap() { { "ID", gridBrandImage.GetValue(gridBrandImage.FocusedRowHandle, "ID") } };
+				DataMap map = new DataMap() { { "ID", gridImages.GetValue(gridImages.FocusedRowHandle, "ID") } };
 				using (var res = WasHandler.Execute<DataMap>("LM", "Delete", "DeleteBMBrandImage", map, "ID"))
 				{
 					if (res.Error.Number != 0)
@@ -367,5 +470,70 @@ namespace IKaan.Biz.View.Biz.BM
 				ShowErrBox(ex);
 			}
 		}
+
+		private void ShowContactForm(object id)
+		{
+			if (txtID.EditValue.IsNullOrEmpty())
+				return;
+
+			using(BMBrandContactForm form = new BMBrandContactForm())
+			{
+				form.Text = "브랜드담당자등록";
+				form.StartPosition = FormStartPosition.CenterScreen;
+				form.IsLoadingRefresh = true;
+				form.ParamsData = new DataMap()
+				{
+					{ "BrandID", txtID.EditValue },
+					{ "BrandName", txtBrandName.EditValue },
+					{ "ID", id }
+				};
+
+				if (form.ShowDialog() == DialogResult.OK)
+				{
+					DetailDataLoad(txtID.EditValue);
+				}
+			}
+		}
+
+		private void ShowManagerForm(object id)
+		{
+			if (txtID.EditValue.IsNullOrEmpty())
+				return;
+
+			using (BMBrandManagerForm form = new BMBrandManagerForm())
+			{
+				form.Text = "브랜드매니저등록";
+				form.StartPosition = FormStartPosition.CenterScreen;
+				form.IsLoadingRefresh = true;
+				form.ParamsData = new DataMap()
+				{
+					{ "BrandID", txtID.EditValue },
+					{ "BrandName", txtBrandName.EditValue },
+					{ "ID", id }
+				};
+
+				if (form.ShowDialog() == DialogResult.OK)
+				{
+					DetailDataLoad(txtID.EditValue);
+				}
+			}
+		}
+
+		//private void AddManager()
+		//{
+		//	if (gridManagers.DataSource == null)
+		//		gridManagers.DataSource = new List<BMBrandManager>();
+
+		//	gridManagers.UpdateCurrentRow();
+		//	gridManagers.MainView.BeginUpdate();
+		//	(gridManagers.DataSource as List<BMBrandManager>).Add(new BMBrandManager()
+		//	{
+		//		BrandID = txtID.EditValue.ToIntegerNullToNull(),
+		//		StartDate = DateTime.Now,
+		//		EndDate = null
+		//	});
+		//	gridManagers.MainView.EndUpdate();
+		//	btnDelManager.Enabled = (gridManagers.RowCount > 0) ? true : false;
+		//}
 	}
 }

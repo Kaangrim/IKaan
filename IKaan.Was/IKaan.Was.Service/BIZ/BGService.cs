@@ -313,62 +313,6 @@ namespace IKaan.Was.Service.BIZ
 				throw;
 			}
 		}
-
-		private static void SaveCustomerBrand(this WasRequest req, BMBrand model)
-		{
-			try
-			{
-				foreach (var data in model.BrandCustomer)
-				{
-					if (data.BrandID == null)
-					{
-						data.BrandID = model.ID;
-					}
-					req.SaveSubData<BMBrandImage>(data, false);
-				}
-			}
-			catch
-			{
-				throw;
-			}
-		}
-
-		private static void SaveChannelBrand(this WasRequest req, BMChannel model)
-		{
-			try
-			{
-				foreach (var data in model.ChannelBrand)
-				{
-					if (data.ChannelID == null)
-					{
-						data.ChannelID = model.ID;
-					}
-					req.SaveSubData<BMChannelBrand>(data, false);
-				}
-			}
-			catch
-			{
-				throw;
-			}
-		}
-
-		private static void SaveChannelCustomer(this WasRequest req, BMChannel model)
-		{
-			try
-			{
-				foreach (var data in model.ChannelCustomer)
-				{
-					if (data.ChannelID == null)
-					{
-						data.ChannelID = model.ID;
-					}
-					req.SaveSubData<BMCustomerChannel>(data, false);
-				}
-			}
-			catch
-			{
-				throw;
-			}
-		}
+		
 	}
 }

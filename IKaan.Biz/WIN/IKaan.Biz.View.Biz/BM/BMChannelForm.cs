@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using DevExpress.Utils;
 using DevExpress.XtraGrid.Views.Grid;
 using IKaan.Base.Map;
+using IKaan.Base.Utils;
 using IKaan.Biz.Core.Controls.Grid;
 using IKaan.Biz.Core.Enum;
 using IKaan.Biz.Core.Forms;
@@ -24,6 +25,9 @@ namespace IKaan.Biz.View.Biz.BM
 			btnDeleteBrand.Click += delegate (object sender, EventArgs e) { DataDeleteChannelBrand(); };
 			btnAddCustomer.Click += delegate (object sender, EventArgs e) { DataNewChannelCustomer(); };
 			btnDeleteCustomer.Click += delegate (object sender, EventArgs e) { DataDeleteChannelCustomer(); };
+
+			btnAddContact.Click += delegate (object sender, EventArgs e) { ShowContactForm(null); };
+			btnAddManager.Click += delegate (object sender, EventArgs e) { ShowManagerForm(null); };
 		}
 
 		protected override void OnShown(EventArgs e)
@@ -41,6 +45,10 @@ namespace IKaan.Biz.View.Biz.BM
 		{
 			base.InitControls();
 
+			lcItemChannelName.Tag = true;
+			lcItemChannelCode.Tag = true;
+			lcItemChannelType.Tag = true;
+
 			SetFieldNames();
 
 			txtID.SetEnable(false);
@@ -49,15 +57,13 @@ namespace IKaan.Biz.View.Biz.BM
 			txtUpdateDate.SetEnable(false);
 			txtUpdateByName.SetEnable(false);
 
-			InitCombo();
-			InitGrid();
-		}
-
-		void InitCombo()
-		{
 			lupFindChannelType.BindData("ChannelType", "All");
 			lupFindUseYn.BindData("Yn", "All");
 			lupChannelType.BindData("ChannelType");
+
+			InitGrid();
+
+			lcTab.SelectedTabPageIndex = 0;
 		}
 
 		void InitGrid()
@@ -100,8 +106,8 @@ namespace IKaan.Biz.View.Biz.BM
 			#endregion
 
 			#region Channel Brand List
-			gridChannelBrand.Init();
-			gridChannelBrand.AddGridColumns(
+			gridBrands.Init();
+			gridBrands.AddGridColumns(
 				new XGridColumn() { FieldName = "RowNo", Width = 40 },
 				new XGridColumn() { FieldName = "ID", Visible = false },
 				new XGridColumn() { FieldName = "ChannelID", Visible = false },
@@ -116,12 +122,12 @@ namespace IKaan.Biz.View.Biz.BM
 				new XGridColumn() { FieldName = "UpdateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
 				new XGridColumn() { FieldName = "UpdateByName", Width = 80, HorzAlignment = HorzAlignment.Center }
 			);
-			gridChannelBrand.ColumnFix("RowNo");
+			gridBrands.ColumnFix("RowNo");
 			#endregion
 
 			#region Channel Customer List
-			gridChannelCustomer.Init();
-			gridChannelCustomer.AddGridColumns(
+			gridCustomers.Init();
+			gridCustomers.AddGridColumns(
 				new XGridColumn() { FieldName = "RowNo", Width = 40 },
 				new XGridColumn() { FieldName = "ID", Visible = false },
 				new XGridColumn() { FieldName = "ChannelID", Visible = false },
@@ -134,7 +140,69 @@ namespace IKaan.Biz.View.Biz.BM
 				new XGridColumn() { FieldName = "UpdateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
 				new XGridColumn() { FieldName = "UpdateByName", Width = 80, HorzAlignment = HorzAlignment.Center }
 			);
-			gridChannelCustomer.ColumnFix("RowNo");
+			gridCustomers.ColumnFix("RowNo");
+			#endregion
+
+			#region Contact List
+			gridContacts.Init();
+			gridContacts.AddGridColumns(
+				new XGridColumn() { FieldName = "RowNo" },
+				new XGridColumn() { FieldName = "ID", Visible = false },
+				new XGridColumn() { FieldName = "ChannelID", Visible = false },
+				new XGridColumn() { FieldName = "PersonID", Visible = false },
+				new XGridColumn() { FieldName = "PersonName", CaptionCode = "ContactName", Width = 100, HorzAlignment = HorzAlignment.Center },
+				new XGridColumn() { FieldName = "Position", Width = 100, HorzAlignment = HorzAlignment.Center },
+				new XGridColumn() { FieldName = "AssignedTask", Width = 150 },
+				new XGridColumn() { FieldName = "Email", Width = 150 },
+				new XGridColumn() { FieldName = "PhoneNo1", Width = 100 },
+				new XGridColumn() { FieldName = "PhoneNo2", Width = 100 },
+				new XGridColumn() { FieldName = "FaxNo", Width = 100 },
+				new XGridColumn() { FieldName = "CreateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
+				new XGridColumn() { FieldName = "CreateByName", Width = 80, HorzAlignment = HorzAlignment.Center },
+				new XGridColumn() { FieldName = "UpdateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
+				new XGridColumn() { FieldName = "UpdateByName", Width = 80, HorzAlignment = HorzAlignment.Center }
+			);
+			gridContacts.ColumnFix("RowNo");
+			gridContacts.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
+			{
+				if (e.RowHandle < 0)
+					return;
+
+				if (e.Button == MouseButtons.Left && e.Clicks == 2)
+				{
+					GridView view = sender as GridView;
+					ShowContactForm(view.GetRowCellValue(e.RowHandle, "ID"));
+				}
+			};
+			#endregion
+
+			#region Manager List
+			gridManagers.Init();
+			gridManagers.AddGridColumns(
+				new XGridColumn() { FieldName = "RowNo" },
+				new XGridColumn() { FieldName = "ID", Visible = false },
+				new XGridColumn() { FieldName = "ChannelID", Visible = false },
+				new XGridColumn() { FieldName = "EmployeeID", Visible = false },
+				new XGridColumn() { FieldName = "StartDate", Width = 100, HorzAlignment = HorzAlignment.Center },
+				new XGridColumn() { FieldName = "EndDate", Width = 100, HorzAlignment = HorzAlignment.Center },
+				new XGridColumn() { FieldName = "EmployeeName", Width = 100, HorzAlignment = HorzAlignment.Center },
+				new XGridColumn() { FieldName = "CreateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
+				new XGridColumn() { FieldName = "CreateByName", Width = 80, HorzAlignment = HorzAlignment.Center },
+				new XGridColumn() { FieldName = "UpdateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
+				new XGridColumn() { FieldName = "UpdateByName", Width = 80, HorzAlignment = HorzAlignment.Center }
+			);
+			gridManagers.ColumnFix("RowNo");
+			gridManagers.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
+			{
+				if (e.RowHandle < 0)
+					return;
+
+				if (e.Button == MouseButtons.Left && e.Clicks == 2)
+				{
+					GridView view = sender as GridView;
+					ShowManagerForm(view.GetRowCellValue(e.RowHandle, "ID"));
+				}
+			};
 			#endregion
 		}
 
@@ -147,13 +215,17 @@ namespace IKaan.Biz.View.Biz.BM
 		protected override void DataInit()
 		{
 			ClearControlData<BMChannel>();
-			gridChannelBrand.Clear<BMChannelBrand>();
-			gridChannelCustomer.Clear<BMCustomerChannel>();
+			gridBrands.Clear<BMChannelBrand>();
+			gridCustomers.Clear<BMCustomerChannel>();
+			gridContacts.Clear<BMChannelContact>();
+			gridManagers.Clear<BMChannelManager>();
 
-			btnAddBrand.Enabled = false;
-			btnDeleteBrand.Enabled = false;
-			btnAddCustomer.Enabled = false;
-			btnDeleteCustomer.Enabled = false;
+			btnAddBrand.Enabled = 
+				btnDeleteBrand.Enabled = 
+				btnAddCustomer.Enabled = 
+				btnDeleteCustomer.Enabled = 
+				btnAddContact.Enabled =
+				btnAddManager.Enabled = false;
 
 			SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true });
 			EditMode = EditModeEnum.New;
@@ -174,26 +246,37 @@ namespace IKaan.Biz.View.Biz.BM
 		{
 			try
 			{
-				var model = WasHandler.GetData<BMChannel>("BM", "GetData", "Select", new DataMap() { { "ID", id } });
+				DataMap parameter = new DataMap()
+				{
+					{ "ID", id },
+					{ "ChannelID", id }
+				};
+				var model = WasHandler.GetData<BMChannel>("BM", "GetData", "Select", parameter);
 				if (model == null)
 					throw new Exception("조회할 데이터가 없습니다.");
 
-				IList<BMChannelBrand> channelBrand = new List<BMChannelBrand>();
-				IList<BMCustomerChannel> channelCustomer = new List<BMCustomerChannel>();
-
-				if (model.ChannelBrand != null)
-					channelBrand = model.ChannelBrand;
-				if (model.ChannelCustomer != null)
-					channelCustomer = model.ChannelCustomer;
+				if (model.Brands == null)
+					model.Brands = new List<BMChannelBrand>();
+				if (model.Customers == null)
+					model.Customers = new List<BMCustomerChannel>();
+				if (model.Contacts == null)
+					model.Contacts = new List<BMChannelContact>();
+				if (model.Managers == null)
+					model.Managers = new List<BMChannelManager>();
 
 				SetControlData(model);
-				gridChannelBrand.DataSource = channelBrand;
-				gridChannelCustomer.DataSource = channelCustomer;
 
-				btnAddBrand.Enabled = 
-					btnDeleteBrand.Enabled = 
-					btnAddCustomer.Enabled = 
-					btnDeleteCustomer.Enabled = true;
+				gridBrands.DataSource = model.Brands;
+				gridCustomers.DataSource = model.Customers;
+				gridContacts.DataSource = model.Contacts;
+				gridManagers.DataSource = model.Managers;
+
+				btnAddBrand.Enabled =
+					btnDeleteBrand.Enabled =
+					btnAddCustomer.Enabled =
+					btnDeleteCustomer.Enabled =
+					btnAddContact.Enabled =
+					btnAddManager.Enabled = true;
 
 				SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true, Delete = true });
 				this.EditMode = EditModeEnum.Modify;
@@ -211,16 +294,6 @@ namespace IKaan.Biz.View.Biz.BM
 			try
 			{
 				var model = this.GetControlData<BMChannel>();
-				List<BMChannelBrand> channelBrand = new List<BMChannelBrand>();
-				List<BMCustomerChannel> channelCustomer = new List<BMCustomerChannel>();
-
-				if (gridChannelBrand.RowCount > 0)
-					channelBrand = gridChannelBrand.DataSource as List<BMChannelBrand>;
-				if (gridChannelCustomer.RowCount > 0)
-					channelCustomer = gridChannelCustomer.DataSource as List<BMCustomerChannel>;
-
-				model.ChannelBrand = channelBrand;
-				model.ChannelCustomer = channelCustomer;
 
 				using (var res = WasHandler.Execute<BMChannel>("BM", "Save", (this.EditMode == EditModeEnum.New) ? "Insert" : "Update", model, "ID"))
 				{
@@ -259,7 +332,7 @@ namespace IKaan.Biz.View.Biz.BM
 
 		private void DataNewChannelBrand()
 		{
-			gridChannelBrand.AddNewRow();
+			gridBrands.AddNewRow();
 		}
 		private void DataDeleteChannelBrand()
 		{
@@ -267,11 +340,59 @@ namespace IKaan.Biz.View.Biz.BM
 		}
 		private void DataNewChannelCustomer()
 		{
-			gridChannelCustomer.AddNewRow();
+			gridCustomers.AddNewRow();
 		}
 		private void DataDeleteChannelCustomer()
 		{
 
+		}
+
+		private void ShowContactForm(object id)
+		{
+			if (txtID.EditValue.IsNullOrEmpty())
+				return;
+
+			using (BMChannelContactForm form = new BMChannelContactForm())
+			{
+				form.Text = "채널담당자등록";
+				form.StartPosition = FormStartPosition.CenterScreen;
+				form.IsLoadingRefresh = true;
+				form.ParamsData = new DataMap()
+				{
+					{ "ChannelID", txtID.EditValue },
+					{ "ChannelName", txtChannelName.EditValue },
+					{ "ID", id }
+				};
+
+				if (form.ShowDialog() == DialogResult.OK)
+				{
+					DetailDataLoad(txtID.EditValue);
+				}
+			}
+		}
+
+		private void ShowManagerForm(object id)
+		{
+			if (txtID.EditValue.IsNullOrEmpty())
+				return;
+
+			using (BMChannelManagerForm form = new BMChannelManagerForm())
+			{
+				form.Text = "채널매니저등록";
+				form.StartPosition = FormStartPosition.CenterScreen;
+				form.IsLoadingRefresh = true;
+				form.ParamsData = new DataMap()
+				{
+					{ "ChannelID", txtID.EditValue },
+					{ "ChannelName", txtChannelName.EditValue },
+					{ "ID", id }
+				};
+
+				if (form.ShowDialog() == DialogResult.OK)
+				{
+					DetailDataLoad(txtID.EditValue);
+				}
+			}
 		}
 	}
 }
