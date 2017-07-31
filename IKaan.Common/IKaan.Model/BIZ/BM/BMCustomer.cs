@@ -29,32 +29,64 @@ namespace IKaan.Model.BIZ.BM
 		public string Description { get; set; }
 
 		[DataMember]
+		[Display(Name = "사업자유형")]
+		public string BizType { get; set; }
+
+		[DataMember]
+		[Display(Name = "사업자번호")]
+		public string BizNo { get; set; }
+
+		[DataMember]
+		[Display(Name = "상호")]
+		public string BizName { get; set; }
+
+		[DataMember]
+		[Display(Name = "대표자")]
+		public string RepName { get; set; }
+
+		[DataMember]
+		[Display(Name = "업태")]
+		public string BizKind { get; set; }
+
+		[DataMember]
+		[Display(Name = "종목")]
+		public string BizItem { get; set; }
+
+		[DataMember]
+		[Display(Name = "주소1")]
+		public string AddressLine1 { get; set; }
+
+		[DataMember]
+		[Display(Name = "주소2")]
+		public string AddressLine2 { get; set; }
+
+		[DataMember]
 		[Display(Name = "거래처, 은행 매핑")]
-		public IList<BMCustomerBank> CustomerBank { get; set; }
+		public IList<BMCustomerBank> BankList { get; set; }
 
 		[DataMember]
 		[Display(Name = "거래처, 브랜드 매핑")]
-		public IList<BMCustomerBrand> CustomerBrand { get; set; }
+		public IList<BMCustomerBrand> BrandList { get; set; }
 
 		[DataMember]
 		[Display(Name = "거래처, 채널 매핑")]
-		public IList<BMCustomerChannel> CustomerChannel { get; set; }
+		public IList<BMCustomerChannel> ChannelList { get; set; }
 
 		[DataMember]
 		[Display(Name = "거래처, 주소 매핑")]
-		public IList<BMCustomerAddress> CustomerAddress { get; set; }
+		public IList<BMCustomerAddress> AddressList { get; set; }
 
 		[DataMember]
 		[Display(Name = "거래처, 사업자 매핑")]
-		public IList<BMCustomerBusiness> CustomerBusiness { get; set; }
+		public IList<BMCustomerBusiness> BusinessList { get; set; }
 
 		public BMCustomer()
 		{
-			CustomerBank = new List<BMCustomerBank>();
-			CustomerBrand = new List<BMCustomerBrand>();
-			CustomerChannel = new List<BMCustomerChannel>();
-			CustomerAddress = new List<BMCustomerAddress>();
-			CustomerBusiness = new List<BMCustomerBusiness>();
+			BankList = new List<BMCustomerBank>();
+			BrandList = new List<BMCustomerBrand>();
+			ChannelList = new List<BMCustomerChannel>();
+			AddressList = new List<BMCustomerAddress>();
+			BusinessList = new List<BMCustomerBusiness>();
 		}
 	}
 }

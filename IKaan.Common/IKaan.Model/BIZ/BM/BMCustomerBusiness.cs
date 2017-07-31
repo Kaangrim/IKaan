@@ -18,10 +18,14 @@ namespace IKaan.Model.BIZ.BM
 
 		[DataMember]
 		[Display(Name = "시작일")]
-		public DateTime StartDate { get; set; }
+		public DateTime? StartDate { get; set; }
 
 		[DataMember]
 		[Display(Name = "종료일")]
-		public DateTime EndDate { get; set; }
+		public DateTime? EndDate { get; set; }
+
+		[DataMember]
+		[Display(Name = "사업자정보")]
+		public BMBusiness Business { get; set; }
 	}
 }

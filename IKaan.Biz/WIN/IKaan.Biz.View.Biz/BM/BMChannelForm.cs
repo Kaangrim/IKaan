@@ -75,7 +75,7 @@ namespace IKaan.Biz.View.Biz.BM
 				new XGridColumn() { FieldName = "ID", Width = 80, HorzAlignment = HorzAlignment.Center },
 				new XGridColumn() { FieldName = "ChannelCode", Width = 80 },
 				new XGridColumn() { FieldName = "ChannelName", Width = 150 },
-				new XGridColumn() { FieldName = "ChannelTypeName", Width = 100 },
+				new XGridColumn() { FieldName = "ChannelTypeName", Width = 100, HorzAlignment = HorzAlignment.Center },
 				new XGridColumn() { FieldName = "UseYn", Width = 80, HorzAlignment = HorzAlignment.Center },
 				new XGridColumn() { FieldName = "CreateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
 				new XGridColumn() { FieldName = "CreateByName", Width = 80, HorzAlignment = HorzAlignment.Center },
