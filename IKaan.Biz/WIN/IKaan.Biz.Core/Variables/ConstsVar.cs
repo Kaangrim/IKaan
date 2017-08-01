@@ -57,9 +57,13 @@
 		public const string IMG_URL_GOODS = @"/Images/Goods";
 		public const string IMG_URL_SEARCH_BRAND = @"/Images/SearchBrand";
 		public const string IMG_URL_PERSON = @"/Images/Person";
+		public const string IMG_URL_BUSINESS = @"/Images/Business";
+		public const string IMG_URL_BANK = @"/Images/Bank";
 
 		public const string FILE_DEFINE_BRAND_LOGO = "{0}_LOGO";	//{0} : 브랜드ID
 		public const string FILE_DEFINE_BRAND_MAIN = "{0}_MAIN";
 		public const string FILE_DEFINE_PERSON = "PERSON_{0}";
+		public const string FILE_DEFINE_BUSINESS = "BIZ_{0}";
+		public const string FILE_DEFINE_BANK = "BANK_{0}";
 	}
 }

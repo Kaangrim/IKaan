@@ -20,6 +20,8 @@
 					,	AA.BankName
 					,	AA.AccountNo
 					,	AA.Depositor
+					,	AA.Description
+					,	AA.ImageUrl
 					
 				FROM	dbo.BMCustomerBank AA WITH (NOLOCK)
 				WHERE	AA.CustomerID = #CustomerID#
@@ -40,6 +42,8 @@
 					,	AA.BankName
 					,	AA.AccountNo
 					,	AA.Depositor
+					,	AA.Description
+					,	AA.ImageUrl
 					
 				FROM	dbo.BMCustomerBank AA WITH (NOLOCK)
 				WHERE	AA.ID = #ID#
@@ -50,12 +54,12 @@
 				INSERT INTO dbo.BMCustomerBank
 				( 
 					CreateDate, CreateBy, CreateByName,
-					CustomerID, BankName, AccountNo, Depositor
+					CustomerID, BankName, AccountNo, Depositor, Description, ImageUrl
 				)
 				VALUES
 				(
 					GetDate(), #CreateBy#, #CreateByName#,
-					#CustomerID#, #BankName#, #AccountNo#, #Depositor#
+					#CustomerID#, #BankName#, #AccountNo#, #Depositor#, #Description#, #ImageUrl#
 				)
 			]]>
 			<selectKey type="post" property="ID" resultClass="Int">
@@ -75,6 +79,8 @@
 					,	BankName		= #BankName#
 					,	AccountNo		= #AccountNo#
 					,	Depositor		= #Depositor#
+					,	Description		= #Description#
+					,	ImageUrl		= #ImageUrl#
 				WHERE	ID				= #ID#
 			]]>
 		</update>

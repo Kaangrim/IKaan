@@ -24,6 +24,14 @@ namespace IKaan.Model.BIZ.BM
 		public string Depositor { get; set; }
 
 		[DataMember]
+		[Display(Name = "이미지경로")]
+		public string ImageUrl { get; set; }
+
+		[DataMember]
+		[Display(Name = "설명")]
+		public string Description { get; set; }
+
+		[DataMember]
 		[Display(Name = "거래처명")]
 		public string CustomerName { get; set; }
 	}

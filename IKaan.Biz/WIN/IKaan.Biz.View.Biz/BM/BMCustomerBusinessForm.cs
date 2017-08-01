@@ -3,9 +3,11 @@ using IKaan.Base.Map;
 using IKaan.Base.Utils;
 using IKaan.Biz.Core.Enum;
 using IKaan.Biz.Core.Forms;
+using IKaan.Biz.Core.Handler;
 using IKaan.Biz.Core.Model;
 using IKaan.Biz.Core.PostCode;
 using IKaan.Biz.Core.Utils;
+using IKaan.Biz.Core.Variables;
 using IKaan.Biz.Core.Was.Handler;
 using IKaan.Model.BIZ.BM;
 
@@ -13,6 +15,8 @@ namespace IKaan.Biz.View.Biz.BM
 {
 	public partial class BMCustomerBusinessForm  : EditForm
 	{
+		private string loadUrl = string.Empty;
+
 		public BMCustomerBusinessForm ()
 		{
 			InitializeComponent();
@@ -33,6 +37,18 @@ namespace IKaan.Biz.View.Biz.BM
 						txtAddressLine2.EditValue = data.Address2;
 					}
 				}
+			};
+
+			picImage.EditValueChanged += delegate (object sender, EventArgs e)
+			{
+				if (this.IsLoaded)
+				{
+					txtImageUrl.EditValue = picImage.GetLoadedImageLocation();
+				}
+			};
+			picImage.LoadCompleted += delegate (object sender, EventArgs e)
+			{
+				txtImageUrl.EditValue = loadUrl;
 			};
 		}
 
@@ -60,6 +76,7 @@ namespace IKaan.Biz.View.Biz.BM
 			txtCustomerID.SetEnable(false);
 			txtBusinessID.SetEnable(false);
 			txtAddressID.SetEnable(false);
+			txtImageUrl.SetEnable(false);
 
 			datStartDate.Init(CalendarViewType.DayView);
 
@@ -92,17 +109,25 @@ namespace IKaan.Biz.View.Biz.BM
 					txtBizNo.EditValue = model.Business.BizNo;
 					txtBizName.EditValue = model.Business.BizName;
 					txtRepName.EditValue = model.Business.RepName;
-					txtBizKind.EditValue = model.Business.BizKind;
-					txtBizItem.EditValue = model.Business.BizItem;
+					memBizKind.EditValue = model.Business.BizKind;
+					memBizItem.EditValue = model.Business.BizItem;
+					txtEmail.EditValue = model.Business.Email;
 					txtAddressID.EditValue = model.Business.AddressID;
 					lupStatus.EditValue = model.Business.Status;
 
+					txtPostalCode.EditValue = model.Business.Address.PostalCode;
 					txtAddressLine1.EditValue = model.Business.Address.AddressLine1;
 					txtAddressLine2.EditValue = model.Business.Address.AddressLine2;
 					lupCountry.EditValue = model.Business.Address.Country;
 					txtCity.EditValue = model.Business.Address.City;
 					txtStateProvince.EditValue = model.Business.Address.StateProvince;
 				}
+
+				loadUrl = model.Business.ImageUrl;
+				if (loadUrl.IsNullOrEmpty())
+					picImage.EditValue = null;
+				else
+					picImage.LoadAsync(ConstsVar.IMG_URL + loadUrl);
 
 				SetToolbarButtons(new ToolbarButtons() { Save = true, SaveAndClose = true, Delete = true });
 				this.EditMode = EditModeEnum.Modify;
@@ -122,15 +147,20 @@ namespace IKaan.Biz.View.Biz.BM
 			txtBizNo.Clear();
 			txtBizName.Clear();
 			txtRepName.Clear();
-			txtBizKind.Clear();
-			txtBizItem.Clear();
+			memBizKind.Clear();
+			memBizItem.Clear();
+			txtEmail.Clear();
 			txtAddressID.Clear();
 
+			txtPostalCode.Clear();
 			txtAddressLine1.Clear();
 			txtAddressLine2.Clear();
 			lupCountry.Clear();
 			txtCity.Clear();
 			txtStateProvince.Clear();
+
+			loadUrl = string.Empty;
+			picImage.EditValue = null;
 
 			SetToolbarButtons(new ToolbarButtons() { Save = true, SaveAndClose = true });
 			EditMode = EditModeEnum.New;
@@ -143,17 +173,20 @@ namespace IKaan.Biz.View.Biz.BM
 				var model = this.GetControlData<BMCustomerBusiness>();
 				model.Business = new BMBusiness()
 				{
-					ID = model.BusinessID,
+					ID = txtBusinessID.EditValue.ToIntegerNullToNull(),
 					BizType = lupBizType.EditValue.ToStringNullToNull(),
 					BizNo = txtBizNo.EditValue.ToStringNullToNull(),
 					BizName = txtBizName.EditValue.ToStringNullToNull(),
 					RepName = txtRepName.EditValue.ToStringNullToNull(),
-					BizKind = txtBizKind.EditValue.ToStringNullToNull(),
-					BizItem = txtBizItem.EditValue.ToStringNullToNull(),
+					BizKind = memBizKind.EditValue.ToStringNullToNull(),
+					BizItem = memBizItem.EditValue.ToStringNullToNull(),
+					Email = txtEmail.EditValue.ToStringNullToNull(),
 					Status = lupStatus.EditValue.ToStringNullToNull(),
 					AddressID = txtAddressID.EditValue.ToIntegerNullToNull(),
 					Address = new BMAddress()
 					{
+						ID = txtAddressID.EditValue.ToIntegerNullToNull(),
+						PostalCode = txtPostalCode.EditValue.ToStringNullToNull(),
 						AddressLine1 = txtAddressLine1.EditValue.ToStringNullToNull(),
 						AddressLine2 = txtAddressLine2.EditValue.ToStringNullToNull(),
 						Country = lupCountry.EditValue.ToStringNullToNull(),
@@ -161,7 +194,15 @@ namespace IKaan.Biz.View.Biz.BM
 						StateProvince = txtStateProvince.EditValue.ToStringNullToNull()
 					}
 				};
-				
+
+				//이미지 업로드
+				string path = picImage.GetLoadedImageLocation();
+				if (path.IsNullOrEmpty() == false)
+				{
+					string url = FTPHandler.UploadBusiness(txtImageUrl.EditValue.ToString(), txtBizNo.EditValue.ToString().Replace("-", ""));
+					model.Business.ImageUrl = url;
+				}
+
 				using (var res = WasHandler.Execute<BMCustomerBusiness>("BM", "Save", (this.EditMode == EditModeEnum.New) ? "Insert" : "Update", model, "ID"))
 				{
 					if (res.Error.Number != 0)

@@ -75,6 +75,8 @@
 					,	AA.BizKind
 					,	AA.BizItem
 					,	AA.Status
+					,	AA.Email
+					,	AA.ImageUrl
 					,	AA.AddressID
 					,	BB.PostalCode
 					,	BB.City
@@ -95,12 +97,12 @@
 				INSERT INTO dbo.BMBusiness
 				( 
 					CreateDate, CreateBy, CreateByName,
-					BizType, BizNo, BizName, RepName, BizKind, BizItem, AddressID, Status
+					BizType, BizNo, BizName, RepName, BizKind, BizItem, AddressID, Status, ImageUrl, Email
 				)
 				VALUES
 				(
 					GetDate(), #CreateBy#, #CreateByName#,
-					#BizType#, #BizNo#, #BizName#, #RepName#, #BizKind#, #BizItem#, #AddressID#, #Status#
+					#BizType#, #BizNo#, #BizName#, #RepName#, #BizKind#, #BizItem#, #AddressID#, #Status#, #ImageUrl#, #Email#
 				)
 			]]>
 			<selectKey type="post" property="ID" resultClass="Int">
@@ -124,14 +126,23 @@
 					,	BizItem			= #BizItem#
 					,	Status			= #Status#
 					,	AddressID		= #AddressID#
+					,	ImageUrl		= #ImageUrl#
+					,	Email			= #Email#
 				WHERE	ID				= #ID#
 			]]>
 		</update>
 		<delete id="DeleteBMBusiness" parameterClass="DataMap">
 			<![CDATA[
 				DELETE 
-				FROM	dbo.BMBusiness
-				WHERE	ID = #ID#
+				FROM	dbo.BMAddress 
+				WHERE	ID = 
+							(	SELECT	AddressID 
+								FROM	dbo.BMBusiness 
+								WHERE	ID = #ID#
+							);
+				DELETE 
+				FROM	dbo.BMBusiness 
+				WHERE	ID = #ID#;
 			]]>
 		</delete>
 

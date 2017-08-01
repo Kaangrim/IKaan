@@ -18,8 +18,25 @@
 					
 					,	AA.CustomerID
 					,	AA.AddressID
+					,	AA.AddressType
+					,	M1.Name			as AddressTypeName
+					,	AA.Description
+					
+					,	BB.PostalCode
+					,	BB.Country
+					,	BB.City
+					,	BB.StateProvince
+					,	BB.AddressLine1
+					,	BB.AddressLine2
 					
 				FROM	dbo.BMCustomerAddress AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.BMAddress BB WITH (NOLOCK)
+								ON AA.AddressID = BB.ID
+						LEFT JOIN
+							IKBAS.DBO.ACCode M1 WITH (NOLOCK)
+								ON AA.AddressType = M1.Code
+									AND M1.ParentCode = 'AddressType'
 				WHERE	AA.CustomerID = #CustomerID#
 				ORDER BY RowNo
 			]]>
@@ -36,8 +53,20 @@
 					
 					,	AA.CustomerID
 					,	AA.AddressID
+					,	AA.AddressType
+					,	AA.Description
+					
+					,	BB.PostalCode
+					,	BB.Country
+					,	BB.City
+					,	BB.StateProvince
+					,	BB.AddressLine1
+					,	BB.AddressLine2
 					
 				FROM	dbo.BMCustomerAddress AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.BMAddress BB WITH (NOLOCK)
+								ON AA.AddressID = BB.ID
 				WHERE	AA.ID = #ID#
 			]]>
 		</select>
@@ -46,12 +75,12 @@
 				INSERT INTO dbo.BMCustomerAddress
 				( 
 					CreateDate, CreateBy, CreateByName,
-					CustomerID, AddressID
+					CustomerID, AddressID, AddressType, Description
 				)
 				VALUES
 				(
 					GetDate(), #CreateBy#, #CreateByName#,
-					#CustomerID#, #AddressID#
+					#CustomerID#, #AddressID#, #AddressType#, #Description#
 				)
 			]]>
 			<selectKey type="post" property="ID" resultClass="Int">
@@ -69,12 +98,24 @@
 					
 					,	CustomerID		= #CustomerID#
 					,	AddressID		= #AddressID#
+					,	AddressType		= #AddressType#
+					,	Description		= #Description#
 				WHERE	ID				= #ID#
 			]]>
 		</update>
 		<delete id="DeleteBMCustomerAddress" parameterClass="DataMap">
 			<![CDATA[
-				DELETE FROM dbo.BMCustomerAddress WHERE	ID = #ID#;
+				DELETE
+				FROM	dbo.BMAddress
+				WHERE	ID = 
+							(	
+								SELECT	AddressID
+								FROM	dbo.BMCustomerAddress
+								WHERE	ID = #ID#
+							);
+				DELETE 
+				FROM	dbo.BMCustomerAddress 
+				WHERE	ID = #ID#;
 			]]>
 		</delete>
 	</statements>

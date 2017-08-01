@@ -165,6 +165,72 @@ namespace IKaan.Biz.Core.Handler
 				throw;
 			}
 		}
+		public static string UploadBusiness(string localPath, string bizNo)
+		{
+			try
+			{
+				if (localPath.IsNullOrEmpty())
+					throw new Exception("로컬 파일 경로가 정확하지 않습니다.");
+
+
+				FileInfo info = new FileInfo(localPath);
+				string ext = info.Extension;
+				string fileName = string.Format(ConstsVar.FILE_DEFINE_BUSINESS, bizNo) + ext;
+				string remotePath = ConstsVar.IMG_URL_BUSINESS;
+				string remoteFull = remotePath + "/" + fileName;
+
+				using (var ftp = new FtpClient())
+				{
+					ftp.Host = url;
+					ftp.Credentials = new System.Net.NetworkCredential(id, pw);
+					ftp.Connect();
+					if (ftp.DirectoryExists(remotePath) == false)
+						ftp.CreateDirectory(remotePath);
+					if (ftp.FileExists(remoteFull))
+						ftp.DeleteFile(remoteFull);
+					ftp.UploadFile(localPath, remoteFull);
+					ftp.Disconnect();
+				}
+				return remoteFull;
+			}
+			catch
+			{
+				throw;
+			}
+		}
+		public static string UploadBank(string localPath, string bankName, string accountNo)
+		{
+			try
+			{
+				if (localPath.IsNullOrEmpty())
+					throw new Exception("로컬 파일 경로가 정확하지 않습니다.");
+
+
+				FileInfo info = new FileInfo(localPath);
+				string ext = info.Extension;
+				string fileName = string.Format(ConstsVar.FILE_DEFINE_BANK, bankName+"_" + accountNo) + ext;
+				string remotePath = ConstsVar.IMG_URL_BANK;
+				string remoteFull = remotePath + "/" + fileName;
+
+				using (var ftp = new FtpClient())
+				{
+					ftp.Host = url;
+					ftp.Credentials = new System.Net.NetworkCredential(id, pw);
+					ftp.Connect();
+					if (ftp.DirectoryExists(remotePath) == false)
+						ftp.CreateDirectory(remotePath);
+					if (ftp.FileExists(remoteFull))
+						ftp.DeleteFile(remoteFull);
+					ftp.UploadFile(localPath, remoteFull);
+					ftp.Disconnect();
+				}
+				return remoteFull;
+			}
+			catch
+			{
+				throw;
+			}
+		}
 
 		public static void DeleteFile(string remotePath)
 		{

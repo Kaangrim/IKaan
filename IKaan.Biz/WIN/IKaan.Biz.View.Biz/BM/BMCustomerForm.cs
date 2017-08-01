@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using DevExpress.Utils;
-using DevExpress.XtraEditors.Repository;
 using DevExpress.XtraGrid.Views.Grid;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
@@ -10,7 +9,6 @@ using IKaan.Biz.Core.Controls.Grid;
 using IKaan.Biz.Core.Enum;
 using IKaan.Biz.Core.Forms;
 using IKaan.Biz.Core.Model;
-using IKaan.Biz.Core.PostCode;
 using IKaan.Biz.Core.Utils;
 using IKaan.Biz.Core.Was.Handler;
 using IKaan.Model.BIZ.BM;
@@ -23,7 +21,7 @@ namespace IKaan.Biz.View.Biz.BM
 		{
 			InitializeComponent();
 
-			btnAddBusiness.Click += delegate (object sender, EventArgs e) { AddBusiness(null); };
+			btnAddBusiness.Click += delegate (object sender, EventArgs e) { ShowBusinessEditForm(null); };
 			gridBusiness.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
 			{
 				if (e.RowHandle < 0)
@@ -34,7 +32,7 @@ namespace IKaan.Biz.View.Biz.BM
 					if (e.Button == MouseButtons.Left && e.Clicks == 2)
 					{
 						GridView view = sender as GridView;
-						AddBusiness(view.GetRowCellValue(e.RowHandle, "ID"));
+						ShowBusinessEditForm(view.GetRowCellValue(e.RowHandle, "ID"));
 					}
 				}
 				catch(Exception ex)
@@ -43,50 +41,45 @@ namespace IKaan.Biz.View.Biz.BM
 				}
 			};
 
-			btnAddAddress.Click += delegate (object sender, EventArgs e)
+			btnAddAddress.Click += delegate (object sender, EventArgs e) { ShowAddressEditForm(null); };
+			gridAddress.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
 			{
-				(gridAddress.DataSource as List<BMCustomerAddress>).Add(new BMCustomerAddress()
-				{
-					CustomerID = txtID.EditValue.ToIntegerNullToNull()
-				});
-				gridAddress.SetFocus(gridAddress.FocusedRowHandle, "PostalCode");
-			};
-			btnDelAddress.Click += delegate (object sender, EventArgs e)
-			{
-				throw new NotImplementedException();
-			};
-		}
-
-		void AddBusiness(object id)
-		{
-			try
-			{
-				if (txtID.EditValue.IsNullOrEmpty())
+				if (e.RowHandle < 0)
 					return;
 
-				using (BMCustomerBusinessForm form = new BMCustomerBusinessForm()
+				try
 				{
-					Text = "사업자정보등록",
-					StartPosition = FormStartPosition.CenterScreen,
-					IsLoadingRefresh = true,
-					ParamsData = new DataMap()
-				{
-					{ "CustomerID", txtID.EditValue },
-					{ "CustomerName", txtCustomerName.EditValue },
-					{ "ID", id }
-				}
-				})
-				{
-					if (form.ShowDialog() == DialogResult.OK)
+					if (e.Button == MouseButtons.Left && e.Clicks == 2)
 					{
-						DetailDataLoad(txtID.EditValue);
+						GridView view = sender as GridView;
+						ShowAddressEditForm(view.GetRowCellValue(e.RowHandle, "ID"));
 					}
 				}
-			}
-			catch(Exception ex)
+				catch (Exception ex)
+				{
+					ShowErrBox(ex);
+				}
+			};
+
+			btnAddBank.Click += delegate (object sender, EventArgs e) { ShowBankEditForm(null); };
+			gridBank.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
 			{
-				ShowErrBox(ex);
-			}
+				if (e.RowHandle < 0)
+					return;
+
+				try
+				{
+					if (e.Button == MouseButtons.Left && e.Clicks == 2)
+					{
+						GridView view = sender as GridView;
+						ShowBankEditForm(view.GetRowCellValue(e.RowHandle, "ID"));
+					}
+				}
+				catch (Exception ex)
+				{
+					ShowErrBox(ex);
+				}
+			};
 		}
 
 		protected override void OnShown(EventArgs e)
@@ -182,7 +175,8 @@ namespace IKaan.Biz.View.Biz.BM
 				new XGridColumn() { FieldName = "ID", Visible = false },
 				new XGridColumn() { FieldName = "CustomerID", Visible = false },
 				new XGridColumn() { FieldName = "AddressID", Visible = false },
-				new XGridColumn() { FieldName = "PostalCode", Width = 100 },
+				new XGridColumn() { FieldName = "AddressTypeName", Width = 100, HorzAlignment = HorzAlignment.Center },
+				new XGridColumn() { FieldName = "PostalCode", Width = 100, HorzAlignment = HorzAlignment.Center },
 				new XGridColumn() { FieldName = "AddressLine1", Width = 200 },
 				new XGridColumn() { FieldName = "AddressLine2", Width = 200 },
 				new XGridColumn() { FieldName = "Country", Width = 100 },
@@ -194,23 +188,6 @@ namespace IKaan.Biz.View.Biz.BM
 				new XGridColumn() { FieldName = "UpdateByName", Width = 80, HorzAlignment = HorzAlignment.Center }
 			);			
 			gridAddress.ColumnFix("RowNo");
-			gridAddress.SetRepositoryItemButtonEdit("PostalCode");
-			gridAddress.SetEditable("PostalCode", "AddressLine1", "AddressLine2", "Country", "City", "StateProvince");
-			(gridAddress.MainView.Columns["PostalCode"].ColumnEdit as RepositoryItemButtonEdit).ButtonClick += delegate (object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
-			{
-				if (e.Button.Kind == DevExpress.XtraEditors.Controls.ButtonPredefines.Ellipsis)
-				{
-					var data = SearchPostCode.Find();
-					if (data != null)
-					{
-						int rowindex = gridAddress.FocusedRowHandle;
-						gridAddress.SetValue(rowindex, "PostalCode", data.PostalNo);
-						gridAddress.SetValue(rowindex, "AddressLine1", data.Address1);
-						gridAddress.SetValue(rowindex, "AddressLine2", data.Address2);
-					}
-				}
-			};
-			gridAddress.CellValueChanged += this.GridCellValueChanged;
 			#endregion
 
 			#region Channel List
@@ -230,8 +207,6 @@ namespace IKaan.Biz.View.Biz.BM
 				new XGridColumn() { FieldName = "UpdateByName", Width = 80, HorzAlignment = HorzAlignment.Center }
 			);
 			gridChannel.ColumnFix("RowNo");
-			gridChannel.SetRepositoryItemButtonEdit("ChannelName");
-			gridChannel.SetEditable("ChannelName", "StartDate");
 
 			#endregion
 
@@ -242,11 +217,11 @@ namespace IKaan.Biz.View.Biz.BM
 				new XGridColumn() { FieldName = "ID", Visible = false },
 				new XGridColumn() { FieldName = "CustomerID", Visible = false },
 				new XGridColumn() { FieldName = "BusinessID", Visible = false },
-				new XGridColumn() { FieldName = "StartDate", Width = 100 },
-				new XGridColumn() { FieldName = "EndDate", Width = 100 },
-				new XGridColumn() { FieldName = "BizNo", Width = 100 },
+				new XGridColumn() { FieldName = "StartDate", Width = 100, HorzAlignment = HorzAlignment.Center },
+				new XGridColumn() { FieldName = "EndDate", Width = 100, HorzAlignment = HorzAlignment.Center },
+				new XGridColumn() { FieldName = "BizNo", Width = 100, HorzAlignment = HorzAlignment.Center },
 				new XGridColumn() { FieldName = "BizName", Width = 200 },
-				new XGridColumn() { FieldName = "RepName", Width = 100 },
+				new XGridColumn() { FieldName = "RepName", Width = 100, HorzAlignment = HorzAlignment.Center },
 				new XGridColumn() { FieldName = "CreateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
 				new XGridColumn() { FieldName = "CreateByName", Width = 80, HorzAlignment = HorzAlignment.Center },
 				new XGridColumn() { FieldName = "UpdateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
@@ -271,10 +246,6 @@ namespace IKaan.Biz.View.Biz.BM
 				new XGridColumn() { FieldName = "UpdateByName", Width = 80, HorzAlignment = HorzAlignment.Center }
 			);
 			gridBank.ColumnFix("RowNo");
-			gridBank.SetRespositoryItemTextEdit("BankName");
-			gridBank.SetRespositoryItemTextEdit("AccountNo");
-			gridBank.SetRespositoryItemTextEdit("Depositor");
-			gridBank.SetEditable("BankName", "AccountNo", "Depositor");
 			#endregion
 
 			#region Brand List
@@ -296,21 +267,7 @@ namespace IKaan.Biz.View.Biz.BM
 				new XGridColumn() { FieldName = "UpdateByName", Width = 80, HorzAlignment = HorzAlignment.Center }
 			);
 			gridBrand.ColumnFix("RowNo");
-			gridBrand.SetRepositoryItemButtonEdit("BrandName");
-			gridBrand.SetEditable("BrandName", "StartDate");
 			#endregion
-		}
-
-		private void GridCellValueChanged(object sender, DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs e)
-		{
-			if (e.RowHandle < 0)
-				return;
-
-			GridView view = sender as GridView;
-			if (gridAddress.GetValue(e.RowHandle, e.Column.FieldName).ToStringNullToEmpty() != view.GetRowCellValue(e.RowHandle, e.Column.FieldName).ToStringNullToEmpty())
-			{
-				view.SetRowCellValue(e.RowHandle, "Modified", true);
-			}
 		}
 
 		protected override void LoadForm()
@@ -329,11 +286,11 @@ namespace IKaan.Biz.View.Biz.BM
 			gridBrand.Clear<BMCustomerBrand>();
 			gridChannel.Clear<BMCustomerChannel>();
 
-			btnDelAddress.Enabled = false;
-			btnDelBrand.Enabled = false;
-			btnAddBusiness.Enabled = false;
-			btnDelBank.Enabled = false;
-			btnDelChannel.Enabled = false;
+			btnAddAddress.Enabled =
+				btnAddBank.Enabled =
+				btnAddBrand.Enabled =
+				btnAddChannel.Enabled =
+				btnAddBusiness.Enabled = false;
 
 			SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true });
 			EditMode = EditModeEnum.New;
@@ -386,15 +343,11 @@ namespace IKaan.Biz.View.Biz.BM
 				gridBusiness.DataSource = model.BusinessList;
 				gridChannel.DataSource = model.ChannelList;
 
-				btnAddBusiness.Enabled = true;
-				if (gridAddress.RowCount > 0)
-					btnDelAddress.Enabled = true;
-				if (gridBank.RowCount > 0)
-					btnDelBank.Enabled = true;
-				if (gridBrand.RowCount > 0)
-					btnDelBrand.Enabled = true;
-				if (gridChannel.RowCount > 0)
-					btnDelChannel.Enabled = true;
+				btnAddAddress.Enabled =
+					btnAddBank.Enabled =
+					btnAddBrand.Enabled =
+					btnAddChannel.Enabled =
+					btnAddBusiness.Enabled = true;
 
 				SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true, Delete = true });
 				this.EditMode = EditModeEnum.Modify;
@@ -440,6 +393,100 @@ namespace IKaan.Biz.View.Biz.BM
 
 					ShowMsgBox("삭제하였습니다.");
 					callback(arg, null);
+				}
+			}
+			catch (Exception ex)
+			{
+				ShowErrBox(ex);
+			}
+		}
+
+		void ShowAddressEditForm(object id)
+		{
+			try
+			{
+				if (txtID.EditValue.IsNullOrEmpty())
+					return;
+
+				using (BMCustomerAddressForm form = new BMCustomerAddressForm()
+				{
+					Text = "주소등록",
+					StartPosition = FormStartPosition.CenterScreen,
+					IsLoadingRefresh = true,
+					ParamsData = new DataMap()
+					{
+						{ "CustomerID", txtID.EditValue },
+						{ "CustomerName", txtCustomerName.EditValue },
+						{ "ID", id }
+					}
+				})
+				{
+					if (form.ShowDialog() == DialogResult.OK)
+					{
+						DetailDataLoad(txtID.EditValue);
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				ShowErrBox(ex);
+			}
+		}
+		void ShowBusinessEditForm(object id)
+		{
+			try
+			{
+				if (txtID.EditValue.IsNullOrEmpty())
+					return;
+
+				using (BMCustomerBusinessForm form = new BMCustomerBusinessForm()
+				{
+					Text = "사업자정보등록",
+					StartPosition = FormStartPosition.CenterScreen,
+					IsLoadingRefresh = true,
+					ParamsData = new DataMap()
+				{
+					{ "CustomerID", txtID.EditValue },
+					{ "CustomerName", txtCustomerName.EditValue },
+					{ "ID", id }
+				}
+				})
+				{
+					if (form.ShowDialog() == DialogResult.OK)
+					{
+						DetailDataLoad(txtID.EditValue);
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				ShowErrBox(ex);
+			}
+		}
+		void ShowBankEditForm(object id)
+		{
+			try
+			{
+				if (txtID.EditValue.IsNullOrEmpty())
+					return;
+
+				using (BMCustomerBankForm form = new BMCustomerBankForm()
+				{
+					Text = "계좌정보등록",
+					StartPosition = FormStartPosition.CenterScreen,
+					IsLoadingRefresh = true,
+					ParamsData = new DataMap()
+					{
+						{ "CustomerID", txtID.EditValue },
+						{ "CustomerName", txtCustomerName.EditValue },
+						{ "ID", id }
+					}
+				})
+				{
+					if (form.ShowDialog() == DialogResult.OK)
+					{
+						DetailDataLoad(txtID.EditValue);
+					}
 				}
 			}
 			catch (Exception ex)

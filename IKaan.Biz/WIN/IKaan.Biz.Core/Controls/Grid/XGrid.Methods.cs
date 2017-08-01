@@ -813,11 +813,8 @@ namespace IKaan.Biz.Core.Controls.Grid
 		/// </summary>
 		public void Clear<T>()
 		{
-			if (DataSource != null)
-			{
-				DataSource = default(T);
-				MainView.RefreshData();
-			}
+			DataSource = new List<T>();
+			MainView.RefreshData();
 		}
 
 		/// <summary>

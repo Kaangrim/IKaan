@@ -147,6 +147,12 @@ namespace IKaan.Was.Service.BIZ
 						case "BMCustomerBusiness":
 							req.GetCustomerBusiness();
 							break;
+						case "BMCustomerAddress":
+							req.GetCustomerAddress();
+							break;
+						case "BMCustomerBank":
+							req.SetData<BMCustomerBank>();
+							break;
 					}
 				}
 
@@ -240,6 +246,12 @@ namespace IKaan.Was.Service.BIZ
 									break;
 								case "BMCustomerBusiness":
 									req.SaveCustomerBusiness();
+									break;
+								case "BMCustomerAddress":
+									req.SaveCustomerAddress();
+									break;
+								case "BMCustomerBank":
+									req.SaveCustomerBank();
 									break;
 							}
 						}
@@ -476,6 +488,22 @@ namespace IKaan.Was.Service.BIZ
 						customer.Business.Address = DaoFactory.InstanceBiz.QueryForObject<BMAddress>("SelectBMAddress", parameter);
 					}
 				}
+				req.Data = customer;
+				req.Result.Count = 1;
+				return customer;
+			}
+			catch
+			{
+				throw;
+			}
+		}
+
+		private static BMCustomerAddress GetCustomerAddress(this WasRequest req)
+		{
+			try
+			{
+				DataMap parameter = req.Parameter.JsonToAnyType<DataMap>();
+				BMCustomerAddress customer = DaoFactory.InstanceBiz.QueryForObject<BMCustomerAddress>("SelectBMCustomerAddress", parameter);
 				req.Data = customer;
 				req.Result.Count = 1;
 				return customer;
@@ -1085,6 +1113,117 @@ namespace IKaan.Was.Service.BIZ
 
 							DaoFactory.InstanceBiz.Update("UpdateBMCustomerBusiness", customer);
 						}
+					}
+
+					req.Result.Count = 1;
+					req.Result.ReturnValue = customer.ID;
+					req.Error.Number = 0;
+				}
+			}
+			catch
+			{
+				throw;
+			}
+		}
+
+		private static void SaveCustomerAddress(this WasRequest req)
+		{
+			try
+			{
+				object customerId = null;
+				object addressId = null;
+
+				BMCustomerAddress customer = req.Data.JsonToAnyType<BMCustomerAddress>();
+				if (customer != null)
+				{
+					if (customer.AddressID.IsNullOrDefault())
+					{
+						if (customer.PostalCode.IsNullOrEmpty() == false)
+						{
+							BMAddress address = new BMAddress()
+							{
+								PostalCode = customer.PostalCode,
+								Country = customer.Country,
+								City = customer.City,
+								StateProvince = customer.StateProvince,
+								AddressLine1 = customer.AddressLine1,
+								AddressLine2 = customer.AddressLine2,
+								CreateBy = req.User.UserId,
+								CreateByName = req.User.UserName
+							};
+
+							addressId = DaoFactory.InstanceBiz.Insert("InsertBMAddress", address);
+							customer.AddressID = addressId.ToIntegerNullToNull();
+						}
+					}
+					else
+					{
+						BMAddress address = new BMAddress()
+						{
+							ID = customer.AddressID,
+							PostalCode = customer.PostalCode,
+							Country = customer.Country,
+							City = customer.City,
+							StateProvince = customer.StateProvince,
+							AddressLine1 = customer.AddressLine1,
+							AddressLine2 = customer.AddressLine2,
+							UpdateBy = req.User.UserId,
+							UpdateByName = req.User.UserName
+						};
+
+						DaoFactory.InstanceBiz.Update("UpdateBMAddress", address);
+					}
+
+					if (customer.ID.IsNullOrDefault())
+					{
+						customer.CreateBy = req.User.UserId;
+						customer.CreateByName = req.User.UserName;
+
+						customerId = DaoFactory.InstanceBiz.Insert("InsertBMCustomerAddress", customer);
+						customer.ID = customerId.ToIntegerNullToNull();
+					}
+					else
+					{
+						customer.UpdateBy = req.User.UserId;
+						customer.UpdateByName = req.User.UserName;
+
+						DaoFactory.InstanceBiz.Update("UpdateBMCustomerAddress", customer);
+					}
+
+					req.Result.Count = 1;
+					req.Result.ReturnValue = customer.ID;
+					req.Error.Number = 0;
+				}
+			}
+			catch
+			{
+				throw;
+			}
+		}
+
+		private static void SaveCustomerBank(this WasRequest req)
+		{
+			try
+			{
+				object id = null;
+
+				BMCustomerBank customer = req.Data.JsonToAnyType<BMCustomerBank>();
+				if (customer != null)
+				{
+					if (customer.ID.IsNullOrDefault())
+					{
+						customer.CreateBy = req.User.UserId;
+						customer.CreateByName = req.User.UserName;
+
+						id = DaoFactory.InstanceBiz.Insert("InsertBMCustomerBank", customer);
+						customer.ID = id.ToIntegerNullToNull();
+					}
+					else
+					{
+						customer.UpdateBy = req.User.UserId;
+						customer.UpdateByName = req.User.UserName;
+
+						DaoFactory.InstanceBiz.Update("UpdateBMCustomerBank", customer);
 					}
 
 					req.Result.Count = 1;

@@ -41,6 +41,14 @@ namespace IKaan.Model.BIZ.BM
 		public int? AddressID { get; set; }
 
 		[DataMember]
+		[Display(Name = "전자세금계산서 전용 전자우편주소")]
+		public string Email { get; set; }
+
+		[DataMember]
+		[Display(Name = "이미지경로")]
+		public string ImageUrl { get; set; }
+
+		[DataMember]
 		[Display(Name = "주소")]
 		public BMAddress Address { get; set; }
 
@@ -50,6 +58,7 @@ namespace IKaan.Model.BIZ.BM
 
 		public BMBusiness()
 		{
+			Address = new BMAddress();
 			Customers = new List<BMCustomerBusiness>();
 		}
 	}

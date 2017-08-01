@@ -117,17 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="lcGroupEdit2.CaptionImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAddEVYdFRpdGxlAE5ldztOZXdHcm91cDtOZXdQZW9wbGU7YLu5vQAAASlJREFUOE+N0b1OAkEU
-        xfF9AUl8AQ2GUFAZ7KhtjVTwJj6AlQ9gpHULMYbaxHcghoaOGInFFhBrPgrxfzZ3yJ0Jayx+WWb2npMZ
-        Nlu8Xns7v755HkgNDyjwjXscoXzvgxfJMxQ8YZd4RFQQQoHW2dXtm4a2FvJW2Bf4YLS2gpGFvCX+fYIT
-        /MAXvCAqCCH/VMHKSj4sKLpSG1GBL9qvCS+toAd9BekrGJTHPED3Fx31GGfat1Adc3S19qE2tghh/dZR
-        7zBBA01Moats0PIF0kNh+tpj6BS5hVK5D36hPKqpY46u1gwPk7AUGjzHBjr2BA00MbU9vWsxLGnBTAUj
-        G/xLDp0iBNcYo6OChRusov8kfIWICj7dYJUZKgsu8Y410qD2xujgQMEg+wUclTbsiXcZdAAAAABJRU5E
-        rkJggg==
-</value>
-  </data>
 </root>
