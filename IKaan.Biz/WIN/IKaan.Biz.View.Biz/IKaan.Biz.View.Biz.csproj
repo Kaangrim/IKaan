@@ -102,6 +102,18 @@
     <Compile Include="BM\BMAddressForm.designer.cs">
       <DependentUpon>BMAddressForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="BM\BMCustomerChannelForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BM\BMCustomerChannelForm.Designer.cs">
+      <DependentUpon>BMCustomerChannelForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BM\BMCustomerBrandForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BM\BMCustomerBrandForm.Designer.cs">
+      <DependentUpon>BMCustomerBrandForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="BM\BMCustomerBankForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -230,6 +242,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="BM\BMAddressForm.resx">
       <DependentUpon>BMAddressForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BM\BMCustomerChannelForm.resx">
+      <DependentUpon>BMCustomerChannelForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BM\BMCustomerBrandForm.resx">
+      <DependentUpon>BMCustomerBrandForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="BM\BMCustomerBankForm.resx">
       <DependentUpon>BMCustomerBankForm.cs</DependentUpon>

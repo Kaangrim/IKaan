@@ -37,6 +37,14 @@
 					AND	AA.UseYn = 'Y'
 				]]>
 			</isEmpty>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(
+							AA.Code = #FindText#	OR
+							AA.Name	Like '%'+#FindText#+'%'
+						)
+				]]>
+			</isNotEmpty>
 			<![CDATA[
 				ORDER BY 
 					SortOrder, Name
@@ -74,6 +82,14 @@
 					AND	AA.UseYn = 'Y'
 				]]>
 			</isEmpty>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(
+							AA.Code = #FindText#	OR
+							AA.Name	Like '%'+#FindText#+'%'
+						)
+				]]>
+			</isNotEmpty>
 			<![CDATA[
 				ORDER BY 
 					Name, ID
@@ -132,8 +148,18 @@
 					,	null									as Option8
 					,	null									as Option9
 				FROM	CTE aa
-				ORDER BY 
-					SortOrder, Name
+				WHERE	1=1
+			]]>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(
+							CONVERT(VARCHAR, aa.ID) = #FindText#	OR
+							aa.Name	Like '%'+#FindText#+'%'
+						)
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY SortOrder, Name
 			]]>
 		</select>
 		<select id="SelectCodeHelpViewList" parameterClass="DataMap" resultClass="UMCodeHelp" >
@@ -189,8 +215,18 @@
 					,	null									as Option8
 					,	null									as Option9
 				FROM	CTE aa
-				ORDER BY 
-					SortOrder, Name
+				WHERE	1=1
+			]]>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(
+							CONVERT(VARCHAR, aa.ID) = #FindText#	OR
+							aa.Name	Like '%'+#FindText#+'%'
+						)
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY SortOrder, Name
 			]]>
 		</select>
 		<select id="SelectCodeHelpModuleList" parameterClass="DataMap" resultClass="UMCodeHelp" >
@@ -225,6 +261,14 @@
 					AND	AA.UseYn = 'Y'
 				]]>
 			</isEmpty>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(
+							CONVERT(VARCHAR, aa.ID) = #FindText#	OR
+							aa.ModuleName	Like '%'+#FindText#+'%'
+						)
+				]]>
+			</isNotEmpty>
 			<![CDATA[
 				ORDER BY 
 					SortOrder, Name
@@ -283,8 +327,18 @@
 					,	null			as Option8
 					,	null			as Option9
 				FROM	CTE aa
-				ORDER BY 
-					SortOrder, Name
+				WHERE	1=1
+			]]>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(
+							CONVERT(VARCHAR, aa.ID) = #FindText#	OR
+							aa.Name	Like '%'+#FindText#+'%'
+						)
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY SortOrder, Name
 			]]>
 		</select>
 		<select id="SelectCodeHelpGroupList" parameterClass="DataMap" resultClass="UMCodeHelp" >
@@ -340,8 +394,18 @@
 					,	null			as Option8
 					,	null			as Option9
 				FROM	CTE aa
-				ORDER BY 
-					SortOrder, Name
+				WHERE	1=1
+			]]>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(
+							CONVERT(VARCHAR, aa.ID) = #FindText#	OR
+							aa.Name	Like '%'+#FindText#+'%'
+						)
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY SortOrder, Name
 			]]>
 		</select>
 		<select id="SelectCodeHelpHelpList" parameterClass="DataMap" resultClass="UMCodeHelp" >
@@ -364,8 +428,18 @@
 					,	null								as Option8
 					,	null								as Option9
 				FROM	dbo.AAHelp aa
-				ORDER BY 
-					SortOrder, Name
+				WHERE	1=1
+			]]>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(
+							CONVERT(VARCHAR, aa.ID) = #FindText#	OR
+							aa.HelpName	Like '%'+#FindText#+'%'
+						)
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY SortOrder, Name
 			]]>
 		</select>
 		<select id="SelectCodeHelpServerList" parameterClass="DataMap" resultClass="UMCodeHelp" >
@@ -388,8 +462,18 @@
 					,	null								as Option8
 					,	null								as Option9
 				FROM	dbo.ADServer aa
-				ORDER BY 
-					SortOrder, Name
+				WHERE	1=1
+			]]>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(
+							CONVERT(VARCHAR, aa.ID) = #FindText#	OR
+							aa.ServerName	Like '%'+#FindText#+'%'
+						)
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY SortOrder, Name
 			]]>
 		</select>
 		<select id="SelectCodeHelpDatabaseList" parameterClass="DataMap" resultClass="UMCodeHelp" >
@@ -419,9 +503,16 @@
 					AND		aa.ServerID = #ServerID#
 				]]>
 			</isNotEmpty>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(
+							CONVERT(VARCHAR, aa.ID) = #FindText#	OR
+							aa.DatabaseName	Like '%'+#FindText#+'%'
+						)
+				]]>
+			</isNotEmpty>
 			<![CDATA[
-				ORDER BY 
-					SortOrder, Name
+				ORDER BY SortOrder, Name
 			]]>
 		</select>
 		<select id="SelectCodeHelpSchemaList" parameterClass="DataMap" resultClass="UMCodeHelp" >
@@ -459,9 +550,16 @@
 					AND		aa.DatabaseID = #DatabaseID#
 				]]>
 			</isNotEmpty>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(
+							CONVERT(VARCHAR, aa.ID) = #FindText#	OR
+							aa.SchemaName	Like '%'+#FindText#+'%'
+						)
+				]]>
+			</isNotEmpty>
 			<![CDATA[
-				ORDER BY 
-					SortOrder, Name
+				ORDER BY SortOrder, Name
 			]]>
 		</select>
 		<select id="SelectCodeHelpTableList" parameterClass="DataMap" resultClass="UMCodeHelp" >
@@ -504,9 +602,16 @@
 					AND		aa.SchemaID = #SchemaID#
 				]]>
 			</isNotEmpty>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(
+							CONVERT(VARCHAR, aa.ID) = #FindText#	OR
+							aa.TableName	Like '%'+#FindText#+'%'
+						)
+				]]>
+			</isNotEmpty>
 			<![CDATA[
-				ORDER BY 
-					SortOrder, Name
+				ORDER BY SortOrder, Name
 			]]>
 		</select>
 
@@ -530,9 +635,28 @@
 					,	null								as Option8
 					,	null								as Option9
 				FROM	IKBIZ.dbo.BMBrand aa WITH (NOLOCK)
-				WHERE	aa.UseYn = 'Y'
-				ORDER BY 
-					SortOrder, Name
+				WHERE	1=1
+			]]>
+			<isNotEmpty property="UseYn">
+				<![CDATA[
+					AND	aa.UseYn = #UseYn#
+				]]>
+			</isNotEmpty>
+			<isEmpty property="UseYn">
+				<![CDATA[
+					AND	aa.UseYn = 'Y'
+				]]>
+			</isEmpty>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(
+							CONVERT(VARCHAR, aa.ID) = #FindText#	OR
+							aa.BrandName	Like '%'+#FindText#+'%'
+						)
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY SortOrder, Name
 			]]>
 		</select>
 		<select id="SelectCodeHelpCategoryList" parameterClass="DataMap" resultClass="UMCodeHelp" >
@@ -588,8 +712,18 @@
 					,	null									as Option8
 					,	null									as Option9
 				FROM	CTE aa
-				ORDER BY 
-					SortOrder, Name
+				WHERE	1=1
+			]]>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(
+							CONVERT(VARCHAR, aa.ID) = #FindText#	OR
+							aa.Name	Like '%'+#FindText#+'%'
+						)
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY SortOrder, Name
 			]]>
 		</select>
 		<select id="SelectCodeHelpInfoNoticeList" parameterClass="DataMap" resultClass="UMCodeHelp" >
@@ -612,9 +746,28 @@
 					,	null								as Option8
 					,	null								as Option9
 				FROM	IKBIZ.dbo.BGInfoNotice aa WITH (NOLOCK)
-				WHERE	aa.UseYn = 'Y'
-				ORDER BY 
-					SortOrder, Name
+				WHERE	1=1
+			]]>
+			<isNotEmpty property="UseYn">
+				<![CDATA[
+					AND	aa.UseYn = #UseYn#
+				]]>
+			</isNotEmpty>
+			<isEmpty property="UseYn">
+				<![CDATA[
+					AND	aa.UseYn = 'Y'
+				]]>
+			</isEmpty>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(
+							CONVERT(VARCHAR, aa.ID) = #FindText#	OR
+							aa.InfoNoticeName	Like '%'+#FindText#+'%'
+						)
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY SortOrder, Name
 			]]>
 		</select>
 
@@ -671,8 +824,18 @@
 					,	null									as Option8
 					,	null									as Option9
 				FROM	CTE aa
-				ORDER BY 
-					SortOrder, Name
+				WHERE	1=1
+			]]>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(
+							CONVERT(VARCHAR, aa.ID) = #FindText#	OR
+							aa.Name	Like '%'+#FindText#+'%'
+						)
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY SortOrder, Name
 			]]>
 		</select>
 		<select id="SelectCodeHelpEmployeeList" parameterClass="DataMap" resultClass="UMCodeHelp" >
@@ -696,7 +859,27 @@
 					,	null									as Option8
 					,	null									as Option9
 				FROM	IKBIZ.dbo.BCEmployee aa WITH (NOLOCK)
-				WHERE	aa.UseYn = 'Y'
+				WHERE	1=1
+			]]>
+			<isNotEmpty property="UseYn">
+				<![CDATA[
+					AND	aa.UseYn = #UseYn#
+				]]>
+			</isNotEmpty>
+			<isEmpty property="UseYn">
+				<![CDATA[
+					AND	aa.UseYn = 'Y'
+				]]>
+			</isEmpty>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(
+							CONVERT(VARCHAR, aa.ID) = #FindText#	OR
+							aa.EmployeeName	Like '%'+#FindText#+'%'
+						)
+				]]>
+			</isNotEmpty>
+			<![CDATA[
 				ORDER BY SortOrder
 			]]>
 		</select>

@@ -89,6 +89,7 @@ namespace IKaan.Biz.Core.Helper
 			if (Parameters != null)
 			{
 				lupUseYn.EditValue = Parameters.GetValue("UseYn");
+				txtFindText.EditValue = Parameters.GetValue("FindText");
 			}
 
 			gridList.Init();

@@ -80,6 +80,46 @@ namespace IKaan.Biz.View.Biz.BM
 					ShowErrBox(ex);
 				}
 			};
+
+			btnAddBrand.Click += delegate (object sender, EventArgs e) { ShowBrandEditForm(null); };
+			gridBrand.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
+			{
+				if (e.RowHandle < 0)
+					return;
+
+				try
+				{
+					if (e.Button == MouseButtons.Left && e.Clicks == 2)
+					{
+						GridView view = sender as GridView;
+						ShowBrandEditForm(view.GetRowCellValue(e.RowHandle, "ID"));
+					}
+				}
+				catch (Exception ex)
+				{
+					ShowErrBox(ex);
+				}
+			};
+
+			btnAddChannel.Click += delegate (object sender, EventArgs e) { ShowChannelEditForm(null); };
+			gridChannel.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
+			{
+				if (e.RowHandle < 0)
+					return;
+
+				try
+				{
+					if (e.Button == MouseButtons.Left && e.Clicks == 2)
+					{
+						GridView view = sender as GridView;
+						ShowChannelEditForm(view.GetRowCellValue(e.RowHandle, "ID"));
+					}
+				}
+				catch (Exception ex)
+				{
+					ShowErrBox(ex);
+				}
+			};
 		}
 
 		protected override void OnShown(EventArgs e)
@@ -135,9 +175,11 @@ namespace IKaan.Biz.View.Biz.BM
 			gridList.Init();
 			gridList.AddGridColumns(
 				new XGridColumn() { FieldName = "RowNo" },
-				new XGridColumn() { FieldName = "ID", Width = 80, HorzAlignment = HorzAlignment.Center },
+				new XGridColumn() { FieldName = "ID", Visible = false },
 				new XGridColumn() { FieldName = "CustomerName", Width = 200 },
 				new XGridColumn() { FieldName = "CustomerTypeName", Width = 100, HorzAlignment = HorzAlignment.Center },
+				new XGridColumn() { FieldName = "BizNo", Width = 100, HorzAlignment = HorzAlignment.Center },
+				new XGridColumn() { FieldName = "RepName", Width = 100, HorzAlignment = HorzAlignment.Center },
 				new XGridColumn() { FieldName = "UseYn", Width = 80, HorzAlignment = HorzAlignment.Center },
 				new XGridColumn() { FieldName = "CreateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
 				new XGridColumn() { FieldName = "CreateByName", Width = 80, HorzAlignment = HorzAlignment.Center },
@@ -473,6 +515,68 @@ namespace IKaan.Biz.View.Biz.BM
 				using (BMCustomerBankForm form = new BMCustomerBankForm()
 				{
 					Text = "계좌정보등록",
+					StartPosition = FormStartPosition.CenterScreen,
+					IsLoadingRefresh = true,
+					ParamsData = new DataMap()
+					{
+						{ "CustomerID", txtID.EditValue },
+						{ "CustomerName", txtCustomerName.EditValue },
+						{ "ID", id }
+					}
+				})
+				{
+					if (form.ShowDialog() == DialogResult.OK)
+					{
+						DetailDataLoad(txtID.EditValue);
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				ShowErrBox(ex);
+			}
+		}
+		void ShowBrandEditForm(object id)
+		{
+			try
+			{
+				if (txtID.EditValue.IsNullOrEmpty())
+					return;
+
+				using (BMCustomerBrandForm form = new BMCustomerBrandForm()
+				{
+					Text = "브랜드등록",
+					StartPosition = FormStartPosition.CenterScreen,
+					IsLoadingRefresh = true,
+					ParamsData = new DataMap()
+					{
+						{ "CustomerID", txtID.EditValue },
+						{ "CustomerName", txtCustomerName.EditValue },
+						{ "ID", id }
+					}
+				})
+				{
+					if (form.ShowDialog() == DialogResult.OK)
+					{
+						DetailDataLoad(txtID.EditValue);
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				ShowErrBox(ex);
+			}
+		}
+		void ShowChannelEditForm(object id)
+		{
+			try
+			{
+				if (txtID.EditValue.IsNullOrEmpty())
+					return;
+
+				using (BMCustomerChannelForm form = new BMCustomerChannelForm()
+				{
+					Text = "채널등록",
 					StartPosition = FormStartPosition.CenterScreen,
 					IsLoadingRefresh = true,
 					ParamsData = new DataMap()

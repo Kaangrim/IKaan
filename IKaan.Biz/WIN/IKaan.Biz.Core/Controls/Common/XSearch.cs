@@ -111,7 +111,7 @@ namespace IKaan.Biz.Core.Controls.Common
 		{
 			CodeGroup = "Codes";
 			CodeField = "Code";
-			NameField = "Name";
+			NameField = "DispName";
 			DisplayFields = new string[] { CodeField, NameField };
 			Text = "코드검색";
 			txtCodeId.SetEnable(false);
@@ -199,6 +199,10 @@ namespace IKaan.Biz.Core.Controls.Common
 		public void SetEnable(bool bEnable = false)
 		{
 			txtCodeName.SetEnable(bEnable);
+			foreach(EditorButton button in txtCodeName.Properties.Buttons)
+			{
+				button.Visible = bEnable;
+			}
 		}
 
 		public void Clear()

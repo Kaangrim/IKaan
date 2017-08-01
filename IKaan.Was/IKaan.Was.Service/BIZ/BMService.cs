@@ -153,6 +153,12 @@ namespace IKaan.Was.Service.BIZ
 						case "BMCustomerBank":
 							req.SetData<BMCustomerBank>();
 							break;
+						case "BMCustomerBrand":
+							req.SetData<BMCustomerBrand>();
+							break;
+						case "BMCustomerChannel":
+							req.SetData<BMCustomerChannel>();
+							break;
 					}
 				}
 
@@ -252,6 +258,12 @@ namespace IKaan.Was.Service.BIZ
 									break;
 								case "BMCustomerBank":
 									req.SaveCustomerBank();
+									break;
+								case "BMCustomerBrand":
+									req.SaveCustomerBrand();
+									break;
+								case "BMCustomerChannel":
+									req.SaveCustomerChannel();
 									break;
 							}
 						}
@@ -1224,6 +1236,78 @@ namespace IKaan.Was.Service.BIZ
 						customer.UpdateByName = req.User.UserName;
 
 						DaoFactory.InstanceBiz.Update("UpdateBMCustomerBank", customer);
+					}
+
+					req.Result.Count = 1;
+					req.Result.ReturnValue = customer.ID;
+					req.Error.Number = 0;
+				}
+			}
+			catch
+			{
+				throw;
+			}
+		}
+
+		private static void SaveCustomerBrand(this WasRequest req)
+		{
+			try
+			{
+				object id = null;
+
+				BMCustomerBrand customer = req.Data.JsonToAnyType<BMCustomerBrand>();
+				if (customer != null)
+				{
+					if (customer.ID.IsNullOrDefault())
+					{
+						customer.CreateBy = req.User.UserId;
+						customer.CreateByName = req.User.UserName;
+
+						id = DaoFactory.InstanceBiz.Insert("InsertBMCustomerBrand", customer);
+						customer.ID = id.ToIntegerNullToNull();
+					}
+					else
+					{
+						customer.UpdateBy = req.User.UserId;
+						customer.UpdateByName = req.User.UserName;
+
+						DaoFactory.InstanceBiz.Update("UpdateBMCustomerBrand", customer);
+					}
+
+					req.Result.Count = 1;
+					req.Result.ReturnValue = customer.ID;
+					req.Error.Number = 0;
+				}
+			}
+			catch
+			{
+				throw;
+			}
+		}
+
+		private static void SaveCustomerChannel(this WasRequest req)
+		{
+			try
+			{
+				object id = null;
+
+				BMCustomerChannel customer = req.Data.JsonToAnyType<BMCustomerChannel>();
+				if (customer != null)
+				{
+					if (customer.ID.IsNullOrDefault())
+					{
+						customer.CreateBy = req.User.UserId;
+						customer.CreateByName = req.User.UserName;
+
+						id = DaoFactory.InstanceBiz.Insert("InsertBMCustomerChannel", customer);
+						customer.ID = id.ToIntegerNullToNull();
+					}
+					else
+					{
+						customer.UpdateBy = req.User.UserId;
+						customer.UpdateByName = req.User.UserName;
+
+						DaoFactory.InstanceBiz.Update("UpdateBMCustomerChannel", customer);
 					}
 
 					req.Result.Count = 1;

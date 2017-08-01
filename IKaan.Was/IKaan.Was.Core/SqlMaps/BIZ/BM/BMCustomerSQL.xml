@@ -22,9 +22,19 @@
 					,	AA.UseYn
 					,	AA.Description
 					
+					,	CC.BizNo
+					,	CC.RepName
 					,	M1.Name			as CustomerTypeName
 					
 				FROM	dbo.BMCustomer AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.BMCustomerBusiness BB WITH (NOLOCK)
+								ON AA.ID = BB.CustomerID
+									AND BB.StartDate <= GETDATE()
+									AND ISNULL(BB.EndDate, DATEADD(DAY, 1, GETDATE())) >= CONVERT(DATETIME, CONVERT(VARCHAR(8), GETDATE(), 112), 112)
+						LEFT JOIN
+							dbo.BMBusiness CC WITH (NOLOCK)
+								ON BB.BusinessID = CC.ID
 						LEFT JOIN
 							IKBAS.dbo.ACCode M1 WITH (NOLOCK)
 								ON AA.CustomerType = M1.Code
