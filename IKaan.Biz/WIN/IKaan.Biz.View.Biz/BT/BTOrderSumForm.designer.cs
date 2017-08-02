@@ -30,6 +30,7 @@
 		{
 			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions2 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
 			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions1 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BTOrderSumForm));
 			this.lcGroupSearch = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.lcItemBrand = new DevExpress.XtraLayout.LayoutControlItem();
 			this.lupBrandID = new IKaan.Biz.Core.Controls.Common.XLookup();
@@ -50,8 +51,8 @@
 			this.lcGroupList1 = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
 			this.lcGroupList2 = new DevExpress.XtraLayout.LayoutControlGroup();
-			this.gridSales = new IKaan.Biz.Core.Controls.Grid.XGrid();
 			this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
+			this.gridSales = new IKaan.Biz.Core.Controls.Grid.XGrid();
 			((System.ComponentModel.ISupportInitialize)(this.lc)).BeginInit();
 			this.lc.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupBase)).BeginInit();
@@ -269,11 +270,11 @@
 			// 
 			// gridOrder
 			// 
-			this.gridOrder.Location = new System.Drawing.Point(261, 33);
+			this.gridOrder.Location = new System.Drawing.Point(261, 35);
 			this.gridOrder.Name = "gridOrder";
 			this.gridOrder.OptionsData.DataProcessingEngine = DevExpress.XtraPivotGrid.PivotDataProcessingEngine.LegacyOptimized;
 			this.gridOrder.OptionsView.ShowFilterHeaders = false;
-			this.gridOrder.Size = new System.Drawing.Size(720, 510);
+			this.gridOrder.Size = new System.Drawing.Size(720, 508);
 			this.gridOrder.TabIndex = 23;
 			// 
 			// lcTab
@@ -281,8 +282,8 @@
 			this.lcTab.Location = new System.Drawing.Point(252, 0);
 			this.lcTab.Name = "lcTab";
 			this.lcTab.Padding = new DevExpress.XtraLayout.Utils.Padding(2, 2, 2, 2);
-			this.lcTab.SelectedTabPage = this.lcGroupList1;
-			this.lcTab.SelectedTabPageIndex = 0;
+			this.lcTab.SelectedTabPage = this.lcGroupList2;
+			this.lcTab.SelectedTabPageIndex = 1;
 			this.lcTab.Size = new System.Drawing.Size(734, 548);
 			this.lcTab.TabPages.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.lcGroupList1,
@@ -290,12 +291,13 @@
 			// 
 			// lcGroupList1
 			// 
+			this.lcGroupList1.CaptionImage = ((System.Drawing.Image)(resources.GetObject("lcGroupList1.CaptionImage")));
 			this.lcGroupList1.GroupBordersVisible = false;
 			this.lcGroupList1.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem3});
 			this.lcGroupList1.Location = new System.Drawing.Point(0, 0);
 			this.lcGroupList1.Name = "lcGroupList1";
-			this.lcGroupList1.Size = new System.Drawing.Size(724, 514);
+			this.lcGroupList1.Size = new System.Drawing.Size(724, 512);
 			this.lcGroupList1.Text = "전체주문현황";
 			// 
 			// layoutControlItem3
@@ -303,19 +305,29 @@
 			this.layoutControlItem3.Control = this.gridOrder;
 			this.layoutControlItem3.Location = new System.Drawing.Point(0, 0);
 			this.layoutControlItem3.Name = "layoutControlItem3";
-			this.layoutControlItem3.Size = new System.Drawing.Size(724, 514);
+			this.layoutControlItem3.Size = new System.Drawing.Size(724, 512);
 			this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
 			this.layoutControlItem3.TextVisible = false;
 			// 
 			// lcGroupList2
 			// 
+			this.lcGroupList2.CaptionImage = ((System.Drawing.Image)(resources.GetObject("lcGroupList2.CaptionImage")));
 			this.lcGroupList2.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem4});
 			this.lcGroupList2.Location = new System.Drawing.Point(0, 0);
 			this.lcGroupList2.Name = "lcGroupList2";
 			this.lcGroupList2.Padding = new DevExpress.XtraLayout.Utils.Padding(2, 2, 2, 2);
-			this.lcGroupList2.Size = new System.Drawing.Size(724, 514);
+			this.lcGroupList2.Size = new System.Drawing.Size(724, 512);
 			this.lcGroupList2.Text = "예상매출현황";
+			// 
+			// layoutControlItem4
+			// 
+			this.layoutControlItem4.Control = this.gridSales;
+			this.layoutControlItem4.Location = new System.Drawing.Point(0, 0);
+			this.layoutControlItem4.Name = "layoutControlItem4";
+			this.layoutControlItem4.Size = new System.Drawing.Size(724, 512);
+			this.layoutControlItem4.TextSize = new System.Drawing.Size(0, 0);
+			this.layoutControlItem4.TextVisible = false;
 			// 
 			// gridSales
 			// 
@@ -324,7 +336,7 @@
 			this.gridSales.Editable = true;
 			this.gridSales.FocusedRowHandle = -2147483648;
 			this.gridSales.GridViewType = IKaan.Biz.Core.Controls.Grid.GridViewType.GridView;
-			this.gridSales.Location = new System.Drawing.Point(261, 33);
+			this.gridSales.Location = new System.Drawing.Point(261, 35);
 			this.gridSales.Name = "gridSales";
 			this.gridSales.PageFooterCenter = null;
 			this.gridSales.PageFooterLeft = null;
@@ -338,17 +350,8 @@
 			this.gridSales.ReadOnly = false;
 			this.gridSales.ShowFooter = false;
 			this.gridSales.ShowGroupPanel = false;
-			this.gridSales.Size = new System.Drawing.Size(720, 510);
+			this.gridSales.Size = new System.Drawing.Size(720, 508);
 			this.gridSales.TabIndex = 24;
-			// 
-			// layoutControlItem4
-			// 
-			this.layoutControlItem4.Control = this.gridSales;
-			this.layoutControlItem4.Location = new System.Drawing.Point(0, 0);
-			this.layoutControlItem4.Name = "layoutControlItem4";
-			this.layoutControlItem4.Size = new System.Drawing.Size(724, 514);
-			this.layoutControlItem4.TextSize = new System.Drawing.Size(0, 0);
-			this.layoutControlItem4.TextVisible = false;
 			// 
 			// BTOrderSumForm
 			// 

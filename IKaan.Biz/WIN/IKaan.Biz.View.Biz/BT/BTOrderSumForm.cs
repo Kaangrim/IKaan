@@ -33,7 +33,7 @@ namespace IKaan.Biz.View.Biz.BT
 		protected override void InitButtons()
 		{
 			base.InitButtons();
-			SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true });
+			SetToolbarButtons(new ToolbarButtons() { Refresh = true });
 		}
 		protected override void InitControls()
 		{
@@ -137,15 +137,15 @@ namespace IKaan.Biz.View.Biz.BT
 		{
 			try
 			{
-				//using (var form = new BTOrderSumBrandEditForm()
-				//{
-				//	Text = "브랜드별 매출등록",
-				//	StartPosition = FormStartPosition.CenterScreen
-				//})
-				//{
-				//	if (form.ShowDialog() == DialogResult.OK)
-				//		DataLoad(null);
-				//}
+				using (var form = new BTOrderSumBrandEditForm()
+				{
+					Text = "브랜드별 매출등록",
+					StartPosition = FormStartPosition.CenterScreen
+				})
+				{
+					if (form.ShowDialog() == DialogResult.OK)
+						DataLoad(null);
+				}
 			}
 			catch(Exception ex)
 			{

@@ -200,6 +200,12 @@
     <Compile Include="BM\BMChannelForm.designer.cs">
       <DependentUpon>BMChannelForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="BT\BTOrderSumBrandEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BT\BTOrderSumBrandEditForm.Designer.cs">
+      <DependentUpon>BTOrderSumBrandEditForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="BT\BTOrderSumChannelEditForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -309,6 +315,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="BM\BMChannelForm.resx">
       <DependentUpon>BMChannelForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BT\BTOrderSumBrandEditForm.resx">
+      <DependentUpon>BTOrderSumBrandEditForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="BT\BTOrderSumChannelEditForm.resx">
       <DependentUpon>BTOrderSumChannelEditForm.cs</DependentUpon>

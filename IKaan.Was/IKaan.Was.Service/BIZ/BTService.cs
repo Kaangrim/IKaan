@@ -159,6 +159,9 @@ namespace IKaan.Was.Service.BIZ
 								case "BTOrderSumByChannel":
 									req.SaveOrderSumByChannel();
 									break;
+								case "BTOrderSumByBrand":
+									req.SaveOrderSumByBrand();
+									break;
 							}
 						}
 					}
@@ -271,6 +274,68 @@ namespace IKaan.Was.Service.BIZ
 						foreach (var line in model.OrderSumList)
 						{
 							line.ChannelID = model.ChannelID;
+							line.OrderDate = model.OrderDate;
+
+							DataMap map = new DataMap()
+							{
+								{ "ChannelID", line.ChannelID },
+								{ "BrandID", line.BrandID },
+								{ "OrderDate", line.OrderDate }
+							};
+
+							var dup = DaoFactory.InstanceBiz.QueryForObject<BTOrderSum>("SelectBTOrderSumDuplicate", map);
+							if (dup == null)
+							{
+								if (line.OrderQty != 0 || line.OrderAmt != 0)
+								{
+									line.CreateBy = req.User.UserId;
+									line.CreateByName = req.User.UserName;
+
+									object id = DaoFactory.InstanceBiz.Insert("InsertBTOrderSum", line);
+									line.ID = id.ToIntegerNullToNull();
+									count++;
+								}
+							}
+							else
+							{
+								if (line.OrderQty != dup.OrderQty || line.OrderAmt != dup.OrderAmt)
+								{
+									if (line.ID.IsNullOrDefault())
+										line.ID = dup.ID;
+
+									line.UpdateBy = req.User.UserId;
+									line.UpdateByName = req.User.UserName;
+
+									DaoFactory.InstanceBiz.Update("UpdateBTOrderSum", line);
+									count++;
+								}
+							}
+						}
+					}
+
+					req.Result.Count = count;
+					req.Error.Number = 0;
+				}
+			}
+			catch
+			{
+				throw;
+			}
+		}
+
+		private static void SaveOrderSumByBrand(this WasRequest req)
+		{
+			try
+			{
+				int count = 0;
+				BTOrderSumByBrand model = req.Data.JsonToAnyType<BTOrderSumByBrand>();
+				if (model != null)
+				{
+					if (model.OrderSumList != null && model.OrderSumList.Count > 0)
+					{
+						foreach (var line in model.OrderSumList)
+						{
+							line.BrandID = model.BrandID;
 							line.OrderDate = model.OrderDate;
 
 							DataMap map = new DataMap()
