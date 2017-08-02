@@ -364,6 +364,7 @@ namespace IKaan.Biz.Core.Forms
 				InitButtons();
 				InitControls();
 				barStaticViewName.Caption = Name;
+				SetButtonNotFocus();
 				SetTextBoxKeydownEvent();
 
 				if (IsLoadingRefresh)
@@ -968,6 +969,27 @@ namespace IKaan.Biz.Core.Forms
 								DataLoad(null);
 							}
 						};
+					});
+			}
+			catch (Exception ex)
+			{
+				ShowErrBox(ex);
+			}
+		}
+
+		private void SetButtonNotFocus()
+		{
+			try
+			{
+				lc.Items.OfType<LayoutControlItem>().Where
+					(x =>
+						x.Control != null &&
+						x.Control.GetType() == typeof(SimpleButton)
+					).ToList().ForEach(c =>
+					{
+						(c.Control as SimpleButton).AllowFocus = false;
+						(c.Control as SimpleButton).TabStop = true;
+						(c.Control as SimpleButton).TabIndex = 0;
 					});
 			}
 			catch (Exception ex)

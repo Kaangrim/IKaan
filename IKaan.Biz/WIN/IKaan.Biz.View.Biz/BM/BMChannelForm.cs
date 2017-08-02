@@ -21,10 +21,8 @@ namespace IKaan.Biz.View.Biz.BM
 		{
 			InitializeComponent();
 
-			btnAddBrand.Click += delegate (object sender, EventArgs e) { DataNewChannelBrand(); };
-			btnDeleteBrand.Click += delegate (object sender, EventArgs e) { DataDeleteChannelBrand(); };
-			btnAddCustomer.Click += delegate (object sender, EventArgs e) { DataNewChannelCustomer(); };
-			btnDeleteCustomer.Click += delegate (object sender, EventArgs e) { DataDeleteChannelCustomer(); };
+			btnAddBrand.Click += delegate (object sender, EventArgs e) { ShowChannelBrandForm(null); };
+			btnAddCustomer.Click += delegate (object sender, EventArgs e) { ShowChannelCustomerForm(null); };
 
 			btnAddContact.Click += delegate (object sender, EventArgs e) { ShowContactForm(null); };
 			btnAddManager.Click += delegate (object sender, EventArgs e) { ShowManagerForm(null); };
@@ -71,16 +69,16 @@ namespace IKaan.Biz.View.Biz.BM
 			#region Channel List
 			gridList.Init();
 			gridList.AddGridColumns(
-				new XGridColumn() { FieldName = "RowNo", Width = 40 },
-				new XGridColumn() { FieldName = "ID", Width = 80, HorzAlignment = HorzAlignment.Center },
+				new XGridColumn() { FieldName = "RowNo" },
+				new XGridColumn() { FieldName = "ID", Visible = false },
 				new XGridColumn() { FieldName = "ChannelCode", Width = 80 },
 				new XGridColumn() { FieldName = "ChannelName", Width = 150 },
 				new XGridColumn() { FieldName = "ChannelTypeName", Width = 100, HorzAlignment = HorzAlignment.Center },
 				new XGridColumn() { FieldName = "UseYn", Width = 80, HorzAlignment = HorzAlignment.Center },
-				new XGridColumn() { FieldName = "CreateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
-				new XGridColumn() { FieldName = "CreateByName", Width = 80, HorzAlignment = HorzAlignment.Center },
-				new XGridColumn() { FieldName = "UpdateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
-				new XGridColumn() { FieldName = "UpdateByName", Width = 80, HorzAlignment = HorzAlignment.Center }
+				new XGridColumn() { FieldName = "CreateDate" },
+				new XGridColumn() { FieldName = "CreateByName" },
+				new XGridColumn() { FieldName = "UpdateDate" },
+				new XGridColumn() { FieldName = "UpdateByName" }
 			);
 			gridList.SetRepositoryItemCheckEdit("UseYn");
 			gridList.ColumnFix("RowNo");
@@ -108,39 +106,61 @@ namespace IKaan.Biz.View.Biz.BM
 			#region Channel Brand List
 			gridBrands.Init();
 			gridBrands.AddGridColumns(
-				new XGridColumn() { FieldName = "RowNo", Width = 40 },
+				new XGridColumn() { FieldName = "RowNo" },
 				new XGridColumn() { FieldName = "ID", Visible = false },
 				new XGridColumn() { FieldName = "ChannelID", Visible = false },
-				new XGridColumn() { FieldName = "StartDate", Width = 80, HorzAlignment = HorzAlignment.Center },
-				new XGridColumn() { FieldName = "EndDate", Width = 80, HorzAlignment = HorzAlignment.Center },
+				new XGridColumn() { FieldName = "StartDate", Width = 100, HorzAlignment = HorzAlignment.Center },
+				new XGridColumn() { FieldName = "EndDate", Width = 100, HorzAlignment = HorzAlignment.Center },
 				new XGridColumn() { FieldName = "BrandID", Visible = false },
 				new XGridColumn() { FieldName = "BrandName", Width = 150 },
-				new XGridColumn() { FieldName = "ChannelMargin", Width = 100, HorzAlignment = HorzAlignment.Far, FormatType = FormatType.Numeric, FormatString = "N2" },
-				new XGridColumn() { FieldName = "BrandMargin", Width = 100, HorzAlignment = HorzAlignment.Far, FormatType = FormatType.Numeric, FormatString = "N2" },
-				new XGridColumn() { FieldName = "CreateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
-				new XGridColumn() { FieldName = "CreateByName", Width = 80, HorzAlignment = HorzAlignment.Center },
-				new XGridColumn() { FieldName = "UpdateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
-				new XGridColumn() { FieldName = "UpdateByName", Width = 80, HorzAlignment = HorzAlignment.Center }
+				new XGridColumn() { FieldName = "ChannelMargin", Width = 80, HorzAlignment = HorzAlignment.Far, FormatType = FormatType.Numeric, FormatString = "N2" },
+				new XGridColumn() { FieldName = "BrandMargin", Width = 80, HorzAlignment = HorzAlignment.Far, FormatType = FormatType.Numeric, FormatString = "N2" },
+				new XGridColumn() { FieldName = "CreateDate" },
+				new XGridColumn() { FieldName = "CreateByName" },
+				new XGridColumn() { FieldName = "UpdateDate" },
+				new XGridColumn() { FieldName = "UpdateByName" }
 			);
 			gridBrands.ColumnFix("RowNo");
+			gridBrands.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
+			{
+				if (e.RowHandle < 0)
+					return;
+
+				if (e.Button == MouseButtons.Left && e.Clicks == 2)
+				{
+					GridView view = sender as GridView;
+					ShowChannelBrandForm(view.GetRowCellValue(e.RowHandle, "ID"));
+				}
+			};
 			#endregion
 
 			#region Channel Customer List
 			gridCustomers.Init();
 			gridCustomers.AddGridColumns(
-				new XGridColumn() { FieldName = "RowNo", Width = 40 },
+				new XGridColumn() { FieldName = "RowNo" },
 				new XGridColumn() { FieldName = "ID", Visible = false },
 				new XGridColumn() { FieldName = "ChannelID", Visible = false },
-				new XGridColumn() { FieldName = "StartDate", Width = 80, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "D" },
-				new XGridColumn() { FieldName = "EndDate", Width = 80, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "D" },
+				new XGridColumn() { FieldName = "StartDate", Width = 100, HorzAlignment = HorzAlignment.Center },
+				new XGridColumn() { FieldName = "EndDate", Width = 100, HorzAlignment = HorzAlignment.Center },
 				new XGridColumn() { FieldName = "CustomerID", Visible = false },
 				new XGridColumn() { FieldName = "CustomerName", Width = 200 },
-				new XGridColumn() { FieldName = "CreateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
-				new XGridColumn() { FieldName = "CreateByName", Width = 80, HorzAlignment = HorzAlignment.Center },
-				new XGridColumn() { FieldName = "UpdateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
-				new XGridColumn() { FieldName = "UpdateByName", Width = 80, HorzAlignment = HorzAlignment.Center }
+				new XGridColumn() { FieldName = "CreateDate" },
+				new XGridColumn() { FieldName = "CreateByName" },
+				new XGridColumn() { FieldName = "UpdateDate" },
+				new XGridColumn() { FieldName = "UpdateByName" }
 			);
 			gridCustomers.ColumnFix("RowNo");
+			gridCustomers.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
+			{
+				if (e.RowHandle < 0)
+					return;
+
+				if (e.Button == MouseButtons.Left && e.Clicks == 2)
+				{
+					GridView view = sender as GridView;
+					ShowChannelCustomerForm(view.GetRowCellValue(e.RowHandle, "ID"));
+				}
+			};
 			#endregion
 
 			#region Contact List
@@ -157,10 +177,10 @@ namespace IKaan.Biz.View.Biz.BM
 				new XGridColumn() { FieldName = "PhoneNo1", Width = 100 },
 				new XGridColumn() { FieldName = "PhoneNo2", Width = 100 },
 				new XGridColumn() { FieldName = "FaxNo", Width = 100 },
-				new XGridColumn() { FieldName = "CreateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
-				new XGridColumn() { FieldName = "CreateByName", Width = 80, HorzAlignment = HorzAlignment.Center },
-				new XGridColumn() { FieldName = "UpdateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
-				new XGridColumn() { FieldName = "UpdateByName", Width = 80, HorzAlignment = HorzAlignment.Center }
+				new XGridColumn() { FieldName = "CreateDate" },
+				new XGridColumn() { FieldName = "CreateByName" },
+				new XGridColumn() { FieldName = "UpdateDate" },
+				new XGridColumn() { FieldName = "UpdateByName" }
 			);
 			gridContacts.ColumnFix("RowNo");
 			gridContacts.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
@@ -186,10 +206,10 @@ namespace IKaan.Biz.View.Biz.BM
 				new XGridColumn() { FieldName = "StartDate", Width = 100, HorzAlignment = HorzAlignment.Center },
 				new XGridColumn() { FieldName = "EndDate", Width = 100, HorzAlignment = HorzAlignment.Center },
 				new XGridColumn() { FieldName = "EmployeeName", Width = 100, HorzAlignment = HorzAlignment.Center },
-				new XGridColumn() { FieldName = "CreateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
-				new XGridColumn() { FieldName = "CreateByName", Width = 80, HorzAlignment = HorzAlignment.Center },
-				new XGridColumn() { FieldName = "UpdateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
-				new XGridColumn() { FieldName = "UpdateByName", Width = 80, HorzAlignment = HorzAlignment.Center }
+				new XGridColumn() { FieldName = "CreateDate" },
+				new XGridColumn() { FieldName = "CreateByName" },
+				new XGridColumn() { FieldName = "UpdateDate" },
+				new XGridColumn() { FieldName = "UpdateByName" }
 			);
 			gridManagers.ColumnFix("RowNo");
 			gridManagers.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
@@ -221,9 +241,7 @@ namespace IKaan.Biz.View.Biz.BM
 			gridManagers.Clear<BMChannelManager>();
 
 			btnAddBrand.Enabled = 
-				btnDeleteBrand.Enabled = 
 				btnAddCustomer.Enabled = 
-				btnDeleteCustomer.Enabled = 
 				btnAddContact.Enabled =
 				btnAddManager.Enabled = false;
 
@@ -272,9 +290,7 @@ namespace IKaan.Biz.View.Biz.BM
 				gridManagers.DataSource = model.Managers;
 
 				btnAddBrand.Enabled =
-					btnDeleteBrand.Enabled =
 					btnAddCustomer.Enabled =
-					btnDeleteCustomer.Enabled =
 					btnAddContact.Enabled =
 					btnAddManager.Enabled = true;
 
@@ -330,68 +346,127 @@ namespace IKaan.Biz.View.Biz.BM
 			}
 		}
 
-		private void DataNewChannelBrand()
-		{
-			gridBrands.AddNewRow();
-		}
-		private void DataDeleteChannelBrand()
-		{
-
-		}
-		private void DataNewChannelCustomer()
-		{
-			gridCustomers.AddNewRow();
-		}
-		private void DataDeleteChannelCustomer()
-		{
-
-		}
-
 		private void ShowContactForm(object id)
 		{
-			if (txtID.EditValue.IsNullOrEmpty())
-				return;
-
-			using (BMChannelContactForm form = new BMChannelContactForm())
+			try
 			{
-				form.Text = "채널담당자등록";
-				form.StartPosition = FormStartPosition.CenterScreen;
-				form.IsLoadingRefresh = true;
-				form.ParamsData = new DataMap()
-				{
-					{ "ChannelID", txtID.EditValue },
-					{ "ChannelName", txtChannelName.EditValue },
-					{ "ID", id }
-				};
+				if (txtID.EditValue.IsNullOrEmpty())
+					return;
 
-				if (form.ShowDialog() == DialogResult.OK)
+				using (BMChannelContactForm form = new BMChannelContactForm())
 				{
-					DetailDataLoad(txtID.EditValue);
+					form.Text = "채널담당자등록";
+					form.StartPosition = FormStartPosition.CenterScreen;
+					form.IsLoadingRefresh = true;
+					form.ParamsData = new DataMap()
+					{
+						{ "ChannelID", txtID.EditValue },
+						{ "ChannelName", txtChannelName.EditValue },
+						{ "ID", id }
+					};
+
+					if (form.ShowDialog() == DialogResult.OK)
+					{
+						DetailDataLoad(txtID.EditValue);
+					}
 				}
+			}
+			catch(Exception ex)
+			{
+				ShowErrBox(ex);
 			}
 		}
 
 		private void ShowManagerForm(object id)
 		{
-			if (txtID.EditValue.IsNullOrEmpty())
-				return;
-
-			using (BMChannelManagerForm form = new BMChannelManagerForm())
+			try
 			{
-				form.Text = "채널매니저등록";
-				form.StartPosition = FormStartPosition.CenterScreen;
-				form.IsLoadingRefresh = true;
-				form.ParamsData = new DataMap()
-				{
-					{ "ChannelID", txtID.EditValue },
-					{ "ChannelName", txtChannelName.EditValue },
-					{ "ID", id }
-				};
+				if (txtID.EditValue.IsNullOrEmpty())
+					return;
 
-				if (form.ShowDialog() == DialogResult.OK)
+				using (BMChannelManagerForm form = new BMChannelManagerForm())
 				{
-					DetailDataLoad(txtID.EditValue);
+					form.Text = "채널매니저등록";
+					form.StartPosition = FormStartPosition.CenterScreen;
+					form.IsLoadingRefresh = true;
+					form.ParamsData = new DataMap()
+					{
+						{ "ChannelID", txtID.EditValue },
+						{ "ChannelName", txtChannelName.EditValue },
+						{ "ID", id }
+					};
+
+					if (form.ShowDialog() == DialogResult.OK)
+					{
+						DetailDataLoad(txtID.EditValue);
+					}
 				}
+			}
+			catch(Exception ex)
+			{
+				ShowErrBox(ex);
+			}
+		}
+
+		private void ShowChannelBrandForm(object id)
+		{
+			try
+			{
+				if (txtID.EditValue.IsNullOrEmpty())
+					return;
+
+				using (BMChannelBrandForm form = new BMChannelBrandForm())
+				{
+					form.Text = "브랜드 입점 등록";
+					form.StartPosition = FormStartPosition.CenterScreen;
+					form.IsLoadingRefresh = true;
+					form.ParamsData = new DataMap()
+					{
+						{ "ChannelID", txtID.EditValue },
+						{ "ChannelName", txtChannelName.EditValue },
+						{ "ID", id }
+					};
+
+					if (form.ShowDialog() == DialogResult.OK)
+					{
+						DetailDataLoad(txtID.EditValue);
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				ShowErrBox(ex);
+			}
+		}
+
+		private void ShowChannelCustomerForm(object id)
+		{
+			try
+			{
+				if (txtID.EditValue.IsNullOrEmpty())
+					return;
+
+				using (BMChannelCustomerForm form = new BMChannelCustomerForm())
+				{
+					form.Text = "거래처 등록";
+					form.StartPosition = FormStartPosition.CenterScreen;
+					form.IsLoadingRefresh = true;
+					form.ParamsData = new DataMap()
+					{
+						{ "ChannelID", txtID.EditValue },
+						{ "ChannelName", txtChannelName.EditValue },
+						{ "ID", id }
+					};
+
+					if (form.ShowDialog() == DialogResult.OK)
+					{
+						DetailDataLoad(txtID.EditValue);
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				ShowErrBox(ex);
 			}
 		}
 	}

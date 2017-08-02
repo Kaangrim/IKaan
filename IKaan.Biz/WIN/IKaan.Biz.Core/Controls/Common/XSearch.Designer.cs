@@ -31,7 +31,6 @@
 			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions2 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
 			this.txtCodeName = new DevExpress.XtraEditors.ButtonEdit();
 			this.txtCodeId = new DevExpress.XtraEditors.TextEdit();
-			this.splitter = new DevExpress.XtraEditors.SplitterControl();
 			((System.ComponentModel.ISupportInitialize)(this.txtCodeName.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.txtCodeId.Properties)).BeginInit();
 			this.SuspendLayout();
@@ -39,13 +38,13 @@
 			// txtCodeName
 			// 
 			this.txtCodeName.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.txtCodeName.Location = new System.Drawing.Point(72, 0);
+			this.txtCodeName.Location = new System.Drawing.Point(60, 0);
 			this.txtCodeName.Margin = new System.Windows.Forms.Padding(0);
 			this.txtCodeName.Name = "txtCodeName";
 			this.txtCodeName.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(),
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Delete, "Delete", -1, true, true, false, editorButtonImageOptions2, new DevExpress.Utils.KeyShortcut((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Delete)), "Delete")});
-			this.txtCodeName.Size = new System.Drawing.Size(328, 20);
+			this.txtCodeName.Size = new System.Drawing.Size(340, 20);
 			this.txtCodeName.TabIndex = 2;
 			// 
 			// txtCodeId
@@ -59,21 +58,11 @@
 			this.txtCodeId.TabIndex = 1;
 			this.txtCodeId.TabStop = false;
 			// 
-			// splitter
-			// 
-			this.splitter.Location = new System.Drawing.Point(60, 0);
-			this.splitter.Margin = new System.Windows.Forms.Padding(0);
-			this.splitter.Name = "splitter";
-			this.splitter.Size = new System.Drawing.Size(12, 20);
-			this.splitter.TabIndex = 0;
-			this.splitter.TabStop = false;
-			// 
 			// XSearch
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.Controls.Add(this.txtCodeName);
-			this.Controls.Add(this.splitter);
 			this.Controls.Add(this.txtCodeId);
 			this.Name = "XSearch";
 			this.Size = new System.Drawing.Size(400, 20);
@@ -86,6 +75,5 @@
 		#endregion
 		private DevExpress.XtraEditors.TextEdit txtCodeId;
 		private DevExpress.XtraEditors.ButtonEdit txtCodeName;
-		private DevExpress.XtraEditors.SplitterControl splitter;
 	}
 }

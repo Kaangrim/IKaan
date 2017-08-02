@@ -48,11 +48,11 @@
 			this.splitterItem2 = new DevExpress.XtraLayout.SplitterItem();
 			this.gridOrder = new DevExpress.XtraPivotGrid.PivotGridControl();
 			this.lcTab = new DevExpress.XtraLayout.TabbedControlGroup();
-			this.lcGroupList1 = new DevExpress.XtraLayout.LayoutControlGroup();
-			this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
 			this.lcGroupList2 = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
 			this.gridSales = new IKaan.Biz.Core.Controls.Grid.XGrid();
+			this.lcGroupList1 = new DevExpress.XtraLayout.LayoutControlGroup();
+			this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
 			((System.ComponentModel.ISupportInitialize)(this.lc)).BeginInit();
 			this.lc.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupBase)).BeginInit();
@@ -73,10 +73,10 @@
 			((System.ComponentModel.ISupportInitialize)(this.splitterItem2)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.gridOrder)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcTab)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcGroupList1)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupList2)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcGroupList1)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// lc
@@ -282,32 +282,12 @@
 			this.lcTab.Location = new System.Drawing.Point(252, 0);
 			this.lcTab.Name = "lcTab";
 			this.lcTab.Padding = new DevExpress.XtraLayout.Utils.Padding(2, 2, 2, 2);
-			this.lcTab.SelectedTabPage = this.lcGroupList2;
-			this.lcTab.SelectedTabPageIndex = 1;
+			this.lcTab.SelectedTabPage = this.lcGroupList1;
+			this.lcTab.SelectedTabPageIndex = 0;
 			this.lcTab.Size = new System.Drawing.Size(734, 548);
 			this.lcTab.TabPages.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.lcGroupList1,
             this.lcGroupList2});
-			// 
-			// lcGroupList1
-			// 
-			this.lcGroupList1.CaptionImage = ((System.Drawing.Image)(resources.GetObject("lcGroupList1.CaptionImage")));
-			this.lcGroupList1.GroupBordersVisible = false;
-			this.lcGroupList1.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
-            this.layoutControlItem3});
-			this.lcGroupList1.Location = new System.Drawing.Point(0, 0);
-			this.lcGroupList1.Name = "lcGroupList1";
-			this.lcGroupList1.Size = new System.Drawing.Size(724, 512);
-			this.lcGroupList1.Text = "전체주문현황";
-			// 
-			// layoutControlItem3
-			// 
-			this.layoutControlItem3.Control = this.gridOrder;
-			this.layoutControlItem3.Location = new System.Drawing.Point(0, 0);
-			this.layoutControlItem3.Name = "layoutControlItem3";
-			this.layoutControlItem3.Size = new System.Drawing.Size(724, 512);
-			this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
-			this.layoutControlItem3.TextVisible = false;
 			// 
 			// lcGroupList2
 			// 
@@ -353,6 +333,26 @@
 			this.gridSales.Size = new System.Drawing.Size(720, 508);
 			this.gridSales.TabIndex = 24;
 			// 
+			// lcGroupList1
+			// 
+			this.lcGroupList1.CaptionImage = ((System.Drawing.Image)(resources.GetObject("lcGroupList1.CaptionImage")));
+			this.lcGroupList1.GroupBordersVisible = false;
+			this.lcGroupList1.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.layoutControlItem3});
+			this.lcGroupList1.Location = new System.Drawing.Point(0, 0);
+			this.lcGroupList1.Name = "lcGroupList1";
+			this.lcGroupList1.Size = new System.Drawing.Size(724, 512);
+			this.lcGroupList1.Text = "전체주문현황";
+			// 
+			// layoutControlItem3
+			// 
+			this.layoutControlItem3.Control = this.gridOrder;
+			this.layoutControlItem3.Location = new System.Drawing.Point(0, 0);
+			this.layoutControlItem3.Name = "layoutControlItem3";
+			this.layoutControlItem3.Size = new System.Drawing.Size(724, 512);
+			this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
+			this.layoutControlItem3.TextVisible = false;
+			// 
 			// BTOrderSumForm
 			// 
 			this.Appearance.BackColor = System.Drawing.Color.White;
@@ -383,10 +383,10 @@
 			((System.ComponentModel.ISupportInitialize)(this.splitterItem2)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.gridOrder)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcTab)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcGroupList1)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupList2)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcGroupList1)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 

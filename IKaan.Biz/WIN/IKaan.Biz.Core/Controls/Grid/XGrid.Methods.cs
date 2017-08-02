@@ -422,18 +422,18 @@ namespace IKaan.Biz.Core.Controls.Grid
 						break;
 					case "CreateDate":
 					case "UpdateDate":
-						gridColumn.Width = 150;
-						gridColumn.MinWidth = 150;
+						gridColumn.Width = 160;
+						gridColumn.MinWidth = 160;
 						break;
 					case "CreateBy":
 					case "UpdateBy":
-						gridColumn.Width = 100;
-						gridColumn.MinWidth = 100;
+						gridColumn.Width = 80;
+						gridColumn.MinWidth = 80;
 						break;
 					case "CreateByName":
 					case "UpdateByName":
-						gridColumn.Width = 100;
-						gridColumn.MinWidth = 100;
+						gridColumn.Width = 80;
+						gridColumn.MinWidth = 80;
 						break;
 					default:
 						if (column.FieldName.EndsWith("Date"))

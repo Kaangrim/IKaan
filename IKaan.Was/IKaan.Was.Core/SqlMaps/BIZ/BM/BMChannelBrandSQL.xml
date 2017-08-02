@@ -67,7 +67,7 @@
 					,	AA.BrandMargin
 					,	AA.Description
 					
-					,	BB.CustomerName
+					,	BB.ChannelName
 					,	CC.BrandName
 					
 				FROM	dbo.BMChannelBrand AA WITH (NOLOCK)

@@ -22,12 +22,39 @@ namespace IKaan.Biz.View.Biz.BM
 		{
 			InitializeComponent();
 
-			btnAddImage.Click += delegate (object sender, EventArgs e) { AddImage(); };
-			btnDeleteImage.Click += delegate (object sender, EventArgs e) { DeleteImage(); };
+			lcTab.SelectedPageChanged += delegate (object sender, DevExpress.XtraLayout.LayoutTabPageChangedEventArgs e)
+			{
+				if (e.Page.Name == lcGroupImage.Name)
+				{
+					lcTab.CustomHeaderButtons[1].Enabled = (gridImages.RowCount > 0) ? true : false;
+				}
+				else
+				{
+					lcTab.CustomHeaderButtons[1].Visible = false;
+				}
+			};
 
-			btnAddContact.Click += delegate (object sender, EventArgs e) { ShowContactForm(null); };
-			btnAddManager.Click += delegate (object sender, EventArgs e) { ShowManagerForm(null); };
-			btnAddChannel.Click += delegate (object sender, EventArgs e) { ShowChannelForm(null); };
+			lcTab.CustomHeaderButtonClick += delegate (object sender, DevExpress.XtraTab.ViewInfo.CustomHeaderButtonEventArgs e)
+			{
+				if (e.Button.Tag.ToStringNullToEmpty() == "ADD")
+				{
+					if (lcTab.SelectedTabPage.Name == lcGroupImage.Name)
+						AddImage();
+					else if (lcTab.SelectedTabPage.Name == lcGroupContact.Name)
+						ShowContactForm(null);
+					else if (lcTab.SelectedTabPage.Name == lcGroupManager.Name)
+						ShowManagerForm(null);
+					else if (lcTab.SelectedTabPage.Name == lcGroupChannel.Name)
+						ShowChannelForm(null);
+				}
+				else if (e.Button.Tag.ToStringNullToEmpty() == "DEL")
+				{
+					if (lcTab.SelectedTabPage.Name == lcGroupImage.Name)
+					{
+						DeleteImage();
+					}
+				}
+			};
 		}
 
 		protected override void OnShown(EventArgs e)
@@ -300,10 +327,8 @@ namespace IKaan.Biz.View.Biz.BM
 			gridContacts.Clear<BMBrandContact>();
 			gridManagers.Clear<BMBrandManager>();
 
-			btnAddImage.Enabled = 
-				btnDeleteImage.Enabled =
-				btnAddContact.Enabled =
-				btnAddManager.Enabled = false;
+			lcTab.CustomHeaderButtons[0].Enabled = false;
+			lcTab.CustomHeaderButtons[1].Enabled = false;
 
 			SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true });
 			EditMode = EditModeEnum.New;
@@ -357,11 +382,11 @@ namespace IKaan.Biz.View.Biz.BM
 				gridContacts.DataSource = model.Contacts;
 				gridManagers.DataSource = model.Managers;
 
-				btnAddImage.Enabled =
-					btnAddContact.Enabled =
-					btnAddManager.Enabled = true;
-
-				btnDeleteImage.Enabled = (gridImages.RowCount > 0) ? true : false;
+				lcTab.CustomHeaderButtons[0].Enabled = true;
+				if (lcTab.SelectedTabPage.Name == lcGroupImage.Name)
+					lcTab.CustomHeaderButtons[1].Enabled = (gridImages.RowCount > 0) ? true : false;
+				else
+					lcTab.CustomHeaderButtons[1].Enabled = false;
 
 				SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true, Delete = true });
 				this.EditMode = EditModeEnum.Modify;

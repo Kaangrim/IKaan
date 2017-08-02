@@ -104,11 +104,23 @@
     <Compile Include="BM\BMAddressForm.designer.cs">
       <DependentUpon>BMAddressForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="BM\BMChannelBrandForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BM\BMChannelBrandForm.Designer.cs">
+      <DependentUpon>BMChannelBrandForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="BM\BMBrandChannelForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="BM\BMBrandChannelForm.Designer.cs">
       <DependentUpon>BMBrandChannelForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BM\BMChannelCustomerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BM\BMChannelCustomerForm.Designer.cs">
+      <DependentUpon>BMChannelCustomerForm.cs</DependentUpon>
     </Compile>
     <Compile Include="BM\BMCustomerChannelForm.cs">
       <SubType>Form</SubType>
@@ -268,8 +280,14 @@
     <EmbeddedResource Include="BM\BMAddressForm.resx">
       <DependentUpon>BMAddressForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="BM\BMChannelBrandForm.resx">
+      <DependentUpon>BMChannelBrandForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="BM\BMBrandChannelForm.resx">
       <DependentUpon>BMBrandChannelForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BM\BMChannelCustomerForm.resx">
+      <DependentUpon>BMChannelCustomerForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="BM\BMCustomerChannelForm.resx">
       <DependentUpon>BMCustomerChannelForm.cs</DependentUpon>

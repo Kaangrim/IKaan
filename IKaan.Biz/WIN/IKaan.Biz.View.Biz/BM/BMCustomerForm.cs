@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using DevExpress.Utils;
 using DevExpress.XtraGrid.Views.Grid;
+using DevExpress.XtraTab.ViewInfo;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
 using IKaan.Biz.Core.Controls.Grid;
@@ -21,7 +22,20 @@ namespace IKaan.Biz.View.Biz.BM
 		{
 			InitializeComponent();
 
-			btnAddBusiness.Click += delegate (object sender, EventArgs e) { ShowBusinessEditForm(null); };
+			lcTab.CustomHeaderButtonClick += delegate (object sender, CustomHeaderButtonEventArgs e)
+			{
+				if (lcTab.SelectedTabPage.Name == lcGroupAddress.Name)
+					ShowAddressEditForm(null);
+				else if (lcTab.SelectedTabPage.Name == lcGroupBank.Name)
+					ShowBankEditForm(null);
+				else if (lcTab.SelectedTabPage.Name == lcGroupBrand.Name)
+					ShowBrandEditForm(null);
+				else if (lcTab.SelectedTabPage.Name == lcGroupChannel.Name)
+					ShowChannelEditForm(null);
+				else if (lcTab.SelectedTabPage.Name == lcGroupBusiness.Name)
+					ShowBusinessEditForm(null);
+			};
+
 			gridBusiness.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
 			{
 				if (e.RowHandle < 0)
@@ -40,8 +54,6 @@ namespace IKaan.Biz.View.Biz.BM
 					ShowErrBox(ex);
 				}
 			};
-
-			btnAddAddress.Click += delegate (object sender, EventArgs e) { ShowAddressEditForm(null); };
 			gridAddress.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
 			{
 				if (e.RowHandle < 0)
@@ -60,8 +72,6 @@ namespace IKaan.Biz.View.Biz.BM
 					ShowErrBox(ex);
 				}
 			};
-
-			btnAddBank.Click += delegate (object sender, EventArgs e) { ShowBankEditForm(null); };
 			gridBank.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
 			{
 				if (e.RowHandle < 0)
@@ -80,8 +90,6 @@ namespace IKaan.Biz.View.Biz.BM
 					ShowErrBox(ex);
 				}
 			};
-
-			btnAddBrand.Click += delegate (object sender, EventArgs e) { ShowBrandEditForm(null); };
 			gridBrand.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
 			{
 				if (e.RowHandle < 0)
@@ -100,8 +108,6 @@ namespace IKaan.Biz.View.Biz.BM
 					ShowErrBox(ex);
 				}
 			};
-
-			btnAddChannel.Click += delegate (object sender, EventArgs e) { ShowChannelEditForm(null); };
 			gridChannel.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
 			{
 				if (e.RowHandle < 0)
@@ -328,11 +334,7 @@ namespace IKaan.Biz.View.Biz.BM
 			gridBrand.Clear<BMCustomerBrand>();
 			gridChannel.Clear<BMCustomerChannel>();
 
-			btnAddAddress.Enabled =
-				btnAddBank.Enabled =
-				btnAddBrand.Enabled =
-				btnAddChannel.Enabled =
-				btnAddBusiness.Enabled = false;
+			lcTab.CustomHeaderButtons[0].Enabled = false;
 
 			SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true });
 			EditMode = EditModeEnum.New;
@@ -385,11 +387,7 @@ namespace IKaan.Biz.View.Biz.BM
 				gridBusiness.DataSource = model.BusinessList;
 				gridChannel.DataSource = model.ChannelList;
 
-				btnAddAddress.Enabled =
-					btnAddBank.Enabled =
-					btnAddBrand.Enabled =
-					btnAddChannel.Enabled =
-					btnAddBusiness.Enabled = true;
+				lcTab.CustomHeaderButtons[0].Enabled = true;
 
 				SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true, Delete = true });
 				this.EditMode = EditModeEnum.Modify;
