@@ -108,8 +108,7 @@ namespace IKaan.Was.Service.BIZ
 							req.SetData<BMAddress>();
 							break;
 						case "BMBusiness":
-							req.SetData<BMBusiness>();
-							(req.Data as BMBusiness).Address = req.GetData<BMAddress>();
+							req.GetBusiness();
 							break;
 						case "BMBrand":
 							req.SetData<BMBrand>();
@@ -131,6 +130,9 @@ namespace IKaan.Was.Service.BIZ
 							(req.Data as BMChannel).Customers = req.GetList<BMCustomerChannel>();
 							(req.Data as BMChannel).Contacts = req.GetList<BMChannelContact>();
 							(req.Data as BMChannel).Managers = req.GetList<BMChannelManager>();
+							break;
+						case "BMChannelBrand":
+							req.SetData<BMChannelBrand>();
 							break;
 						case "BMChannelContact":
 							req.SetData<BMChannelContact>();
@@ -237,6 +239,9 @@ namespace IKaan.Was.Service.BIZ
 									break;
 								case "BMChannel":
 									req.SaveChannel();
+									break;
+								case "BMChannelBrand":
+									req.SaveChannelBrand();
 									break;
 								case "BMChannelContact":
 									req.SaveChannelContact();
@@ -433,6 +438,36 @@ namespace IKaan.Was.Service.BIZ
 				request.Error.Number = ex.HResult;
 				request.Error.Message = ex.Message;
 				return request;
+			}
+		}
+
+		private static BMBusiness GetBusiness(this WasRequest req)
+		{
+			try
+			{
+				DataMap parameter = req.Parameter.JsonToAnyType<DataMap>();
+				BMBusiness business = DaoFactory.InstanceBiz.QueryForObject<BMBusiness>("SelectBMBusiness", parameter);
+				if (business != null)
+				{
+					//주소
+					parameter = new DataMap() { { "ID", business.AddressID } };
+					business.Address = DaoFactory.InstanceBiz.QueryForObject<BMAddress>("SelectBMAddress", parameter);
+					if (business.Address == null)
+						business.Address = new BMAddress();
+
+					//거래처목록
+					parameter = new DataMap() { { "BusinessID", business.ID } };
+					business.Customers = DaoFactory.InstanceBiz.QueryForList<BMCustomerBusiness>("SelectBMCustomerBusinessList", parameter);
+					if (business.Customers == null)
+						business.Customers = new List<BMCustomerBusiness>();
+				}
+				req.Data = business;
+				req.Result.Count = 1;
+				return business;
+			}
+			catch
+			{
+				throw;
 			}
 		}
 
@@ -715,6 +750,81 @@ namespace IKaan.Was.Service.BIZ
 			}
 		}
 
+		private static void SaveChannelBrand(this WasRequest req)
+		{
+			try
+			{
+				BMChannelBrand model = req.Data.JsonToAnyType<BMChannelBrand>();
+				if (model != null)
+				{
+					DataMap parameter = new DataMap()
+					{
+						{ "ChannelID", model.ChannelID },
+						{ "BrandID", model.BrandID },
+						{ "StartDate", model.StartDate }
+					};
+
+					var dup = DaoFactory.InstanceBiz.QueryForObject<BMChannelBrand>("SelectBMChannelBrandDuplicate", parameter);
+					if (dup != null)
+					{
+						if (model.ID.IsNullOrDefault())
+						{
+							throw new Exception("동일 시작일로 등록된 데이터가 존재합니다.");
+						}
+						else
+						{
+							if (model.ID != dup.ID)
+								throw new Exception("동일 시작일로 등록된 데이터가 존재합니다.");
+						}
+					}
+
+					var before = DaoFactory.InstanceBiz.QueryForObject<BMChannelBrand>("SelectBMChannelBrandBefore", parameter);
+					if (before != null)
+					{
+						before.EndDate = model.StartDate.Value.AddDays(-1);
+						before.UpdateBy = req.User.UserId;
+						before.UpdateByName = req.User.UserName;
+
+						DaoFactory.InstanceBiz.Update("UpdateBMChannelBrand", before);
+					}
+
+					var after = DaoFactory.InstanceBiz.QueryForObject<BMChannelBrand>("SelectBMChannelBrandAfter", parameter);
+					if (after != null)
+					{
+						model.EndDate = after.StartDate.Value.AddDays(-1);
+					}
+					else
+					{
+						model.EndDate = null;
+					}
+					
+					if (model.ID.IsNullOrDefault())
+					{
+						model.CreateBy = req.User.UserId;
+						model.CreateByName = req.User.UserName;
+
+						object id = DaoFactory.InstanceBiz.Insert("InsertBMChannelBrand", model);
+						model.ID = id.ToIntegerNullToNull();							
+					}
+					else
+					{
+						model.UpdateBy = req.User.UserId;
+						model.UpdateByName = req.User.UserName;
+
+						DaoFactory.InstanceBiz.Update("UpdateBMChannelBrand", model);
+					}
+
+					req.Result.Count = 1;
+					req.Result.ReturnValue = model.ID;
+					req.Error.Number = 0;
+				}
+			}
+			catch
+			{
+				throw;
+			}
+		}
+
 		private static void SaveChannelContact(this WasRequest req)
 		{
 			try
@@ -866,27 +976,58 @@ namespace IKaan.Was.Service.BIZ
 
 		private static void SaveBusiness(this WasRequest req)
 		{
-			BMBusiness model = req.Data.JsonToAnyType<BMBusiness>();
-			BMAddress address = model.Address;
-			if (address == null)
-				address = new BMAddress();
-			if (model.AddressID != null)
-				address.ID = model.AddressID;
-			if (address.ID == null || address.ID == default(int))
+			try
 			{
-				address.CreateBy = req.User.UserId;
-				address.CreateByName = req.User.UserName;
-				object id = DaoFactory.InstanceBiz.Insert("InsertBMAddress", address);
-				address.ID = id.ToIntegerNullToNull();
-				model.AddressID = id.ToIntegerNullToNull();
+				BMBusiness model = req.Data.JsonToAnyType<BMBusiness>();
+				if (model != null)
+				{
+					if (model.Address != null)
+					{
+						if (model.AddressID.IsNullOrDefault())
+						{
+							if (model.Address.PostalCode.IsNullOrEmpty() == false)
+							{
+								model.Address.CreateBy = req.User.UserId;
+								model.Address.CreateByName = req.User.UserName;
+
+								object id = DaoFactory.InstanceBiz.Insert("InsertBMAddress", model.Address);
+								model.AddressID = id.ToIntegerNullToNull();
+							}
+						}
+						else
+						{
+							model.Address.UpdateBy = req.User.UserId;
+							model.Address.UpdateByName = req.User.UserName;
+
+							DaoFactory.InstanceBiz.Update("UpdateBMAddress", model.Address);
+						}
+					}
+
+					if (model.ID.IsNullOrDefault())
+					{
+						model.CreateBy = req.User.UserId;
+						model.CreateByName = req.User.UserName;
+
+						object id = DaoFactory.InstanceBiz.Insert("InsertBMBusiness", model);
+						model.ID = id.ToIntegerNullToNull();
+					}
+					else
+					{
+						model.UpdateBy = req.User.UserId;
+						model.UpdateByName = req.User.UserName;
+
+						DaoFactory.InstanceBiz.Update("UpdateBMBusiness", model);
+					}
+
+					req.Result.ReturnValue = model.ID;
+					req.Result.Count = 1;
+					req.Error.Number = 0;
+				}
 			}
-			else
+			catch
 			{
-				address.UpdateBy = req.User.UserId;
-				address.UpdateByName = req.User.UserName;
-				DaoFactory.InstanceBiz.Update("UpdateBMAddress", address);
-			}			
-			req.SaveData<BMBusiness>(model);
+				throw;
+			}
 		}
 
 		private static void SaveCustomer(this WasRequest req)

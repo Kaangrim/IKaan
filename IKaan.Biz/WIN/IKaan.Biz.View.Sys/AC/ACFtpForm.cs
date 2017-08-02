@@ -218,6 +218,12 @@ namespace IKaan.Biz.View.Sys.AC
 			#endregion
 		}
 
+		protected override void LoadForm()
+		{
+			base.LoadForm();
+			DataLoad(null);
+		}
+
 		protected override void DataLoad(object param = null)
 		{
 			treeDirectories.DataSource = null;

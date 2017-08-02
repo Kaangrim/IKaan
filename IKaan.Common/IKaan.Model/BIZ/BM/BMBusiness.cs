@@ -49,6 +49,14 @@ namespace IKaan.Model.BIZ.BM
 		public string ImageUrl { get; set; }
 
 		[DataMember]
+		[Display(Name = "사업자유형명")]
+		public string BizTypeName { get; set; }
+
+		[DataMember]
+		[Display(Name = "상태명")]
+		public string StatusName { get; set; }
+
+		[DataMember]
 		[Display(Name = "주소")]
 		public BMAddress Address { get; set; }
 

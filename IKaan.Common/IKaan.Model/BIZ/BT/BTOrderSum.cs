@@ -3,10 +3,10 @@ using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using IKaan.Model.Base;
 
-namespace IKaan.Model.BIZ.BM
+namespace IKaan.Model.BIZ.BT
 {
 	[DataContract]
-	public class BMChannelBrand : ModelBase
+	public class BTOrderSum : ModelBase
 	{
 		[DataMember]
 		[Display(Name = "채널ID")]
@@ -17,24 +17,16 @@ namespace IKaan.Model.BIZ.BM
 		public int? BrandID { get; set; }
 
 		[DataMember]
-		[Display(Name = "시작일")]
-		public DateTime? StartDate { get; set; }
+		[Display(Name = "주문일자")]
+		public DateTime? OrderDate { get; set; }
 
 		[DataMember]
-		[Display(Name = "종료일")]
-		public DateTime? EndDate { get; set; }
+		[Display(Name = "수량")]
+		public int OrderQty { get; set; }
 
 		[DataMember]
-		[Display(Name = "채널마진")]
-		public decimal ChannelMargin { get; set; }
-
-		[DataMember]
-		[Display(Name = "브랜드마진")]
-		public decimal BrandMargin { get; set; }
-
-		[DataMember]
-		[Display(Name = "설명")]
-		public string Description { get; set; }
+		[Display(Name = "금액")]
+		public decimal OrderAmt { get; set; }
 
 		[DataMember]
 		[Display(Name = "채널명")]

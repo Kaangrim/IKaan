@@ -112,6 +112,7 @@
     <EmbeddedResource Include="SqlMaps\BIZ\BC\BCDepartmentSQL.xml" />
     <EmbeddedResource Include="SqlMaps\BIZ\BC\BCAppointmentSQL.xml" />
     <EmbeddedResource Include="SqlMaps\BIZ\BC\BCDepartmentHistSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\BIZ\BT\BTOrderSumSQL.xml" />
     <Content Include="SqlMaps\SYS\AC\CalendarSQL.xml" />
     <EmbeddedResource Include="SqlMaps\SYS\AC\ACMessageSQL.xml" />
     <EmbeddedResource Include="SqlMaps\SYS\AD\ADTableSQL.xml" />

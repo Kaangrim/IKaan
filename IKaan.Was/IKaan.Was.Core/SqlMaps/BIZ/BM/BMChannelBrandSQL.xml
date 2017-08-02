@@ -65,6 +65,7 @@
 					,	AA.EndDate
 					,	AA.ChannelMargin
 					,	AA.BrandMargin
+					,	AA.Description
 					
 					,	BB.CustomerName
 					,	CC.BrandName
@@ -85,13 +86,13 @@
 				( 
 					CreateDate, CreateBy, CreateByName,
 					ChannelID, BrandID, StartDate, EndDate, 
-					ChannelMargin, BrandMargin
+					ChannelMargin, BrandMargin, Description
 				)
 				VALUES
 				(
 					GetDate(), #CreateBy#, #CreateByName#,
 					#ChannelID#, #BrandID#, #StartDate#, #EndDate#, 
-					#ChannelMargin#, #BrandMargin#
+					#ChannelMargin#, #BrandMargin#, #Description#
 				)
 			]]>
 			<selectKey type="post" property="ID" resultClass="Int">
@@ -113,6 +114,7 @@
 					,	EndDate			= #EndDate#
 					,	ChannelMargin	= #ChannelMargin#
 					,	BrandMargin		= #BrandMargin#
+					,	Description		= #Description#
 				WHERE	ID				= #ID#
 			]]>
 		</update>
@@ -121,5 +123,103 @@
 				DELETE FROM dbo.BMChannelBrand WHERE ID = #ID#;
 			]]>
 		</delete>
+
+		<select id="SelectBMChannelBrandDuplicate" parameterClass="DataMap" resultClass="BMChannelBrand" >
+			<![CDATA[
+				SELECT  AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.ChannelID
+					,	AA.BrandID
+					,	AA.StartDate
+					,	AA.EndDate
+					,	AA.ChannelMargin
+					,	AA.BrandMargin
+					,	AA.Description
+					
+				FROM	dbo.BMChannelBrand AA WITH (NOLOCK)
+				WHERE	AA.ChannelID	= #ChannelID#
+				AND		AA.BrandID		= #BrandID#
+				AND		AA.StartDate	= #StartDate#
+			]]>
+		</select>
+		<select id="SelectBMChannelBrandBefore" parameterClass="DataMap" resultClass="BMChannelBrand" >
+			<![CDATA[
+				SELECT  AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.ChannelID
+					,	AA.BrandID
+					,	AA.StartDate
+					,	AA.EndDate
+					,	AA.ChannelMargin
+					,	AA.BrandMargin
+					,	AA.Description
+					
+				FROM	dbo.BMChannelBrand AA WITH (NOLOCK)
+				WHERE	AA.ChannelID	= #ChannelID#
+				AND		AA.BrandID		= #BrandID#
+				AND		AA.StartDate	= 
+								(
+									SELECT	MAX(StartDate)
+									FROM	dbo.BMChannelBrand
+									WHERE	ChannelID	= #ChannelID#
+									AND		BrandID		= #BrandID#
+									AND		StartDate	< #StartDate#
+								)
+			]]>
+		</select>
+		<select id="SelectBMChannelBrandAfter" parameterClass="DataMap" resultClass="BMChannelBrand" >
+			<![CDATA[
+				SELECT  AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.ChannelID
+					,	AA.BrandID
+					,	AA.StartDate
+					,	AA.EndDate
+					,	AA.ChannelMargin
+					,	AA.BrandMargin
+					,	AA.Description
+					
+				FROM	dbo.BMChannelBrand AA WITH (NOLOCK)
+				WHERE	AA.ChannelID	= #ChannelID#
+				AND		AA.BrandID		= #BrandID#
+				AND		AA.StartDate	= 
+								(
+									SELECT	MIN(StartDate)
+									FROM	dbo.BMChannelBrand
+									WHERE	ChannelID	= #ChannelID#
+									AND		BrandID		= #BrandID#
+									AND		StartDate	> #StartDate#
+								)
+			]]>
+		</select>
+		<update id="UpdateBMChannelBrandEndDate" parameterClass="BMChannelBrand">
+			<![CDATA[
+				UPDATE  dbo.BMChannelBrand
+				SET     UpdateDate		= GetDate()
+					,	UpdateBy		= #UpdateBy#
+					,	UpdateByName	= #UpdateByName#
+					
+					,	EndDate			= #EndDate#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
 	</statements>
 </sqlMap>

@@ -8,9 +8,11 @@ using IKaan.Base.Utils;
 using IKaan.Biz.Core.Controls.Grid;
 using IKaan.Biz.Core.Enum;
 using IKaan.Biz.Core.Forms;
+using IKaan.Biz.Core.Handler;
 using IKaan.Biz.Core.Model;
 using IKaan.Biz.Core.PostCode;
 using IKaan.Biz.Core.Utils;
+using IKaan.Biz.Core.Variables;
 using IKaan.Biz.Core.Was.Handler;
 using IKaan.Model.BIZ.BM;
 
@@ -18,6 +20,8 @@ namespace IKaan.Biz.View.Biz.BM
 {
 	public partial class BMBusinessForm : EditForm
 	{
+		private string loadUrl = string.Empty;
+
 		public BMBusinessForm()
 		{
 			InitializeComponent();
@@ -37,6 +41,18 @@ namespace IKaan.Biz.View.Biz.BM
 						txtAddressLine2.EditValue = data.Address2;
 					}
 				}
+			};
+
+			picImage.EditValueChanged += delegate (object sender, EventArgs e)
+			{
+				if (this.IsLoaded)
+				{
+					txtImageUrl.EditValue = picImage.GetLoadedImageLocation();
+				}
+			};
+			picImage.LoadCompleted += delegate (object sender, EventArgs e)
+			{
+				txtImageUrl.EditValue = loadUrl;
 			};
 		}
 
@@ -85,13 +101,13 @@ namespace IKaan.Biz.View.Biz.BM
 			gridList.AddGridColumns(
 				new XGridColumn() { FieldName = "RowNo", Width = 40 },
 				new XGridColumn() { FieldName = "ID", Width = 80, HorzAlignment = HorzAlignment.Center },
-				new XGridColumn() { FieldName = "BizTypeName", Width = 100 },
+				new XGridColumn() { FieldName = "BizTypeName", Width = 100, HorzAlignment = HorzAlignment.Center },
 				new XGridColumn() { FieldName = "BizNo", Width = 100, HorzAlignment = HorzAlignment.Center },
 				new XGridColumn() { FieldName = "BizName", Width = 150 },
-				new XGridColumn() { FieldName = "RepName", Width = 100 },
+				new XGridColumn() { FieldName = "RepName", Width = 100, HorzAlignment = HorzAlignment.Center },
 				new XGridColumn() { FieldName = "BizKind", Width = 100 },
 				new XGridColumn() { FieldName = "BizItem", Width = 100 },
-				new XGridColumn() { FieldName = "Status", Width = 80, HorzAlignment = HorzAlignment.Center },
+				new XGridColumn() { FieldName = "StatusName", Width = 80, HorzAlignment = HorzAlignment.Center },
 				new XGridColumn() { FieldName = "CreateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
 				new XGridColumn() { FieldName = "CreateByName", Width = 80, HorzAlignment = HorzAlignment.Center },
 				new XGridColumn() { FieldName = "UpdateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
@@ -156,6 +172,9 @@ namespace IKaan.Biz.View.Biz.BM
 			txtAddressLine1.Clear();
 			txtAddressLine2.Clear();
 
+			loadUrl = string.Empty;
+			picImage.EditValue = null;
+
 			SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true });
 			EditMode = EditModeEnum.New;
 			txtBizNo.Focus();
@@ -184,21 +203,32 @@ namespace IKaan.Biz.View.Biz.BM
 				if (model == null)
 					throw new Exception("조회할 데이터가 없습니다.");
 
-				IList<BMCustomerBusiness> customers = new List<BMCustomerBusiness>();
-
-				if (model.Customers != null)
-					customers = model.Customers;
-
 				SetControlData(model);
+				if (model.Address != null)
+				{
+					txtPostalCode.EditValue = model.Address.PostalCode;
+					txtAddressLine1.EditValue = model.Address.AddressLine1;
+					txtAddressLine2.EditValue = model.Address.AddressLine2;
+					lupCountry.EditValue = model.Address.Country;
+					txtCity.EditValue = model.Address.City;
+					txtStateProvince.EditValue = model.Address.StateProvince;
+				}
 
-				lupCountry.EditValue = model.Address.Country;
-				txtPostalCode.EditValue = model.Address.PostalCode;
-				txtCity.EditValue = model.Address.City;
-				txtStateProvince.EditValue = model.Address.StateProvince;
-				txtAddressLine1.EditValue = model.Address.AddressLine1;
-				txtAddressLine2.EditValue = model.Address.AddressLine2;
+				if (model.Customers == null)
+					model.Customers = new List<BMCustomerBusiness>();
+				gridCustomers.DataSource = model.Customers;
 
-				gridCustomers.DataSource = customers;
+				loadUrl = model.ImageUrl;
+				if (loadUrl.IsNullOrEmpty())
+				{
+					picImage.EditValue = null;
+					txtImageUrl.EditValue = null;
+				}
+				else
+				{
+					picImage.LoadAsync(ConstsVar.IMG_URL + loadUrl);
+					txtImageUrl.EditValue = loadUrl;
+				}
 
 				SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true, Delete = true });
 				this.EditMode = EditModeEnum.Modify;
@@ -219,19 +249,32 @@ namespace IKaan.Biz.View.Biz.BM
 				model.Address = new BMAddress()
 				{
 					ID = model.AddressID,
-					PostalCode = txtPostalCode.EditValue.ToStringNullToEmpty(),
-					City = txtCity.EditValue.ToStringNullToEmpty(),
-					StateProvince = txtStateProvince.EditValue.ToStringNullToEmpty(),
-					Country = lupCountry.EditValue.ToStringNullToEmpty(),
-					AddressLine1 = txtAddressLine1.EditValue.ToStringNullToEmpty(),
-					AddressLine2 = txtAddressLine2.EditValue.ToStringNullToEmpty()
+					PostalCode = txtPostalCode.EditValue.ToStringNullToNull(),
+					City = txtCity.EditValue.ToStringNullToNull(),
+					StateProvince = txtStateProvince.EditValue.ToStringNullToNull(),
+					Country = lupCountry.EditValue.ToStringNullToNull(),
+					AddressLine1 = txtAddressLine1.EditValue.ToStringNullToNull(),
+					AddressLine2 = txtAddressLine2.EditValue.ToStringNullToNull()
 				};
-				List<BMCustomerBusiness> customers = new List<BMCustomerBusiness>();
 
-				if (gridCustomers.RowCount > 0)
-					customers = gridCustomers.DataSource as List<BMCustomerBusiness>;
-
-				model.Customers = customers;
+				//이미지 업로드
+				if (picImage.EditValue != null)
+				{
+					string path = picImage.GetLoadedImageLocation();
+					if (path.IsNullOrEmpty() == false)
+					{
+						string url = FTPHandler.UploadBusiness(txtImageUrl.EditValue.ToString(), txtBizNo.EditValue.ToString().Replace("-", ""));
+						model.ImageUrl = url;
+					}
+				}
+				else
+				{
+					if (loadUrl.IsNullOrEmpty() == false)
+					{
+						FTPHandler.DeleteFile(loadUrl);
+						loadUrl = string.Empty;
+					}
+				}
 
 				using (var res = WasHandler.Execute<BMBusiness>("BM", "Save", (this.EditMode == EditModeEnum.New) ? "Insert" : "Update", model, "ID"))
 				{
@@ -252,6 +295,12 @@ namespace IKaan.Biz.View.Biz.BM
 		{
 			try
 			{
+				if (txtImageUrl.EditValue.IsNullOrEmpty() == false)
+				{
+					FTPHandler.DeleteFile(txtImageUrl.EditValue.ToString());
+					loadUrl = string.Empty;
+				}
+
 				DataMap map = new DataMap() { { "ID", txtID.EditValue } };
 				using (var res = WasHandler.Execute<DataMap>("BM", "Delete", "DeleteBMBusiness", map, "ID"))
 				{

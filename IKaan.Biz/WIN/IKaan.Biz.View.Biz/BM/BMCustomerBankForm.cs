@@ -79,9 +79,15 @@ namespace IKaan.Biz.View.Biz.BM
 				SetControlData(model);
 				loadUrl = model.ImageUrl;
 				if (model.ImageUrl.IsNullOrEmpty())
+				{
 					picImage.EditValue = null;
+					txtImageUrl.EditValue = null;
+				}
 				else
+				{
 					picImage.LoadAsync(ConstsVar.IMG_URL + model.ImageUrl);
+					txtImageUrl.EditValue = loadUrl;
+				}
 
 				SetToolbarButtons(new ToolbarButtons() { Save = true, SaveAndClose = true, Delete = true });
 				this.EditMode = EditModeEnum.Modify;
@@ -114,11 +120,22 @@ namespace IKaan.Biz.View.Biz.BM
 			{
 				var model = this.GetControlData<BMCustomerBank>();
 
-				string path = picImage.GetLoadedImageLocation();
-				if (path.IsNullOrEmpty() == false)
+				if (picImage.EditValue != null)
 				{
-					string url = FTPHandler.UploadBank(txtImageUrl.EditValue.ToString(), txtBankName.EditValue.ToString(), txtAccountNo.EditValue.ToString().Replace("-", ""));
-					model.ImageUrl = url;
+					string path = picImage.GetLoadedImageLocation();
+					if (path.IsNullOrEmpty() == false)
+					{
+						string url = FTPHandler.UploadBank(txtImageUrl.EditValue.ToString(), txtBankName.EditValue.ToString(), txtAccountNo.EditValue.ToString().Replace("-", ""));
+						model.ImageUrl = url;
+					}
+				}
+				else
+				{
+					if (loadUrl.IsNullOrEmpty() == false)
+					{
+						FTPHandler.DeleteFile(loadUrl);
+						loadUrl = string.Empty;
+					}
 				}
 
 				using (var res = WasHandler.Execute<BMCustomerBank>("BM", "Save", (this.EditMode == EditModeEnum.New) ? "Insert" : "Update", model, "ID"))
@@ -140,6 +157,12 @@ namespace IKaan.Biz.View.Biz.BM
 		{
 			try
 			{
+				if (txtImageUrl.EditValue.IsNullOrEmpty() == false)
+				{
+					FTPHandler.DeleteFile(txtImageUrl.EditValue.ToString());
+					loadUrl = string.Empty;
+				}
+
 				DataMap map = new DataMap() { { "ID", txtID.EditValue } };
 				using (var res = WasHandler.Execute<DataMap>("BM", "Delete", "DeleteBMCustomerBank", map, "ID"))
 				{

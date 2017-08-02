@@ -37,6 +37,10 @@ namespace IKaan.Model.BIZ.BM
 		public string RepName { get; set; }
 
 		[DataMember]
+		[Display(Name = "거래처명")]
+		public string CustomerName { get; set; }
+
+		[DataMember]
 		[Display(Name = "사업자정보")]
 		public BMBusiness Business { get; set; }
 	}

@@ -27,6 +27,7 @@ namespace IKaan.Biz.View.Biz.BM
 
 			btnAddContact.Click += delegate (object sender, EventArgs e) { ShowContactForm(null); };
 			btnAddManager.Click += delegate (object sender, EventArgs e) { ShowManagerForm(null); };
+			btnAddChannel.Click += delegate (object sender, EventArgs e) { ShowChannelForm(null); };
 		}
 
 		protected override void OnShown(EventArgs e)
@@ -175,11 +176,11 @@ namespace IKaan.Biz.View.Biz.BM
 				new XGridColumn() { FieldName = "ID", Visible = false },
 				new XGridColumn() { FieldName = "BrandID", Visible = false },
 				new XGridColumn() { FieldName = "ChannelID", Visible = false },
-				new XGridColumn() { FieldName = "StartDate", Width = 80 },
-				new XGridColumn() { FieldName = "EndDate", Width = 80 },
-				new XGridColumn() { FieldName = "ChannelName", Width = 200 },
-				new XGridColumn() { FieldName = "ChannelMargin", Width = 100, HorzAlignment = HorzAlignment.Far, FormatType = FormatType.Numeric, FormatString = "N2" },
-				new XGridColumn() { FieldName = "BrandMargin", Width = 100, HorzAlignment = HorzAlignment.Far, FormatType = FormatType.Numeric, FormatString = "N2" },
+				new XGridColumn() { FieldName = "ChannelName", Width = 150 },
+				new XGridColumn() { FieldName = "StartDate", Width = 100, HorzAlignment = HorzAlignment.Center },
+				new XGridColumn() { FieldName = "EndDate", Width = 100, HorzAlignment = HorzAlignment.Center },
+				new XGridColumn() { FieldName = "ChannelMargin", Width = 80, HorzAlignment = HorzAlignment.Far, FormatType = FormatType.Numeric, FormatString = "N2" },
+				new XGridColumn() { FieldName = "BrandMargin", Width = 80, HorzAlignment = HorzAlignment.Far, FormatType = FormatType.Numeric, FormatString = "N2" },
 				new XGridColumn() { FieldName = "CreateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
 				new XGridColumn() { FieldName = "CreateByName", Width = 80, HorzAlignment = HorzAlignment.Center },
 				new XGridColumn() { FieldName = "UpdateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
@@ -519,21 +520,28 @@ namespace IKaan.Biz.View.Biz.BM
 			}
 		}
 
-		//private void AddManager()
-		//{
-		//	if (gridManagers.DataSource == null)
-		//		gridManagers.DataSource = new List<BMBrandManager>();
+		private void ShowChannelForm(object id)
+		{
+			if (txtID.EditValue.IsNullOrEmpty())
+				return;
 
-		//	gridManagers.UpdateCurrentRow();
-		//	gridManagers.MainView.BeginUpdate();
-		//	(gridManagers.DataSource as List<BMBrandManager>).Add(new BMBrandManager()
-		//	{
-		//		BrandID = txtID.EditValue.ToIntegerNullToNull(),
-		//		StartDate = DateTime.Now,
-		//		EndDate = null
-		//	});
-		//	gridManagers.MainView.EndUpdate();
-		//	btnDelManager.Enabled = (gridManagers.RowCount > 0) ? true : false;
-		//}
+			using (BMBrandChannelForm form = new BMBrandChannelForm())
+			{
+				form.Text = "채널등록";
+				form.StartPosition = FormStartPosition.CenterScreen;
+				form.IsLoadingRefresh = true;
+				form.ParamsData = new DataMap()
+				{
+					{ "BrandID", txtID.EditValue },
+					{ "BrandName", txtBrandName.EditValue },
+					{ "ID", id }
+				};
+
+				if (form.ShowDialog() == DialogResult.OK)
+				{
+					DetailDataLoad(txtID.EditValue);
+				}
+			}
+		}
 	}
 }

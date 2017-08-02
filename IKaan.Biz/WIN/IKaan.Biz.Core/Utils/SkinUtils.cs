@@ -126,7 +126,7 @@ namespace IKaan.Biz.Core.Utils
 		{
 			get
 			{
-				return CommonSkins.GetSkin(UserLookAndFeel.Default).TranslateColor(Color.LemonChiffon);
+				return CommonSkins.GetSkin(UserLookAndFeel.Default).TranslateColor(Color.FromArgb(255, 255, 230));
 			}
 		}
 		public static Color EditForeColor

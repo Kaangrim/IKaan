@@ -123,6 +123,7 @@ namespace IKaan.Biz.Core.Utils
 		{
 			edit.Properties.AllowFocused = enable;
 			edit.Properties.ReadOnly = !enable;
+			edit.TabStop = !enable;
 
 			if (edit.Properties.Buttons.Count > 0)
 			{
@@ -176,6 +177,16 @@ namespace IKaan.Biz.Core.Utils
 			edit.EditValue = DateTime.Now;			
 		}
 
+		public static DateTime? GetDate(this DateEdit edit)
+		{
+			string str = edit.GetDateChar10();
+			if (str.IsNullOrEmpty())
+				return null;
+			else
+			{
+				return DateTime.Parse(str);
+			}
+		}
 		public static string GetDateChar8(this DateEdit edit)
 		{
 			return (edit.EditValue == null || edit.EditValue == DBNull.Value) ? null : edit.DateTime.ToString("yyyyMMdd");
@@ -245,6 +256,7 @@ namespace IKaan.Biz.Core.Utils
 		{
 			edit.Properties.AllowFocused = enable;
 			edit.Properties.ReadOnly = !enable;
+			edit.TabStop = !enable;
 		}
 
 		/* **************************************************************************

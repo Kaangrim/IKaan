@@ -18,7 +18,6 @@ using IKaan.Biz.Core.Helper;
 using IKaan.Biz.Core.Utils;
 using IKaan.Biz.Core.Variables;
 using IKaan.Biz.Core.Was.Handler;
-using IKaan.Model.Base;
 
 namespace IKaan.Biz.Core.Controls.Grid
 {
@@ -257,9 +256,7 @@ namespace IKaan.Biz.Core.Controls.Grid
 		public void AddGridColumns(params XGridColumn[] columns)
 		{
 			MainView.BeginUpdate();
-
 			MainView.Columns.Clear();
-
 			foreach (XGridColumn column in columns)
 			{
 				if (MainView is BandedGridView || MainView is AdvBandedGridView)
@@ -308,10 +305,9 @@ namespace IKaan.Biz.Core.Controls.Grid
 			if (column.IsMandatory)
 			{
 				gridColumn.AppearanceHeader.Options.UseForeColor = true;
-				//if (SkinUtils.IsDarkSkin)
-				//	gridColumn.AppearanceHeader.ForeColor = Color.Yellow;
-				//else
-					gridColumn.AppearanceHeader.ForeColor = Color.Red;
+				gridColumn.AppearanceHeader.ForeColor = Color.Red;
+				gridColumn.AppearanceHeader.Font =
+					new Font(gridColumn.AppearanceHeader.Font, FontStyle.Bold);
 				gridColumn.Tag = true;
 			}
 			else
@@ -339,13 +335,23 @@ namespace IKaan.Biz.Core.Controls.Grid
 					break;
 			}
 
-			gridColumn.DisplayFormat.FormatType =
-				gridColumn.GroupFormat.FormatType = column.FormatType;
-
-			if (!string.IsNullOrEmpty(column.FormatString))
+			switch (column.FieldName)
 			{
-				gridColumn.DisplayFormat.FormatString = column.FormatString;
-				gridColumn.GroupFormat.FormatString = column.FormatString;
+				case "CreateDate":
+				case "UpdateDate":
+					gridColumn.DisplayFormat.FormatType =
+						gridColumn.GroupFormat.FormatType = FormatType.DateTime;
+					break;
+				default:
+					gridColumn.DisplayFormat.FormatType =
+						gridColumn.GroupFormat.FormatType = column.FormatType;
+
+					if (!string.IsNullOrEmpty(column.FormatString))
+					{
+						gridColumn.DisplayFormat.FormatString = column.FormatString;
+						gridColumn.GroupFormat.FormatString = column.FormatString;
+					}
+					break;
 			}
 
 			if (column.RepositoryItem != null)
@@ -354,9 +360,11 @@ namespace IKaan.Biz.Core.Controls.Grid
 			}
 
 			if ((column.IsSummary) &&
-				(MainView.GetType() == typeof(GridView) || 
-				 MainView.GetType() == typeof(BandedGridView) || 
-				 MainView.GetType() == typeof(AdvBandedGridView)))
+				(
+					MainView.GetType() == typeof(GridView) || 
+					MainView.GetType() == typeof(BandedGridView) || 
+					MainView.GetType() == typeof(AdvBandedGridView)
+				))
 			{
 				gridColumn.SummaryItem.SummaryType = column.SummaryItemType;
 				gridColumn.SummaryItem.FieldName = column.FieldName;
@@ -517,7 +525,11 @@ namespace IKaan.Biz.Core.Controls.Grid
 			}
 
 			if ((column.IsSummary) &&
-				(MainView.GetType() == typeof(GridView) || MainView.GetType() == typeof(BandedGridView) || MainView.GetType() == typeof(AdvBandedGridView)))
+				(
+					MainView.GetType() == typeof(GridView) || 
+					MainView.GetType() == typeof(BandedGridView) || 
+					MainView.GetType() == typeof(AdvBandedGridView)
+				))
 			{
 				bandedColumn.SummaryItem.SummaryType = column.SummaryItemType;
 				bandedColumn.SummaryItem.FieldName = column.FieldName;
@@ -698,8 +710,10 @@ namespace IKaan.Biz.Core.Controls.Grid
 
 			if (editable)
 			{
-				MainView.Columns[fieldName].Caption = string.Concat("[", MainView.Columns[fieldName].Caption.Replace("[", string.Empty).Replace("]", string.Empty), "]");
-				MainView.Columns[fieldName].AppearanceHeader.Font = new Font(MainView.Columns[fieldName].AppearanceHeader.Font, FontStyle.Bold);
+				MainView.Columns[fieldName].AppearanceHeader.Font = 
+					new Font(MainView.Columns[fieldName].AppearanceHeader.Font, FontStyle.Bold);
+				MainView.Columns[fieldName].AppearanceCell.BackColor = SkinUtils.EditBackColor;
+				MainView.Columns[fieldName].AppearanceCell.ForeColor = SkinUtils.EditForeColor;
 			}
 
 			SetEditStyle();

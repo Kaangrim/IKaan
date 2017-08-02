@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="BIZ\BGService.cs" />
     <Compile Include="BIZ\BCService.cs" />
+    <Compile Include="BIZ\BTService.cs" />
     <Compile Include="BIZ\BMService.cs" />
     <Compile Include="LIB\LMService.cs" />
     <Compile Include="SYS\ACService.cs" />

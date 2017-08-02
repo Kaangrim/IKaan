@@ -125,9 +125,15 @@ namespace IKaan.Biz.View.Biz.BM
 
 				loadUrl = model.Business.ImageUrl;
 				if (loadUrl.IsNullOrEmpty())
+				{
 					picImage.EditValue = null;
+					txtImageUrl.EditValue = null;
+				}
 				else
+				{
 					picImage.LoadAsync(ConstsVar.IMG_URL + loadUrl);
+					txtImageUrl.EditValue = loadUrl;
+				}
 
 				SetToolbarButtons(new ToolbarButtons() { Save = true, SaveAndClose = true, Delete = true });
 				this.EditMode = EditModeEnum.Modify;
@@ -196,11 +202,22 @@ namespace IKaan.Biz.View.Biz.BM
 				};
 
 				//이미지 업로드
-				string path = picImage.GetLoadedImageLocation();
-				if (path.IsNullOrEmpty() == false)
+				if (picImage.EditValue != null)
 				{
-					string url = FTPHandler.UploadBusiness(txtImageUrl.EditValue.ToString(), txtBizNo.EditValue.ToString().Replace("-", ""));
-					model.Business.ImageUrl = url;
+					string path = picImage.GetLoadedImageLocation();
+					if (path.IsNullOrEmpty() == false)
+					{
+						string url = FTPHandler.UploadBusiness(txtImageUrl.EditValue.ToString(), txtBizNo.EditValue.ToString().Replace("-", ""));
+						model.Business.ImageUrl = url;
+					}
+				}
+				else
+				{
+					if (loadUrl.IsNullOrEmpty() == false)
+					{
+						FTPHandler.DeleteFile(loadUrl);
+						loadUrl = string.Empty;
+					}
 				}
 
 				using (var res = WasHandler.Execute<BMCustomerBusiness>("BM", "Save", (this.EditMode == EditModeEnum.New) ? "Insert" : "Update", model, "ID"))
@@ -222,6 +239,12 @@ namespace IKaan.Biz.View.Biz.BM
 		{
 			try
 			{
+				if (txtImageUrl.EditValue.IsNullOrEmpty() == false)
+				{
+					FTPHandler.DeleteFile(txtImageUrl.EditValue.ToString());
+					loadUrl = string.Empty;
+				}
+
 				DataMap map = new DataMap() { { "ID", txtID.EditValue } };
 				using (var res = WasHandler.Execute<DataMap>("BM", "Delete", "DeleteBMCustomerBusiness", map, "ID"))
 				{

@@ -83,6 +83,9 @@
     <Compile Include="BIZ\BM\BMBrand.cs" />
     <Compile Include="BIZ\BS\BSOrder.cs" />
     <Compile Include="BIZ\BS\BSOrderItem.cs" />
+    <Compile Include="BIZ\BT\BTOrderSumSales.cs" />
+    <Compile Include="BIZ\BT\BTOrderSumByChannel.cs" />
+    <Compile Include="BIZ\BT\BTOrderSum.cs" />
     <Compile Include="SYS\AA\AABookmarkUser.cs" />
     <Compile Include="SYS\AA\AAButton.cs" />
     <Compile Include="SYS\AA\AAHelp.cs" />

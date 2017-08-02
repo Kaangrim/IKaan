@@ -25,11 +25,28 @@
 					,	BB.BizName
 					,	BB.RepName
 					
+					,	CC.CustomerName
+					
 				FROM	dbo.BMCustomerBusiness AA WITH (NOLOCK)
 						LEFT JOIN
 							dbo.BMBusiness BB WITH (NOLOCK)
 								ON AA.BusinessID = BB.ID
-				WHERE	AA.CustomerID = #CustomerID#
+						LEFT JOIN
+							dbo.BMCustomer CC WITH (NOLOCK)
+								ON AA.CustomerID = CC.ID
+				WHERE	1=1
+			]]>
+			<isNotEmpty property="CustomerID">
+				<![CDATA[
+					AND	AA.CustomerID = #CustomerID#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="BusinessID">
+				<![CDATA[
+					AND	AA.BusinessID = #BusinessID#
+				]]>
+			</isNotEmpty>
+			<![CDATA[
 				ORDER BY RowNo
 			]]>
 		</select>
