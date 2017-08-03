@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using System.Linq;
 using DevExpress.Utils;
 using DevExpress.XtraGrid.Views.Grid;
+using DevExpress.XtraTab.Buttons;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
 using IKaan.Biz.Core.Controls.Grid;
@@ -21,11 +23,20 @@ namespace IKaan.Biz.View.Biz.BM
 		{
 			InitializeComponent();
 
-			btnAddBrand.Click += delegate (object sender, EventArgs e) { ShowChannelBrandForm(null); };
-			btnAddCustomer.Click += delegate (object sender, EventArgs e) { ShowChannelCustomerForm(null); };
-
-			btnAddContact.Click += delegate (object sender, EventArgs e) { ShowContactForm(null); };
-			btnAddManager.Click += delegate (object sender, EventArgs e) { ShowManagerForm(null); };
+			lcTab.CustomHeaderButtonClick += delegate (object sender, DevExpress.XtraTab.ViewInfo.CustomHeaderButtonEventArgs e)
+			{
+				if (e.Button.Tag.ToStringNullToEmpty() == "ADD")
+				{
+					if (lcTab.SelectedTabPage.Name == lcGroupContact.Name)
+						ShowContactForm(null);
+					else if (lcTab.SelectedTabPage.Name == lcGroupManager.Name)
+						ShowManagerForm(null);
+					else if (lcTab.SelectedTabPage.Name == lcGroupBrand.Name)
+						ShowChannelBrandForm(null);
+					else if (lcTab.SelectedTabPage.Name == lcGroupCustomer.Name)
+						ShowChannelCustomerForm(null);
+				}
+			};
 		}
 
 		protected override void OnShown(EventArgs e)
@@ -61,6 +72,11 @@ namespace IKaan.Biz.View.Biz.BM
 
 			InitGrid();
 
+			lcTab.CustomHeaderButtons.OfType<CustomHeaderButton>().Where(x => x.Tag.ToStringNullToEmpty() == "DEL").ToList().ForEach(button =>
+			{
+				button.Visible = false;
+			});
+
 			lcTab.SelectedTabPageIndex = 0;
 		}
 
@@ -82,7 +98,6 @@ namespace IKaan.Biz.View.Biz.BM
 			);
 			gridList.SetRepositoryItemCheckEdit("UseYn");
 			gridList.ColumnFix("RowNo");
-
 			gridList.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
 			{
 				if (e.RowHandle < 0)
@@ -240,10 +255,10 @@ namespace IKaan.Biz.View.Biz.BM
 			gridContacts.Clear<BMChannelContact>();
 			gridManagers.Clear<BMChannelManager>();
 
-			btnAddBrand.Enabled = 
-				btnAddCustomer.Enabled = 
-				btnAddContact.Enabled =
-				btnAddManager.Enabled = false;
+			lcTab.CustomHeaderButtons.OfType<CustomHeaderButton>().Where(x => x.Tag.ToStringNullToEmpty() == "ADD").ToList().ForEach(button =>
+			{
+				button.Enabled = false;
+			});
 
 			SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true });
 			EditMode = EditModeEnum.New;
@@ -289,10 +304,10 @@ namespace IKaan.Biz.View.Biz.BM
 				gridContacts.DataSource = model.Contacts;
 				gridManagers.DataSource = model.Managers;
 
-				btnAddBrand.Enabled =
-					btnAddCustomer.Enabled =
-					btnAddContact.Enabled =
-					btnAddManager.Enabled = true;
+				lcTab.CustomHeaderButtons.OfType<CustomHeaderButton>().Where(x => x.Tag.ToStringNullToEmpty() == "ADD").ToList().ForEach(button =>
+				{
+					button.Enabled = true;
+				});
 
 				SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true, Delete = true });
 				this.EditMode = EditModeEnum.Modify;

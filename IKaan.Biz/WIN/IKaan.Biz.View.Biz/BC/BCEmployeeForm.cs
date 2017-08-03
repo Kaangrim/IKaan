@@ -25,13 +25,15 @@ namespace IKaan.Biz.View.Biz.BC
 		{
 			InitializeComponent();
 
-			btnAddLine.Click += delegate (object sender, EventArgs e)
+			lcTab.CustomHeaderButtonClick += delegate (object sender, DevExpress.XtraTab.ViewInfo.CustomHeaderButtonEventArgs e)
 			{
-				ShowAppointmentForm(null);
-			};
-			btnDelLine.Click += delegate (object sender, EventArgs e)
-			{
-				DataDeleteAppointment();
+				if (e.Button.Tag.ToStringNullToEmpty() == "ADD")
+				{
+					if (lcTab.SelectedTabPage.Name == lcGroupAppointment.Name)
+					{
+						ShowAppointmentForm(null);
+					}
+				}
 			};
 			picImage.EditValueChanged += delegate (object sender, EventArgs e)
 			{
@@ -182,8 +184,7 @@ namespace IKaan.Biz.View.Biz.BC
 
 			gridAppointment.Clear<BCAppointment>();
 
-			btnAddLine.Enabled =
-				btnDelLine.Enabled = false;
+			lcTab.CustomHeaderButtons[0].Enabled = false;
 
 			picImage.Properties.ShowMenu = false;
 
@@ -233,8 +234,7 @@ namespace IKaan.Biz.View.Biz.BC
 
 				gridAppointment.DataSource = model.Appointments;
 
-				btnAddLine.Enabled = true;
-				btnDelLine.Enabled = true;
+				lcTab.CustomHeaderButtons[0].Enabled = true;
 
 				if (txtPersonID.EditValue.ToStringNullToEmpty() != "")
 				{

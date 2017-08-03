@@ -222,7 +222,7 @@
 			this.lcGroupFind.Location = new System.Drawing.Point(0, 0);
 			this.lcGroupFind.Name = "lcGroupFind";
 			this.lcGroupFind.Padding = new DevExpress.XtraLayout.Utils.Padding(4, 4, 4, 4);
-			this.lcGroupFind.Size = new System.Drawing.Size(454, 548);
+			this.lcGroupFind.Size = new System.Drawing.Size(456, 548);
 			this.lcGroupFind.Text = "검색";
 			this.lcGroupFind.TextVisible = false;
 			// 
@@ -235,14 +235,14 @@
 			this.lcGroupSearch.Location = new System.Drawing.Point(0, 0);
 			this.lcGroupSearch.Name = "lcGroupSearch";
 			this.lcGroupSearch.Padding = new DevExpress.XtraLayout.Utils.Padding(4, 4, 4, 4);
-			this.lcGroupSearch.Size = new System.Drawing.Size(440, 105);
+			this.lcGroupSearch.Size = new System.Drawing.Size(442, 105);
 			// 
 			// lcItemFindUseYn
 			// 
 			this.lcItemFindUseYn.Control = this.lupFindUseYn;
 			this.lcItemFindUseYn.Location = new System.Drawing.Point(0, 24);
 			this.lcItemFindUseYn.Name = "lcItemFindUseYn";
-			this.lcItemFindUseYn.Size = new System.Drawing.Size(426, 24);
+			this.lcItemFindUseYn.Size = new System.Drawing.Size(428, 24);
 			this.lcItemFindUseYn.TextSize = new System.Drawing.Size(136, 14);
 			// 
 			// lupFindUseYn
@@ -257,7 +257,7 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo),
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions4, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
 			this.lupFindUseYn.SelectedIndex = -1;
-			this.lupFindUseYn.Size = new System.Drawing.Size(282, 20);
+			this.lupFindUseYn.Size = new System.Drawing.Size(284, 20);
 			this.lupFindUseYn.StyleController = this.lc;
 			this.lupFindUseYn.TabIndex = 31;
 			this.lupFindUseYn.ValueMember = "";
@@ -267,14 +267,14 @@
 			this.lcItemFindText.Control = this.txtFindText;
 			this.lcItemFindText.Location = new System.Drawing.Point(0, 48);
 			this.lcItemFindText.Name = "lcItemFindText";
-			this.lcItemFindText.Size = new System.Drawing.Size(426, 24);
+			this.lcItemFindText.Size = new System.Drawing.Size(428, 24);
 			this.lcItemFindText.TextSize = new System.Drawing.Size(136, 14);
 			// 
 			// txtFindText
 			// 
 			this.txtFindText.Location = new System.Drawing.Point(158, 85);
 			this.txtFindText.Name = "txtFindText";
-			this.txtFindText.Size = new System.Drawing.Size(282, 20);
+			this.txtFindText.Size = new System.Drawing.Size(284, 20);
 			this.txtFindText.StyleController = this.lc;
 			this.txtFindText.TabIndex = 4;
 			// 
@@ -283,7 +283,7 @@
 			this.lcItemFindCustomerType.Control = this.lupFindCustomerType;
 			this.lcItemFindCustomerType.Location = new System.Drawing.Point(0, 0);
 			this.lcItemFindCustomerType.Name = "lcItemFindCustomerType";
-			this.lcItemFindCustomerType.Size = new System.Drawing.Size(426, 24);
+			this.lcItemFindCustomerType.Size = new System.Drawing.Size(428, 24);
 			this.lcItemFindCustomerType.TextSize = new System.Drawing.Size(136, 14);
 			// 
 			// lupFindCustomerType
@@ -298,7 +298,7 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo),
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions3, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
 			this.lupFindCustomerType.SelectedIndex = -1;
-			this.lupFindCustomerType.Size = new System.Drawing.Size(282, 20);
+			this.lupFindCustomerType.Size = new System.Drawing.Size(284, 20);
 			this.lupFindCustomerType.StyleController = this.lc;
 			this.lupFindCustomerType.TabIndex = 37;
 			this.lupFindCustomerType.ValueMember = "";
@@ -308,7 +308,7 @@
 			this.layoutControlItem3.Control = this.gridList;
 			this.layoutControlItem3.Location = new System.Drawing.Point(0, 105);
 			this.layoutControlItem3.Name = "layoutControlItem3";
-			this.layoutControlItem3.Size = new System.Drawing.Size(440, 429);
+			this.layoutControlItem3.Size = new System.Drawing.Size(442, 429);
 			this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
 			this.layoutControlItem3.TextVisible = false;
 			// 
@@ -333,7 +333,7 @@
 			this.gridList.ReadOnly = false;
 			this.gridList.ShowFooter = false;
 			this.gridList.ShowGroupPanel = false;
-			this.gridList.Size = new System.Drawing.Size(436, 425);
+			this.gridList.Size = new System.Drawing.Size(438, 425);
 			this.gridList.TabIndex = 7;
 			// 
 			// lcGroupEdit1
@@ -348,7 +348,7 @@
 			this.lcGroupEdit1.Location = new System.Drawing.Point(0, 0);
 			this.lcGroupEdit1.Name = "lcGroupEdit1";
 			this.lcGroupEdit1.Padding = new DevExpress.XtraLayout.Utils.Padding(4, 4, 4, 4);
-			this.lcGroupEdit1.Size = new System.Drawing.Size(298, 206);
+			this.lcGroupEdit1.Size = new System.Drawing.Size(297, 206);
 			this.lcGroupEdit1.TextVisible = false;
 			// 
 			// lcItemID
@@ -358,14 +358,14 @@
 			this.lcItemID.Control = this.txtID;
 			this.lcItemID.Location = new System.Drawing.Point(0, 0);
 			this.lcItemID.Name = "lcItemID";
-			this.lcItemID.Size = new System.Drawing.Size(284, 24);
+			this.lcItemID.Size = new System.Drawing.Size(283, 24);
 			this.lcItemID.TextSize = new System.Drawing.Size(136, 17);
 			// 
 			// txtID
 			// 
-			this.txtID.Location = new System.Drawing.Point(617, 11);
+			this.txtID.Location = new System.Drawing.Point(619, 11);
 			this.txtID.Name = "txtID";
-			this.txtID.Size = new System.Drawing.Size(140, 20);
+			this.txtID.Size = new System.Drawing.Size(139, 20);
 			this.txtID.StyleController = this.lc;
 			this.txtID.TabIndex = 5;
 			// 
@@ -374,13 +374,13 @@
 			this.lcItemUseYn.Control = this.chkUseYn;
 			this.lcItemUseYn.Location = new System.Drawing.Point(0, 96);
 			this.lcItemUseYn.Name = "lcItemUseYn";
-			this.lcItemUseYn.Size = new System.Drawing.Size(284, 23);
+			this.lcItemUseYn.Size = new System.Drawing.Size(283, 23);
 			this.lcItemUseYn.TextSize = new System.Drawing.Size(136, 14);
 			// 
 			// chkUseYn
 			// 
 			this.chkUseYn.EditValue = "N";
-			this.chkUseYn.Location = new System.Drawing.Point(617, 107);
+			this.chkUseYn.Location = new System.Drawing.Point(619, 107);
 			this.chkUseYn.Name = "chkUseYn";
 			this.chkUseYn.Properties.AutoWidth = true;
 			this.chkUseYn.Properties.Caption = "";
@@ -396,14 +396,14 @@
 			this.lcItemCustomerName.Control = this.txtCustomerName;
 			this.lcItemCustomerName.Location = new System.Drawing.Point(0, 48);
 			this.lcItemCustomerName.Name = "lcItemCustomerName";
-			this.lcItemCustomerName.Size = new System.Drawing.Size(284, 24);
+			this.lcItemCustomerName.Size = new System.Drawing.Size(283, 24);
 			this.lcItemCustomerName.TextSize = new System.Drawing.Size(136, 14);
 			// 
 			// txtCustomerName
 			// 
-			this.txtCustomerName.Location = new System.Drawing.Point(617, 59);
+			this.txtCustomerName.Location = new System.Drawing.Point(619, 59);
 			this.txtCustomerName.Name = "txtCustomerName";
-			this.txtCustomerName.Size = new System.Drawing.Size(140, 20);
+			this.txtCustomerName.Size = new System.Drawing.Size(139, 20);
 			this.txtCustomerName.StyleController = this.lc;
 			this.txtCustomerName.TabIndex = 23;
 			// 
@@ -412,14 +412,14 @@
 			this.lcItemEngName.Control = this.txtEngName;
 			this.lcItemEngName.Location = new System.Drawing.Point(0, 72);
 			this.lcItemEngName.Name = "lcItemEngName";
-			this.lcItemEngName.Size = new System.Drawing.Size(284, 24);
+			this.lcItemEngName.Size = new System.Drawing.Size(283, 24);
 			this.lcItemEngName.TextSize = new System.Drawing.Size(136, 14);
 			// 
 			// txtEngName
 			// 
-			this.txtEngName.Location = new System.Drawing.Point(617, 83);
+			this.txtEngName.Location = new System.Drawing.Point(619, 83);
 			this.txtEngName.Name = "txtEngName";
-			this.txtEngName.Size = new System.Drawing.Size(140, 20);
+			this.txtEngName.Size = new System.Drawing.Size(139, 20);
 			this.txtEngName.StyleController = this.lc;
 			this.txtEngName.TabIndex = 24;
 			// 
@@ -428,14 +428,14 @@
 			this.lcItemDescription.Control = this.memDescription;
 			this.lcItemDescription.Location = new System.Drawing.Point(0, 119);
 			this.lcItemDescription.Name = "lcItemDescription";
-			this.lcItemDescription.Size = new System.Drawing.Size(284, 73);
+			this.lcItemDescription.Size = new System.Drawing.Size(283, 73);
 			this.lcItemDescription.TextSize = new System.Drawing.Size(136, 14);
 			// 
 			// memDescription
 			// 
-			this.memDescription.Location = new System.Drawing.Point(617, 130);
+			this.memDescription.Location = new System.Drawing.Point(619, 130);
 			this.memDescription.Name = "memDescription";
-			this.memDescription.Size = new System.Drawing.Size(140, 69);
+			this.memDescription.Size = new System.Drawing.Size(139, 69);
 			this.memDescription.StyleController = this.lc;
 			this.memDescription.TabIndex = 14;
 			// 
@@ -444,7 +444,7 @@
 			this.lcItemCustomerType.Control = this.lupCustomerType;
 			this.lcItemCustomerType.Location = new System.Drawing.Point(0, 24);
 			this.lcItemCustomerType.Name = "lcItemCustomerType";
-			this.lcItemCustomerType.Size = new System.Drawing.Size(284, 24);
+			this.lcItemCustomerType.Size = new System.Drawing.Size(283, 24);
 			this.lcItemCustomerType.TextSize = new System.Drawing.Size(136, 14);
 			// 
 			// lupCustomerType
@@ -452,14 +452,14 @@
 			this.lupCustomerType.DisplayMember = "";
 			this.lupCustomerType.GroupCode = null;
 			this.lupCustomerType.ListMember = "ListName";
-			this.lupCustomerType.Location = new System.Drawing.Point(617, 35);
+			this.lupCustomerType.Location = new System.Drawing.Point(619, 35);
 			this.lupCustomerType.Name = "lupCustomerType";
 			this.lupCustomerType.NullText = "[EditValue is null]";
 			this.lupCustomerType.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo),
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions2, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
 			this.lupCustomerType.SelectedIndex = -1;
-			this.lupCustomerType.Size = new System.Drawing.Size(140, 20);
+			this.lupCustomerType.Size = new System.Drawing.Size(139, 20);
 			this.lupCustomerType.StyleController = this.lc;
 			this.lupCustomerType.TabIndex = 43;
 			this.lupCustomerType.ValueMember = "";
@@ -467,7 +467,7 @@
 			// splitterItem1
 			// 
 			this.splitterItem1.AllowHotTrack = true;
-			this.splitterItem1.Location = new System.Drawing.Point(454, 0);
+			this.splitterItem1.Location = new System.Drawing.Point(456, 0);
 			this.splitterItem1.Name = "splitterItem1";
 			this.splitterItem1.Size = new System.Drawing.Size(12, 548);
 			// 
@@ -481,7 +481,7 @@
 			this.lcGroupRegInfo.Location = new System.Drawing.Point(0, 206);
 			this.lcGroupRegInfo.Name = "lcGroupRegInfo";
 			this.lcGroupRegInfo.Padding = new DevExpress.XtraLayout.Utils.Padding(4, 4, 4, 4);
-			this.lcGroupRegInfo.Size = new System.Drawing.Size(520, 62);
+			this.lcGroupRegInfo.Size = new System.Drawing.Size(518, 62);
 			this.lcGroupRegInfo.TextVisible = false;
 			// 
 			// lcItemCreateDate
@@ -489,14 +489,14 @@
 			this.lcItemCreateDate.Control = this.txtCreateDate;
 			this.lcItemCreateDate.Location = new System.Drawing.Point(0, 0);
 			this.lcItemCreateDate.Name = "lcItemCreateDate";
-			this.lcItemCreateDate.Size = new System.Drawing.Size(253, 24);
+			this.lcItemCreateDate.Size = new System.Drawing.Size(252, 24);
 			this.lcItemCreateDate.TextSize = new System.Drawing.Size(136, 14);
 			// 
 			// txtCreateDate
 			// 
-			this.txtCreateDate.Location = new System.Drawing.Point(617, 217);
+			this.txtCreateDate.Location = new System.Drawing.Point(619, 217);
 			this.txtCreateDate.Name = "txtCreateDate";
-			this.txtCreateDate.Size = new System.Drawing.Size(109, 20);
+			this.txtCreateDate.Size = new System.Drawing.Size(108, 20);
 			this.txtCreateDate.StyleController = this.lc;
 			this.txtCreateDate.TabIndex = 10;
 			// 
@@ -505,46 +505,46 @@
 			this.lcItemCreateByName.Control = this.txtCreateByName;
 			this.lcItemCreateByName.Location = new System.Drawing.Point(0, 24);
 			this.lcItemCreateByName.Name = "lcItemCreateByName";
-			this.lcItemCreateByName.Size = new System.Drawing.Size(253, 24);
+			this.lcItemCreateByName.Size = new System.Drawing.Size(252, 24);
 			this.lcItemCreateByName.TextSize = new System.Drawing.Size(136, 14);
 			// 
 			// txtCreateByName
 			// 
-			this.txtCreateByName.Location = new System.Drawing.Point(617, 241);
+			this.txtCreateByName.Location = new System.Drawing.Point(619, 241);
 			this.txtCreateByName.Name = "txtCreateByName";
-			this.txtCreateByName.Size = new System.Drawing.Size(109, 20);
+			this.txtCreateByName.Size = new System.Drawing.Size(108, 20);
 			this.txtCreateByName.StyleController = this.lc;
 			this.txtCreateByName.TabIndex = 11;
 			// 
 			// lcItemUpdateDate
 			// 
 			this.lcItemUpdateDate.Control = this.txtUpdateDate;
-			this.lcItemUpdateDate.Location = new System.Drawing.Point(253, 0);
+			this.lcItemUpdateDate.Location = new System.Drawing.Point(252, 0);
 			this.lcItemUpdateDate.Name = "lcItemUpdateDate";
-			this.lcItemUpdateDate.Size = new System.Drawing.Size(253, 24);
+			this.lcItemUpdateDate.Size = new System.Drawing.Size(252, 24);
 			this.lcItemUpdateDate.TextSize = new System.Drawing.Size(136, 14);
 			// 
 			// txtUpdateDate
 			// 
-			this.txtUpdateDate.Location = new System.Drawing.Point(870, 217);
+			this.txtUpdateDate.Location = new System.Drawing.Point(871, 217);
 			this.txtUpdateDate.Name = "txtUpdateDate";
-			this.txtUpdateDate.Size = new System.Drawing.Size(109, 20);
+			this.txtUpdateDate.Size = new System.Drawing.Size(108, 20);
 			this.txtUpdateDate.StyleController = this.lc;
 			this.txtUpdateDate.TabIndex = 12;
 			// 
 			// lcItemUpdateByName
 			// 
 			this.lcItemUpdateByName.Control = this.txtUpdateByName;
-			this.lcItemUpdateByName.Location = new System.Drawing.Point(253, 24);
+			this.lcItemUpdateByName.Location = new System.Drawing.Point(252, 24);
 			this.lcItemUpdateByName.Name = "lcItemUpdateByName";
-			this.lcItemUpdateByName.Size = new System.Drawing.Size(253, 24);
+			this.lcItemUpdateByName.Size = new System.Drawing.Size(252, 24);
 			this.lcItemUpdateByName.TextSize = new System.Drawing.Size(136, 14);
 			// 
 			// txtUpdateByName
 			// 
-			this.txtUpdateByName.Location = new System.Drawing.Point(870, 241);
+			this.txtUpdateByName.Location = new System.Drawing.Point(871, 241);
 			this.txtUpdateByName.Name = "txtUpdateByName";
-			this.txtUpdateByName.Size = new System.Drawing.Size(109, 20);
+			this.txtUpdateByName.Size = new System.Drawing.Size(108, 20);
 			this.txtUpdateByName.StyleController = this.lc;
 			this.txtUpdateByName.TabIndex = 13;
 			// 
@@ -556,15 +556,14 @@
             this.lcGroupRegInfo,
             this.lcTab,
             this.lcGroupEdit2});
-			this.lcGroupEditBase.Location = new System.Drawing.Point(466, 0);
+			this.lcGroupEditBase.Location = new System.Drawing.Point(468, 0);
 			this.lcGroupEditBase.Name = "lcGroupEditBase";
-			this.lcGroupEditBase.Size = new System.Drawing.Size(520, 548);
+			this.lcGroupEditBase.Size = new System.Drawing.Size(518, 548);
 			this.lcGroupEditBase.TextVisible = false;
 			// 
 			// lcTab
 			// 
 			editorButtonImageOptions5.Image = ((System.Drawing.Image)(resources.GetObject("editorButtonImageOptions5.Image")));
-			editorButtonImageOptions5.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
 			this.lcTab.CustomHeaderButtons.AddRange(new DevExpress.XtraTab.Buttons.CustomHeaderButton[] {
             new DevExpress.XtraTab.Buttons.CustomHeaderButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "Add", -1, true, true, editorButtonImageOptions5, serializableAppearanceObject1, "", null, null)});
 			this.lcTab.Location = new System.Drawing.Point(0, 268);
@@ -572,7 +571,7 @@
 			this.lcTab.Padding = new DevExpress.XtraLayout.Utils.Padding(2, 2, 2, 2);
 			this.lcTab.SelectedTabPage = this.lcGroupAddress;
 			this.lcTab.SelectedTabPageIndex = 0;
-			this.lcTab.Size = new System.Drawing.Size(520, 280);
+			this.lcTab.Size = new System.Drawing.Size(518, 280);
 			this.lcTab.TabPages.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.lcGroupAddress,
             this.lcGroupBank,
@@ -588,7 +587,7 @@
 			this.lcGroupAddress.Location = new System.Drawing.Point(0, 0);
 			this.lcGroupAddress.Name = "lcGroupAddress";
 			this.lcGroupAddress.Padding = new DevExpress.XtraLayout.Utils.Padding(4, 4, 4, 4);
-			this.lcGroupAddress.Size = new System.Drawing.Size(510, 244);
+			this.lcGroupAddress.Size = new System.Drawing.Size(508, 244);
 			this.lcGroupAddress.Text = "Address";
 			// 
 			// layoutControlItem1
@@ -596,7 +595,7 @@
 			this.layoutControlItem1.Control = this.gridAddress;
 			this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
 			this.layoutControlItem1.Name = "layoutControlItem1";
-			this.layoutControlItem1.Size = new System.Drawing.Size(510, 244);
+			this.layoutControlItem1.Size = new System.Drawing.Size(508, 244);
 			this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
 			this.layoutControlItem1.TextVisible = false;
 			// 
@@ -607,7 +606,7 @@
 			this.gridAddress.Editable = true;
 			this.gridAddress.FocusedRowHandle = -2147483648;
 			this.gridAddress.GridViewType = IKaan.Biz.Core.Controls.Grid.GridViewType.GridView;
-			this.gridAddress.Location = new System.Drawing.Point(475, 303);
+			this.gridAddress.Location = new System.Drawing.Point(477, 303);
 			this.gridAddress.Name = "gridAddress";
 			this.gridAddress.PageFooterCenter = null;
 			this.gridAddress.PageFooterLeft = null;
@@ -621,7 +620,7 @@
 			this.gridAddress.ReadOnly = false;
 			this.gridAddress.ShowFooter = false;
 			this.gridAddress.ShowGroupPanel = false;
-			this.gridAddress.Size = new System.Drawing.Size(506, 240);
+			this.gridAddress.Size = new System.Drawing.Size(504, 240);
 			this.gridAddress.TabIndex = 26;
 			// 
 			// lcGroupBank
@@ -631,7 +630,7 @@
             this.layoutControlItem5});
 			this.lcGroupBank.Location = new System.Drawing.Point(0, 0);
 			this.lcGroupBank.Name = "lcGroupBank";
-			this.lcGroupBank.Size = new System.Drawing.Size(510, 244);
+			this.lcGroupBank.Size = new System.Drawing.Size(508, 244);
 			this.lcGroupBank.Text = "Bank";
 			// 
 			// layoutControlItem5
@@ -639,7 +638,7 @@
 			this.layoutControlItem5.Control = this.gridBank;
 			this.layoutControlItem5.Location = new System.Drawing.Point(0, 0);
 			this.layoutControlItem5.Name = "layoutControlItem5";
-			this.layoutControlItem5.Size = new System.Drawing.Size(510, 244);
+			this.layoutControlItem5.Size = new System.Drawing.Size(508, 244);
 			this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
 			this.layoutControlItem5.TextVisible = false;
 			// 
@@ -650,7 +649,7 @@
 			this.gridBank.Editable = true;
 			this.gridBank.FocusedRowHandle = -2147483648;
 			this.gridBank.GridViewType = IKaan.Biz.Core.Controls.Grid.GridViewType.GridView;
-			this.gridBank.Location = new System.Drawing.Point(475, 303);
+			this.gridBank.Location = new System.Drawing.Point(477, 303);
 			this.gridBank.Name = "gridBank";
 			this.gridBank.PageFooterCenter = null;
 			this.gridBank.PageFooterLeft = null;
@@ -664,7 +663,7 @@
 			this.gridBank.ReadOnly = false;
 			this.gridBank.ShowFooter = false;
 			this.gridBank.ShowGroupPanel = false;
-			this.gridBank.Size = new System.Drawing.Size(506, 240);
+			this.gridBank.Size = new System.Drawing.Size(504, 240);
 			this.gridBank.TabIndex = 38;
 			// 
 			// lcGroupBrand
@@ -674,7 +673,7 @@
             this.layoutControlItem6});
 			this.lcGroupBrand.Location = new System.Drawing.Point(0, 0);
 			this.lcGroupBrand.Name = "lcGroupBrand";
-			this.lcGroupBrand.Size = new System.Drawing.Size(510, 244);
+			this.lcGroupBrand.Size = new System.Drawing.Size(508, 244);
 			this.lcGroupBrand.Text = "Brand";
 			// 
 			// layoutControlItem6
@@ -682,7 +681,7 @@
 			this.layoutControlItem6.Control = this.gridBrand;
 			this.layoutControlItem6.Location = new System.Drawing.Point(0, 0);
 			this.layoutControlItem6.Name = "layoutControlItem6";
-			this.layoutControlItem6.Size = new System.Drawing.Size(510, 244);
+			this.layoutControlItem6.Size = new System.Drawing.Size(508, 244);
 			this.layoutControlItem6.TextSize = new System.Drawing.Size(0, 0);
 			this.layoutControlItem6.TextVisible = false;
 			// 
@@ -693,7 +692,7 @@
 			this.gridBrand.Editable = true;
 			this.gridBrand.FocusedRowHandle = -2147483648;
 			this.gridBrand.GridViewType = IKaan.Biz.Core.Controls.Grid.GridViewType.GridView;
-			this.gridBrand.Location = new System.Drawing.Point(475, 303);
+			this.gridBrand.Location = new System.Drawing.Point(477, 303);
 			this.gridBrand.Name = "gridBrand";
 			this.gridBrand.PageFooterCenter = null;
 			this.gridBrand.PageFooterLeft = null;
@@ -707,7 +706,7 @@
 			this.gridBrand.ReadOnly = false;
 			this.gridBrand.ShowFooter = false;
 			this.gridBrand.ShowGroupPanel = false;
-			this.gridBrand.Size = new System.Drawing.Size(506, 240);
+			this.gridBrand.Size = new System.Drawing.Size(504, 240);
 			this.gridBrand.TabIndex = 39;
 			// 
 			// lcGroupChannel
@@ -717,7 +716,7 @@
             this.layoutControlItem2});
 			this.lcGroupChannel.Location = new System.Drawing.Point(0, 0);
 			this.lcGroupChannel.Name = "lcGroupChannel";
-			this.lcGroupChannel.Size = new System.Drawing.Size(510, 244);
+			this.lcGroupChannel.Size = new System.Drawing.Size(508, 244);
 			this.lcGroupChannel.Text = "Channel";
 			// 
 			// layoutControlItem2
@@ -725,7 +724,7 @@
 			this.layoutControlItem2.Control = this.gridChannel;
 			this.layoutControlItem2.Location = new System.Drawing.Point(0, 0);
 			this.layoutControlItem2.Name = "layoutControlItem2";
-			this.layoutControlItem2.Size = new System.Drawing.Size(510, 244);
+			this.layoutControlItem2.Size = new System.Drawing.Size(508, 244);
 			this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
 			this.layoutControlItem2.TextVisible = false;
 			// 
@@ -736,7 +735,7 @@
 			this.gridChannel.Editable = true;
 			this.gridChannel.FocusedRowHandle = -2147483648;
 			this.gridChannel.GridViewType = IKaan.Biz.Core.Controls.Grid.GridViewType.GridView;
-			this.gridChannel.Location = new System.Drawing.Point(475, 303);
+			this.gridChannel.Location = new System.Drawing.Point(477, 303);
 			this.gridChannel.Name = "gridChannel";
 			this.gridChannel.PageFooterCenter = null;
 			this.gridChannel.PageFooterLeft = null;
@@ -750,7 +749,7 @@
 			this.gridChannel.ReadOnly = false;
 			this.gridChannel.ShowFooter = false;
 			this.gridChannel.ShowGroupPanel = false;
-			this.gridChannel.Size = new System.Drawing.Size(506, 240);
+			this.gridChannel.Size = new System.Drawing.Size(504, 240);
 			this.gridChannel.TabIndex = 27;
 			// 
 			// lcGroupBusiness
@@ -760,7 +759,7 @@
             this.layoutControlItem4});
 			this.lcGroupBusiness.Location = new System.Drawing.Point(0, 0);
 			this.lcGroupBusiness.Name = "lcGroupBusiness";
-			this.lcGroupBusiness.Size = new System.Drawing.Size(510, 244);
+			this.lcGroupBusiness.Size = new System.Drawing.Size(508, 244);
 			this.lcGroupBusiness.Text = "Business";
 			// 
 			// layoutControlItem4
@@ -768,7 +767,7 @@
 			this.layoutControlItem4.Control = this.gridBusiness;
 			this.layoutControlItem4.Location = new System.Drawing.Point(0, 0);
 			this.layoutControlItem4.Name = "layoutControlItem4";
-			this.layoutControlItem4.Size = new System.Drawing.Size(510, 244);
+			this.layoutControlItem4.Size = new System.Drawing.Size(508, 244);
 			this.layoutControlItem4.TextSize = new System.Drawing.Size(0, 0);
 			this.layoutControlItem4.TextVisible = false;
 			// 
@@ -779,7 +778,7 @@
 			this.gridBusiness.Editable = true;
 			this.gridBusiness.FocusedRowHandle = -2147483648;
 			this.gridBusiness.GridViewType = IKaan.Biz.Core.Controls.Grid.GridViewType.GridView;
-			this.gridBusiness.Location = new System.Drawing.Point(475, 303);
+			this.gridBusiness.Location = new System.Drawing.Point(477, 303);
 			this.gridBusiness.Name = "gridBusiness";
 			this.gridBusiness.PageFooterCenter = null;
 			this.gridBusiness.PageFooterLeft = null;
@@ -793,7 +792,7 @@
 			this.gridBusiness.ReadOnly = false;
 			this.gridBusiness.ShowFooter = false;
 			this.gridBusiness.ShowGroupPanel = false;
-			this.gridBusiness.Size = new System.Drawing.Size(506, 240);
+			this.gridBusiness.Size = new System.Drawing.Size(504, 240);
 			this.gridBusiness.TabIndex = 28;
 			// 
 			// lcGroupEdit2
@@ -807,10 +806,10 @@
             this.lcItemAddressLine1,
             this.lcItemAddressLine2,
             this.lcItemRepName});
-			this.lcGroupEdit2.Location = new System.Drawing.Point(298, 0);
+			this.lcGroupEdit2.Location = new System.Drawing.Point(297, 0);
 			this.lcGroupEdit2.Name = "lcGroupEdit2";
 			this.lcGroupEdit2.Padding = new DevExpress.XtraLayout.Utils.Padding(4, 4, 4, 4);
-			this.lcGroupEdit2.Size = new System.Drawing.Size(222, 206);
+			this.lcGroupEdit2.Size = new System.Drawing.Size(221, 206);
 			this.lcGroupEdit2.TextVisible = false;
 			// 
 			// lcItemBizNo
@@ -818,14 +817,14 @@
 			this.lcItemBizNo.Control = this.txtBizNo;
 			this.lcItemBizNo.Location = new System.Drawing.Point(0, 24);
 			this.lcItemBizNo.Name = "lcItemBizNo";
-			this.lcItemBizNo.Size = new System.Drawing.Size(208, 24);
+			this.lcItemBizNo.Size = new System.Drawing.Size(207, 24);
 			this.lcItemBizNo.TextSize = new System.Drawing.Size(136, 14);
 			// 
 			// txtBizNo
 			// 
-			this.txtBizNo.Location = new System.Drawing.Point(915, 35);
+			this.txtBizNo.Location = new System.Drawing.Point(916, 35);
 			this.txtBizNo.Name = "txtBizNo";
-			this.txtBizNo.Size = new System.Drawing.Size(64, 20);
+			this.txtBizNo.Size = new System.Drawing.Size(63, 20);
 			this.txtBizNo.StyleController = this.lc;
 			this.txtBizNo.TabIndex = 49;
 			// 
@@ -834,14 +833,14 @@
 			this.lcItemBizName.Control = this.txtBizName;
 			this.lcItemBizName.Location = new System.Drawing.Point(0, 48);
 			this.lcItemBizName.Name = "lcItemBizName";
-			this.lcItemBizName.Size = new System.Drawing.Size(208, 24);
+			this.lcItemBizName.Size = new System.Drawing.Size(207, 24);
 			this.lcItemBizName.TextSize = new System.Drawing.Size(136, 14);
 			// 
 			// txtBizName
 			// 
-			this.txtBizName.Location = new System.Drawing.Point(915, 59);
+			this.txtBizName.Location = new System.Drawing.Point(916, 59);
 			this.txtBizName.Name = "txtBizName";
-			this.txtBizName.Size = new System.Drawing.Size(64, 20);
+			this.txtBizName.Size = new System.Drawing.Size(63, 20);
 			this.txtBizName.StyleController = this.lc;
 			this.txtBizName.TabIndex = 50;
 			// 
@@ -850,14 +849,14 @@
 			this.lcItemBizKind.Control = this.txtBizKind;
 			this.lcItemBizKind.Location = new System.Drawing.Point(0, 96);
 			this.lcItemBizKind.Name = "lcItemBizKind";
-			this.lcItemBizKind.Size = new System.Drawing.Size(208, 24);
+			this.lcItemBizKind.Size = new System.Drawing.Size(207, 24);
 			this.lcItemBizKind.TextSize = new System.Drawing.Size(136, 14);
 			// 
 			// txtBizKind
 			// 
-			this.txtBizKind.Location = new System.Drawing.Point(915, 107);
+			this.txtBizKind.Location = new System.Drawing.Point(916, 107);
 			this.txtBizKind.Name = "txtBizKind";
-			this.txtBizKind.Size = new System.Drawing.Size(64, 20);
+			this.txtBizKind.Size = new System.Drawing.Size(63, 20);
 			this.txtBizKind.StyleController = this.lc;
 			this.txtBizKind.TabIndex = 51;
 			// 
@@ -866,14 +865,14 @@
 			this.lcItemBizItem.Control = this.txtBizItem;
 			this.lcItemBizItem.Location = new System.Drawing.Point(0, 120);
 			this.lcItemBizItem.Name = "lcItemBizItem";
-			this.lcItemBizItem.Size = new System.Drawing.Size(208, 24);
+			this.lcItemBizItem.Size = new System.Drawing.Size(207, 24);
 			this.lcItemBizItem.TextSize = new System.Drawing.Size(136, 14);
 			// 
 			// txtBizItem
 			// 
-			this.txtBizItem.Location = new System.Drawing.Point(915, 131);
+			this.txtBizItem.Location = new System.Drawing.Point(916, 131);
 			this.txtBizItem.Name = "txtBizItem";
-			this.txtBizItem.Size = new System.Drawing.Size(64, 20);
+			this.txtBizItem.Size = new System.Drawing.Size(63, 20);
 			this.txtBizItem.StyleController = this.lc;
 			this.txtBizItem.TabIndex = 52;
 			// 
@@ -882,7 +881,7 @@
 			this.lcItemBizType.Control = this.lupBizType;
 			this.lcItemBizType.Location = new System.Drawing.Point(0, 0);
 			this.lcItemBizType.Name = "lcItemBizType";
-			this.lcItemBizType.Size = new System.Drawing.Size(208, 24);
+			this.lcItemBizType.Size = new System.Drawing.Size(207, 24);
 			this.lcItemBizType.TextSize = new System.Drawing.Size(136, 14);
 			// 
 			// lupBizType
@@ -890,14 +889,14 @@
 			this.lupBizType.DisplayMember = "";
 			this.lupBizType.GroupCode = null;
 			this.lupBizType.ListMember = "ListName";
-			this.lupBizType.Location = new System.Drawing.Point(915, 11);
+			this.lupBizType.Location = new System.Drawing.Point(916, 11);
 			this.lupBizType.Name = "lupBizType";
 			this.lupBizType.NullText = "[EditValue is null]";
 			this.lupBizType.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo),
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
 			this.lupBizType.SelectedIndex = -1;
-			this.lupBizType.Size = new System.Drawing.Size(64, 20);
+			this.lupBizType.Size = new System.Drawing.Size(63, 20);
 			this.lupBizType.StyleController = this.lc;
 			this.lupBizType.TabIndex = 53;
 			this.lupBizType.ValueMember = "";
@@ -907,14 +906,14 @@
 			this.lcItemAddressLine1.Control = this.txtAddressLine1;
 			this.lcItemAddressLine1.Location = new System.Drawing.Point(0, 144);
 			this.lcItemAddressLine1.Name = "lcItemAddressLine1";
-			this.lcItemAddressLine1.Size = new System.Drawing.Size(208, 24);
+			this.lcItemAddressLine1.Size = new System.Drawing.Size(207, 24);
 			this.lcItemAddressLine1.TextSize = new System.Drawing.Size(136, 14);
 			// 
 			// txtAddressLine1
 			// 
-			this.txtAddressLine1.Location = new System.Drawing.Point(915, 155);
+			this.txtAddressLine1.Location = new System.Drawing.Point(916, 155);
 			this.txtAddressLine1.Name = "txtAddressLine1";
-			this.txtAddressLine1.Size = new System.Drawing.Size(64, 20);
+			this.txtAddressLine1.Size = new System.Drawing.Size(63, 20);
 			this.txtAddressLine1.StyleController = this.lc;
 			this.txtAddressLine1.TabIndex = 55;
 			// 
@@ -923,14 +922,14 @@
 			this.lcItemAddressLine2.Control = this.txtAddressLine2;
 			this.lcItemAddressLine2.Location = new System.Drawing.Point(0, 168);
 			this.lcItemAddressLine2.Name = "lcItemAddressLine2";
-			this.lcItemAddressLine2.Size = new System.Drawing.Size(208, 24);
+			this.lcItemAddressLine2.Size = new System.Drawing.Size(207, 24);
 			this.lcItemAddressLine2.TextSize = new System.Drawing.Size(136, 14);
 			// 
 			// txtAddressLine2
 			// 
-			this.txtAddressLine2.Location = new System.Drawing.Point(915, 179);
+			this.txtAddressLine2.Location = new System.Drawing.Point(916, 179);
 			this.txtAddressLine2.Name = "txtAddressLine2";
-			this.txtAddressLine2.Size = new System.Drawing.Size(64, 20);
+			this.txtAddressLine2.Size = new System.Drawing.Size(63, 20);
 			this.txtAddressLine2.StyleController = this.lc;
 			this.txtAddressLine2.TabIndex = 56;
 			// 
@@ -939,14 +938,14 @@
 			this.lcItemRepName.Control = this.txtRepName;
 			this.lcItemRepName.Location = new System.Drawing.Point(0, 72);
 			this.lcItemRepName.Name = "lcItemRepName";
-			this.lcItemRepName.Size = new System.Drawing.Size(208, 24);
+			this.lcItemRepName.Size = new System.Drawing.Size(207, 24);
 			this.lcItemRepName.TextSize = new System.Drawing.Size(136, 14);
 			// 
 			// txtRepName
 			// 
-			this.txtRepName.Location = new System.Drawing.Point(915, 83);
+			this.txtRepName.Location = new System.Drawing.Point(916, 83);
 			this.txtRepName.Name = "txtRepName";
-			this.txtRepName.Size = new System.Drawing.Size(64, 20);
+			this.txtRepName.Size = new System.Drawing.Size(63, 20);
 			this.txtRepName.StyleController = this.lc;
 			this.txtRepName.TabIndex = 54;
 			// 
