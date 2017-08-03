@@ -118,6 +118,16 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="editorButtonImageOptions6.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAZdEVYdFNvZnR3YXJlAEFkb2JlIEltYWdlUmVhZHlxyWU8AAAAD3RFWHRUaXRsZQB1cDtmb2xk
+        ZXIDEYqgAAAAuUlEQVQ4T72SMQ6DMAxFmThHxm5cIEOvxMzSu1Q9SSWOwhnY0v+Djdw2dpEqMTzA5vvH
+        cdKVUv6iPnLOO/pD4gRuHyTVkMigVVxRDVHxFZSjtAyaQo/TDZ5gBAPobfERgzu4gAnMYJU3Yw45NODK
+        LH6YnIX5FBmwba6k8SLaxeSmyIB7Zrv8rsUKY8nPkUEPuGdI3gdHRLO6BpLXDmzO6rYOPCCwM0Dqy2Cb
+        gQcEPKrfpxBBEXDuQe5eZED7H8DheEEAAAAASUVORK5CYII=
+</value>
+  </data>
   <data name="lcGroupEdit2.CaptionImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAB10RVh0VGl0

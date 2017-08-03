@@ -137,11 +137,38 @@ namespace IKaan.Biz.Core.Was.Handler
 				if (string.IsNullOrEmpty(serviceId))
 					serviceId = "Base";
 
-				var res = (new WasRequest()
+				//모델 리스트로 전송한 경우 요청데이터를 여러 건 만든다.
+				if (data.GetType() == typeof(List<T>))
+				{
+					IList<WasRequest> reqlist = new List<WasRequest>();
+					foreach(var row in (data as List<T>))
+					{
+						reqlist.Add(new WasRequest()
+						{
+							ServiceId = serviceId,
+							ProcessId = processId,
+							SqlId = sqlId,
+							Data = row,
+							ModelName = typeof(T).Name,
+							Master = new WasMaster()
+							{
+								IsMaster = true,
+								KeyField = keyField
+							}
+						});
+
+						if (reqlist.Count == 0)
+							throw new Exception("처리할 건이 없습니다.");
+
+						data = reqlist;
+					}
+				}
+
+				using (var res = (new WasRequest()
 				{
 					ServiceId = serviceId,
 					ProcessId = processId,
-					SqlId = sqlId,					
+					SqlId = sqlId,
 					Data = data,
 					ModelName = typeof(T).Name,
 					Master = new WasMaster()
@@ -149,15 +176,16 @@ namespace IKaan.Biz.Core.Was.Handler
 						IsMaster = true,
 						KeyField = keyField
 					}
-				}).Execute();
+				}).Execute())
+				{
+					if (res == null)
+						throw new Exception("요청결과가 없습니다.");
 
-				if (res == null)
-					throw new Exception("요청결과가 없습니다.");
+					if (res.Error.Number != 0)
+						throw new Exception(res.Error.Message);
 
-				if (res.Error.Number != 0)
-					throw new Exception(res.Error.Message);
-
-				return res;
+					return res;
+				}
 			}
 			catch
 			{

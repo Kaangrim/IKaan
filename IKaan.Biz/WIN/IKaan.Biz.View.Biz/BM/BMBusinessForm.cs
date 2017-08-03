@@ -54,6 +54,14 @@ namespace IKaan.Biz.View.Biz.BM
 			{
 				txtImageUrl.EditValue = loadUrl;
 			};
+
+			lcTab.CustomHeaderButtonClick += delegate (object sender, DevExpress.XtraTab.ViewInfo.CustomHeaderButtonEventArgs e)
+			{
+				if (e.Button.Tag.ToStringNullToEmpty() == "UPLOAD")
+				{
+					UploadGetData();
+				}
+			};
 		}
 
 		protected override void OnShown(EventArgs e)
@@ -312,6 +320,22 @@ namespace IKaan.Biz.View.Biz.BM
 				}
 			}
 			catch (Exception ex)
+			{
+				ShowErrBox(ex);
+			}
+		}
+
+		private void UploadGetData()
+		{
+			try
+			{
+				if (UploadHandler.Execute<BMBusiness>("BM", "Save"))
+				{
+					ShowMsgBox("저장하였습니다.");
+					DataLoad(null);
+				}
+			}
+			catch(Exception ex)
 			{
 				ShowErrBox(ex);
 			}
