@@ -1,2 +1,0 @@
-# IKaan
-IKaan Business Platform
