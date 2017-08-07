@@ -21,16 +21,25 @@
 					AND		AA.UseYn = #UseYn#
 				]]>
 			</isNotEmpty>
-			<isNotEmpty property="ParentCode">
-				<![CDATA[
-					AND		AA.Code = #ParentCode#
-				]]>
+			<isEmpty property="IsNotParent">
+				<isNotEmpty property="ParentCode">
+					<![CDATA[
+						AND		AA.Code = #ParentCode#
+					]]>
+				</isNotEmpty>
+			</isEmpty>
+			<isNotEmpty property="IsNotParent">
+				<isNotEmpty property="ParentCode">
+					<![CDATA[
+						AND		AA.ParentCode = #ParentCode#
+					]]>
+				</isNotEmpty>
 			</isNotEmpty>
 			<isEmpty property="ParentCode">
 				<![CDATA[
 					AND		AA.ParentCode IS NULL
 				]]>
-			</isEmpty>
+			</isEmpty>			
 			<![CDATA[
 					UNION ALL
 					SELECT	AA.ID				as ID

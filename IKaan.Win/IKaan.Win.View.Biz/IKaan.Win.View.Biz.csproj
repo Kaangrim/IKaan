@@ -1,0 +1,352 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8BFCD979-C083-41B2-8715-5936A1587986}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>IKaan.Win.View.Biz</RootNamespace>
+    <AssemblyName>IKaan.Win.View.Biz</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Data.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.PivotGrid.v17.1.Core, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Printing.v17.1.Core, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Utils.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraEditors.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraGrid.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraLayout.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraPivotGrid.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BC\BCAppointmentForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BC\BCAppointmentForm.Designer.cs">
+      <DependentUpon>BCAppointmentForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BC\BCEmployeeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BC\BCEmployeeForm.designer.cs">
+      <DependentUpon>BCEmployeeForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BC\BCDepartmentForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BC\BCDepartmentForm.designer.cs">
+      <DependentUpon>BCDepartmentForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BG\BGGoodsChannelEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BG\BGGoodsChannelEditForm.designer.cs">
+      <DependentUpon>BGGoodsChannelEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BG\BGGoodsEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BG\BGGoodsEditForm.designer.cs">
+      <DependentUpon>BGGoodsEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BG\BGGoodsListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BG\BGGoodsListForm.designer.cs">
+      <DependentUpon>BGGoodsListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BG\BGCategoryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BG\BGCategoryForm.designer.cs">
+      <DependentUpon>BGCategoryForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BG\BGInfoNoticeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BG\BGInfoNoticeForm.designer.cs">
+      <DependentUpon>BGInfoNoticeForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BM\BMAddressForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BM\BMAddressForm.designer.cs">
+      <DependentUpon>BMAddressForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BM\BMChannelBrandForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BM\BMChannelBrandForm.Designer.cs">
+      <DependentUpon>BMChannelBrandForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BM\BMBrandChannelForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BM\BMBrandChannelForm.Designer.cs">
+      <DependentUpon>BMBrandChannelForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BM\BMChannelCustomerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BM\BMChannelCustomerForm.Designer.cs">
+      <DependentUpon>BMChannelCustomerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BM\BMCustomerChannelForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BM\BMCustomerChannelForm.Designer.cs">
+      <DependentUpon>BMCustomerChannelForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BM\BMCustomerBrandForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BM\BMCustomerBrandForm.Designer.cs">
+      <DependentUpon>BMCustomerBrandForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BM\BMCustomerBankForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BM\BMCustomerBankForm.Designer.cs">
+      <DependentUpon>BMCustomerBankForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BM\BMCustomerAddressForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BM\BMCustomerAddressForm.Designer.cs">
+      <DependentUpon>BMCustomerAddressForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BM\BMCustomerBusinessForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BM\BMCustomerBusinessForm.Designer.cs">
+      <DependentUpon>BMCustomerBusinessForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BM\BMCustomerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BM\BMCustomerForm.designer.cs">
+      <DependentUpon>BMCustomerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BM\BMChannelManagerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BM\BMChannelManagerForm.Designer.cs">
+      <DependentUpon>BMChannelManagerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BM\BMChannelContactForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BM\BMChannelContactForm.Designer.cs">
+      <DependentUpon>BMChannelContactForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BM\BMBrandManagerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BM\BMBrandManagerForm.Designer.cs">
+      <DependentUpon>BMBrandManagerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BM\BMBrandContactForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BM\BMBrandContactForm.Designer.cs">
+      <DependentUpon>BMBrandContactForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BM\BMBusinessForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BM\BMBusinessForm.designer.cs">
+      <DependentUpon>BMBusinessForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BM\BMSearchBrandForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BM\BMSearchBrandForm.designer.cs">
+      <DependentUpon>BMSearchBrandForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BM\BMBrandForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BM\BMBrandForm.designer.cs">
+      <DependentUpon>BMBrandForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BM\BMBrandImageForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BM\BMBrandImageForm.Designer.cs">
+      <DependentUpon>BMBrandImageForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BM\BMChannelForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BM\BMChannelForm.designer.cs">
+      <DependentUpon>BMChannelForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BT\BTOrderSumBrandEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BT\BTOrderSumBrandEditForm.Designer.cs">
+      <DependentUpon>BTOrderSumBrandEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BT\BTOrderSumChannelEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BT\BTOrderSumChannelEditForm.Designer.cs">
+      <DependentUpon>BTOrderSumChannelEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BT\BTOrderSumForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BT\BTOrderSumForm.designer.cs">
+      <DependentUpon>BTOrderSumForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="BN\" />
+    <Folder Include="BP\" />
+    <Folder Include="BS\" />
+    <Folder Include="BV\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\IKaan.Common\IKaan.Model\IKaan.Model.csproj">
+      <Project>{1eb3a6af-8899-400c-a6ea-e4cff97ce1fc}</Project>
+      <Name>IKaan.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\IKaan.Common\IKaan.Base\IKaan.Base.csproj">
+      <Project>{949db77a-078c-4ae7-ba66-a7109848b8c4}</Project>
+      <Name>IKaan.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IKaan.Win.Core\IKaan.Win.Core.csproj">
+      <Project>{942b6393-9be6-415c-bfa6-ca3eb166735f}</Project>
+      <Name>IKaan.Win.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="BC\BCAppointmentForm.resx">
+      <DependentUpon>BCAppointmentForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BC\BCEmployeeForm.resx">
+      <DependentUpon>BCEmployeeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BC\BCDepartmentForm.resx">
+      <DependentUpon>BCDepartmentForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BG\BGGoodsChannelEditForm.resx">
+      <DependentUpon>BGGoodsChannelEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BG\BGGoodsEditForm.resx">
+      <DependentUpon>BGGoodsEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BG\BGGoodsListForm.resx">
+      <DependentUpon>BGGoodsListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BG\BGCategoryForm.resx">
+      <DependentUpon>BGCategoryForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BG\BGInfoNoticeForm.resx">
+      <DependentUpon>BGInfoNoticeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BM\BMAddressForm.resx">
+      <DependentUpon>BMAddressForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BM\BMChannelBrandForm.resx">
+      <DependentUpon>BMChannelBrandForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BM\BMBrandChannelForm.resx">
+      <DependentUpon>BMBrandChannelForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BM\BMChannelCustomerForm.resx">
+      <DependentUpon>BMChannelCustomerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BM\BMCustomerChannelForm.resx">
+      <DependentUpon>BMCustomerChannelForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BM\BMCustomerBrandForm.resx">
+      <DependentUpon>BMCustomerBrandForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BM\BMCustomerBankForm.resx">
+      <DependentUpon>BMCustomerBankForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BM\BMCustomerAddressForm.resx">
+      <DependentUpon>BMCustomerAddressForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BM\BMCustomerBusinessForm.resx">
+      <DependentUpon>BMCustomerBusinessForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BM\BMCustomerForm.resx">
+      <DependentUpon>BMCustomerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BM\BMChannelManagerForm.resx">
+      <DependentUpon>BMChannelManagerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BM\BMChannelContactForm.resx">
+      <DependentUpon>BMChannelContactForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BM\BMBrandManagerForm.resx">
+      <DependentUpon>BMBrandManagerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BM\BMBrandContactForm.resx">
+      <DependentUpon>BMBrandContactForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BM\BMBusinessForm.resx">
+      <DependentUpon>BMBusinessForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BM\BMSearchBrandForm.resx">
+      <DependentUpon>BMSearchBrandForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BM\BMBrandForm.resx">
+      <DependentUpon>BMBrandForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BM\BMBrandImageForm.resx">
+      <DependentUpon>BMBrandImageForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BM\BMChannelForm.resx">
+      <DependentUpon>BMChannelForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BT\BTOrderSumBrandEditForm.resx">
+      <DependentUpon>BTOrderSumBrandEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BT\BTOrderSumChannelEditForm.resx">
+      <DependentUpon>BTOrderSumChannelEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BT\BTOrderSumForm.resx">
+      <DependentUpon>BTOrderSumForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -1,0 +1,435 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{942B6393-9BE6-415C-BFA6-CA3EB166735F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>IKaan.Win.Core</RootNamespace>
+    <AssemblyName>IKaan.Win.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.BonusSkins.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Data.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Office.v17.1.Core, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Printing.v17.1.Core, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.RichEdit.v17.1.Core, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Spreadsheet.v17.1.Core, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Utils.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraBars.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraCharts.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraCharts.v17.1.Extensions, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraCharts.v17.1.UI, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraEditors.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraGrid.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraLayout.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraNavBar.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraPrinting.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraReports.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraRichEdit.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraRichEdit.v17.1.Extensions, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraSpreadsheet.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraTreeList.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="FluentFTP, Version=17.5.9.0, Culture=neutral, PublicKeyToken=f4af092b1d8df44f, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\FluentFTP.17.5.9\lib\net45\FluentFTP.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Extensions, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\System.Net.Http.Formatting.Extension.5.2.3.0\lib\System.Net.Http.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\System.Net.Http.Formatting.Extension.5.2.3.0\lib\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Primitives, Version=4.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\System.Net.Http.Formatting.Extension.5.2.3.0\lib\System.Net.Http.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Printing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Enum\FtpListType.cs" />
+    <Compile Include="Forms\BaseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\BaseForm.designer.cs">
+      <DependentUpon>BaseForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\EditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\EditForm.designer.cs">
+      <DependentUpon>EditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\EditFormProperties.cs" />
+    <Compile Include="Forms\HelpForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\HelpForm.designer.cs">
+      <DependentUpon>HelpForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Handler\FTPHandler.cs" />
+    <Compile Include="Handler\UploadHandler.cs" />
+    <Compile Include="Interface\IBaseForm.cs" />
+    <Compile Include="Interface\IEditForm.cs" />
+    <Compile Include="Controls\Common\IControlExtension.cs" />
+    <Compile Include="Controls\Common\XLookup.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\Common\XLookup.Designer.cs">
+      <DependentUpon>XLookup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Common\XPeriod.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Common\XPeriod.Designer.cs">
+      <DependentUpon>XPeriod.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Common\XRichEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Common\XRichEditor.Designer.cs">
+      <DependentUpon>XRichEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Common\XSearch.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Common\XSearch.Designer.cs">
+      <DependentUpon>XSearch.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Common\XTree.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\Common\XTree.Designer.cs">
+      <DependentUpon>XTree.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Grid\Class\XGridColumn.cs" />
+    <Compile Include="Controls\Grid\Class\XGridMenuItem.cs" />
+    <Compile Include="Controls\Grid\Enums\GridViewType.cs" />
+    <Compile Include="Controls\Grid\Utils\GridRowCollection.cs" />
+    <Compile Include="Controls\Grid\Utils\KoreanEditorsLocalizer.cs" />
+    <Compile Include="Controls\Grid\Utils\KoreanGridLocalizer.cs" />
+    <Compile Include="Controls\Grid\XGrid.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Grid\XGrid.designer.cs">
+      <DependentUpon>XGrid.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Grid\XGrid.Extention.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Grid\XGrid.Methods.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Grid\XGrid.Paging.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Grid\XGrid.RepositoryItem.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Pager\XPager.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\Pager\XPager.Designer.cs">
+      <DependentUpon>XPager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Pager\XPagerButtonClickEventArgs.cs" />
+    <Compile Include="Controls\Pager\XPagerButtonType.cs" />
+    <Compile Include="Enum\CalendarViewType.cs" />
+    <Compile Include="Enum\EditModeEnum.cs" />
+    <Compile Include="Enum\ViewTypeEnum.cs" />
+    <Compile Include="Interface\IMainForm.cs" />
+    <Compile Include="Model\FtpList.cs" />
+    <Compile Include="Model\LookupSource.cs" />
+    <Compile Include="Model\MainInfo.cs" />
+    <Compile Include="Model\NavBarItem.cs" />
+    <Compile Include="Model\PostalCode.cs" />
+    <Compile Include="Model\SkinInfo.cs" />
+    <Compile Include="Model\UserMenu.cs" />
+    <Compile Include="PostCode\SearchPostCode.cs" />
+    <Compile Include="PostCode\SearchPostCodeForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PostCode\SearchPostCodeForm.designer.cs">
+      <DependentUpon>SearchPostCodeForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\ButtonResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ButtonResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\ChartResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ChartResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\BackgroundResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BackgroundResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\IconResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IconResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\ImageResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ImageResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\MenuResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MenuResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Splash\WaitFormEx.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Splash\WaitFormEx.Designer.cs">
+      <DependentUpon>WaitFormEx.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\DialogUtils.cs" />
+    <Compile Include="Variables\ConstsVar.cs" />
+    <Compile Include="Variables\GlobalVar.cs" />
+    <Compile Include="Handler\WasHandler.cs" />
+    <Compile Include="Helper\CodeHelper.cs" />
+    <Compile Include="Helper\CodeHelperForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Helper\CodeHelperForm.designer.cs">
+      <DependentUpon>CodeHelperForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helper\MsgBoxForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Helper\MsgBoxForm.designer.cs">
+      <DependentUpon>MsgBoxForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Helper\MsgBox.cs" />
+    <Compile Include="Model\ElapseTime.cs" />
+    <Compile Include="Model\IToolbarButtons.cs" />
+    <Compile Include="Model\ToolbarButtons.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\DomainResource.cs" />
+    <Compile Include="Utils\ChartUtils.cs" />
+    <Compile Include="Utils\CommonRequest.cs" />
+    <Compile Include="Utils\ControlUtils.cs" />
+    <Compile Include="Utils\DomainUtils.cs" />
+    <Compile Include="Utils\FormUtils.cs" />
+    <Compile Include="Utils\IISExpress.cs" />
+    <Compile Include="Utils\LayoutUtils.cs" />
+    <Compile Include="Utils\NavBarUtils.cs" />
+    <Compile Include="Utils\ResourceUtils.cs" />
+    <Compile Include="Utils\SkinUtils.cs" />
+    <Compile Include="Utils\SplashUtils.cs" />
+    <Compile Include="Model\ServerInfo.cs" />
+    <Compile Include="Model\UserInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\IKaan.Common\IKaan.Model\IKaan.Model.csproj">
+      <Project>{1eb3a6af-8899-400c-a6ea-e4cff97ce1fc}</Project>
+      <Name>IKaan.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\IKaan.Common\IKaan.Base\IKaan.Base.csproj">
+      <Project>{949db77a-078c-4ae7-ba66-a7109848b8c4}</Project>
+      <Name>IKaan.Base</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Forms\BaseForm.resx">
+      <DependentUpon>BaseForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\EditForm.resx">
+      <DependentUpon>EditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\HelpForm.resx">
+      <DependentUpon>HelpForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Common\XPeriod.resx">
+      <DependentUpon>XPeriod.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Common\XRichEditor.resx">
+      <DependentUpon>XRichEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Common\XSearch.resx">
+      <DependentUpon>XSearch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Grid\XGrid.resx">
+      <DependentUpon>XGrid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\Pager\XPager.resx">
+      <DependentUpon>XPager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Helper\CodeHelperForm.resx">
+      <DependentUpon>CodeHelperForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Helper\MsgBoxForm.resx">
+      <DependentUpon>MsgBoxForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PostCode\SearchPostCodeForm.resx">
+      <DependentUpon>SearchPostCodeForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ButtonResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ButtonResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ChartResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ChartResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\BackgroundResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>BackgroundResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\IconResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>IconResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\ImageResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ImageResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\MenuResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>MenuResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Splash\WaitFormEx.resx">
+      <DependentUpon>WaitFormEx.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\Icons\bestseller.ico" />
+    <Content Include="Resources\Icons\busy.ico" />
+    <Content Include="Resources\Icons\calendar.ico" />
+    <Content Include="Resources\Icons\comment.ico" />
+    <Content Include="Resources\Icons\cost.ico" />
+    <Content Include="Resources\Icons\featured.ico" />
+    <Content Include="Resources\Icons\logo.ico" />
+    <Content Include="Resources\Icons\link.ico" />
+    <Content Include="Resources\Icons\logout.ico" />
+    <Content Include="Resources\Icons\plus.ico" />
+    <Content Include="Resources\Icons\print.ico" />
+    <Content Include="Resources\Icons\project.ico" />
+    <Content Include="Resources\Icons\publish.ico" />
+    <Content Include="Resources\Icons\special-offer.ico" />
+    <Content Include="Resources\Icons\suppliers.ico" />
+    <Content Include="Resources\Icons\ticket.ico" />
+    <Content Include="Resources\Images\menus\tree_file_16x16.png" />
+    <Content Include="Resources\Images\menus\tree_up_16x16.png" />
+    <Content Include="Resources\Images\menus\Window_16x16.png" />
+    <EmbeddedResource Include="Resources\Images\background\back_gray.png" />
+    <EmbeddedResource Include="Resources\Images\background\back_orange.png" />
+    <EmbeddedResource Include="Resources\Images\background\back_red.png" />
+    <EmbeddedResource Include="Resources\Images\background\back_white.png" />
+    <EmbeddedResource Include="Resources\Images\buttons\BlockNext_16x16.png" />
+    <EmbeddedResource Include="Resources\Images\buttons\BlockPrev_16x16.png" />
+    <EmbeddedResource Include="Resources\Images\buttons\disable.png" />
+    <EmbeddedResource Include="Resources\Images\buttons\First_16x16.png" />
+    <EmbeddedResource Include="Resources\Images\buttons\hot.png" />
+    <EmbeddedResource Include="Resources\Images\buttons\hot2.png" />
+    <EmbeddedResource Include="Resources\Images\buttons\Last_16x16.png" />
+    <EmbeddedResource Include="Resources\Images\buttons\Next_16x16.png" />
+    <EmbeddedResource Include="Resources\Images\buttons\normal.png" />
+    <EmbeddedResource Include="Resources\Images\buttons\Prev_16x16.png" />
+    <EmbeddedResource Include="Resources\Images\charts\Area_16x16.png" />
+    <EmbeddedResource Include="Resources\Images\charts\Bar_16x16.png" />
+    <EmbeddedResource Include="Resources\Images\charts\Bubble_16x16.png" />
+    <EmbeddedResource Include="Resources\Images\charts\FullStackedArea_16x16.png" />
+    <EmbeddedResource Include="Resources\Images\charts\FullStackedBar_16x16.png" />
+    <EmbeddedResource Include="Resources\Images\charts\FullStackedLine_16x16.png" />
+    <EmbeddedResource Include="Resources\Images\charts\Line_16x16.png" />
+    <EmbeddedResource Include="Resources\Images\charts\PieStyleDonut_16x16.png" />
+    <EmbeddedResource Include="Resources\Images\charts\Pie_16x16.png" />
+    <EmbeddedResource Include="Resources\Images\charts\RangeArea_16x16.png" />
+    <EmbeddedResource Include="Resources\Images\charts\RangeBar_16x16.png" />
+    <EmbeddedResource Include="Resources\Images\charts\SideBySideRangeBar_16x16.png" />
+    <EmbeddedResource Include="Resources\Images\charts\SplineArea_16x16.png" />
+    <EmbeddedResource Include="Resources\Images\charts\Spline_16x16.png" />
+    <EmbeddedResource Include="Resources\Images\charts\StackedArea_16x16.png" />
+    <EmbeddedResource Include="Resources\Images\charts\StackedBar_16x16.png" />
+    <EmbeddedResource Include="Resources\Images\charts\StackedLine_16x16.png" />
+    <EmbeddedResource Include="Resources\Images\charts\StackedSplineArea_16x16.png" />
+    <EmbeddedResource Include="Resources\Images\charts\StepArea_16x16.png" />
+    <EmbeddedResource Include="Resources\Images\charts\Stepline_16x16.png" />
+    <Content Include="Resources\Images\download.png" />
+    <Content Include="Resources\Images\Home_16x16.png" />
+    <Content Include="Resources\Images\Home_32x32.png" />
+    <Content Include="Resources\Images\IKaanLogo.png" />
+    <Content Include="Resources\Images\KaangrimLogo.png" />
+    <EmbeddedResource Include="Resources\Images\menus\menu_analysis_16x16.png" />
+    <EmbeddedResource Include="Resources\Images\menus\menu_analysis_32x32.png" />
+    <EmbeddedResource Include="Resources\Images\menus\menu_business_16x16.png" />
+    <EmbeddedResource Include="Resources\Images\menus\menu_business_32x32.png" />
+    <EmbeddedResource Include="Resources\Images\menus\menu_close_16x16.png" />
+    <EmbeddedResource Include="Resources\Images\menus\menu_hot_16x16.png" />
+    <EmbeddedResource Include="Resources\Images\menus\menu_item_16x16.png" />
+    <EmbeddedResource Include="Resources\Images\menus\menu_not_16x16.png" />
+    <EmbeddedResource Include="Resources\Images\menus\menu_open_16x16.png" />
+    <EmbeddedResource Include="Resources\Images\menus\menu_system_16x16.png" />
+    <EmbeddedResource Include="Resources\Images\menus\menu_system_32x32.png" />
+    <EmbeddedResource Include="Resources\Images\menus\tree_group_collapse_16x16.png" />
+    <EmbeddedResource Include="Resources\Images\menus\tree_group_expand_16x16.png" />
+    <EmbeddedResource Include="Resources\Images\menus\tree_item_hot2_16x16.png" />
+    <EmbeddedResource Include="Resources\Images\menus\tree_item_hot3_16x16.png" />
+    <EmbeddedResource Include="Resources\Images\menus\tree_item_hot_16x16.png" />
+    <EmbeddedResource Include="Resources\Images\menus\tree_item_normal2_16x16.png" />
+    <EmbeddedResource Include="Resources\Images\menus\tree_item_normal3_16x16.png" />
+    <EmbeddedResource Include="Resources\Images\menus\tree_item_normal_16x16.png" />
+    <EmbeddedResource Include="Resources\Images\menus\tree_item_not2_16x16.png" />
+    <EmbeddedResource Include="Resources\Images\menus\tree_item_not3_16x16.png" />
+    <EmbeddedResource Include="Resources\Images\menus\tree_item_not_16x16.png" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
