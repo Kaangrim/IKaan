@@ -101,6 +101,7 @@
     <Compile Include="UserModels\IUMCodeHelp.cs" />
     <Compile Include="UserModels\UMCodeLookup.cs" />
     <Compile Include="UserModels\UMCodeHelp.cs" />
+    <Compile Include="UserModels\Mail\UMSendMail.cs" />
     <Compile Include="UserModels\UMMenuView.cs" />
     <Compile Include="UserModels\UMMenuViewButton.cs" />
     <Compile Include="Was\WasError.cs" />

@@ -2,8 +2,11 @@
 using DevExpress.Utils;
 using DevExpress.XtraEditors.Controls;
 using DevExpress.XtraGrid.Views.Grid;
+using DevExpress.XtraLayout;
+using DevExpress.XtraTab.ViewInfo;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
+using IKaan.Model.BIZ.BM;
 using IKaan.Win.Core.Controls.Grid;
 using IKaan.Win.Core.Enum;
 using IKaan.Win.Core.Forms;
@@ -12,7 +15,6 @@ using IKaan.Win.Core.Model;
 using IKaan.Win.Core.Utils;
 using IKaan.Win.Core.Variables;
 using IKaan.Win.Core.Was.Handler;
-using IKaan.Model.BIZ.BM;
 
 namespace IKaan.Win.View.Biz.BM
 {
@@ -87,6 +89,30 @@ namespace IKaan.Win.View.Biz.BM
 					 ShowErrBox(ex);
 				 }
 			 };
+
+			lcTab.SelectedPageChanged += (object sender, LayoutTabPageChangedEventArgs e) =>
+			{
+				if (e.Page.Name == lcTabGroupActivity.Name)
+				{
+					lcTab.CustomHeaderButtons[0].Visible = true;
+				}
+				else
+				{
+					lcTab.CustomHeaderButtons[0].Visible = false;
+				}
+			};
+			lcTab.CustomHeaderButtonClick += (object sender, CustomHeaderButtonEventArgs e) =>
+			{
+				try
+				{
+					MailHandler.Send("nicenomm@naver.com", "Test", "Test");
+					ShowMsgBox("전송하였습니다.");
+				}
+				catch(Exception ex)
+				{
+					ShowErrBox(ex);
+				}
+			};
 		}
 
 		protected override void OnShown(EventArgs e)

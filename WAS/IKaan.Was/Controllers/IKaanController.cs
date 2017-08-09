@@ -23,7 +23,7 @@ namespace IKaan.Was.Controllers
 			else
 				serviceType = "SYS";
 
-			if (request.ServiceId.Equals("CodeHelp"))
+			if (request.ServiceId.Equals("CodeHelp") || request.ServiceId.Equals("Email"))
 				serviceType = "Base";
 
 			string namespaceName = string.Format("{0}.{1}.{2}Service", assemblyName, serviceType, request.ServiceId);

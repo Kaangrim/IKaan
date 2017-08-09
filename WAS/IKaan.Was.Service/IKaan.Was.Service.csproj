@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\EmailService.cs" />
     <Compile Include="BIZ\BGService.cs" />
     <Compile Include="BIZ\BCService.cs" />
     <Compile Include="BIZ\BTService.cs" />

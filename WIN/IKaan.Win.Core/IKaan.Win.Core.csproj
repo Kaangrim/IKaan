@@ -105,6 +105,7 @@
       <DependentUpon>HelpForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Handler\FTPHandler.cs" />
+    <Compile Include="Handler\MailHandler.cs" />
     <Compile Include="Handler\UploadHandler.cs" />
     <Compile Include="Interface\IBaseForm.cs" />
     <Compile Include="Interface\IEditForm.cs" />
