@@ -50,6 +50,8 @@ namespace IKaan.Was.Service.Utils
 				data = DaoFactory.InstanceLib.QueryForObject<T>(sqlId, parameter);
 			else if (req.ServiceId.StartsWith("B"))
 				data = DaoFactory.InstanceBiz.QueryForObject<T>(sqlId, parameter);
+			else if (req.ServiceId.StartsWith("S") || req.ServiceId.StartsWith("W"))
+				data = DaoFactory.InstanceSmp.QueryForObject<T>(sqlId, parameter);
 			else
 				data = DaoFactory.Instance.QueryForObject<T>(sqlId, parameter);
 
@@ -68,6 +70,8 @@ namespace IKaan.Was.Service.Utils
 				data = DaoFactory.InstanceLib.QueryForList<T>(sqlId, parameter);
 			else if (req.ServiceId.StartsWith("B"))
 				data = DaoFactory.InstanceBiz.QueryForList<T>(sqlId, parameter);
+			else if (req.ServiceId.StartsWith("S") || req.ServiceId.StartsWith("W"))
+				data = DaoFactory.InstanceSmp.QueryForList<T>(sqlId, parameter);
 			else
 				data = DaoFactory.Instance.QueryForList<T>(sqlId, parameter);
 
@@ -91,6 +95,8 @@ namespace IKaan.Was.Service.Utils
 						id = DaoFactory.InstanceLib.Insert(string.Concat(req.SqlId, req.ModelName), model);
 					else if (req.ServiceId.StartsWith("B"))
 						id = DaoFactory.InstanceBiz.Insert(string.Concat(req.SqlId, req.ModelName), model);
+					else if (req.ServiceId.StartsWith("S") || req.ServiceId.StartsWith("W"))
+						id = DaoFactory.InstanceSmp.Insert(string.Concat(req.SqlId, req.ModelName), model);
 					else
 						id = DaoFactory.Instance.Insert(string.Concat(req.SqlId, req.ModelName), model);
 					((IModelBase)model).ID = id.ToIntegerNullToNull();
@@ -103,6 +109,8 @@ namespace IKaan.Was.Service.Utils
 						DaoFactory.InstanceLib.Update(string.Concat(req.SqlId, req.ModelName), model);
 					else if (req.ServiceId.StartsWith("B"))
 						DaoFactory.InstanceBiz.Update(string.Concat(req.SqlId, req.ModelName), model);
+					else if (req.ServiceId.StartsWith("S") || req.ServiceId.StartsWith("W"))
+						DaoFactory.InstanceSmp.Update(string.Concat(req.SqlId, req.ModelName), model);
 					else
 						DaoFactory.Instance.Update(string.Concat(req.SqlId, req.ModelName), model);
 					id = ((IModelBase)model).ID;
@@ -128,6 +136,8 @@ namespace IKaan.Was.Service.Utils
 						rm = DaoFactory.InstanceLib.QueryForObject<T>(string.Concat("Select", typeof(T).Name, "Exists"), data);
 					else if (req.ServiceId.StartsWith("B"))
 						rm = DaoFactory.InstanceBiz.QueryForObject<T>(string.Concat("Select", typeof(T).Name, "Exists"), data);
+					else if (req.ServiceId.StartsWith("S") || req.ServiceId.StartsWith("W"))
+						rm = DaoFactory.InstanceSmp.QueryForObject<T>(string.Concat("Select", typeof(T).Name, "Exists"), data);
 					else
 						rm = DaoFactory.Instance.QueryForObject<T>(string.Concat("Select", typeof(T).Name, "Exists"), data);
 				}
@@ -143,6 +153,8 @@ namespace IKaan.Was.Service.Utils
 							DaoFactory.InstanceLib.Insert(string.Concat("Insert", data.GetType().Name), data);
 						else if (req.ServiceId.StartsWith("B"))
 							DaoFactory.InstanceBiz.Insert(string.Concat("Insert", data.GetType().Name), data);
+						else if (req.ServiceId.StartsWith("S") || req.ServiceId.StartsWith("W"))
+							DaoFactory.InstanceSmp.Insert(string.Concat("Insert", data.GetType().Name), data);
 						else
 							DaoFactory.Instance.Insert(string.Concat("Insert", data.GetType().Name), data);
 					}
@@ -157,6 +169,8 @@ namespace IKaan.Was.Service.Utils
 						DaoFactory.InstanceLib.Update(string.Concat("Update", data.GetType().Name), data);
 					else if (req.ServiceId.StartsWith("B"))
 						DaoFactory.InstanceBiz.Update(string.Concat("Update", data.GetType().Name), data);
+					else if (req.ServiceId.StartsWith("S") || req.ServiceId.StartsWith("W"))
+						DaoFactory.InstanceSmp.Update(string.Concat("Update", data.GetType().Name), data);
 					else
 						DaoFactory.Instance.Update(string.Concat("Update", data.GetType().Name), data);
 				}
@@ -177,6 +191,8 @@ namespace IKaan.Was.Service.Utils
 					rm = DaoFactory.InstanceLib.QueryForObject<T>(string.Concat("Select", typeof(T).Name, "Exists"), data);
 				else if (req.ServiceId.StartsWith("B"))
 					rm = DaoFactory.InstanceBiz.QueryForObject<T>(string.Concat("Select", typeof(T).Name, "Exists"), data);
+				else if (req.ServiceId.StartsWith("S") || req.ServiceId.StartsWith("W"))
+					rm = DaoFactory.InstanceSmp.QueryForObject<T>(string.Concat("Select", typeof(T).Name, "Exists"), data);
 				else
 					rm = DaoFactory.Instance.QueryForObject<T>(string.Concat("Select", typeof(T).Name, "Exists"), data);
 
@@ -188,6 +204,8 @@ namespace IKaan.Was.Service.Utils
 						DaoFactory.InstanceLib.Delete(string.Concat("Delete", data.GetType().Name), parameter);
 					else if (req.ServiceId.StartsWith("B"))
 						DaoFactory.InstanceBiz.Delete(string.Concat("Delete", data.GetType().Name), parameter);
+					else if (req.ServiceId.StartsWith("S") || req.ServiceId.StartsWith("W"))
+						DaoFactory.InstanceSmp.Delete(string.Concat("Delete", data.GetType().Name), parameter);
 					else
 						DaoFactory.Instance.Delete(string.Concat("Delete", data.GetType().Name), parameter);
 				}

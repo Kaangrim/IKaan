@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
@@ -120,9 +119,11 @@ namespace IKaan.Win.Core.Controls.Grid
 
 			MainView.KeyDown += MainViewKeyDown;
 
-			MainView.ColumnFilterChanged += delegate (object sender, EventArgs e)
+			MainView.ColumnFilterChanged += (object sender, EventArgs e) =>
 			{
-				if (MainView == null || MainView.DataSource == null || MainView.RowCount == 0)
+				if (MainView == null ||
+					MainView.DataSource == null ||
+					MainView.RowCount == 0)
 				{
 					return;
 				}
@@ -910,87 +911,21 @@ namespace IKaan.Win.Core.Controls.Grid
 		}
 
 		/// <summary>
-		/// 변경된 Row 리스트 반환
+		/// 필터링된 로우만 반환
 		/// </summary>
-		/// <returns>DataRow 리스트</returns>
-		public List<DataRow> GetChangedRows()
-		{
-			List<DataRow> rows = null;
-			if (MainGrid.DataSource != null && MainGrid.DataSource.GetType() == typeof(DataTable))
-			{
-				rows = (MainGrid.DataSource as DataTable).AsEnumerable().Where(row => row.RowState == DataRowState.Modified || row.RowState == DataRowState.Added).ToList();
-			}
-			return rows;
-		}
-
-		/// <summary>
-		/// 삭제된 Row 리스트 반환
-		/// </summary>
-		/// <returns>DataRow 리스트</returns>
-		public List<DataRow> GetDeletedRows()
-		{
-			List<DataRow> rows = null;
-			if (MainGrid.DataSource != null && MainGrid.DataSource.GetType() == typeof(DataTable))
-			{
-				rows = (MainGrid.DataSource as DataTable).AsEnumerable().Where(row => row.RowState == DataRowState.Deleted).ToList();
-			}
-			return rows;
-		}
-
-		/// <summary>
-		/// 추가한 컬럼을 기준으로 빈 데이터테이블 바인딩
-		/// </summary>
-		/// <param name="isSetFormatType">컬럼포맷사용여부</param>
-		public void EmptyDataTableBinding(bool isSetFormatType = false)
-		{
-			var dt = new DataTable();
-			foreach (GridColumn column in MainView.Columns)
-			{
-				if (isSetFormatType)
-				{
-					if (column.DisplayFormat.FormatType == FormatType.DateTime)
-					{
-						dt.Columns.Add(column.FieldName, typeof(DateTime));
-					}
-					else
-					{
-						if (column.DisplayFormat.FormatType == FormatType.Numeric)
-						{
-							dt.Columns.Add(column.FieldName, typeof(Decimal));
-						}
-						else
-						{
-							dt.Columns.Add(column.FieldName, column.ColumnType);
-						}
-					}
-				}
-				else
-				{
-					dt.Columns.Add(column.FieldName, column.ColumnType);
-				}
-			}
-
-			DataSource = dt;
-		}
-
-		/// <summary>
-		/// 필터링되지 않은 Row만 반환
-		/// </summary>
-		/// <returns>데이터테이블</returns>
-		public DataTable GetFilteredData()
+		/// <returns>List<typeparamref name="T"/></returns>
+		public List<T> GetFilteredData<T>()
 		{
 			if (MainView == null)
-			{
 				return null;
-			}
-			if (MainView.ActiveFilter == null || !MainView.ActiveFilterEnabled
-				|| MainView.ActiveFilter.Expression == string.Empty)
+
+			List<T> resp = new List<T>();
+			for (int i = 0; i < MainView.DataRowCount; i++)
 			{
-				return (MainView.DataSource as DataView).Table;
+				int rowHandle = MainView.GetVisibleRowHandle(i);
+				resp.Add((T)MainView.GetRow(rowHandle));
 			}
-			var table = ((DataView)MainView.DataSource).Table;
-			var filteredDataView = new DataView(table) { RowFilter = DevExpress.Data.Filtering.CriteriaToWhereClauseHelper.GetDataSetWhere(MainView.ActiveFilterCriteria) };
-			return filteredDataView.Table;
+			return resp;
 		}
 
 		/// <summary>
@@ -1018,22 +953,6 @@ namespace IKaan.Win.Core.Controls.Grid
 		public bool IsColumn(string fieldName)
 		{
 			return MainView.Columns.Where(x => x.FieldName.Equals(fieldName)).Any();
-		}
-
-		/// <summary>
-		/// 데이터테이블 반환
-		/// </summary>
-		/// <returns>데이터테이블</returns>
-		public DataTable GetDataTable()
-		{
-			if (MainView.DataSource == null)
-			{
-				return null;
-			}
-			else
-			{
-				return ((DataView)MainView.DataSource).Table;
-			}
 		}
 
 		public void SelectRow(int rowIndex)

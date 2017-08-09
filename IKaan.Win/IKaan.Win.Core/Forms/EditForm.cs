@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
@@ -9,9 +8,9 @@ using System.Windows.Forms;
 using DevExpress.Utils;
 using DevExpress.XtraBars;
 using DevExpress.XtraEditors;
-using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraLayout;
 using IKaan.Base.Utils;
+using IKaan.Model.UserModels;
 using IKaan.Win.Core.Controls.Common;
 using IKaan.Win.Core.Controls.Grid;
 using IKaan.Win.Core.Enum;
@@ -20,7 +19,6 @@ using IKaan.Win.Core.Interface;
 using IKaan.Win.Core.Model;
 using IKaan.Win.Core.Utils;
 using IKaan.Win.Core.Variables;
-using IKaan.Model.UserModels;
 
 namespace IKaan.Win.Core.Forms
 {
@@ -37,39 +35,39 @@ namespace IKaan.Win.Core.Forms
 			InitializeComponent();
 			Initialize();
 
-			barManager.ItemClick += delegate (object sender, ItemClickEventArgs e)
+			barManager.ItemClick += (object sender, ItemClickEventArgs e) =>
 			{
-				switch (e.Item.Name.Replace("barButton","").ToUpper())
+				switch (e.Item.Name.Replace("barButton", "").ToUpper())
 				{
 					case "REFRESH":
-						actRefresh();
+						ActRefresh();
 						break;
 					case "NEW":
-						actNew();
+						ActNew();
 						break;
 					case "SAVE":
-						actSave();
+						ActSave();
 						break;
 					case "SAVEANDCLOSE":
-						actSaveAndClose();
+						ActSaveAndClose();
 						break;
 					case "SAVEANDNEW":
-						actSaveAndNew();
+						ActSaveAndNew();
 						break;
 					case "DELETE":
-						actDelete();
+						ActDelete();
 						break;
 					case "CANCEL":
-						actCancel();
+						ActCancel();
 						break;
 					case "EXPORT":
-						actExport();
+						ActExport();
 						break;
 					case "PRINT":
-						actPrint();
+						ActPrint();
 						break;
 					case "HELP":
-						actHelp();
+						ActHelp();
 						break;
 					case "CLOSE":
 						Close();
@@ -286,17 +284,17 @@ namespace IKaan.Win.Core.Forms
 		{
 			try
 			{
-				barButtonRefresh.Caption = "조회";
-				barButtonNew.Caption = "신규";
-				barButtonSave.Caption = "저장";
-				barButtonSaveAndClose.Caption = "저장 후 닫기";
-				barButtonSaveAndNew.Caption = "저장 후 신규";
-				barButtonDelete.Caption = "삭제";
-				barButtonCancel.Caption = "취소";
-				barButtonExport.Caption = "엑셀";
-				barButtonPrint.Caption = "인쇄";
-				barButtonHelp.Caption = "도움말";
-				barButtonClose.Caption = "종료";
+				barButtonRefresh.Caption = DomainUtils.GetFieldName(barButtonRefresh.Name);
+				barButtonNew.Caption = DomainUtils.GetFieldName(barButtonNew.Name);
+				barButtonSave.Caption = DomainUtils.GetFieldName(barButtonSave.Name);
+				barButtonSaveAndClose.Caption = DomainUtils.GetFieldName(barButtonSaveAndClose.Name);
+				barButtonSaveAndNew.Caption = DomainUtils.GetFieldName(barButtonSaveAndNew.Name);
+				barButtonDelete.Caption = DomainUtils.GetFieldName(barButtonDelete.Name);
+				barButtonCancel.Caption = DomainUtils.GetFieldName(barButtonCancel.Name);
+				barButtonExport.Caption = DomainUtils.GetFieldName(barButtonExport.Name);
+				barButtonPrint.Caption = DomainUtils.GetFieldName(barButtonPrint.Name);
+				barButtonHelp.Caption = DomainUtils.GetFieldName(barButtonHelp.Name);
+				barButtonClose.Caption = DomainUtils.GetFieldName(barButtonClose.Name);
 			}
 			catch (Exception ex)
 			{
@@ -312,17 +310,6 @@ namespace IKaan.Win.Core.Forms
 			barTools.ItemLinks.OfType<BarButtonItemLink>().Where(x => x.Item.Name.Contains("barButton")).ToList().ForEach(x =>
 			{
 				x.Item.PaintStyle = BarItemPaintStyle.Standard;
-				//if (GlobalVar.SkinInfo.IsVisibleToolbarName && 
-				//	x.Item.Name.EndsWith("Close") == false && 
-				//	x.Item.Name.EndsWith("Help") == false &&
-				//	x.Item.Name.EndsWith("Refresh") == false)
-				//{
-				//	x.Item.PaintStyle = BarItemPaintStyle.CaptionGlyph;
-				//}
-				//else
-				//{
-				//	x.Item.PaintStyle = BarItemPaintStyle.Standard;
-				//}
 			});
 		}
 
@@ -599,17 +586,6 @@ namespace IKaan.Win.Core.Forms
 			}
 		}
 
-		private void actNew() { ActNew(); }
-		private void actSave() { ActSave(); }
-		private void actSaveAndNew() { ActSaveAndNew(); }
-		private void actSaveAndClose() { ActSaveAndClose(); }
-		private void actCancel() { ActCancel(); }
-		private void actDelete() { ActDelete(); }
-		private void actRefresh() { ActRefresh(); }
-		private void actExport() { ActExport(); }
-		private void actPrint() { ActPrint(); }
-		private void actHelp() { ActHelp(); }
-
 		/// <summary>
 		/// 데이터 초기화 메소드
 		/// </summary>
@@ -743,70 +719,6 @@ namespace IKaan.Win.Core.Forms
 						}
 					}
 				};
-
-				if (!string.IsNullOrEmpty(msg))
-				{
-					ShowMsgBox(msg);
-					return false;
-				}
-				else
-				{
-					return true;
-				}
-			}
-			catch (Exception ex)
-			{
-				ShowErrBox(ex);
-				return false;
-			}
-		}
-
-		protected virtual bool DataValidate(XGrid grid)
-		{
-			string msg = string.Empty;
-			try
-			{
-				if (grid == null)
-					return true;
-
-				if (grid.MainView.Columns.Count == 0)
-					return true;
-
-				DataTable dt = grid.GetDataTable();
-
-				if (dt == null || dt.Rows.Count == 0)
-				{
-					msg = "처리할 데이터가 없습니다.";
-				}
-				else
-				{
-					int rowcount = 0;
-					foreach (DataColumn column in dt.Columns)
-					{
-						if (grid.MainView.Columns.Where(x => x.FieldName == column.ColumnName).Any())
-						{
-							if (grid.MainView.Columns.Where(x => x.FieldName == column.ColumnName).FirstOrDefault().Tag.ToBooleanNullToFalse() == true)
-							{
-								GridColumn col = grid.MainView.Columns.Where(x => x.FieldName == column.ColumnName).FirstOrDefault();
-								rowcount = 0;
-								foreach (DataRow row in dt.Rows)
-								{
-									rowcount++;
-									if (col.DisplayFormat.FormatType == FormatType.Numeric)
-									{
-										if (row[col.FieldName].ToDecimalNullToZero() == 0)
-											msg += string.Format("{0}번째 행의 {1}값이 0이거나 공란일 수 없습니다.{2}", rowcount, col.Caption.Replace("**",""), Environment.NewLine);
-									}
-									else
-									{
-										if (row[col.FieldName].ToStringNullToEmpty() == "")
-											msg += string.Format("{0}번째 행의 {1}값이 공란일 수 없습니다.{2}", rowcount, col.Caption.Replace("**", ""), Environment.NewLine);
-									}
-								}
-							}
-						}
-					}
-				}
 
 				if (!string.IsNullOrEmpty(msg))
 				{

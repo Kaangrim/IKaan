@@ -15,9 +15,10 @@
 
 		//Application
 		public const string APP_PATH = @"C:\IKaan";
+		public const string APP_PATH_GOODS = @"C:\IKaan\Goods\";
 		public const string APP_CRYPT_KEY = @"IKaan.V2017";
 		public const string APP_PASSWORD = "IKaan.V2017";
-
+		
 		public const string URL_LOGIN_IMAGE = @"http://i.istockimg.com/file_thumbview_approve/56523166/6/stock-illustration-56523166-website-project-process-icons.jpg";
 		public const string URL_LOGIN_LOGO = @"http://i.istockimg.com/file_thumbview_approve/24804086/5/stock-illustration-24804086-프로젝트-관리-태그-클라우드.jpg";
 		public const string URL_HOME_VIEW = @"https://demos.devexpress.com/DashboardSamples/FullScreenSamples/SalesPerformance.aspx";

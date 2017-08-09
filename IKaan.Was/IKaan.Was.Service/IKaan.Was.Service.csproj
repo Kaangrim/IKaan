@@ -55,6 +55,7 @@
     <Compile Include="BIZ\BTService.cs" />
     <Compile Include="BIZ\BMService.cs" />
     <Compile Include="LIB\LMService.cs" />
+    <Compile Include="SMP\WCService.cs" />
     <Compile Include="SYS\ACService.cs" />
     <Compile Include="SYS\AAService.cs" />
     <Compile Include="SYS\AUTHService.cs" />

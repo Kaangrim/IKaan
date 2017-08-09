@@ -1,6 +1,6 @@
-﻿namespace IKaan.Win.View.Lib.LC
+﻿namespace IKaan.Win.View.Smp.WC
 {
-	partial class LCWebCrawlerFormTemp
+	partial class WCWebCrawlerFormTemp
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -28,7 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LCWebCrawlerForm));
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WCWebCrawlerFormTemp));
 			this.lcGroupFind = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.lcGroupSearch = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.lcItemFindText = new DevExpress.XtraLayout.LayoutControlItem();
@@ -708,8 +708,8 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(990, 618);
 			this.LookAndFeel.SkinName = "Office 2016 Dark";
-			this.Name = "LCWebCrawlerFormTemp";
-			this.Text = "LCWebCrawlerFormTemp";
+			this.Name = "WCWebCrawlerFormTemp";
+			this.Text = "WCWebCrawlerFormTemp";
 			((System.ComponentModel.ISupportInitialize)(this.lc)).EndInit();
 			this.lc.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupBase)).EndInit();

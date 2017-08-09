@@ -42,6 +42,9 @@ namespace IKaan.Win.Core.Controls.Grid
 
 		private GridViewType _GridViewType;
 
+		public delegate void CheckSelectEventHandler(bool check, string columnName);
+		public event CheckSelectEventHandler CheckSelectChanged;
+
 		public XGrid()
 		{
 			InitializeComponent();
@@ -306,7 +309,7 @@ namespace IKaan.Win.Core.Controls.Grid
 							e.HitInfo.Column.OptionsColumn.AllowEdit == true &&
 							e.HitInfo.Column.OptionsColumn.ReadOnly == false)
 						{
-							menu.Items.Add(new DXMenuItem(DomainUtils.GetPopMenuValue("MenuCheckAll"), new EventHandler(GridViewMenuClicked))
+							menu.Items.Add(new DXMenuItem(DomainUtils.GetPopMenuValue("MenuCheckAll"), new EventHandler(BandedViewMenuClicked))
 							{
 								BeginGroup = true,
 								Tag = new XGridMenuItem()
@@ -317,7 +320,7 @@ namespace IKaan.Win.Core.Controls.Grid
 									GridHitInfo = e.HitInfo
 								}
 							});
-							menu.Items.Add(new DXMenuItem(DomainUtils.GetPopMenuValue("MenuUnCheckAll"), new EventHandler(GridViewMenuClicked))
+							menu.Items.Add(new DXMenuItem(DomainUtils.GetPopMenuValue("MenuUnCheckAll"), new EventHandler(BandedViewMenuClicked))
 							{
 								Tag = new XGridMenuItem()
 								{
@@ -435,9 +438,11 @@ namespace IKaan.Win.Core.Controls.Grid
 					break;
 				case "CheckAll":
 					CheckSelect(true, data.GridHitInfo.Column.FieldName);
+					CheckSelectChanged?.Invoke(true, data.GridHitInfo.Column.FieldName);
 					break;
 				case "UnCheckAll":
 					CheckSelect(false, data.GridHitInfo.Column.FieldName);
+					CheckSelectChanged?.Invoke(false, data.GridHitInfo.Column.FieldName);
 					break;
 			}
 		}
@@ -509,6 +514,14 @@ namespace IKaan.Win.Core.Controls.Grid
 					break;
 				case "CopyCell":
 					CellToClipboard(data.GridHitInfo);
+					break;
+				case "CheckAll":
+					CheckSelect(true, data.GridHitInfo.Column.FieldName);
+					CheckSelectChanged(true, data.GridHitInfo.Column.FieldName);
+					break;
+				case "UnCheckAll":
+					CheckSelect(false, data.GridHitInfo.Column.FieldName);
+					CheckSelectChanged(false, data.GridHitInfo.Column.FieldName);
 					break;
 			}
 		}
@@ -753,23 +766,7 @@ namespace IKaan.Win.Core.Controls.Grid
 
 		[Browsable(false)]
 		public string PageFooterRight { get; set; }
-
-		[Browsable(false)]
-		public DataTable Table
-		{
-			get
-			{
-				if (MainView.DataSource == null)
-				{
-					return null;
-				}
-				else
-				{
-					return ((DataView)MainView.DataSource).Table;
-				}
-			}
-		}
-
+		
 		[Browsable(false)]
 		public int RowCount { get { return MainView.RowCount; } }
 

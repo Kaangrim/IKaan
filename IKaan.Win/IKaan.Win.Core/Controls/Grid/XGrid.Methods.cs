@@ -14,6 +14,7 @@ using DevExpress.XtraGrid.Views.Grid.ViewInfo;
 using DevExpress.XtraPrinting;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
+using IKaan.Model.Base;
 using IKaan.Win.Core.Helper;
 using IKaan.Win.Core.Utils;
 using IKaan.Win.Core.Variables;
@@ -986,7 +987,7 @@ namespace IKaan.Win.Core.Controls.Grid
 			MainView.RestoreLayoutFromRegistry(GetDefaultLayoutPathName());
 		}
 		
-		public void CheckSelect(bool isCheck, string columnName = null, string condition = null)
+		public void CheckSelect(bool isCheck, string columnName = null)
 		{
 			try
 			{
@@ -998,26 +999,22 @@ namespace IKaan.Win.Core.Controls.Grid
 
 				if (MainView.DataRowCount == 0)
 					return;
-								
-				//if (IsFiltered() == true && isCheck == true)
-				//{
-				//	//기처리한 건 초기화
-				//	((IModelBase)MainView.DataSource).Table
-				//		.Select(columnName + "='Y'").ToList()
-				//			.ForEach(r => r[columnName] = "N");
 
-				//	for (int i = 0; i < MainView.DataRowCount; i++)
-				//	{
-				//		int rowHandle = MainView.GetVisibleRowHandle(i);
-				//		((DataRowView)MainView.GetRow(rowHandle)).Row[columnName] = (isCheck) ? "Y" : "N";
-				//	}
-				//}
-				//else
-				//{
-				//	((DataView)MainView.DataSource).Table
-				//		.Select(string.Format("{0}='{1}'{2}", columnName, (isCheck) ? "N" : "Y", string.IsNullOrEmpty(condition) ? "" : " AND " + condition)).ToList()
-				//			.ForEach(r => r[columnName] = (isCheck) ? "Y" : "N");
-				//}
+				if (MainView.DataRowCount > 0)
+				{
+					for (int i = 0; i < MainView.DataRowCount; i++)
+					{
+						int rowHandle = MainView.GetVisibleRowHandle(i);
+						if (MainView.GetRow(rowHandle) == null)
+						{
+							MainView.SetRowCellValue(i, columnName, "N");							
+						}
+						else
+						{
+							MainView.SetRowCellValue(i, columnName, (isCheck) ? "Y" : "N");
+						}
+					}
+				}
 			}
 			catch
 			{
@@ -1062,7 +1059,9 @@ namespace IKaan.Win.Core.Controls.Grid
 
 		public int GetRowHeight()
 		{
-			if (_GridViewType == GridViewType.GridView || _GridViewType == GridViewType.BandedGridView || _GridViewType == GridViewType.AdvBandedGridView)
+			if (_GridViewType == GridViewType.GridView || 
+				_GridViewType == GridViewType.BandedGridView || 
+				_GridViewType == GridViewType.AdvBandedGridView)
 			{
 				GridViewInfo viewInfo = (MainView as GridView).GetViewInfo() as GridViewInfo;
 				const int GridControlMaxHeight = 30000;

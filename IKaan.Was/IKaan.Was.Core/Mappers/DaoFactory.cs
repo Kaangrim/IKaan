@@ -10,6 +10,7 @@ namespace IKaan.Was.Core.Mappers
 		private static ISqlMapper mapper = null;
 		private static ISqlMapper mapperBiz = null;
 		private static ISqlMapper mapperLib = null;
+		private static ISqlMapper mapperSmp = null;
 		
 		public static ISqlMapper Instance
 		{
@@ -89,6 +90,33 @@ namespace IKaan.Was.Core.Mappers
 					throw;
 				}
 				return mapperLib;
+			}
+		}
+
+		public static ISqlMapper InstanceSmp
+		{
+			get
+			{
+				try
+				{
+					if (mapperSmp == null)
+					{
+						lock (syncLock)
+						{
+							if (mapperSmp == null)
+							{
+								var dom = new DomSqlMapBuilder();
+								var sqlMapConfig = Resources.GetEmbeddedResourceAsXmlDocument("Config.SqlMapSmp.config, IKaan.Was.Core");
+								mapperSmp = dom.Configure(sqlMapConfig);
+							}
+						}
+					}
+				}
+				catch
+				{
+					throw;
+				}
+				return mapperSmp;
 			}
 		}
 	}

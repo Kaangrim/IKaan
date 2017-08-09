@@ -18,6 +18,8 @@ namespace IKaan.Was.Controllers
 				serviceType = "LIB";
 			else if (request.ServiceId.StartsWith("B"))
 				serviceType = "BIZ";
+			else if (request.ServiceId.StartsWith("W") || request.ServiceId.StartsWith("S"))
+				serviceType = "SMP";
 			else
 				serviceType = "SYS";
 

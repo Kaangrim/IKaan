@@ -166,24 +166,24 @@ namespace IKaan.Win.View.Forms
 			#endregion
 
 			#region navBarFavorite Events
-			navBarFavorite.LinkClicked += delegate (object sender, NavBarLinkEventArgs e)
-			{
-				if (e.Link.Item.Tag != null)
-				{
-				}
-			};
-			navBarFavorite.MouseClick += delegate (object sender, MouseEventArgs e)
-			{
-				if (e.Button == MouseButtons.Right)
-				{
-					var navBar = sender as NavBarControl;
-					var hitInfo = navBar.CalcHitInfo(navBar.PointToClient(MousePosition));
+			//navBarFavorite.LinkClicked += delegate (object sender, NavBarLinkEventArgs e)
+			//{
+			//	if (e.Link.Item.Tag != null)
+			//	{
+			//	}
+			//};
+			//navBarFavorite.MouseClick += delegate (object sender, MouseEventArgs e)
+			//{
+			//	if (e.Button == MouseButtons.Right)
+			//	{
+			//		var navBar = sender as NavBarControl;
+			//		var hitInfo = navBar.CalcHitInfo(navBar.PointToClient(MousePosition));
 
-					if (hitInfo.InLink && hitInfo.Group.Name.Equals("navBarGroupBookMark"))
-					{
-					}
-				}
-			};
+			//		if (hitInfo.InLink && hitInfo.Group.Name.Equals("navBarGroupBookMark"))
+			//		{
+			//		}
+			//	}
+			//};
 			#endregion
 
 			#region Timer Events
@@ -313,7 +313,7 @@ namespace IKaan.Win.View.Forms
 		private void LoadFormLayout()
 		{
 			if (!string.IsNullOrEmpty(GlobalVar.SkinInfo.MainFormState.ToStringNullToEmpty()))
-				WindowState = (FormWindowState)GlobalVar.SkinInfo.MainFormState;
+				WindowState = GlobalVar.SkinInfo.MainFormState;
 			else
 				WindowState = FormWindowState.Maximized;
 		}
@@ -388,7 +388,7 @@ namespace IKaan.Win.View.Forms
 
 				InitLayoutSetting();
 				InitMainMenu();
-				//wbBlog.Navigate(@"http://map.naver.com/local/siteview.nhn?code=37006063&_ts=1491059671235");
+				wbSearch.Navigate(ConstsVar.SERVER_REAL + @"Search");
 
 				timerHomeShow.Interval = 100;
 				timerHomeShow.Enabled = true;
@@ -413,7 +413,7 @@ namespace IKaan.Win.View.Forms
 		{
 			try
 			{
-				dpFavorite.Visibility = DockVisibility.AutoHide;
+				dpSearch.Visibility = DockVisibility.AutoHide;
 				//dpFavorite.Visibility = DockVisibility.Hidden;
 				//nbGroupBookMark.Visible = false;
 				barButtonFav.Visibility = BarItemVisibility.Never;
@@ -852,7 +852,7 @@ namespace IKaan.Win.View.Forms
 						ToggleDockPanel(dpNavigation);
 						break;
 					case "FAV":
-						ToggleDockPanel(dpFavorite);
+						ToggleDockPanel(dpSearch);
 						break;
 					case "LOG":
 						ToggleDockPanel(dockPanelLog);

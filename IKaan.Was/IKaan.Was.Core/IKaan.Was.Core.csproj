@@ -65,6 +65,7 @@
     <EmbeddedResource Include="Config\SqlMapBiz.config" />
     <EmbeddedResource Include="Config\SqlMap.config" />
     <EmbeddedResource Include="Config\SqlMapLib.config" />
+    <EmbeddedResource Include="Config\SqlMapSmp.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -113,6 +114,8 @@
     <EmbeddedResource Include="SqlMaps\BIZ\BC\BCAppointmentSQL.xml" />
     <EmbeddedResource Include="SqlMaps\BIZ\BC\BCDepartmentHistSQL.xml" />
     <EmbeddedResource Include="SqlMaps\BIZ\BT\BTOrderSumSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\SMP\WC\WCBrandInfoSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\SMP\WC\WCGoodsInfoSQL.xml" />
     <Content Include="SqlMaps\SYS\AC\CalendarSQL.xml" />
     <EmbeddedResource Include="SqlMaps\SYS\AC\ACMessageSQL.xml" />
     <EmbeddedResource Include="SqlMaps\SYS\AD\ADTableSQL.xml" />

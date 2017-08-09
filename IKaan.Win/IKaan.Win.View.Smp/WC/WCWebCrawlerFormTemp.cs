@@ -17,14 +17,14 @@ using IKaan.Win.Core.Was.Handler;
 using IKaan.Model.BIZ.BM;
 using IKaan.Model.SYS.AC;
 
-namespace IKaan.Win.View.Lib.LC
+namespace IKaan.Win.View.Smp.WC
 {
-	public partial class LCWebCrawlerFormTemp : EditForm
+	public partial class WCWebCrawlerFormTemp : EditForm
 	{
 		private bool bContinue = true;
 		private bool bEditing = false;
 
-		public LCWebCrawlerFormTemp()
+		public WCWebCrawlerFormTemp()
 		{
 			InitializeComponent();
 

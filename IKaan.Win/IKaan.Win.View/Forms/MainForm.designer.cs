@@ -35,7 +35,6 @@
 			this.barButtonFav = new DevExpress.XtraBars.BarButtonItem();
 			this.barButtonLog = new DevExpress.XtraBars.BarButtonItem();
 			this.barButtonHome = new DevExpress.XtraBars.BarButtonItem();
-			this.barButtonChangeSkin = new DevExpress.XtraBars.SkinBarSubItem();
 			this.barButtonEmail = new DevExpress.XtraBars.BarButtonItem();
 			this.barButtonWeb = new DevExpress.XtraBars.BarButtonItem();
 			this.barMainMenu = new DevExpress.XtraBars.Bar();
@@ -62,13 +61,8 @@
 			this.dockManager = new DevExpress.XtraBars.Docking.DockManager();
 			this.dockPanelLog = new DevExpress.XtraBars.Docking.DockPanel();
 			this.controlContainer1 = new DevExpress.XtraBars.Docking.ControlContainer();
-			this.dpFavorite = new DevExpress.XtraBars.Docking.DockPanel();
+			this.dpSearch = new DevExpress.XtraBars.Docking.DockPanel();
 			this.dockPanel1_Container = new DevExpress.XtraBars.Docking.ControlContainer();
-			this.navBarFavorite = new DevExpress.XtraNavBar.NavBarControl();
-			this.nbGroupSearch = new DevExpress.XtraNavBar.NavBarGroup();
-			this.navBarGroupControlContainer1 = new DevExpress.XtraNavBar.NavBarGroupControlContainer();
-			this.wbBlog = new System.Windows.Forms.WebBrowser();
-			this.nbGroupBookMark = new DevExpress.XtraNavBar.NavBarGroup();
 			this.dpNavigation = new DevExpress.XtraBars.Docking.DockPanel();
 			this.dockPanelMainMenu_Container = new DevExpress.XtraBars.Docking.ControlContainer();
 			this.navBarNavigate = new DevExpress.XtraNavBar.NavBarControl();
@@ -84,6 +78,7 @@
 			this.barPopupButtonSave = new DevExpress.XtraBars.BarButtonItem();
 			this.barButtonTabPageCloseAll = new DevExpress.XtraBars.BarButtonItem();
 			this.barButtonTabPageCloseAllButThis = new DevExpress.XtraBars.BarButtonItem();
+			this.barButtonChangeSkin = new DevExpress.XtraBars.SkinBarSubItem();
 			this.repositoryItemTextEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
 			this.repositoryItemLookUpEdit1 = new DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit();
 			this.repositoryItemTextEdit2 = new DevExpress.XtraEditors.Repository.RepositoryItemTextEdit();
@@ -95,15 +90,13 @@
 			this.timerHomeShow = new System.Windows.Forms.Timer();
 			this.notifyIcon1 = new System.Windows.Forms.NotifyIcon();
 			this.popupMenuTabPage = new DevExpress.XtraBars.PopupMenu();
+			this.wbSearch = new System.Windows.Forms.WebBrowser();
 			((System.ComponentModel.ISupportInitialize)(this.barManager)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.barAndDockingController)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.dockManager)).BeginInit();
 			this.dockPanelLog.SuspendLayout();
-			this.dpFavorite.SuspendLayout();
+			this.dpSearch.SuspendLayout();
 			this.dockPanel1_Container.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.navBarFavorite)).BeginInit();
-			this.navBarFavorite.SuspendLayout();
-			this.navBarGroupControlContainer1.SuspendLayout();
 			this.dpNavigation.SuspendLayout();
 			this.dockPanelMainMenu_Container.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.navBarNavigate)).BeginInit();
@@ -237,13 +230,6 @@
 			this.barButtonHome.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonHome.ImageOptions.Image")));
 			this.barButtonHome.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barButtonHome.ImageOptions.LargeImage")));
 			this.barButtonHome.Name = "barButtonHome";
-			// 
-			// barButtonChangeSkin
-			// 
-			this.barButtonChangeSkin.Alignment = DevExpress.XtraBars.BarItemLinkAlignment.Right;
-			this.barButtonChangeSkin.Caption = "스킨변경";
-			this.barButtonChangeSkin.Id = 75;
-			this.barButtonChangeSkin.Name = "barButtonChangeSkin";
 			// 
 			// barButtonEmail
 			// 
@@ -471,7 +457,7 @@
             this.dockPanelLog});
 			this.dockManager.MenuManager = this.barManager;
 			this.dockManager.RootPanels.AddRange(new DevExpress.XtraBars.Docking.DockPanel[] {
-            this.dpFavorite,
+            this.dpSearch,
             this.dpNavigation});
 			this.dockManager.ToolTipController = this.toolTipController;
 			this.dockManager.TopZIndexControls.AddRange(new string[] {
@@ -506,80 +492,26 @@
 			this.controlContainer1.Size = new System.Drawing.Size(726, 121);
 			this.controlContainer1.TabIndex = 0;
 			// 
-			// dpFavorite
+			// dpSearch
 			// 
-			this.dpFavorite.Controls.Add(this.dockPanel1_Container);
-			this.dpFavorite.Dock = DevExpress.XtraBars.Docking.DockingStyle.Right;
-			this.dpFavorite.FloatVertical = true;
-			this.dpFavorite.ID = new System.Guid("a5e98a7a-fef2-43d9-af20-020bb44847c4");
-			this.dpFavorite.Image = ((System.Drawing.Image)(resources.GetObject("dpFavorite.Image")));
-			this.dpFavorite.Location = new System.Drawing.Point(818, 52);
-			this.dpFavorite.Name = "dpFavorite";
-			this.dpFavorite.OriginalSize = new System.Drawing.Size(266, 391);
-			this.dpFavorite.Size = new System.Drawing.Size(266, 466);
-			this.dpFavorite.Text = "Favorite";
+			this.dpSearch.Controls.Add(this.dockPanel1_Container);
+			this.dpSearch.Dock = DevExpress.XtraBars.Docking.DockingStyle.Right;
+			this.dpSearch.FloatVertical = true;
+			this.dpSearch.ID = new System.Guid("a5e98a7a-fef2-43d9-af20-020bb44847c4");
+			this.dpSearch.Image = ((System.Drawing.Image)(resources.GetObject("dpSearch.Image")));
+			this.dpSearch.Location = new System.Drawing.Point(818, 52);
+			this.dpSearch.Name = "dpSearch";
+			this.dpSearch.OriginalSize = new System.Drawing.Size(266, 391);
+			this.dpSearch.Size = new System.Drawing.Size(266, 466);
+			this.dpSearch.Text = "Search";
 			// 
 			// dockPanel1_Container
 			// 
-			this.dockPanel1_Container.Controls.Add(this.navBarFavorite);
+			this.dockPanel1_Container.Controls.Add(this.wbSearch);
 			this.dockPanel1_Container.Location = new System.Drawing.Point(5, 39);
 			this.dockPanel1_Container.Name = "dockPanel1_Container";
 			this.dockPanel1_Container.Size = new System.Drawing.Size(257, 423);
 			this.dockPanel1_Container.TabIndex = 0;
-			// 
-			// navBarFavorite
-			// 
-			this.navBarFavorite.ActiveGroup = this.nbGroupSearch;
-			this.navBarFavorite.Controls.Add(this.navBarGroupControlContainer1);
-			this.navBarFavorite.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.navBarFavorite.Groups.AddRange(new DevExpress.XtraNavBar.NavBarGroup[] {
-            this.nbGroupSearch,
-            this.nbGroupBookMark});
-			this.navBarFavorite.Location = new System.Drawing.Point(0, 0);
-			this.navBarFavorite.Name = "navBarFavorite";
-			this.navBarFavorite.OptionsNavPane.ExpandedWidth = 257;
-			this.navBarFavorite.OptionsNavPane.ShowExpandButton = false;
-			this.navBarFavorite.OptionsNavPane.ShowGroupImageInHeader = true;
-			this.navBarFavorite.PaintStyleKind = DevExpress.XtraNavBar.NavBarViewKind.NavigationPane;
-			this.navBarFavorite.Size = new System.Drawing.Size(257, 423);
-			this.navBarFavorite.StoreDefaultPaintStyleName = true;
-			this.navBarFavorite.TabIndex = 0;
-			this.navBarFavorite.Text = "즐겨찾기";
-			// 
-			// nbGroupSearch
-			// 
-			this.nbGroupSearch.Caption = "Search";
-			this.nbGroupSearch.ControlContainer = this.navBarGroupControlContainer1;
-			this.nbGroupSearch.Expanded = true;
-			this.nbGroupSearch.GroupClientHeight = 194;
-			this.nbGroupSearch.GroupStyle = DevExpress.XtraNavBar.NavBarGroupStyle.ControlContainer;
-			this.nbGroupSearch.LargeImage = ((System.Drawing.Image)(resources.GetObject("nbGroupSearch.LargeImage")));
-			this.nbGroupSearch.Name = "nbGroupSearch";
-			// 
-			// navBarGroupControlContainer1
-			// 
-			this.navBarGroupControlContainer1.Appearance.BackColor = System.Drawing.SystemColors.Control;
-			this.navBarGroupControlContainer1.Appearance.Options.UseBackColor = true;
-			this.navBarGroupControlContainer1.Controls.Add(this.wbBlog);
-			this.navBarGroupControlContainer1.Name = "navBarGroupControlContainer1";
-			this.navBarGroupControlContainer1.Size = new System.Drawing.Size(257, 268);
-			this.navBarGroupControlContainer1.TabIndex = 0;
-			// 
-			// wbBlog
-			// 
-			this.wbBlog.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.wbBlog.Location = new System.Drawing.Point(0, 0);
-			this.wbBlog.MinimumSize = new System.Drawing.Size(20, 20);
-			this.wbBlog.Name = "wbBlog";
-			this.wbBlog.Size = new System.Drawing.Size(257, 268);
-			this.wbBlog.TabIndex = 0;
-			// 
-			// nbGroupBookMark
-			// 
-			this.nbGroupBookMark.Caption = "Bookmark";
-			this.nbGroupBookMark.LargeImage = ((System.Drawing.Image)(resources.GetObject("nbGroupBookMark.LargeImage")));
-			this.nbGroupBookMark.Name = "nbGroupBookMark";
-			this.nbGroupBookMark.Visible = false;
 			// 
 			// dpNavigation
 			// 
@@ -711,6 +643,13 @@
 			this.barButtonTabPageCloseAllButThis.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barButtonTabPageCloseAllButThis.ImageOptions.LargeImage")));
 			this.barButtonTabPageCloseAllButThis.Name = "barButtonTabPageCloseAllButThis";
 			// 
+			// barButtonChangeSkin
+			// 
+			this.barButtonChangeSkin.Alignment = DevExpress.XtraBars.BarItemLinkAlignment.Right;
+			this.barButtonChangeSkin.Caption = "스킨변경";
+			this.barButtonChangeSkin.Id = 75;
+			this.barButtonChangeSkin.Name = "barButtonChangeSkin";
+			// 
 			// repositoryItemTextEdit1
 			// 
 			this.repositoryItemTextEdit1.AutoHeight = false;
@@ -771,11 +710,20 @@
 			this.popupMenuTabPage.Manager = this.barManager;
 			this.popupMenuTabPage.Name = "popupMenuTabPage";
 			// 
+			// wbSearch
+			// 
+			this.wbSearch.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.wbSearch.Location = new System.Drawing.Point(0, 0);
+			this.wbSearch.MinimumSize = new System.Drawing.Size(20, 20);
+			this.wbSearch.Name = "wbSearch";
+			this.wbSearch.Size = new System.Drawing.Size(257, 423);
+			this.wbSearch.TabIndex = 0;
+			// 
 			// MainForm
 			// 
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
 			this.ClientSize = new System.Drawing.Size(1084, 542);
-			this.Controls.Add(this.dpFavorite);
+			this.Controls.Add(this.dpSearch);
 			this.Controls.Add(this.dpNavigation);
 			this.Controls.Add(this.barDockControlLeft);
 			this.Controls.Add(this.barDockControlRight);
@@ -792,11 +740,8 @@
 			((System.ComponentModel.ISupportInitialize)(this.barAndDockingController)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.dockManager)).EndInit();
 			this.dockPanelLog.ResumeLayout(false);
-			this.dpFavorite.ResumeLayout(false);
+			this.dpSearch.ResumeLayout(false);
 			this.dockPanel1_Container.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)(this.navBarFavorite)).EndInit();
-			this.navBarFavorite.ResumeLayout(false);
-			this.navBarGroupControlContainer1.ResumeLayout(false);
 			this.dpNavigation.ResumeLayout(false);
 			this.dockPanelMainMenu_Container.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.navBarNavigate)).EndInit();
@@ -830,10 +775,8 @@
 		private DevExpress.XtraBars.Docking.ControlContainer dockPanelMainMenu_Container;
 		private DevExpress.XtraBars.Docking.DockPanel dockPanelLog;
 		private DevExpress.XtraBars.Docking.ControlContainer controlContainer1;
-		private DevExpress.XtraBars.Docking.DockPanel dpFavorite;
+		private DevExpress.XtraBars.Docking.DockPanel dpSearch;
 		private DevExpress.XtraBars.Docking.ControlContainer dockPanel1_Container;
-		private DevExpress.XtraNavBar.NavBarControl navBarFavorite;
-		private DevExpress.XtraNavBar.NavBarGroup nbGroupBookMark;
 		private DevExpress.XtraBars.BarStaticItem barStatusBarDatetime;
 		private DevExpress.XtraBars.BarStaticItem barStatusBarMessage;
 		private DevExpress.XtraBars.BarStaticItem barStatusBarUserInfo;
@@ -873,14 +816,12 @@
 		private DevExpress.XtraBars.BarButtonItem barButtonTabPageCloseAllButThis;
 		private DevExpress.XtraNavBar.NavBarControl navBarNavigate;
 		private DevExpress.XtraNavBar.NavBarGroup navBarGroup1;
-		private DevExpress.XtraNavBar.NavBarGroup nbGroupSearch;
-		private DevExpress.XtraNavBar.NavBarGroupControlContainer navBarGroupControlContainer1;
-		private System.Windows.Forms.WebBrowser wbBlog;
 		private DevExpress.XtraEditors.Repository.RepositoryItemLookUpEdit repositoryItemLookUpEdit1;
 		private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit repositoryItemTextEdit2;
 		private DevExpress.XtraBars.SkinBarSubItem barButtonChangeSkin;
 		private DevExpress.XtraEditors.Repository.RepositoryItemTextEdit repositoryItemTextEdit1;
 		private DevExpress.XtraBars.BarButtonItem barButtonEmail;
 		private DevExpress.XtraBars.BarButtonItem barButtonWeb;
+		private System.Windows.Forms.WebBrowser wbSearch;
 	}
 }

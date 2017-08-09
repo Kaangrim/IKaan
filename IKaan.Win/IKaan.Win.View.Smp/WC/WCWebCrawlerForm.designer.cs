@@ -1,6 +1,6 @@
-﻿namespace IKaan.Win.View.Lib.LC
+﻿namespace IKaan.Win.View.Smp.WC
 {
-	partial class LCWebCrawlerForm
+	partial class WCWebCrawlerForm
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -28,7 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LCWebCrawlerForm));
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WCWebCrawlerForm));
 			this.lcGroupFind = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.lcGroupSearch = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.lcItemFindText = new DevExpress.XtraLayout.LayoutControlItem();
@@ -50,8 +50,6 @@
 			this.btnStart = new DevExpress.XtraEditors.SimpleButton();
 			this.lcButtonStop = new DevExpress.XtraLayout.LayoutControlItem();
 			this.btnStop = new DevExpress.XtraEditors.SimpleButton();
-			this.lcButtonSave = new DevExpress.XtraLayout.LayoutControlItem();
-			this.btnSave = new DevExpress.XtraEditors.SimpleButton();
 			this.lcGroupResult = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
 			this.gridGoodsList = new IKaan.Win.Core.Controls.Grid.XGrid();
@@ -60,8 +58,8 @@
 			this.lcGroupGoodsInfo = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.lcItemScript = new DevExpress.XtraLayout.LayoutControlItem();
 			this.memScript = new DevExpress.XtraEditors.MemoEdit();
-			this.picImage = new DevExpress.XtraEditors.PictureEdit();
 			this.lcItemImage = new DevExpress.XtraLayout.LayoutControlItem();
+			this.picImage = new DevExpress.XtraEditors.PictureEdit();
 			((System.ComponentModel.ISupportInitialize)(this.lc)).BeginInit();
 			this.lc.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupBase)).BeginInit();
@@ -82,7 +80,6 @@
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcButtonStart)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcButtonStop)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcButtonSave)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupResult)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
@@ -90,8 +87,8 @@
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupGoodsInfo)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemScript)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.memScript.Properties)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.picImage.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemImage)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.picImage.Properties)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// lc
@@ -102,7 +99,6 @@
 			this.lc.Controls.Add(this.gridBrandList);
 			this.lc.Controls.Add(this.gridGoodsList);
 			this.lc.Controls.Add(this.progSiteList);
-			this.lc.Controls.Add(this.btnSave);
 			this.lc.Controls.Add(this.progBrandList);
 			this.lc.Controls.Add(this.txtFindText);
 			this.lc.Controls.Add(this.btnStop);
@@ -305,8 +301,7 @@
 			this.lcGroupButtons.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.emptySpaceItem1,
             this.lcButtonStart,
-            this.lcButtonStop,
-            this.lcButtonSave});
+            this.lcButtonStop});
 			this.lcGroupButtons.Location = new System.Drawing.Point(0, 0);
 			this.lcGroupButtons.Name = "lcGroupButtons";
 			this.lcGroupButtons.Padding = new DevExpress.XtraLayout.Utils.Padding(2, 2, 2, 2);
@@ -318,7 +313,7 @@
 			this.emptySpaceItem1.AllowHotTrack = false;
 			this.emptySpaceItem1.Location = new System.Drawing.Point(180, 0);
 			this.emptySpaceItem1.Name = "emptySpaceItem1";
-			this.emptySpaceItem1.Size = new System.Drawing.Size(294, 26);
+			this.emptySpaceItem1.Size = new System.Drawing.Size(384, 26);
 			this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
 			// 
 			// lcButtonStart
@@ -364,28 +359,6 @@
 			this.btnStop.StyleController = this.lc;
 			this.btnStop.TabIndex = 39;
 			this.btnStop.Text = "Stop";
-			// 
-			// lcButtonSave
-			// 
-			this.lcButtonSave.Control = this.btnSave;
-			this.lcButtonSave.Location = new System.Drawing.Point(474, 0);
-			this.lcButtonSave.MaxSize = new System.Drawing.Size(90, 26);
-			this.lcButtonSave.MinSize = new System.Drawing.Size(90, 26);
-			this.lcButtonSave.Name = "lcButtonSave";
-			this.lcButtonSave.Size = new System.Drawing.Size(90, 26);
-			this.lcButtonSave.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
-			this.lcButtonSave.TextSize = new System.Drawing.Size(0, 0);
-			this.lcButtonSave.TextVisible = false;
-			// 
-			// btnSave
-			// 
-			this.btnSave.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnSave.ImageOptions.Image")));
-			this.btnSave.Location = new System.Drawing.Point(895, 9);
-			this.btnSave.Name = "btnSave";
-			this.btnSave.Size = new System.Drawing.Size(86, 22);
-			this.btnSave.StyleController = this.lc;
-			this.btnSave.TabIndex = 43;
-			this.btnSave.Text = "저장";
 			// 
 			// lcGroupResult
 			// 
@@ -464,19 +437,28 @@
 			// lcItemScript
 			// 
 			this.lcItemScript.Control = this.memScript;
-			this.lcItemScript.Location = new System.Drawing.Point(0, 249);
+			this.lcItemScript.Location = new System.Drawing.Point(0, 248);
 			this.lcItemScript.Name = "lcItemScript";
-			this.lcItemScript.Size = new System.Drawing.Size(180, 249);
+			this.lcItemScript.Size = new System.Drawing.Size(180, 250);
 			this.lcItemScript.TextSize = new System.Drawing.Size(0, 0);
 			this.lcItemScript.TextVisible = false;
 			// 
 			// memScript
 			// 
-			this.memScript.Location = new System.Drawing.Point(803, 296);
+			this.memScript.Location = new System.Drawing.Point(803, 295);
 			this.memScript.Name = "memScript";
-			this.memScript.Size = new System.Drawing.Size(176, 245);
+			this.memScript.Size = new System.Drawing.Size(176, 246);
 			this.memScript.StyleController = this.lc;
 			this.memScript.TabIndex = 51;
+			// 
+			// lcItemImage
+			// 
+			this.lcItemImage.Control = this.picImage;
+			this.lcItemImage.Location = new System.Drawing.Point(0, 0);
+			this.lcItemImage.Name = "lcItemImage";
+			this.lcItemImage.Size = new System.Drawing.Size(180, 248);
+			this.lcItemImage.TextSize = new System.Drawing.Size(0, 0);
+			this.lcItemImage.TextVisible = false;
 			// 
 			// picImage
 			// 
@@ -486,20 +468,11 @@
 			this.picImage.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.Auto;
 			this.picImage.Properties.SizeMode = DevExpress.XtraEditors.Controls.PictureSizeMode.Squeeze;
 			this.picImage.Properties.ZoomAccelerationFactor = 1D;
-			this.picImage.Size = new System.Drawing.Size(176, 245);
+			this.picImage.Size = new System.Drawing.Size(176, 244);
 			this.picImage.StyleController = this.lc;
 			this.picImage.TabIndex = 52;
 			// 
-			// lcItemImage
-			// 
-			this.lcItemImage.Control = this.picImage;
-			this.lcItemImage.Location = new System.Drawing.Point(0, 0);
-			this.lcItemImage.Name = "lcItemImage";
-			this.lcItemImage.Size = new System.Drawing.Size(180, 249);
-			this.lcItemImage.TextSize = new System.Drawing.Size(0, 0);
-			this.lcItemImage.TextVisible = false;
-			// 
-			// LCWebCrawlerForm
+			// WCWebCrawlerForm
 			// 
 			this.Appearance.BackColor = System.Drawing.Color.White;
 			this.Appearance.Options.UseBackColor = true;
@@ -507,8 +480,8 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(990, 618);
 			this.LookAndFeel.SkinName = "Office 2016 Dark";
-			this.Name = "LCWebCrawlerForm";
-			this.Text = "LCWebCrawlerForm";
+			this.Name = "WCWebCrawlerForm";
+			this.Text = "WCWebCrawlerForm";
 			((System.ComponentModel.ISupportInitialize)(this.lc)).EndInit();
 			this.lc.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupBase)).EndInit();
@@ -529,7 +502,6 @@
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcButtonStart)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcButtonStop)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcButtonSave)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupResult)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
@@ -537,8 +509,8 @@
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupGoodsInfo)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemScript)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.memScript.Properties)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.picImage.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemImage)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.picImage.Properties)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -563,8 +535,6 @@
 		private DevExpress.XtraLayout.LayoutControlItem lcItemFindText;
 		private DevExpress.XtraEditors.ProgressBarControl progBrandList;
 		private DevExpress.XtraLayout.LayoutControlItem layoutControlItem5;
-		private DevExpress.XtraEditors.SimpleButton btnSave;
-		private DevExpress.XtraLayout.LayoutControlItem lcButtonSave;
 		private DevExpress.XtraEditors.ProgressBarControl progSiteList;
 		private DevExpress.XtraLayout.LayoutControlItem lcItemProgList;
 		private Core.Controls.Grid.XGrid gridGoodsList;

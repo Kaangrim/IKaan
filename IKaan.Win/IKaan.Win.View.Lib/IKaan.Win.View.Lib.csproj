@@ -38,9 +38,6 @@
     <Reference Include="DevExpress.XtraEditors.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraGrid.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraLayout.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
-    <Reference Include="HtmlAgilityPack, Version=1.5.1.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
-      <HintPath>..\packages\HtmlAgilityPack.1.5.1\lib\Net45\HtmlAgilityPack.dll</HintPath>
-    </Reference>
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
     </Reference>
@@ -56,31 +53,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LC\LCWebCrawlerFormTemp.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="LC\LCWebCrawlerFormTemp.designer.cs">
-      <DependentUpon>LCWebCrawlerFormTemp.cs</DependentUpon>
-    </Compile>
-    <Compile Include="LC\LCWebCrawlerForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="LC\LCWebCrawlerForm.designer.cs">
-      <DependentUpon>LCWebCrawlerForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="LC\" />
     <Folder Include="LG\" />
     <Folder Include="LM\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="LC\LCWebCrawlerFormTemp.resx">
-      <DependentUpon>LCWebCrawlerFormTemp.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="LC\LCWebCrawlerForm.resx">
-      <DependentUpon>LCWebCrawlerForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
   </ItemGroup>
   <ItemGroup>

@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectWCBrandInfoList" parameterClass="DataMap" resultClass="WCBrandInfo" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.BrandName)	as RowNo
+					,	AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.SiteCode
+					,	AA.BrandCode
+					,	AA.BrandName
+					,	AA.BrandURL
+					,	AA.GoodsCnt
+					
+				FROM	IKSMP.dbo.WCBrandInfo AA WITH (NOLOCK)
+				WHERE	AA.SiteCode = #SiteCode#
+			]]>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(
+							AA.BrandCode = #FindText#	OR
+							AA.BrandName LIKE '%'+#FindText#+'%'
+						)
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectWCBrandInfo" parameterClass="DataMap" resultClass="WCBrandInfo" >
+			<![CDATA[
+				SELECT  AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.SiteCode
+					,	AA.BrandCode
+					,	AA.BrandName
+					,	AA.BrandURL
+					,	AA.GoodsCnt
+					
+				FROM	IKSMP.dbo.WCBrandInfo AA WITH (NOLOCK)
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<insert id="InsertWCBrandInfo" parameterClass="WCBrandInfo" >
+			<![CDATA[
+				INSERT INTO dbo.WCBrandInfo
+				( 
+					CreateDate, CreateBy, CreateByName,
+					SiteCode, BrandCode, BrandName, BrandURL, GoodsCnt
+				)
+				VALUES
+				(
+					GetDate(), #CreateBy#, #CreateByName#,
+					#SiteCode#, #BrandCode#, #BrandName#, #BrandURL#, #GoodsCnt#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateWCBrandInfo" parameterClass="WCBrandInfo">
+			<![CDATA[
+				UPDATE  dbo.WCBrandInfo
+				SET     UpdateDate		= GetDate()
+					,	UpdateBy		= #UpdateBy#
+					,	UpdateByName	= #UpdateByName#
+					
+					,	SiteCode		= #SiteCode#
+					,	BrandCode		= #BrandCode#
+					,	BrandName		= #BrandName#
+					,	BrandURL		= #BrandURL#
+					,	GoodsCnt		= #GoodsCnt#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
+		<delete id="DeleteWCBrandInfo" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM	dbo.WCBrandInfo WHERE ID = #ID#;
+			]]>
+		</delete>
+
+		<select id="SelectWCBrandInfoExists" parameterClass="DataMap" resultClass="WCBrandInfo" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.BrandName)	as RowNo
+					,	AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.SiteCode
+					,	AA.BrandCode
+					,	AA.BrandName
+					,	AA.BrandURL
+					,	AA.GoodsCnt
+					
+				FROM	IKSMP.dbo.WCBrandInfo AA WITH (NOLOCK)
+				WHERE	AA.SiteCode = #SiteCode#
+				AND		(
+							AA.BrandCode = #BrandCode#	OR
+							AA.BrandName = #BrandName#
+						)
+			]]>
+		</select>
+	</statements>
+</sqlMap>

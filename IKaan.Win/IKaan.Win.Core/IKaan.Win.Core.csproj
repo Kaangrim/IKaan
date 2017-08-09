@@ -231,6 +231,7 @@
       <DependentUpon>WaitFormEx.cs</DependentUpon>
     </Compile>
     <Compile Include="Utils\DialogUtils.cs" />
+    <Compile Include="Utils\ImageUtils.cs" />
     <Compile Include="Variables\ConstsVar.cs" />
     <Compile Include="Variables\GlobalVar.cs" />
     <Compile Include="Handler\WasHandler.cs" />

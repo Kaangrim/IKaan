@@ -127,7 +127,7 @@ namespace IKaan.Win.Core.Was.Handler
 			}
 		}
 
-		public static WasRequest Execute<T>(string serviceId, string processId, string sqlId, object data, string keyField)
+		public static WasRequest Execute<T>(string serviceId, string processId, string sqlId, object data, string keyField = null)
 		{
 			try
 			{
@@ -137,11 +137,14 @@ namespace IKaan.Win.Core.Was.Handler
 				if (string.IsNullOrEmpty(serviceId))
 					serviceId = "Base";
 
+				if (keyField.IsNullOrEmpty())
+					keyField = "ID";
+
 				//모델 리스트로 전송한 경우 요청데이터를 여러 건 만든다.
 				if (data.GetType() == typeof(List<T>))
 				{
 					IList<WasRequest> reqlist = new List<WasRequest>();
-					foreach(var row in (data as List<T>))
+					foreach (var row in (data as List<T>))
 					{
 						reqlist.Add(new WasRequest()
 						{
