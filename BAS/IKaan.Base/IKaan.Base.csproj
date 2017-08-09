@@ -83,7 +83,12 @@
     <Compile Include="Utils\UnsafeNativeMethods.cs" />
     <Compile Include="Variables\ConstsVar.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\IKaan.Model\IKaan.Model.csproj">
+      <Project>{1eb3a6af-8899-400c-a6ea-e4cff97ce1fc}</Project>
+      <Name>IKaan.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>

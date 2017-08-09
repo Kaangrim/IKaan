@@ -77,5 +77,19 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\BAS\IKaan.Base\IKaan.Base.csproj">
+      <Project>{949db77a-078c-4ae7-ba66-a7109848b8c4}</Project>
+      <Name>IKaan.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BAS\IKaan.Model\IKaan.Model.csproj">
+      <Project>{1eb3a6af-8899-400c-a6ea-e4cff97ce1fc}</Project>
+      <Name>IKaan.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IKaan.Win.Core\IKaan.Win.Core.csproj">
+      <Project>{942b6393-9be6-415c-bfa6-ca3eb166735f}</Project>
+      <Name>IKaan.Win.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
