@@ -1,0 +1,416 @@
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\obj\Debug\IKaan.Biz.Core.csprojResolveAssemblyReference.cache
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\obj\Debug\IKaan.Biz.Core.csproj.GenerateResource.Cache
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\obj\Debug\IKaan.Biz.Core.Forms.BaseForm.resources
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\obj\Debug\IKaan.Biz.Core.Forms.EditForm.resources
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\obj\Debug\IKaan.Biz.Core.Forms.HelpForm.resources
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\obj\Debug\IKaan.Biz.Core.Controls.Common.XPeriod.resources
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\obj\Debug\IKaan.Biz.Core.Controls.Common.XRichEditor.resources
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\obj\Debug\IKaan.Biz.Core.Controls.Common.XSearch.resources
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\obj\Debug\IKaan.Biz.Core.Controls.Grid.XGrid.resources
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\obj\Debug\IKaan.Biz.Core.Controls.XPager.resources
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\obj\Debug\IKaan.Biz.Core.Helper.CodeHelperForm.resources
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\obj\Debug\IKaan.Biz.Core.Helper.MsgBoxForm.resources
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\obj\Debug\IKaan.Biz.Core.Resources.ButtonResource.resources
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\obj\Debug\IKaan.Biz.Core.Resources.IconResource.resources
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\obj\Debug\IKaan.Biz.Core.Resources.ImageResource.resources
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\obj\Debug\IKaan.Biz.Core.Resources.BackgroundResource.resources
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\obj\Debug\IKaan.Biz.Core.Resources.ChartResource.resources
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\obj\Debug\IKaan.Biz.Core.Resources.MenuResource.resources
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\obj\Debug\IKaan.Biz.Core.Splash.WaitFormEx.resources
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\IKaan.Biz.Core.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\IKaan.Biz.Core.pdb
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.BonusSkins.v17.1.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.Data.v17.1.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.Office.v17.1.Core.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.Printing.v17.1.Core.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.RichEdit.v17.1.Core.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.Utils.v17.1.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.XtraBars.v17.1.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.XtraCharts.v17.1.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.XtraCharts.v17.1.Extensions.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.XtraCharts.v17.1.UI.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.XtraEditors.v17.1.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.XtraGrid.v17.1.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.XtraLayout.v17.1.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.XtraNavBar.v17.1.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.XtraPrinting.v17.1.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.XtraReports.v17.1.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.XtraRichEdit.v17.1.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.XtraRichEdit.v17.1.Extensions.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.XtraTreeList.v17.1.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\Newtonsoft.Json.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\System.Net.Http.Extensions.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\System.Net.Http.Formatting.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\System.Net.Http.Primitives.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\Itenso.TimePeriod.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\log4net.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.Pdf.v17.1.Core.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.Charts.v17.1.Core.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.XtraCharts.v17.1.Wizard.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.Sparkline.v17.1.Core.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.DataAccess.v17.1.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.XtraGauges.v17.1.Core.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.PivotGrid.v17.1.Core.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.Utils.v17.1.UI.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.XtraVerticalGrid.v17.1.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.Xpo.v17.1.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.CodeParser.v17.1.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.Data.v17.1.xml
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.Office.v17.1.Core.xml
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.Printing.v17.1.Core.xml
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.RichEdit.v17.1.Core.xml
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.Utils.v17.1.xml
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.XtraBars.v17.1.xml
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.XtraCharts.v17.1.xml
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.XtraCharts.v17.1.UI.xml
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.XtraEditors.v17.1.xml
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.XtraGrid.v17.1.xml
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.XtraLayout.v17.1.xml
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.XtraNavBar.v17.1.xml
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.XtraPrinting.v17.1.xml
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.XtraReports.v17.1.xml
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.XtraRichEdit.v17.1.xml
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.XtraRichEdit.v17.1.Extensions.xml
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.XtraTreeList.v17.1.xml
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\Newtonsoft.Json.xml
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\log4net.xml
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.Pdf.v17.1.Core.xml
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.XtraCharts.v17.1.Wizard.xml
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.Sparkline.v17.1.Core.xml
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.DataAccess.v17.1.xml
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.XtraGauges.v17.1.Core.xml
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.PivotGrid.v17.1.Core.xml
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.Utils.v17.1.UI.xml
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.XtraVerticalGrid.v17.1.xml
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.Xpo.v17.1.xml
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\de\DevExpress.Data.v17.1.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\es\DevExpress.Data.v17.1.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ja\DevExpress.Data.v17.1.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ru\DevExpress.Data.v17.1.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\de\DevExpress.Office.v17.1.Core.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\es\DevExpress.Office.v17.1.Core.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ja\DevExpress.Office.v17.1.Core.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ru\DevExpress.Office.v17.1.Core.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\de\DevExpress.Printing.v17.1.Core.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\es\DevExpress.Printing.v17.1.Core.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ja\DevExpress.Printing.v17.1.Core.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ru\DevExpress.Printing.v17.1.Core.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\de\DevExpress.RichEdit.v17.1.Core.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\es\DevExpress.RichEdit.v17.1.Core.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ja\DevExpress.RichEdit.v17.1.Core.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ru\DevExpress.RichEdit.v17.1.Core.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\de\DevExpress.Utils.v17.1.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\es\DevExpress.Utils.v17.1.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ja\DevExpress.Utils.v17.1.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ru\DevExpress.Utils.v17.1.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\de\DevExpress.XtraBars.v17.1.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\es\DevExpress.XtraBars.v17.1.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ja\DevExpress.XtraBars.v17.1.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ru\DevExpress.XtraBars.v17.1.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\de\DevExpress.XtraCharts.v17.1.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\es\DevExpress.XtraCharts.v17.1.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ja\DevExpress.XtraCharts.v17.1.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ru\DevExpress.XtraCharts.v17.1.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\de\DevExpress.XtraEditors.v17.1.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\es\DevExpress.XtraEditors.v17.1.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ja\DevExpress.XtraEditors.v17.1.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ru\DevExpress.XtraEditors.v17.1.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\de\DevExpress.XtraGrid.v17.1.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\es\DevExpress.XtraGrid.v17.1.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ja\DevExpress.XtraGrid.v17.1.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ru\DevExpress.XtraGrid.v17.1.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\de\DevExpress.XtraLayout.v17.1.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\es\DevExpress.XtraLayout.v17.1.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ja\DevExpress.XtraLayout.v17.1.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ru\DevExpress.XtraLayout.v17.1.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\de\DevExpress.XtraNavBar.v17.1.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\es\DevExpress.XtraNavBar.v17.1.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ja\DevExpress.XtraNavBar.v17.1.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ru\DevExpress.XtraNavBar.v17.1.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\de\DevExpress.XtraPrinting.v17.1.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\es\DevExpress.XtraPrinting.v17.1.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ja\DevExpress.XtraPrinting.v17.1.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ru\DevExpress.XtraPrinting.v17.1.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\de\DevExpress.XtraReports.v17.1.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\es\DevExpress.XtraReports.v17.1.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ja\DevExpress.XtraReports.v17.1.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ru\DevExpress.XtraReports.v17.1.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\de\DevExpress.XtraRichEdit.v17.1.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\es\DevExpress.XtraRichEdit.v17.1.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ja\DevExpress.XtraRichEdit.v17.1.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ru\DevExpress.XtraRichEdit.v17.1.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\de\DevExpress.XtraRichEdit.v17.1.Extensions.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\es\DevExpress.XtraRichEdit.v17.1.Extensions.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ja\DevExpress.XtraRichEdit.v17.1.Extensions.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ru\DevExpress.XtraRichEdit.v17.1.Extensions.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\de\DevExpress.XtraTreeList.v17.1.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\es\DevExpress.XtraTreeList.v17.1.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ja\DevExpress.XtraTreeList.v17.1.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ru\DevExpress.XtraTreeList.v17.1.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\de\DevExpress.Pdf.v17.1.Core.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\es\DevExpress.Pdf.v17.1.Core.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ja\DevExpress.Pdf.v17.1.Core.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ru\DevExpress.Pdf.v17.1.Core.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\de\DevExpress.XtraCharts.v17.1.Wizard.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\es\DevExpress.XtraCharts.v17.1.Wizard.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ja\DevExpress.XtraCharts.v17.1.Wizard.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ru\DevExpress.XtraCharts.v17.1.Wizard.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\de\DevExpress.Sparkline.v17.1.Core.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\es\DevExpress.Sparkline.v17.1.Core.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ja\DevExpress.Sparkline.v17.1.Core.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ru\DevExpress.Sparkline.v17.1.Core.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\de\DevExpress.DataAccess.v17.1.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\es\DevExpress.DataAccess.v17.1.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ja\DevExpress.DataAccess.v17.1.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ru\DevExpress.DataAccess.v17.1.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\de\DevExpress.XtraGauges.v17.1.Core.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\es\DevExpress.XtraGauges.v17.1.Core.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ja\DevExpress.XtraGauges.v17.1.Core.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ru\DevExpress.XtraGauges.v17.1.Core.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\de\DevExpress.PivotGrid.v17.1.Core.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\es\DevExpress.PivotGrid.v17.1.Core.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ja\DevExpress.PivotGrid.v17.1.Core.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ru\DevExpress.PivotGrid.v17.1.Core.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\de\DevExpress.Utils.v17.1.UI.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\es\DevExpress.Utils.v17.1.UI.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ja\DevExpress.Utils.v17.1.UI.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ru\DevExpress.Utils.v17.1.UI.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\de\DevExpress.XtraVerticalGrid.v17.1.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\es\DevExpress.XtraVerticalGrid.v17.1.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ja\DevExpress.XtraVerticalGrid.v17.1.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ru\DevExpress.XtraVerticalGrid.v17.1.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\de\DevExpress.Xpo.v17.1.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\es\DevExpress.Xpo.v17.1.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ja\DevExpress.Xpo.v17.1.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ru\DevExpress.Xpo.v17.1.resources.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\obj\Debug\IKaan.Biz.Core.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\obj\Debug\IKaan.Biz.Core.pdb
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\IKaan.Biz.Core.dll.config
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\obj\Debug\IKaan.Biz.Core.dll.licenses
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\IKaan.Base.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\IKaan.Model.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\IKaan.Model.pdb
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\IKaan.Base.pdb
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\IKaan.Biz.Core.dll.config
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\IKaan.Biz.Core.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\IKaan.Biz.Core.pdb
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.BonusSkins.v17.1.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.Data.v17.1.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.Office.v17.1.Core.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.Printing.v17.1.Core.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.RichEdit.v17.1.Core.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.Utils.v17.1.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.XtraBars.v17.1.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.XtraCharts.v17.1.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.XtraCharts.v17.1.Extensions.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.XtraCharts.v17.1.UI.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.XtraEditors.v17.1.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.XtraGrid.v17.1.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.XtraLayout.v17.1.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.XtraNavBar.v17.1.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.XtraPrinting.v17.1.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.XtraReports.v17.1.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.XtraRichEdit.v17.1.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.XtraRichEdit.v17.1.Extensions.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.XtraTreeList.v17.1.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\IKaan.Base.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\IKaan.Model.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\Newtonsoft.Json.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\System.Net.Http.Extensions.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\System.Net.Http.Formatting.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\System.Net.Http.Primitives.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\Itenso.TimePeriod.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\log4net.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.Pdf.v17.1.Core.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.Charts.v17.1.Core.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.XtraCharts.v17.1.Wizard.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.Sparkline.v17.1.Core.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.DataAccess.v17.1.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.XtraGauges.v17.1.Core.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.PivotGrid.v17.1.Core.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.Utils.v17.1.UI.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.XtraVerticalGrid.v17.1.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.Xpo.v17.1.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.CodeParser.v17.1.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\IKaan.Model.pdb
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\IKaan.Base.pdb
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.Data.v17.1.xml
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.Office.v17.1.Core.xml
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.Printing.v17.1.Core.xml
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.RichEdit.v17.1.Core.xml
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.Utils.v17.1.xml
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.XtraBars.v17.1.xml
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.XtraCharts.v17.1.xml
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.XtraCharts.v17.1.UI.xml
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.XtraEditors.v17.1.xml
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.XtraGrid.v17.1.xml
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.XtraLayout.v17.1.xml
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.XtraNavBar.v17.1.xml
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.XtraPrinting.v17.1.xml
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.XtraReports.v17.1.xml
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.XtraRichEdit.v17.1.xml
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.XtraRichEdit.v17.1.Extensions.xml
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.XtraTreeList.v17.1.xml
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\Newtonsoft.Json.xml
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\log4net.xml
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.Pdf.v17.1.Core.xml
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.XtraCharts.v17.1.Wizard.xml
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.Sparkline.v17.1.Core.xml
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.DataAccess.v17.1.xml
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.XtraGauges.v17.1.Core.xml
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.PivotGrid.v17.1.Core.xml
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.Utils.v17.1.UI.xml
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.XtraVerticalGrid.v17.1.xml
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.Xpo.v17.1.xml
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\de\DevExpress.Data.v17.1.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\es\DevExpress.Data.v17.1.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ja\DevExpress.Data.v17.1.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ru\DevExpress.Data.v17.1.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\de\DevExpress.Office.v17.1.Core.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\es\DevExpress.Office.v17.1.Core.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ja\DevExpress.Office.v17.1.Core.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ru\DevExpress.Office.v17.1.Core.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\de\DevExpress.Printing.v17.1.Core.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\es\DevExpress.Printing.v17.1.Core.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ja\DevExpress.Printing.v17.1.Core.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ru\DevExpress.Printing.v17.1.Core.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\de\DevExpress.RichEdit.v17.1.Core.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\es\DevExpress.RichEdit.v17.1.Core.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ja\DevExpress.RichEdit.v17.1.Core.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ru\DevExpress.RichEdit.v17.1.Core.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\de\DevExpress.Utils.v17.1.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\es\DevExpress.Utils.v17.1.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ja\DevExpress.Utils.v17.1.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ru\DevExpress.Utils.v17.1.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\de\DevExpress.XtraBars.v17.1.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\es\DevExpress.XtraBars.v17.1.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ja\DevExpress.XtraBars.v17.1.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ru\DevExpress.XtraBars.v17.1.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\de\DevExpress.XtraCharts.v17.1.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\es\DevExpress.XtraCharts.v17.1.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ja\DevExpress.XtraCharts.v17.1.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ru\DevExpress.XtraCharts.v17.1.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\de\DevExpress.XtraEditors.v17.1.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\es\DevExpress.XtraEditors.v17.1.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ja\DevExpress.XtraEditors.v17.1.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ru\DevExpress.XtraEditors.v17.1.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\de\DevExpress.XtraGrid.v17.1.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\es\DevExpress.XtraGrid.v17.1.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ja\DevExpress.XtraGrid.v17.1.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ru\DevExpress.XtraGrid.v17.1.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\de\DevExpress.XtraLayout.v17.1.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\es\DevExpress.XtraLayout.v17.1.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ja\DevExpress.XtraLayout.v17.1.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ru\DevExpress.XtraLayout.v17.1.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\de\DevExpress.XtraNavBar.v17.1.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\es\DevExpress.XtraNavBar.v17.1.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ja\DevExpress.XtraNavBar.v17.1.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ru\DevExpress.XtraNavBar.v17.1.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\de\DevExpress.XtraPrinting.v17.1.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\es\DevExpress.XtraPrinting.v17.1.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ja\DevExpress.XtraPrinting.v17.1.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ru\DevExpress.XtraPrinting.v17.1.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\de\DevExpress.XtraReports.v17.1.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\es\DevExpress.XtraReports.v17.1.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ja\DevExpress.XtraReports.v17.1.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ru\DevExpress.XtraReports.v17.1.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\de\DevExpress.XtraRichEdit.v17.1.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\es\DevExpress.XtraRichEdit.v17.1.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ja\DevExpress.XtraRichEdit.v17.1.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ru\DevExpress.XtraRichEdit.v17.1.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\de\DevExpress.XtraRichEdit.v17.1.Extensions.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\es\DevExpress.XtraRichEdit.v17.1.Extensions.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ja\DevExpress.XtraRichEdit.v17.1.Extensions.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ru\DevExpress.XtraRichEdit.v17.1.Extensions.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\de\DevExpress.XtraTreeList.v17.1.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\es\DevExpress.XtraTreeList.v17.1.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ja\DevExpress.XtraTreeList.v17.1.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ru\DevExpress.XtraTreeList.v17.1.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\de\DevExpress.Pdf.v17.1.Core.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\es\DevExpress.Pdf.v17.1.Core.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ja\DevExpress.Pdf.v17.1.Core.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ru\DevExpress.Pdf.v17.1.Core.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\de\DevExpress.XtraCharts.v17.1.Wizard.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\es\DevExpress.XtraCharts.v17.1.Wizard.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ja\DevExpress.XtraCharts.v17.1.Wizard.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ru\DevExpress.XtraCharts.v17.1.Wizard.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\de\DevExpress.Sparkline.v17.1.Core.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\es\DevExpress.Sparkline.v17.1.Core.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ja\DevExpress.Sparkline.v17.1.Core.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ru\DevExpress.Sparkline.v17.1.Core.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\de\DevExpress.DataAccess.v17.1.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\es\DevExpress.DataAccess.v17.1.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ja\DevExpress.DataAccess.v17.1.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ru\DevExpress.DataAccess.v17.1.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\de\DevExpress.XtraGauges.v17.1.Core.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\es\DevExpress.XtraGauges.v17.1.Core.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ja\DevExpress.XtraGauges.v17.1.Core.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ru\DevExpress.XtraGauges.v17.1.Core.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\de\DevExpress.PivotGrid.v17.1.Core.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\es\DevExpress.PivotGrid.v17.1.Core.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ja\DevExpress.PivotGrid.v17.1.Core.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ru\DevExpress.PivotGrid.v17.1.Core.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\de\DevExpress.Utils.v17.1.UI.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\es\DevExpress.Utils.v17.1.UI.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ja\DevExpress.Utils.v17.1.UI.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ru\DevExpress.Utils.v17.1.UI.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\de\DevExpress.XtraVerticalGrid.v17.1.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\es\DevExpress.XtraVerticalGrid.v17.1.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ja\DevExpress.XtraVerticalGrid.v17.1.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ru\DevExpress.XtraVerticalGrid.v17.1.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\de\DevExpress.Xpo.v17.1.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\es\DevExpress.Xpo.v17.1.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ja\DevExpress.Xpo.v17.1.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ru\DevExpress.Xpo.v17.1.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\obj\Debug\IKaan.Biz.Core.csprojResolveAssemblyReference.cache
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\obj\Debug\IKaan.Biz.Core.Forms.BaseForm.resources
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\obj\Debug\IKaan.Biz.Core.Forms.EditForm.resources
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\obj\Debug\IKaan.Biz.Core.Forms.HelpForm.resources
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\obj\Debug\IKaan.Biz.Core.Controls.Common.XPeriod.resources
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\obj\Debug\IKaan.Biz.Core.Controls.Common.XRichEditor.resources
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\obj\Debug\IKaan.Biz.Core.Controls.Common.XSearch.resources
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\obj\Debug\IKaan.Biz.Core.Controls.Grid.XGrid.resources
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\obj\Debug\IKaan.Biz.Core.Controls.XPager.resources
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\obj\Debug\IKaan.Biz.Core.Helper.CodeHelperForm.resources
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\obj\Debug\IKaan.Biz.Core.Helper.MsgBoxForm.resources
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\obj\Debug\IKaan.Biz.Core.Resources.ButtonResource.resources
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\obj\Debug\IKaan.Biz.Core.Resources.ChartResource.resources
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\obj\Debug\IKaan.Biz.Core.Resources.BackgroundResource.resources
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\obj\Debug\IKaan.Biz.Core.Resources.IconResource.resources
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\obj\Debug\IKaan.Biz.Core.Resources.ImageResource.resources
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\obj\Debug\IKaan.Biz.Core.Resources.MenuResource.resources
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\obj\Debug\IKaan.Biz.Core.Splash.WaitFormEx.resources
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\obj\Debug\IKaan.Biz.Core.csproj.GenerateResource.Cache
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\obj\Debug\IKaan.Biz.Core.dll.licenses
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\obj\Debug\IKaan.Biz.Core.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\obj\Debug\IKaan.Biz.Core.pdb
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\FluentFTP.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\FluentFTP.xml
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\obj\Debug\IKaan.Biz.Core.PostCode.SearchPostCodeForm.resources
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\obj\Debug\IKaan.Biz.Core.Properties.Resources.resources
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.Spreadsheet.v17.1.Core.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.XtraSpreadsheet.v17.1.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.DataAccess.v17.1.UI.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.Diagram.v17.1.Core.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.XtraDiagram.v17.1.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.Spreadsheet.v17.1.Core.xml
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.XtraSpreadsheet.v17.1.xml
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.DataAccess.v17.1.UI.xml
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.Diagram.v17.1.Core.xml
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\DevExpress.XtraDiagram.v17.1.xml
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\de\DevExpress.Spreadsheet.v17.1.Core.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\es\DevExpress.Spreadsheet.v17.1.Core.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ja\DevExpress.Spreadsheet.v17.1.Core.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ru\DevExpress.Spreadsheet.v17.1.Core.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\de\DevExpress.XtraSpreadsheet.v17.1.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\es\DevExpress.XtraSpreadsheet.v17.1.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ja\DevExpress.XtraSpreadsheet.v17.1.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ru\DevExpress.XtraSpreadsheet.v17.1.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\de\DevExpress.DataAccess.v17.1.UI.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\es\DevExpress.DataAccess.v17.1.UI.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ja\DevExpress.DataAccess.v17.1.UI.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ru\DevExpress.DataAccess.v17.1.UI.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\de\DevExpress.Diagram.v17.1.Core.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\es\DevExpress.Diagram.v17.1.Core.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ja\DevExpress.Diagram.v17.1.Core.resources.dll
+D:\Repositories\IKaan\IKaan.Biz\WIN\IKaan.Biz.Core\bin\Debug\ru\DevExpress.Diagram.v17.1.Core.resources.dll

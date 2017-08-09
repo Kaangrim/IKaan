@@ -1,0 +1,8 @@
+D:\3 PROJECT\IKAAN\IK.BIZ\WIN\IK.BIZ\bin\Debug\IK.BIZ.exe.config
+D:\3 PROJECT\IKAAN\IK.BIZ\WIN\IK.BIZ\bin\Debug\IK.BIZ.exe
+D:\3 PROJECT\IKAAN\IK.BIZ\WIN\IK.BIZ\bin\Debug\IK.BIZ.pdb
+D:\3 PROJECT\IKAAN\IK.BIZ\WIN\IK.BIZ\obj\Debug\IK.BIZ.csprojResolveAssemblyReference.cache
+D:\3 PROJECT\IKAAN\IK.BIZ\WIN\IK.BIZ\obj\Debug\IK.BIZ.Properties.Resources.resources
+D:\3 PROJECT\IKAAN\IK.BIZ\WIN\IK.BIZ\obj\Debug\IK.BIZ.csproj.GenerateResource.Cache
+D:\3 PROJECT\IKAAN\IK.BIZ\WIN\IK.BIZ\obj\Debug\IK.BIZ.exe
+D:\3 PROJECT\IKAAN\IK.BIZ\WIN\IK.BIZ\obj\Debug\IK.BIZ.pdb

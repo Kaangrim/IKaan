@@ -1,0 +1,3 @@
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Base\obj\Debug\IKaan.Common.Base.csprojResolveAssemblyReference.cache
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Base\obj\Debug\Ikaan.Biz.Base.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Base\obj\Debug\Ikaan.Biz.Base.pdb

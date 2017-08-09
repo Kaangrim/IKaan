@@ -1,0 +1,5 @@
+D:\3 PROJECT\IKAAN\IKaan.Was\IKaan.Was.Model\bin\Debug\IKaan.Was.Model.dll
+D:\3 PROJECT\IKAAN\IKaan.Was\IKaan.Was.Model\bin\Debug\IKaan.Was.Model.pdb
+D:\3 PROJECT\IKAAN\IKaan.Was\IKaan.Was.Model\obj\Debug\IKaan.Was.Model.csprojResolveAssemblyReference.cache
+D:\3 PROJECT\IKAAN\IKaan.Was\IKaan.Was.Model\obj\Debug\IKaan.Was.Model.dll
+D:\3 PROJECT\IKAAN\IKaan.Was\IKaan.Was.Model\obj\Debug\IKaan.Was.Model.pdb

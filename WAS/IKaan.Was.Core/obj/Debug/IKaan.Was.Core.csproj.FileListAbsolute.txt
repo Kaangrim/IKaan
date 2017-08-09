@@ -1,0 +1,44 @@
+D:\3 PROJECT\IKAAN\IKaan.Was\IKaan.Was.Core\obj\Debug\IKaan.Was.Core.csprojResolveAssemblyReference.cache
+D:\3 PROJECT\IKAAN\IKaan.Was\IKaan.Was.Core\bin\Debug\IKaan.Was.Core.dll.config
+D:\3 PROJECT\IKAAN\IKaan.Was\IKaan.Was.Core\bin\Debug\IKaan.Was.Core.dll
+D:\3 PROJECT\IKAAN\IKaan.Was\IKaan.Was.Core\bin\Debug\IKaan.Was.Core.pdb
+D:\3 PROJECT\IKAAN\IKaan.Was\IKaan.Was.Core\bin\Debug\IBatisNet.Common.dll
+D:\3 PROJECT\IKAAN\IKaan.Was\IKaan.Was.Core\bin\Debug\IBatisNet.DataMapper.dll
+D:\3 PROJECT\IKAAN\IKaan.Was\IKaan.Was.Core\bin\Debug\Microsoft.ApplicationBlocks.Data.dll
+D:\3 PROJECT\IKAAN\IKaan.Was\IKaan.Was.Core\bin\Debug\Itenso.TimePeriod.dll
+D:\3 PROJECT\IKAAN\IKaan.Was\IKaan.Was.Core\bin\Debug\log4net.dll
+D:\3 PROJECT\IKAAN\IKaan.Was\IKaan.Was.Core\bin\Debug\Newtonsoft.Json.dll
+D:\3 PROJECT\IKAAN\IKaan.Was\IKaan.Was.Core\bin\Debug\IBatisNet.Common.pdb
+D:\3 PROJECT\IKAAN\IKaan.Was\IKaan.Was.Core\bin\Debug\IBatisNet.Common.xml
+D:\3 PROJECT\IKAAN\IKaan.Was\IKaan.Was.Core\bin\Debug\IBatisNet.DataMapper.pdb
+D:\3 PROJECT\IKAAN\IKaan.Was\IKaan.Was.Core\bin\Debug\IBatisNet.DataMapper.xml
+D:\3 PROJECT\IKAAN\IKaan.Was\IKaan.Was.Core\bin\Debug\log4net.xml
+D:\3 PROJECT\IKAAN\IKaan.Was\IKaan.Was.Core\bin\Debug\Newtonsoft.Json.xml
+D:\3 PROJECT\IKAAN\IKaan.Was\IKaan.Was.Core\obj\Debug\IKaan.Was.Core.dll
+D:\3 PROJECT\IKAAN\IKaan.Was\IKaan.Was.Core\obj\Debug\IKaan.Was.Core.pdb
+D:\3 PROJECT\IKAAN\IKaan.Was\IKaan.Was.Core\bin\Debug\IKaan.Base.dll
+D:\3 PROJECT\IKAAN\IKaan.Was\IKaan.Was.Core\bin\Debug\IKaan.Model.dll
+D:\3 PROJECT\IKAAN\IKaan.Was\IKaan.Was.Core\bin\Debug\IKaan.Base.pdb
+D:\3 PROJECT\IKAAN\IKaan.Was\IKaan.Was.Core\bin\Debug\IKaan.Model.pdb
+D:\Repositories\IKaan\IKaan.Was\IKaan.Was.Core\bin\Debug\IKaan.Was.Core.dll.config
+D:\Repositories\IKaan\IKaan.Was\IKaan.Was.Core\bin\Debug\IKaan.Was.Core.dll
+D:\Repositories\IKaan\IKaan.Was\IKaan.Was.Core\bin\Debug\IKaan.Was.Core.pdb
+D:\Repositories\IKaan\IKaan.Was\IKaan.Was.Core\bin\Debug\IBatisNet.Common.dll
+D:\Repositories\IKaan\IKaan.Was\IKaan.Was.Core\bin\Debug\IBatisNet.DataMapper.dll
+D:\Repositories\IKaan\IKaan.Was\IKaan.Was.Core\bin\Debug\IKaan.Base.dll
+D:\Repositories\IKaan\IKaan.Was\IKaan.Was.Core\bin\Debug\IKaan.Model.dll
+D:\Repositories\IKaan\IKaan.Was\IKaan.Was.Core\bin\Debug\Microsoft.ApplicationBlocks.Data.dll
+D:\Repositories\IKaan\IKaan.Was\IKaan.Was.Core\bin\Debug\Itenso.TimePeriod.dll
+D:\Repositories\IKaan\IKaan.Was\IKaan.Was.Core\bin\Debug\log4net.dll
+D:\Repositories\IKaan\IKaan.Was\IKaan.Was.Core\bin\Debug\Newtonsoft.Json.dll
+D:\Repositories\IKaan\IKaan.Was\IKaan.Was.Core\bin\Debug\IKaan.Base.pdb
+D:\Repositories\IKaan\IKaan.Was\IKaan.Was.Core\bin\Debug\IKaan.Model.pdb
+D:\Repositories\IKaan\IKaan.Was\IKaan.Was.Core\bin\Debug\IBatisNet.Common.pdb
+D:\Repositories\IKaan\IKaan.Was\IKaan.Was.Core\bin\Debug\IBatisNet.Common.xml
+D:\Repositories\IKaan\IKaan.Was\IKaan.Was.Core\bin\Debug\IBatisNet.DataMapper.pdb
+D:\Repositories\IKaan\IKaan.Was\IKaan.Was.Core\bin\Debug\IBatisNet.DataMapper.xml
+D:\Repositories\IKaan\IKaan.Was\IKaan.Was.Core\bin\Debug\log4net.xml
+D:\Repositories\IKaan\IKaan.Was\IKaan.Was.Core\bin\Debug\Newtonsoft.Json.xml
+D:\Repositories\IKaan\IKaan.Was\IKaan.Was.Core\obj\Debug\IKaan.Was.Core.csprojResolveAssemblyReference.cache
+D:\Repositories\IKaan\IKaan.Was\IKaan.Was.Core\obj\Debug\IKaan.Was.Core.dll
+D:\Repositories\IKaan\IKaan.Was\IKaan.Was.Core\obj\Debug\IKaan.Was.Core.pdb

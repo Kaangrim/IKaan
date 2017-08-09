@@ -1,0 +1,29 @@
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Base\bin\Debug\IKaan.Base.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Base\bin\Debug\IKaan.Base.pdb
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Base\bin\Debug\Itenso.TimePeriod.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Base\bin\Debug\log4net.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Base\bin\Debug\Newtonsoft.Json.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Base\bin\Debug\log4net.xml
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Base\bin\Debug\Newtonsoft.Json.xml
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Base\obj\Debug\IKaan.Base.dll
+D:\3 PROJECT\IKAAN\IKaan.Biz\WIN\IKaan.Biz.Base\obj\Debug\IKaan.Base.pdb
+D:\3 PROJECT\IKAAN\IKaan.Common\IKaan.Base\bin\Debug\IKaan.Base.dll
+D:\3 PROJECT\IKAAN\IKaan.Common\IKaan.Base\bin\Debug\IKaan.Base.pdb
+D:\3 PROJECT\IKAAN\IKaan.Common\IKaan.Base\bin\Debug\Itenso.TimePeriod.dll
+D:\3 PROJECT\IKAAN\IKaan.Common\IKaan.Base\bin\Debug\log4net.dll
+D:\3 PROJECT\IKAAN\IKaan.Common\IKaan.Base\bin\Debug\Newtonsoft.Json.dll
+D:\3 PROJECT\IKAAN\IKaan.Common\IKaan.Base\bin\Debug\log4net.xml
+D:\3 PROJECT\IKAAN\IKaan.Common\IKaan.Base\bin\Debug\Newtonsoft.Json.xml
+D:\3 PROJECT\IKAAN\IKaan.Common\IKaan.Base\obj\Debug\IKaan.Base.csprojResolveAssemblyReference.cache
+D:\3 PROJECT\IKAAN\IKaan.Common\IKaan.Base\obj\Debug\IKaan.Base.dll
+D:\3 PROJECT\IKAAN\IKaan.Common\IKaan.Base\obj\Debug\IKaan.Base.pdb
+D:\Repositories\IKaan\IKaan.Common\IKaan.Base\bin\Debug\IKaan.Base.dll
+D:\Repositories\IKaan\IKaan.Common\IKaan.Base\bin\Debug\IKaan.Base.pdb
+D:\Repositories\IKaan\IKaan.Common\IKaan.Base\bin\Debug\Itenso.TimePeriod.dll
+D:\Repositories\IKaan\IKaan.Common\IKaan.Base\bin\Debug\log4net.dll
+D:\Repositories\IKaan\IKaan.Common\IKaan.Base\bin\Debug\Newtonsoft.Json.dll
+D:\Repositories\IKaan\IKaan.Common\IKaan.Base\bin\Debug\log4net.xml
+D:\Repositories\IKaan\IKaan.Common\IKaan.Base\bin\Debug\Newtonsoft.Json.xml
+D:\Repositories\IKaan\IKaan.Common\IKaan.Base\obj\Debug\IKaan.Base.csprojResolveAssemblyReference.cache
+D:\Repositories\IKaan\IKaan.Common\IKaan.Base\obj\Debug\IKaan.Base.dll
+D:\Repositories\IKaan\IKaan.Common\IKaan.Base\obj\Debug\IKaan.Base.pdb
