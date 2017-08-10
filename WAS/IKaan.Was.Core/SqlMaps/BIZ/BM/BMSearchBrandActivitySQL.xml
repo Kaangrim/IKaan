@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectBMSearchBrandActivityList" parameterClass="DataMap" resultClass="BMSearchBrandActivity" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
+					,	AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.SearchBrandID
+					,	AA.ActivityDate
+					,	AA.Description
+					
+				FROM	dbo.BMSearchBrandActivity AA WITH (NOLOCK)
+				WHERE	AA.SearchBrandID = #SearchBrandID#
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectBMSearchBrandActivity" parameterClass="DataMap" resultClass="BMSearchBrandActivity" >
+			<![CDATA[
+				SELECT  AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.SearchBrandID
+					,	AA.ActivityDate
+					,	AA.Description
+					
+				FROM	dbo.BMSearchBrandActivity AA WITH (NOLOCK)
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<insert id="InsertBMSearchBrandActivity" parameterClass="BMSearchBrandActivity" >
+			<![CDATA[
+				INSERT INTO dbo.BMSearchBrandActivity
+				( 
+					CreateDate, CreateBy, CreateByName,
+					SearchBrandID, ActivityDate, Description
+				)
+				VALUES
+				(
+					GetDate(), #CreateBy#, #CreateByName#,
+					#SearchBrandID#, #ActivityDate#, #Description#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateBMSearchBrandActivity" parameterClass="BMSearchBrandActivity">
+			<![CDATA[
+				UPDATE  dbo.BMSearchBrandActivity
+				SET     UpdateDate		= GetDate()
+					,	UpdateBy		= #UpdateBy#
+					,	UpdateByName	= #UpdateByName#
+					
+					,	SearchBrandID	= #SearchBrandID#
+					,	ActivityDate	= #ActivityDate#
+					,	Description		= #Description#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
+		<delete id="DeleteBMSearchBrandActivity" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM dbo.BMSearchBrandActivity WHERE	ID = #ID#;
+			]]>
+		</delete>
+	</statements>
+</sqlMap>

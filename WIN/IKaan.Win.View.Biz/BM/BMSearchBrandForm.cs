@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using DevExpress.Utils;
 using DevExpress.XtraEditors.Controls;
 using DevExpress.XtraGrid.Views.Grid;
@@ -92,9 +93,12 @@ namespace IKaan.Win.View.Biz.BM
 
 			lcTab.SelectedPageChanged += (object sender, LayoutTabPageChangedEventArgs e) =>
 			{
-				if (e.Page.Name == lcTabGroupActivity.Name)
+				if (e.Page.Name == lcTabGroupActivities.Name)
 				{
-					lcTab.CustomHeaderButtons[0].Visible = true;
+					if (txtID.EditValue.IsNullOrEmpty() == false)
+						lcTab.CustomHeaderButtons[0].Visible = true;
+					else
+						lcTab.CustomHeaderButtons[0].Visible = false;
 				}
 				else
 				{
@@ -105,8 +109,12 @@ namespace IKaan.Win.View.Biz.BM
 			{
 				try
 				{
-					MailHandler.Send("nicenomm@naver.com", "Test", "Test");
-					ShowMsgBox("전송하였습니다.");
+					if (lcTab.SelectedTabPage.Name == lcTabGroupActivities.Name)
+					{
+						ShowEdit(null);
+					}
+					//MailHandler.Send("nicenomm@naver.com", "Test", "Test");
+					//ShowMsgBox("전송하였습니다.");
 				}
 				catch(Exception ex)
 				{
@@ -150,10 +158,10 @@ namespace IKaan.Win.View.Biz.BM
 				new XGridColumn() { FieldName = "RowNo" },
 				new XGridColumn() { FieldName = "ID", Visible = false },
 				new XGridColumn() { FieldName = "BrandName", Width = 200 },
-				new XGridColumn() { FieldName = "CreateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
-				new XGridColumn() { FieldName = "CreateByName", Width = 80, HorzAlignment = HorzAlignment.Center },
-				new XGridColumn() { FieldName = "UpdateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
-				new XGridColumn() { FieldName = "UpdateByName", Width = 80, HorzAlignment = HorzAlignment.Center }
+				new XGridColumn() { FieldName = "CreateDate" },
+				new XGridColumn() { FieldName = "CreateByName" },
+				new XGridColumn() { FieldName = "UpdateDate" },
+				new XGridColumn() { FieldName = "UpdateByName" }
 			);
 			gridList.ColumnFix("RowNo");
 
@@ -171,6 +179,39 @@ namespace IKaan.Win.View.Biz.BM
 					}
 				}
 				catch(Exception ex)
+				{
+					ShowErrBox(ex);
+				}
+			};
+
+			gridActivities.Init();
+			gridActivities.AddGridColumns(
+				new XGridColumn() { FieldName = "RowNo" },
+				new XGridColumn() { FieldName = "ID", Visible = false },
+				new XGridColumn() { FieldName = "SearchBrandID", Visible = false },
+				new XGridColumn() { FieldName = "ActivityDate" },
+				new XGridColumn() { FieldName = "Description", Width = 300 },
+				new XGridColumn() { FieldName = "CreateDate" },
+				new XGridColumn() { FieldName = "CreateByName" },
+				new XGridColumn() { FieldName = "UpdateDate" },
+				new XGridColumn() { FieldName = "UpdateByName" }
+			);
+			gridActivities.ColumnFix("RowNo");
+
+			gridActivities.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
+			{
+				if (e.RowHandle < 0)
+					return;
+
+				try
+				{
+					if (e.Button == System.Windows.Forms.MouseButtons.Left && e.Clicks == 1)
+					{
+						GridView view = sender as GridView;
+						ShowEdit(view.GetRowCellValue(e.RowHandle, "ID"));
+					}
+				}
+				catch (Exception ex)
 				{
 					ShowErrBox(ex);
 				}
@@ -224,6 +265,19 @@ namespace IKaan.Win.View.Biz.BM
 				{
 					string imageUrl = ConstsVar.IMG_URL + model.BrandMainUrl;
 					picBrandMain.LoadAsync(imageUrl);
+				}
+				gridActivities.DataSource = model.Activities ?? new List<BMSearchBrandActivity>();
+
+				if (lcTab.SelectedTabPage.Name == lcTabGroupActivities.Name)
+				{
+					if (txtID.EditValue.IsNullOrEmpty() == false)
+						lcTab.CustomHeaderButtons[0].Visible = true;
+					else
+						lcTab.CustomHeaderButtons[0].Visible = false;
+				}
+				else
+				{
+					lcTab.CustomHeaderButtons[0].Visible = false;
 				}
 
 				SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true, Delete = true });
@@ -282,7 +336,7 @@ namespace IKaan.Win.View.Biz.BM
 
 		private object DataSave(string sqlId = null)
 		{
-			var model = this.GetControlData<BMSearchBrand>();
+			var model = this.GetControlData<BMSearchBrand>();			
 			if (sqlId.IsNullOrEmpty())
 			{
 				sqlId = (this.EditMode == EditModeEnum.New) ? "Insert" : "Update";
@@ -343,6 +397,36 @@ namespace IKaan.Win.View.Biz.BM
 			{
 				if (res.Error.Number != 0)
 					throw new Exception(res.Error.Message);
+			}
+		}
+
+		protected override void ShowEdit(object data = null)
+		{
+			try
+			{
+				if (txtID.EditValue.IsNullOrEmpty())
+					throw new Exception("브랜드 서칭 데이터가 저장되어야 활동내역을 추가할 수 있습니다.");
+
+				DataMap map = new DataMap()
+				{
+					{ "SearchBrandID", txtID.EditValue },
+					{ "ID", data }
+				};
+				using (BMSearchBrandActivityForm form = new BMSearchBrandActivityForm())
+				{
+					form.Text = "활동내역등록";
+					form.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+					form.ParamsData = map;
+					form.IsLoadingRefresh = true;
+					if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+					{
+						DetailDataLoad(txtID.EditValue);
+					}
+				}
+			}
+			catch(Exception ex)
+			{
+				ShowErrBox(ex);
 			}
 		}
 	}

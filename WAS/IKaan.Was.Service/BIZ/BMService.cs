@@ -141,7 +141,10 @@ namespace IKaan.Was.Service.BIZ
 							req.SetData<BMChannelManager>();
 							break;
 						case "BMSearchBrand":
-							req.SetData<BMSearchBrand>();
+							req.GetSearchBrand();
+							break;
+						case "BMSearchBrandActivity":
+							req.SetData<BMSearchBrandActivity>();
 							break;
 						case "BMCustomer":
 							req.GetCustomer();
@@ -251,6 +254,9 @@ namespace IKaan.Was.Service.BIZ
 									break;
 								case "BMSearchBrand":
 									req.SaveData<BMSearchBrand>();
+									break;
+								case "BMSearchBrandActivity":
+									req.SaveData<BMSearchBrandActivity>();
 									break;
 								case "BMCustomer":
 									req.SaveCustomer();
@@ -509,6 +515,31 @@ namespace IKaan.Was.Service.BIZ
 				req.Data = customer;
 				req.Result.Count = 1;
 				return customer;
+			}
+			catch
+			{
+				throw;
+			}
+		}
+
+		private static BMSearchBrand GetSearchBrand(this WasRequest req)
+		{
+			try
+			{
+				DataMap parameter = req.Parameter.JsonToAnyType<DataMap>();
+				BMSearchBrand brand = DaoFactory.InstanceBiz.QueryForObject<BMSearchBrand>("SelectBMSearchBrand", parameter);
+				if (brand != null)
+				{
+					parameter = new DataMap() { { "SearchBrandID", brand.ID } };
+
+					//주소
+					brand.Activities = DaoFactory.InstanceBiz.QueryForList<BMSearchBrandActivity>("SelectBMSearchBrandActivityList", parameter);
+					if (brand.Activities == null)
+						brand.Activities = new List<BMSearchBrandActivity>();
+				}
+				req.Data = brand;
+				req.Result.Count = 1;
+				return brand;
 			}
 			catch
 			{
@@ -1461,5 +1492,6 @@ namespace IKaan.Was.Service.BIZ
 				throw;
 			}
 		}
+
 	}
 }

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using IKaan.Model.Base;
 
@@ -62,5 +63,14 @@ namespace IKaan.Model.BIZ.BM
 		[DataMember]
 		[Display(Name = "브랜드로고이미지")]
 		public string BrandLogoUrl { get; set; }
+
+		[DataMember]
+		[Display(Name = "영업활동")]
+		public IList<BMSearchBrandActivity> Activities { get; set; }
+
+		public BMSearchBrand()
+		{
+			Activities = new List<BMSearchBrandActivity>();
+		}
 	}
 }

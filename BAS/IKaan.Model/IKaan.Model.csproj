@@ -65,6 +65,7 @@
     <Compile Include="BIZ\BM\BMAddress.cs" />
     <Compile Include="BIZ\BM\BMBrandContact.cs" />
     <Compile Include="BIZ\BM\BMBusiness.cs" />
+    <Compile Include="BIZ\BM\BMSearchBrandActivity.cs" />
     <Compile Include="BIZ\BM\BMSearchBrand.cs" />
     <Compile Include="BIZ\BG\BGGoodsPrice.cs" />
     <Compile Include="BIZ\BG\BGGoodsItem.cs" />

@@ -116,6 +116,7 @@
     <EmbeddedResource Include="SqlMaps\BIZ\BT\BTOrderSumSQL.xml" />
     <EmbeddedResource Include="SqlMaps\SMP\WC\WCBrandInfoSQL.xml" />
     <EmbeddedResource Include="SqlMaps\SMP\WC\WCGoodsInfoSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\BIZ\BM\BMSearchBrandActivitySQL.xml" />
     <Content Include="SqlMaps\SYS\AC\CalendarSQL.xml" />
     <EmbeddedResource Include="SqlMaps\SYS\AC\ACMessageSQL.xml" />
     <EmbeddedResource Include="SqlMaps\SYS\AD\ADTableSQL.xml" />
