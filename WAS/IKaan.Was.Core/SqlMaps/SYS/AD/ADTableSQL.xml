@@ -135,6 +135,14 @@
 			<![CDATA[
 				SELECT	ROW_NUMBER() OVER 
 							(ORDER BY aa.SchemaName, aa.TableName)	as RowNo
+							
+					,	tt.ID
+					,	tt.CreateDate
+					,	tt.CreateBy
+					,	tt.CreateByName
+					,	tt.UpdateDate
+					,	tt.UpdateBy
+					,	tt.UpdateByName
 					
 					,	aa.SchemaName		as SchemaName
 					,	aa.TableID			as TableID
@@ -230,6 +238,10 @@
 										on a.object_id = b.major_id
 							WHERE	a.type = 'U'
 						) aa
+						LEFT JOIN
+							IKBAS.dbo.ADTable tt
+								ON aa.TableName = tt.TableName
+									AND tt.DatabaseID = #DatabaseID#
 				WHERE	1=1
 			]]>
 			<isNotEmpty property="TableName">
@@ -245,6 +257,14 @@
 			<![CDATA[
 				SELECT	ROW_NUMBER() OVER 
 							(ORDER BY AA.TABLE_NAME)					as RowNo
+							
+					,	tt.ID
+					,	tt.CreateDate
+					,	tt.CreateBy
+					,	tt.CreateByName
+					,	tt.UpdateDate
+					,	tt.UpdateBy
+					,	tt.UpdateByName
 					
 					,	AA.TABLE_SCHEMA									as SchemaName
 					,	AA.TABLE_TYPE + ' ' + AA.TABLE_NAME				as TableID
@@ -260,6 +280,10 @@
 					,	AA.UPDATE_TIME									as LastUserUpdate
 					,	null											as LastSystemUpdate
 				FROM	INFORMATION_SCHEMA.TABLES AA
+						LEFT JOIN
+							IKBAS.dbo.ADTable tt
+								ON AA.TABLE_NAME = tt.TableName
+									AND tt.DatabaseID = #DatabaseID#
 				WHERE	AA.TABLE_TYPE	= 'BASE TABLE'
 			]]>
 			<isNotEmpty property="TableName">

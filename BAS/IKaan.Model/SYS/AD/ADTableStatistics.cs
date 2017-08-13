@@ -1,16 +1,13 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
+using IKaan.Model.Base;
 
 namespace IKaan.Model.SYS.AD
 {
 	[DataContract]
-	public class ADTableStatistics 
+	public class ADTableStatistics : ModelBase
 	{
-		[DataMember]
-		[Display(Name = "ROW번호")]
-		public int RowNo { get; set; }
-
 		[DataMember]
 		[Display(Name = "스키마명")]
 		public string SchemaName { get; set; }

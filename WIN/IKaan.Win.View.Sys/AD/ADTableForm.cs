@@ -214,6 +214,9 @@ namespace IKaan.Win.View.Sys.AD
 							case "UpdateByName":
 								col.LogicalName = "최종수정자명";
 								break;
+							default:
+								col.LogicalName = DomainUtils.GetFieldName(col.PhysicalName);
+								break;
 						}
 					}
 				}

@@ -303,6 +303,7 @@ namespace IKaan.Was.Service.SYS
 				{
 					DataMap map = new DataMap()
 					{
+						{ "DatabaseID", db.ID },
 						{ "DatabaseName", db.DatabaseName }
 					};
 					string sqlId = string.Format("SelectADTableBy{0}", db.DbmsType);
@@ -332,7 +333,13 @@ namespace IKaan.Was.Service.SYS
 							tableList.Add(new ADTable()
 							{
 								RowNo = data.RowNo,
-								ID = data.TableID,
+								ID = data.ID,
+								CreateDate = data.CreateDate,
+								CreateBy = data.CreateBy,
+								CreateByName = data.CreateByName,
+								UpdateDate = data.UpdateDate,
+								UpdateBy = data.UpdateBy,
+								UpdateByName = data.UpdateByName,
 								DatabaseID = db.ID.ToIntegerNullToZero(),
 								DatabaseName = db.DatabaseName,
 								SchemaName = data.SchemaName,
@@ -396,7 +403,13 @@ namespace IKaan.Was.Service.SYS
 						table = new ADTable()
 						{
 							RowNo = tableDB.RowNo,
-							ID = tableDB.TableID,
+							ID = tableDB.ID,
+							CreateDate = tableDB.CreateDate,
+							CreateBy = tableDB.CreateBy,
+							CreateByName = tableDB.CreateByName,
+							UpdateDate = tableDB.UpdateDate,
+							UpdateBy = tableDB.UpdateBy,
+							UpdateByName = tableDB.UpdateByName,
 							DatabaseID = db.ID.ToIntegerNullToZero(),
 							DatabaseName = db.DatabaseName,
 							SchemaName = tableDB.SchemaName,
