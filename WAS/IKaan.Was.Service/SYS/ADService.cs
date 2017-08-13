@@ -47,14 +47,13 @@ namespace IKaan.Was.Service.SYS
 							req.SetList<ADDatabase>();
 							break;
 						case "ADTable":
-							//req.SetList<ADTable>();
 							req.GetTableList();
 							break;
 						case "ADColumn":
 							req.SetList<ADColumn>();
 							break;
 						case "ADTableStatistics":
-							req.SetList<ADTableStatistics>();
+							req.GetTableStatistics();
 							break;
 					}
 				}
@@ -625,6 +624,52 @@ namespace IKaan.Was.Service.SYS
 				request.Error.Number = ex.HResult;
 				request.Error.Message = ex.Message;
 				return request;
+			}
+		}
+
+		private static void GetTableStatistics(this WasRequest req)
+		{
+			try
+			{
+				DataMap parameter = req.Parameter.JsonToAnyType<DataMap>();
+				int? databaseID = parameter.GetValue("DatabaseID").ToIntegerNullToNull();
+
+				ADDatabase db = DaoFactory.Instance.QueryForObject<ADDatabase>("SelectADDatabase", new DataMap() { { "ID", databaseID } });
+
+				if (db != null)
+				{
+					DataMap map = new DataMap()
+					{
+						{ "DatabaseID", db.ID },
+						{ "DatabaseName", db.DatabaseName },
+						{ "TableName", parameter.GetValue("TableName") }
+					};
+					string sqlId = string.Format("SelectADTableBy{0}", db.DbmsType);
+
+					IList<ADTableStatistics> list = new List<ADTableStatistics>();
+					switch (db.DatabaseName)
+					{
+						case "IKBAS":
+							list = DaoFactory.Instance.QueryForList<ADTableStatistics>(sqlId, map);
+							break;
+						case "IKBIZ":
+							list = DaoFactory.InstanceBiz.QueryForList<ADTableStatistics>(sqlId, map);
+							break;
+						case "IKLIB":
+							list = DaoFactory.InstanceLib.QueryForList<ADTableStatistics>(sqlId, map);
+							break;
+						case "IKSMP":
+							list = DaoFactory.InstanceSmp.QueryForList<ADTableStatistics>(sqlId, map);
+							break;
+					}
+
+					req.Data = list;
+					req.Result.Count = list.Count;
+				}
+			}
+			catch
+			{
+				throw;
 			}
 		}
 	}

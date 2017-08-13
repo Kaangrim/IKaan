@@ -124,7 +124,7 @@
 			this.lc.Controls.Add(this.txtFindText);
 			this.lc.Location = new System.Drawing.Point(0, 44);
 			this.lc.Margin = new System.Windows.Forms.Padding(0);
-			this.lc.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new System.Drawing.Rectangle(2285, 449, 457, 350);
+			this.lc.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new System.Drawing.Rectangle(930, 449, 457, 350);
 			this.lc.OptionsView.UseDefaultDragAndDropRendering = false;
 			this.lc.Padding = new System.Windows.Forms.Padding(2);
 			this.lc.Size = new System.Drawing.Size(990, 552);
@@ -522,11 +522,14 @@
 			this.splitterItem2.Name = "splitterItem2";
 			this.splitterItem2.Size = new System.Drawing.Size(12, 548);
 			// 
-			// LGGoodsListForm
+			// BGGoodsListForm
 			// 
+			this.Appearance.BackColor = System.Drawing.Color.White;
+			this.Appearance.Options.UseBackColor = true;
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(990, 618);
+			this.LookAndFeel.SkinName = "Office 2016 Dark";
 			this.Name = "BGGoodsListForm";
 			this.Text = "BGGoodsListForm";
 			((System.ComponentModel.ISupportInitialize)(this.lc)).EndInit();

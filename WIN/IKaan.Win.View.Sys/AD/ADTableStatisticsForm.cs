@@ -1,10 +1,9 @@
 ﻿using System;
 using IKaan.Base.Map;
+using IKaan.Model.SYS.AD;
 using IKaan.Win.Core.Controls.Grid;
 using IKaan.Win.Core.Forms;
 using IKaan.Win.Core.Model;
-using IKaan.Win.Core.Utils;
-using IKaan.Model.SYS.AD;
 
 namespace IKaan.Win.View.Sys.AD
 {
@@ -25,16 +24,6 @@ namespace IKaan.Win.View.Sys.AD
 
 			lupDatabaseID.EditValueChanged += delegate (object sender, EventArgs e)
 			{
-				lupSchemaID.Clear();
-				lupSchemaID.BindData("SchemaList", null, true, new DataMap()
-				{
-					{ "ServerID", lupServerID.EditValue },
-					{ "DatabaseID", lupDatabaseID.EditValue }
-				});
-			};
-
-			lupSchemaID.EditValueChanged += delegate (object sender, EventArgs e)
-			{
 				if (this.IsLoaded)
 					DataLoad(null);
 			};
@@ -43,7 +32,7 @@ namespace IKaan.Win.View.Sys.AD
 		protected override void OnShown(EventArgs e)
 		{
 			base.OnShown(e);
-			txtFindText.Focus();
+			txtTableName.Focus();
 		}
 
 		protected override void InitButtons()
@@ -68,11 +57,6 @@ namespace IKaan.Win.View.Sys.AD
 			{
 				{ "ServerID", lupServerID.EditValue }
 			});
-			lupSchemaID.BindData("SchemaList", null, true, new DataMap()
-			{
-				{ "ServerID", lupServerID.EditValue },
-				{ "DatabaseID", lupDatabaseID.EditValue }
-			});
 		}
 
 		void InitGrid()
@@ -82,9 +66,8 @@ namespace IKaan.Win.View.Sys.AD
 			gridList.AddGridColumns(
 				new XGridColumn() { FieldName = "RowNo" },
 				new XGridColumn() { FieldName = "SchemaName", Width = 80 },
-				new XGridColumn() { FieldName = "TableID", Visible = false },
-				new XGridColumn() { FieldName = "TableName", Width = 100 },
-				new XGridColumn() { FieldName = "Description", Width = 100 },
+				new XGridColumn() { FieldName = "TableName", Width = 150 },
+				new XGridColumn() { FieldName = "Description", Width = 150 },
 				new XGridColumn() { FieldName = "RowCnt", Width = 80 },
 				new XGridColumn() { FieldName = "TableSize", Width = 80 },
 				new XGridColumn() { FieldName = "DataSize", Width = 80 },
@@ -103,9 +86,8 @@ namespace IKaan.Win.View.Sys.AD
 		{
 			DataMap parameter = new DataMap()
 			{
-				{ "DatabaseName", lupDatabaseID.Text },
-				{ "SchemaName", lupSchemaID.Text },
-				{ "FindText", txtFindText.EditValue }
+				{ "DatabaseID", lupDatabaseID.EditValue },
+				{ "TableName", txtTableName.EditValue }
 			};
 			object value = lupDatabaseID.GetSelectedDataRow();
 			if (value != null)
