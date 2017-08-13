@@ -104,7 +104,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SqlMaps\SYS\AC\ACCodeSQL.xml" />
     <EmbeddedResource Include="SqlMaps\SYS\AD\ADColumnSQL.xml" />
-    <EmbeddedResource Include="SqlMaps\SYS\AD\ADSchemaSQL.xml" />
     <EmbeddedResource Include="SqlMaps\SYS\AD\ADDatabaseSQL.xml" />
     <EmbeddedResource Include="SqlMaps\SYS\AD\ADServerSQL.xml" />
     <EmbeddedResource Include="SqlMaps\SYS\AD\ADSystemSQL.xml" />

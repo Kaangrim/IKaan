@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using DevExpress.Utils;
 using DevExpress.XtraEditors.Controls;
 using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraLayout;
@@ -153,6 +152,7 @@ namespace IKaan.Win.View.Biz.BM
 		
 		void InitGrid()
 		{
+			#region List
 			gridList.Init();
 			gridList.AddGridColumns(
 				new XGridColumn() { FieldName = "RowNo" },
@@ -183,7 +183,9 @@ namespace IKaan.Win.View.Biz.BM
 					ShowErrBox(ex);
 				}
 			};
+			#endregion
 
+			#region Activities
 			gridActivities.Init();
 			gridActivities.AddGridColumns(
 				new XGridColumn() { FieldName = "RowNo" },
@@ -205,7 +207,7 @@ namespace IKaan.Win.View.Biz.BM
 
 				try
 				{
-					if (e.Button == System.Windows.Forms.MouseButtons.Left && e.Clicks == 1)
+					if (e.Button == System.Windows.Forms.MouseButtons.Left && e.Clicks == 2)
 					{
 						GridView view = sender as GridView;
 						ShowEdit(view.GetRowCellValue(e.RowHandle, "ID"));
@@ -216,6 +218,7 @@ namespace IKaan.Win.View.Biz.BM
 					ShowErrBox(ex);
 				}
 			};
+			#endregion
 		}
 
 		protected override void LoadForm()

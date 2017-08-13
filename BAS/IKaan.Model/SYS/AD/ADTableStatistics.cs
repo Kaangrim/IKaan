@@ -21,7 +21,7 @@ namespace IKaan.Model.SYS.AD
 
 		[DataMember]
 		[Display(Name = "테이블명")]
-		public int TableName { get; set; }
+		public string TableName { get; set; }
 
 		[DataMember]
 		[Display(Name = "설명")]

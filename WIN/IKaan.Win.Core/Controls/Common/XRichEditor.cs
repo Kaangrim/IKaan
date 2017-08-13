@@ -43,7 +43,6 @@ namespace IKaan.Win.Core.Controls.Common
 
 				InitFont();
 
-
 				editor.EndUpdate();
 			}
 			catch
@@ -77,6 +76,7 @@ namespace IKaan.Win.Core.Controls.Common
 				editor.Document.Sections[i].Margins.Left = 1.0f;
 			}
 		}
+
 		[Browsable(false)]
 		public RichEditControl MainEditor
 		{
@@ -91,7 +91,7 @@ namespace IKaan.Win.Core.Controls.Common
 		}
 
 		[Browsable(false)]
-		public object EditValue
+		public string EditValue
 		{
 			get
 			{
@@ -99,7 +99,20 @@ namespace IKaan.Win.Core.Controls.Common
 			}
 			set
 			{
-				editor.Document.RtfText = value.ToString();
+				editor.Document.RtfText = value;
+			}
+		}
+
+		[Browsable(false)]
+		public string EditText
+		{
+			get
+			{
+				return editor.Document.Text;
+			}
+			set
+			{
+				editor.Document.Text = value;
 			}
 		}
 

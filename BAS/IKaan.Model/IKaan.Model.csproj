@@ -143,7 +143,6 @@
     <Compile Include="SYS\AC\ACMessage.cs" />
     <Compile Include="SYS\AD\ADColumn.cs" />
     <Compile Include="SYS\AD\ADDatabase.cs" />
-    <Compile Include="SYS\AD\ADSchema.cs" />
     <Compile Include="SYS\AD\ADServer.cs" />
     <Compile Include="SYS\AD\ADSystem.cs" />
     <Compile Include="SYS\AD\ADTable.cs" />

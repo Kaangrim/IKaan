@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using System.Linq;
 using DevExpress.Utils;
 using DevExpress.XtraGrid.Views.Grid;
 using IKaan.Base.Map;
@@ -11,6 +12,8 @@ using IKaan.Win.Core.Model;
 using IKaan.Win.Core.Utils;
 using IKaan.Win.Core.Was.Handler;
 using IKaan.Model.BIZ.BG;
+using IKaan.Base.Utils;
+using DevExpress.XtraTab.ViewInfo;
 
 namespace IKaan.Win.View.Biz.BG
 {
@@ -20,13 +23,16 @@ namespace IKaan.Win.View.Biz.BG
 		{
 			InitializeComponent();
 
-			btnAddItem.Click += delegate (object sender, EventArgs e)
+			lcTab.CustomHeaderButtonClick += (object sender, CustomHeaderButtonEventArgs e) =>
 			{
-				gridItems.AddNewRow();
-			};
-			btnDeleteItem.Click += delegate (object sender, EventArgs e)
-			{
-				
+				if (e.Button.Tag.ToStringNullToEmpty() == "ADD")
+				{
+					(gridItems.DataSource as List<BGInfoNoticeItem>).Add(new BGInfoNoticeItem());
+				}
+				else if (e.Button.Tag.ToStringNullToEmpty() == "DEL")
+				{
+					gridItems.MainView.DeleteRow(gridItems.FocusedRowHandle);
+				}
 			};
 		}
 
@@ -127,8 +133,8 @@ namespace IKaan.Win.View.Biz.BG
 			ClearControlData<BGInfoNotice>();
 			gridItems.Clear<BGInfoNoticeItem>();
 
-			btnAddItem.Enabled = false;
-			btnDeleteItem.Enabled = false;
+			lcTab.CustomHeaderButtons[0].Enabled =
+				lcTab.CustomHeaderButtons[1].Enabled = false;
 
 			SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true });
 			EditMode = EditModeEnum.New;
@@ -167,13 +173,13 @@ namespace IKaan.Win.View.Biz.BG
 					items = model.Items;
 
 				SetControlData(model);
-				gridItems.DataSource = items;
+				gridItems.DataSource = model.Items ?? new List<BGInfoNoticeItem>();
 
-				btnAddItem.Enabled = true;
+				lcTab.CustomHeaderButtons[0].Enabled = true;
 				if (gridItems.RowCount > 0)
-					btnDeleteItem.Enabled = true;
+					lcTab.CustomHeaderButtons[1].Enabled = true;
 				else
-					btnDeleteItem.Enabled = false;
+					lcTab.CustomHeaderButtons[1].Enabled = false;
 
 				SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true, Delete = true });
 				this.EditMode = EditModeEnum.Modify;

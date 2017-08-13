@@ -110,7 +110,7 @@
 
 		<select id="SelectADColumnByMSSQL" parameterClass="DataMap" resultClass="ADColumn" >
 			<![CDATA[
-				SELECT  ROW_NUMBER() OVER (ORDER BY XX.ColumnId)	AS RowNo
+				SELECT  ROW_NUMBER() OVER (ORDER BY XX.ColumnID)	AS RowNo
 					,	YY.ID
 					,	YY.CreateDate
 					,	YY.CreateBy
@@ -119,7 +119,7 @@
 					,	YY.UpdateBy
 					,	YY.UpdateByName
 					
-					,	CONVERT(VARCHAR, XX.TABLE_ID)		AS TableID
+					,	CONVERT(VARCHAR, XX.TableID)		AS TableID
 					,	XX.TableName						AS TableName
 					,	XX.ColumnID							AS ColumnID
 					,	XX.ColumnName						AS PhysicalName
@@ -137,6 +137,7 @@
 							ELSE '' 
 						END									AS DataType
 					,	XX.PkYn								AS PkYn
+					,	'N'									AS FkYn
 					,	XX.Nullable							AS NullYn
 					,	XX.IdentityYn						AS IdentityYn
 					,	XX.DefaultValue						AS DefaultValue
@@ -234,11 +235,11 @@
 						WHERE ST.NAME = #TableName#
 					) XX
 					LEFT JOIN
-						dbo.ADTable TT
-							ON XX.TABLE_NAME = TT.TableName
-								AND TT.DatabaseId = #DatabaseId#
+						IKBAS.dbo.ADTable TT
+							ON XX.TableName = TT.TableName
+								AND TT.DatabaseID = #DatabaseID#
 					LEFT JOIN 
-						dbo.ADColumn YY 
+						IKBAS.dbo.ADColumn YY 
 							ON TT.ID = YY.TableID
 								AND XX.ColumnName = YY.PhysicalName
 				ORDER BY RowNo
@@ -268,6 +269,7 @@
 							WHEN AA.COLUMN_KEY = 'PRI' THEN 'Y' 
 							ELSE 'N' 
 						END													AS PkYn
+					,	'N'													AS FkYn
 					,	CASE 
 							WHEN AA.IS_NULLABLE = 'NO' THEN 'N' 
 							ELSE 'Y' 
@@ -280,18 +282,81 @@
 								ON AA.TABLE_NAME = BB.TABLE_NAME 
 									AND AA.TABLE_SCHEMA = BB.TABLE_SCHEMA
 						LEFT JOIN
-							dbo.ADTable DD
+							IKBAS.dbo.ADTable DD
 								ON AA.TABLE_NAME = DD.TableName
 									AND DD.DatabaseID = #DatabaseID#
 						LEFT JOIN
-							dbo.ADColumn CC
+							IKBAS.dbo.ADColumn CC
 								ON DD.ID = CC.TableID
 									AND AA.COLUMN_NAME = CC.PhysicalName
 				WHERE	AA.TABLE_NAME	= #TableName#
-				AND		AA.TABLE_SCHEMA	= #SchemaName#
-				ORDER BY 
-					RowNo
+				ORDER BY RowNo
 			]]>
 		</select>
+
+		<select id="SelectADColumnExists" parameterClass="DataMap" resultClass="ADColumn" >
+			<![CDATA[
+				SELECT	ROW_NUMBER() OVER (ORDER BY AA.SortOrder)	AS RowNo
+					,	AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.TableID
+					,	AA.PhysicalName
+					,	AA.LogicalName
+					,	AA.Description
+					,	AA.DataType
+					,	AA.NullYn
+					,	AA.PkYn
+					,	AA.FkYn
+					,	AA.IdentityYn
+					,	AA.DefaultValue
+					,	AA.SortOrder
+				FROM	dbo.ADColumn AA WITH (NOLOCK)
+				WHERE	AA.TableID = #TableID#
+				AND		AA.PhysicalName = #PhysicalName#
+			]]>
+		</select>
+
+		<insert id="AddOrUpdateColumnDescription" parameterClass="ADColumn" >
+			<![CDATA[
+			IF NOT EXISTS 
+				(
+					SELECT	1 
+					FROM	SYS.EXTENDED_PROPERTIES
+					WHERE	[major_id]	= OBJECT_ID(#TableName#) 
+					AND		[name]		= N'MS_Description'
+					AND		[minor_id]	= 
+										(	SELECT	[column_id]
+											FROM	SYS.COLUMNS 
+											WHERE	[name] = #PhysicalName# 
+											AND		[object_id] = OBJECT_ID(#TableName#)
+										)
+				)
+                EXECUTE sp_addextendedproperty 
+					@name		= N'MS_Description', 
+					@value		= #LogicalName#,
+                    @level0type = N'SCHEMA', 
+					@level0name = #SchemaName#, 
+					@level1type = N'TABLE',
+                    @level1name = #TableName#, 
+					@level2type = N'COLUMN', 
+					@level2name = #PhysicalName#;
+            ELSE
+                EXECUTE sp_updateextendedproperty 
+					@name		= N'MS_Description', 
+					@value		= #LogicalName#,
+                    @level0type = N'SCHEMA', 
+					@level0name = #SchemaName#, 
+					@level1type = N'TABLE',
+                    @level1name = #TableName#, 
+					@level2type = N'COLUMN', 
+					@level2name = #PhysicalName#;
+			]]>
+		</insert>
 	</statements>
 </sqlMap>

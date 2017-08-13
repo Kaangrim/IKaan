@@ -46,11 +46,9 @@ namespace IKaan.Was.Service.SYS
 						case "ADDatabase":
 							req.SetList<ADDatabase>();
 							break;
-						case "ADSchema":
-							req.SetList<ADSchema>();
-							break;
 						case "ADTable":
-							req.SetList<ADTable>();
+							//req.SetList<ADTable>();
+							req.GetTableList();
 							break;
 						case "ADColumn":
 							req.SetList<ADColumn>();
@@ -116,11 +114,8 @@ namespace IKaan.Was.Service.SYS
 						case "ADDatabase":
 							req.SetData<ADDatabase>();
 							break;
-						case "ADSchema":
-							req.SetData<ADSchema>();
-							break;
 						case "ADTable":
-							req.SetData<ADTable>();
+							req.GetTableData();
 							break;
 						case "ADColumn":
 							req.SetData<ADColumn>();
@@ -195,13 +190,8 @@ namespace IKaan.Was.Service.SYS
 								case "ADDatabase":
 									req.SaveData<ADDatabase>();
 									break;
-								case "ADSchema":
-									req.SaveData<ADSchema>();
-									break;
 								case "ADTable":
-									var table = req.SaveData<ADTable>();
-									if (table.Columns != null && table.Columns.Count > 0)
-										req.SaveTableColumn(table.Columns);
+									req.SaveTableAndColumn();
 									break;
 							}
 						}
@@ -299,19 +289,251 @@ namespace IKaan.Was.Service.SYS
 			}
 		}
 
-		private static void SaveTableColumn(this WasRequest req, IList<ADColumn> list)
+		private static void GetTableList(this WasRequest req)
 		{
 			try
 			{
-				foreach (var data in list)
+				DataMap parameter = req.Parameter.JsonToAnyType<DataMap>();
+				int? serverID = parameter.GetValue("ServerID").ToIntegerNullToNull();
+				int? databaseID = parameter.GetValue("DatabaseID").ToIntegerNullToNull();
+
+				ADDatabase db = DaoFactory.Instance.QueryForObject<ADDatabase>("SelectADDatabase", new DataMap() { { "ID", databaseID } });
+				
+				if (db != null)
 				{
-					if (data.TableID == null)
+					DataMap map = new DataMap()
 					{
-						data.TableID = req.Result.ReturnValue.ToIntegerNullToNull();
+						{ "DatabaseName", db.DatabaseName }
+					};
+					string sqlId = string.Format("SelectADTableBy{0}", db.DbmsType);
+
+					IList<ADTable> tableList = new List<ADTable>();
+					IList<ADTableStatistics> list = new List<ADTableStatistics>();
+					switch (db.DatabaseName)
+					{
+						case "IKBAS":
+							list = DaoFactory.Instance.QueryForList<ADTableStatistics>(sqlId, map);
+							break;
+						case "IKBIZ":
+							list = DaoFactory.InstanceBiz.QueryForList<ADTableStatistics>(sqlId, map);
+							break;
+						case "IKLIB":
+							list = DaoFactory.InstanceLib.QueryForList<ADTableStatistics>(sqlId, map);
+							break;
+						case "IKSMP":
+							list = DaoFactory.InstanceSmp.QueryForList<ADTableStatistics>(sqlId, map);
+							break;
 					}
 
-					req.SaveSubData<ADColumn>(data);
+					if (list != null && list.Count > 0)
+					{
+						foreach (var data in list)
+						{
+							tableList.Add(new ADTable()
+							{
+								RowNo = data.RowNo,
+								ID = data.TableID,
+								DatabaseID = db.ID.ToIntegerNullToZero(),
+								DatabaseName = db.DatabaseName,
+								SchemaName = data.SchemaName,
+								TableName = data.TableName,
+								Description = data.Description,
+								UseYn = "Y"
+							});
+						}
+						req.Data = tableList;
+						req.Result.Count = tableList.Count;
+					}
+				}
+			}
+			catch
+			{
+				throw;
+			}
+		}
 
+		private static void GetTableData(this WasRequest req)
+		{
+			try
+			{
+				DataMap parameter = req.Parameter.JsonToAnyType<DataMap>();
+
+				int databaseID = parameter.GetValue("DatabaseID").ToIntegerNullToZero();
+				string tableName = parameter.GetValue("TableName").ToStringNullToEmpty();
+
+				ADDatabase db = DaoFactory.Instance.QueryForObject<ADDatabase>("SelectADDatabase", new DataMap() { { "ID", databaseID } });
+
+				if (db != null)
+				{
+					DataMap map = new DataMap()
+					{
+						{ "DatabaseID", db.ID },
+						{ "DatabaseName", db.DatabaseName },
+						{ "TableName", tableName }
+					};
+					string sqlId = string.Format("SelectADTableBy{0}", db.DbmsType);
+
+					ADTable table = new ADTable();
+					ADTableStatistics tableDB = new ADTableStatistics();
+					switch (db.DatabaseName)
+					{
+						case "IKBAS":
+							tableDB = DaoFactory.Instance.QueryForObject<ADTableStatistics>(sqlId, map);
+							break;
+						case "IKBIZ":
+							tableDB = DaoFactory.InstanceBiz.QueryForObject<ADTableStatistics>(sqlId, map);
+							break;
+						case "IKLIB":
+							tableDB = DaoFactory.InstanceLib.QueryForObject<ADTableStatistics>(sqlId, map);
+							break;
+						case "IKSMP":
+							tableDB = DaoFactory.InstanceSmp.QueryForObject<ADTableStatistics>(sqlId, map);
+							break;
+					}
+
+					if (tableDB != null)
+					{
+						table = new ADTable()
+						{
+							RowNo = tableDB.RowNo,
+							ID = tableDB.TableID,
+							DatabaseID = db.ID.ToIntegerNullToZero(),
+							DatabaseName = db.DatabaseName,
+							SchemaName = tableDB.SchemaName,
+							TableName = tableDB.TableName,
+							Description = tableDB.Description,
+							UseYn = "Y"
+						};
+
+						//Column List
+						sqlId = string.Format("SelectADColumnBy{0}", db.DbmsType);
+						IList<ADColumn> columns = new List<ADColumn>();
+						switch (db.DatabaseName)
+						{
+							case "IKBAS":
+								columns = DaoFactory.Instance.QueryForList<ADColumn>(sqlId, map);
+								break;
+							case "IKBIZ":
+								columns = DaoFactory.InstanceBiz.QueryForList<ADColumn>(sqlId, map);
+								break;
+							case "IKLIB":
+								columns = DaoFactory.InstanceLib.QueryForList<ADColumn>(sqlId, map);
+								break;
+							case "IKSMP":
+								columns = DaoFactory.InstanceSmp.QueryForList<ADColumn>(sqlId, map);
+								break;
+						}
+						table.Columns = columns;
+						req.Data = table;
+						req.Result.Count = 1;
+					}
+				}
+			}
+			catch
+			{
+				throw;
+			}
+		}
+
+		private static void SaveTableAndColumn(this WasRequest req)
+		{
+			try
+			{
+				ADTable table = req.Data.JsonToAnyType<ADTable>();
+				ADDatabase db = DaoFactory.Instance.QueryForObject<ADDatabase>("SelectADDatabase", new DataMap() { { "ID", table.DatabaseID } });
+
+				if (table != null)
+				{
+					DataMap map = new DataMap()
+					{
+						{ "DatabaseID", table.DatabaseID },
+						{ "TableName", table.TableName }
+					};
+					ADTable exists = DaoFactory.Instance.QueryForObject<ADTable>("SelectADTableExists", map);
+					if (exists == null)
+					{
+						table.CreateBy = req.User.UserId;
+						table.CreateByName = req.User.UserName;
+
+						object id = DaoFactory.Instance.Insert("InsertADTable", table);
+						table.ID = id.ToIntegerNullToNull();
+					}
+					else
+					{
+						table.UpdateBy = req.User.UserId;
+						table.UpdateByName = req.User.UserName;
+
+						DaoFactory.Instance.Update("UpdateADTable", table);
+					}
+
+					//MS_Description
+					switch (db.DatabaseName)
+					{
+						case "IKBAS":
+							DaoFactory.Instance.Insert("AddOrUpdateTableDescription", table);
+							break;
+						case "IKBIZ":
+							DaoFactory.InstanceBiz.Insert("AddOrUpdateTableDescription", table);
+							break;
+						case "IKLIB":
+							DaoFactory.InstanceLib.Insert("AddOrUpdateTableDescription", table);
+							break;
+						case "IKSMP":
+							DaoFactory.InstanceSmp.Insert("AddOrUpdateTableDescription", table);
+							break;
+					}
+					
+					if (table.Columns != null)
+					{
+						foreach (ADColumn column in table.Columns)
+						{
+							column.TableID = table.ID;
+							column.TableName = table.TableName;
+							column.SchemaName = table.SchemaName;
+
+							map = new DataMap()
+							{
+								{ "TableID", table.ID },
+								{ "PhysicalName", column.PhysicalName }
+							};
+
+							ADColumn columnExists = DaoFactory.Instance.QueryForObject<ADColumn>("SelectADColumnExists", map);
+							if (columnExists == null)
+							{
+								column.CreateBy = req.User.UserId;
+								column.CreateByName = req.User.UserName;
+								object columnID = DaoFactory.Instance.Insert("InsertADColumn", column);
+								column.ID = columnID.ToIntegerNullToNull();
+							}
+							else
+							{
+								column.UpdateBy = req.User.UserId;
+								column.UpdateByName = req.User.UserName;
+
+								DaoFactory.Instance.Update("UpdateADColumn", column);
+							}
+
+							//MS_Description
+							switch (db.DatabaseName)
+							{
+								case "IKBAS":
+									DaoFactory.Instance.Insert("AddOrUpdateColumnDescription", column);
+									break;
+								case "IKBIZ":
+									DaoFactory.InstanceBiz.Insert("AddOrUpdateColumnDescription", column);
+									break;
+								case "IKLIB":
+									DaoFactory.InstanceLib.Insert("AddOrUpdateColumnDescription", column);
+									break;
+								case "IKSMP":
+									DaoFactory.InstanceSmp.Insert("AddOrUpdateColumnDescription", column);
+									break;
+							}
+						}
+					}
+
+					req.Result.ReturnValue = table.TableName;
+					req.Result.Count = 1;
 				}
 			}
 			catch

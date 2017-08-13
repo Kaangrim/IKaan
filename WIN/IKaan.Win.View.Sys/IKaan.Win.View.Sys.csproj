@@ -97,12 +97,6 @@
     <Compile Include="AD\ADTableForm.designer.cs">
       <DependentUpon>ADTableForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="AD\ADSchemaForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AD\ADSchemaForm.designer.cs">
-      <DependentUpon>ADSchemaForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="AD\ADDatabaseForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -200,9 +194,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AD\ADTableForm.resx">
       <DependentUpon>ADTableForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AD\ADSchemaForm.resx">
-      <DependentUpon>ADSchemaForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AD\ADDatabaseForm.resx">
       <DependentUpon>ADDatabaseForm.cs</DependentUpon>

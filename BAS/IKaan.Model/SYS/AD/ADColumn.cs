@@ -50,5 +50,13 @@ namespace IKaan.Model.SYS.AD
 		[DataMember]
 		[Display(Name = "정렬순서")]
 		public int SortOrder { get; set; }
+
+		[DataMember]
+		[Display(Name = "스키마명")]
+		public string SchemaName { get; set; }
+
+		[DataMember]
+		[Display(Name = "테이블명")]
+		public string TableName { get; set; }
 	}
 }

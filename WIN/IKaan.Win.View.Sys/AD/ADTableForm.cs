@@ -31,21 +31,9 @@ namespace IKaan.Win.View.Sys.AD
 
 			lupDatabaseID.EditValueChanged += delegate (object sender, EventArgs e)
 			{
-				lupSchemaID.Clear();
-				lupSchemaID.BindData("SchemaList", null, true, new DataMap()
-				{
-					{ "ServerID", lupServerID.EditValue },
-					{ "DatabaseID", lupDatabaseID.EditValue }
-				});
-			};
-
-			lupSchemaID.EditValueChanged += delegate (object sender, EventArgs e)
-			{
-				if (this.IsLoaded)
+				if (IsLoaded)
 					DataLoad(null);
 			};
-
-			btnAddTables.Click += delegate (object sender, EventArgs e) { GetTables(); };
 		}
 
 		protected override void OnShown(EventArgs e)
@@ -57,7 +45,7 @@ namespace IKaan.Win.View.Sys.AD
 		protected override void InitButtons()
 		{
 			base.InitButtons();
-			SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true });
+			SetToolbarButtons(new ToolbarButtons() { Refresh = true, Save = true });
 		}
 		protected override void InitControls()
 		{
@@ -70,6 +58,7 @@ namespace IKaan.Win.View.Sys.AD
 			txtCreateByName.SetEnable(false);
 			txtUpdateDate.SetEnable(false);
 			txtUpdateByName.SetEnable(false);
+			txtSchemaName.SetEnable(false);
 
 			InitCombo();
 			InitGrid();
@@ -82,11 +71,6 @@ namespace IKaan.Win.View.Sys.AD
 			{
 				{ "ServerID", lupServerID.EditValue }
 			});
-			lupSchemaID.BindData("SchemaList", null, true, new DataMap()
-			{
-				{ "ServerID", lupServerID.EditValue },
-				{ "DatabaseID", lupDatabaseID.EditValue }
-			});
 		}
 
 		void InitGrid()
@@ -96,14 +80,14 @@ namespace IKaan.Win.View.Sys.AD
 			gridList.AddGridColumns(
 				new XGridColumn() { FieldName = "RowNo" },
 				new XGridColumn() { FieldName = "ID", Visible = false },
-				new XGridColumn() { FieldName = "TableName", Width = 100 },
-				new XGridColumn() { FieldName = "Description", Width = 100 },
-				new XGridColumn() { FieldName = "SchemaName", Width = 200 },
+				new XGridColumn() { FieldName = "TableName", Width = 150 },
+				new XGridColumn() { FieldName = "Description", Width = 200 },
+				new XGridColumn() { FieldName = "SchemaName", Width = 80 },
 				new XGridColumn() { FieldName = "DatabaseName", Width = 100, HorzAlignment = HorzAlignment.Center },
-				new XGridColumn() { FieldName = "CreateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
-				new XGridColumn() { FieldName = "CreateByName", Width = 80, HorzAlignment = HorzAlignment.Center },
-				new XGridColumn() { FieldName = "UpdateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
-				new XGridColumn() { FieldName = "UpdateByName", Width = 80, HorzAlignment = HorzAlignment.Center }
+				new XGridColumn() { FieldName = "CreateDate" },
+				new XGridColumn() { FieldName = "CreateByName" },
+				new XGridColumn() { FieldName = "UpdateDate" },
+				new XGridColumn() { FieldName = "UpdateByName" }
 			);
 			gridList.ColumnFix("RowNo");
 
@@ -117,7 +101,7 @@ namespace IKaan.Win.View.Sys.AD
 					if (e.Button == System.Windows.Forms.MouseButtons.Left && e.Clicks == 1)
 					{
 						GridView view = sender as GridView;
-						DetailDataLoad(view.GetRowCellValue(e.RowHandle, "ID"));
+						DetailDataLoad(view.GetRowCellValue(e.RowHandle, "TableName"));
 					}
 				}
 				catch(Exception ex)
@@ -163,7 +147,9 @@ namespace IKaan.Win.View.Sys.AD
 		protected override void DataInit()
 		{
 			ClearControlData<ADTable>();
-			SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true });
+			gridColumns.Clear<ADColumn>();
+
+			SetToolbarButtons(new ToolbarButtons() { Refresh = true, Save = true });
 			EditMode = EditModeEnum.New;
 			txtTableName.Focus();
 		}
@@ -174,7 +160,6 @@ namespace IKaan.Win.View.Sys.AD
 			{
 				{ "ServerID", lupServerID.EditValue },
 				{ "DatabaseID", lupDatabaseID.EditValue },
-				{ "SchemaID", lupSchemaID.EditValue },
 				{ "FindText", txtFindText.EditValue }
 			};
 			gridList.BindList<ADTable>("AD", "GetList", "Select", parameter);
@@ -189,12 +174,52 @@ namespace IKaan.Win.View.Sys.AD
 		{
 			try
 			{
-				var model = WasHandler.GetData<ADTable>("AD", "GetData", "Select", new DataMap() { { "ID", id } });
+				DataMap map = new DataMap()
+				{
+					{ "DatabaseID", lupDatabaseID.EditValue },
+					{ "TableName", id }
+				};
+				var model = WasHandler.GetData<ADTable>("AD", "GetData", "Select", map);
 				if (model == null)
 					throw new Exception("조회할 데이터가 없습니다.");
 
 				SetControlData(model);
-				SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true, Delete = true });
+				if (model.Columns == null)
+					model.Columns = new List<ADColumn>();
+
+				foreach (ADColumn col in model.Columns)
+				{
+					if (col.LogicalName.IsNullOrEmpty())
+					{
+						switch (col.PhysicalName)
+						{
+							case "ID":
+								col.LogicalName = "ID";
+								break;
+							case "CreateDate":
+								col.LogicalName = "최초생성일";
+								break;
+							case "CreateBy":
+								col.LogicalName = "최초생성자ID";
+								break;
+							case "CreateByName":
+								col.LogicalName = "최초생성자명";
+								break;
+							case "UpdateDate":
+								col.LogicalName = "최종수정일";
+								break;
+							case "UpdateBy":
+								col.LogicalName = "최종수정자ID";
+								break;
+							case "UpdateByName":
+								col.LogicalName = "최종수정자명";
+								break;
+						}
+					}
+				}
+				gridColumns.DataSource = model.Columns;
+
+				SetToolbarButtons(new ToolbarButtons() { Refresh = true, Save = true, Delete = true });
 				this.EditMode = EditModeEnum.Modify;
 				txtTableName.Focus();
 			}
@@ -210,7 +235,6 @@ namespace IKaan.Win.View.Sys.AD
 			{
 				var model = this.GetControlData<ADTable>();
 				model.DatabaseID = lupDatabaseID.EditValue.ToIntegerNullToZero();
-				model.SchemaID = lupSchemaID.EditValue.ToIntegerNullToZero();
 				List<ADColumn> columns = new List<ADColumn>();
 
 				if (gridColumns.RowCount > 0)
@@ -246,21 +270,6 @@ namespace IKaan.Win.View.Sys.AD
 					ShowMsgBox("삭제하였습니다.");
 					callback(arg, null);
 				}
-			}
-			catch (Exception ex)
-			{
-				ShowErrBox(ex);
-			}
-		}
-
-		void GetTables()
-		{
-			try
-			{
-				WasHandler.Execute<ADTable>("AD", "SaveDatabaseToTables", null, new DataMap()
-				{
-					{ "ServerID", lupServerID.EditValue }
-				}, null);
 			}
 			catch (Exception ex)
 			{

@@ -117,9 +117,11 @@
 		</update>
 		<delete id="DeleteAAView" parameterClass="DataMap">
 			<![CDATA[
-				DELETE 
-				FROM	dbo.AAView
-				WHERE	ID = #ID#
+				DELETE FROM dbo.AAViewButton	 WHERE ViewID	= #ID#;
+				DELETE FROM dbo.AAViewRole		 WHERE ViewID	= #ID#;
+				DELETE FROM dbo.AAViewRoleButton WHERE ViewID	= #ID#;
+				DELETE FROM dbo.AAMenuView		 WHERE ViewID	= #ID#;
+				DELETE FROM dbo.AAView			 WHERE ID		= #ID#;
 			]]>
 		</delete>
 

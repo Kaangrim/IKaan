@@ -213,7 +213,6 @@ D:\Repositories\IKaan\WIN\IKaan.Win.View.Sys\obj\Debug\IKaan.Win.View.Sys.AA.AAB
 D:\Repositories\IKaan\WIN\IKaan.Win.View.Sys\obj\Debug\IKaan.Win.View.Sys.AC.ACFtpForm.resources
 D:\Repositories\IKaan\WIN\IKaan.Win.View.Sys\obj\Debug\IKaan.Win.View.Sys.AD.ADTableStatisticsForm.resources
 D:\Repositories\IKaan\WIN\IKaan.Win.View.Sys\obj\Debug\IKaan.Win.View.Sys.AD.ADTableForm.resources
-D:\Repositories\IKaan\WIN\IKaan.Win.View.Sys\obj\Debug\IKaan.Win.View.Sys.AD.ADSchemaForm.resources
 D:\Repositories\IKaan\WIN\IKaan.Win.View.Sys\obj\Debug\IKaan.Win.View.Sys.AD.ADDatabaseForm.resources
 D:\Repositories\IKaan\WIN\IKaan.Win.View.Sys\obj\Debug\IKaan.Win.View.Sys.AD.ADServerForm.resources
 D:\Repositories\IKaan\WIN\IKaan.Win.View.Sys\obj\Debug\IKaan.Win.View.Sys.AD.ADSystemForm.resources

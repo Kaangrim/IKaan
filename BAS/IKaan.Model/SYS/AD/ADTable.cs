@@ -13,8 +13,8 @@ namespace IKaan.Model.SYS.AD
 		public int DatabaseID { get; set; }
 
 		[DataMember]
-		[Display(Name = "스키마ID")]
-		public int SchemaID { get; set; }
+		[Display(Name = "스키마명")]
+		public string SchemaName { get; set; }
 
 		[DataMember]
 		[Display(Name = "테이블명")]
@@ -27,6 +27,10 @@ namespace IKaan.Model.SYS.AD
 		[DataMember]
 		[Display(Name = "사용여부")]
 		public string UseYn { get; set; }
+
+		[DataMember]
+		[Display(Name = "데이터베이스명")]
+		public string DatabaseName { get; set; }
 
 		[DataMember]
 		[Display(Name = "컬럼")]

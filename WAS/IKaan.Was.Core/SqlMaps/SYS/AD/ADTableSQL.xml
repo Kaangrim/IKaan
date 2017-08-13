@@ -17,16 +17,12 @@
 					,	AA.UpdateByName
 					
 					,	AA.DatabaseID
-					,	AA.SchemaID
+					,	AA.SchemaName
 					,	AA.TableName
 					,	AA.Description
 					,	AA.UseYn
 					,	CC.DatabaseName
-					,	BB.SchemaName
 				FROM	dbo.ADTable AA WITH (NOLOCK)
-						LEFT JOIN
-							dbo.ADSchema BB WITH (NOLOCK)
-								ON AA.SchemaId = BB.ID
 						LEFT JOIN
 							dbo.ADDatabase CC WITH (NOLOCK)
 								ON AA.DatabaseID = CC.ID
@@ -40,11 +36,6 @@
 			<isNotEmpty property="DatabaseID">
 				<![CDATA[
 					AND		AA.DatabaseID = #DatabaseID#
-				]]>
-			</isNotEmpty>
-			<isNotEmpty property="SchemaID">
-				<![CDATA[
-					AND		AA.SchemaID = #SchemaID#
 				]]>
 			</isNotEmpty>
 			<isNotEmpty property="FindText">
@@ -61,7 +52,7 @@
 		</select>
 		<select id="SelectADTable" parameterClass="DataMap" resultClass="ADTable" >
 			<![CDATA[
-				SELECT	ROW_NUMBER() OVER (ORDER BY BB.SchemaName, AA.TableName)	AS RowNo
+				SELECT	ROW_NUMBER() OVER (ORDER BY AA.SchemaName, AA.TableName)	AS RowNo
 					,	AA.ID
 					,	AA.CreateDate
 					,	AA.CreateBy
@@ -72,15 +63,11 @@
 					
 					,	AA.DatabaseID
 					,	CC.DatabaseName
-					,	AA.SchemaID
-					,	BB.SchemaName
+					,	AA.SchemaName
 					,	AA.TableName
 					,	AA.Description
 					,	AA.UseYn
 				FROM	dbo.ADTable AA WITH (NOLOCK)
-						LEFT JOIN
-							dbo.ADSchema BB WITH (NOLOCK)
-								ON AA.SchemaId = BB.ID
 						LEFT JOIN
 							dbo.ADDatabase CC WITH (NOLOCK)
 								ON AA.DatabaseID = CC.ID
@@ -93,12 +80,12 @@
 				INSERT INTO dbo.ADTable
 				( 
 					CreateDate, CreateBy, CreateByName,
-					DatabaseID, SchemaID, TableName, UseYn, Description
+					DatabaseID, SchemaName, TableName, UseYn, Description
 				)
 				VALUES
 				( 
-					CreateDate, CreateBy, CreateByName,
-					#DatabaseID#, #SchemaID#, #TableName#, #UseYn#, #Description#
+					GETDATE(), #CreateBy#, #CreateByName#,
+					#DatabaseID#, #SchemaName#, #TableName#, #UseYn#, #Description#
 				)
 			]]>
 			<selectKey type="post" property="ID" resultClass="Int">
@@ -107,7 +94,7 @@
 				]]>
 			</selectKey>
 		</insert>
-		<update id="UpdateADTables" parameterClass="ADTable">
+		<update id="UpdateADTable" parameterClass="ADTable">
 			<![CDATA[
 				UPDATE  dbo.ADTable
 				SET     UpdateDate	= GetDate()
@@ -115,7 +102,7 @@
 					,	UpdateByName= #UpdateByName#
 					
 					,	DatabaseID	= #DatabaseID#
-					,	SchemaID	= #SchemaID#
+					,	SchemaName	= #SchemaName#
 					,	TableName	= #TableName#
 					,	UseYn		= #UseYn#
 					,	Description	= #Description#
@@ -124,22 +111,23 @@
 		</update>
 		<delete id="DeleteADTable" parameterClass="DataMap">
 			<![CDATA[
-				DELETE 
-				FROM	dbo.ADTable
-				WHERE	ID = #ID#
+				DELETE FROM dbo.ADTable WHERE ID = #ID#;
 			]]>
 		</delete>
 
 		<select id="SelectIndex" parameterClass="DataMap" resultClass="DataMap" >
 			<![CDATA[
-				SELECT	DB_NAME(database_id)		AS [DatabaseName]
-				,	OBJECT_NAME(a.object_id)		AS [TableName]
-				,	a.index_id						AS [IndexId]
-				,	b.name							AS [IndexName]
-				,	a.avg_fragmentation_in_percent	AS [AvgFragInPer]
-			FROM	sys.dm_db_index_physical_stats (DB_ID(), OBJECT_ID(''' + @TableName + '''), NULL, NULL, NULL) AS a
-					JOIN sys.indexes AS b ON a.object_id = b.object_id AND a.index_id = b.index_id
-			WHERE	a.database_id = DB_ID()
+				SELECT	DB_NAME(database_id)			AS [DatabaseName]
+					,	OBJECT_NAME(a.object_id)		AS [TableName]
+					,	a.index_id						AS [IndexId]
+					,	b.name							AS [IndexName]
+					,	a.avg_fragmentation_in_percent	AS [AvgFragInPer]
+				FROM	sys.dm_db_index_physical_stats (DB_ID(), OBJECT_ID(''' + @TableName + '''), NULL, NULL, NULL) AS a
+						JOIN 
+							sys.indexes AS b 
+								ON a.object_id = b.object_id 
+									AND a.index_id = b.index_id
+				WHERE	a.database_id = DB_ID()
 			]]>
 		</select>
 
@@ -244,9 +232,9 @@
 						) aa
 				WHERE	1=1
 			]]>
-			<isNotEmpty property="SchemaName">
+			<isNotEmpty property="TableName">
 				<![CDATA[
-					AND		aa.SchemaName = #SchemaName#
+					AND		aa.TableName = #TableName#
 				]]>
 			</isNotEmpty>
 			<![CDATA[
@@ -273,9 +261,69 @@
 					,	null											as LastSystemUpdate
 				FROM	INFORMATION_SCHEMA.TABLES AA
 				WHERE	AA.TABLE_TYPE	= 'BASE TABLE'
-				AND		AA.TABLE_SCHEMA = #SchemaName#
+			]]>
+			<isNotEmpty property="TableName">
+				<![CDATA[
+				AND		AA.TABLE_NAME = #TableName#
+			]]>
+			</isNotEmpty>
+			<![CDATA[
 				ORDER BY RowNo
 			]]>
 		</select>
+
+		<select id="SelectADTableExists" parameterClass="DataMap" resultClass="ADTable" >
+			<![CDATA[
+				SELECT	ROW_NUMBER() OVER (ORDER BY AA.SchemaName, AA.TableName)	AS RowNo
+					,	AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.DatabaseID
+					,	CC.DatabaseName
+					,	AA.SchemaName
+					,	AA.TableName
+					,	AA.Description
+					,	AA.UseYn
+				FROM	dbo.ADTable AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.ADDatabase CC WITH (NOLOCK)
+								ON AA.DatabaseID = CC.ID
+				WHERE	AA.DatabaseID = #DatabaseID#
+				AND		AA.TableName = #TableName#
+			]]>
+		</select>
+
+		<insert id="AddOrUpdateTableDescription" parameterClass="ADTable" >
+			<![CDATA[
+			IF NOT EXISTS 
+				(
+					SELECT	1 
+					FROM	SYS.EXTENDED_PROPERTIES 
+					WHERE	[major_id] = OBJECT_ID(#TableName#) 
+					AND		[name] = N'MS_Description' 
+					AND		[minor_id] = 0
+				)
+				EXECUTE sp_addextendedproperty
+					@name		= N'MS_Description',
+					@value		= #Description#, 
+					@level0type = N'SCHEMA', 
+					@level0name = #SchemaName#, 
+					@level1type = N'TABLE',
+					@level1name = #TableName#;
+			ELSE
+				EXECUTE sp_updateextendedproperty  
+					@name		= N'MS_Description', 
+					@value		= #Description#, 
+					@level0type	= N'SCHEMA', 
+					@level0name = #SchemaName#,
+					@level1type = N'TABLE', 
+					@level1name = #TableName#;
+			]]>
+		</insert>
 	</statements>
 </sqlMap>

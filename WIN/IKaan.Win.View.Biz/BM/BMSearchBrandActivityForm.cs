@@ -57,7 +57,15 @@ namespace IKaan.Win.View.Biz.BM
 					throw new Exception("조회할 데이터가 없습니다.");
 
 				SetControlData(model);
-				rteDescription.EditValue = model.Description;
+				if (model.DescriptionRTF.IsNullOrEmpty() == false)
+				{
+					rteDescription.EditValue = model.DescriptionRTF;
+				}
+				else
+				{
+					if (model.Description.IsNullOrEmpty() == false)
+						rteDescription.EditText = model.Description;
+				}
 
 				SetToolbarButtons(new ToolbarButtons() { New = true, Save = true, SaveAndNew = true, SaveAndClose = true, Delete = true });
 				this.EditMode = EditModeEnum.Modify;
@@ -84,7 +92,8 @@ namespace IKaan.Win.View.Biz.BM
 			try
 			{
 				var model = this.GetControlData<BMSearchBrandActivity>();
-				model.Description = rteDescription.EditValue.ToStringNullToNull();
+				model.Description = rteDescription.EditText;
+				model.DescriptionRTF = rteDescription.EditValue;
 
 				using (var res = WasHandler.Execute<BMSearchBrandActivity>("BM", "Save", (this.EditMode == EditModeEnum.New) ? "Insert" : "Update", model, "ID"))
 				{

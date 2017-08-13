@@ -19,5 +19,9 @@ namespace IKaan.Model.BIZ.BM
 		[DataMember]
 		[Display(Name = "내용")]
 		public string Description { get; set; }
+
+		[DataMember]
+		[Display(Name = "내용(RTF)")]
+		public string DescriptionRTF { get; set; }
 	}
 }

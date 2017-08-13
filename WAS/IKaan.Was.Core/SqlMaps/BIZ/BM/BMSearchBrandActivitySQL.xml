@@ -19,6 +19,7 @@
 					,	AA.SearchBrandID
 					,	AA.ActivityDate
 					,	AA.Description
+					,	AA.DescriptionRTF
 					
 				FROM	dbo.BMSearchBrandActivity AA WITH (NOLOCK)
 				WHERE	AA.SearchBrandID = #SearchBrandID#
@@ -38,6 +39,7 @@
 					,	AA.SearchBrandID
 					,	AA.ActivityDate
 					,	AA.Description
+					,	AA.DescriptionRTF
 					
 				FROM	dbo.BMSearchBrandActivity AA WITH (NOLOCK)
 				WHERE	AA.ID = #ID#
@@ -48,12 +50,12 @@
 				INSERT INTO dbo.BMSearchBrandActivity
 				( 
 					CreateDate, CreateBy, CreateByName,
-					SearchBrandID, ActivityDate, Description
+					SearchBrandID, ActivityDate, Description, DescriptionRTF
 				)
 				VALUES
 				(
 					GetDate(), #CreateBy#, #CreateByName#,
-					#SearchBrandID#, #ActivityDate#, #Description#
+					#SearchBrandID#, #ActivityDate#, #Description#, #DescriptionRTF#
 				)
 			]]>
 			<selectKey type="post" property="ID" resultClass="Int">
@@ -72,6 +74,7 @@
 					,	SearchBrandID	= #SearchBrandID#
 					,	ActivityDate	= #ActivityDate#
 					,	Description		= #Description#
+					,	DescriptionRTF	= #DescriptionRTF#
 				WHERE	ID				= #ID#
 			]]>
 		</update>
