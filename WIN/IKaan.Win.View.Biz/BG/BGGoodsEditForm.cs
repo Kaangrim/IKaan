@@ -22,6 +22,7 @@ namespace IKaan.Win.View.Biz.BG
 		protected override void OnShown(EventArgs e)
 		{
 			base.OnShown(e);
+			txtGoodsName.Focus();
 		}
 
 		protected override void InitButtons()
@@ -31,6 +32,10 @@ namespace IKaan.Win.View.Biz.BG
 		}
 		protected override void InitControls()
 		{
+			lcItemGoodsName.Tag = true;
+			lupCategoryID.Tag = true;
+			lupBrandID.Tag = true;
+
 			base.InitControls();
 
 			SetFieldNames();
@@ -40,7 +45,14 @@ namespace IKaan.Win.View.Biz.BG
 			txtCreateByName.SetEnable(false);
 			txtUpdateDate.SetEnable(false);
 			txtUpdateByName.SetEnable(false);
-			
+
+			lupCategoryID.BindData("CategoryList");
+			lupBrandID.BindData("BrandList");
+			lupAge.BindData("Age");
+			lupGender.BindData("Gender");
+			lupOrigin.BindData("Origin");
+			lupSeason.BindData("Season");
+
 			InitGrid();
 		}
 
@@ -64,51 +76,6 @@ namespace IKaan.Win.View.Biz.BG
 			);
 			gridAttrList.ColumnFix("RowNo");
 			#endregion
-
-			//#region Brand Image List
-			//gridDetail.Init();
-			//gridDetail.AddGridColumns(
-			//	new XGridColumn() { FieldName = "RowNo" },
-			//	new XGridColumn() { FieldName = "ID", Visible = false },
-			//	new XGridColumn() { FieldName = "BrandID", Visible = false },
-			//	new XGridColumn() { FieldName = "ImageType", Width = 100 },
-			//	new XGridColumn() { FieldName = "ImageUrl", Width = 300 },
-			//	new XGridColumn() { FieldName = "CreateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
-			//	new XGridColumn() { FieldName = "CreateByName", Width = 80, HorzAlignment = HorzAlignment.Center },
-			//	new XGridColumn() { FieldName = "UpdateDate", Width = 150, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime, FormatString = "yyyy.MM.dd HH:mm:ss" },
-			//	new XGridColumn() { FieldName = "UpdateByName", Width = 80, HorzAlignment = HorzAlignment.Center }
-			//);
-			//gridDetail.SetRepositoryItemLookUpEdit("ImageType");
-			//gridDetail.SetRepositoryItemButtonEdit("ImageUrl");
-			//gridDetail.SetColumnBackColor(SkinUtils.ForeColor, "RowNo");
-			//gridDetail.SetColumnForeColor(SkinUtils.BackColor, "RowNo");
-			//gridDetail.ColumnFix("RowNo");
-
-			//gridDetail.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
-			//{
-			//	if (e.RowHandle < 0)
-			//		return;
-
-			//	try
-			//	{
-			//		if (e.Button == MouseButtons.Left && e.Clicks == 2)
-			//		{
-			//			GridView view = sender as GridView;
-			//			AddImage(new DataMap()
-			//			{
-			//				{ "ID", view.GetRowCellValue(e.RowHandle, "ID") },
-			//				{ "BrandID", view.GetRowCellValue(e.RowHandle, "BrandID") },
-			//				{ "ImageType", view.GetRowCellValue(e.RowHandle, "ImageType") },
-			//				{ "ImageUrl", view.GetRowCellValue(e.RowHandle, "ImageUrl") }
-			//			});
-			//		}
-			//	}
-			//	catch (Exception ex)
-			//	{
-			//		ShowErrBox(ex);
-			//	}
-			//};
-			//#endregion
 
 			#region Option List
 			gridOption.Init();
@@ -166,7 +133,6 @@ namespace IKaan.Win.View.Biz.BG
 			ClearControlData<BGGoods>();
 			gridOption.Clear<BGGoodsItem>();
 			gridImage.Clear<BGGoodsImage>();
-			gridDetail.Clear<BGGoodsDetail>();
 			gridPrice.Clear<BGGoodsPrice>();
 
 			SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true });
@@ -203,7 +169,6 @@ namespace IKaan.Win.View.Biz.BG
 				SetControlData(model);
 				gridOption.DataSource = goodsOption;
 				gridImage.DataSource = goodsImage;
-				gridDetail.DataSource = goodsDetail;
 				gridPrice.DataSource = goodsPrice;
 
 				SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true, Delete = true });

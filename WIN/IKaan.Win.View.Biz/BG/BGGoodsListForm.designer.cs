@@ -39,7 +39,6 @@
 			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions9 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
 			this.txtFindText = new DevExpress.XtraEditors.TextEdit();
 			this.gridList = new IKaan.Win.Core.Controls.Grid.XGrid();
-			this.splitterItem1 = new DevExpress.XtraLayout.SplitterItem();
 			this.lcGroupSearch = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.lcItemBrand = new DevExpress.XtraLayout.LayoutControlItem();
 			this.lupBrandID = new IKaan.Win.Core.Controls.Common.XLookup();
@@ -74,7 +73,6 @@
 			this.lc.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupBase)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.txtFindText.Properties)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.splitterItem1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupSearch)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemBrand)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lupBrandID.Properties)).BeginInit();
@@ -132,7 +130,6 @@
 			// lcGroupBase
 			// 
 			this.lcGroupBase.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
-            this.splitterItem1,
             this.lcGroupSearch,
             this.lcGroupList,
             this.splitterItem2});
@@ -169,15 +166,8 @@
 			this.gridList.ReadOnly = false;
 			this.gridList.ShowFooter = false;
 			this.gridList.ShowGroupPanel = false;
-			this.gridList.Size = new System.Drawing.Size(718, 510);
+			this.gridList.Size = new System.Drawing.Size(730, 510);
 			this.gridList.TabIndex = 7;
-			// 
-			// splitterItem1
-			// 
-			this.splitterItem1.AllowHotTrack = true;
-			this.splitterItem1.Location = new System.Drawing.Point(974, 0);
-			this.splitterItem1.Name = "splitterItem1";
-			this.splitterItem1.Size = new System.Drawing.Size(12, 548);
 			// 
 			// lcGroupSearch
 			// 
@@ -279,11 +269,8 @@
 			// 
 			this.emptySpaceItem2.AllowHotTrack = false;
 			this.emptySpaceItem2.Location = new System.Drawing.Point(0, 264);
-			this.emptySpaceItem2.MaxSize = new System.Drawing.Size(226, 0);
-			this.emptySpaceItem2.MinSize = new System.Drawing.Size(226, 10);
 			this.emptySpaceItem2.Name = "emptySpaceItem2";
 			this.emptySpaceItem2.Size = new System.Drawing.Size(226, 251);
-			this.emptySpaceItem2.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
 			this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
 			// 
 			// lcItemFindText
@@ -456,7 +443,7 @@
 			this.layoutControlItem3.Control = this.gridList;
 			this.layoutControlItem3.Location = new System.Drawing.Point(0, 34);
 			this.layoutControlItem3.Name = "layoutControlItem3";
-			this.layoutControlItem3.Size = new System.Drawing.Size(722, 514);
+			this.layoutControlItem3.Size = new System.Drawing.Size(734, 514);
 			this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
 			this.layoutControlItem3.TextVisible = false;
 			// 
@@ -468,7 +455,7 @@
             this.lcGroupListEdit});
 			this.lcGroupList.Location = new System.Drawing.Point(252, 0);
 			this.lcGroupList.Name = "lcGroupList";
-			this.lcGroupList.Size = new System.Drawing.Size(722, 548);
+			this.lcGroupList.Size = new System.Drawing.Size(734, 548);
 			this.lcGroupList.TextVisible = false;
 			// 
 			// lcGroupListEdit
@@ -479,7 +466,7 @@
 			this.lcGroupListEdit.Location = new System.Drawing.Point(0, 0);
 			this.lcGroupListEdit.Name = "lcGroupListEdit";
 			this.lcGroupListEdit.Padding = new DevExpress.XtraLayout.Utils.Padding(2, 2, 2, 2);
-			this.lcGroupListEdit.Size = new System.Drawing.Size(722, 34);
+			this.lcGroupListEdit.Size = new System.Drawing.Size(734, 34);
 			this.lcGroupListEdit.TextVisible = false;
 			// 
 			// emptySpaceItem1
@@ -487,15 +474,15 @@
 			this.emptySpaceItem1.AllowHotTrack = false;
 			this.emptySpaceItem1.Location = new System.Drawing.Point(0, 0);
 			this.emptySpaceItem1.Name = "emptySpaceItem1";
-			this.emptySpaceItem1.Size = new System.Drawing.Size(448, 24);
+			this.emptySpaceItem1.Size = new System.Drawing.Size(456, 24);
 			this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
 			// 
 			// lcItemGridType
 			// 
 			this.lcItemGridType.Control = this.lupGridType;
-			this.lcItemGridType.Location = new System.Drawing.Point(448, 0);
+			this.lcItemGridType.Location = new System.Drawing.Point(456, 0);
 			this.lcItemGridType.Name = "lcItemGridType";
-			this.lcItemGridType.Size = new System.Drawing.Size(264, 24);
+			this.lcItemGridType.Size = new System.Drawing.Size(268, 24);
 			this.lcItemGridType.TextSize = new System.Drawing.Size(99, 14);
 			// 
 			// lupGridType
@@ -503,14 +490,14 @@
 			this.lupGridType.DisplayMember = "";
 			this.lupGridType.GroupCode = null;
 			this.lupGridType.ListMember = "ListName";
-			this.lupGridType.Location = new System.Drawing.Point(812, 9);
+			this.lupGridType.Location = new System.Drawing.Point(820, 9);
 			this.lupGridType.Name = "lupGridType";
 			this.lupGridType.NullText = "[EditValue is null]";
 			this.lupGridType.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo),
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions9, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
 			this.lupGridType.SelectedIndex = -1;
-			this.lupGridType.Size = new System.Drawing.Size(157, 20);
+			this.lupGridType.Size = new System.Drawing.Size(161, 20);
 			this.lupGridType.StyleController = this.lc;
 			this.lupGridType.TabIndex = 8;
 			this.lupGridType.ValueMember = "";
@@ -536,7 +523,6 @@
 			this.lc.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupBase)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.txtFindText.Properties)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.splitterItem1)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupSearch)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemBrand)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lupBrandID.Properties)).EndInit();
@@ -573,7 +559,6 @@
 		}
 
 		#endregion
-		private DevExpress.XtraLayout.SplitterItem splitterItem1;
 		private DevExpress.XtraEditors.TextEdit txtFindText;
 		private IKaan.Win.Core.Controls.Grid.XGrid gridList;
 		private DevExpress.XtraLayout.LayoutControlGroup lcGroupSearch;
