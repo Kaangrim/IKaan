@@ -7,7 +7,7 @@
 	<statements>
 		<select id="SelectBGGoodsImageList" parameterClass="DataMap" resultClass="BGGoodsImage" >
 			<![CDATA[
-				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
+				SELECT  ROW_NUMBER() OVER (ORDER BY M1.SortOrder, M2.SortOrder, AA.ID)	AS RowNo
 					,	AA.ID
 					,	AA.CreateDate
 					,	AA.CreateBy
@@ -26,13 +26,13 @@
 					
 				FROM	dbo.BGGoodsImage AA WITH (NOLOCK)
 						LEFT JOIN
-							dbo.ACCode M1 WITH (NOLOCK)
+							IKBAS.dbo.ACCode M1 WITH (NOLOCK)
 								ON AA.ImageType = M1.Code
-									AND M1.ParentCode = 'GoodsImageType'
+									AND M1.ParentCode = 'ImageType'
 						LEFT JOIN
-							dbo.ACCode M2 WITH (NOLOCK)
+							IKBAS.dbo.ACCode M2 WITH (NOLOCK)
 								ON AA.ImageGroup = M2.Code
-									AND M2.ParentCode = 'GoodsImageGroup'
+									AND M2.ParentCode = 'ImageGroup'
 				WHERE	AA.GoodsID = #GoodsID#
 				ORDER BY RowNo
 			]]>

@@ -8,8 +8,8 @@ namespace IKaan.Model.Base
 	public class ModelBase: IModelBase
 	{
 		[DataMember]
-		[Display(Name = "변경여부")]
-		public bool Modified { get; set; }
+		[Display(Name = "ROW상태")]
+		public string RowState { get; set; }
 
 		[DataMember]
 		[Display(Name = "선택여부")]

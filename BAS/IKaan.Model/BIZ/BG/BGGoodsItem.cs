@@ -12,10 +12,6 @@ namespace IKaan.Model.BIZ.BG
 		public int? GoodsID { get; set; }
 
 		[DataMember]
-		[Display(Name = "언어코드")]
-		public string LanguageCode { get; set; }
-
-		[DataMember]
 		[Display(Name = "옵션1유형")]
 		public string Option1Type { get; set; }
 
@@ -30,9 +26,5 @@ namespace IKaan.Model.BIZ.BG
 		[DataMember]
 		[Display(Name = "옵션2명")]
 		public string Option2Name { get; set; }
-
-		[DataMember]
-		[Display(Name = "언어명")]
-		public string LanguageName { get; set; }
 	}
 }

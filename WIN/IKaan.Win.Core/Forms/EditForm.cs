@@ -210,7 +210,21 @@ namespace IKaan.Win.Core.Forms
 					lc.Items.OfType<LayoutControlGroup>().Where(x => x.Name.Equals("lcGroupSearch")).ToList().ForEach(group =>
 					{
 						group.Text = "검색조건";
-						group.ExpandButtonVisible = false;
+						group.ExpandButtonVisible = true;						
+					});
+
+					lc.Items.OfType<EmptySpaceItem>().Where(x => x.Name == "esSearchTitle").ToList().ForEach(x =>
+					{
+						try
+						{
+							x.AppearanceItemCaption.BackColor = Color.FromArgb(50, 50, 50);
+							x.AppearanceItemCaption.ForeColor = Color.FromArgb(192, 192, 192);
+							x.AppearanceItemCaption.TextOptions.HAlignment = HorzAlignment.Center;						
+						}
+						catch
+						{
+							throw;
+						}
 					});
 				}
 				catch

@@ -16,46 +16,48 @@
 					,	AA.UpdateBy
 					,	AA.UpdateByName
 					
-					,	AA.StyleNo
+					,	AA.GoodsCode
+					,	AA.GoodsName
 					,	AA.BrandID
-					,	AA.Age
-					,	AA.Gender
-					,	AA.ReleaseYear
-					,	AA.Season
-					,	AA.Origin
 					,	AA.CategoryID
+					,	AA.ListPrice
+					,	AA.SalePrice
 					,	AA.UseYn
-					,	AA.AbroadYn
 					
-					,	BB.GoodsName
 					,	CC.BrandName
+					,	BB.CategoryName
+					,	GI.ImageUrl
 					
 				FROM	dbo.BGGoods AA WITH (NOLOCK)
 						LEFT JOIN
-							dbo.BGGoodsDetail BB WITH (NOLOCK)
-								ON AA.ID = BB.GoodsID
-									AND BB.LanguageCode = #LanguageCode#
-						LEFT JOIN
-							dbo.LMBrand CC WITH (NOLOCK)
+							dbo.BMBrand CC WITH (NOLOCK)
 								ON AA.BrandID = CC.ID
+						LEFT JOIN
+							dbo.BGCategory BB WITH (NOLOCK)
+								ON AA.CategoryID = BB.ID
+						LEFT JOIN
+							dbo.BGGoodsImage GI WITH (NOLOCK)
+								ON AA.ID = GI.GoodsID
+									AND GI.ImageType  = 'GM'
+									AND GI.ImageGroup = 'M'
 				WHERE	1=1				
 			]]>
 			<isNotEmpty property="FindText">
 				<![CDATA[
 					AND	(
-							AA.StyleNo		LIKE '%' + #FindText# + '%' OR
-							BB.GoodsName	LIKE '%' + #FindText# + '%'
+							AA.GoodsCode	LIKE '%' + #FindText# + '%' OR
+							AA.GoodsName	LIKE '%' + #FindText# + '%'
 						)
 				]]>
 			</isNotEmpty>
-			<isNotEmpty property="GoodsNo">
+			<isNotEmpty property="GoodsCode">
 				<![CDATA[
-					AND		AA.StyleNo	= #StyleNo#
+					AND		AA.GoodsCode	= #GoodsCode#
 				]]>
 			</isNotEmpty>
 			<isNotEmpty property="GoodsName">
 				<![CDATA[
-					AND		BB.GoodsName	LIKE '%'+#GoodsName#+'%'
+					AND		AA.GoodsName	LIKE '%'+#GoodsName#+'%'
 				]]>
 			</isNotEmpty>
 			<isNotEmpty property="BrandID">
@@ -70,32 +72,39 @@
 			</isNotEmpty>
 			<isNotEmpty property="Age">
 				<![CDATA[
-					AND		AA.Age	= #Age#
+					AND		AA.GoodsID IN (	SELECT	GoodsID
+											FROM	dbo.BGGoodsAttribute
+											WHERE	AttrType = 'Age'
+											AND		AttrCode = #Age# )
 				]]>
 			</isNotEmpty>
 			<isNotEmpty property="Gender">
 				<![CDATA[
-					AND		AA.Gender	= #Gender#
+					AND		AA.GoodsID IN (	SELECT	GoodsID
+											FROM	dbo.BGGoodsAttribute
+											WHERE	AttrType = 'Gender'
+											AND		AttrCode = #Gender# )
 				]]>
 			</isNotEmpty>
 			<isNotEmpty property="Season">
 				<![CDATA[
-					AND		AA.Season	= #Season#
+					AND		AA.GoodsID IN (	SELECT	GoodsID
+											FROM	dbo.BGGoodsAttribute
+											WHERE	AttrType = 'Season'
+											AND		AttrCode = #Season# )
 				]]>
 			</isNotEmpty>
 			<isNotEmpty property="Origin">
 				<![CDATA[
-					AND		AA.Origin	= #Origin#
+					AND		AA.GoodsID IN (	SELECT	GoodsID
+											FROM	dbo.BGGoodsAttribute
+											WHERE	AttrType = 'Origin'
+											AND		AttrCode = #Origin# )
 				]]>
 			</isNotEmpty>
 			<isNotEmpty property="UseYn">
 				<![CDATA[
 					AND		AA.UseYn	= #UseYn#
-				]]>
-			</isNotEmpty>
-			<isNotEmpty property="AbroadYn">
-				<![CDATA[
-					AND		AA.AbroadYn	= #AbroadYn#
 				]]>
 			</isNotEmpty>
 			<![CDATA[
@@ -112,25 +121,15 @@
 					,	AA.UpdateBy
 					,	AA.UpdateByName
 					
-					,	AA.StyleNo
+					,	AA.GoodsCode
+					,	AA.GoodsName
 					,	AA.BrandID
-					,	AA.Age
-					,	AA.Gender
-					,	AA.ReleaseYear
-					,	AA.Season
-					,	AA.Origin
 					,	AA.CategoryID
+					,	AA.ListPrice
+					,	AA.SalePrice
 					,	AA.UseYn
-					,	AA.AbroadYn
-					
-					,	BB.GoodsName
-					,	BB.Description
 					
 				FROM	dbo.BGGoods AA WITH (NOLOCK)
-						LEFT JOIN
-							dbo.BGGoodsDetail BB WITH (NOLOCK)
-								ON AA.ID = BB.GoodsID
-									AND BB.LanguageCode = #LanguageCode#
 				WHERE	AA.ID = #ID#
 			]]>
 		</select>
@@ -139,12 +138,12 @@
 				INSERT INTO dbo.BGGoods
 				( 
 					CreateDate, CreateBy, CreateByName,
-					StyleNo, BrandID, Age, Gender, ReleaseYear, Season, Origin, CategoryID, UseYn, AbroadYn
+					GoodsCode, GoodsName, BrandID, CategoryID, UseYn, ListPrice, SalePrice
 				)
 				VALUES
 				(
 					GetDate(), #CreateBy#, #CreateByName#,
-					#StyleNo#, #BrandID#, #Age#, #Gender#, #ReleaseYear#, #Season#, #Origin#, #CategoryID#, #UseYn#, #AbroadYn#
+					#GoodsCode#, #GoodsName#, #BrandID#, #CategoryID#, #UseYn#, #ListPrice#, #SalePrice#
 				)
 			]]>
 			<selectKey type="post" property="ID" resultClass="Int">
@@ -160,16 +159,13 @@
 					,	UpdateBy		= #UpdateBy#
 					,	UpdateByName	= #UpdateByName#
 					
-					,	StyleNo			= #StyleNo#
+					,	GoodsCode		= #GoodsCode#
+					,	GoodsName		= #GoodsName#
 					,	BrandID			= #BrandID#
-					,	Age				= #Age#
-					,	Gender			= #Gender#
-					,	ReleaseYear		= #ReleaseYear#
-					,	Season			= #Season#
-					,	Origin			= #Origin#
 					,	CategoryID		= #CategoryID#
 					,	UseYn			= #UseYn#
-					,	AbroadYn		= #AbroadYn#
+					,	ListPrice		= #ListPrice#
+					,	SalePrice		= #SalePrice#
 				WHERE	ID				= #ID#
 			]]>
 		</update>

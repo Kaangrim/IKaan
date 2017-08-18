@@ -1,7 +1,9 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Net;
+using System.Windows.Media.Imaging;
 using IKaan.Base.Utils;
 using IKaan.Win.Core.Variables;
 
@@ -92,6 +94,16 @@ namespace IKaan.Win.Core.Utils
 					}
 				}
 			}
+		}
+
+		public static Size GetSizePixel(string imagePath)
+		{
+			BitmapImage image = new BitmapImage(new Uri(imagePath));
+			return new Size()
+			{
+				Height = image.PixelHeight,
+				Width = image.PixelWidth
+			};
 		}
 	}
 }

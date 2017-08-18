@@ -17,17 +17,10 @@
 					,	AA.UpdateByName
 					
 					,	AA.GoodsID
-					,	AA.LanguageCode
-					,	AA.GoodsName
 					,	AA.Description
-					
-					,	CC.Name				as LanguageName
+					,	AA.DescriptionRTF
 					
 				FROM	dbo.BGGoodsDetail AA WITH (NOLOCK)
-						LEFT JOIN
-							dbo.ACCode CC WITH (NOLOCK)
-								ON AA.LanguageCode = CC.Code
-									AND CC.ParentCode = 'LanguageCode'
 				WHERE	AA.GoodsID = #GoodsID#
 				ORDER BY RowNo
 			]]>
@@ -43,9 +36,8 @@
 					,	AA.UpdateByName
 					
 					,	AA.GoodsID
-					,	AA.LanguageCode
-					,	AA.GoodsName
 					,	AA.Description
+					,	AA.DescriptionRTF
 					
 				FROM	dbo.BGGoodsDetail AA WITH (NOLOCK)
 				WHERE	AA.ID = #ID#
@@ -56,12 +48,12 @@
 				INSERT INTO dbo.BGGoodsDetail
 				( 
 					CreateDate, CreateBy, CreateByName,
-					GoodsID, LanguageCode, GoodsName, Description
+					GoodsID, Description, DescriptionRTF
 				)
 				VALUES
 				(
 					GetDate(), #CreateBy#, #CreateByName#,
-					#GoodsID#, #LanguageCode#, #GoodsName#, #Description#
+					#GoodsID#, #Description#, #DescriptionRTF#
 				)
 			]]>
 			<selectKey type="post" property="ID" resultClass="Int">
@@ -78,17 +70,14 @@
 					,	UpdateByName	= #UpdateByName#
 					
 					,	GoodsID			= #GoodsID#
-					,	LanguageCode	= #LanguageCode#
-					,	GoodsName		= #GoodsName#
 					,	Description		= #Description#
+					,	DescriptionRTF	= #DescriptionRTF#
 				WHERE	ID				= #ID#
 			]]>
 		</update>
 		<delete id="DeleteBGGoodsDetail" parameterClass="DataMap">
 			<![CDATA[
-				DELETE 
-				FROM	dbo.BGGoodsDetail
-				WHERE	ID = #ID#
+				DELETE FROM dbo.BGGoodsDetail WHERE ID = #ID#;
 			]]>
 		</delete>
 	</statements>

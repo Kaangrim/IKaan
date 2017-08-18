@@ -7,7 +7,7 @@
 	<statements>
 		<select id="SelectBGGoodsItemList" parameterClass="DataMap" resultClass="BGGoodsItem" >
 			<![CDATA[
-				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID)	AS RowNo
 					,	AA.ID
 					,	AA.CreateDate
 					,	AA.CreateBy
@@ -17,19 +17,12 @@
 					,	AA.UpdateByName
 					
 					,	AA.GoodsID
-					,	AA.LanguageCode
 					,	AA.Option1Type
 					,	AA.Option1Name
 					,	AA.Option2Type
 					,	AA.Option2Name
 					
-					,	CC.Name				as LanguageName
-					
 				FROM	dbo.BGGoodsItem AA WITH (NOLOCK)
-						LEFT JOIN
-							dbo.ACCode CC WITH (NOLOCK)
-								ON AA.LanguageCode = CC.Code
-									AND CC.ParentCode = 'LanguageCode'
 				WHERE	AA.GoodsID = #GoodsID#
 				ORDER BY RowNo
 			]]>
@@ -45,7 +38,6 @@
 					,	AA.UpdateByName
 					
 					,	AA.GoodsID
-					,	AA.LanguageCode
 					,	AA.Option1Type
 					,	AA.Option1Name
 					,	AA.Option2Type
@@ -60,14 +52,14 @@
 				INSERT INTO dbo.BGGoodsItem
 				( 
 					CreateDate, CreateBy, CreateByName,
-					GoodsID, LanguageCode, 
+					GoodsID, 
 					Option1Type, Option1Name,
 					Option2Type, Option2Name
 				)
 				VALUES
 				(
 					GetDate(), #CreateBy#, #CreateByName#,
-					#GoodsID#, #LanguageCode#, 
+					#GoodsID#,
 					#Option1Type#, #Option1Name#,
 					#Option2Type#, #Option2Name#
 				)
@@ -86,7 +78,6 @@
 					,	UpdateByName	= #UpdateByName#
 					
 					,	GoodsID			= #GoodsID#
-					,	LanguageCode	= #LanguageCode#
 					,	Option1Type		= #Option1Type#
 					,	Option1Name		= #Option1Name#
 					,	Option2Type		= #Option2Type#
@@ -96,9 +87,7 @@
 		</update>
 		<delete id="DeleteBGGoodsItem" parameterClass="DataMap">
 			<![CDATA[
-				DELETE 
-				FROM	dbo.BGGoodsItem
-				WHERE	ID = #ID#
+				DELETE FROM dbo.BGGoodsItem WHERE ID = #ID#;
 			]]>
 		</delete>
 	</statements>

@@ -1085,7 +1085,7 @@ namespace IKaan.Was.Service.BIZ
 							}
 							else
 							{
-								if (data.Modified)
+								if (data.RowState == "UPDATE")
 								{
 									data.UpdateBy = req.User.UserId;
 									data.UpdateByName = req.User.UserName;
@@ -1111,7 +1111,7 @@ namespace IKaan.Was.Service.BIZ
 							}
 							else
 							{
-								if (data.Modified)
+								if (data.RowState == "UPDATE")
 								{
 									data.UpdateBy = req.User.UserId;
 									data.UpdateByName = req.User.UserName;
@@ -1137,7 +1137,7 @@ namespace IKaan.Was.Service.BIZ
 							}
 							else
 							{
-								if (data.Modified)
+								if (data.RowState == "UPDATE")
 								{
 									data.UpdateBy = req.User.UserId;
 									data.UpdateByName = req.User.UserName;
@@ -1163,7 +1163,7 @@ namespace IKaan.Was.Service.BIZ
 							}
 							else
 							{
-								if (data.Modified)
+								if (data.RowState == "UPDATE")
 								{
 									data.UpdateBy = req.User.UserId;
 									data.UpdateByName = req.User.UserName;

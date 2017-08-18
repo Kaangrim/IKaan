@@ -60,6 +60,42 @@ namespace IKaan.Win.Core.Handler
 				throw;
 			}
 		}
+		public static string UploadGoods(string localPath, string brandID, string goodsID, string type, string group)
+		{
+			try
+			{
+				if (localPath.IsNullOrEmpty())
+					throw new Exception("로컬 파일 경로가 정확하지 않습니다.");
+				
+				FileInfo info = new FileInfo(localPath);
+				string ext = info.Extension;
+				string fileName = string.Format(ConstsVar.FILE_DEFINE_GOODS, goodsID, type, group) + ext;
+
+				if (fileName.IsNullOrEmpty())
+					throw new Exception("업로드 이미지 구분이 올바르지 않습니다.");
+
+				string remotePath = string.Format("{0}/{1}/{2}", ConstsVar.IMG_URL_GOODS, brandID, goodsID);
+				string remoteFull = string.Format("{0}/{1}", remotePath, fileName);
+
+				using (var ftp = new FtpClient())
+				{
+					ftp.Host = url;
+					ftp.Credentials = new System.Net.NetworkCredential(id, pw);
+					ftp.Connect();
+					if (ftp.DirectoryExists(remotePath) == false)
+						ftp.CreateDirectory(remotePath);
+					if (ftp.FileExists(remoteFull))
+						ftp.DeleteFile(remoteFull);
+					ftp.UploadFile(localPath, remoteFull);
+					ftp.Disconnect();
+				}
+				return remoteFull;
+			}
+			catch
+			{
+				throw;
+			}
+		}
 		public static string UploadSearchBrand(string localPath, string brandID, string type)
 		{
 			try

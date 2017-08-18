@@ -116,6 +116,8 @@
     <EmbeddedResource Include="SqlMaps\SMP\WC\WCBrandInfoSQL.xml" />
     <EmbeddedResource Include="SqlMaps\SMP\WC\WCGoodsInfoSQL.xml" />
     <EmbeddedResource Include="SqlMaps\BIZ\BM\BMSearchBrandActivitySQL.xml" />
+    <EmbeddedResource Include="SqlMaps\BIZ\BG\BGGoodsInfoNoticeSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\BIZ\BG\BGGoodsAttributeSQL.xml" />
     <Content Include="SqlMaps\SYS\AC\CalendarSQL.xml" />
     <EmbeddedResource Include="SqlMaps\SYS\AC\ACMessageSQL.xml" />
     <EmbeddedResource Include="SqlMaps\SYS\AD\ADTableSQL.xml" />
@@ -128,7 +130,6 @@
     <EmbeddedResource Include="SqlMaps\BIZ\BG\BGGoodsDetailSQL.xml" />
     <EmbeddedResource Include="SqlMaps\BIZ\BG\BGGoodsImageSQL.xml" />
     <EmbeddedResource Include="SqlMaps\BIZ\BG\BGGoodsItemSQL.xml" />
-    <EmbeddedResource Include="SqlMaps\BIZ\BG\BGGoodsPriceSQL.xml" />
     <EmbeddedResource Include="SqlMaps\BIZ\BG\BGGoodsSQL.xml" />
     <EmbeddedResource Include="SqlMaps\BIZ\BM\BMBrandImageSQL.xml" />
     <EmbeddedResource Include="SqlMaps\BIZ\BM\BMBrandSQL.xml" />

@@ -15,16 +15,26 @@ namespace IKaan.Was.Controllers
 		public HttpResponseMessage Post(WasRequest request)
 		{
 			if (request.ServiceId.StartsWith("L"))
+			{
 				serviceType = "LIB";
+			}
 			else if (request.ServiceId.StartsWith("B"))
+			{
 				serviceType = "BIZ";
+			}
 			else if (request.ServiceId.StartsWith("W") || request.ServiceId.StartsWith("S"))
+			{
 				serviceType = "SMP";
+			}
 			else
+			{
 				serviceType = "SYS";
+			}
 
 			if (request.ServiceId.Equals("CodeHelp") || request.ServiceId.Equals("Email"))
+			{
 				serviceType = "Base";
+			}
 
 			string namespaceName = string.Format("{0}.{1}.{2}Service", assemblyName, serviceType, request.ServiceId);
 			string methodName = request.ProcessId;

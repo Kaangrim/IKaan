@@ -51,10 +51,13 @@
   <ItemGroup>
     <Compile Include="Attributes\CustomPropertyAttribute.cs" />
     <Compile Include="Base\IModelBase.cs" />
+    <Compile Include="Base\PagedList.cs" />
     <Compile Include="BIZ\BC\BCAppointment.cs" />
     <Compile Include="BIZ\BC\BCDepartmentHist.cs" />
     <Compile Include="BIZ\BC\BCEmployee.cs" />
     <Compile Include="BIZ\BC\BCDepartment.cs" />
+    <Compile Include="BIZ\BG\BGGoodsAttribute.cs" />
+    <Compile Include="BIZ\BG\BGGoodsInfoNotice.cs" />
     <Compile Include="BIZ\BG\BGInfoNoticeItem.cs" />
     <Compile Include="BIZ\BG\BGInfoNotice.cs" />
     <Compile Include="BIZ\BG\BGCategory.cs" />
@@ -67,7 +70,6 @@
     <Compile Include="BIZ\BM\BMBusiness.cs" />
     <Compile Include="BIZ\BM\BMSearchBrandActivity.cs" />
     <Compile Include="BIZ\BM\BMSearchBrand.cs" />
-    <Compile Include="BIZ\BG\BGGoodsPrice.cs" />
     <Compile Include="BIZ\BG\BGGoodsItem.cs" />
     <Compile Include="BIZ\BG\BGGoodsImage.cs" />
     <Compile Include="BIZ\BG\BGGoodsDetail.cs" />

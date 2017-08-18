@@ -223,14 +223,14 @@ namespace IKaan.Win.Core.Was.Handler
 					ModelName = modelName
 				}).Execute();
 
-				if (res == null)
-					throw new Exception("요청결과가 없습니다.");
+				//if (res == null)
+				//	throw new Exception("요청결과가 없습니다.");
 
 				if (res.Error.Number != 0)
 					throw new Exception(res.Error.Message);
 
-				if (res.Data == null)
-					throw new Exception("요청결과의 데이터가 없습니다.");
+				//if (res.Data == null)
+				//	throw new Exception("요청결과의 데이터가 없습니다.");
 
 				return res;
 			}

@@ -9,79 +9,72 @@ namespace IKaan.Model.BIZ.BG
 	public class BGGoods : ModelBase
 	{
 		[DataMember]
-		[Display(Name = "스타일번호")]
-		public string StyleNo { get; set; }
-
-		[DataMember]
-		[Display(Name = "브랜드ID")]
-		public string BrandID { get; set; }
-
-		[DataMember]
-		[Display(Name = "연령")]
-		public string Age { get; set; }
-
-		[DataMember]
-		[Display(Name = "성별")]
-		public string Gender { get; set; }
-
-		[DataMember]
-		[Display(Name = "출시년도")]
-		public string ReleaseYear { get; set; }
-
-		[DataMember]
-		[Display(Name = "시즌")]
-		public string Season { get; set; }
-
-		[DataMember]
-		[Display(Name = "원산지")]
-		public string Origin { get; set; }
-
-		[DataMember]
-		[Display(Name = "카테고리ID")]
-		public string CategoryID { get; set; }
-
-		[DataMember]
-		[Display(Name = "사용여부")]
-		public string UseYn { get; set; }
-
-		[DataMember]
-		[Display(Name = "해외배송여부")]
-		public string AbroadYn { get; set; }
+		[Display(Name = "상품코드")]
+		public string GoodsCode { get; set; }
 
 		[DataMember]
 		[Display(Name = "상품명")]
 		public string GoodsName { get; set; }
 
 		[DataMember]
-		[Display(Name = "상세설명")]
-		public string Description { get; set; }
+		[Display(Name = "브랜드ID")]
+		public int BrandID { get; set; }
+
+		[DataMember]
+		[Display(Name = "카테고리ID")]
+		public int CategoryID { get; set; }
+
+		[DataMember]
+		[Display(Name = "소비자가")]
+		public decimal ListPrice { get; set; }
+
+		[DataMember]
+		[Display(Name = "판매가")]
+		public decimal SalePrice { get; set; }
+
+		[DataMember]
+		[Display(Name = "사용여부")]
+		public string UseYn { get; set; }
 
 		[DataMember]
 		[Display(Name = "브랜드명")]
 		public string BrandName { get; set; }
 
 		[DataMember]
+		[Display(Name = "카테고리명")]
+		public string CategoryName { get; set; }
+
+		[DataMember]
+		[Display(Name = "대표이미지URL")]
+		public string ImageUrl { get; set; }
+
+		[DataMember]
 		[Display(Name = "상품상세")]
-		public IList<BGGoodsDetail> GoodsDetail { get; set; }
+		public BGGoodsDetail Detail { get; set; }
 
 		[DataMember]
 		[Display(Name = "상품이미지")]
-		public IList<BGGoodsImage> GoodsImage { get; set; }
+		public IList<BGGoodsImage> Image { get; set; }
 
 		[DataMember]
 		[Display(Name = "상품옵션")]
-		public IList<BGGoodsItem> GoodsOption { get; set; }
+		public IList<BGGoodsItem> Item { get; set; }
 
 		[DataMember]
-		[Display(Name = "상품가격")]
-		public IList<BGGoodsPrice> GoodsPrice { get; set; }
+		[Display(Name = "정보고시")]
+		public IList<BGGoodsInfoNotice> InfoNotice { get; set; }
+
+		[DataMember]
+		[Display(Name = "상품속성")]
+		public IList<BGGoodsAttribute> Attribute { get; set; }
 
 		public BGGoods()
 		{
-			GoodsDetail = new List<BGGoodsDetail>();
-			GoodsImage = new List<BGGoodsImage>();
-			GoodsOption = new List<BGGoodsItem>();
-			GoodsPrice = new List<BGGoodsPrice>();
+			Detail = new BGGoodsDetail();
+			Image = new List<BGGoodsImage>();
+			Item = new List<BGGoodsItem>();
+			InfoNotice = new List<BGGoodsInfoNotice>();
+			Attribute = new List<BGGoodsAttribute>();
 		}
 	}
 }

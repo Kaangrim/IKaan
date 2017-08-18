@@ -698,6 +698,7 @@ namespace IKaan.Win.Core.Controls.Grid
 		/// <returns>추가한 Row번호</returns>
 		public int AddNewRow()
 		{
+			MainView.BeginUpdate();
 			if (MainView.DataSource  != null)
 			{
 				MainView.PostEditor();
@@ -705,9 +706,17 @@ namespace IKaan.Win.Core.Controls.Grid
 				MainView.AddNewRow();
 			}
 			MainGrid.RefreshDataSource();
+			MainView.EndUpdate();
 			return MainView.RowCount - 1;
 		}
-		
+
+		public void AddRow<T>(T data)
+		{
+			MainView.BeginUpdate();
+			(this.DataSource as List<T>).Add(data);
+			MainView.EndUpdate();
+		}
+
 		/// <summary>
 		/// 그리드 컬럼의 편집여부 설정
 		/// </summary>
