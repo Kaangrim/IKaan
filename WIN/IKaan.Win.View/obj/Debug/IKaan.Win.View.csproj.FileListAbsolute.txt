@@ -249,9 +249,6 @@ D:\Repositories\IKaan\WIN\IKaan.Win.View\bin\Debug\IKaan.Base.dll
 D:\Repositories\IKaan\WIN\IKaan.Win.View\bin\Debug\IKaan.Model.dll
 D:\Repositories\IKaan\WIN\IKaan.Win.View\bin\Debug\IKaan.Win.Core.dll
 D:\Repositories\IKaan\WIN\IKaan.Win.View\bin\Debug\IKaan.Win.View.Biz.dll
-D:\Repositories\IKaan\WIN\IKaan.Win.View\bin\Debug\IKaan.Win.View.Lib.dll
-D:\Repositories\IKaan\WIN\IKaan.Win.View\bin\Debug\IKaan.Win.View.Smp.dll
-D:\Repositories\IKaan\WIN\IKaan.Win.View\bin\Debug\IKaan.Win.View.Sys.dll
 D:\Repositories\IKaan\WIN\IKaan.Win.View\bin\Debug\Itenso.TimePeriod.dll
 D:\Repositories\IKaan\WIN\IKaan.Win.View\bin\Debug\log4net.dll
 D:\Repositories\IKaan\WIN\IKaan.Win.View\bin\Debug\Newtonsoft.Json.dll
@@ -267,7 +264,6 @@ D:\Repositories\IKaan\WIN\IKaan.Win.View\bin\Debug\System.Net.Http.Formatting.dl
 D:\Repositories\IKaan\WIN\IKaan.Win.View\bin\Debug\DevExpress.Office.v17.1.Core.dll
 D:\Repositories\IKaan\WIN\IKaan.Win.View\bin\Debug\DevExpress.XtraPivotGrid.v17.1.dll
 D:\Repositories\IKaan\WIN\IKaan.Win.View\bin\Debug\DevExpress.PivotGrid.v17.1.Core.dll
-D:\Repositories\IKaan\WIN\IKaan.Win.View\bin\Debug\HtmlAgilityPack.dll
 D:\Repositories\IKaan\WIN\IKaan.Win.View\bin\Debug\DevExpress.Pdf.v17.1.Core.dll
 D:\Repositories\IKaan\WIN\IKaan.Win.View\bin\Debug\DevExpress.XtraCharts.v17.1.Wizard.dll
 D:\Repositories\IKaan\WIN\IKaan.Win.View\bin\Debug\DevExpress.Sparkline.v17.1.Core.dll
@@ -285,12 +281,6 @@ D:\Repositories\IKaan\WIN\IKaan.Win.View\bin\Debug\IKaan.Win.Core.pdb
 D:\Repositories\IKaan\WIN\IKaan.Win.View\bin\Debug\IKaan.Win.Core.dll.config
 D:\Repositories\IKaan\WIN\IKaan.Win.View\bin\Debug\IKaan.Win.View.Biz.pdb
 D:\Repositories\IKaan\WIN\IKaan.Win.View\bin\Debug\IKaan.Win.View.Biz.dll.config
-D:\Repositories\IKaan\WIN\IKaan.Win.View\bin\Debug\IKaan.Win.View.Lib.pdb
-D:\Repositories\IKaan\WIN\IKaan.Win.View\bin\Debug\IKaan.Win.View.Lib.dll.config
-D:\Repositories\IKaan\WIN\IKaan.Win.View\bin\Debug\IKaan.Win.View.Smp.pdb
-D:\Repositories\IKaan\WIN\IKaan.Win.View\bin\Debug\IKaan.Win.View.Smp.dll.config
-D:\Repositories\IKaan\WIN\IKaan.Win.View\bin\Debug\IKaan.Win.View.Sys.pdb
-D:\Repositories\IKaan\WIN\IKaan.Win.View\bin\Debug\IKaan.Win.View.Sys.dll.config
 D:\Repositories\IKaan\WIN\IKaan.Win.View\bin\Debug\DevExpress.Data.v17.1.xml
 D:\Repositories\IKaan\WIN\IKaan.Win.View\bin\Debug\DevExpress.Printing.v17.1.Core.xml
 D:\Repositories\IKaan\WIN\IKaan.Win.View\bin\Debug\DevExpress.Utils.v17.1.xml
@@ -314,8 +304,6 @@ D:\Repositories\IKaan\WIN\IKaan.Win.View\bin\Debug\DevExpress.Spreadsheet.v17.1.
 D:\Repositories\IKaan\WIN\IKaan.Win.View\bin\Debug\DevExpress.Office.v17.1.Core.xml
 D:\Repositories\IKaan\WIN\IKaan.Win.View\bin\Debug\DevExpress.XtraPivotGrid.v17.1.xml
 D:\Repositories\IKaan\WIN\IKaan.Win.View\bin\Debug\DevExpress.PivotGrid.v17.1.Core.xml
-D:\Repositories\IKaan\WIN\IKaan.Win.View\bin\Debug\HtmlAgilityPack.pdb
-D:\Repositories\IKaan\WIN\IKaan.Win.View\bin\Debug\HtmlAgilityPack.xml
 D:\Repositories\IKaan\WIN\IKaan.Win.View\bin\Debug\DevExpress.Pdf.v17.1.Core.xml
 D:\Repositories\IKaan\WIN\IKaan.Win.View\bin\Debug\DevExpress.XtraCharts.v17.1.Wizard.xml
 D:\Repositories\IKaan\WIN\IKaan.Win.View\bin\Debug\DevExpress.Sparkline.v17.1.Core.xml
@@ -438,3 +426,7 @@ D:\Repositories\IKaan\WIN\IKaan.Win.View\bin\Debug\de\DevExpress.Diagram.v17.1.C
 D:\Repositories\IKaan\WIN\IKaan.Win.View\bin\Debug\es\DevExpress.Diagram.v17.1.Core.resources.dll
 D:\Repositories\IKaan\WIN\IKaan.Win.View\bin\Debug\ja\DevExpress.Diagram.v17.1.Core.resources.dll
 D:\Repositories\IKaan\WIN\IKaan.Win.View\bin\Debug\ru\DevExpress.Diagram.v17.1.Core.resources.dll
+D:\Repositories\IKaan\WIN\IKaan.Win.View\obj\Debug\IKaan.Win.View.csproj.CoreCompileInputs.cache
+D:\Repositories\IKaan\WIN\IKaan.Win.View\bin\Debug\IKaan.Win.View.Base.dll
+D:\Repositories\IKaan\WIN\IKaan.Win.View\bin\Debug\IKaan.Win.View.Base.pdb
+D:\Repositories\IKaan\WIN\IKaan.Win.View\bin\Debug\IKaan.Win.View.Base.dll.config

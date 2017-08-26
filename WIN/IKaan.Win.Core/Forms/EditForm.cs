@@ -10,7 +10,7 @@ using DevExpress.XtraBars;
 using DevExpress.XtraEditors;
 using DevExpress.XtraLayout;
 using IKaan.Base.Utils;
-using IKaan.Model.UserModels;
+using IKaan.Model.Common.UserModels ;
 using IKaan.Win.Core.Controls.Common;
 using IKaan.Win.Core.Controls.Grid;
 using IKaan.Win.Core.Enum;
@@ -67,7 +67,7 @@ namespace IKaan.Win.Core.Forms
 						ActPrint();
 						break;
 					case "HELP":
-						ActHelp();
+						AcHelpModel();
 						break;
 					case "CLOSE":
 						Close();
@@ -154,7 +154,7 @@ namespace IKaan.Win.Core.Forms
 
 		[Browsable(true)]
 		[Category("Customize")]
-		public IList<UMMenuViewButton> ViewButtons { get; set; }
+		public IList<UMenuViewButton> ViewButtons { get; set; }
 
 		[Browsable(true)]
 		[Category("Customize")]
@@ -294,7 +294,7 @@ namespace IKaan.Win.Core.Forms
 			});
 		}
 
-		private void SetButtonName()
+		private void SeButtonModelName()
 		{
 			try
 			{
@@ -319,7 +319,7 @@ namespace IKaan.Win.Core.Forms
 		/// <summary>
 		/// 버튼초기화
 		/// </summary>
-		protected virtual void InitButtons()
+		protected virtual void InitButton()
 		{
 			barTools.ItemLinks.OfType<BarButtonItemLink>().Where(x => x.Item.Name.Contains("barButton")).ToList().ForEach(x =>
 			{
@@ -350,7 +350,7 @@ namespace IKaan.Win.Core.Forms
 						EditMode = EditModeEnum.View;
 					}
 				}
-				SetButtonName();
+				SeButtonModelName();
 
 				SetLayout();
 				
@@ -362,10 +362,10 @@ namespace IKaan.Win.Core.Forms
 				barStaticTotalRecords.Caption = string.Empty;
 				barStaticEditMode.Caption = EditMode.ToString().ToUpper();
 
-				InitButtons();
+				InitButton();
 				InitControls();
 				barStaticViewName.Caption = Name;
-				SetButtonNotFocus();
+				SeButtonModelNotFocus();
 				SetTextBoxKeydownEvent();
 
 				if (IsLoadingRefresh)
@@ -588,7 +588,7 @@ namespace IKaan.Win.Core.Forms
 		/// </summary>
 		protected virtual void ActPrint() { }
 
-		protected virtual void ActHelp()
+		protected virtual void AcHelpModel()
 		{
 			try
 			{
@@ -903,7 +903,7 @@ namespace IKaan.Win.Core.Forms
 			}
 		}
 
-		private void SetButtonNotFocus()
+		private void SeButtonModelNotFocus()
 		{
 			try
 			{

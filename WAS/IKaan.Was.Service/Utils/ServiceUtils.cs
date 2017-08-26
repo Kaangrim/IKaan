@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
-using IKaan.Model.Base;
-using IKaan.Model.Was;
+using IKaan.Model.Common.Base;
+using IKaan.Model.Common.Was;
 using IKaan.Was.Core.Mappers;
 
 namespace IKaan.Was.Service.Utils
@@ -46,12 +46,10 @@ namespace IKaan.Was.Service.Utils
 			var parameter = req.Parameter.JsonToAnyType<DataMap>();
 			T data = default(T);
 
-			if (req.ServiceId.StartsWith("L"))
-				data = DaoFactory.InstanceLib.QueryForObject<T>(sqlId, parameter);
-			else if (req.ServiceId.StartsWith("B"))
+			if (req.ServiceId.StartsWith("Biz"))
 				data = DaoFactory.InstanceBiz.QueryForObject<T>(sqlId, parameter);
-			else if (req.ServiceId.StartsWith("S") || req.ServiceId.StartsWith("W"))
-				data = DaoFactory.InstanceSmp.QueryForObject<T>(sqlId, parameter);
+			else if (req.ServiceId.StartsWith("Scrap"))
+				data = DaoFactory.InstanceScrap.QueryForObject<T>(sqlId, parameter);
 			else
 				data = DaoFactory.Instance.QueryForObject<T>(sqlId, parameter);
 
@@ -66,12 +64,10 @@ namespace IKaan.Was.Service.Utils
 
 			IList<T> data = new List<T>();
 
-			if (req.ServiceId.StartsWith("L"))
-				data = DaoFactory.InstanceLib.QueryForList<T>(sqlId, parameter);
-			else if (req.ServiceId.StartsWith("B"))
+			if (req.ServiceId.StartsWith("Biz"))
 				data = DaoFactory.InstanceBiz.QueryForList<T>(sqlId, parameter);
-			else if (req.ServiceId.StartsWith("S") || req.ServiceId.StartsWith("W"))
-				data = DaoFactory.InstanceSmp.QueryForList<T>(sqlId, parameter);
+			else if (req.ServiceId.StartsWith("Scrap"))
+				data = DaoFactory.InstanceScrap.QueryForList<T>(sqlId, parameter);
 			else
 				data = DaoFactory.Instance.QueryForList<T>(sqlId, parameter);
 
@@ -91,12 +87,11 @@ namespace IKaan.Was.Service.Utils
 				{
 					((IModelBase)model).CreateBy = req.User.UserId;
 					((IModelBase)model).CreateByName = req.User.UserName;
-					if (req.ServiceId.StartsWith("L"))
-						id = DaoFactory.InstanceLib.Insert(string.Concat(req.SqlId, req.ModelName), model);
-					else if (req.ServiceId.StartsWith("B"))
+
+					if (req.ServiceId.StartsWith("Biz"))
 						id = DaoFactory.InstanceBiz.Insert(string.Concat(req.SqlId, req.ModelName), model);
-					else if (req.ServiceId.StartsWith("S") || req.ServiceId.StartsWith("W"))
-						id = DaoFactory.InstanceSmp.Insert(string.Concat(req.SqlId, req.ModelName), model);
+					else if (req.ServiceId.StartsWith("Scrap"))
+						id = DaoFactory.InstanceScrap.Insert(string.Concat(req.SqlId, req.ModelName), model);
 					else
 						id = DaoFactory.Instance.Insert(string.Concat(req.SqlId, req.ModelName), model);
 					((IModelBase)model).ID = id.ToIntegerNullToNull();
@@ -105,12 +100,11 @@ namespace IKaan.Was.Service.Utils
 				{
 					((IModelBase)model).UpdateBy = req.User.UserId;
 					((IModelBase)model).UpdateByName = req.User.UserName;
-					if (req.ServiceId.StartsWith("L"))
-						DaoFactory.InstanceLib.Update(string.Concat(req.SqlId, req.ModelName), model);
-					else if (req.ServiceId.StartsWith("B"))
+
+					if (req.ServiceId.StartsWith("Biz"))
 						DaoFactory.InstanceBiz.Update(string.Concat(req.SqlId, req.ModelName), model);
-					else if (req.ServiceId.StartsWith("S") || req.ServiceId.StartsWith("W"))
-						DaoFactory.InstanceSmp.Update(string.Concat(req.SqlId, req.ModelName), model);
+					else if (req.ServiceId.StartsWith("Scrap"))
+						DaoFactory.InstanceScrap.Update(string.Concat(req.SqlId, req.ModelName), model);
 					else
 						DaoFactory.Instance.Update(string.Concat(req.SqlId, req.ModelName), model);
 					id = ((IModelBase)model).ID;
@@ -132,12 +126,10 @@ namespace IKaan.Was.Service.Utils
 
 				if (existsChecked)
 				{
-					if (req.ServiceId.StartsWith("L"))
-						rm = DaoFactory.InstanceLib.QueryForObject<T>(string.Concat("Select", typeof(T).Name, "Exists"), data);
-					else if (req.ServiceId.StartsWith("B"))
+					if (req.ServiceId.StartsWith("Biz"))
 						rm = DaoFactory.InstanceBiz.QueryForObject<T>(string.Concat("Select", typeof(T).Name, "Exists"), data);
-					else if (req.ServiceId.StartsWith("S") || req.ServiceId.StartsWith("W"))
-						rm = DaoFactory.InstanceSmp.QueryForObject<T>(string.Concat("Select", typeof(T).Name, "Exists"), data);
+					else if (req.ServiceId.StartsWith("Scrap"))
+						rm = DaoFactory.InstanceScrap.QueryForObject<T>(string.Concat("Select", typeof(T).Name, "Exists"), data);
 					else
 						rm = DaoFactory.Instance.QueryForObject<T>(string.Concat("Select", typeof(T).Name, "Exists"), data);
 				}
@@ -149,12 +141,10 @@ namespace IKaan.Was.Service.Utils
 						((IModelBase)data).CreateBy = req.User.UserId;
 						((IModelBase)data).CreateByName = req.User.UserName;
 
-						if (req.ServiceId.StartsWith("L"))
-							DaoFactory.InstanceLib.Insert(string.Concat("Insert", data.GetType().Name), data);
-						else if (req.ServiceId.StartsWith("B"))
+						if (req.ServiceId.StartsWith("Biz"))
 							DaoFactory.InstanceBiz.Insert(string.Concat("Insert", data.GetType().Name), data);
-						else if (req.ServiceId.StartsWith("S") || req.ServiceId.StartsWith("W"))
-							DaoFactory.InstanceSmp.Insert(string.Concat("Insert", data.GetType().Name), data);
+						else if (req.ServiceId.StartsWith("Scrap"))
+							DaoFactory.InstanceScrap.Insert(string.Concat("Insert", data.GetType().Name), data);
 						else
 							DaoFactory.Instance.Insert(string.Concat("Insert", data.GetType().Name), data);
 					}
@@ -165,12 +155,10 @@ namespace IKaan.Was.Service.Utils
 					((IModelBase)data).UpdateBy = req.User.UserId;
 					((IModelBase)data).UpdateByName = req.User.UserName;
 
-					if (req.ServiceId.StartsWith("L"))
-						DaoFactory.InstanceLib.Update(string.Concat("Update", data.GetType().Name), data);
-					else if (req.ServiceId.StartsWith("B"))
+					if (req.ServiceId.StartsWith("Biz"))
 						DaoFactory.InstanceBiz.Update(string.Concat("Update", data.GetType().Name), data);
-					else if (req.ServiceId.StartsWith("S") || req.ServiceId.StartsWith("W"))
-						DaoFactory.InstanceSmp.Update(string.Concat("Update", data.GetType().Name), data);
+					else if (req.ServiceId.StartsWith("Scrap"))
+						DaoFactory.InstanceScrap.Update(string.Concat("Update", data.GetType().Name), data);
 					else
 						DaoFactory.Instance.Update(string.Concat("Update", data.GetType().Name), data);
 				}
@@ -187,12 +175,10 @@ namespace IKaan.Was.Service.Utils
 			{
 				T rm = default(T);
 
-				if (req.ServiceId.StartsWith("L"))
-					rm = DaoFactory.InstanceLib.QueryForObject<T>(string.Concat("Select", typeof(T).Name, "Exists"), data);
-				else if (req.ServiceId.StartsWith("B"))
+				if (req.ServiceId.StartsWith("Biz"))
 					rm = DaoFactory.InstanceBiz.QueryForObject<T>(string.Concat("Select", typeof(T).Name, "Exists"), data);
-				else if (req.ServiceId.StartsWith("S") || req.ServiceId.StartsWith("W"))
-					rm = DaoFactory.InstanceSmp.QueryForObject<T>(string.Concat("Select", typeof(T).Name, "Exists"), data);
+				else if (req.ServiceId.StartsWith("Scrap"))
+					rm = DaoFactory.InstanceScrap.QueryForObject<T>(string.Concat("Select", typeof(T).Name, "Exists"), data);
 				else
 					rm = DaoFactory.Instance.QueryForObject<T>(string.Concat("Select", typeof(T).Name, "Exists"), data);
 
@@ -200,12 +186,10 @@ namespace IKaan.Was.Service.Utils
 				{
 					DataMap parameter = new DataMap() { { "ID", ((IModelBase)rm).ID } };
 
-					if (req.ServiceId.StartsWith("L"))
-						DaoFactory.InstanceLib.Delete(string.Concat("Delete", data.GetType().Name), parameter);
-					else if (req.ServiceId.StartsWith("B"))
+					if (req.ServiceId.StartsWith("Biz"))
 						DaoFactory.InstanceBiz.Delete(string.Concat("Delete", data.GetType().Name), parameter);
-					else if (req.ServiceId.StartsWith("S") || req.ServiceId.StartsWith("W"))
-						DaoFactory.InstanceSmp.Delete(string.Concat("Delete", data.GetType().Name), parameter);
+					else if (req.ServiceId.StartsWith("Scrap"))
+						DaoFactory.InstanceScrap.Delete(string.Concat("Delete", data.GetType().Name), parameter);
 					else
 						DaoFactory.Instance.Delete(string.Concat("Delete", data.GetType().Name), parameter);
 				}

@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectChannelContactList" parameterClass="DataMap" resultClass="ChannelContactModel" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID)	AS RowNo
+					,	AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.ChannelID
+					,	AA.Position
+					,	AA.PersonID
+					,	AA.AssignedTask
+					
+					,	BB.PersonType
+					,	BB.PersonName
+					,	BB.EngName
+					,	BB.Email
+					,	BB.PhoneNo1
+					,	BB.PhoneNo2
+					,	BB.FaxNo
+					,	BB.ImageUrl
+					
+				FROM	dbo.TChannelContact AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.TPerson BB WITH (NOLOCK)
+								ON AA.PersonID = BB.ID
+				WHERE	AA.ChannelID = #ChannelID#
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectChannelContact" parameterClass="DataMap" resultClass="ChannelContactModel" >
+			<![CDATA[
+				SELECT  AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.ChannelID
+					,	AA.PersonID
+					,	AA.Position
+					,	AA.AssignedTask
+					
+					,	PP.PersonName
+					,	PP.PersonType
+					,	PP.Email
+					,	PP.PhoneNo1
+					,	PP.PhoneNo2
+					,	PP.FaxNo
+					
+				FROM	dbo.TChannelContact AA WITH (NOLOCK)
+						LEFT JOIN
+							IKBiz.dbo.TPerson PP WITH (NOLOCK)
+								ON AA.PersonID = PP.ID
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<insert id="InsertChannelContact" parameterClass="ChannelContactModel" >
+			<![CDATA[
+				INSERT INTO dbo.TChannelContact
+				( 
+					CreateDate, CreateBy, CreateByName,
+					ChannelID, PersonID, Position, AssignedTask, Description
+				)
+				VALUES
+				(
+					GetDate(), #CreateBy#, #CreateByName#,
+					#ChannelID#, #PersonID#, #Position#, #AssignedTask#, #Description#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateChannelContact" parameterClass="ChannelContactModel">
+			<![CDATA[
+				UPDATE  dbo.TChannelContact
+				SET     UpdateDate		= GetDate()
+					,	UpdateBy		= #UpdateBy#
+					,	UpdateByName	= #UpdateByName#
+					
+					,	Position		= #Position#
+					,	AssignedTask	= #AssignedTask#
+					,	Description		= #Description#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
+		<delete id="DeleteChannelContact" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM dbo.TChannelContact WHERE ID = #ID#;
+			]]>
+		</delete>
+	</statements>
+</sqlMap>

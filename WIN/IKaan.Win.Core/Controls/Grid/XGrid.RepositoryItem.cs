@@ -14,7 +14,7 @@ using IKaan.Base.Map;
 using IKaan.Base.Utils;
 using IKaan.Win.Core.Helper;
 using IKaan.Win.Core.Was.Handler;
-using IKaan.Model.UserModels;
+using IKaan.Model.Common.UserModels ;
 
 namespace IKaan.Win.Core.Controls.Grid
 {

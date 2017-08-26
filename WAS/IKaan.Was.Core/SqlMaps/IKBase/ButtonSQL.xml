@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectButtonList" parameterClass="DataMap" resultClass="ButtonModel" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
+					,	AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.ButtonName
+					,	AA.ButtonType
+					,	BB.Name			as ButtonTypeName
+					,	AA.Instance
+					,	AA.UseYn
+					,	AA.Description
+					
+				FROM	dbo.TButton AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.TCode BB WITH (NOLOCK)
+								ON AA.ButtonType = BB.Code
+									AND BB.ParentCode = 'ButtonType'
+				WHERE	1=1				
+			]]>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(
+							AA.ButtonName	LIKE '%' + #FindText# + '%' OR
+							AA.Instance		LIKE '%' + #FindText# + '%'
+						)
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectButton" parameterClass="DataMap" resultClass="ButtonModel" >
+			<![CDATA[
+				SELECT  AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					,	AA.ButtonName
+					,	AA.ButtonType
+					,	AA.Instance
+					,	AA.UseYn
+					,	AA.Description
+				FROM	dbo.TButton AA WITH (NOLOCK)
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<insert id="InsertButton" parameterClass="ButtonModel" >
+			<![CDATA[
+				INSERT INTO dbo.TButton
+				( 
+					CreateDate, CreateBy, CreateByName,
+					ButtonName, ButtonType, Instance, UseYn, Description
+				)
+				VALUES
+				(
+					GetDate(), #CreateBy#, #CreateByName#,
+					#ButtonName#, #ButtonType#, #Instance#, #UseYn#, #Description#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateButton" parameterClass="ButtonModel">
+			<![CDATA[
+				UPDATE  dbo.TButton
+				SET     UpdateDate	= GetDate()
+					,	UpdateBy	= #UpdateBy#
+					,	UpdateByName= #UpdateByName#
+					
+					,	ButtonName	= #ButtonName#
+					,	ButtonType	= #ButtonType#
+					,	Instance	= #Instance#
+					,	UseYn		= #UseYn#
+					,	Description	= #Description#
+				WHERE	ID			= #ID#
+			]]>
+		</update>
+		<delete id="DeleteButton" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM	dbo.TButton WHERE ID = #ID#;
+			]]>
+		</delete>
+	</statements>
+</sqlMap>

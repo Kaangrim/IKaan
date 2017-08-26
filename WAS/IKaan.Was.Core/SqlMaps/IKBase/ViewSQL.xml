@@ -1,0 +1,171 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectViewList" parameterClass="DataMap" resultClass="ViewModel" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
+					,	AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.ViewName
+					,	AA.ViewType
+					,	M1.Name		as ViewTypeName
+					,	AA.ParentID
+					,	AA.ModuleID
+					,	BB.ModuleName
+					,	AA.Namespace
+					,	AA.Instance
+					,	AA.UseYn
+					,	AA.Description
+					,	AA.HelpID
+					,	CC.HelpName
+					
+				FROM	dbo.TView AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.TModule BB
+								ON AA.ModuleID = BB.ID
+						LEFT JOIN
+							dbo.THelp CC
+								ON AA.HelpID = CC.ID
+						LEFT JOIN
+							dbo.TCode M1
+								ON AA.ViewType = M1.Code
+									AND M1.ParentCode = 'ViewType'
+				WHERE	1=1				
+			]]>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(
+							AA.ViewName		LIKE '%' + #FindText# + '%' OR
+							AA.Namespace	LIKE '%' + #FindText# + '%' OR
+							AA.Instance		LIKE '%' + #FindText# + '%'
+						)
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectView" parameterClass="DataMap" resultClass="ViewModel" >
+			<![CDATA[
+				SELECT  AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					,	AA.ViewName
+					,	AA.ViewType
+					,	AA.ParentID
+					,	AA.ModuleID
+					,	AA.Namespace
+					,	AA.Instance
+					,	AA.UseYn
+					,	AA.Description
+					,	AA.HelpID
+				FROM	dbo.TView AA WITH (NOLOCK)
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<insert id="InsertView" parameterClass="ViewModel" >
+			<![CDATA[
+				INSERT INTO dbo.TView
+				( 
+					CreateDate, CreateBy, CreateByName,
+					ViewName, ViewType, ParentID, ModuleID, Namespace, Instance, UseYn, Description, HelpID
+				)
+				VALUES
+				(
+					GetDate(), #CreateBy#, #CreateByName#,
+					#ViewName#, #ViewType#, #ParentID#, #ModuleID#, #Namespace#, #Instance#, #UseYn#, #Description#, #HelpID#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateView" parameterClass="ViewModel">
+			<![CDATA[
+				UPDATE  dbo.TView
+				SET     UpdateDate	= GetDate()
+					,	UpdateBy	= #UpdateBy#
+					,	UpdateByName= #UpdateByName#
+					
+					,	ViewName	= #ViewName#
+					,	ViewType	= #ViewType#
+					,	ParentID	= #ParentID#
+					,	ModuleID	= #ModuleID#
+					,	Namespace	= #Namespace#
+					,	Instance	= #Instance#
+					,	UseYn		= #UseYn#
+					,	Description	= #Description#
+					,	HelpID		= #HelpID#
+				WHERE	ID			= #ID#
+			]]>
+		</update>
+		<delete id="DeleteView" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM dbo.TViewButton		WHERE ViewID	= #ID#;
+				DELETE FROM dbo.TViewRole		WHERE ViewID	= #ID#;
+				DELETE FROM dbo.TViewRoleButton WHERE ViewID	= #ID#;
+				DELETE FROM dbo.TMenuView		WHERE ViewID	= #ID#;
+				DELETE FROM dbo.TView			WHERE ID		= #ID#;
+			]]>
+		</delete>
+
+		<select id="SelectViewButtonList" parameterClass="DataMap" resultClass="ViewButtonModel" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY CC.ID)	as RowNo
+					,	CASE 
+							WHEN AA.ID IS NULL THEN 'N'
+							ELSE AA.UseYn
+						END									as Checked
+					,	AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					,	#ID#								as ViewID
+					,	CC.ID								as ButtonID
+					,	CC.ButtonName
+					,	ISNULL(AA.UseYn,'N')    as UseYn
+					,	AA.LinkViewID
+					,	BB.ViewName							as ViewName					
+					,	DD.ViewName							as LinkViewName
+					,	CONVERT(VARCHAR, AA.LinkViewID)		as LinkViewCode
+					,	M1.Name								as ButtonTypeName
+				FROM	dbo.TButton CC
+						LEFT JOIN
+							dbo.TViewButton AA WITH (NOLOCK)
+								ON CC.ID = AA.ButtonID
+									AND AA.ViewID = #ID#
+						LEFT JOIN
+							dbo.TView BB WITH (NOLOCK)
+								ON CASE WHEN AA.ViewID IS NULL THEN #ID# ELSE AA.ViewID END = BB.ID
+						LEFT JOIN
+							dbo.TView DD WITH (NOLOCK)
+								ON AA.LinkViewID = DD.ID
+						LEFT JOIN
+							dbo.TCode M1 WITH (NOLOCK)
+								ON CC.ButtonType = M1.Code
+									AND M1.ParentCode = 'ButtonType'
+				WHERE	CC.UseYn = 'Y'
+				ORDER BY RowNo
+			]]>
+		</select>
+	</statements>
+</sqlMap>

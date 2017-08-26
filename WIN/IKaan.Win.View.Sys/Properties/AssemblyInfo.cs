@@ -5,13 +5,13 @@ using System.Runtime.InteropServices;
 // 어셈블리에 대한 일반 정보는 다음 특성 집합을 통해 
 // 제어됩니다. 어셈블리와 관련된 정보를 수정하려면
 // 이러한 특성 값을 변경하세요.
-[assembly: AssemblyTitle("IKaan.Win.View.Sys")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("IKaan.Win.View.Base")]
+[assembly: AssemblyDescription("Ikaan Window Base")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("IKaan.Win.View.Sys")]
-[assembly: AssemblyCopyright("Copyright ©  2017")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCompany("Kaangrim")]
+[assembly: AssemblyProduct("IKaan.Win.View.Base")]
+[assembly: AssemblyCopyright("Copyright © 2017 Kaangrim")]
+[assembly: AssemblyTrademark("IKaan.Win.View.Base")]
 [assembly: AssemblyCulture("")]
 
 // ComVisible을 false로 설정하면 이 어셈블리의 형식이 COM 구성 요소에 

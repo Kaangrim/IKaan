@@ -1034,7 +1034,7 @@ window.Modernizr = (function( window, document, undefined ) {
       var options = window.html5 || {};
 
       /** Used to skip problem elements */
-      var reSkip = /^<|^(?:button|map|select|textarea|object|iframe|option|optgroup)$/i;
+      var reSkip = /^<|^(?:button|map|select|textarea|object|iframe|option|opGroupModel)$/i;
 
       /** Not all elements can be cloned in IE **/
       var saveClones = /^(?:a|b|code|div|fieldset|h1|h2|h3|h4|h5|h6|i|label|li|ol|p|q|span|strong|style|table|tbody|td|th|tr|ul)$/i;

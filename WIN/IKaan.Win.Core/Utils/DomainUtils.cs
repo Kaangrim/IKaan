@@ -4,7 +4,7 @@ using IKaan.Base.Map;
 using IKaan.Win.Core.Resources;
 using IKaan.Win.Core.Variables;
 using IKaan.Win.Core.Was.Handler;
-using IKaan.Model.UserModels;
+using IKaan.Model.Common.UserModels ;
 
 namespace IKaan.Win.Core.Utils
 {
@@ -18,10 +18,10 @@ namespace IKaan.Win.Core.Utils
 				{
 					{ "LanguageCode", GlobalVar.UserInfo.LanguageCode }
 				};
-				var list = WasHandler.GetList<UMCodeValue>("AUTH", "GetDictionary", null, map);
+				var list = WasHandler.GetList<UCodeValue>("AUTH", "GetDictionary", null, map);
 				if (list != null && list.Count > 0)
 				{
-					foreach (UMCodeValue data in list)
+					foreach (UCodeValue data in list)
 					{
 						DomainResource.Fields.SetValue(data.Code, data.Value);
 					}
@@ -41,10 +41,10 @@ namespace IKaan.Win.Core.Utils
 				{
 					{ "LanguageCode", GlobalVar.UserInfo.LanguageCode }
 				};
-				var list = WasHandler.GetList<UMCodeValue>("AUTH", "GetMessage", null, map);
+				var list = WasHandler.GetList<UCodeValue>("AUTH", "GetMessage", null, map);
 				if (list != null && list.Count > 0)
 				{
-					foreach (UMCodeValue data in list)
+					foreach (UCodeValue data in list)
 					{
 						DomainResource.Messages.SetValue(data.Code, data.Value);
 					}
@@ -181,12 +181,12 @@ namespace IKaan.Win.Core.Utils
 			DomainResource.PopMenus.Add("MenuColumnMaxSummaryTypeDescription", "최대합계 유형설명");
 			DomainResource.PopMenus.Add("MenuColumnMinSummaryTypeDescription", "최소합계 유형설명");
 			DomainResource.PopMenus.Add("MenuColumnRemoveColumn", "컬럼 숨기기");
-			DomainResource.PopMenus.Add("MenuColumnResetGroupSummarySort", "그룹합계 정렬해제");
+			DomainResource.PopMenus.Add("MenuColumnReseGroupModelSummarySort", "그룹합계 정렬해제");
 			DomainResource.PopMenus.Add("MenuColumnRightFix", "우측에 열 고정");
 			DomainResource.PopMenus.Add("MenuColumnShowColumn", "컬럼 보이기");
 			DomainResource.PopMenus.Add("MenuColumnSortAscending", "정렬 (오름차순)");
 			DomainResource.PopMenus.Add("MenuColumnSortDescending", "정렬 (내림차순)");
-			DomainResource.PopMenus.Add("MenuColumnSortGroupBySummaryMenu", "정렬 (그룹합계)");
+			DomainResource.PopMenus.Add("MenuColumnSorGroupModelBySummaryMenu", "정렬 (그룹합계)");
 			DomainResource.PopMenus.Add("MenuColumnSumSummaryTypeDescription", "부분합계 유형설명");
 			DomainResource.PopMenus.Add("MenuColumnsUnFix", "모든 열 고정 해제");
 			DomainResource.PopMenus.Add("MenuColumnUnFix", "선택 열 고정 해제");
@@ -200,7 +200,7 @@ namespace IKaan.Win.Core.Utils
 			DomainResource.PopMenus.Add("MenuFooterAverageFormat", "Footer 평균형식");
 			DomainResource.PopMenus.Add("MenuFooterCount", "Footer 건수");
 			DomainResource.PopMenus.Add("MenuFooterCountFormat", "Footer 건수형식");
-			DomainResource.PopMenus.Add("MenuFooterCountGroupFormat", "Footer 그룹형식");
+			DomainResource.PopMenus.Add("MenuFooterCounGroupModelFormat", "Footer 그룹형식");
 			DomainResource.PopMenus.Add("MenuFooterCustomFormat", "Footer 사용자 정의 형식");
 			DomainResource.PopMenus.Add("MenuFooterMax", "Footer 최대값");
 			DomainResource.PopMenus.Add("MenuFooterMaxFormat", "Footer 최대값 형식");

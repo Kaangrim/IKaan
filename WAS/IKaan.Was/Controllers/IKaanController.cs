@@ -3,37 +3,24 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using IKaan.Base.Utils;
-using IKaan.Model.Was;
+using IKaan.Model.Common.Was;
 
 namespace IKaan.Was.Controllers
 {
 	public class IKaanController : ApiController
     {
 		private const string assemblyName = @"IKaan.Was.Service";
-		private string serviceType = "SYS";
+		private string serviceType = "Services";
 
 		public HttpResponseMessage Post(WasRequest request)
 		{
-			if (request.ServiceId.StartsWith("L"))
+			if (request.ServiceId.Equals("CodeHelp") || 
+				request.ServiceId.Equals("Email") ||
+				request.ServiceId.Equals("AUTH") ||
+				request.ServiceId.Equals("Common") ||
+				request.ServiceId.Equals("Report"))
 			{
-				serviceType = "LIB";
-			}
-			else if (request.ServiceId.StartsWith("B"))
-			{
-				serviceType = "BIZ";
-			}
-			else if (request.ServiceId.StartsWith("W") || request.ServiceId.StartsWith("S"))
-			{
-				serviceType = "SMP";
-			}
-			else
-			{
-				serviceType = "SYS";
-			}
-
-			if (request.ServiceId.Equals("CodeHelp") || request.ServiceId.Equals("Email"))
-			{
-				serviceType = "Base";
+				serviceType = "Common";
 			}
 
 			string namespaceName = string.Format("{0}.{1}.{2}Service", assemblyName, serviceType, request.ServiceId);

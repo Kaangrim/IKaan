@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectCustomerChannelList" parameterClass="DataMap" resultClass="CustomerChannelModel" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
+					,	AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.CustomerID
+					,	AA.ChannelID
+					,	AA.StartDate
+					,	AA.EndDate
+					
+					,	BB.CustomerName
+					,	CC.ChannelName
+					
+				FROM	dbo.TCustomerChannel AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.TCustomer BB WITH (NOLOCK)
+								ON AA.CustomerID = BB.ID
+						LEFT JOIN
+							dbo.TChannel CC WITH (NOLOCK)
+								ON AA.ChannelID = CC.ID
+				WHERE	1=1				
+			]]>
+			<isNotEmpty property="CustomerID">
+				<![CDATA[
+					AND		AA.CustomerID = #CustomerID#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="ChannelID">
+				<![CDATA[
+					AND		AA.ChannelID = #ChannelID#
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectCustomerChannel" parameterClass="DataMap" resultClass="CustomerChannelModel" >
+			<![CDATA[
+				SELECT  AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.CustomerID
+					,	AA.ChannelID
+					,	AA.StartDate
+					,	AA.EndDate
+					
+					,	BB.CustomerName
+					,	CC.ChannelName
+					
+				FROM	dbo.TCustomerChannel AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.TCustomer BB WITH (NOLOCK)
+								ON AA.CustomerID = BB.ID
+						LEFT JOIN
+							dbo.TChannel CC WITH (NOLOCK)
+								ON AA.ChannelID = CC.ID
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<insert id="InsertCustomerChannel" parameterClass="CustomerChannelModel" >
+			<![CDATA[
+				INSERT INTO dbo.TCustomerChannel
+				( 
+					CreateDate, CreateBy, CreateByName,
+					CustomerID, ChannelID, StartDate, EndDate
+				)
+				VALUES
+				(
+					GetDate(), #CreateBy#, #CreateByName#,
+					#CustomerID#, #ChannelID#, #StartDate#, #EndDate#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateCustomerChannel" parameterClass="CustomerChannelModel">
+			<![CDATA[
+				UPDATE  dbo.TCustomerChannel
+				SET     UpdateDate		= GetDate()
+					,	UpdateBy		= #UpdateBy#
+					,	UpdateByName	= #UpdateByName#
+					
+					,	CustomerID		= #CustomerID#
+					,	ChannelID		= #ChannelID#	
+					,	StartDate		= #StartDate#
+					,	EndDate			= #EndDate#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
+		<delete id="DeleteCustomerChannel" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM dbo.TCustomerChannel WHERE ID = #ID#;
+			]]>
+		</delete>
+	</statements>
+</sqlMap>

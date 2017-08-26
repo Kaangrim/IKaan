@@ -50,30 +50,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Base\EmailService.cs" />
-    <Compile Include="BIZ\BGService.cs" />
-    <Compile Include="BIZ\BCService.cs" />
-    <Compile Include="BIZ\BTService.cs" />
-    <Compile Include="BIZ\BMService.cs" />
-    <Compile Include="LIB\LMService.cs" />
-    <Compile Include="SMP\WCService.cs" />
-    <Compile Include="SYS\ACService.cs" />
-    <Compile Include="SYS\AAService.cs" />
-    <Compile Include="SYS\AUTHService.cs" />
-    <Compile Include="Base\BaseService.cs" />
-    <Compile Include="Base\CodeHelpService.cs" />
-    <Compile Include="Base\CommonService.cs" />
-    <Compile Include="SYS\ADService.cs" />
-    <Compile Include="Base\ReportService.cs" />
+    <Compile Include="Common\EmailService.cs" />
+    <Compile Include="Services\BaseServicePartial.cs" />
+    <Compile Include="Services\BizService.cs" />
+    <Compile Include="Services\BizServicePartial.cs" />
+    <Compile Include="Services\ScrapService.cs" />
+    <Compile Include="Services\BaseService.cs" />
+    <Compile Include="Common\AUTHService.cs" />
+    <Compile Include="Common\CommonService.cs" />
+    <Compile Include="Common\CodeHelpService.cs" />
+    <Compile Include="Common\ReportService.cs" />
+    <Compile Include="Services\ScrapServicePartial.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\ServiceUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ECM\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\..\BAS\IKaan.Base\IKaan.Base.csproj">
       <Project>{949db77a-078c-4ae7-ba66-a7109848b8c4}</Project>

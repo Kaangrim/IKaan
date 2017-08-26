@@ -1,0 +1,18 @@
+﻿@model IList<IKaan.Model.IKBiz.TGoods>
+
+@{ 
+	//Layout = "_Layout";
+	string imageSite = @"http://kaangrim.whoisimg.com";
+}
+
+@if (Model==null || Model.Count==0){
+
+}
+else{
+	<div class="page product-tag-page">
+		@foreach (var product in Model)
+		{
+			<img data-name="image" src="@(imageSite + product.ImageUrl)" />
+		}
+	</div>
+}

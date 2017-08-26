@@ -85,3 +85,4 @@ D:\Repositories\IKaan\BAS\IKaan.Model\bin\Debug\ru\DevExpress.Sparkline.v17.1.Co
 D:\Repositories\IKaan\BAS\IKaan.Model\obj\Debug\IKaan.Model.csprojResolveAssemblyReference.cache
 D:\Repositories\IKaan\BAS\IKaan.Model\obj\Debug\IKaan.Model.dll
 D:\Repositories\IKaan\BAS\IKaan.Model\obj\Debug\IKaan.Model.pdb
+D:\Repositories\IKaan\BAS\IKaan.Model\obj\Debug\IKaan.Model.csproj.CoreCompileInputs.cache

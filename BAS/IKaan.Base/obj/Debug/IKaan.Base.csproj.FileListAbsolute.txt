@@ -39,3 +39,4 @@ D:\Repositories\IKaan\BAS\IKaan.Base\bin\Debug\Newtonsoft.Json.xml
 D:\Repositories\IKaan\BAS\IKaan.Base\obj\Debug\IKaan.Base.csprojResolveAssemblyReference.cache
 D:\Repositories\IKaan\BAS\IKaan.Base\obj\Debug\IKaan.Base.dll
 D:\Repositories\IKaan\BAS\IKaan.Base\obj\Debug\IKaan.Base.pdb
+D:\Repositories\IKaan\BAS\IKaan.Base\obj\Debug\IKaan.Base.csproj.CoreCompileInputs.cache

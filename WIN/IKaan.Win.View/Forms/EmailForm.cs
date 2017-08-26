@@ -13,9 +13,9 @@ namespace IKaan.Win.View.Forms
 			wb.DocumentCompleted += delegate (object sender, System.Windows.Forms.WebBrowserDocumentCompletedEventArgs e) { doDocumentCompleted(); };
 		}
 
-		protected override void InitButtons()
+		protected override void InitButton()
 		{
-			base.InitButtons();
+			base.InitButton();
 			SetToolbarButtons(new ToolbarButtons() { Refresh = true });
 		}
 

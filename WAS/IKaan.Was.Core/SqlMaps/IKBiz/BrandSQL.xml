@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectBrandList" parameterClass="DataMap" resultClass="BrandModel" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
+					,	AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.BrandName
+					,	AA.EngName
+					,	AA.ShortName
+					,	AA.HomePage
+					,	AA.BrandCategory
+					,	AA.BrandStyle
+					,	AA.Description
+					,	AA.UseYn
+					
+					,	M1.Name				as BrandCategoryName
+					,	M2.Name				as BrandStyleName
+					
+				FROM	dbo.TBrand AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.TCode M1 WITH (NOLOCK)
+								ON AA.BrandCategory = M1.Code
+									AND M1.ParentCode = 'BrandCategory'
+						LEFT JOIN
+							dbo.TCode M2 WITH (NOLOCK)
+								ON AA.BrandStyle = M2.Code
+									AND M2.ParentCode = 'BrandStyle'
+				WHERE	1=1				
+			]]>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(
+							AA.BrandName		LIKE '%' + #FindText# + '%' OR
+							AA.EngName			LIKE '%' + #FindText# + '%' OR
+							AA.ShortName		LIKE '%' + #FindText# + '%'
+						)
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="UseYn">
+				<![CDATA[
+					AND	AA.UseYn = #UseYn#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="BrandCategory">
+				<![CDATA[
+					AND	AA.BrandCategory = #BrandCategory#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="BrandStyle">
+				<![CDATA[
+					AND	AA.BrandStyle = #BrandStyle#
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectBrand" parameterClass="DataMap" resultClass="BrandModel" >
+			<![CDATA[
+				SELECT  AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.BrandName
+					,	AA.EngName
+					,	AA.ShortName
+					,	AA.HomePage
+					,	AA.BrandCategory
+					,	AA.BrandStyle
+					,	AA.Description
+					,	AA.UseYn
+					
+					,	BB.ImageUrl
+					
+				FROM	dbo.TBrand AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.TBrandImage BB WITH (NOLOCK)
+								ON AA.ID = BB.BrandID
+									AND BB.ImageType = '11'
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<insert id="InsertBrand" parameterClass="BrandModel" >
+			<![CDATA[
+				INSERT INTO dbo.TBrand
+				( 
+					CreateDate, CreateBy, CreateByName,
+					BrandName, EngName, ShortName, HomePage, BrandCategory, BrandStyle, Description, UseYn
+				)
+				VALUES
+				(
+					GetDate(), #CreateBy#, #CreateByName#,
+					#BrandName#, #EngName#, #ShortName#, #HomePage#, #BrandCategory#, #BrandStyle#, #Description#, #UseYn#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateBrand" parameterClass="BrandModel">
+			<![CDATA[
+				UPDATE  dbo.TBrand
+				SET     UpdateDate		= GetDate()
+					,	UpdateBy		= #UpdateBy#
+					,	UpdateByName	= #UpdateByName#
+					
+					,	BrandName		= #BrandName#
+					,	EngName			= #EngName#
+					,	ShortName		= #ShortName#
+					,	HomePage		= #HomePage#
+					,	BrandCategory	= #BrandCategory#
+					,	BrandStyle		= #BrandStyle#
+					,	Description		= #Description#
+					,	UseYn			= #UseYn#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
+		<delete id="DeleteBrand" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM dbo.TBrandContact	WHERE BrandID = #ID#;
+				DELETE FROM dbo.TBrandManager	WHERE BrandID = #ID#;
+				DELETE FROM dbo.TBrandImage		WHERE BrandID = #ID#;
+				DELETE FROM dbo.TBrand			WHERE ID = #ID#;
+			]]>
+		</delete>
+	</statements>
+</sqlMap>

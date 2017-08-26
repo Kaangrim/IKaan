@@ -14,7 +14,7 @@ using DevExpress.XtraGrid.Views.Grid.ViewInfo;
 using DevExpress.XtraPrinting;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
-using IKaan.Model.Base;
+using IKaan.Model.Common.Base;
 using IKaan.Win.Core.Helper;
 using IKaan.Win.Core.Utils;
 using IKaan.Win.Core.Variables;

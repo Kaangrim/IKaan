@@ -1,0 +1,193 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+  namespace="IKaan.Was.Core.SqlMaps"
+  xmlns="http://ibatis.apache.org/mapping"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="GetLoginUser" parameterClass="DataMap" resultClass="ULoginUser" >
+			<![CDATA[         
+				SELECT	ID			as UserId
+				  ,     UserName
+				  ,     LoginId
+				  ,     UseYn
+				  ,     PwdCompare(#Password#, Password) as IsPwCheck
+				FROM	dbo.TUser
+				WHERE	LoginId = #LoginId#
+			]]>			
+		</select>
+		<insert id="InserLoginLogModel" parameterClass="DataMap" >
+			<![CDATA[ 
+				INSERT INTO dbo.LoginLogModel
+				( 
+					CreateDate, CreateBy, CreateByName,
+					UserId, LoginId, Version, MainSkin, GridSkin, IpAddress, MacAddress, Status
+				)
+				VALUES
+				( 
+					GetDate(), #CreateBy#, #CreateByName#,
+					#UserId#, #LoginId#, #Version#, #MainSkin#, #GridSkin#, #IpAddress#, #MacAddress#, '0'
+				)
+			]]>
+		</insert>
+		<update id="UpdateLogout" parameterClass="DataMap">
+			<![CDATA[
+				UPDATE	dbo.TLoginLog
+				SET		UpdateDate	= GetDate()
+					,	UpdateBy	= #UpdateBy#
+					,	UpdateByName= #UpdateByName#
+				WHERE	UserID		= #UserID#
+				AND		MacAddress	= #MacAddress#
+				AND		UpdateDate	IS NULL
+			]]>			
+		</update>
+		<select id="GetMainMenu" parameterClass="DataMap" resultClass="UMainMenu">
+			<![CDATA[
+				WITH MenuList (MenuID, MenuLevel, HierID) AS 
+				(
+					SELECT	AA.ID			AS MenuID
+						,	1				AS MenuLevel
+						,	CAST(RIGHT('0000' + 
+								CONVERT(VARCHAR, 
+									ROW_NUMBER() OVER (ORDER BY AA.SortOrder, AA.ID)), 4) AS VARCHAR(MAX))	as HierID
+					FROM	dbo.TMenu AA WITH (NOLOCK)
+					WHERE	AA.UseYn = 'Y'
+			]]>			
+			<isNotEmpty property="MenuGroup">
+				<![CDATA[
+					AND		CASE 
+								WHEN #MenuGroup# IN ('SYS','RDS','LIB') THEN AA.ParentID
+								ELSE AA.ID
+							END =	(	
+										SELECT	CONVERT(INT, Value) 
+										FROM	dbo.TCode WITH (NOLOCK)
+										WHERE	Code		= #MenuGroup#
+										AND		ParentCode	= 'MenuGroup'
+										AND		Value		IS NOT NULL
+									)
+				]]>
+			</isNotEmpty>
+			<isEmpty property="MenuGroup">
+				<isNotEmpty property="ID">
+					<![CDATA[
+						AND		AA.ID = #ID#
+					]]>
+				</isNotEmpty>
+				<isEmpty property="ID">
+					<![CDATA[
+						AND		AA.ParentID IS NULL
+					]]>
+				</isEmpty>
+			</isEmpty>
+			<![CDATA[
+					UNION ALL
+					SELECT	AA.ID				AS MenuID
+						,	BB.MenuLevel + 1	AS MenuLevel
+						,	CAST(BB.HierID+ '-' + 
+								 RIGHT('0000' + 
+									CONVERT(VARCHAR, 
+										ROW_NUMBER() OVER (ORDER BY AA.SortOrder, AA.ID)), 4) AS VARCHAR(MAX))	AS HierID
+					FROM	dbo.TMenu AA WITH (NOLOCK)
+							INNER JOIN 
+								MenuList BB 
+									ON AA.ParentID = BB.MenuID
+					WHERE	AA.UseYn = 'Y'
+				)
+				SELECT	AA.ID			as MenuID
+					,	AA.ParentId		as ParentID
+					,	AA.MenuName		as MenuName
+					,	BB.MenuLevel	as MenuLevel
+					,	BB.HierId		as HierID
+					,	FF.Assembly		as Assembly
+					,	DD.Namespace	as Namespace
+					,	DD.Instance		as Instance
+					,	DD.ViewType		as ViewType
+					,	'N'				AS BookmarkYn
+					,	ISNULL((	SELECT	COUNT(*)
+									FROM	dbo.TMenu BB
+									WHERE	BB.ParentID = AA.ID), 0)	AS ChildCount
+					,	CASE 
+							WHEN DD.ID IS NULL THEN 'N'
+							ELSE 'Y'
+						END				AS ViewYn
+					,	'N'				AS EditYn
+				FROM	dbo.TMenu AA WITH (NOLOCK)
+						INNER JOIN 
+							MenuList BB 
+								ON AA.ID = BB.MenuID
+						LEFT JOIN
+							dbo.TMenuView CC WITH (NOLOCK)
+								ON AA.ID = CC.MenuID
+						LEFT JOIN
+							dbo.TView DD WITH (NOLOCK)
+								ON CC.ViewID = DD.ID
+						LEFT JOIN
+							dbo.TModule FF WITH (NOLOCK)
+								ON DD.ModuleID = FF.ID
+				WHERE	1=1
+				ORDER BY 
+					BB.HierID
+			]]>
+		</select>
+		<select id="GetMenuView" parameterClass="DataMap" resultClass="UMenuView">
+			<![CDATA[
+				SELECT	AA.ID			as MenuID
+					,	AA.MenuName		as MenuName
+					,	CC.ID			as ViewID
+					,	CC.ViewName		as ViewName
+					,	CC.ViewType		as ViewType
+					,	EE.Assembly		as Assembly
+					,	CC.Namespace	as Namespace
+					,	CC.Instance		as Instance
+				FROM	dbo.TMenu AA WITH (NOLOCK)
+						INNER JOIN
+							dbo.TMenuView BB WITH (NOLOCK)
+								ON AA.ID = BB.MenuID
+						INNER JOIN
+							dbo.TView CC WITH (NOLOCK)
+								ON BB.ViewID = CC.ID
+						INNER JOIN
+							dbo.TModule EE WITH (NOLOCK)
+								ON CC.ModuleID = EE.ID
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<select id="GetMenuViewButton" parameterClass="DataMap" resultClass="UMenuViewButton">
+			<![CDATA[
+				SELECT	AA.ID			as ButtonID
+					,	AA.ButtonName	as ButtonName
+					,	AA.Instance		as Instance
+				FROM	dbo.TButton AA WITH (NOLOCK)	
+						INNER JOIN
+							dbo.TViewButton BB WITH (NOLOCK)
+								ON AA.ID = BB.ButtonID
+						INNER JOIN
+							dbo.TMenuView CC WITH (NOLOCK)
+								ON BB.ViewID = CC.ViewID
+				WHERE	CC.MenuID = #ID#
+				ORDER BY 
+					AA.ID
+			]]>
+		</select>
+		<select id="GetDictionary" parameterClass="DataMap" resultClass="UCodeValue">
+			<![CDATA[
+				SELECT	AA.PhysicalName	as Code
+					,	AA.LogicalName	as Value
+				FROM	dbo.TDictionary AA WITH (NOLOCK)	
+				WHERE	AA.LanguageCode = #LanguageCode#
+				ORDER BY 
+					AA.PhysicalName
+			]]>
+		</select>
+		<select id="GetMessage" parameterClass="DataMap" resultClass="UCodeValue">
+			<![CDATA[
+				SELECT	AA.PhysicalName	as Code
+					,	AA.LogicalName	as Value
+				FROM	dbo.TMessage AA WITH (NOLOCK)
+				WHERE	AA.LanguageCode = #LanguageCode#
+				ORDER BY 
+					AA.PhysicalName
+			]]>
+		</select>
+	</statements>
+</sqlMap>

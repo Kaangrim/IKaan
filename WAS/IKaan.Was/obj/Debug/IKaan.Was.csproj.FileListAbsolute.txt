@@ -304,3 +304,4 @@ D:\Repositories\IKaan\WAS\IKaan.Was\bin\ko\System.Web.Razor.resources.dll
 D:\Repositories\IKaan\WAS\IKaan.Was\bin\ko\System.Web.WebPages.resources.dll
 D:\Repositories\IKaan\WAS\IKaan.Was\bin\ko\System.Web.WebPages.Deployment.resources.dll
 D:\Repositories\IKaan\WAS\IKaan.Was\bin\ko\System.Web.WebPages.Razor.resources.dll
+D:\Repositories\IKaan\WAS\IKaan.Was\obj\Debug\IKaan.Was.csproj.CoreCompileInputs.cache

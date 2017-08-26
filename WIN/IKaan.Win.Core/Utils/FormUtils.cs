@@ -5,9 +5,9 @@ using System.Reflection;
 using System.Windows.Forms;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
+using IKaan.Model.IKBase;
 using IKaan.Win.Core.Forms;
 using IKaan.Win.Core.Was.Handler;
-using IKaan.Model.SYS.AA;
 
 namespace IKaan.Win.Core.Utils
 {
@@ -73,7 +73,7 @@ namespace IKaan.Win.Core.Utils
 				string helpName;
 
 				var parameter = new DataMap() { { "HelpId", helpId }, { "MenuId", menuId } };
-				var data = WasHandler.GetData<AAHelp>("Auth", "GetHelpContent", null, parameter);
+				var data = WasHandler.GetData<HelpModel>("Auth", "GeHelpModelContent", null, parameter);
 				if (data != null)
 				{
 					helpId = data.ID;

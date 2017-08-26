@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectLoginLogUserlList" parameterClass="DataMap" resultClass="LoginLogUserModel" >
+			<![CDATA[
+				SELECT	ROW_NUMBER() OVER (ORDER BY XX.LoginCount Desc)	as RowNo
+					,	XX.UserID
+					,	XX.UserName
+					,	XX.LoginID
+					,	XX.LoginCount
+					,	XX.FirstLoginDate
+					,	XX.LastLoginDate
+				FROM	(
+							SELECT	AA.UserID
+								,	U1.UserName
+								,	AA.LoginID
+								,	COUNT(AA.ID)		as LoginCount
+								,	MIN(AA.CreateDate)	as FirstLoginDate
+								,	MAX(AA.CreateDate)	as LastLoginDate
+							FROM	dbo.TLoginLog AA WITH (NOLOCK)
+									LEFT JOIN
+										dbo.TUser U1 WITH (NOLOCK)
+											ON AA.UserId = U1.ID
+							WHERE	1=1
+			]]>
+			<isNotPropertyAvailable property="FindText">
+				<isNotEmpty property="FindText">
+					<![CDATA[
+							AND	(
+									AA.LoginID LIKE '%' + #FindText# + '%'	OR
+									U1.UserName LIKE '%' + #FindText# + '%'
+								)
+					]]>
+				</isNotEmpty>
+			</isNotPropertyAvailable>
+			<isNotPropertyAvailable property="StartDate">
+				<isNotEmpty property="StartDate">
+					<![CDATA[
+							AND		AA.CreateDate >= Convert(Datetime, #StartDate#, 112)
+					]]>
+				</isNotEmpty>
+			</isNotPropertyAvailable>
+			<isNotPropertyAvailable property="EndDate">
+				<isNotEmpty property="EndDate">
+					<![CDATA[
+							AND		AA.CreateDate < DateAdd(Day, 1, Convert(Varchar(8), #EndDate#, 112))
+					]]>
+				</isNotEmpty>
+			</isNotPropertyAvailable>
+			<![CDATA[
+							GROUP BY
+								AA.UserID, U1.UserName, AA.LoginID
+						) XX
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectLoginLogList" parameterClass="DataMap" resultClass="LoginLogModel" >
+			<![CDATA[
+				SELECT	ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
+					,	AA.ID
+					
+					,	AA.UserId
+					,	U1.UserName
+					,	AA.LoginId
+					,	AA.Version
+					,	AA.MainSkin
+					,	AA.GridSkin
+					,	AA.IpAddress
+					,	AA.MacAddress
+					,	AA.Status
+					,	AA.CreateDate		as LoginDate
+					,	AA.UpdateDate		as LogoutDate
+				FROM	dbo.TLoginLog AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.TUser U1 WITH (NOLOCK)
+								ON AA.UserId = U1.ID
+				WHERE	AA.UserID = #UserID#
+				ORDER BY RowNo
+			]]>
+		</select>
+	</statements>
+</sqlMap>

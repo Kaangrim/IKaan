@@ -34,7 +34,7 @@
 			this.txtInsertUserName = new DevExpress.XtraEditors.TextEdit();
 			this.txtUpdateDtime = new DevExpress.XtraEditors.TextEdit();
 			this.txtInsertDtime = new DevExpress.XtraEditors.TextEdit();
-			this.txtHelpName = new DevExpress.XtraEditors.TextEdit();
+			this.txHelpModelName = new DevExpress.XtraEditors.TextEdit();
 			this.richEditor = new DevExpress.XtraRichEdit.RichEditControl();
 			this.lcGroupBase = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.lcGroupContent = new DevExpress.XtraLayout.LayoutControlGroup();
@@ -53,7 +53,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.txtInsertUserName.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.txtUpdateDtime.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.txtInsertDtime.Properties)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.txtHelpName.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.txHelpModelName.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupBase)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupContent)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemContent)).BeginInit();
@@ -74,7 +74,7 @@
 			this.lc.Controls.Add(this.txtInsertUserName);
 			this.lc.Controls.Add(this.txtUpdateDtime);
 			this.lc.Controls.Add(this.txtInsertDtime);
-			this.lc.Controls.Add(this.txtHelpName);
+			this.lc.Controls.Add(this.txHelpModelName);
 			this.lc.Controls.Add(this.richEditor);
 			this.lc.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.lc.Location = new System.Drawing.Point(0, 0);
@@ -118,13 +118,13 @@
 			this.txtInsertDtime.StyleController = this.lc;
 			this.txtInsertDtime.TabIndex = 6;
 			// 
-			// txtHelpName
+			// txHelpModelName
 			// 
-			this.txtHelpName.Location = new System.Drawing.Point(151, 19);
-			this.txtHelpName.Name = "txtHelpName";
-			this.txtHelpName.Size = new System.Drawing.Size(422, 20);
-			this.txtHelpName.StyleController = this.lc;
-			this.txtHelpName.TabIndex = 5;
+			this.txHelpModelName.Location = new System.Drawing.Point(151, 19);
+			this.txHelpModelName.Name = "txHelpModelName";
+			this.txHelpModelName.Size = new System.Drawing.Size(422, 20);
+			this.txHelpModelName.StyleController = this.lc;
+			this.txHelpModelName.TabIndex = 5;
 			// 
 			// richEditor
 			// 
@@ -179,7 +179,7 @@
 			// 
 			// lcItemHelpName
 			// 
-			this.lcItemHelpName.Control = this.txtHelpName;
+			this.lcItemHelpName.Control = this.txHelpModelName;
 			this.lcItemHelpName.Location = new System.Drawing.Point(0, 0);
 			this.lcItemHelpName.Name = "lcItemHelpName";
 			this.lcItemHelpName.Size = new System.Drawing.Size(558, 24);
@@ -254,7 +254,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.txtInsertUserName.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.txtUpdateDtime.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.txtInsertDtime.Properties)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.txtHelpName.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.txHelpModelName.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupBase)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupContent)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemContent)).EndInit();
@@ -278,7 +278,7 @@
 		private DevExpress.XtraRichEdit.RichEditControl richEditor;
 		private DevExpress.XtraLayout.LayoutControlItem lcItemContent;
 		private DevExpress.XtraLayout.LayoutControlGroup lcGroupSubject;
-		private DevExpress.XtraEditors.TextEdit txtHelpName;
+		private DevExpress.XtraEditors.TextEdit txHelpModelName;
 		private DevExpress.XtraLayout.LayoutControlItem lcItemHelpName;
 		private DevExpress.XtraLayout.LayoutControlGroup lcGroupRegInfo;
 		private DevExpress.XtraEditors.TextEdit txtUpdateUserName;

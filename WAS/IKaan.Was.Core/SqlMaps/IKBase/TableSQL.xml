@@ -1,0 +1,353 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectTableList" parameterClass="DataMap" resultClass="TableModel" >
+			<![CDATA[
+				SELECT	ROW_NUMBER() OVER (ORDER BY BB.SchemaName, AA.TableName)	AS RowNo
+					,	AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.DatabaseID
+					,	AA.SchemaName
+					,	AA.TableName
+					,	AA.Description
+					,	AA.UseYn
+					,	CC.DatabaseName
+				FROM	dbo.TTable AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.TDatabase CC WITH (NOLOCK)
+								ON AA.DatabaseID = CC.ID
+				WHERE	1=1
+			]]>
+			<isNotEmpty property="ServerID">
+				<![CDATA[
+					AND		CC.ServerID = #ServerID#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="DatabaseID">
+				<![CDATA[
+					AND		AA.DatabaseID = #DatabaseID#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(
+							AA.TableName	LIKE '%'+#FindText#+'%'	OR
+							AA.Description	LIKE '%'+#FindText#+'%'
+						)
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectTable" parameterClass="DataMap" resultClass="TableModel" >
+			<![CDATA[
+				SELECT	ROW_NUMBER() OVER (ORDER BY AA.SchemaName, AA.TableName)	AS RowNo
+					,	AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.DatabaseID
+					,	CC.DatabaseName
+					,	AA.SchemaName
+					,	AA.TableName
+					,	AA.Description
+					,	AA.UseYn
+				FROM	dbo.TTable AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.TDatabase CC WITH (NOLOCK)
+								ON AA.DatabaseID = CC.ID
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		
+		<insert id="InsertTable" parameterClass="TableModel" >
+			<![CDATA[
+				INSERT INTO dbo.TTable
+				( 
+					CreateDate, CreateBy, CreateByName,
+					DatabaseID, SchemaName, TableName, UseYn, Description
+				)
+				VALUES
+				( 
+					GETDATE(), #CreateBy#, #CreateByName#,
+					#DatabaseID#, #SchemaName#, #TableName#, #UseYn#, #Description#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateTable" parameterClass="TableModel">
+			<![CDATA[
+				UPDATE  dbo.TTable
+				SET     UpdateDate	= GetDate()
+					,	UpdateBy	= #UpdateBy#
+					,	UpdateByName= #UpdateByName#
+					
+					,	DatabaseID	= #DatabaseID#
+					,	SchemaName	= #SchemaName#
+					,	TableName	= #TableName#
+					,	UseYn		= #UseYn#
+					,	Description	= #Description#
+				WHERE	ID			= #ID#
+			]]>
+		</update>
+		<delete id="DeleteTable" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM dbo.TTable WHERE ID = #ID#;
+			]]>
+		</delete>
+
+		<select id="SelectIndex" parameterClass="DataMap" resultClass="DataMap" >
+			<![CDATA[
+				SELECT	DB_NAME(database_id)			AS [DatabaseName]
+					,	OBJECT_NAME(a.object_id)		AS [TableName]
+					,	a.index_id						AS [IndexId]
+					,	b.name							AS [IndexName]
+					,	a.avg_fragmentation_in_percent	AS [AvgFragInPer]
+				FROM	sys.dm_db_index_physical_stats (DB_ID(), OBJECT_ID(''' + @TableName + '''), NULL, NULL, NULL) AS a
+						JOIN 
+							sys.indexes AS b 
+								ON a.object_id = b.object_id 
+									AND a.index_id = b.index_id
+				WHERE	a.database_id = DB_ID()
+			]]>
+		</select>
+
+		<select id="SelectTableByMSSQL" parameterClass="DataMap" resultClass="TableStatisticsModel" >
+			<![CDATA[
+				SELECT	ROW_NUMBER() OVER 
+							(ORDER BY aa.SchemaName, aa.TableName)	as RowNo
+							
+					,	tt.ID
+					,	tt.CreateDate
+					,	tt.CreateBy
+					,	tt.CreateByName
+					,	tt.UpdateDate
+					,	tt.UpdateBy
+					,	tt.UpdateByName
+					
+					,	aa.SchemaName		as SchemaName
+					,	aa.TableID			as TableID
+					,	aa.TableName		as TableName
+					,	aa.Description		as Description
+					,	aa.RowCnt			as RowCnt
+					,	aa.TableSize		as TableSize
+					,	aa.DataSize			as DataSize
+					,	aa.IndexSize		as IndexSize
+					,	aa.LastUserSeek		as LastUserSeek
+					,	aa.LastUserScan		as LastUserScan
+					,	aa.LastUserLookup	as LastUserLookup
+					,	aa.LastUserUpdate	as LastUserUpdate
+					,	aa.LastSystemUpdate	as LastSystemUpdate
+				FROM	(
+							SELECT	DB_NAME(DB_ID())							as DatabaseName
+								,	schema_name(a.schema_id)					as SchemaName
+								,	a.object_id									as TableID
+								,	a.name										as TableName
+								,	convert(nvarchar, isnull(b.value, ''))		as Description
+								,	isnull(s.row_count, 0)						as RowCnt
+								,	round((isnull(s.reserved_size, 0) + 
+									isnull(s2.reserved_size, 0))/128., 3)		as TableSize
+								,	round(s.data_size/128., 3)					as DataSize
+								,	round((case 
+											when (isnull(s.used_size, 0) + isnull(s2.used_size, 0)) > s.data_size then 
+												(isnull(s.used_size, 0) + isnull(s2.used_size, 0)) - isnull(s.data_size, 0) 
+											else 0 
+										   end)/128., 3)						as IndexSize
+								,	u.last_user_seek							as LastUserSeek
+								,	u.last_user_scan							as LastUserScan
+								,	u.last_user_lookup							as LastUserLookup
+								,	u.last_user_update							as LastUserUpdate
+								,	u.last_system_update						as LastSystemUpdate
+							FROM	sys.tables a
+									left join
+									(	
+										select	object_id
+											,	sum(case when index_id < 2 then row_count else 0 end)			as row_count
+											,	sum(reserved_page_count)										as reserved_size
+											,	sum(case when index_id < 2 then 
+														in_row_data_page_count + 
+														lob_used_page_count + 
+														row_overflow_used_page_count
+													else 
+														lob_used_page_count + row_overflow_used_page_count 
+													end)														as data_size
+											,	sum(used_page_count)											as used_size
+										from	sys.dm_db_partition_stats
+										group by 
+											object_id
+									) s 
+										on a.object_id = s.object_id
+									left join
+									(
+										select	s2.parent_id
+											,	sum(s1.reserved_page_count)	as reserved_size
+											,	sum(s1.used_page_count)		as used_size
+										from	sys.dm_db_partition_stats s1
+												inner join 
+													sys.internal_tables s2 
+														on s2.object_id = s1.object_id
+										where	s2.internal_type in (202,204)
+										group by 
+											s2.parent_id
+									) s2 
+										on a.object_id = s2.parent_id
+									left join
+									(
+										select	a.object_id
+											,	max(a.last_user_seek)		as last_user_seek		/* 마지막 사용자 검색(Seek)시간 */
+											,	max(a.last_user_scan)		as last_user_scan		/* 마지막 사용자 검색(Scan) 시간 */
+											,	max(a.last_user_lookup)		as last_user_lookup		/* 마지막 사용자 조회 시간 */
+											,	max(a.last_user_update)		as last_user_update		/* 마지막 사용자 업데이트 시간 */
+											,	max(a.last_system_update)	as last_system_update
+										from	sys.dm_db_index_usage_stats a
+												inner join
+													sys.databases b
+														on a.database_id = b.database_id
+										where	b.name = #DatabaseName#
+										group by 
+											a.object_id
+									) u 
+										on a.object_id = u.object_id
+									left join
+									(
+										select	major_id
+											,	value
+										from	sys.extended_properties
+										where	minor_id= 0 
+										and		name	= 'MS_Description'
+									) b 
+										on a.object_id = b.major_id
+							WHERE	a.type = 'U'
+						) aa
+						LEFT JOIN
+							dbo.TTable tt
+								ON aa.TableName = tt.TableName
+									AND tt.DatabaseID = #DatabaseID#
+				WHERE	1=1
+			]]>
+			<isNotEmpty property="TableName">
+				<![CDATA[
+					AND		aa.TableName = #TableName#
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectTableByMYSQL" parameterClass="DataMap" resultClass="TableStatisticsModel" >
+			<![CDATA[
+				SELECT	ROW_NUMBER() OVER 
+							(ORDER BY AA.TABLE_NAME)					as RowNo
+							
+					,	tt.ID
+					,	tt.CreateDate
+					,	tt.CreateBy
+					,	tt.CreateByName
+					,	tt.UpdateDate
+					,	tt.UpdateBy
+					,	tt.UpdateByName
+					
+					,	AA.TABLE_SCHEMA									as SchemaName
+					,	AA.TABLE_TYPE + ' ' + AA.TABLE_NAME				as TableID
+					,	AA.TABLE_NAME									as TableName
+					,	AA.TABLE_COMMENT								as Description
+					,	AA.TABLE_ROWS									as RowCnt
+					,	(AA.DATA_LENGTH + AA.INDEX_LENGTH)/1024/1024	as TableSize
+					,	AA.DATA_LENGTH/1024/1024						as DataSize
+					,	AA.INDEX_LENGTH/1024/1024						as IndexSize
+					,	null											as LastUserSeek
+					,	null											as LastUserScan
+					,	null											as LastUserLookup
+					,	AA.UPDATE_TIME									as LastUserUpdate
+					,	null											as LastSystemUpdate
+				FROM	INFORMATION_SCHEMA.TABLES AA
+						LEFT JOIN
+							dbo.TTable tt
+								ON AA.TABLE_NAME = tt.TableName
+									AND tt.DatabaseID = #DatabaseID#
+				WHERE	AA.TABLE_TYPE	= 'BASE TABLE'
+			]]>
+			<isNotEmpty property="TableName">
+				<![CDATA[
+				AND		AA.TABLE_NAME = #TableName#
+			]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY RowNo
+			]]>
+		</select>
+
+		<select id="SelectTableExists" parameterClass="DataMap" resultClass="TableModel" >
+			<![CDATA[
+				SELECT	ROW_NUMBER() OVER (ORDER BY AA.SchemaName, AA.TableName)	AS RowNo
+					,	AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.DatabaseID
+					,	CC.DatabaseName
+					,	AA.SchemaName
+					,	AA.TableName
+					,	AA.Description
+					,	AA.UseYn
+				FROM	dbo.TTable AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.TDatabase CC WITH (NOLOCK)
+								ON AA.DatabaseID = CC.ID
+				WHERE	AA.DatabaseID = #DatabaseID#
+				AND		AA.TableName = #TableName#
+			]]>
+		</select>
+
+		<insert id="AddOrUpdateTableDescription" parameterClass="TableModel" >
+			<![CDATA[
+			IF NOT EXISTS 
+				(
+					SELECT	1 
+					FROM	SYS.EXTENDED_PROPERTIES 
+					WHERE	[major_id] = OBJECT_ID(#TableName#) 
+					AND		[name] = N'MS_Description' 
+					AND		[minor_id] = 0
+				)
+				EXECUTE sp_addextendedproperty
+					@name		= N'MS_Description',
+					@value		= #Description#, 
+					@level0type = N'SCHEMA', 
+					@level0name = #SchemaName#, 
+					@level1type = N'TABLE',
+					@level1name = #TableName#;
+			ELSE
+				EXECUTE sp_updateextendedproperty  
+					@name		= N'MS_Description', 
+					@value		= #Description#, 
+					@level0type	= N'SCHEMA', 
+					@level0name = #SchemaName#,
+					@level1type = N'TABLE', 
+					@level1name = #TableName#;
+			]]>
+		</insert>
+	</statements>
+</sqlMap>

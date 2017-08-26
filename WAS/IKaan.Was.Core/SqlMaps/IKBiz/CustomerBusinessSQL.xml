@@ -1,0 +1,188 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectCustomerBusinessList" parameterClass="DataMap" resultClass="CustomerBusinessModel" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
+					,	AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.CustomerID
+					,	AA.BusinessID
+					,	AA.StartDate
+					,	AA.EndDate
+					
+					,	BB.BizNo
+					,	BB.BizName
+					,	BB.RepName
+					
+					,	CC.CustomerName
+					
+				FROM	dbo.TCustomerBusiness AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.TBusiness BB WITH (NOLOCK)
+								ON AA.BusinessID = BB.ID
+						LEFT JOIN
+							dbo.TCustomer CC WITH (NOLOCK)
+								ON AA.CustomerID = CC.ID
+				WHERE	1=1
+			]]>
+			<isNotEmpty property="CustomerID">
+				<![CDATA[
+					AND	AA.CustomerID = #CustomerID#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="BusinessID">
+				<![CDATA[
+					AND	AA.BusinessID = #BusinessID#
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectCustomerBusiness" parameterClass="DataMap" resultClass="CustomerBusinessModel" >
+			<![CDATA[
+				SELECT  AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.CustomerID
+					,	AA.BusinessID
+					,	AA.StartDate
+					,	AA.EndDate
+					
+				FROM	dbo.TCustomerBusiness AA WITH (NOLOCK)
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<insert id="InsertCustomerBusiness" parameterClass="CustomerBusinessModel" >
+			<![CDATA[
+				INSERT INTO dbo.TCustomerBusiness
+				( 
+					CreateDate, CreateBy, CreateByName,
+					CustomerID, BusinessID, StartDate, EndDate
+				)
+				VALUES
+				(
+					GetDate(), #CreateBy#, #CreateByName#,
+					#CustomerID#, #BusinessID#, #StartDate#, #EndDate#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateCustomerBusiness" parameterClass="CustomerBusinessModel">
+			<![CDATA[
+				UPDATE  dbo.TCustomerBusiness
+				SET     UpdateDate		= GetDate()
+					,	UpdateBy		= #UpdateBy#
+					,	UpdateByName	= #UpdateByName#
+					
+					,	CustomerID		= #CustomerID#
+					,	BusinessID		= #BusinessID#
+					,	StartDate		= #StartDate#
+					,	EndDate			= #EndDate#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
+		<delete id="DeleteCustomerBusiness" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM dbo.TCustomerBusiness WHERE ID = #ID#;
+			]]>
+		</delete>
+
+		<select id="SelectCustomerBusinessDuplicate" parameterClass="DataMap" resultClass="CustomerBusinessModel" >
+			<![CDATA[
+				SELECT  AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.CustomerID
+					,	AA.BusinessID
+					,	AA.StartDate
+					,	AA.EndDate
+					
+				FROM	dbo.TCustomerBusiness AA WITH (NOLOCK)
+				WHERE	AA.CustomerID	= #CustomerID#
+				AND		AA.StartDate	= #StartDate# 
+			]]>
+		</select>
+		<select id="SelectCustomerBusinessBefore" parameterClass="DataMap" resultClass="CustomerBusinessModel" >
+			<![CDATA[
+				SELECT  AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.CustomerID
+					,	AA.BusinessID
+					,	AA.StartDate
+					,	AA.EndDate
+					
+				FROM	dbo.TCustomerBusiness AA WITH (NOLOCK)
+				WHERE	AA.CustomerID	= #CustomerID#
+				AND		AA.StartDate	= (	SELECT	MAX(StartDate)
+											FROM	DBO.TCustomerBusiness
+											WHERE	CustomerID	= #CustomerID#
+											AND		StartDate	< #StartDate# )
+			]]>
+		</select>
+		<select id="SelectCustomerBusinessAfter" parameterClass="DataMap" resultClass="CustomerBusinessModel" >
+			<![CDATA[
+				SELECT  AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.CustomerID
+					,	AA.BusinessID
+					,	AA.StartDate
+					,	AA.EndDate
+					
+				FROM	dbo.TCustomerBusiness AA WITH (NOLOCK)
+				WHERE	AA.CustomerID	= #CustomerID#
+				AND		AA.StartDate	= (	SELECT	MIN(StartDate)
+											FROM	DBO.TCustomerBusiness
+											WHERE	CustomerID	= #CustomerID#
+											AND		StartDate	> #StartDate# )
+			]]>
+		</select>
+		<update id="UpdateCustomerBusinessEndDate" parameterClass="CustomerBusinessModel">
+			<![CDATA[
+				UPDATE  dbo.TCustomerBusiness
+				SET     UpdateDate		= GetDate()
+					,	UpdateBy		= #UpdateBy#
+					,	UpdateByName	= #UpdateByName#					
+					,	EndDate			= #EndDate#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
+	</statements>
+</sqlMap>

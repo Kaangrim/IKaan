@@ -409,3 +409,4 @@ D:\Repositories\IKaan\WIN\IKaan.Win.View.Sys\bin\Debug\de\DevExpress.Diagram.v17
 D:\Repositories\IKaan\WIN\IKaan.Win.View.Sys\bin\Debug\es\DevExpress.Diagram.v17.1.Core.resources.dll
 D:\Repositories\IKaan\WIN\IKaan.Win.View.Sys\bin\Debug\ja\DevExpress.Diagram.v17.1.Core.resources.dll
 D:\Repositories\IKaan\WIN\IKaan.Win.View.Sys\bin\Debug\ru\DevExpress.Diagram.v17.1.Core.resources.dll
+D:\Repositories\IKaan\WIN\IKaan.Win.View.Sys\obj\Debug\IKaan.Win.View.Sys.csproj.CoreCompileInputs.cache

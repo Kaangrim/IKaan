@@ -24,9 +24,9 @@ namespace IKaan.Win.View.Forms
 			txtUrl.KeyDown += delegate (object sender, KeyEventArgs e) { if (e.KeyCode == Keys.Enter) DataLoad(); };
 		}
 
-		protected override void InitButtons()
+		protected override void InitButton()
 		{
-			base.InitButtons();
+			base.InitButton();
 			SetToolbarButtons(new ToolbarButtons() { });
 		}
 		protected override void InitControls()

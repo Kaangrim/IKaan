@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectGoodsImageList" parameterClass="DataMap" resultClass="GoodsImageModel" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY M1.SortOrder, M2.SortOrder, AA.ID)	AS RowNo
+					,	AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.GoodsID
+					,	AA.ImageType
+					,	AA.ImageGroup
+					,	AA.ImageUrl
+					
+					,	M1.Name			as ImageTypeName
+					,	M2.Name			as ImageGroupName
+					
+				FROM	dbo.TGoodsImage AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.TCode M1 WITH (NOLOCK)
+								ON AA.ImageType = M1.Code
+									AND M1.ParentCode = 'ImageType'
+						LEFT JOIN
+							dbo.TCode M2 WITH (NOLOCK)
+								ON AA.ImageGroup = M2.Code
+									AND M2.ParentCode = 'ImageGroup'
+				WHERE	AA.GoodsID = #GoodsID#
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectGoodsImage" parameterClass="DataMap" resultClass="GoodsImageModel" >
+			<![CDATA[
+				SELECT  AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.GoodsID
+					,	AA.ImageType
+					,	AA.ImageGroup
+					,	AA.ImageUrl
+					
+				FROM	dbo.TGoodsImage AA WITH (NOLOCK)
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<insert id="InsertGoodsImage" parameterClass="GoodsImageModel" >
+			<![CDATA[
+				INSERT INTO dbo.TGoodsImage
+				( 
+					CreateDate, CreateBy, CreateByName,
+					GoodsID, ImageType, ImageGroup, ImageUrl
+				)
+				VALUES
+				(
+					GetDate(), #CreateBy#, #CreateByName#,
+					#GoodsID#, #ImageType#, #ImageGroup#, #ImageUrl#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateGoodsImage" parameterClass="GoodsImageModel">
+			<![CDATA[
+				UPDATE  dbo.TGoodsImage
+				SET     UpdateDate		= GetDate()
+					,	UpdateBy		= #UpdateBy#
+					,	UpdateByName	= #UpdateByName#
+					
+					,	GoodsID			= #GoodsID#
+					,	ImageType		= #ImageType#
+					,	ImageGroup		= #ImageGroup#
+					,	ImageUrl		= #ImageUrl#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
+		<delete id="DeleteGoodsImage" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM dbo.TGoodsImage WHERE ID = #ID#;
+			]]>
+		</delete>
+	</statements>
+</sqlMap>

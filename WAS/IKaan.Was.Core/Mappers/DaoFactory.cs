@@ -7,10 +7,10 @@ namespace IKaan.Was.Core.Mappers
 	public class DaoFactory
 	{
 		private static object syncLock = new object();
+
 		private static ISqlMapper mapper = null;
 		private static ISqlMapper mapperBiz = null;
-		private static ISqlMapper mapperLib = null;
-		private static ISqlMapper mapperSmp = null;
+		private static ISqlMapper mapperScrap = null;
 		
 		public static ISqlMapper Instance
 		{
@@ -25,7 +25,7 @@ namespace IKaan.Was.Core.Mappers
 							if (mapper == null)
 							{
 								var dom = new DomSqlMapBuilder();
-								var sqlMapConfig = Resources.GetEmbeddedResourceAsXmlDocument("Config.SqlMap.config, IKaan.Was.Core");
+								var sqlMapConfig = Resources.GetEmbeddedResourceAsXmlDocument("Config.SqlMapIKBase.config, IKaan.Was.Core");
 								mapper = dom.Configure(sqlMapConfig);
 							}
 						}
@@ -65,22 +65,22 @@ namespace IKaan.Was.Core.Mappers
 				return mapperBiz;
 			}
 		}
-
-		public static ISqlMapper InstanceLib
+		
+		public static ISqlMapper InstanceScrap
 		{
 			get
 			{
 				try
 				{
-					if (mapperLib == null)
+					if (mapperScrap == null)
 					{
 						lock (syncLock)
 						{
-							if (mapperBiz == null)
+							if (mapperScrap == null)
 							{
 								var dom = new DomSqlMapBuilder();
-								var sqlMapConfig = Resources.GetEmbeddedResourceAsXmlDocument("Config.SqlMapLib.config, IKaan.Was.Core");
-								mapperLib = dom.Configure(sqlMapConfig);
+								var sqlMapConfig = Resources.GetEmbeddedResourceAsXmlDocument("Config.SqlMapScrap.config, IKaan.Was.Core");
+								mapperScrap = dom.Configure(sqlMapConfig);
 							}
 						}
 					}
@@ -89,34 +89,7 @@ namespace IKaan.Was.Core.Mappers
 				{
 					throw;
 				}
-				return mapperLib;
-			}
-		}
-
-		public static ISqlMapper InstanceSmp
-		{
-			get
-			{
-				try
-				{
-					if (mapperSmp == null)
-					{
-						lock (syncLock)
-						{
-							if (mapperSmp == null)
-							{
-								var dom = new DomSqlMapBuilder();
-								var sqlMapConfig = Resources.GetEmbeddedResourceAsXmlDocument("Config.SqlMapSmp.config, IKaan.Was.Core");
-								mapperSmp = dom.Configure(sqlMapConfig);
-							}
-						}
-					}
-				}
-				catch
-				{
-					throw;
-				}
-				return mapperSmp;
+				return mapperScrap;
 			}
 		}
 	}

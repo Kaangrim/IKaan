@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectCalendar" parameterClass="DataMap" resultClass="CalendarModel" >
+			<![CDATA[
+				SELECT	aa.CalDate  
+					,	aa.CalYear
+					,	aa.CalMonth
+					,	aa.CalDay
+					,	aa.Quarter
+					,	aa.DayOfWeek
+					,	aa.DayOfYear
+					,	aa.WeekOfYear
+					,	aa.Description
+					,	aa.CreateDate
+					,	aa.CreateBy
+					,	aa.CreateByName
+					,	aa.UpdateDate
+					,	aa.UpdateBy
+					,	aa.UpdateByNamess
+				FROM	dbo.TCaledar aa WITH (NOLOCK)
+				WHERE	1=1
+			]]>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(
+							AA.Description	LINE '%' + #FIND_TEXT# + '%'
+						)
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="CalYear">
+				<![CDATA[
+					AND	AA.CalYear = #v#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="CalDate">
+				<![CDATA[
+					AND	AA.CalDate	= #CalDate#
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY AA.CalDate ASC
+			]]>
+		</select>
+		<update id="UpdateCalendar" parameterClass="CalendarModel">
+			<![CDATA[
+				UPDATE	dbo.Calendar
+				SET     Description	= #Description#
+					,	UpdateDate	= GETDATE()
+					,	UpdateBy	= #UpdateBy#
+					,	UpdateByName= #UpdateByName#
+				WHERE	CalDate		= #CalDate#
+			]]>
+		</update>
+		<procedure id="CreateCalendar" parameterMap="paramCreateCalendar" resultClass="Int">
+			spCreateCalendar
+		</procedure>		
+	</statements>
+	<parameterMaps>
+		<parameterMap id="paramCreateCalendar" class="DataMap">
+			<parameter property="CalYear" column="CalYear" />
+			<parameter property="CreateBy" column="CreateBy" />
+		</parameterMap>
+	</parameterMaps>
+</sqlMap>

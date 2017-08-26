@@ -1,0 +1,207 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectAppointmentList" parameterClass="DataMap" resultClass="AppointmentModel" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
+					,	AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.EmployeeID
+					,	AA.DepartmentID
+					,	AA.MainYn
+					,	AA.Position
+					,	AA.StartDate
+					,	AA.EndDate
+					
+					,	BB.DepartmentName
+					,	EE.EmployeeName
+					
+				FROM	dbo.TAppointment AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.TDepartment BB WITH (NOLOCK)
+								ON AA.DepartmentID = BB.ID
+						LEFT JOIN
+							dbo.TEmployee EE WITH (NOLOCK)
+								ON AA.EmployeeID = EE.ID
+				WHERE	1=1
+			]]>
+			<isNotEmpty property="DepartmentID">
+				<![CDATA[
+					AND	(
+							AA.DepartmentID = #DepartmentID#
+						)
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="EmployeeID">
+				<![CDATA[
+					AND	(
+							AA.EmployeeID = #EmployeeID#
+						)
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectAppointment" parameterClass="DataMap" resultClass="AppointmentModel" >
+			<![CDATA[
+				SELECT  AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.EmployeeID
+					,	AA.DepartmentID
+					,	AA.MainYn
+					,	AA.Position
+					,	AA.StartDate
+					,	AA.EndDate
+					,	AA.Description
+					
+				FROM	dbo.TAppointment AA WITH (NOLOCK)
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<insert id="InsertAppointment" parameterClass="AppointmentModel" >
+			<![CDATA[
+				INSERT INTO dbo.TAppointment
+				( 
+					CreateDate, CreateBy, CreateByName,
+					EmployeeID, DepartmentID, MainYn, Position, StartDate, EndDate, Description
+				)
+				VALUES
+				(
+					GetDate(), #CreateBy#, #CreateByName#,					
+					#EmployeeID#, #DepartmentID#, #MainYn#, #Position#, #StartDate#, #EndDate#, #Description#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateAppointment" parameterClass="AppointmentModel">
+			<![CDATA[
+				UPDATE  dbo.TAppointment
+				SET     UpdateDate		= GetDate()
+					,	UpdateBy		= #UpdateBy#
+					,	UpdateByName	= #UpdateByName#
+					
+					,	EmployeeID		= #EmployeeID#
+					,	DepartmentID	= #DepartmentID#
+					,	MainYn			= #MainYn#
+					,	Position		= #Position#
+					,	StartDate		= #StartDate#
+					,	EndDate			= #EndDate#
+					,	Description		= #Description#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
+		<delete id="DeleteAppointment" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM dbo.TAppointment WHERE ID = #ID#;
+			]]>
+		</delete>
+
+		<select id="SelectAppointmentDuplicate" parameterClass="DataMap" resultClass="AppointmentModel" >
+			<![CDATA[
+				SELECT  AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.EmployeeID
+					,	AA.DepartmentID
+					,	AA.MainYn
+					,	AA.Position
+					,	AA.StartDate
+					,	AA.EndDate
+					,	AA.Description
+					
+				FROM	dbo.TAppointment AA WITH (NOLOCK)
+				WHERE	AA.EmployeeID	= #EmployeeID#
+				AND		AA.StartDate	= #StartDate#
+			]]>
+		</select>
+		<select id="SelectAppointmentBefore" parameterClass="DataMap" resultClass="AppointmentModel" >
+			<![CDATA[
+				SELECT  AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.EmployeeID
+					,	AA.DepartmentID
+					,	AA.MainYn
+					,	AA.Position
+					,	AA.StartDate
+					,	AA.EndDate
+					,	AA.Description
+					
+				FROM	dbo.TAppointment AA WITH (NOLOCK)
+				WHERE	AA.EmployeeID	= #EmployeeID#
+				AND		AA.StartDate	= (	SELECT	Max(StartDate)
+											FROM	dbo.TAppointment
+											WHERE	EmployeeID	= #EmployeeID#
+											AND		StartDate	< #StartDate# )
+			]]>
+		</select>
+		<select id="SelectAppointmentAfter" parameterClass="DataMap" resultClass="AppointmentModel" >
+			<![CDATA[
+				SELECT  AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.EmployeeID
+					,	AA.DepartmentID
+					,	AA.MainYn
+					,	AA.Position
+					,	AA.StartDate
+					,	AA.EndDate
+					,	AA.Description
+					
+				FROM	dbo.TAppointment AA WITH (NOLOCK)
+				WHERE	AA.EmployeeID	= #EmployeeID#
+				AND		AA.StartDate	= (	SELECT	Min(StartDate)
+											FROM	dbo.TAppointment
+											WHERE	EmployeeID	= #EmployeeID#
+											AND		StartDate	> #StartDate# )
+			]]>
+		</select>
+		<update id="UpdateAppointmentBefore" parameterClass="AppointmentModel">
+			<![CDATA[
+				UPDATE  dbo.TAppointment
+				SET     UpdateDate		= GetDate()
+					,	UpdateBy		= #UpdateBy#
+					,	UpdateByName	= #UpdateByName#
+					
+					,	EndDate			= #EndDate#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
+	</statements>
+</sqlMap>

@@ -1,0 +1,225 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectChannelBrandList" parameterClass="DataMap" resultClass="ChannelBrandModel" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
+					,	AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.ChannelID
+					,	AA.BrandID
+					,	AA.StartDate
+					,	AA.EndDate
+					,	AA.ChannelMargin
+					,	AA.BrandMargin
+					
+					,	BB.ChannelName
+					,	CC.BrandName
+					
+				FROM	dbo.TChannelBrand AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.TChannel BB WITH (NOLOCK)
+								ON AA.ChannelID = BB.ID
+						LEFT JOIN
+							dbo.TBrand CC WITH (NOLOCK)
+								ON AA.BrandID = CC.ID
+				WHERE	1=1				
+			]]>
+			<isNotEmpty property="ChannelID">
+				<![CDATA[
+					AND		AA.ChannelID = #ChannelID#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="BrandID">
+				<![CDATA[
+					AND		AA.BrandID = #BrandID#
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectChannelBrand" parameterClass="DataMap" resultClass="ChannelBrandModel" >
+			<![CDATA[
+				SELECT  AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.ChannelID
+					,	AA.BrandID
+					,	AA.StartDate
+					,	AA.EndDate
+					,	AA.ChannelMargin
+					,	AA.BrandMargin
+					,	AA.Description
+					
+					,	BB.ChannelName
+					,	CC.BrandName
+					
+				FROM	dbo.TChannelBrand AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.TChannel BB WITH (NOLOCK)
+								ON AA.ChannelID = BB.ID
+						LEFT JOIN
+							dbo.TBrand CC WITH (NOLOCK)
+								ON AA.BrandID = CC.ID
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<insert id="InsertChannelBrand" parameterClass="ChannelBrandModel" >
+			<![CDATA[
+				INSERT INTO dbo.TChannelBrand
+				( 
+					CreateDate, CreateBy, CreateByName,
+					ChannelID, BrandID, StartDate, EndDate, 
+					ChannelMargin, BrandMargin, Description
+				)
+				VALUES
+				(
+					GetDate(), #CreateBy#, #CreateByName#,
+					#ChannelID#, #BrandID#, #StartDate#, #EndDate#, 
+					#ChannelMargin#, #BrandMargin#, #Description#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateChannelBrand" parameterClass="ChannelBrandModel">
+			<![CDATA[
+				UPDATE  dbo.TChannelBrand
+				SET     UpdateDate		= GetDate()
+					,	UpdateBy		= #UpdateBy#
+					,	UpdateByName	= #UpdateByName#
+					
+					,	ChannelID		= #ChannelID#
+					,	BrandID			= #BrandID#
+					,	StartDate		= #StartDate#
+					,	EndDate			= #EndDate#
+					,	ChannelMargin	= #ChannelMargin#
+					,	BrandMargin		= #BrandMargin#
+					,	Description		= #Description#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
+		<delete id="DeleteChannelBrand" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM dbo.TChannelBrand WHERE ID = #ID#;
+			]]>
+		</delete>
+
+		<select id="SelectChannelBrandDuplicate" parameterClass="DataMap" resultClass="ChannelBrandModel" >
+			<![CDATA[
+				SELECT  AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.ChannelID
+					,	AA.BrandID
+					,	AA.StartDate
+					,	AA.EndDate
+					,	AA.ChannelMargin
+					,	AA.BrandMargin
+					,	AA.Description
+					
+				FROM	dbo.TChannelBrand AA WITH (NOLOCK)
+				WHERE	AA.ChannelID	= #ChannelID#
+				AND		AA.BrandID		= #BrandID#
+				AND		AA.StartDate	= #StartDate#
+			]]>
+		</select>
+		<select id="SelectChannelBrandBefore" parameterClass="DataMap" resultClass="ChannelBrandModel" >
+			<![CDATA[
+				SELECT  AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.ChannelID
+					,	AA.BrandID
+					,	AA.StartDate
+					,	AA.EndDate
+					,	AA.ChannelMargin
+					,	AA.BrandMargin
+					,	AA.Description
+					
+				FROM	dbo.TChannelBrand AA WITH (NOLOCK)
+				WHERE	AA.ChannelID	= #ChannelID#
+				AND		AA.BrandID		= #BrandID#
+				AND		AA.StartDate	= 
+								(
+									SELECT	MAX(StartDate)
+									FROM	dbo.TChannelBrand
+									WHERE	ChannelID	= #ChannelID#
+									AND		BrandID		= #BrandID#
+									AND		StartDate	< #StartDate#
+								)
+			]]>
+		</select>
+		<select id="SelectChannelBrandAfter" parameterClass="DataMap" resultClass="ChannelBrandModel" >
+			<![CDATA[
+				SELECT  AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.ChannelID
+					,	AA.BrandID
+					,	AA.StartDate
+					,	AA.EndDate
+					,	AA.ChannelMargin
+					,	AA.BrandMargin
+					,	AA.Description
+					
+				FROM	dbo.TChannelBrand AA WITH (NOLOCK)
+				WHERE	AA.ChannelID	= #ChannelID#
+				AND		AA.BrandID		= #BrandID#
+				AND		AA.StartDate	= 
+								(
+									SELECT	MIN(StartDate)
+									FROM	dbo.TChannelBrand
+									WHERE	ChannelID	= #ChannelID#
+									AND		BrandID		= #BrandID#
+									AND		StartDate	> #StartDate#
+								)
+			]]>
+		</select>
+		<update id="UpdateChannelBrandEndDate" parameterClass="ChannelBrandModel">
+			<![CDATA[
+				UPDATE  dbo.TChannelBrand
+				SET     UpdateDate		= GetDate()
+					,	UpdateBy		= #UpdateBy#
+					,	UpdateByName	= #UpdateByName#
+					
+					,	EndDate			= #EndDate#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
+	</statements>
+</sqlMap>

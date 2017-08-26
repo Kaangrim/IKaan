@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectEmployeeList" parameterClass="DataMap" resultClass="EmployeeModel" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
+					,	AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.EmployeeNo
+					,	AA.EmployeeName
+					,	AA.UseYn
+					,	AA.PersonID
+					
+					,	DD.DepartmentName
+					,	BB.Position
+					
+				FROM	dbo.TEmployee AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.TAppointment BB WITH (NOLOCK)
+								ON AA.ID = BB.EmployeeID
+									AND BB.StartDate <= CONVERT(DATETIME, CONVERT(VARCHAR(8), GETDATE(), 112), 112)
+									AND ISNULL(BB.EndDate, CONVERT(DATETIME, '29991231', 112)) >= CONVERT(DATETIME, CONVERT(VARCHAR(8), GETDATE(), 112), 112)
+						LEFT JOIN
+							dbo.TDepartment DD WITH (NOLOCK)
+								ON BB.DepartmentID = DD.ID
+				WHERE	1=1
+			]]>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(
+							AA.EmployeeNo		LIKE '%' + #FindText# + '%' OR
+							AA.EmployeeName		LIKE '%' + #FindText# + '%'
+						)
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="DepartmentID">
+				<![CDATA[
+					AND	BB.DepartmentID = #DepartmentID#
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectEmployee" parameterClass="DataMap" resultClass="EmployeeModel" >
+			<![CDATA[
+				SELECT  AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.EmployeeNo
+					,	AA.EmployeeName
+					,	AA.UseYn
+					,	AA.PersonID
+					
+				FROM	dbo.TEmployee AA WITH (NOLOCK)
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<insert id="InsertEmployee" parameterClass="EmployeeModel" >
+			<![CDATA[
+				INSERT INTO dbo.TEmployee
+				( 
+					CreateDate, CreateBy, CreateByName,
+					EmployeeNo, EmployeeName, UseYn, PersonID
+				)
+				VALUES
+				(
+					GetDate(), #CreateBy#, #CreateByName#,
+					#EmployeeNo#, #EmployeeName#, #UseYn#, #PersonID#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateEmployee" parameterClass="EmployeeModel">
+			<![CDATA[
+				UPDATE  dbo.TEmployee
+				SET     UpdateDate		= GetDate()
+					,	UpdateBy		= #UpdateBy#
+					,	UpdateByName	= #UpdateByName#
+					
+					,	EmployeeNo		= #EmployeeNo#
+					,	EmployeeName	= #EmployeeName#
+					,	UseYn			= #UseYn#
+					,	PersonID		= #PersonID#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
+		<delete id="DeleteEmployee" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM dbo.TPerson		WHERE ID = #PersonID#;
+				DELETE FROM dbo.TEmployee	WHERE ID = #ID#;
+			]]>
+		</delete>
+	</statements>
+</sqlMap>

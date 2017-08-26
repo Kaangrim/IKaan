@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectBrandContactList" parameterClass="DataMap" resultClass="BrandContactModel" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID)	AS RowNo
+					,	AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.BrandID
+					,	AA.Position
+					,	AA.PersonID
+					
+					,	BB.PersonType
+					,	BB.PersonName
+					,	BB.EngName
+					,	BB.Email
+					,	BB.PhoneNo1
+					,	BB.PhoneNo2
+					,	BB.FaxNo
+					,	BB.ImageUrl
+					
+				FROM	dbo.TBrandContact AA WITH (NOLOCK)
+						INNER JOIN
+							dbo.TPerson BB WITH (NOLOCK)
+								ON AA.PersonID = BB.ID
+				WHERE	AA.BrandID = #BrandID#
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectBrandContact" parameterClass="DataMap" resultClass="BrandContactModel" >
+			<![CDATA[
+				SELECT  AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.BrandID
+					,	AA.Position
+					,	AA.PersonID
+					
+					,	PP.PersonName
+					,	PP.PersonType
+					,	PP.Email
+					,	PP.PhoneNo1
+					,	PP.PhoneNo2
+					,	PP.FaxNo
+					
+				FROM	dbo.TBrandContact AA WITH (NOLOCK)
+						LEFT JOIN
+							IKBiz.dbo.TPerson PP WITH (NOLOCK)
+								ON AA.PersonID = PP.ID
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<insert id="InsertBrandContact" parameterClass="BrandContactModel" >
+			<![CDATA[
+				INSERT INTO dbo.TBrandContact
+				( 
+					CreateDate, CreateBy, CreateByName,
+					BrandID, Position, PersonID, Description
+				)
+				VALUES
+				(
+					GetDate(), #CreateBy#, #CreateByName#,
+					#BrandID#, #Position#, #PersonID#, #Description#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateBrandContact" parameterClass="BrandContactModel">
+			<![CDATA[
+				UPDATE  dbo.TBrandContact
+				SET     UpdateDate		= GetDate()
+					,	UpdateBy		= #UpdateBy#
+					,	UpdateByName	= #UpdateByName#
+					
+					,	Position		= #Position#
+					,	Description		= #Description#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
+		<delete id="DeleteBrandContact" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM dbo.TBrandContact WHERE ID = #ID#;
+			]]>
+		</delete>
+	</statements>
+</sqlMap>

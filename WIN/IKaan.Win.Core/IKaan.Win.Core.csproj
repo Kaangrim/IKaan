@@ -232,6 +232,7 @@
     <Compile Include="Splash\WaitFormEx.Designer.cs">
       <DependentUpon>WaitFormEx.cs</DependentUpon>
     </Compile>
+    <Compile Include="Utils\BrowserUtils.cs" />
     <Compile Include="Utils\DialogUtils.cs" />
     <Compile Include="Utils\ImageUtils.cs" />
     <Compile Include="Variables\ConstsVar.cs" />

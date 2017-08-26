@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>		
+		<select id="SelectViewButton" parameterClass="DataMap" resultClass="ViewButtonModel" >
+			<![CDATA[
+				SELECT  AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					,	AA.ViewID
+					,	AA.ButtonID
+					,	AA.UseYn
+					,	AA.LinkViewID
+				FROM	dbo.TViewButton AA WITH (NOLOCK)
+				WHERE	AA.ID = #ID#				
+			]]>
+		</select>
+		<select id="SelectViewButtonExists" parameterClass="ViewButtonModel" resultClass="ViewButtonModel" >
+			<![CDATA[
+				SELECT  AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					,	AA.ViewID
+					,	AA.ButtonID
+					,	AA.UseYn
+					,	AA.LinkViewID
+				FROM	dbo.TViewButton AA WITH (NOLOCK)
+				WHERE	AA.ViewID	= #ViewID#
+				AND		AA.ButtonID	= #ButtonID#
+			]]>
+		</select>
+		<insert id="InsertViewButton" parameterClass="ViewButtonModel" >
+			<![CDATA[
+				INSERT INTO dbo.TViewButton
+				( 
+					CreateDate, CreateBy, CreateByName,
+					ViewID, ButtonID, UseYn, LinkViewID
+				)
+				VALUES
+				(
+					GetDate(), #CreateBy#, #CreateByName#,
+					#ViewID#, #ButtonID#, #UseYn#, #LinkViewID#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateViewButton" parameterClass="ViewButtonModel">
+			<![CDATA[
+				UPDATE  dbo.TViewButton
+				SET     UpdateDate	= GetDate()
+					,	UpdateBy	= #UpdateBy#
+					,	UpdateByName= #UpdateByName#
+					
+					,	ViewID		= #ViewID#
+					,	ButtonID	= #ButtonID#
+					,	UseYn		= #UseYn#
+					,	LinkViewID	= #LinkViewID#
+				WHERE	ID			= #ID#
+			]]>
+		</update>
+		<delete id="DeleteViewButton" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM dbo.TViewButton WHERE ID = #ID#;
+			]]>
+		</delete>
+	</statements>
+</sqlMap>

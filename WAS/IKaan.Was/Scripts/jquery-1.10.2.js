@@ -3388,7 +3388,7 @@ jQuery.support = (function( support ) {
 	support.checkOn = !!input.value;
 
 	// Make sure that a selected-by-default option has a working selected property.
-	// (WebKit defaults to false instead of true, IE too, if it's in an optgroup)
+	// (WebKit defaults to false instead of true, IE too, if it's in an opGroupModel)
 	support.optSelected = opt.selected;
 
 	// Tests for enctype support on a form (#6743)
@@ -4318,9 +4318,9 @@ jQuery.extend({
 
 					// oldIE doesn't update selected after form reset (#2551)
 					if ( ( option.selected || i === index ) &&
-							// Don't return options that are disabled or in a disabled optgroup
+							// Don't return options that are disabled or in a disabled opGroupModel
 							( jQuery.support.optDisabled ? !option.disabled : option.getAttribute("disabled") === null ) &&
-							( !option.parentNode.disabled || !jQuery.nodeName( option.parentNode, "optgroup" ) ) ) {
+							( !option.parentNode.disabled || !jQuery.nodeName( option.parentNode, "opGroupModel" ) ) ) {
 
 						// Get the specific value for the option
 						value = jQuery( option ).val();
@@ -4670,7 +4670,7 @@ if ( !jQuery.support.optSelected ) {
 			if ( parent ) {
 				parent.selectedIndex;
 
-				// Make sure that it also works with optgroups, see #5701
+				// Make sure that it also works with opGroupModels, see #5701
 				if ( parent.parentNode ) {
 					parent.parentNode.selectedIndex;
 				}
@@ -6044,7 +6044,7 @@ var nodeNames = "abbr|article|aside|audio|bdi|canvas|data|datalist|details|figca
 	safeFragment = createSafeFragment( document ),
 	fragmentDiv = safeFragment.appendChild( document.createElement("div") );
 
-wrapMap.optgroup = wrapMap.option;
+wrapMap.opGroupModel = wrapMap.option;
 wrapMap.tbody = wrapMap.tfoot = wrapMap.colgroup = wrapMap.caption = wrapMap.thead;
 wrapMap.th = wrapMap.td;
 

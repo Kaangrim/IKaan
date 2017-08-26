@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectDepartmentList" parameterClass="DataMap" resultClass="DepartmentModel" >
+			<![CDATA[
+				WITH CTE (ID, HierID, Level, SeqNo)
+				AS
+				(
+					SELECT	AA.ID		as ID
+						,	CAST(RIGHT('0000' + 
+									CONVERT(VARCHAR, ROW_NUMBER() OVER (ORDER BY AA.DepartmentName, AA.ID)), 4) AS VARCHAR(MAX))	AS HierID
+						,	1																			AS Level
+						,	CAST(ROW_NUMBER() OVER (ORDER BY AA.DepartmentName, AA.ID) AS VARCHAR(MAX))	AS SeqNo
+					FROM	dbo.TDepartment AA WITH (NOLOCK)
+					WHERE	1=1
+			]]>
+			<isNotEmpty property="ParentID">
+				<![CDATA[
+					And	AA.ID = #ParentID#
+				]]>
+			</isNotEmpty>
+			<isEmpty property="ParentID">
+				<![CDATA[
+					AND	AA.ParentID IS NULL
+				]]>
+			</isEmpty>
+			<![CDATA[
+					UNION ALL
+					SELECT	AA.ID			as ID
+						,	CAST(BB.HierID + 
+								 RIGHT('0000' + CONVERT(VARCHAR, ROW_NUMBER() OVER (ORDER BY AA.DepartmentName, AA.ID)), 4) AS VARCHAR(MAX))	AS HierID
+						,	BB.Level + 1																										AS Level
+						,	CAST(BB.SeqNo + '.' + 
+								 CONVERT(VARCHAR, ROW_NUMBER() OVER (ORDER BY AA.DepartmentName, AA.ID)) AS VARCHAR(MAX))						AS SeqNo
+					FROM	dbo.TDepartment AA WITH (NOLOCK)
+							INNER JOIN 
+								CTE BB 
+									ON AA.ParentID = BB.ID
+				)
+				SELECT  ROW_NUMBER() OVER (ORDER BY BB.HierID)	AS RowNo
+					,	AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.DepartmentName
+					,	AA.ParentID
+					,	AA.ManagerID
+					,	AA.UseYn
+					
+					,	EE.EmployeeName		as ManagerName
+					
+					,	BB.HierID
+					,	REPLICATE(' ', (BB.Level -1) * 5) + BB.SeqNo + '. ' + AA.DepartmentName	AS HierName
+					,	BB.Level		
+					
+				FROM	dbo.TDepartment AA WITH (NOLOCK)
+						INNER JOIN 
+							CTE BB 
+								ON AA.ID = BB.ID
+						LEFT JOIN
+							dbo.TEmployee EE WITH (NOLOCK)
+								ON AA.ManagerID = EE.ID
+				WHERE	1=1				
+			]]>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	AA.DepartmentName LIKE '%' + #FindText# + '%'
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectDepartment" parameterClass="DataMap" resultClass="DepartmentModel" >
+			<![CDATA[
+				SELECT  AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.DepartmentName
+					,	AA.ParentID
+					,	AA.UseYn
+					,	AA.ManagerID
+					
+					,	BB.EmployeeName	as ManagerName
+					,	DD.StartDate
+					
+				FROM	dbo.TDepartment AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.TEmployee BB WITH (NOLOCK)
+								ON AA.ManagerID = BB.ID
+						LEFT JOIN
+							dbo.TDepartmentHist DD WITH (NOLOCK)
+								ON AA.ID = DD.DepartmentID
+									AND DD.EndDate IS NULL
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<insert id="InsertDepartment" parameterClass="DepartmentModel" >
+			<![CDATA[
+				INSERT INTO dbo.TDepartment
+				( 
+					CreateDate, CreateBy, CreateByName,
+					DepartmentName, ParentID, UseYn, ManagerID
+				)
+				VALUES
+				(
+					GetDate(), #CreateBy#, #CreateByName#,
+					#DepartmentName#, #ParentID#, #UseYn#, #ManagerID#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateDepartment" parameterClass="DepartmentModel">
+			<![CDATA[
+				UPDATE  dbo.TDepartment
+				SET     UpdateDate		= GetDate()
+					,	UpdateBy		= #UpdateBy#
+					,	UpdateByName	= #UpdateByName#
+					
+					,	DepartmentName	= #DepartmentName#
+					,	ParentID		= #ParentID#
+					,	UseYn			= #UseYn#
+					,	ManagerID		= #ManagerID#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
+		<delete id="DeleteDepartment" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM dbo.TDepartment WHERE ID = #ID#;
+			]]>
+		</delete>
+	</statements>
+</sqlMap>

@@ -1,0 +1,220 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap 
+	namespace="IKaan.Was.Core.SqlMaps" 
+	xmlns="http://ibatis.apache.org/mapping" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectCodeList" parameterClass="DataMap" resultClass="CodeModel">
+			<![CDATA[
+				WITH CodeList (ID, Code, CodeLevel, HierID) AS 
+				(
+					SELECT	AA.ID			as ID
+						,	AA.Code			as Code
+						,	1				AS CodeLevel
+						,	CAST(RIGHT('0000' + CONVERT(VARCHAR, ROW_NUMBER() OVER (ORDER BY AA.Name, AA.ID)), 4) AS VARCHAR(MAX))	as HierID
+					FROM	dbo.TCode AA WITH (NOLOCK)
+					WHERE	1=1
+			]]>
+			<isNotEmpty property="UseYn">
+				<![CDATA[
+					AND		AA.UseYn = #UseYn#
+				]]>
+			</isNotEmpty>
+			<isEmpty property="IsNotParent">
+				<isNotEmpty property="ParentCode">
+					<![CDATA[
+						AND		AA.Code = #ParentCode#
+					]]>
+				</isNotEmpty>
+			</isEmpty>
+			<isNotEmpty property="IsNotParent">
+				<isNotEmpty property="ParentCode">
+					<![CDATA[
+						AND		AA.ParentCode = #ParentCode#
+					]]>
+				</isNotEmpty>
+			</isNotEmpty>
+			<isEmpty property="ParentCode">
+				<![CDATA[
+					AND		AA.ParentCode IS NULL
+				]]>
+			</isEmpty>			
+			<![CDATA[
+					UNION ALL
+					SELECT	AA.ID				as ID
+						,	AA.Code				as Code
+						,	BB.CodeLevel + 1	AS CodeLevel
+						,	CAST(BB.HierID+ '-' + 
+								 RIGHT('0000' + CONVERT(VARCHAR, ROW_NUMBER() OVER (ORDER BY AA.SortOrder, AA.ID)), 4) AS VARCHAR(MAX))	AS HierID
+					FROM	dbo.TCode AA WITH (NOLOCK)
+							INNER JOIN 
+								CodeList BB 
+									ON AA.ParentCode = BB.Code
+					WHERE	1=1
+			]]>
+			<isNotEmpty property="UseYn">
+				<![CDATA[
+					AND		AA.UseYn = #UseYn#
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				)
+				SELECT	ROW_NUMBER() OVER (ORDER BY BB.HierID)	AS RowNo
+					,	AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	BB.HierID
+					,	REPLICATE(' ', (BB.CodeLevel -1) * 5) + 
+						CASE
+							WHEN BB.CodeLevel = 1 THEN '▷ '
+							ELSE '▶ ' 
+						END +
+						AA.Name			as HierName
+					,	BB.CodeLevel
+					
+					,	AA.Code
+					,	AA.Name
+					,	AA.Value
+					,	AA.ParentCode
+					,	AA.Description
+					,	AA.UseYn
+					,	AA.SortOrder
+					,	AA.MaxLength
+					,	AA.CodeValue01
+					,	AA.CodeValue02
+					,	AA.CodeValue03
+					,	AA.CodeValue04
+					,	AA.CodeValue05
+					,	AA.CodeValue06
+					,	AA.CodeValue07
+					,	AA.CodeValue08
+					,	AA.CodeValue09
+					,	AA.CodeValue10
+				FROM	dbo.TCode AA WITH (NOLOCK)
+						INNER JOIN
+							CodeList BB 
+								on AA.ID = BB.ID
+				WHERE	1=1
+			]]>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(	
+							AA.Code	LIKE '%'+#FindText#+'%'	OR
+							AA.Name	LIKE '%'+#FindText#+'%'
+						)
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY 
+					RowNo
+			]]>
+		</select>
+		<select id="SelectCode" parameterClass="DataMap" resultClass="CodeModel">
+			<![CDATA[
+				SELECT	AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName					
+					,	AA.Code
+					,	AA.Name
+					,	AA.Value
+					,	AA.ParentCode
+					,	AA.Description
+					,	AA.UseYn
+					,	AA.SortOrder
+					,	AA.MaxLength
+					,	AA.CodeValue01
+					,	AA.CodeValue02
+					,	AA.CodeValue03
+					,	AA.CodeValue04
+					,	AA.CodeValue05
+					,	AA.CodeValue06
+					,	AA.CodeValue07
+					,	AA.CodeValue08
+					,	AA.CodeValue09
+					,	AA.CodeValue10
+				FROM	dbo.TCode AA WITH (NOLOCK)
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<insert id="InsertCode" parameterClass="CodeModel" resultClass="Int">
+			<![CDATA[
+				INSERT INTO dbo.TCode
+				(
+					CreateDate, CreateBy, CreateByName,
+					Code, Name, Value, ParentCode, Description, UseYn, SortOrder, MaxLength,
+					CodeValue01, CodeValue02, CodeValue03, CodeValue04, CodeValue05, 
+					CodeValue06, CodeValue07, CodeValue08, CodeValue09, CodeValue10
+				)
+				VALUES
+				(
+					GetDate(), #CreateBy#, #CreateByName#,
+					#Code#, #Name#, #Value#, #ParentCode#, #Description#, #UseYn#, #SortOrder#, #MaxLength#,
+					#CodeValue01#, #CodeValue02#, #CodeValue03#, #CodeValue04#, #CodeValue05#, 
+					#CodeValue06#, #CodeValue07#, #CodeValue08#, #CodeValue09#, #CodeValue10#
+				)
+			]]>
+			<selectKey property="ID" type="post" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateCode" parameterClass="CodeModel">
+			<![CDATA[
+				UPDATE	dbo.TCode
+				SET		ParentCode	= #Code#
+					,	UpdateDate	= GetDate()
+					,	UpdateBy	= #UpdateBy#
+					,	UpdateByName= #UpdateByName#
+				WHERE	ParentCode	= (	SELECT	Code
+										FROM	dbo.TCode
+										WHERE	ID = #ID# );
+				UPDATE	dbo.TCode
+				SET		UpdateDate	= GetDate()
+					,	UpdateBy	= #UpdateBy#
+					,	UpdateByName= #UpdateByName#
+					,	Code		= #Code#
+					,	Name		= #Name#
+					,	Value		= #Value#
+					,	ParentCode	= #ParentCode#
+					,	SortOrder	= #SortOrder#
+					,	Description	= #Description#
+					,	UseYn		= #UseYn#
+					,	MaxLength	= #MaxLength#
+					,	CodeValue01	= #CodeValue01#
+					,	CodeValue02	= #CodeValue02#
+					,	CodeValue03	= #CodeValue03#
+					,	CodeValue04	= #CodeValue04#
+					,	CodeValue05	= #CodeValue05#
+					,	CodeValue06	= #CodeValue06#
+					,	CodeValue07	= #CodeValue07#
+					,	CodeValue08	= #CodeValue08#
+					,	CodeValue09	= #CodeValue09#
+					,	CodeValue10	= #CodeValue10#
+				WHERE	ID = #ID#;
+			]]>
+		</update>
+		<delete id="DeleteCode" parameterClass="DataMap">
+			<![CDATA[
+				DELETE
+				FROM	dbo.TCode
+				WHERE	ParentCode = (	SELECT	Code
+										FROM	dbo.TCode
+										WHERE	ID = #ID# );
+				DELETE
+				FROM	dbo.TCode
+				WHERE	ID = #ID#;
+			]]>
+		</delete>
+	</statements>
+</sqlMap>

@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelecBookmarkUserList" parameterClass="DataMap" resultClass="BookmarkUserModel" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.UserID)	AS RowNo
+					,	AA.UserID
+					,	BB.UserName
+					,	COUNT(AA.ID)	AS BookmarkCount					
+				FROM	dbo.TBookmark AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.TUser BB WITH (NOLOCK)
+								ON AA.UserID = BB.ID
+				WHERE	1=1				
+			]]>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	BB.UserName LIKE '%' + #FindText# + '%'
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectBookmarkList" parameterClass="DataMap" resultClass="BookmarkModel" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.SortOrder, AA.ID)	AS RowNo
+					,	AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.UserID
+					,	AA.MenuID
+					,	BB.MenuName
+					,	AA.SortOrder
+					
+				FROM	dbo.TBookmark AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.TMenu BB WITH (NOLOCK)
+								ON AA.MenuID = BB.ID
+				WHERE	AA.UserID = #UserID#
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectBookmark" parameterClass="DataMap" resultClass="BookmarkModel" >
+			<![CDATA[
+				SELECT  AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					,	AA.UserID
+					,	AA.MenuID
+					,	AA.SortOrder
+				FROM	dbo.TBookmark AA WITH (NOLOCK)
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<insert id="InsertBookmark" parameterClass="BookmarkModel" >
+			<![CDATA[
+				INSERT INTO dbo.TBookmark
+				( 
+					CreateDate, CreateBy, CreateByName,
+					UserID, MenuID, SortOrder
+				)
+				VALUES
+				(
+					GetDate(), #CreateBy#, #CreateByName#,
+					#UserID#, #MenuID#, #SortOrder#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateBookmark" parameterClass="BookmarkModel">
+			<![CDATA[
+				UPDATE  dbo.TBookmark
+				SET     UpdateDate	= GetDate()
+					,	UpdateBy	= #UpdateBy#
+					,	UpdateByName= #UpdateByName#
+					
+					,	UserID		= #UserID#
+					,	MenuID		= #MenuID#
+					,	SortOrder	= #SortOrder#
+				WHERE	ID			= #ID#
+			]]>
+		</update>
+		<delete id="DeleteBookmark" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM dbo.TBookmark WHERE ID = #ID#;
+			]]>
+		</delete>
+	</statements>
+</sqlMap>

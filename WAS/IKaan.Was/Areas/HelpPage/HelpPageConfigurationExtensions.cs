@@ -37,7 +37,7 @@ namespace IKaan.Was.Areas.HelpPage
         /// <param name="sampleObjects">The sample objects.</param>
         public static void SetSampleObjects(this HttpConfiguration config, IDictionary<Type, object> sampleObjects)
         {
-            config.GetHelpPageSampleGenerator().SampleObjects = sampleObjects;
+            config.GeHelpModelPageSampleGenerator().SampleObjects = sampleObjects;
         }
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace IKaan.Was.Areas.HelpPage
         /// <param name="actionName">Name of the action.</param>
         public static void SetSampleRequest(this HttpConfiguration config, object sample, MediaTypeHeaderValue mediaType, string controllerName, string actionName)
         {
-            config.GetHelpPageSampleGenerator().ActionSamples.Add(new HelpPageSampleKey(mediaType, SampleDirection.Request, controllerName, actionName, new[] { "*" }), sample);
+            config.GeHelpModelPageSampleGenerator().ActionSamples.Add(new HelpPageSampleKey(mediaType, SampleDirection.Request, controllerName, actionName, new[] { "*" }), sample);
         }
 
         /// <summary>
@@ -64,7 +64,7 @@ namespace IKaan.Was.Areas.HelpPage
         /// <param name="parameterNames">The parameter names.</param>
         public static void SetSampleRequest(this HttpConfiguration config, object sample, MediaTypeHeaderValue mediaType, string controllerName, string actionName, params string[] parameterNames)
         {
-            config.GetHelpPageSampleGenerator().ActionSamples.Add(new HelpPageSampleKey(mediaType, SampleDirection.Request, controllerName, actionName, parameterNames), sample);
+            config.GeHelpModelPageSampleGenerator().ActionSamples.Add(new HelpPageSampleKey(mediaType, SampleDirection.Request, controllerName, actionName, parameterNames), sample);
         }
 
         /// <summary>
@@ -77,7 +77,7 @@ namespace IKaan.Was.Areas.HelpPage
         /// <param name="actionName">Name of the action.</param>
         public static void SetSampleResponse(this HttpConfiguration config, object sample, MediaTypeHeaderValue mediaType, string controllerName, string actionName)
         {
-            config.GetHelpPageSampleGenerator().ActionSamples.Add(new HelpPageSampleKey(mediaType, SampleDirection.Response, controllerName, actionName, new[] { "*" }), sample);
+            config.GeHelpModelPageSampleGenerator().ActionSamples.Add(new HelpPageSampleKey(mediaType, SampleDirection.Response, controllerName, actionName, new[] { "*" }), sample);
         }
 
         /// <summary>
@@ -91,7 +91,7 @@ namespace IKaan.Was.Areas.HelpPage
         /// <param name="parameterNames">The parameter names.</param>
         public static void SetSampleResponse(this HttpConfiguration config, object sample, MediaTypeHeaderValue mediaType, string controllerName, string actionName, params string[] parameterNames)
         {
-            config.GetHelpPageSampleGenerator().ActionSamples.Add(new HelpPageSampleKey(mediaType, SampleDirection.Response, controllerName, actionName, parameterNames), sample);
+            config.GeHelpModelPageSampleGenerator().ActionSamples.Add(new HelpPageSampleKey(mediaType, SampleDirection.Response, controllerName, actionName, parameterNames), sample);
         }
 
         /// <summary>
@@ -102,7 +102,7 @@ namespace IKaan.Was.Areas.HelpPage
         /// <param name="mediaType">The media type.</param>
         public static void SetSampleForMediaType(this HttpConfiguration config, object sample, MediaTypeHeaderValue mediaType)
         {
-            config.GetHelpPageSampleGenerator().ActionSamples.Add(new HelpPageSampleKey(mediaType), sample);
+            config.GeHelpModelPageSampleGenerator().ActionSamples.Add(new HelpPageSampleKey(mediaType), sample);
         }
 
         /// <summary>
@@ -114,7 +114,7 @@ namespace IKaan.Was.Areas.HelpPage
         /// <param name="type">The parameter type or return type of an action.</param>
         public static void SetSampleForType(this HttpConfiguration config, object sample, MediaTypeHeaderValue mediaType, Type type)
         {
-            config.GetHelpPageSampleGenerator().ActionSamples.Add(new HelpPageSampleKey(mediaType, type), sample);
+            config.GeHelpModelPageSampleGenerator().ActionSamples.Add(new HelpPageSampleKey(mediaType, type), sample);
         }
 
         /// <summary>
@@ -127,7 +127,7 @@ namespace IKaan.Was.Areas.HelpPage
         /// <param name="actionName">Name of the action.</param>
         public static void SetActualRequestType(this HttpConfiguration config, Type type, string controllerName, string actionName)
         {
-            config.GetHelpPageSampleGenerator().ActualHttpMessageTypes.Add(new HelpPageSampleKey(SampleDirection.Request, controllerName, actionName, new[] { "*" }), type);
+            config.GeHelpModelPageSampleGenerator().ActualHttpMessageTypes.Add(new HelpPageSampleKey(SampleDirection.Request, controllerName, actionName, new[] { "*" }), type);
         }
 
         /// <summary>
@@ -141,7 +141,7 @@ namespace IKaan.Was.Areas.HelpPage
         /// <param name="parameterNames">The parameter names.</param>
         public static void SetActualRequestType(this HttpConfiguration config, Type type, string controllerName, string actionName, params string[] parameterNames)
         {
-            config.GetHelpPageSampleGenerator().ActualHttpMessageTypes.Add(new HelpPageSampleKey(SampleDirection.Request, controllerName, actionName, parameterNames), type);
+            config.GeHelpModelPageSampleGenerator().ActualHttpMessageTypes.Add(new HelpPageSampleKey(SampleDirection.Request, controllerName, actionName, parameterNames), type);
         }
 
         /// <summary>
@@ -154,7 +154,7 @@ namespace IKaan.Was.Areas.HelpPage
         /// <param name="actionName">Name of the action.</param>
         public static void SetActualResponseType(this HttpConfiguration config, Type type, string controllerName, string actionName)
         {
-            config.GetHelpPageSampleGenerator().ActualHttpMessageTypes.Add(new HelpPageSampleKey(SampleDirection.Response, controllerName, actionName, new[] { "*" }), type);
+            config.GeHelpModelPageSampleGenerator().ActualHttpMessageTypes.Add(new HelpPageSampleKey(SampleDirection.Response, controllerName, actionName, new[] { "*" }), type);
         }
 
         /// <summary>
@@ -168,7 +168,7 @@ namespace IKaan.Was.Areas.HelpPage
         /// <param name="parameterNames">The parameter names.</param>
         public static void SetActualResponseType(this HttpConfiguration config, Type type, string controllerName, string actionName, params string[] parameterNames)
         {
-            config.GetHelpPageSampleGenerator().ActualHttpMessageTypes.Add(new HelpPageSampleKey(SampleDirection.Response, controllerName, actionName, parameterNames), type);
+            config.GeHelpModelPageSampleGenerator().ActualHttpMessageTypes.Add(new HelpPageSampleKey(SampleDirection.Response, controllerName, actionName, parameterNames), type);
         }
 
         /// <summary>
@@ -176,7 +176,7 @@ namespace IKaan.Was.Areas.HelpPage
         /// </summary>
         /// <param name="config">The <see cref="HttpConfiguration"/>.</param>
         /// <returns>The help page sample generator.</returns>
-        public static HelpPageSampleGenerator GetHelpPageSampleGenerator(this HttpConfiguration config)
+        public static HelpPageSampleGenerator GeHelpModelPageSampleGenerator(this HttpConfiguration config)
         {
             return (HelpPageSampleGenerator)config.Properties.GetOrAdd(
                 typeof(HelpPageSampleGenerator),
@@ -188,7 +188,7 @@ namespace IKaan.Was.Areas.HelpPage
         /// </summary>
         /// <param name="config">The <see cref="HttpConfiguration"/>.</param>
         /// <param name="sampleGenerator">The help page sample generator.</param>
-        public static void SetHelpPageSampleGenerator(this HttpConfiguration config, HelpPageSampleGenerator sampleGenerator)
+        public static void SeHelpModelPageSampleGenerator(this HttpConfiguration config, HelpPageSampleGenerator sampleGenerator)
         {
             config.Properties.AddOrUpdate(
                 typeof(HelpPageSampleGenerator),
@@ -216,7 +216,7 @@ namespace IKaan.Was.Areas.HelpPage
         /// <returns>
         /// An <see cref="HelpPageApiModel"/>
         /// </returns>
-        public static HelpPageApiModel GetHelpPageApiModel(this HttpConfiguration config, string apiDescriptionId)
+        public static HelpPageApiModel GeHelpModelPageApiModel(this HttpConfiguration config, string apiDescriptionId)
         {
             object model;
             string modelId = ApiModelPrefix + apiDescriptionId;
@@ -242,7 +242,7 @@ namespace IKaan.Was.Areas.HelpPage
             };
 
             ModelDescriptionGenerator modelGenerator = config.GetModelDescriptionGenerator();
-            HelpPageSampleGenerator sampleGenerator = config.GetHelpPageSampleGenerator();
+            HelpPageSampleGenerator sampleGenerator = config.GeHelpModelPageSampleGenerator();
             GenerateUriParameters(apiModel, modelGenerator);
             GenerateRequestModelDescription(apiModel, modelGenerator, sampleGenerator);
             GenerateResourceDescription(apiModel, modelGenerator);
@@ -426,7 +426,7 @@ namespace IKaan.Was.Areas.HelpPage
 
             if (resourceType == typeof(HttpRequestMessage))
             {
-                HelpPageSampleGenerator sampleGenerator = config.GetHelpPageSampleGenerator();
+                HelpPageSampleGenerator sampleGenerator = config.GeHelpModelPageSampleGenerator();
                 resourceType = sampleGenerator.ResolveHttpRequestMessageType(apiDescription);
             }
 

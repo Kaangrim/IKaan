@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectCustomerList" parameterClass="DataMap" resultClass="CustomerModel" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
+					,	AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.CustomerType
+					,	AA.CustomerName
+					,	AA.EngName
+					,	AA.UseYn
+					,	AA.Description
+					
+					,	CC.BizNo
+					,	CC.RepName
+					,	M1.Name			as CustomerTypeName
+					
+				FROM	dbo.TCustomer AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.TCustomerBusiness BB WITH (NOLOCK)
+								ON AA.ID = BB.CustomerID
+									AND BB.StartDate <= GETDATE()
+									AND ISNULL(BB.EndDate, DATEADD(DAY, 1, GETDATE())) >= CONVERT(DATETIME, CONVERT(VARCHAR(8), GETDATE(), 112), 112)
+						LEFT JOIN
+							dbo.TBusiness CC WITH (NOLOCK)
+								ON BB.BusinessID = CC.ID
+						LEFT JOIN
+							dbo.TCode M1 WITH (NOLOCK)
+								ON AA.CustomerType = M1.Code
+									AND M1.ParentCode = 'CustomerType'
+				WHERE	1=1				
+			]]>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(
+							AA.CustomerName		LIKE '%' + #FindText# + '%' OR
+							AA.EngName			LIKE '%' + #FindText# + '%'
+						)
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectCustomer" parameterClass="DataMap" resultClass="CustomerModel" >
+			<![CDATA[
+				SELECT  AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.CustomerType
+					,	AA.CustomerName
+					,	AA.EngName
+					,	AA.UseYn
+					,	AA.Description
+					
+					,	B2.BizType
+					,	B2.BizNo
+					,	B2.BizName
+					,	B2.RepName
+					,	B2.BizKind
+					,	B2.BizItem
+					,	B3.AddressLine1
+					,	B3.AddressLine2
+					
+				FROM	dbo.TCustomer AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.TCustomerBusiness BB WITH (NOLOCK)
+								ON AA.ID = BB.CustomerID
+									AND BB.StartDate <= CONVERT(DATETIME, CONVERT(VARCHAR(8), GETDATE(), 112), 112)
+									AND ISNULL(BB.EndDate, DATEADD(DAY, 1, GETDATE())) >= CONVERT(DATETIME, CONVERT(VARCHAR(8), GETDATE(), 112), 112)
+						LEFT JOIN
+							dbo.TBusiness B2 WITH (NOLOCK)
+								ON BB.BusinessID = B2.ID
+						LEFT JOIN
+							dbo.TAddress B3 WITH (NOLOCK)
+								ON B2.AddressID = B3.ID
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<insert id="InsertCustomer" parameterClass="CustomerModel" >
+			<![CDATA[
+				INSERT INTO dbo.TCustomer
+				( 
+					CreateDate, CreateBy, CreateByName,
+					CustomerType, CustomerName, EngName, UseYn, Description
+				)
+				VALUES
+				(
+					GetDate(), #CreateBy#, #CreateByName#,
+					#CustomerType#, #CustomerName#, #EngName#, #UseYn#, #Description#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateCustomer" parameterClass="CustomerModel">
+			<![CDATA[
+				UPDATE  dbo.TCustomer
+				SET     UpdateDate		= GetDate()
+					,	UpdateBy		= #UpdateBy#
+					,	UpdateByName	= #UpdateByName#
+					
+					,	CustomerType	= #CustomerType#
+					,	CustomerName	= #CustomerName#
+					,	EngName			= #EngName#
+					,	UseYn			= #UseYn#
+					,	Description		= #Description#
+					
+				WHERE	ID				= #ID#
+			]]>
+		</update>
+		<delete id="DeleteCustomer" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM dbo.TCustomer WHERE ID = #ID#;
+			]]>
+		</delete>
+	</statements>
+</sqlMap>

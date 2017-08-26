@@ -7,7 +7,7 @@ using IKaan.Win.Core.Resources;
 using IKaan.Win.Core.Utils;
 using IKaan.Win.Core.Variables;
 using IKaan.Win.Core.Was.Handler;
-using IKaan.Model.UserModels;
+using IKaan.Model.Common.UserModels ;
 
 namespace IKaan.Win.View.Forms
 {
@@ -20,7 +20,7 @@ namespace IKaan.Win.View.Forms
 			btnDownload.Click += delegate (object sender, System.EventArgs e) { doDownload(); };
 		}
 
-		protected override void InitButtons()
+		protected override void InitButton()
 		{
 			VisibleToolbar = false;
 			VisibleStatusbar = false;
@@ -62,7 +62,7 @@ namespace IKaan.Win.View.Forms
 				{
 					{ "LanguageCode", GlobalVar.UserInfo.LanguageCode }
 				};
-				var list = WasHandler.GetList<UMCodeValue>("AUTH", "GetDictionary", null, map);
+				var list = WasHandler.GetList<UCodeValue>("AUTH", "GetDictionary", null, map);
 				Application.DoEvents();
 
 				if (list != null && list.Count > 0)
@@ -71,7 +71,7 @@ namespace IKaan.Win.View.Forms
 					prgDictionary.Properties.Maximum = list.Count;
 					Application.DoEvents();
 
-					foreach (UMCodeValue data in list)
+					foreach (UCodeValue data in list)
 					{
 						count++;
 						prgDictionary.EditValue = count;
@@ -102,7 +102,7 @@ namespace IKaan.Win.View.Forms
 				{
 					{ "LanguageCode", GlobalVar.UserInfo.LanguageCode }
 				};
-				var list = WasHandler.GetList<UMCodeValue>("AUTH", "GetMessage", null, map);
+				var list = WasHandler.GetList<UCodeValue>("AUTH", "GetMessage", null, map);
 				Application.DoEvents();
 
 				if (list != null && list.Count > 0)
@@ -110,7 +110,7 @@ namespace IKaan.Win.View.Forms
 					int count = 0;
 					prgMessage.Properties.Maximum = list.Count;
 					Application.DoEvents();
-					foreach (UMCodeValue data in list)
+					foreach (UCodeValue data in list)
 					{
 						count++;
 						prgMessage.EditValue = count;
@@ -137,7 +137,7 @@ namespace IKaan.Win.View.Forms
 				prgCodes.EditValue = 0;
 				Application.DoEvents();
 
-				var list = WasHandler.GetList<UMCodeLookup>("AUTH", "GetCodes", null, null);
+				var list = WasHandler.GetList<UCodeLookup>("AUTH", "GetCodes", null, null);
 				Application.DoEvents();
 
 				int count = (list == null) ? 0 : list.Count;

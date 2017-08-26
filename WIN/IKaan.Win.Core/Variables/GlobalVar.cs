@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using IKaan.Win.Core.Model;
-using IKaan.Model.UserModels;
+using IKaan.Model.Common.UserModels ;
 
 namespace IKaan.Win.Core.Variables
 {
@@ -12,7 +12,7 @@ namespace IKaan.Win.Core.Variables
 			UserInfo = new UserInfo();
 			SkinInfo = new SkinInfo();
 			MainInfo = new MainInfo();
-			Codes = new List<UMCodeLookup>();
+			Codes = new List<UCodeLookup>();
 		}
 
 		public static string Version { get; set; }
@@ -25,7 +25,7 @@ namespace IKaan.Win.Core.Variables
 
 		public static MainInfo MainInfo { get; set; }
 
-		public static IList<UMCodeLookup> Codes { get; set; }
+		public static IList<UCodeLookup> Codes { get; set; }
 		
 	}
 }

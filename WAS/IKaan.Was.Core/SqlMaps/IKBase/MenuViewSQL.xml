@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectMenuView" parameterClass="DataMap" resultClass="MenuViewModel" >
+			<![CDATA[
+				SELECT  AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					,	AA.MenuID
+					,	AA.ViewID
+					,	AA.Parameter
+				FROM	dbo.TMenuView AA WITH (NOLOCK)
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<select id="SelectMenuViewExists" parameterClass="DataMap" resultClass="MenuViewModel" >
+			<![CDATA[
+				SELECT  AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					,	AA.MenuID
+					,	AA.ViewID
+					,	AA.Parameter
+				FROM	dbo.TMenuView AA WITH (NOLOCK)
+				WHERE	AA.MenuID = #MenuID#
+			]]>
+		</select>
+		<insert id="InsertMenuView" parameterClass="MenuViewModel" >
+			<![CDATA[
+				INSERT INTO dbo.TMenuView
+				( 
+					CreateDate, CreateBy, CreateByName,
+					MenuID, ViewID, Parameter
+				)
+				VALUES
+				(
+					GetDate(), #CreateBy#, #CreateByName#,
+					#MenuID#, #ViewID#, #Parameter#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateMenuView" parameterClass="MenuViewModel">
+			<![CDATA[
+				UPDATE  dbo.TMenuView
+				SET     UpdateDate	= GetDate()
+					,	UpdateBy	= #UpdateBy#
+					,	UpdateByName= #UpdateByName#
+					
+					,	MenuID		= #MenuID#
+					,	ViewID		= #ViewID#
+					,	Parameter	= #Parameter#
+				WHERE	ID			= #ID#
+			]]>
+		</update>
+		<delete id="DeleteMenuView" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM dbo.TMenuView WHERE ID = #ID#;
+			]]>
+		</delete>
+	</statements>
+</sqlMap>

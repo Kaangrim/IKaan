@@ -6,7 +6,7 @@ using IKaan.Base.Utils;
 using IKaan.Win.Core.Model;
 using IKaan.Win.Core.Variables;
 using IKaan.Win.Core.Was.Handler;
-using IKaan.Model.UserModels;
+using IKaan.Model.Common.UserModels ;
 
 namespace IKaan.Win.Core.Helper
 {
@@ -18,7 +18,7 @@ namespace IKaan.Win.Core.Helper
 				parameter = new DataMap();
 
 			//글로벌 변수에 정의된 공통코드를 읽어온다.
-			var datasource = GlobalVar.Codes.OfType<UMCodeLookup>().Where
+			var datasource = GlobalVar.Codes.OfType<UCodeLookup>().Where
 				(x => x.GroupCode == groupCode &&
 					(
 						(
@@ -67,7 +67,7 @@ namespace IKaan.Win.Core.Helper
 				).ToList();
 
 			if (datasource == null)
-				datasource = new List<UMCodeLookup>();
+				datasource = new List<UCodeLookup>();
 
 			//글로벌 변수에 정의되지 않은 공통코드라면 서버에 요청한다.
 			if (datasource.Count == 0)
@@ -76,9 +76,9 @@ namespace IKaan.Win.Core.Helper
 				var data = Search(groupCode, parameter);
 				if (data != null && data.Count > 0)
 				{
-					data.OfType<UMCodeHelp>().ToList().ForEach(x =>
+					data.OfType<UCodeHelp>().ToList().ForEach(x =>
 					{
-						datasource.Add(new UMCodeLookup()
+						datasource.Add(new UCodeLookup()
 						{
 							Code = x.Code,
 							Name = x.Name,
@@ -115,7 +115,7 @@ namespace IKaan.Win.Core.Helper
 
 			if (datasource.Count > 0)
 			{
-				foreach (UMCodeLookup code in datasource)
+				foreach (UCodeLookup code in datasource)
 				{
 					source.Add(new LookupSource()
 					{
@@ -139,7 +139,7 @@ namespace IKaan.Win.Core.Helper
 			}
 			return source;
 		}
-		public static IList<UMCodeHelp> Search(string parentCode, DataMap parameters = null)
+		public static IList<UCodeHelp> Search(string parentCode, DataMap parameters = null)
 		{
 			try
 			{
@@ -147,7 +147,7 @@ namespace IKaan.Win.Core.Helper
 					parameters = new DataMap();
 
 				parameters.SetValue("ParentCode", parentCode);
-				return WasHandler.GetList<UMCodeHelp>("CodeHelp", "GetList", parentCode, parameters);
+				return WasHandler.GetList<UCodeHelp>("CodeHelp", "GetList", parentCode, parameters);
 			}
 			catch
 			{

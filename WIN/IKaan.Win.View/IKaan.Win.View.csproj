@@ -120,17 +120,9 @@
       <Project>{8bfcd979-c083-41b2-8715-5936a1587986}</Project>
       <Name>IKaan.Win.View.Biz</Name>
     </ProjectReference>
-    <ProjectReference Include="..\IKaan.Win.View.Lib\IKaan.Win.View.Lib.csproj">
-      <Project>{b1e911ba-1930-4e50-baa9-e19b9c0f144c}</Project>
-      <Name>IKaan.Win.View.Lib</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\IKaan.Win.View.Smp\IKaan.Win.View.Smp.csproj">
-      <Project>{c4a49382-9767-4bdc-b944-f4926e3c498d}</Project>
-      <Name>IKaan.Win.View.Smp</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\IKaan.Win.View.Sys\IKaan.Win.View.Sys.csproj">
+    <ProjectReference Include="..\IKaan.Win.View.Sys\IKaan.Win.View.Base.csproj">
       <Project>{7a92d420-b503-450b-97aa-1efc46a8603f}</Project>
-      <Name>IKaan.Win.View.Sys</Name>
+      <Name>IKaan.Win.View.Base</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

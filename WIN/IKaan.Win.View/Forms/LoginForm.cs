@@ -8,7 +8,7 @@ using IKaan.Win.Core.Helper;
 using IKaan.Win.Core.Resources;
 using IKaan.Win.Core.Variables;
 using IKaan.Win.Core.Was.Handler;
-using IKaan.Model.UserModels;
+using IKaan.Model.Common.UserModels ;
 
 namespace IKaan.Win.View.Forms
 {
@@ -101,7 +101,7 @@ namespace IKaan.Win.View.Forms
 					return;
 				}
 
-				var data = WasHandler.GetData<UMLoginUser>("AUTH", "CheckLoginUser", null, new DataMap()
+				var data = WasHandler.GetData<ULoginUser>("AUTH", "CheckLoginUser", null, new DataMap()
 				{
 					{ "LoginId", txtLoginId.EditValue },
 					{ "Password", txtPassword.EditValue },

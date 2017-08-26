@@ -1,0 +1,279 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectUserList" parameterClass="DataMap" resultClass="UserModel" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
+					,	AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					,	AA.UserName
+					,	AA.UserType
+					,	M1.Name		as UserTypeName
+					,	AA.LoginID
+					,	AA.UseYn
+					,	AA.Description
+				FROM	dbo.TUser AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.TCode M1 WITH (NOLOCK)
+								ON AA.UserType = M1.Code
+									AND M1.ParentCode = 'UserType'
+				WHERE	1=1
+			]]>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	AA.UserName LIKE '%' + #FindText# + '%'
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectUser" parameterClass="DataMap" resultClass="UserModel" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
+					,	AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					,	AA.UserName
+					,	AA.UserType
+					,	AA.LoginID
+					,	AA.UseYn
+					,	AA.Description
+				FROM	dbo.TUser AA WITH (NOLOCK)
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<insert id="InsertUser" parameterClass="UserModel" >
+			<![CDATA[
+				INSERT INTO dbo.TUser
+				( 
+					CreateDate, CreateBy, CreateByName,
+					UserName, UserType, LoginID, Password, UseYn, Description
+				)
+				VALUES
+				( 
+					GetDate()
+				,	#CreateBy#
+				,	#CreateByName#
+				,	#UserName#
+				,	#UserType#
+				,	#LoginID#
+				,	PWDENCRYPT(#LoginID#)
+				,	#UseYn#
+				,	#Description#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateUser" parameterClass="UserModel">
+			<![CDATA[
+				UPDATE  dbo.TUser
+				SET		UpdateDate	= GetDate()
+					,	UpdateBy	= #UpdateBy#
+					,	UpdateByName= #UpdateByName#
+					,	UserName	= #UserName#
+					,	UserType	= #UserType#
+					,	LoginID		= #LoginID#
+					,	UseYn		= #UseYn#
+					,	Description	= #Description#
+				WHERE	ID			= #ID#
+			]]>
+		</update>
+		<delete id="DeleteUser" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM dbo.TUserRole	WHERE UserID = #ID#;
+				DELETE FROM dbo.TUserGroup	WHERE UserID = #ID#;
+				DELETE FROM dbo.TUser		WHERE ID	 = #ID#;
+			]]>
+		</delete>
+		<update id="ClearPassword" parameterClass="DataMap">
+			<![CDATA[
+				UPDATE  dbo.TUser
+				SET     Password	= PWDENCRYPT(LoginID)
+					,	UpdateDate	= GetDate()
+					,	UpdateBy	= #UpdateBy#
+					,	UpdateByName= #UpdateByName#
+				WHERE	ID			= #ID#
+			]]>
+		</update>
+		<update id="ChangePassword" parameterClass="DataMap">
+			<![CDATA[
+				INSERT INTO dbo.TUserPasswordHist
+				(
+					CreateDate, CreateBy, CreateByName,
+					UserID, OldPassword, NewPassword
+				)
+				SELECT	GetDate()
+					,	#CreateBy#
+					,	#CreateByName#
+					,	#UserID#
+					,	Password
+					,	PWDENCRYPT(#Password#)
+				FROM	dbo.TUser WITH (NOLOCK)
+				WHERE	ID = #UserID#;
+				UPDATE  dbo.TUser
+				SET     Password	= PWDENCRYPT(#Password#)
+					,	UpdateDate	= GetDate()
+					,	UpdateBy	= #UpdateBy#
+					,	UpdateByName= #UpdateByName#
+				WHERE	ID			= #ID#;				
+			]]>
+		</update>
+
+		<select id="SelectUserGroupList" parameterClass="DataMap" resultClass="UserGroupModel" >
+			<![CDATA[
+				WITH CTE (ID, HierID, Level)
+				AS
+				(
+					SELECT	AA.ID		as ID
+						,	CAST(RIGHT('0000' + 
+									CONVERT(VARCHAR, ROW_NUMBER() OVER (ORDER BY AA.ID)), 4) AS VARCHAR(MAX))	AS HierID
+						,	1																					AS Level
+					FROM	dbo.TGroup AA WITH (NOLOCK)
+					WHERE	AA.UseYn = 'Y'
+					AND		AA.ParentID IS NULL
+					UNION ALL
+					SELECT	AA.ID			as ID
+						,	CAST(BB.HierID + 
+								 RIGHT('0000' + CONVERT(VARCHAR, ROW_NUMBER() OVER (ORDER BY AA.ID)), 4) AS VARCHAR(MAX))	AS HierID
+						,	BB.Level + 1																					AS Level
+					FROM	dbo.TGroup AA WITH (NOLOCK)
+							INNER JOIN 
+								CTE BB 
+									ON AA.ParentID = BB.ID
+					WHERE	AA.UseYn = 'Y'
+				)
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.HierID)	AS RowNo
+					,	CASE
+							WHEN UG.ID IS NULL THEN 'N'
+							ELSE UG.UseYn
+						END										AS Checked
+					,	UG.ID
+					,	UG.CreateDate
+					,	UG.CreateBy
+					,	UG.CreateByName
+					,	UG.UpdateDate
+					,	UG.UpdateBy
+					,	UG.UpdateByName
+					
+					,	#ID#					as UserID
+					,	AA.ID					as GroupID
+					,	ISNULL(UG.UseYn,'N')	as UseYn
+					
+					,	REPLICATE(' ', (AA.Level -1) * 5) + 
+						CASE 
+							WHEN AA.Level > 1 THEN '▶'
+							ELSE ''
+						END + 
+						BB.GroupName			as GroupName
+					,	AA.HierID				as HierID
+					,	AA.Level				as GroupLevel
+					
+				FROM	CTE AA
+						INNER JOIN
+							dbo.TGroup BB WITH (NOLOCK)
+								ON AA.ID = BB.ID
+						LEFT JOIN 
+							dbo.TUserGroup UG WITH (NOLOCK) 
+								ON AA.ID = UG.GroupID
+									AND UG.UserID = #ID#
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectUserRoleList" parameterClass="DataMap" resultClass="UserRoleModel" >
+			<![CDATA[
+				WITH CTE (ID, HierID, Level)
+				AS
+				(
+					SELECT	AA.ID		as ID
+						,	CAST(RIGHT('0000' + 
+									CONVERT(VARCHAR, ROW_NUMBER() OVER (ORDER BY AA.ID)), 4) AS VARCHAR(MAX))	AS HierID
+						,	1																					AS Level
+					FROM	dbo.TRole AA WITH (NOLOCK)
+					WHERE	AA.UseYn = 'Y'
+					AND		AA.ParentID IS NULL
+					UNION ALL
+					SELECT	AA.ID			as ID
+						,	CAST(BB.HierID + 
+								 RIGHT('0000' + CONVERT(VARCHAR, ROW_NUMBER() OVER (ORDER BY AA.ID)), 4) AS VARCHAR(MAX))	AS HierID
+						,	BB.Level + 1																					AS Level
+					FROM	dbo.TRole AA WITH (NOLOCK)
+							INNER JOIN 
+								CTE BB 
+									ON AA.ParentID = BB.ID
+					WHERE	AA.UseYn = 'Y'
+				)
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.HierID)	AS RowNo
+					,	CASE
+							WHEN UR.ID IS NULL THEN 'N'
+							ELSE UR.UseYn
+						END										AS Checked
+					,	UR.ID
+					,	UR.CreateDate
+					,	UR.CreateBy
+					,	UR.CreateByName
+					,	UR.UpdateDate
+					,	UR.UpdateBy
+					,	UR.UpdateByName
+					
+					,	#ID#					as UserID
+					,	AA.ID					as RoleID
+					,	REPLICATE(' ', (AA.Level -1) * 5) + 
+						CASE 
+							WHEN AA.Level > 1 THEN '▶'
+							ELSE ''
+						END + 
+						BB.RoleName				as RoleName
+					,	ISNULL(UR.UseYn,'N')	as UseYn
+					
+					,	AA.HierID				as HierID
+					,	AA.Level				as RoleLevel
+					
+				FROM	CTE AA
+						INNER JOIN
+							dbo.TRole BB WITH (NOLOCK)
+								ON AA.ID = BB.ID
+						LEFT JOIN 
+							dbo.TUserRole UR WITH (NOLOCK) 
+								ON AA.ID = UR.RoleID
+									AND UR.UserID = #ID#
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectUserPasswordHistList" parameterClass="DataMap" resultClass="UserPasswordHistModel" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID)	AS RowNo
+					,	AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName					
+					,	AA.UserID
+					,	AA.OldPassword
+					,	AA.NewPassword					
+				FROM	dbo.TUserPasswordHist AA WITH (NOLOCK)
+				WHERE	AA.UserID = #ID#
+				ORDER BY RowNo
+			]]>
+		</select>
+	</statements>
+</sqlMap>

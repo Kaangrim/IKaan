@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectCustomerBankList" parameterClass="DataMap" resultClass="CustomerBankModel" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
+					,	AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.CustomerID
+					,	AA.BankName
+					,	AA.AccountNo
+					,	AA.Depositor
+					,	AA.Description
+					,	AA.ImageUrl
+					
+				FROM	dbo.TCustomerBank AA WITH (NOLOCK)
+				WHERE	AA.CustomerID = #CustomerID#
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectCustomerBank" parameterClass="DataMap" resultClass="CustomerBankModel" >
+			<![CDATA[
+				SELECT  AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.CustomerID
+					,	AA.BankName
+					,	AA.AccountNo
+					,	AA.Depositor
+					,	AA.Description
+					,	AA.ImageUrl
+					
+				FROM	dbo.TCustomerBank AA WITH (NOLOCK)
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<insert id="InsertCustomerBank" parameterClass="CustomerBankModel" >
+			<![CDATA[
+				INSERT INTO dbo.TCustomerBank
+				( 
+					CreateDate, CreateBy, CreateByName,
+					CustomerID, BankName, AccountNo, Depositor, Description, ImageUrl
+				)
+				VALUES
+				(
+					GetDate(), #CreateBy#, #CreateByName#,
+					#CustomerID#, #BankName#, #AccountNo#, #Depositor#, #Description#, #ImageUrl#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateCustomerBank" parameterClass="CustomerBankModel">
+			<![CDATA[
+				UPDATE  dbo.TCustomerBank
+				SET     UpdateDate		= GetDate()
+					,	UpdateBy		= #UpdateBy#
+					,	UpdateByName	= #UpdateByName#
+					
+					,	CustomerID		= #CustomerID#
+					,	BankName		= #BankName#
+					,	AccountNo		= #AccountNo#
+					,	Depositor		= #Depositor#
+					,	Description		= #Description#
+					,	ImageUrl		= #ImageUrl#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
+		<delete id="DeleteCustomerBank" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM dbo.TCustomerBank WHERE ID = #ID#;
+			]]>
+		</delete>
+	</statements>
+</sqlMap>

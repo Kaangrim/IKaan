@@ -1681,7 +1681,7 @@ select[size] {
   height: auto;
 }
 
-select optgroup {
+select opGroupModel {
   font-family: inherit;
   font-size: inherit;
   font-style: inherit;

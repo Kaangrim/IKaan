@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using IKaan.Win.Core.Enum;
 using IKaan.Win.Core.Model;
-using IKaan.Model.UserModels;
+using IKaan.Model.Common.UserModels ;
 
 namespace IKaan.Win.Core.Interface
 {
@@ -16,7 +16,7 @@ namespace IKaan.Win.Core.Interface
 		bool IsLoaded { get; }
 
 		ViewTypeEnum ViewType { get; set; }
-		IList<UMMenuViewButton> ViewButtons { get; set; }
+		IList<UMenuViewButton> ViewButtons { get; set; }
 
 		void SetToolbarButtons(ToolbarButtons toolbarButtons);
 	}

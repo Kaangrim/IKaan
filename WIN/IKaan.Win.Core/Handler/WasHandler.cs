@@ -5,7 +5,7 @@ using System.Net.Http.Headers;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
 using IKaan.Win.Core.Variables;
-using IKaan.Model.Was;
+using IKaan.Model.Common.Was;
 
 namespace IKaan.Win.Core.Was.Handler
 {

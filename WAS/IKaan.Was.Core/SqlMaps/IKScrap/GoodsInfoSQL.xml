@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectGoodsInfoList" parameterClass="DataMap" resultClass="GoodsInfoModel" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.BrandName)	as RowNo
+					,	AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.SiteCode
+					,	AA.BrandCode
+					,	AA.GoodsCode
+					,	AA.GoodsName
+					,	AA.GoodsURL
+					,	AA.ListPrice
+					,	AA.SalePrice
+					,	AA.ImageURL
+					,	AA.Option1Type
+					,	AA.Option1Name
+					,	AA.Option2Type
+					,	AA.Option2Name
+					,	AA.CategoryName
+					
+				FROM	dbo.TGoodsInfo AA WITH (NOLOCK)
+				WHERE	AA.SiteCode		= #SiteCode#
+				AND		AA.BrandCode	= #BrandCode#
+			]]>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(
+							AA.GoodsCode	 = #FindText#	OR
+							AA.GoodsName	LIKE '%'+#FindText#+'%'
+						)
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectGoodsInfo" parameterClass="DataMap" resultClass="GoodsInfoModel" >
+			<![CDATA[
+				SELECT  AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.SiteCode
+					,	AA.BrandCode
+					,	AA.GoodsCode
+					,	AA.GoodsName
+					,	AA.GoodsURL
+					,	AA.ListPrice
+					,	AA.SalePrice
+					,	AA.ImageURL
+					,	AA.Option1Type
+					,	AA.Option1Name
+					,	AA.Option2Type
+					,	AA.Option2Name
+					,	AA.CategoryName
+					
+				FROM	dbo.TGoodsInfo AA WITH (NOLOCK)
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<insert id="InsertGoodsInfo" parameterClass="GoodsInfoModel" >
+			<![CDATA[
+				INSERT INTO dbo.TGoodsInfo
+				( 
+					CreateDate, CreateBy, CreateByName,
+					SiteCode, BrandCode, 
+					GoodsCode, GoodsName, GoodsURL, ListPrice, SalePrice, ImageURL, Option1Type, Option1Name, Option2Type, Option2Name, CategoryName
+				)
+				VALUES
+				(
+					GetDate(), #CreateBy#, #CreateByName#,
+					#SiteCode#, #BrandCode#, 
+					#GoodsCode#, #GoodsName#, #GoodsURL#, #ListPrice#, #SalePrice#, #ImageURL#, #Option1Type#, #Option1Name#, #Option2Type#, #Option2Name#, #CategoryName#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateGoodsInfo" parameterClass="GoodsInfoModel">
+			<![CDATA[
+				UPDATE  dbo.TGoodsInfo
+				SET     UpdateDate		= GetDate()
+					,	UpdateBy		= #UpdateBy#
+					,	UpdateByName	= #UpdateByName#
+					
+					,	SiteCode		= #SiteCode#
+					,	BrandCode		= #BrandCode#
+					,	GoodsCode		= #GoodsCode#
+					,	GoodsName		= #GoodsName#
+					,	GoodsURL		= #GoodsURL#
+					,	ListPrice		= #ListPrice#
+					,	SalePrice		= #SalePrice#
+					,	ImageURL		= #ImageURL#
+					,	Option1Type		= #Option1Type#
+					,	Option1Name		= #Option1Name#
+					,	Option2Type		= #Option2Type#
+					,	Option2Name		= #Option2Name#
+					,	CategoryName	= #CategoryName#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
+		<delete id="DeleteGoodsInfo" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM	dbo.TGoodsInfo WHERE ID = #ID#;
+			]]>
+		</delete>
+
+		<select id="SelectGoodsInfoExists" parameterClass="DataMap" resultClass="GoodsInfoModel" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.GoodsCode)	as RowNo
+					,	AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.SiteCode
+					,	AA.BrandCode
+					,	AA.GoodsCode
+					,	AA.GoodsName
+					,	AA.GoodsURL
+					,	AA.ListPrice
+					,	AA.SalePrice
+					,	AA.ImageURL
+					,	AA.Option1Type
+					,	AA.Option1Name
+					,	AA.Option2Type
+					,	AA.Option2Name
+					,	AA.CategoryName
+					
+				FROM	dbo.TGoodsInfo AA WITH (NOLOCK)
+				WHERE	AA.SiteCode  = #SiteCode#
+				AND		AA.BrandCode = #BrandCode#
+				AND		(
+							AA.GoodsCode = #GoodsCode#	OR
+							AA.GoodsName = #GoodsName#
+						)
+			]]>
+		</select>
+	</statements>
+</sqlMap>

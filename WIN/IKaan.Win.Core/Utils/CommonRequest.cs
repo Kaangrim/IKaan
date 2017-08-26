@@ -2,7 +2,7 @@
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
 using IKaan.Win.Core.Was.Handler;
-using IKaan.Model.BIZ.BM;
+using IKaan.Model.IKBiz;
 
 namespace IKaan.Win.Core.Utils
 {
@@ -12,7 +12,7 @@ namespace IKaan.Win.Core.Utils
 		{
 			try
 			{
-				//using (var res = WasHandler.Execute<BMAddress>("Base", "Save", "Address", map, "ID"))
+				//using (var res = WasHandler.Execute<TAddress>("Base", "Save", "Address", map, "ID"))
 				//{
 				//	if (res.Error.Number != 0)
 				//		throw new Exception(res.Error.Message);

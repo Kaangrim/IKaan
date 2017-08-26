@@ -64,3 +64,4 @@ D:\Repositories\IKaan\WAS\IKaan.Was.Core\bin\Debug\IBatisNet.DataMapper.pdb
 D:\Repositories\IKaan\WAS\IKaan.Was.Core\bin\Debug\IBatisNet.DataMapper.xml
 D:\Repositories\IKaan\WAS\IKaan.Was.Core\bin\Debug\log4net.xml
 D:\Repositories\IKaan\WAS\IKaan.Was.Core\bin\Debug\Newtonsoft.Json.xml
+D:\Repositories\IKaan\WAS\IKaan.Was.Core\obj\Debug\IKaan.Was.Core.csproj.CoreCompileInputs.cache

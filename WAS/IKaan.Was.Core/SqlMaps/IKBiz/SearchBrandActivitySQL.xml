@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectSearchBrandActivityList" parameterClass="DataMap" resultClass="SearchBrandActivityModel" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
+					,	AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.SearchBrandID
+					,	AA.ActivityDate
+					,	AA.Description
+					,	AA.DescriptionRTF
+					
+				FROM	dbo.TSearchBrandActivity AA WITH (NOLOCK)
+				WHERE	AA.SearchBrandID = #SearchBrandID#
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectSearchBrandActivity" parameterClass="DataMap" resultClass="SearchBrandActivityModel" >
+			<![CDATA[
+				SELECT  AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.SearchBrandID
+					,	AA.ActivityDate
+					,	AA.Description
+					,	AA.DescriptionRTF
+					
+				FROM	dbo.TSearchBrandActivity AA WITH (NOLOCK)
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<insert id="InsertSearchBrandActivity" parameterClass="SearchBrandActivityModel" >
+			<![CDATA[
+				INSERT INTO dbo.TSearchBrandActivity
+				( 
+					CreateDate, CreateBy, CreateByName,
+					SearchBrandID, ActivityDate, Description, DescriptionRTF
+				)
+				VALUES
+				(
+					GetDate(), #CreateBy#, #CreateByName#,
+					#SearchBrandID#, #ActivityDate#, #Description#, #DescriptionRTF#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateSearchBrandActivity" parameterClass="SearchBrandActivityModel">
+			<![CDATA[
+				UPDATE  dbo.TSearchBrandActivity
+				SET     UpdateDate		= GetDate()
+					,	UpdateBy		= #UpdateBy#
+					,	UpdateByName	= #UpdateByName#
+					
+					,	SearchBrandID	= #SearchBrandID#
+					,	ActivityDate	= #ActivityDate#
+					,	Description		= #Description#
+					,	DescriptionRTF	= #DescriptionRTF#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
+		<delete id="DeleteSearchBrandActivity" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM dbo.TSearchBrandActivity WHERE	ID = #ID#;
+			]]>
+		</delete>
+	</statements>
+</sqlMap>

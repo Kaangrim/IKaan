@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectSystemList" parameterClass="DataMap" resultClass="SystemModel" >
+			<![CDATA[
+				SELECT	ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
+					,	AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.SystemName
+					,	AA.UseYn
+					,	AA.Description
+				FROM	dbo.TSystem AA WITH (NOLOCK)
+				WHERE	1=1
+			]]>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+				AND		AA.SystemName	LIKE '%'+#FindText#+'%'
+			]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY 
+					RowNo
+			]]>
+		</select>
+		<select id="SelectSystem" parameterClass="DataMap" resultClass="SystemModel" >
+			<![CDATA[
+				SELECT	*
+				FROM	dbo.TSystem WITH (NOLOCK)
+				WHERE	ID = #ID#
+			]]>
+		</select>
+		<insert id="InsertSystem" parameterClass="SystemModel" >
+			<![CDATA[
+				INSERT INTO dbo.TSystem
+				( 
+					CreateDate, CreateBy, CreateByName,
+					SystemName, UseYn, Description
+				)
+				VALUES
+				( 
+					GetDate(), #CreateBy#, #CreateByName#,
+					#SystemName#, #UseYn#, #Description#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateSystem" parameterClass="SystemModel">
+			<![CDATA[
+				UPDATE  dbo.TSystem
+				SET     UpdateDate	= GetDate()
+					,	UpdateBy	= #UpdateBy#
+					,	UpdateByName= #UpdateByName#
+					
+					,	SystemName	= #SystemName#
+					,	UseYn		= #UseYn#
+					,	Description	= #Description#
+				WHERE	ID			= #ID#
+			]]>
+		</update>
+		<delete id="DeleteSystem" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM dbo.TSystem WHERE ID = #ID#;
+			]]>
+		</delete>
+	</statements>
+</sqlMap>

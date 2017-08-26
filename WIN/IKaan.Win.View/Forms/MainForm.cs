@@ -29,7 +29,7 @@ using IKaan.Win.Core.Resources;
 using IKaan.Win.Core.Utils;
 using IKaan.Win.Core.Variables;
 using IKaan.Win.Core.Was.Handler;
-using IKaan.Model.UserModels;
+using IKaan.Model.Common.UserModels ;
 
 namespace IKaan.Win.View.Forms
 {
@@ -259,9 +259,9 @@ namespace IKaan.Win.View.Forms
 				}
 				if (e.Link.Item.Tag != null)
 				{
-					if (e.Link.Item.Tag is UMMainMenu)
+					if (e.Link.Item.Tag is UMainMenu)
 					{
-						UMMainMenu model = e.Link.Item.Tag as UMMainMenu;
+						UMainMenu model = e.Link.Item.Tag as UMainMenu;
 						OpenForm(model.MenuID);
 					}
 				}
@@ -651,7 +651,7 @@ namespace IKaan.Win.View.Forms
 			{
 				if (mainMenu != null)
 				{
-					var list = WasHandler.GetData<List<UMMainMenu>>("AUTH", "GetMainMenu", null, new DataMap()
+					var list = WasHandler.GetData<List<UMainMenu>>("AUTH", "GetMainMenu", null, new DataMap()
 					{
 						{ "UserID", GlobalVar.UserInfo.UserId },
 						{ "MenuGroup", "BIZ" }
@@ -681,7 +681,7 @@ namespace IKaan.Win.View.Forms
 					var navGroup = navBarNavigate.Groups.Where(x => x.Name == navBarGroupName).FirstOrDefault();
 					navGroup.ItemLinks.Clear();
 
-					var list = WasHandler.GetData<List<UMMainMenu>>("AUTH", "GetMainMenu", null, new DataMap()
+					var list = WasHandler.GetData<List<UMainMenu>>("AUTH", "GetMainMenu", null, new DataMap()
 					{
 						{ "UserID", GlobalVar.UserInfo.UserId },
 						{ "MenuGroup", menuGroupName }
@@ -689,7 +689,7 @@ namespace IKaan.Win.View.Forms
 
 					if (list != null)
 					{
-						foreach (UMMainMenu model in list)
+						foreach (UMainMenu model in list)
 						{
 							navGroup.ItemLinks.Add(navBarNavigate.Items.Add(new DevExpress.XtraNavBar.NavBarItem()
 							{
@@ -729,7 +729,7 @@ namespace IKaan.Win.View.Forms
 		{
 			try
 			{
-				CreateChildForm(new UMMenuView()
+				CreateChildForm(new UMenuView()
 				{
 					MenuID = 0,
 					MenuName = "HOME",
@@ -738,7 +738,7 @@ namespace IKaan.Win.View.Forms
 					Namespace = "IKaan.Win.View.Forms",
 					Instance = "HomeForm",
 					ViewType = "",
-					ViewButtons = new List<UMMenuViewButton> { new UMMenuViewButton() { ButtonID = 0, ButtonName = "조회", Instance = null } }
+					ViewButtons = new List<UMenuViewButton> { new UMenuViewButton() { ButtonID = 0, ButtonName = "조회", Instance = null } }
 				});
 			}
 			catch(Exception ex)
@@ -751,7 +751,7 @@ namespace IKaan.Win.View.Forms
 		{
 			try
 			{
-				CreateChildForm(new UMMenuView()
+				CreateChildForm(new UMenuView()
 				{
 					MenuID = 0,
 					MenuName = "Email",
@@ -760,7 +760,7 @@ namespace IKaan.Win.View.Forms
 					Namespace = "IKaan.Win.View.Forms",
 					Instance = "EmailForm",
 					ViewType = "",
-					ViewButtons = new List<UMMenuViewButton> { new UMMenuViewButton() { ButtonID = 0, ButtonName = "조회", Instance = null } }
+					ViewButtons = new List<UMenuViewButton> { new UMenuViewButton() { ButtonID = 0, ButtonName = "조회", Instance = null } }
 				});
 			}
 			catch (Exception ex)
@@ -773,7 +773,7 @@ namespace IKaan.Win.View.Forms
 		{
 			try
 			{
-				CreateChildForm(new UMMenuView()
+				CreateChildForm(new UMenuView()
 				{
 					MenuID = 0,
 					MenuName = "Web",
@@ -782,7 +782,7 @@ namespace IKaan.Win.View.Forms
 					Namespace = "IKaan.Win.View.Forms",
 					Instance = "WebForm",
 					ViewType = "",
-					ViewButtons = new List<UMMenuViewButton> { new UMMenuViewButton() { ButtonID = 0, ButtonName = "조회", Instance = null } },
+					ViewButtons = new List<UMenuViewButton> { new UMenuViewButton() { ButtonID = 0, ButtonName = "조회", Instance = null } },
 				});
 			}
 			catch (Exception ex)
@@ -910,7 +910,7 @@ namespace IKaan.Win.View.Forms
 			return mdiManager.Pages.Where(x => x.MdiChild.Name.Equals(childName)).Any();
 		}
 
-		public void CreateChildForm(UMMenuView data)
+		public void CreateChildForm(UMenuView data)
 		{
 			try
 			{
@@ -1001,17 +1001,17 @@ namespace IKaan.Win.View.Forms
 		{
 			try
 			{
-				if (obj.GetType() == typeof(UMMenuView))
+				if (obj.GetType() == typeof(UMenuView))
 				{
 					if (obj != null)
 					{
-						var menuView = obj as UMMenuView;
+						var menuView = obj as UMenuView;
 						CreateChildForm(menuView);
 					}
 				}
 				else
 				{
-					var menuView = WasHandler.GetData<UMMenuView>("AUTH", "GetMenuView", null, new DataMap() { { "ID", obj } });
+					var menuView = WasHandler.GetData<UMenuView>("AUTH", "GetMenuView", null, new DataMap() { { "ID", obj } });
 					if (menuView != null)
 					{
 						CreateChildForm(menuView);

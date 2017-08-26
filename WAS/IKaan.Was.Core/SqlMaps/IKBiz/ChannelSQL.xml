@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectChannelList" parameterClass="DataMap" resultClass="ChannelModel" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
+					,	AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.ChannelName
+					,	AA.EngName
+					,	AA.ChannelType
+					,	AA.ChannelCode
+					,	AA.Description
+					,	AA.UseYn
+					,	M1.Name				as ChannelTypeName
+					
+				FROM	dbo.TChannel AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.TCode M1 WITH (NOLOCK)
+								ON AA.ChannelType = M1.Code
+									AND M1.ParentCode = 'ChannelType'
+				WHERE	1=1				
+			]]>
+			<isNotEmpty property="ChannelType">
+				<![CDATA[
+					AND		AA.ChannelType = #ChannelType#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="UseYn">
+				<![CDATA[
+					AND		AA.UseYn = #UseYn#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(
+							AA.ChannelName		LIKE '%' + #FindText# + '%' OR
+							AA.EngName			LIKE '%' + #FindText# + '%' OR
+							AA.ChannelCode		LIKE '%' + #FindText# + '%'
+						)
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectChannel" parameterClass="DataMap" resultClass="ChannelModel" >
+			<![CDATA[
+				SELECT  AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.ChannelName
+					,	AA.EngName
+					,	AA.ChannelType
+					,	AA.ChannelCode
+					,	AA.Description
+					,	AA.UseYn
+					
+				FROM	dbo.TChannel AA WITH (NOLOCK)
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<insert id="InsertChannel" parameterClass="ChannelModel" >
+			<![CDATA[
+				INSERT INTO dbo.TChannel
+				( 
+					CreateDate, CreateBy, CreateByName,
+					ChannelName, EngName, ChannelCode, ChannelType, Description, UseYn
+				)
+				VALUES
+				(
+					GetDate(), #CreateBy#, #CreateByName#,
+					#ChannelName#, #EngName#, #ChannelCode#, #ChannelType#, #Description#, #UseYn#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateChannel" parameterClass="ChannelModel">
+			<![CDATA[
+				UPDATE  dbo.TChannel
+				SET     UpdateDate		= GetDate()
+					,	UpdateBy		= #UpdateBy#
+					,	UpdateByName	= #UpdateByName#
+					
+					,	ChannelName		= #ChannelName#
+					,	EngName			= #EngName#
+					,	ChannelType		= #ChannelType#
+					,	ChannelCode		= #ChannelCode#
+					,	Description		= #Description#
+					,	UseYn			= #UseYn#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
+		<delete id="DeleteChannel" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM dbo.TChannel WHERE ID = #ID#;
+			]]>
+		</delete>
+	</statements>
+</sqlMap>

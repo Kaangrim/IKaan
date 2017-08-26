@@ -24,9 +24,9 @@ namespace IKaan.Win.Core.Helper
 		{
 			return XtraMessageBox.Show(text, caption, buttons, icon);
 		}
-		public static DialogResult Show(string text, string caption, MessageBoxButtons buttons, MessageBoxIcon icon, MessageBoxDefaultButton defaultButton)
+		public static DialogResult Show(string text, string caption, MessageBoxButtons buttons, MessageBoxIcon icon, MessageBoxDefaultButton defaulButtonModel)
 		{
-			return XtraMessageBox.Show(text, caption, buttons, icon, defaultButton);
+			return XtraMessageBox.Show(text, caption, buttons, icon, defaulButtonModel);
 		}
 
 

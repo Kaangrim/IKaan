@@ -35,7 +35,7 @@ namespace IKaan.Was.Areas.HelpPage.Controllers
         {
             if (!String.IsNullOrEmpty(apiId))
             {
-                HelpPageApiModel apiModel = Configuration.GetHelpPageApiModel(apiId);
+                HelpPageApiModel apiModel = Configuration.GeHelpModelPageApiModel(apiId);
                 if (apiModel != null)
                 {
                     return View(apiModel);

@@ -28,11 +28,11 @@ namespace IKaan.Win.Core.Forms
 		{
 			get
 			{
-				return txtHelpName.Text;
+				return txHelpModelName.Text;
 			}
 			set
 			{
-				txtHelpName.EditValue = value;
+				txHelpModelName.EditValue = value;
 			}
 		}
 		public object Content
