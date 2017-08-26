@@ -427,3 +427,11 @@ D:\Repositories\IKaan\WIN\IKaan.Win.View\bin\Debug\es\DevExpress.Diagram.v17.1.C
 D:\Repositories\IKaan\WIN\IKaan.Win.View\bin\Debug\ja\DevExpress.Diagram.v17.1.Core.resources.dll
 D:\Repositories\IKaan\WIN\IKaan.Win.View\bin\Debug\ru\DevExpress.Diagram.v17.1.Core.resources.dll
 D:\Repositories\IKaan\WIN\IKaan.Win.View\obj\Debug\IKaan.Win.View.csproj.CoreCompileInputs.cache
+D:\Repositories\IKaan\WIN\IKaan.Win.View\bin\Debug\IKaan.Win.View.Base.dll
+D:\Repositories\IKaan\WIN\IKaan.Win.View\bin\Debug\IKaan.Win.View.Scrap.dll
+D:\Repositories\IKaan\WIN\IKaan.Win.View\bin\Debug\HtmlAgilityPack.dll
+D:\Repositories\IKaan\WIN\IKaan.Win.View\bin\Debug\IKaan.Win.View.Base.pdb
+D:\Repositories\IKaan\WIN\IKaan.Win.View\bin\Debug\IKaan.Win.View.Base.dll.config
+D:\Repositories\IKaan\WIN\IKaan.Win.View\bin\Debug\IKaan.Win.View.Scrap.pdb
+D:\Repositories\IKaan\WIN\IKaan.Win.View\bin\Debug\HtmlAgilityPack.pdb
+D:\Repositories\IKaan\WIN\IKaan.Win.View\bin\Debug\HtmlAgilityPack.xml
