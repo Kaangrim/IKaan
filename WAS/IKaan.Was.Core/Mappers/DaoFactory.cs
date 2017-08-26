@@ -25,7 +25,7 @@ namespace IKaan.Was.Core.Mappers
 							if (mapper == null)
 							{
 								var dom = new DomSqlMapBuilder();
-								var sqlMapConfig = Resources.GetEmbeddedResourceAsXmlDocument("Config.SqlMapIKBase.config, IKaan.Was.Core");
+								var sqlMapConfig = Resources.GetEmbeddedResourceAsXmlDocument("Config.SqlMapBase.config, IKaan.Was.Core");
 								mapper = dom.Configure(sqlMapConfig);
 							}
 						}

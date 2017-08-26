@@ -5,12 +5,12 @@ using DevExpress.LookAndFeel;
 using DevExpress.Skins;
 using DevExpress.UserSkins;
 using DevExpress.Utils;
-using IKaan.Win.View.Utils;
 using IKaan.Base.Logging;
 using IKaan.Base.Utils;
 using IKaan.Win.Core.Helper;
 using IKaan.Win.Core.Variables;
 using IKaan.Win.View.Forms;
+using IKaan.Win.View.Utils;
 
 namespace IKaan.Win
 {

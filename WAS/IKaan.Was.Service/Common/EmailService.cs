@@ -6,7 +6,7 @@ using IKaan.Model.Common.UserModels .Mail;
 using IKaan.Model.Common.Was;
 using IKaan.Was.Core.Variables;
 
-namespace IKaan.Was.Service.Base
+namespace IKaan.Was.Service.Common
 {
 	public static class EmailService
 	{

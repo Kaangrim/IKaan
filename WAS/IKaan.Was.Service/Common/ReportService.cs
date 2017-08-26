@@ -5,7 +5,7 @@ using IKaan.Model.Report;
 using IKaan.Model.Common.Was;
 using IKaan.Was.Core.Mappers;
 
-namespace IKaan.Was.Service.Base
+namespace IKaan.Was.Service.Common
 {
 	public static class ReportService
 	{

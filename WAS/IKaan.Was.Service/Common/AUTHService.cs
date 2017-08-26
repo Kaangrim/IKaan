@@ -6,7 +6,7 @@ using IKaan.Model.Common.Was;
 using IKaan.Model.IKBase;
 using IKaan.Was.Core.Mappers;
 
-namespace IKaan.Was.Service.SYS
+namespace IKaan.Was.Service.Common
 {
 	public static class AUTHService
 	{

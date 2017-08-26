@@ -16,9 +16,9 @@
 				WHERE	LoginId = #LoginId#
 			]]>			
 		</select>
-		<insert id="InserLoginLogModel" parameterClass="DataMap" >
+		<insert id="InserLoginLog" parameterClass="DataMap" >
 			<![CDATA[ 
-				INSERT INTO dbo.LoginLogModel
+				INSERT INTO dbo.TLoginLog
 				( 
 					CreateDate, CreateBy, CreateByName,
 					UserId, LoginId, Version, MainSkin, GridSkin, IpAddress, MacAddress, Status

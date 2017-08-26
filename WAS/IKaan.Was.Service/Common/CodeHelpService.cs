@@ -7,9 +7,9 @@ using IKaan.Model.Common.Was;
 using IKaan.Was.Core.Mappers;
 using Newtonsoft.Json.Linq;
 
-namespace IKaan.Was.Service.Base
+namespace IKaan.Was.Service.Common
 {
-	public static class CodeService
+	public static class CodeHelpService
 	{
 		public static WasRequest GetList(WasRequest request)
 		{
