@@ -31,8 +31,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IKaan.Win.View", "WIN\IKaan
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IKaan.Win.View.Biz", "WIN\IKaan.Win.View.Biz\IKaan.Win.View.Biz.csproj", "{8BFCD979-C083-41B2-8715-5936A1587986}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "XSmartStore", "XSmartStore", "{7BE2D53D-B6A4-4BAB-8F77-26190B8224D3}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IKaan.Win.View.Scrap", "WIN\IKaan.Win.View.Scrap\IKaan.Win.View.Scrap.csproj", "{6AF024E0-3D47-4127-887B-5EDC9DB036AE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IKaan.Win.View.Base", "WIN\IKaan.Win.View.Base\IKaan.Win.View.Base.csproj", "{7A92D420-B503-450B-97AA-1EFC46A8603F}"
@@ -151,7 +149,7 @@ Global
 		{7A92D420-B503-450B-97AA-1EFC46A8603F} = {B3CD85A0-6ADA-42E7-A8CD-27288327B28F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		VisualSVNWorkingCopyRoot = .
 		SolutionGuid = {965BBB8E-F6BB-4031-8BD6-B57B54BE58F1}
+		VisualSVNWorkingCopyRoot = .
 	EndGlobalSection
 EndGlobal
