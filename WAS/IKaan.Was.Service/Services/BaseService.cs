@@ -169,7 +169,7 @@ namespace IKaan.Was.Service.Services
 							break;
 						case "Dictionary":
 							req.SetData<DictionaryModel>();
-							(req.Data as DictionaryModel).LanguageList = req.GetList<DictionaryModel>("SelectTDictionaryLanguageList");
+							(req.Data as DictionaryModel).LanguageList = req.GetList<DictionaryModel>("SelectDictionaryLanguageList");
 							break;
 						case "Message":
 							req.SetData<MessageModel>();
