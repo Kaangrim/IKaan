@@ -1,6 +1,6 @@
 ﻿namespace IKaan.Win.View.Base.Database
 {
-	partial class TServerForm
+	partial class ServerEditForm
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -371,13 +371,13 @@
 			this.lcGroupEditBase.Size = new System.Drawing.Size(516, 495);
 			this.lcGroupEditBase.TextVisible = false;
 			// 
-			// TServerForm
+			// ServerEditForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(990, 565);
-			this.Name = "TServerForm";
-			this.Text = "TServerForm";
+			this.Name = "ServerEditForm";
+			this.Text = "ServerEditForm";
 			((System.ComponentModel.ISupportInitialize)(this.lc)).EndInit();
 			this.lc.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupBase)).EndInit();

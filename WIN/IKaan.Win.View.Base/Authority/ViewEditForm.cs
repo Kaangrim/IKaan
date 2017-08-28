@@ -52,6 +52,7 @@ namespace IKaan.Win.View.Base.Authority
 
 		void InitCombo()
 		{
+			lupFindModuleID.BindData("ModuleList", "All");
 			lupViewType.BindData("ViewType", null, true);
 			lupParentID.BindData("ViewList", "없음", true);
 			lupModuleID.BindData("ModuleList", "없음", true);
@@ -142,7 +143,12 @@ namespace IKaan.Win.View.Base.Authority
 
 		protected override void DataLoad(object param = null)
 		{
-			gridList.BindList<ViewModel>("Base", "GetList", "Select", new DataMap() { { "FindText", txtFindText.EditValue } });
+			DataMap parameter = new DataMap()
+			{
+				{ "ModuleID", lupFindModuleID.EditValue },
+				{ "FindText", txtFindText.EditValue }
+			};
+			gridList.BindList<ViewModel>("Base", "GetList", "Select", parameter);
 
 			if (param != null)
 				DetailDataLoad(param);

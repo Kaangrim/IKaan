@@ -386,7 +386,6 @@ D:\Repositories\IKaan\WIN\IKaan.Win.View.Base\bin\Debug\es\DevExpress.Diagram.v1
 D:\Repositories\IKaan\WIN\IKaan.Win.View.Base\bin\Debug\ja\DevExpress.Diagram.v17.1.Core.resources.dll
 D:\Repositories\IKaan\WIN\IKaan.Win.View.Base\bin\Debug\ru\DevExpress.Diagram.v17.1.Core.resources.dll
 D:\Repositories\IKaan\WIN\IKaan.Win.View.Base\obj\Debug\IKaan.Win.View.Base.csprojResolveAssemblyReference.cache
-D:\Repositories\IKaan\WIN\IKaan.Win.View.Base\obj\Debug\IKaan.Win.View.Biz.BM.TSearchBrandActivityForm.resources
 D:\Repositories\IKaan\WIN\IKaan.Win.View.Base\obj\Debug\IKaan.Win.View.Base.Authority.GroupEditForm.resources
 D:\Repositories\IKaan\WIN\IKaan.Win.View.Base\obj\Debug\IKaan.Win.View.Base.Authority.ButtonEditForm.resources
 D:\Repositories\IKaan\WIN\IKaan.Win.View.Base\obj\Debug\IKaan.Win.View.Base.Authority.LoginLogListForm.resources
@@ -395,8 +394,6 @@ D:\Repositories\IKaan\WIN\IKaan.Win.View.Base\obj\Debug\IKaan.Win.View.Base.Auth
 D:\Repositories\IKaan\WIN\IKaan.Win.View.Base\obj\Debug\IKaan.Win.View.Base.Common.FtpEditForm.resources
 D:\Repositories\IKaan\WIN\IKaan.Win.View.Base\obj\Debug\IKaan.Win.View.Base.Database.TableStatisticsListForm.resources
 D:\Repositories\IKaan\WIN\IKaan.Win.View.Base\obj\Debug\IKaan.Win.View.Base.Database.TableEditForm.resources
-D:\Repositories\IKaan\WIN\IKaan.Win.View.Base\obj\Debug\IKaan.Win.View.Base.Database.DatabaseModelForm.resources
-D:\Repositories\IKaan\WIN\IKaan.Win.View.Base\obj\Debug\IKaan.Win.View.Base.Database.TServerForm.resources
 D:\Repositories\IKaan\WIN\IKaan.Win.View.Base\obj\Debug\IKaan.Win.View.Base.Database.SystemEditForm.resources
 D:\Repositories\IKaan\WIN\IKaan.Win.View.Base\obj\Debug\IKaan.Win.View.Base.Authority.RoleEditForm.resources
 D:\Repositories\IKaan\WIN\IKaan.Win.View.Base\obj\Debug\IKaan.Win.View.Base.Authority.UserEditForm.resources
@@ -412,3 +409,5 @@ D:\Repositories\IKaan\WIN\IKaan.Win.View.Base\obj\Debug\IKaan.Win.View.Base.dll.
 D:\Repositories\IKaan\WIN\IKaan.Win.View.Base\obj\Debug\IKaan.Win.View.Base.csproj.CoreCompileInputs.cache
 D:\Repositories\IKaan\WIN\IKaan.Win.View.Base\obj\Debug\IKaan.Win.View.Base.dll
 D:\Repositories\IKaan\WIN\IKaan.Win.View.Base\obj\Debug\IKaan.Win.View.Base.pdb
+D:\Repositories\IKaan\WIN\IKaan.Win.View.Base\obj\Debug\IKaan.Win.View.Base.Database.ServerEditForm.resources
+D:\Repositories\IKaan\WIN\IKaan.Win.View.Base\obj\Debug\IKaan.Win.View.Base.Database.DatabaseEditForm.resources

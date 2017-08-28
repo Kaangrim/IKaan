@@ -319,7 +319,7 @@ namespace IKaan.Was.Service.Services
 						{ "DatabaseName", db.DatabaseName },
 						{ "TableName", tableName }
 					};
-					string sqlId = string.Format("SelectsTableBy{0}", db.DbmsType);
+					string sqlId = string.Format("SelectTableBy{0}", db.DbmsType);
 
 					TableModel table = new TableModel();
 					TableStatisticsModel tableDB = new TableStatisticsModel();

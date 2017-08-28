@@ -42,6 +42,11 @@
 									AND M1.ParentCode = 'ViewType'
 				WHERE	1=1				
 			]]>
+			<isNotEmpty property="ModuleID">
+				<![CDATA[
+					AND	AA.ModuleID = #ModuleID#
+				]]>
+			</isNotEmpty>
 			<isNotEmpty property="FindText">
 				<![CDATA[
 					AND	(

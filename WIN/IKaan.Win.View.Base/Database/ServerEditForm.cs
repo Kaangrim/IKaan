@@ -1,5 +1,4 @@
 ﻿using System;
-using DevExpress.Utils;
 using DevExpress.XtraGrid.Views.Grid;
 using IKaan.Base.Map;
 using IKaan.Model.IKBase;
@@ -12,9 +11,9 @@ using IKaan.Win.Core.Was.Handler;
 
 namespace IKaan.Win.View.Base.Database
 {
-	public partial class TServerForm : EditForm
+	public partial class ServerEditForm : EditForm
 	{
-		public TServerForm()
+		public ServerEditForm()
 		{
 			InitializeComponent();
 		}

@@ -13,9 +13,9 @@ using IKaan.Win.Core.Was.Handler;
 
 namespace IKaan.Win.View.Base.Database
 {
-	public partial class DatabaseModelForm : EditForm
+	public partial class DatabaseEditForm : EditForm
 	{
-		public DatabaseModelForm()
+		public DatabaseEditForm()
 		{
 			InitializeComponent();
 
@@ -107,7 +107,7 @@ namespace IKaan.Win.View.Base.Database
 			ClearControlData<DatabaseModel>();
 			SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true });
 			EditMode = EditModeEnum.New;
-			txDatabaseModelName.Focus();
+			txtDatabaseName.Focus();
 		}
 
 		protected override void DataLoad(object param = null)
@@ -136,7 +136,7 @@ namespace IKaan.Win.View.Base.Database
 				SetControlData(model);
 				SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true, Delete = true });
 				this.EditMode = EditModeEnum.Modify;
-				txDatabaseModelName.Focus();
+				txtDatabaseName.Focus();
 
 			}
 			catch(Exception ex)

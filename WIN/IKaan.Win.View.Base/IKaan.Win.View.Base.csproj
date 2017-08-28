@@ -50,12 +50,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Authority\BMSearchBrandActivityForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Authority\BMSearchBrandActivityForm.Designer.cs">
-      <DependentUpon>BMSearchBrandActivityForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Authority\GroupEditForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -178,9 +172,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Authority\BMSearchBrandActivityForm.resx">
-      <DependentUpon>BMSearchBrandActivityForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Authority\GroupEditForm.resx">
       <DependentUpon>GroupEditForm.cs</DependentUpon>
     </EmbeddedResource>

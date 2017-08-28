@@ -42,6 +42,7 @@
 			this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
 			this.splitterItem1 = new DevExpress.XtraLayout.SplitterItem();
 			this.lcGroupList = new DevExpress.XtraLayout.LayoutControlGroup();
+			this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
 			((System.ComponentModel.ISupportInitialize)(this.lc)).BeginInit();
 			this.lc.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupBase)).BeginInit();
@@ -56,6 +57,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.splitterItem1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupList)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// lc
@@ -66,7 +68,7 @@
 			this.lc.Controls.Add(this.txtTableName);
 			this.lc.Location = new System.Drawing.Point(0, 44);
 			this.lc.Margin = new System.Windows.Forms.Padding(0);
-			this.lc.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new System.Drawing.Rectangle(1470, 270, 457, 350);
+			this.lc.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new System.Drawing.Rectangle(930, 270, 457, 350);
 			this.lc.OptionsView.UseDefaultDragAndDropRendering = false;
 			this.lc.Padding = new System.Windows.Forms.Padding(2);
 			this.lc.Size = new System.Drawing.Size(990, 499);
@@ -83,7 +85,7 @@
 			// 
 			// txtTableName
 			// 
-			this.txtTableName.Location = new System.Drawing.Point(111, 78);
+			this.txtTableName.Location = new System.Drawing.Point(131, 88);
 			this.txtTableName.Name = "txtTableName";
 			this.txtTableName.Size = new System.Drawing.Size(182, 20);
 			this.txtTableName.StyleController = this.lc;
@@ -94,7 +96,7 @@
 			this.lupServerID.DisplayMember = "";
 			this.lupServerID.GroupCode = null;
 			this.lupServerID.ListMember = "ListName";
-			this.lupServerID.Location = new System.Drawing.Point(111, 30);
+			this.lupServerID.Location = new System.Drawing.Point(131, 40);
 			this.lupServerID.Name = "lupServerID";
 			this.lupServerID.NullText = "[EditValue is null]";
 			this.lupServerID.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
@@ -111,7 +113,7 @@
 			this.lupDatabaseID.DisplayMember = "";
 			this.lupDatabaseID.GroupCode = null;
 			this.lupDatabaseID.ListMember = "ListName";
-			this.lupDatabaseID.Location = new System.Drawing.Point(111, 54);
+			this.lupDatabaseID.Location = new System.Drawing.Point(131, 64);
 			this.lupDatabaseID.Name = "lupDatabaseID";
 			this.lupDatabaseID.NullText = "[EditValue is null]";
 			this.lupDatabaseID.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
@@ -128,7 +130,7 @@
 			this.lcGridList.Control = this.gridList;
 			this.lcGridList.Location = new System.Drawing.Point(0, 0);
 			this.lcGridList.Name = "lcGridList";
-			this.lcGridList.Size = new System.Drawing.Size(664, 485);
+			this.lcGridList.Size = new System.Drawing.Size(644, 485);
 			this.lcGridList.TextSize = new System.Drawing.Size(0, 0);
 			this.lcGridList.TextVisible = false;
 			// 
@@ -139,7 +141,7 @@
 			this.gridList.Editable = true;
 			this.gridList.FocusedRowHandle = -2147483648;
 			this.gridList.GridViewType = IKaan.Win.Core.Controls.Grid.GridViewType.GridView;
-			this.gridList.Location = new System.Drawing.Point(321, 9);
+			this.gridList.Location = new System.Drawing.Point(341, 9);
 			this.gridList.Name = "gridList";
 			this.gridList.PageFooterCenter = null;
 			this.gridList.PageFooterLeft = null;
@@ -153,7 +155,7 @@
 			this.gridList.ReadOnly = false;
 			this.gridList.ShowFooter = false;
 			this.gridList.ShowGroupPanel = false;
-			this.gridList.Size = new System.Drawing.Size(660, 481);
+			this.gridList.Size = new System.Drawing.Size(640, 481);
 			this.gridList.TabIndex = 7;
 			// 
 			// lcGroupSearch
@@ -163,16 +165,19 @@
             this.lcItemTableName,
             this.lcItemServerID,
             this.lcItemDatabaseID,
-            this.emptySpaceItem1});
+            this.emptySpaceItem1,
+            this.emptySpaceItem2});
 			this.lcGroupSearch.Location = new System.Drawing.Point(0, 0);
 			this.lcGroupSearch.Name = "lcGroupSearch";
 			this.lcGroupSearch.Padding = new DevExpress.XtraLayout.Utils.Padding(4, 4, 4, 4);
-			this.lcGroupSearch.Size = new System.Drawing.Size(300, 495);
+			this.lcGroupSearch.Size = new System.Drawing.Size(320, 495);
+			this.lcGroupSearch.TextLocation = DevExpress.Utils.Locations.Left;
+			this.lcGroupSearch.TextVisible = false;
 			// 
 			// lcItemTableName
 			// 
 			this.lcItemTableName.Control = this.txtTableName;
-			this.lcItemTableName.Location = new System.Drawing.Point(0, 48);
+			this.lcItemTableName.Location = new System.Drawing.Point(0, 78);
 			this.lcItemTableName.MaxSize = new System.Drawing.Size(286, 24);
 			this.lcItemTableName.MinSize = new System.Drawing.Size(286, 24);
 			this.lcItemTableName.Name = "lcItemTableName";
@@ -183,7 +188,7 @@
 			// lcItemServerID
 			// 
 			this.lcItemServerID.Control = this.lupServerID;
-			this.lcItemServerID.Location = new System.Drawing.Point(0, 0);
+			this.lcItemServerID.Location = new System.Drawing.Point(0, 30);
 			this.lcItemServerID.Name = "lcItemServerID";
 			this.lcItemServerID.Size = new System.Drawing.Size(286, 24);
 			this.lcItemServerID.TextSize = new System.Drawing.Size(96, 14);
@@ -191,7 +196,7 @@
 			// lcItemDatabaseID
 			// 
 			this.lcItemDatabaseID.Control = this.lupDatabaseID;
-			this.lcItemDatabaseID.Location = new System.Drawing.Point(0, 24);
+			this.lcItemDatabaseID.Location = new System.Drawing.Point(0, 54);
 			this.lcItemDatabaseID.Name = "lcItemDatabaseID";
 			this.lcItemDatabaseID.Size = new System.Drawing.Size(286, 24);
 			this.lcItemDatabaseID.TextSize = new System.Drawing.Size(96, 14);
@@ -199,15 +204,15 @@
 			// emptySpaceItem1
 			// 
 			this.emptySpaceItem1.AllowHotTrack = false;
-			this.emptySpaceItem1.Location = new System.Drawing.Point(0, 72);
+			this.emptySpaceItem1.Location = new System.Drawing.Point(0, 102);
 			this.emptySpaceItem1.Name = "emptySpaceItem1";
-			this.emptySpaceItem1.Size = new System.Drawing.Size(286, 390);
+			this.emptySpaceItem1.Size = new System.Drawing.Size(286, 380);
 			this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
 			// 
 			// splitterItem1
 			// 
 			this.splitterItem1.AllowHotTrack = true;
-			this.splitterItem1.Location = new System.Drawing.Point(300, 0);
+			this.splitterItem1.Location = new System.Drawing.Point(320, 0);
 			this.splitterItem1.Name = "splitterItem1";
 			this.splitterItem1.Size = new System.Drawing.Size(12, 495);
 			// 
@@ -215,11 +220,24 @@
 			// 
 			this.lcGroupList.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.lcGridList});
-			this.lcGroupList.Location = new System.Drawing.Point(312, 0);
+			this.lcGroupList.Location = new System.Drawing.Point(332, 0);
 			this.lcGroupList.Name = "lcGroupList";
 			this.lcGroupList.Padding = new DevExpress.XtraLayout.Utils.Padding(2, 2, 2, 2);
-			this.lcGroupList.Size = new System.Drawing.Size(674, 495);
+			this.lcGroupList.Size = new System.Drawing.Size(654, 495);
 			this.lcGroupList.TextVisible = false;
+			// 
+			// emptySpaceItem2
+			// 
+			this.emptySpaceItem2.AllowHotTrack = false;
+			this.emptySpaceItem2.Location = new System.Drawing.Point(0, 0);
+			this.emptySpaceItem2.MaxSize = new System.Drawing.Size(0, 30);
+			this.emptySpaceItem2.MinSize = new System.Drawing.Size(10, 30);
+			this.emptySpaceItem2.Name = "emptySpaceItem2";
+			this.emptySpaceItem2.Size = new System.Drawing.Size(286, 30);
+			this.emptySpaceItem2.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
+			this.emptySpaceItem2.Text = "검색조건";
+			this.emptySpaceItem2.TextSize = new System.Drawing.Size(96, 0);
+			this.emptySpaceItem2.TextVisible = true;
 			// 
 			// TableStatisticsListForm
 			// 
@@ -245,6 +263,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.splitterItem1)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupList)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -263,5 +282,6 @@
 		private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem1;
 		private DevExpress.XtraLayout.SplitterItem splitterItem1;
 		private DevExpress.XtraLayout.LayoutControlGroup lcGroupList;
+		private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem2;
 	}
 }
