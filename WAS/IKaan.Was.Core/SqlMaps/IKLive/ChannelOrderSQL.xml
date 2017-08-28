@@ -5,7 +5,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
 
 	<statements>
-		<select id="SelectAddressList" parameterClass="DataMap" resultClass="AddressModel" >
+		<select id="SelectChannelOrderList" parameterClass="DataMap" resultClass="ChannelOrderModel" >
 			<![CDATA[
 				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
 					,	AA.ID
@@ -16,70 +16,92 @@
 					,	AA.UpdateBy
 					,	AA.UpdateByName
 					
-					,	AA.Country
+					,	AA.ChannelID
+					,	AA.OrderDate
+					,	AA.OrderNo
+					,	AA.OrderSeq
+					,	AA.GoodsCode
+					,	AA.GoodsName
+					,	AA.Option1
+					,	AA.Option2
+					,	AA.Orderer
+					,	AA.OrdererEmail
+					,	AA.OrdererMobile
+					,	AA.OrdererTelNo
+					,	AA.Recipient
+					,	AA.RecipientMobile
+					,	AA.RecipientTelNo
 					,	AA.PostalCode
-					,	AA.City
-					,	AA.StateProvince					
-					,	AA.AddressLine1
-					,	AA.AddressLine2
+					,	AA.RecipientAddress
+					,	AA.Description
+					,	AA.OrderQty
+					,	AA.SupplyPrice
+					,	AA.SupplyAmt
+					,	AA.SalePrice
+					,	AA.SaleAmt
+					,	AA.DeliveryFee
+					,	AA.CouponAmt
+					,	AA.DealNo
+					,	AA.BrandID
+					,	AA.DueDate
+					,	AA.GiftName
 					
-					,	M1.Name				as CountryName
-					
-				FROM	dbo.TAddress AA WITH (NOLOCK)
+					,	CC.ChannelName
+					,	BB.BrandName
+										
+				FROM	dbo.TChannelOrder AA WITH (NOLOCK)
 						LEFT JOIN
-							dbo.TCode M1 WITH (NOLOCK)
-								ON AA.Country = M1.Code
-									AND M1.ParentCode = 'Country'
+							IKBiz.dbo.TChannel CC WITH (NOLOCK)
+								ON AA.ChannelID = CC.ID
+						LEFT JOIN
+							IKBiz.dbo.TBrand BB WITH (NOLOCK)
+								ON AA.BrandID = BB.ID
 				WHERE	1=1
 			]]>
-			<isNotEmpty property="FindText">
+			<isNotEmpty property="ChannelID">
 				<![CDATA[
-					AND	(
-							AA.PostalCode		LIKE '%' + #FindText# + '%' OR
-							AA.City				LIKE '%' + #FindText# + '%' OR
-							AA.StateProvince	LIKE '%' + #FindText# + '%' OR
-							AA.Country			LIKE '%' + #FindText# + '%' OR
-							AA.AddressLine1		LIKE '%' + #FindText# + '%' OR
-							AA.AddressLine2		LIKE '%' + #FindText# + '%'
-						)
+					AND	AA.ChannelID = #ChannelID#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="BrandID">
+				<![CDATA[
+					AND	AA.BrandID = #BrandID#
 				]]>
 			</isNotEmpty>
 			<![CDATA[
 				ORDER BY RowNo
 			]]>
 		</select>
-		<select id="SelectAddress" parameterClass="DataMap" resultClass="AddressModel" >
+		<select id="SelectChannelOrder" parameterClass="DataMap" resultClass="ChannelOrderModel" >
 			<![CDATA[
-				SELECT  AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
-					
-					,	AA.PostalCode
-					,	AA.City
-					,	AA.StateProvince
-					,	AA.Country
-					,	AA.AddressLine1
-					,	AA.AddressLine2
-					
+				SELECT  *
 				FROM	dbo.TAddress AA WITH (NOLOCK)
 				WHERE	AA.ID = #ID#
 			]]>
 		</select>
-		<insert id="InsertAddress" parameterClass="AddressModel" >
+		<insert id="InsertChannelOrder" parameterClass="ChannelOrderModel" >
 			<![CDATA[
-				INSERT INTO dbo.TAddress
+				INSERT INTO dbo.TChannelOrder
 				( 
 					CreateDate, CreateBy, CreateByName,
-					PostalCode, City, StateProvince, Country, AddressLine1, AddressLine2
+					ChannelID, OrderDate, OrderNo, OrderSeq,
+					GoodsCode, GoodsName, Option1, Option2, 
+					Orderer, OrdererEmail, OrdererMobile, OrdererTelNo,
+					Recipient, RecipientMobile, RecipientTelNo, PostalCode, RecipientAddress,
+					Description,
+					OrderQty, SupplyPrice, SupplyAmt, SalePrice, SaleAmt, DeliveryFee, CouponAmt,
+					DealNo, BrandID, DueDate, GiftName
 				)
 				VALUES
 				(
 					GetDate(), #CreateBy#, #CreateByName#,
-					#PostalCode#, #City#, #StateProvince#, #Country#, #AddressLine1#, #AddressLine2#
+					#ChannelID#, #OrderDate#, #OrderNo#, #OrderSeq#,
+					#GoodsCode#, #GoodsName#, #Option1#, #Option2#, 
+					#Orderer#, #OrdererEmail#, #OrdererMobile#, #OrdererTelNo#,
+					#Recipient#, #RecipientMobile#, #RecipientTelNo#, #PostalCode#, #RecipientAddress#,
+					#Description#,
+					#OrderQty#, #SupplyPrice#, #SupplyAmt#, #SalePrice#, #SaleAmt#, #DeliveryFee#, #CouponAmt#,
+					#DealNo#, #BrandID#, #DueDate#, #GiftName#
 				)
 			]]>
 			<selectKey type="post" property="ID" resultClass="Int">
@@ -88,25 +110,48 @@
 				]]>
 			</selectKey>
 		</insert>
-		<update id="UpdateAddress" parameterClass="AddressModel">
+		<update id="UpdateChannelOrder" parameterClass="ChannelOrderModel">
 			<![CDATA[
 				UPDATE  dbo.TAddress
 				SET     UpdateDate		= GetDate()
 					,	UpdateBy		= #UpdateBy#
 					,	UpdateByName	= #UpdateByName#
 					
+					,	ChannelID		= #ChannelID#
+					,	OrderDate		= #OrderDate#
+					,	OrderNo			= #OrderNo#
+					,	OrderSeq		= #OrderSeq#
+					,	GoodsCode		= #GoodsCode#
+					,	GoodsName		= #GoodsName#
+					,	Option1			= #Option1#
+					,	Option2			= #Option2#
+					,	Orderer			= #Orderer#
+					,	OrdererEmail	= #OrdererEmail#
+					,	OrdererMobile	= #OrdererMobile#
+					,	OrdererTelNo	= #OrdererTelNo#
+					,	Recipient		= #Recipient#
+					,	RecipientMobile	= #RecipientMobile#
+					,	RecipientTelNo	= #RecipientTelNo#
 					,	PostalCode		= #PostalCode#
-					,	City			= #City#
-					,	StateProvince	= #StateProvince#
-					,	Country			= #Country#
-					,	AddressLine1	= #AddressLine1#
-					,	AddressLine2	= #AddressLine2#
+					,	RecipientAddress= #RecipientAddress#
+					,	Description		= #Description#
+					,	OrderQty		= #OrderQty#
+					,	SupplyPrice		= #SupplyPrice#
+					,	SupplyAmt		= #SupplyAmt#
+					,	SalePrice		= #SalePrice#
+					,	SaleAmt			= #SaleAmt#
+					,	DeliveryFee		= #DeliveryFee#
+					,	CouponAmt		= #CouponAmt#
+					,	DealNo			= #DealNo#
+					,	BrandID			= #BrandID#
+					,	DueDate			= #DueDate#
+					,	GiftName		= #GiftName#
 				WHERE	ID				= #ID#
 			]]>
 		</update>
 		<delete id="DeleteAddress" parameterClass="DataMap">
 			<![CDATA[
-				DELETE FROM dbo.TAddress WHERE ID = #ID#;
+				DELETE FROM dbo.TChannelOrder WHERE ID = #ID#;
 			]]>
 		</delete>
 	</statements>

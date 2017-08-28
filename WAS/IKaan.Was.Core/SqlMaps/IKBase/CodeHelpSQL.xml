@@ -24,7 +24,7 @@
 					,	AA.CodeValue07	as Option7
 					,	AA.CodeValue08	as Option8
 					,	AA.CodeValue09	as Option9
-				FROM	dbo.TCode AA WITH (NOLOCK)
+				FROM	IKBase.dbo.TCode AA WITH (NOLOCK)
 				WHERE	AA.ParentCode = #ParentCode#
 			]]>
 			<isNotEmpty property="UseYn">
@@ -69,7 +69,7 @@
 					,	AA.CodeValue07	as Option7
 					,	AA.CodeValue08	as Option8
 					,	AA.CodeValue09	as Option9
-				FROM	dbo.TCode AA WITH (NOLOCK)
+				FROM	IKBase.dbo.TCode AA WITH (NOLOCK)
 				WHERE	AA.ParentCode IS NULL
 			]]>
 			<isNotEmpty property="UseYn">
@@ -107,7 +107,7 @@
 						,	CONVERT(VARCHAR(1000), 
 								RIGHT('000000' + CONVERT(VARCHAR, AA.SortOrder, AA.ID), 6))	as HierID
 						,	1																as Level
-					FROM	dbo.TMenu aa
+					FROM	IKBase.dbo.TMenu aa
 					WHERE	AA.ParentID IS NULL
 					AND		AA.UseYn = 'Y'
 					UNION ALL
@@ -119,7 +119,7 @@
 								bb.HierID + '-' + 
 								RIGHT('000000'+CONVERT(VARCHAR, AA.SortOrder, AA.ID), 6))	as HierID
 						,	bb.Level + 1													as Level
-					FROM	dbo.TMenu aa
+					FROM	IKBase.dbo.TMenu aa
 							INNER JOIN 
 								CTE bb 
 									on AA.ParentID = bb.ID
@@ -174,7 +174,7 @@
 						,	CONVERT(VARCHAR(1000), 
 								RIGHT('000000' + CONVERT(VARCHAR, AA.ID), 6))	as HierID
 						,	1													as Level
-					FROM	dbo.TView aa
+					FROM	IKBase.dbo.TView aa
 					WHERE	AA.ParentID IS NULL
 					AND		AA.UseYn = 'Y'
 					UNION ALL
@@ -186,7 +186,7 @@
 								bb.HierID + '-' + 
 								RIGHT('000000'+CONVERT(VARCHAR, AA.ID), 6))			as HierID
 						,	bb.Level + 1											as Level
-					FROM	dbo.TView aa
+					FROM	IKBase.dbo.TView aa
 							INNER JOIN 
 								CTE bb 
 									on AA.ParentID = bb.ID
@@ -248,7 +248,7 @@
 					,	null								as Option7
 					,	null								as Option8
 					,	null								as Option9
-				FROM	dbo.TModule aa
+				FROM	IKBase.dbo.TModule aa
 				WHERE	1=1
 			]]>
 			<isNotEmpty property="UseYn">
@@ -286,7 +286,7 @@
 						,	CONVERT(VARCHAR(1000), 
 								RIGHT('000000' + CONVERT(VARCHAR, AA.ID), 6))	as HierID
 						,	1													as Level
-					FROM	dbo.TRole aa
+					FROM	IKBase.dbo.TRole aa
 					WHERE	AA.ParentID IS NULL
 					AND		AA.UseYn = 'Y'
 					UNION ALL
@@ -298,7 +298,7 @@
 								bb.HierID + '-' + 
 								RIGHT('000000'+CONVERT(VARCHAR, AA.ID), 6))			as HierID
 						,	bb.Level + 1											as Level
-					FROM	dbo.TRole aa
+					FROM	IKBase.dbo.TRole aa
 							INNER JOIN 
 								CTE bb 
 									on AA.ParentID = bb.ID
@@ -353,7 +353,7 @@
 						,	CONVERT(VARCHAR(1000), 
 								RIGHT('000000' + CONVERT(VARCHAR, AA.ID), 6))	as HierID
 						,	1													as Level
-					FROM	dbo.TGroup aa
+					FROM	IKBase.dbo.TGroup aa
 					WHERE	AA.ParentID IS NULL
 					AND		AA.UseYn = 'Y'
 					UNION ALL
@@ -365,7 +365,7 @@
 								bb.HierID + '-' + 
 								RIGHT('000000'+CONVERT(VARCHAR, AA.ID), 6))	as HierID
 						,	bb.Level + 1												as Level
-					FROM	dbo.TGroup aa
+					FROM	IKBase.dbo.TGroup aa
 							INNER JOIN 
 								CTE bb 
 									on AA.ParentID = bb.ID
@@ -427,7 +427,7 @@
 					,	null								as Option7
 					,	null								as Option8
 					,	null								as Option9
-				FROM	dbo.THelp aa
+				FROM	IKBase.dbo.THelp aa
 				WHERE	1=1
 			]]>
 			<isNotEmpty property="FindText">
@@ -461,7 +461,7 @@
 					,	null								as Option7
 					,	null								as Option8
 					,	null								as Option9
-				FROM	dbo.TServer aa
+				FROM	IKBase.dbo.TServer aa
 				WHERE	1=1
 			]]>
 			<isNotEmpty property="FindText">
@@ -495,7 +495,7 @@
 					,	null								as Option7
 					,	null								as Option8
 					,	null								as Option9
-				FROM	dbo.TDatabase aa
+				FROM	IKBase.dbo.TDatabase aa
 				WHERE	1=1
 			]]>
 			<isNotEmpty property="ServerID">
@@ -534,9 +534,9 @@
 					,	null								as Option7
 					,	null								as Option8
 					,	null								as Option9
-				FROM	dbo.TTable aa WITH (NOLOCK)
+				FROM	IKBase.dbo.TTable aa WITH (NOLOCK)
 						LEFT JOIN
-							dbo.TDatabase bb WITH (NOLOCK)
+							IKBase.dbo.TDatabase bb WITH (NOLOCK)
 								ON aa.DatabaseID = bb.ID
 				WHERE	1=1
 			]]>
@@ -582,7 +582,7 @@
 					,	null								as Option7
 					,	null								as Option8
 					,	null								as Option9
-				FROM	dbo.TChannel aa WITH (NOLOCK)
+				FROM	IKBiz.dbo.TChannel aa WITH (NOLOCK)
 				WHERE	1=1
 			]]>
 			<isNotEmpty property="UseYn">
@@ -626,7 +626,7 @@
 					,	null								as Option7
 					,	null								as Option8
 					,	null								as Option9
-				FROM	dbo.TBrand aa WITH (NOLOCK)
+				FROM	IKBiz.dbo.TBrand aa WITH (NOLOCK)
 				WHERE	1=1
 			]]>
 			<isNotEmpty property="UseYn">
@@ -670,7 +670,7 @@
 					,	null								as Option7
 					,	null								as Option8
 					,	null								as Option9
-				FROM	dbo.TCustomer aa WITH (NOLOCK)
+				FROM	IKBiz.dbo.TCustomer aa WITH (NOLOCK)
 				WHERE	1=1
 			]]>
 			<isNotEmpty property="UseYn">
@@ -707,7 +707,7 @@
 						,	CONVERT(VARCHAR(1000), 
 								RIGHT('000000' + CONVERT(VARCHAR, AA.SortOrder, AA.ID), 6))	as HierID
 						,	1																as Level
-					FROM	dbo.TCategory aa
+					FROM	IKBiz.dbo.TCategory aa
 					WHERE	AA.ParentID IS NULL
 					AND		AA.UseYn = 'Y'
 					UNION ALL
@@ -719,7 +719,7 @@
 								bb.HierID + '-' + 
 								RIGHT('000000'+CONVERT(VARCHAR, AA.SortOrder, AA.ID), 6))	as HierID
 						,	bb.Level + 1													as Level
-					FROM	dbo.TCategory aa
+					FROM	IKBiz.dbo.TCategory aa
 							INNER JOIN 
 								CTE bb 
 									on AA.ParentID = bb.ID
@@ -781,7 +781,7 @@
 					,	null								as Option7
 					,	null								as Option8
 					,	null								as Option9
-				FROM	dbo.TInfoNotice aa WITH (NOLOCK)
+				FROM	IKBiz.dbo.TInfoNotice aa WITH (NOLOCK)
 				WHERE	1=1
 			]]>
 			<isNotEmpty property="UseYn">
@@ -819,7 +819,7 @@
 						,	CONVERT(VARCHAR(1000), 
 								RIGHT('000000' + CONVERT(VARCHAR, AA.DepartmentName, AA.ID), 6))	as HierID
 						,	1																		as Level
-					FROM	dbo.TDepartment aa
+					FROM	IKBiz.dbo.TDepartment aa
 					WHERE	AA.ParentID IS NULL
 					AND		AA.UseYn = 'Y'
 					UNION ALL
@@ -831,7 +831,7 @@
 								bb.HierID + '-' + 
 								RIGHT('000000'+CONVERT(VARCHAR, AA.DepartmentName, AA.ID), 6))	as HierID
 						,	bb.Level + 1														as Level
-					FROM	dbo.TDepartment aa
+					FROM	IKBiz.dbo.TDepartment aa
 							INNER JOIN 
 								CTE bb 
 									on AA.ParentID = bb.ID
@@ -894,7 +894,7 @@
 					,	null									as Option7
 					,	null									as Option8
 					,	null									as Option9
-				FROM	dbo.TEmployee aa WITH (NOLOCK)
+				FROM	IKBiz.dbo.TEmployee aa WITH (NOLOCK)
 				WHERE	1=1
 			]]>
 			<isNotEmpty property="UseYn">
@@ -939,7 +939,7 @@
 					,	AA.CodeValue07	as Option7
 					,	AA.CodeValue08	as Option8
 					,	AA.CodeValue09	as Option9
-				FROM	dbo.TCode AA WITH (NOLOCK)
+				FROM	IKBase.dbo.TCode AA WITH (NOLOCK)
 				WHERE	AA.ParentCode IS NOT NULL
 				AND		AA.UseYn = 'Y'
 				UNION ALL
@@ -960,7 +960,7 @@
 					,	AA.CodeValue07	as Option7
 					,	AA.CodeValue08	as Option8
 					,	AA.CodeValue09	as Option9
-				FROM	dbo.TCode AA WITH (NOLOCK)
+				FROM	IKBase.dbo.TCode AA WITH (NOLOCK)
 				WHERE	AA.ParentCode IS NULL
 				AND		AA.UseYn = 'Y'
 				ORDER BY GroupCode, SortOrder

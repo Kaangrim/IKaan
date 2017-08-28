@@ -54,12 +54,14 @@
     <Compile Include="Services\BaseServicePartial.cs" />
     <Compile Include="Services\BizService.cs" />
     <Compile Include="Services\BizServicePartial.cs" />
+    <Compile Include="Services\LiveService.cs" />
     <Compile Include="Services\ScrapService.cs" />
     <Compile Include="Services\BaseService.cs" />
     <Compile Include="Common\AUTHService.cs" />
     <Compile Include="Common\CommonService.cs" />
     <Compile Include="Common\CodeHelpService.cs" />
     <Compile Include="Common\ReportService.cs" />
+    <Compile Include="Services\LiveServicePartial.cs" />
     <Compile Include="Services\ScrapServicePartial.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\ServiceUtils.cs" />

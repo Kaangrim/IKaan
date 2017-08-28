@@ -123,5 +123,13 @@ namespace IKaan.Model.Live
 		[DataMember]
 		[Display(Name = "사은품명")]
 		public string GiftName { get; set; }
+
+		[DataMember]
+		[Display(Name = "채널명")]
+		public string ChannelName { get; set; }
+
+		[DataMember]
+		[Display(Name = "브랜드명")]
+		public string BrandName { get; set; }
 	}
 }
