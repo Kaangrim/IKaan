@@ -69,15 +69,15 @@ namespace IKaan.Win.View.Base.Database
 				new XGridColumn() { FieldName = "SchemaName", Width = 80 },
 				new XGridColumn() { FieldName = "TableName", Width = 150 },
 				new XGridColumn() { FieldName = "Description", Width = 200 },
-				new XGridColumn() { FieldName = "RowCnt", Width = 80, HorzAlignment = HorzAlignment.Far, FormatType = FormatType.Numeric, FormatString = "N5" },
-				new XGridColumn() { FieldName = "TableSize", Width = 80, HorzAlignment = HorzAlignment.Far, FormatType = FormatType.Numeric, FormatString = "N5" },
-				new XGridColumn() { FieldName = "DataSize", Width = 80, HorzAlignment = HorzAlignment.Far, FormatType = FormatType.Numeric, FormatString = "N5" },
-				new XGridColumn() { FieldName = "IndexSize", Width = 80, HorzAlignment = HorzAlignment.Far, FormatType = FormatType.Numeric, FormatString = "N5" },
-				new XGridColumn() { FieldName = "LastUserSeek", Width = 200, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime },
-				new XGridColumn() { FieldName = "LastUserScan", Width = 200, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime },
-				new XGridColumn() { FieldName = "LastUserLookup", Width = 200, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime },
-				new XGridColumn() { FieldName = "LastUserUpdate", Width = 200, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime },
-				new XGridColumn() { FieldName = "LastSystemUpdate", Width = 200, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime }
+				new XGridColumn() { FieldName = "RowCnt", Width = 80, HorzAlignment = HorzAlignment.Far, FormatType = FormatType.Numeric, FormatString = "N3" },
+				new XGridColumn() { FieldName = "TableSize", Width = 80, HorzAlignment = HorzAlignment.Far, FormatType = FormatType.Numeric, FormatString = "N3" },
+				new XGridColumn() { FieldName = "DataSize", Width = 80, HorzAlignment = HorzAlignment.Far, FormatType = FormatType.Numeric, FormatString = "N3" },
+				new XGridColumn() { FieldName = "IndexSize", Width = 80, HorzAlignment = HorzAlignment.Far, FormatType = FormatType.Numeric, FormatString = "N3" },
+				new XGridColumn() { FieldName = "LastUserSeek", Width = 180, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime },
+				new XGridColumn() { FieldName = "LastUserScan", Width = 180, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime },
+				new XGridColumn() { FieldName = "LastUserLookup", Width = 180, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime },
+				new XGridColumn() { FieldName = "LastUserUpdate", Width = 180, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime },
+				new XGridColumn() { FieldName = "LastSystemUpdate", Width = 180, HorzAlignment = HorzAlignment.Center, FormatType = FormatType.DateTime }
 			);
 			gridList.ColumnFix("RowNo");
 			#endregion

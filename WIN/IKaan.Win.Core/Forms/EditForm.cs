@@ -830,6 +830,7 @@ namespace IKaan.Win.Core.Forms
 				ShowErrBox(ex);
 			}
 		}
+
 		private void SetFieldNames(LayoutControl control)
 		{
 			try
@@ -839,7 +840,15 @@ namespace IKaan.Win.Core.Forms
 					string itemName = string.Empty;
 					control.Items.OfType<LayoutControlItem>().Where(x => x.Name.StartsWith("lcItem")).ToList().ForEach(item =>
 					{
-						item.AppearanceItemCaption.TextOptions.HAlignment = HorzAlignment.Far;
+						if (item.TextLocation == Locations.Top)
+						{
+							item.AppearanceItemCaption.TextOptions.HAlignment = HorzAlignment.Near;
+							item.AppearanceItemCaption.Font = new Font(item.AppearanceItemCaption.Font, FontStyle.Bold);
+						}
+						else
+						{
+							item.AppearanceItemCaption.TextOptions.HAlignment = HorzAlignment.Far;
+						}
 						item.AppearanceItemCaption.TextOptions.VAlignment = VertAlignment.Center;
 
 						itemName = item.Name.Replace("lcItem", string.Empty);
@@ -871,6 +880,7 @@ namespace IKaan.Win.Core.Forms
 				ShowErrBox(ex);
 			}
 		}
+
 		public void SetRecords(int rowcount)
 		{
 			barStaticTotalRecords.Caption = string.Format("조회건수: {0:N0}건", rowcount);
