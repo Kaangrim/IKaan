@@ -117,6 +117,10 @@
       <Project>{942b6393-9be6-415c-bfa6-ca3eb166735f}</Project>
       <Name>IKaan.Win.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\IKaan.Win.View.B2B\IKaan.Win.View.B2B.csproj">
+      <Project>{4239dc42-4989-473f-94da-8039e9416af9}</Project>
+      <Name>IKaan.Win.View.B2B</Name>
+    </ProjectReference>
     <ProjectReference Include="..\IKaan.Win.View.Base\IKaan.Win.View.Base.csproj">
       <Project>{7a92d420-b503-450b-97aa-1efc46a8603f}</Project>
       <Name>IKaan.Win.View.Base</Name>
@@ -124,6 +128,10 @@
     <ProjectReference Include="..\IKaan.Win.View.Biz\IKaan.Win.View.Biz.csproj">
       <Project>{8bfcd979-c083-41b2-8715-5936a1587986}</Project>
       <Name>IKaan.Win.View.Biz</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IKaan.Win.View.Live\IKaan.Win.View.Live.csproj">
+      <Project>{b6bcf752-d03f-4a69-80a1-e4827cae2bcf}</Project>
+      <Name>IKaan.Win.View.Live</Name>
     </ProjectReference>
     <ProjectReference Include="..\IKaan.Win.View.Scrap\IKaan.Win.View.Scrap.csproj">
       <Project>{6af024e0-3d47-4127-887b-5edc9db036ae}</Project>

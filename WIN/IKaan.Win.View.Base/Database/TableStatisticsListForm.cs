@@ -1,7 +1,7 @@
 ﻿using System;
 using DevExpress.Utils;
 using IKaan.Base.Map;
-using IKaan.Model.IKBase;
+using IKaan.Model.Base;
 using IKaan.Win.Core.Controls.Grid;
 using IKaan.Win.Core.Forms;
 using IKaan.Win.Core.Model;

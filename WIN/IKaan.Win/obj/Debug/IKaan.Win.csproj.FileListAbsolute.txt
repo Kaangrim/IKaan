@@ -427,3 +427,7 @@ D:\Repositories\IKaan\WIN\IKaan.Win\bin\Debug\IKaan.Win.View.Base.dll.config
 D:\Repositories\IKaan\WIN\IKaan.Win\bin\Debug\IKaan.Win.View.Scrap.pdb
 D:\Repositories\IKaan\WIN\IKaan.Win\bin\Debug\HtmlAgilityPack.pdb
 D:\Repositories\IKaan\WIN\IKaan.Win\bin\Debug\HtmlAgilityPack.xml
+D:\Repositories\IKaan\WIN\IKaan.Win\bin\Debug\IKaan.Win.View.B2B.dll
+D:\Repositories\IKaan\WIN\IKaan.Win\bin\Debug\IKaan.Win.View.Live.dll
+D:\Repositories\IKaan\WIN\IKaan.Win\bin\Debug\IKaan.Win.View.B2B.pdb
+D:\Repositories\IKaan\WIN\IKaan.Win\bin\Debug\IKaan.Win.View.Live.pdb

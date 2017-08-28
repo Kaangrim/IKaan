@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Windows.Forms;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
-using IKaan.Model.IKBase;
+using IKaan.Model.Base;
 using IKaan.Win.Core.Forms;
 using IKaan.Win.Core.Was.Handler;
 

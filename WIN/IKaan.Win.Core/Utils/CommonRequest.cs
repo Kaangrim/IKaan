@@ -2,7 +2,7 @@
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
 using IKaan.Win.Core.Was.Handler;
-using IKaan.Model.IKBiz;
+using IKaan.Model.Biz;
 
 namespace IKaan.Win.Core.Utils
 {

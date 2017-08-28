@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
 using IKaan.Model.Common.Was;
-using IKaan.Model.IKScrap;
+using IKaan.Model.Scrap;
 using IKaan.Was.Core.Mappers;
 using IKaan.Was.Service.Utils;
 using Newtonsoft.Json.Linq;

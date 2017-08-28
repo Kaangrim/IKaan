@@ -7,7 +7,7 @@ using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraTab.Buttons;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
-using IKaan.Model.IKBiz;
+using IKaan.Model.Biz;
 using IKaan.Win.Core.Controls.Grid;
 using IKaan.Win.Core.Enum;
 using IKaan.Win.Core.Forms;
