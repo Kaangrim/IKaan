@@ -64,6 +64,7 @@
     <EmbeddedResource Include="Config\SqlMapScrap.config" />
     <EmbeddedResource Include="Config\SqlMapBiz.config" />
     <EmbeddedResource Include="Config\SqlMapBase.config" />
+    <EmbeddedResource Include="Config\SqlMapLive.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -133,6 +134,7 @@
     <EmbeddedResource Include="SqlMaps\IKBiz\BrandManagerSQL.xml" />
     <EmbeddedResource Include="SqlMaps\IKBiz\ChannelContactSQL.xml" />
     <EmbeddedResource Include="SqlMaps\IKBiz\ChannelManagerSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\IKLive\ChannelOrderSQL.xml" />
     <Content Include="SqlMaps\IKReport\ReportSQL.xml" />
   </ItemGroup>
   <ItemGroup />

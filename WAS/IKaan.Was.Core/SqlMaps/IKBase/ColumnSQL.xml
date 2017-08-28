@@ -27,7 +27,7 @@
 					,	AA.IdentityYn
 					,	AA.DefaultValue
 					,	AA.SortOrder
-				FROM	dbo.TColumn AA WITH (NOLOCK)
+				FROM	IKBase.dbo.TColumn AA WITH (NOLOCK)
 				WHERE	AA.TableID = #TableID#
 				ORDER BY RowNo
 			]]>
@@ -54,14 +54,14 @@
 					,	AA.IdentityYn
 					,	AA.DefaultValue
 					,	AA.SortOrder
-				FROM	dbo.TColumn AA WITH (NOLOCK)
+				FROM	IKBase.dbo.TColumn AA WITH (NOLOCK)
 				WHERE	AA.ID = #ID#
 			]]>
 		</select>
 
 		<insert id="InsertColumn" parameterClass="ColumnModel" >
 			<![CDATA[
-				INSERT INTO dbo.TColumn
+				INSERT INTO IKBase.dbo.TColumn
 				( 
 					CreateDate, CreateBy, CreateByName,
 					TableID, PhysicalName, LogicalName, Description, 
@@ -82,7 +82,7 @@
 		</insert>
 		<update id="UpdateColumn" parameterClass="ColumnModel">
 			<![CDATA[
-				UPDATE  dbo.TColumn
+				UPDATE  IKBase.dbo.TColumn
 				SET     UpdateDate		= GetDate()
 					,	UpdateBy		= #UpdateBy#
 					,	UpdateByName	= #UpdateByName#
@@ -102,7 +102,7 @@
 		</update>
 		<delete id="DeleteColumn" parameterClass="DataMap">
 			<![CDATA[
-				DELETE FROM dbo.TColumn WHERE ID = #ID#;
+				DELETE FROM IKBase.dbo.TColumn WHERE ID = #ID#;
 			]]>
 		</delete>
 
@@ -233,11 +233,11 @@
 						WHERE ST.NAME = #TableName#
 					) XX
 					LEFT JOIN
-						dbo.TTable TT
+						IKBase.dbo.TTable TT
 							ON XX.TableName = TT.TableName
 								AND TT.DatabaseID = #DatabaseID#
 					LEFT JOIN 
-						dbo.TColumn YY 
+						IKBase.dbo.TColumn YY 
 							ON TT.ID = YY.TableID
 								AND XX.ColumnName = YY.PhysicalName
 				ORDER BY RowNo
@@ -280,11 +280,11 @@
 								ON AA.TABLE_NAME = BB.TABLE_NAME 
 									AND AA.TABLE_SCHEMA = BB.TABLE_SCHEMA
 						LEFT JOIN
-							dbo.TTable DD
+							IKBase.dbo.TTable DD
 								ON AA.TABLE_NAME = DD.TableName
 									AND DD.DatabaseID = #DatabaseID#
 						LEFT JOIN
-							dbo.TColumn CC
+							IKBase.dbo.TColumn CC
 								ON DD.ID = CC.TableID
 									AND AA.COLUMN_NAME = CC.PhysicalName
 				WHERE	AA.TABLE_NAME	= #TableName#
@@ -314,7 +314,7 @@
 					,	AA.IdentityYn
 					,	AA.DefaultValue
 					,	AA.SortOrder
-				FROM	dbo.TColumn AA WITH (NOLOCK)
+				FROM	IKBase.dbo.TColumn AA WITH (NOLOCK)
 				WHERE	AA.TableID = #TableID#
 				AND		AA.PhysicalName = #PhysicalName#
 			]]>

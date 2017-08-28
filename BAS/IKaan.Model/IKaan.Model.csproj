@@ -90,6 +90,9 @@
     <Compile Include="Biz\OrderSumSalesModel.cs" />
     <Compile Include="Biz\OrderSumByChannelModel.cs" />
     <Compile Include="Biz\OrderSumModel.cs" />
+    <Compile Include="Live\ChannelOrderReturnModel.cs" />
+    <Compile Include="Live\ChannelOrderCancelModel.cs" />
+    <Compile Include="Live\ChannelOrderModel.cs" />
     <Compile Include="Scrap\GoodsInfoModel.cs" />
     <Compile Include="Scrap\BrandInfoModel.cs" />
     <Compile Include="Base\BookmarkUserModel.cs" />
@@ -155,7 +158,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Chang\" />
-    <Folder Include="Live\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -22,9 +22,9 @@
 					,	AA.Description
 					,	AA.UseYn
 					,	CC.DatabaseName
-				FROM	dbo.TTable AA WITH (NOLOCK)
+				FROM	IKBase.dbo.TTable AA WITH (NOLOCK)
 						LEFT JOIN
-							dbo.TDatabase CC WITH (NOLOCK)
+							IKBase.dbo.TDatabase CC WITH (NOLOCK)
 								ON AA.DatabaseID = CC.ID
 				WHERE	1=1
 			]]>
@@ -67,9 +67,9 @@
 					,	AA.TableName
 					,	AA.Description
 					,	AA.UseYn
-				FROM	dbo.TTable AA WITH (NOLOCK)
+				FROM	IKBase.dbo.TTable AA WITH (NOLOCK)
 						LEFT JOIN
-							dbo.TDatabase CC WITH (NOLOCK)
+							IKBase.dbo.TDatabase CC WITH (NOLOCK)
 								ON AA.DatabaseID = CC.ID
 				WHERE	AA.ID = #ID#
 			]]>
@@ -77,7 +77,7 @@
 		
 		<insert id="InsertTable" parameterClass="TableModel" >
 			<![CDATA[
-				INSERT INTO dbo.TTable
+				INSERT INTO IKBase.dbo.TTable
 				( 
 					CreateDate, CreateBy, CreateByName,
 					DatabaseID, SchemaName, TableName, UseYn, Description
@@ -96,7 +96,7 @@
 		</insert>
 		<update id="UpdateTable" parameterClass="TableModel">
 			<![CDATA[
-				UPDATE  dbo.TTable
+				UPDATE  IKBase.dbo.TTable
 				SET     UpdateDate	= GetDate()
 					,	UpdateBy	= #UpdateBy#
 					,	UpdateByName= #UpdateByName#
@@ -111,7 +111,7 @@
 		</update>
 		<delete id="DeleteTable" parameterClass="DataMap">
 			<![CDATA[
-				DELETE FROM dbo.TTable WHERE ID = #ID#;
+				DELETE FROM IKBase.dbo.TTable WHERE ID = #ID#;
 			]]>
 		</delete>
 
@@ -239,7 +239,7 @@
 							WHERE	a.type = 'U'
 						) aa
 						LEFT JOIN
-							dbo.TTable tt
+							IKBase.dbo.TTable tt
 								ON aa.TableName = tt.TableName
 									AND tt.DatabaseID = #DatabaseID#
 				WHERE	1=1
@@ -281,7 +281,7 @@
 					,	null											as LastSystemUpdate
 				FROM	INFORMATION_SCHEMA.TABLES AA
 						LEFT JOIN
-							dbo.TTable tt
+							IKBase.dbo.TTable tt
 								ON AA.TABLE_NAME = tt.TableName
 									AND tt.DatabaseID = #DatabaseID#
 				WHERE	AA.TABLE_TYPE	= 'BASE TABLE'
@@ -313,9 +313,9 @@
 					,	AA.TableName
 					,	AA.Description
 					,	AA.UseYn
-				FROM	dbo.TTable AA WITH (NOLOCK)
+				FROM	IKBase.dbo.TTable AA WITH (NOLOCK)
 						LEFT JOIN
-							dbo.TDatabase CC WITH (NOLOCK)
+							IKBase.dbo.TDatabase CC WITH (NOLOCK)
 								ON AA.DatabaseID = CC.ID
 				WHERE	AA.DatabaseID = #DatabaseID#
 				AND		AA.TableName = #TableName#
