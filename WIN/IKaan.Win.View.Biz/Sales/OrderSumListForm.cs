@@ -26,7 +26,7 @@ namespace IKaan.Win.View.Biz.Sales
 		protected override void OnShown(EventArgs e)
 		{
 			base.OnShown(e);
-			datStartDate.Focus();
+			datPeriod.DateFrEdit.Focus();
 		}
 
 		protected override void InitButton()
@@ -43,8 +43,8 @@ namespace IKaan.Win.View.Biz.Sales
 			lupBrandID.BindData("BrandList", "All");
 			lupChannelID.BindData("ChannelList", "All");
 
-			datStartDate.Init(Core.Enum.CalendarViewType.DayView);
-			datEndDate.Init(Core.Enum.CalendarViewType.DayView);
+			datPeriod.DateFrEdit.Init(Core.Enum.CalendarViewType.DayView);
+			datPeriod.DateToEdit.Init(Core.Enum.CalendarViewType.DayView);
 
 			InitGrid();
 		}
@@ -109,8 +109,8 @@ namespace IKaan.Win.View.Biz.Sales
 			{
 				DataMap parameter = new DataMap()
 				{
-					{ "StartDate", datStartDate.GetDate() },
-					{ "EndDate", datEndDate.GetDate() },
+					{ "StartDate", datPeriod.DateFrEdit.GetDate() },
+					{ "EndDate", datPeriod.DateToEdit.GetDate() },
 					{ "ChannelID", lupChannelID.EditValue },
 					{ "BrandID", lupBrandID.EditValue }
 				};

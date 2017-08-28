@@ -61,11 +61,11 @@
 			this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
 			this.esSearchTitle = new DevExpress.XtraLayout.EmptySpaceItem();
 			this.lcTabList = new DevExpress.XtraLayout.TabbedControlGroup();
+			this.lcGroupList = new DevExpress.XtraLayout.LayoutControlGroup();
+			this.lcGridList = new DevExpress.XtraLayout.LayoutControlItem();
 			this.lcGroupCard = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.lcItemWebList = new DevExpress.XtraLayout.LayoutControlItem();
 			this.wbList = new System.Windows.Forms.WebBrowser();
-			this.lcGroupList = new DevExpress.XtraLayout.LayoutControlGroup();
-			this.lcGridList = new DevExpress.XtraLayout.LayoutControlItem();
 			((System.ComponentModel.ISupportInitialize)(this.lc)).BeginInit();
 			this.lc.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupBase)).BeginInit();
@@ -93,10 +93,10 @@
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.esSearchTitle)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcTabList)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcGroupCard)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemWebList)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupList)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGridList)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcGroupCard)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemWebList)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// lc
@@ -131,7 +131,7 @@
 			// 
 			// txtFindText
 			// 
-			this.txtFindText.Location = new System.Drawing.Point(31, 58);
+			this.txtFindText.Location = new System.Drawing.Point(31, 67);
 			this.txtFindText.Name = "txtFindText";
 			this.txtFindText.Size = new System.Drawing.Size(212, 20);
 			this.txtFindText.StyleController = this.lc;
@@ -188,25 +188,25 @@
 			// lcItemFindText
 			// 
 			this.lcItemFindText.Control = this.txtFindText;
-			this.lcItemFindText.Location = new System.Drawing.Point(0, 30);
+			this.lcItemFindText.Location = new System.Drawing.Point(0, 40);
 			this.lcItemFindText.Name = "lcItemFindText";
-			this.lcItemFindText.Size = new System.Drawing.Size(216, 42);
+			this.lcItemFindText.Size = new System.Drawing.Size(216, 41);
 			this.lcItemFindText.TextLocation = DevExpress.Utils.Locations.Top;
 			this.lcItemFindText.TextSize = new System.Drawing.Size(99, 14);
 			// 
 			// lcItemGoodsCode
 			// 
 			this.lcItemGoodsCode.Control = this.txtGoodsCode;
-			this.lcItemGoodsCode.Location = new System.Drawing.Point(0, 72);
+			this.lcItemGoodsCode.Location = new System.Drawing.Point(0, 81);
 			this.lcItemGoodsCode.Name = "lcItemGoodsCode";
 			this.lcItemGoodsCode.OptionsTableLayoutItem.ColumnIndex = 1;
-			this.lcItemGoodsCode.Size = new System.Drawing.Size(216, 42);
+			this.lcItemGoodsCode.Size = new System.Drawing.Size(216, 41);
 			this.lcItemGoodsCode.TextLocation = DevExpress.Utils.Locations.Top;
 			this.lcItemGoodsCode.TextSize = new System.Drawing.Size(99, 14);
 			// 
 			// txtGoodsCode
 			// 
-			this.txtGoodsCode.Location = new System.Drawing.Point(31, 100);
+			this.txtGoodsCode.Location = new System.Drawing.Point(31, 108);
 			this.txtGoodsCode.Name = "txtGoodsCode";
 			this.txtGoodsCode.Size = new System.Drawing.Size(212, 20);
 			this.txtGoodsCode.StyleController = this.lc;
@@ -215,16 +215,16 @@
 			// lcItemGoodsName
 			// 
 			this.lcItemGoodsName.Control = this.txtGoodsName;
-			this.lcItemGoodsName.Location = new System.Drawing.Point(0, 114);
+			this.lcItemGoodsName.Location = new System.Drawing.Point(0, 122);
 			this.lcItemGoodsName.Name = "lcItemGoodsName";
 			this.lcItemGoodsName.OptionsTableLayoutItem.RowIndex = 1;
-			this.lcItemGoodsName.Size = new System.Drawing.Size(216, 42);
+			this.lcItemGoodsName.Size = new System.Drawing.Size(216, 41);
 			this.lcItemGoodsName.TextLocation = DevExpress.Utils.Locations.Top;
 			this.lcItemGoodsName.TextSize = new System.Drawing.Size(99, 14);
 			// 
 			// txtGoodsName
 			// 
-			this.txtGoodsName.Location = new System.Drawing.Point(31, 142);
+			this.txtGoodsName.Location = new System.Drawing.Point(31, 149);
 			this.txtGoodsName.Name = "txtGoodsName";
 			this.txtGoodsName.Size = new System.Drawing.Size(212, 20);
 			this.txtGoodsName.StyleController = this.lc;
@@ -233,11 +233,11 @@
 			// lcItemBrand
 			// 
 			this.lcItemBrand.Control = this.lupBrandID;
-			this.lcItemBrand.Location = new System.Drawing.Point(0, 156);
+			this.lcItemBrand.Location = new System.Drawing.Point(0, 163);
 			this.lcItemBrand.Name = "lcItemBrand";
 			this.lcItemBrand.OptionsTableLayoutItem.ColumnIndex = 1;
 			this.lcItemBrand.OptionsTableLayoutItem.RowIndex = 1;
-			this.lcItemBrand.Size = new System.Drawing.Size(216, 42);
+			this.lcItemBrand.Size = new System.Drawing.Size(216, 41);
 			this.lcItemBrand.TextLocation = DevExpress.Utils.Locations.Top;
 			this.lcItemBrand.TextSize = new System.Drawing.Size(99, 14);
 			// 
@@ -246,7 +246,7 @@
 			this.lupBrandID.DisplayMember = "";
 			this.lupBrandID.GroupCode = null;
 			this.lupBrandID.ListMember = "ListName";
-			this.lupBrandID.Location = new System.Drawing.Point(31, 184);
+			this.lupBrandID.Location = new System.Drawing.Point(31, 190);
 			this.lupBrandID.Name = "lupBrandID";
 			this.lupBrandID.NullText = "[EditValue is null]";
 			this.lupBrandID.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
@@ -261,10 +261,10 @@
 			// lcItemCategory
 			// 
 			this.lcItemCategory.Control = this.lupCategoryID;
-			this.lcItemCategory.Location = new System.Drawing.Point(0, 198);
+			this.lcItemCategory.Location = new System.Drawing.Point(0, 204);
 			this.lcItemCategory.Name = "lcItemCategory";
 			this.lcItemCategory.OptionsTableLayoutItem.RowIndex = 2;
-			this.lcItemCategory.Size = new System.Drawing.Size(216, 42);
+			this.lcItemCategory.Size = new System.Drawing.Size(216, 41);
 			this.lcItemCategory.TextLocation = DevExpress.Utils.Locations.Top;
 			this.lcItemCategory.TextSize = new System.Drawing.Size(99, 14);
 			// 
@@ -273,7 +273,7 @@
 			this.lupCategoryID.DisplayMember = "";
 			this.lupCategoryID.GroupCode = null;
 			this.lupCategoryID.ListMember = "ListName";
-			this.lupCategoryID.Location = new System.Drawing.Point(31, 226);
+			this.lupCategoryID.Location = new System.Drawing.Point(31, 231);
 			this.lupCategoryID.Name = "lupCategoryID";
 			this.lupCategoryID.NullText = "[EditValue is null]";
 			this.lupCategoryID.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
@@ -288,11 +288,11 @@
 			// lcItemAge
 			// 
 			this.lcItemAge.Control = this.lupAge;
-			this.lcItemAge.Location = new System.Drawing.Point(0, 240);
+			this.lcItemAge.Location = new System.Drawing.Point(0, 245);
 			this.lcItemAge.Name = "lcItemAge";
 			this.lcItemAge.OptionsTableLayoutItem.ColumnIndex = 1;
 			this.lcItemAge.OptionsTableLayoutItem.RowIndex = 2;
-			this.lcItemAge.Size = new System.Drawing.Size(216, 42);
+			this.lcItemAge.Size = new System.Drawing.Size(216, 41);
 			this.lcItemAge.TextLocation = DevExpress.Utils.Locations.Top;
 			this.lcItemAge.TextSize = new System.Drawing.Size(99, 14);
 			// 
@@ -301,7 +301,7 @@
 			this.lupAge.DisplayMember = "";
 			this.lupAge.GroupCode = null;
 			this.lupAge.ListMember = "ListName";
-			this.lupAge.Location = new System.Drawing.Point(31, 268);
+			this.lupAge.Location = new System.Drawing.Point(31, 272);
 			this.lupAge.Name = "lupAge";
 			this.lupAge.NullText = "[EditValue is null]";
 			this.lupAge.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
@@ -316,10 +316,10 @@
 			// lcItemGender
 			// 
 			this.lcItemGender.Control = this.lupGender;
-			this.lcItemGender.Location = new System.Drawing.Point(0, 282);
+			this.lcItemGender.Location = new System.Drawing.Point(0, 286);
 			this.lcItemGender.Name = "lcItemGender";
 			this.lcItemGender.OptionsTableLayoutItem.RowIndex = 3;
-			this.lcItemGender.Size = new System.Drawing.Size(216, 42);
+			this.lcItemGender.Size = new System.Drawing.Size(216, 41);
 			this.lcItemGender.TextLocation = DevExpress.Utils.Locations.Top;
 			this.lcItemGender.TextSize = new System.Drawing.Size(99, 14);
 			// 
@@ -328,7 +328,7 @@
 			this.lupGender.DisplayMember = "";
 			this.lupGender.GroupCode = null;
 			this.lupGender.ListMember = "ListName";
-			this.lupGender.Location = new System.Drawing.Point(31, 310);
+			this.lupGender.Location = new System.Drawing.Point(31, 313);
 			this.lupGender.Name = "lupGender";
 			this.lupGender.NullText = "[EditValue is null]";
 			this.lupGender.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
@@ -343,11 +343,11 @@
 			// lcItemSeason
 			// 
 			this.lcItemSeason.Control = this.lupSeason;
-			this.lcItemSeason.Location = new System.Drawing.Point(0, 324);
+			this.lcItemSeason.Location = new System.Drawing.Point(0, 327);
 			this.lcItemSeason.Name = "lcItemSeason";
 			this.lcItemSeason.OptionsTableLayoutItem.ColumnIndex = 1;
 			this.lcItemSeason.OptionsTableLayoutItem.RowIndex = 3;
-			this.lcItemSeason.Size = new System.Drawing.Size(216, 42);
+			this.lcItemSeason.Size = new System.Drawing.Size(216, 41);
 			this.lcItemSeason.TextLocation = DevExpress.Utils.Locations.Top;
 			this.lcItemSeason.TextSize = new System.Drawing.Size(99, 14);
 			// 
@@ -356,7 +356,7 @@
 			this.lupSeason.DisplayMember = "";
 			this.lupSeason.GroupCode = null;
 			this.lupSeason.ListMember = "ListName";
-			this.lupSeason.Location = new System.Drawing.Point(31, 352);
+			this.lupSeason.Location = new System.Drawing.Point(31, 354);
 			this.lupSeason.Name = "lupSeason";
 			this.lupSeason.NullText = "[EditValue is null]";
 			this.lupSeason.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
@@ -371,10 +371,10 @@
 			// lcItemOrigin
 			// 
 			this.lcItemOrigin.Control = this.lupOrigin;
-			this.lcItemOrigin.Location = new System.Drawing.Point(0, 366);
+			this.lcItemOrigin.Location = new System.Drawing.Point(0, 368);
 			this.lcItemOrigin.Name = "lcItemOrigin";
 			this.lcItemOrigin.OptionsTableLayoutItem.RowIndex = 4;
-			this.lcItemOrigin.Size = new System.Drawing.Size(216, 42);
+			this.lcItemOrigin.Size = new System.Drawing.Size(216, 41);
 			this.lcItemOrigin.TextLocation = DevExpress.Utils.Locations.Top;
 			this.lcItemOrigin.TextSize = new System.Drawing.Size(99, 14);
 			// 
@@ -383,7 +383,7 @@
 			this.lupOrigin.DisplayMember = "";
 			this.lupOrigin.GroupCode = null;
 			this.lupOrigin.ListMember = "ListName";
-			this.lupOrigin.Location = new System.Drawing.Point(31, 394);
+			this.lupOrigin.Location = new System.Drawing.Point(31, 395);
 			this.lupOrigin.Name = "lupOrigin";
 			this.lupOrigin.NullText = "[EditValue is null]";
 			this.lupOrigin.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
@@ -398,11 +398,11 @@
 			// lcItemUseYn
 			// 
 			this.lcItemUseYn.Control = this.lupUseYn;
-			this.lcItemUseYn.Location = new System.Drawing.Point(0, 408);
+			this.lcItemUseYn.Location = new System.Drawing.Point(0, 409);
 			this.lcItemUseYn.Name = "lcItemUseYn";
 			this.lcItemUseYn.OptionsTableLayoutItem.ColumnIndex = 1;
 			this.lcItemUseYn.OptionsTableLayoutItem.RowIndex = 4;
-			this.lcItemUseYn.Size = new System.Drawing.Size(216, 42);
+			this.lcItemUseYn.Size = new System.Drawing.Size(216, 41);
 			this.lcItemUseYn.TextLocation = DevExpress.Utils.Locations.Top;
 			this.lcItemUseYn.TextSize = new System.Drawing.Size(99, 14);
 			// 
@@ -444,10 +444,10 @@
 			this.esSearchTitle.AppearanceItemCaption.Options.UseTextOptions = true;
 			this.esSearchTitle.AppearanceItemCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
 			this.esSearchTitle.Location = new System.Drawing.Point(0, 0);
-			this.esSearchTitle.MaxSize = new System.Drawing.Size(216, 30);
-			this.esSearchTitle.MinSize = new System.Drawing.Size(216, 30);
+			this.esSearchTitle.MaxSize = new System.Drawing.Size(216, 40);
+			this.esSearchTitle.MinSize = new System.Drawing.Size(216, 40);
 			this.esSearchTitle.Name = "esSearchTitle";
-			this.esSearchTitle.Size = new System.Drawing.Size(216, 30);
+			this.esSearchTitle.Size = new System.Drawing.Size(216, 40);
 			this.esSearchTitle.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
 			this.esSearchTitle.Text = "검색조건";
 			this.esSearchTitle.TextSize = new System.Drawing.Size(99, 0);
@@ -458,12 +458,33 @@
 			this.lcTabList.Location = new System.Drawing.Point(250, 0);
 			this.lcTabList.Name = "lcTabList";
 			this.lcTabList.Padding = new DevExpress.XtraLayout.Utils.Padding(2, 2, 2, 2);
-			this.lcTabList.SelectedTabPage = this.lcGroupCard;
-			this.lcTabList.SelectedTabPageIndex = 1;
+			this.lcTabList.SelectedTabPage = this.lcGroupList;
+			this.lcTabList.SelectedTabPageIndex = 0;
 			this.lcTabList.Size = new System.Drawing.Size(736, 548);
 			this.lcTabList.TabPages.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.lcGroupList,
             this.lcGroupCard});
+			// 
+			// lcGroupList
+			// 
+			this.lcGroupList.CaptionImage = ((System.Drawing.Image)(resources.GetObject("lcGroupList.CaptionImage")));
+			this.lcGroupList.GroupBordersVisible = false;
+			this.lcGroupList.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.lcGridList});
+			this.lcGroupList.Location = new System.Drawing.Point(0, 0);
+			this.lcGroupList.Name = "lcGroupList";
+			this.lcGroupList.Padding = new DevExpress.XtraLayout.Utils.Padding(2, 2, 2, 2);
+			this.lcGroupList.Size = new System.Drawing.Size(726, 512);
+			this.lcGroupList.Text = "리스트형";
+			// 
+			// lcGridList
+			// 
+			this.lcGridList.Control = this.gridList;
+			this.lcGridList.Location = new System.Drawing.Point(0, 0);
+			this.lcGridList.Name = "lcGridList";
+			this.lcGridList.Size = new System.Drawing.Size(726, 512);
+			this.lcGridList.TextSize = new System.Drawing.Size(0, 0);
+			this.lcGridList.TextVisible = false;
 			// 
 			// lcGroupCard
 			// 
@@ -492,27 +513,6 @@
 			this.wbList.Name = "wbList";
 			this.wbList.Size = new System.Drawing.Size(722, 508);
 			this.wbList.TabIndex = 19;
-			// 
-			// lcGroupList
-			// 
-			this.lcGroupList.CaptionImage = ((System.Drawing.Image)(resources.GetObject("lcGroupList.CaptionImage")));
-			this.lcGroupList.GroupBordersVisible = false;
-			this.lcGroupList.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
-            this.lcGridList});
-			this.lcGroupList.Location = new System.Drawing.Point(0, 0);
-			this.lcGroupList.Name = "lcGroupList";
-			this.lcGroupList.Padding = new DevExpress.XtraLayout.Utils.Padding(2, 2, 2, 2);
-			this.lcGroupList.Size = new System.Drawing.Size(726, 512);
-			this.lcGroupList.Text = "리스트형";
-			// 
-			// lcGridList
-			// 
-			this.lcGridList.Control = this.gridList;
-			this.lcGridList.Location = new System.Drawing.Point(0, 0);
-			this.lcGridList.Name = "lcGridList";
-			this.lcGridList.Size = new System.Drawing.Size(726, 512);
-			this.lcGridList.TextSize = new System.Drawing.Size(0, 0);
-			this.lcGridList.TextVisible = false;
 			// 
 			// GoodsListForm
 			// 
@@ -551,10 +551,10 @@
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.esSearchTitle)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcTabList)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcGroupCard)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemWebList)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupList)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGridList)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcGroupCard)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemWebList)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 

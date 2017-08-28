@@ -28,8 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions1 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChannelOrderListForm));
+			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions2 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
 			this.lcGroupSearch = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
 			this.lcItemOrderDate = new DevExpress.XtraLayout.LayoutControlItem();
@@ -145,7 +144,7 @@
 			this.lupChannelID.NullText = "[EditValue is null]";
 			this.lupChannelID.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions2, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
 			this.lupChannelID.SelectedIndex = -1;
 			this.lupChannelID.Size = new System.Drawing.Size(232, 20);
 			this.lupChannelID.StyleController = this.lc;
@@ -199,7 +198,7 @@
 			this.gridList.Editable = true;
 			this.gridList.FocusedRowHandle = -2147483648;
 			this.gridList.GridViewType = IKaan.Win.Core.Controls.Grid.GridViewType.GridView;
-			this.gridList.Location = new System.Drawing.Point(274, 4);
+			this.gridList.Location = new System.Drawing.Point(281, 11);
 			this.gridList.Name = "gridList";
 			this.gridList.PageFooterCenter = null;
 			this.gridList.PageFooterLeft = null;
@@ -213,25 +212,25 @@
 			this.gridList.ReadOnly = false;
 			this.gridList.ShowFooter = false;
 			this.gridList.ShowGroupPanel = false;
-			this.gridList.Size = new System.Drawing.Size(712, 544);
+			this.gridList.Size = new System.Drawing.Size(698, 530);
 			this.gridList.TabIndex = 20;
 			// 
 			// lcGroupList
 			// 
-			this.lcGroupList.CaptionImage = ((System.Drawing.Image)(resources.GetObject("lcGroupList.CaptionImage")));
-			this.lcGroupList.GroupBordersVisible = false;
 			this.lcGroupList.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.lcGridList});
 			this.lcGroupList.Location = new System.Drawing.Point(270, 0);
 			this.lcGroupList.Name = "lcGroupList";
+			this.lcGroupList.Padding = new DevExpress.XtraLayout.Utils.Padding(4, 4, 4, 4);
 			this.lcGroupList.Size = new System.Drawing.Size(716, 548);
+			this.lcGroupList.TextVisible = false;
 			// 
 			// lcGridList
 			// 
 			this.lcGridList.Control = this.gridList;
 			this.lcGridList.Location = new System.Drawing.Point(0, 0);
 			this.lcGridList.Name = "lcGridList";
-			this.lcGridList.Size = new System.Drawing.Size(716, 548);
+			this.lcGridList.Size = new System.Drawing.Size(702, 534);
 			this.lcGridList.TextSize = new System.Drawing.Size(0, 0);
 			this.lcGridList.TextVisible = false;
 			// 
