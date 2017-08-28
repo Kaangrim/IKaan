@@ -118,7 +118,7 @@ namespace IKaan.Win.Core.Handler
 
 				IList<T> list = UploadHandler.GetExcelData<T>(startLine);
 				if (list == null || list.Count == 0)
-					throw new Exception("처리할 건이 없습니다.");
+					return false;
 
 				if (sqlId.IsNullOrEmpty())
 					sqlId = string.Concat("Insert", typeof(T).Name);
