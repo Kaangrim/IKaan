@@ -70,6 +70,9 @@ namespace IKaan.Was.Service.Services
 						case "Channel":
 							req.SetList<ChannelModel>();
 							break;
+						case "ChannelSetting":
+							req.SetList<ChannelSettingModel>();
+							break;
 						case "SearchBrand":
 							req.SetList<SearchBrandModel>();
 							break;
@@ -171,11 +174,7 @@ namespace IKaan.Was.Service.Services
 							req.SetData<BrandManagerModel>();
 							break;
 						case "Channel":
-							req.SetData<ChannelModel>();
-							(req.Data as ChannelModel).Brands = req.GetList<ChannelBrandModel>();
-							(req.Data as ChannelModel).Customers = req.GetList<CustomerChannelModel>();
-							(req.Data as ChannelModel).Contacts = req.GetList<ChannelContactModel>();
-							(req.Data as ChannelModel).Managers = req.GetList<ChannelManagerModel>();
+							req.GetChannelData();
 							break;
 						case "ChannelBrand":
 							req.SetData<ChannelBrandModel>();
@@ -185,6 +184,9 @@ namespace IKaan.Was.Service.Services
 							break;
 						case "ChannelManager":
 							req.SetData<ChannelManagerModel>();
+							break;
+						case "ChannelSetting":
+							req.SetData<ChannelSettingModel>();
 							break;
 						case "SearchBrand":
 							req.GetSearchBrand();

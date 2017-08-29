@@ -34,7 +34,7 @@
 							dbo.TAddress BB WITH (NOLOCK)
 								ON AA.AddressID = BB.ID
 						LEFT JOIN
-							DBO.TCode M1 WITH (NOLOCK)
+							IKBase.dbo.TCode M1 WITH (NOLOCK)
 								ON AA.AddressType = M1.Code
 									AND M1.ParentCode = 'AddressType'
 				WHERE	AA.CustomerID = #CustomerID#

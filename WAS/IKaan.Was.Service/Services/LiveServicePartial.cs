@@ -1,7 +1,6 @@
-﻿using IKaan.Base.Map;
-using IKaan.Base.Utils;
+﻿using IKaan.Base.Utils;
 using IKaan.Model.Common.Was;
-using IKaan.Model.Scrap;
+using IKaan.Model.Live;
 using IKaan.Was.Core.Mappers;
 
 namespace IKaan.Was.Service.Services
@@ -12,39 +11,27 @@ namespace IKaan.Was.Service.Services
 		{
 			try
 			{
-				BrandInfoModel brand = req.Data.JsonToAnyType<BrandInfoModel>();
-
-				DataMap map = new DataMap()
+				ChannelOrderModel model = req.Data.JsonToAnyType<ChannelOrderModel>();
+				if (model != null)
 				{
-					{ "SiteCode", brand.SiteCode },
-					{ "BrandCode", brand.BrandCode }
-				};
-				var exists = DaoFactory.InstanceScrap.QueryForObject<BrandInfoModel>("SelectBrandInfoExists", map);
-				if (exists == null)
-				{
-					brand.CreateBy = req.User.UserId;
-					brand.CreateByName = req.User.UserName;
-
-					object id = DaoFactory.InstanceScrap.Insert("InsertBrandInfo", brand);
-					brand.ID = id.ToIntegerNullToNull();
-				}
-				else
-				{
-					if (exists.BrandCode != brand.BrandCode ||
-						exists.BrandCode != brand.BrandName ||
-						exists.BrandURL != brand.BrandURL ||
-						exists.GoodsCnt != brand.GoodsCnt)
+					if (model.ID == null)
 					{
-						brand.ID = exists.ID;
-						brand.UpdateBy = req.User.UserId;
-						brand.UpdateByName = req.User.UserName;
+						model.CreateBy = req.User.UserId;
+						model.CreateByName = req.User.UserName;
 
-						DaoFactory.InstanceScrap.Update("UpdateBrandInfo", brand);
+						object id = DaoFactory.InstanceLive.Insert("InsertChannelOrder", model);
+						model.ID = id.ToIntegerNullToNull();
+					}
+					else
+					{
+						model.UpdateBy = req.User.UserId;
+						model.UpdateByName = req.User.UserName;
+
+						DaoFactory.InstanceLive.Update("UpdateChannelOrder", model);
 					}
 				}
-
 				req.Result.Count = 1;
-				req.Result.ReturnValue = brand.ID;
+				req.Result.ReturnValue = model.ID;
 				req.Error.Number = 0;
 			}
 			catch
@@ -57,9 +44,28 @@ namespace IKaan.Was.Service.Services
 		{
 			try
 			{
-				
+				ChannelOrderCancelModel model = req.Data.JsonToAnyType<ChannelOrderCancelModel>();
+				if (model != null)
+				{
+					if (model.ID == null)
+					{
+						model.CreateBy = req.User.UserId;
+						model.CreateByName = req.User.UserName;
+
+						object id = DaoFactory.InstanceLive.Insert("InsertChannelOrderCancel", model);
+						model.ID = id.ToIntegerNullToNull();
+					}
+					else
+					{
+						model.UpdateBy = req.User.UserId;
+						model.UpdateByName = req.User.UserName;
+
+						DaoFactory.InstanceLive.Update("UpdateChannelOrderCancel", model);
+					}
+				}
+
 				req.Result.Count = 1;
-				req.Result.ReturnValue = null;
+				req.Result.ReturnValue = model.ID;
 				req.Error.Number = 0;
 			}
 			catch
@@ -72,9 +78,28 @@ namespace IKaan.Was.Service.Services
 		{
 			try
 			{
+				ChannelOrderReturnModel model = req.Data.JsonToAnyType<ChannelOrderReturnModel>();
+				if (model != null)
+				{
+					if (model.ID == null)
+					{
+						model.CreateBy = req.User.UserId;
+						model.CreateByName = req.User.UserName;
+
+						object id = DaoFactory.InstanceLive.Insert("InsertChannelOrderReturn", model);
+						model.ID = id.ToIntegerNullToNull();
+					}
+					else
+					{
+						model.UpdateBy = req.User.UserId;
+						model.UpdateByName = req.User.UserName;
+
+						DaoFactory.InstanceLive.Update("UpdateChannelOrderReturn", model);
+					}
+				}
 
 				req.Result.Count = 1;
-				req.Result.ReturnValue = null;
+				req.Result.ReturnValue = model.ID;
 				req.Error.Number = 0;
 			}
 			catch

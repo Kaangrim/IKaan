@@ -52,12 +52,17 @@ namespace IKaan.Model.Biz
 		[Display(Name = "채널, 관리자")]
 		public IList<ChannelManagerModel> Managers { get; set; }
 
+		[DataMember]
+		[Display(Name = "채널, 설정")]
+		public ChannelSettingModel Setting { get; set; }
+
 		public ChannelModel()
 		{
 			Brands = new List<ChannelBrandModel>();
 			Customers = new List<CustomerChannelModel>();
 			Contacts = new List<ChannelContactModel>();
 			Managers = new List<ChannelManagerModel>();
+			Setting = new ChannelSettingModel();
 		}
 	}
 }

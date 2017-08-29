@@ -26,7 +26,7 @@
 					
 				FROM	dbo.TChannel AA WITH (NOLOCK)
 						LEFT JOIN
-							dbo.TCode M1 WITH (NOLOCK)
+							IKBase.dbo.TCode M1 WITH (NOLOCK)
 								ON AA.ChannelType = M1.Code
 									AND M1.ParentCode = 'ChannelType'
 				WHERE	1=1				

@@ -59,10 +59,7 @@ namespace IKaan.Win.Core.Handler
 								}
 								else
 								{
-									if (rows[i][c].Value.IsNumeric)
-										data.GetType().GetProperty(prop.Name).SetValue(data, rows[i][c].Value.NumericValue, null);
-									else
-										data.GetType().GetProperty(prop.Name).SetValue(data, rows[i][c].Value.NumericValue.ToDecimalNullToNull(), null);
+									data.GetType().GetProperty(prop.Name).SetValue(data, rows[i][c].Value.NumericValue.ToDecimalNullToNull(), null);
 								}
 							}
 							else if (prop.PropertyType == typeof(int) || prop.PropertyType == typeof(int?))
@@ -73,10 +70,7 @@ namespace IKaan.Win.Core.Handler
 								}
 								else
 								{
-									if (rows[i][c].Value.IsNumeric)
-										data.GetType().GetProperty(prop.Name).SetValue(data, rows[i][c].Value.NumericValue, null);
-									else
-										data.GetType().GetProperty(prop.Name).SetValue(data, rows[i][c].Value.NumericValue.ToIntegerNullToNull(), null);
+									data.GetType().GetProperty(prop.Name).SetValue(data, rows[i][c].Value.NumericValue.ToIntegerNullToNull(), null);
 								}
 							}
 							else if (prop.PropertyType == typeof(DateTime) || prop.PropertyType == typeof(DateTime?))

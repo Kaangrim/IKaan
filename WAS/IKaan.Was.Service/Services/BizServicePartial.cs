@@ -658,6 +658,52 @@ namespace IKaan.Was.Service.Services
 			}
 		}
 
+		public static ChannelModel GetChannelData(this WasRequest req)
+		{
+			try
+			{
+				DataMap parameter = req.Parameter.JsonToAnyType<DataMap>();
+				ChannelModel channel = DaoFactory.InstanceBiz.QueryForObject<ChannelModel>("SelectChannel", parameter);
+				if (channel != null)
+				{
+					//채널, 브랜드 매핑
+					channel.Brands = DaoFactory.InstanceBiz.QueryForList<ChannelBrandModel>("SelectChannelBrandList", parameter);
+					if (channel.Brands == null)
+						channel.Brands = new List<ChannelBrandModel>();
+
+					//거래처, 채널 매핑
+					channel.Customers = DaoFactory.InstanceBiz.QueryForList<CustomerChannelModel>("SelectCustomerChannelList", parameter);
+					if (channel.Customers == null)
+						channel.Customers = new List<CustomerChannelModel>();
+
+					//채널, 연락처 매핑
+					channel.Contacts = DaoFactory.InstanceBiz.QueryForList<ChannelContactModel>("SelectChannelContactList", parameter);
+					if (channel.Contacts == null)
+						channel.Contacts = new List<ChannelContactModel>();
+
+					//채널, 매니저 매핑
+					channel.Managers = DaoFactory.InstanceBiz.QueryForList<ChannelManagerModel>("SelectChannelManagerList", parameter);
+					if (channel.Managers == null)
+						channel.Managers = new List<ChannelManagerModel>();
+
+					//채널, 설정 매핑
+					IList<ChannelSettingModel> channelSettingList = DaoFactory.InstanceBiz.QueryForList<ChannelSettingModel>("SelectChannelSettingList", parameter);
+					if (channelSettingList == null || channelSettingList.Count == 0)
+						channel.Setting = new ChannelSettingModel();
+					else
+						channel.Setting = channelSettingList[0];
+				}
+				req.Data = channel;
+				req.Result.Count = 1;
+				return channel;
+			}
+			catch
+			{
+				throw;
+			}
+
+		}
+
 		public static BusinessModel GetBusiness(this WasRequest req)
 		{
 			try
@@ -981,6 +1027,24 @@ namespace IKaan.Was.Service.Services
 
 				if (channel != null)
 				{
+					IList<ChannelSettingModel> settingList = DaoFactory.InstanceBiz.QueryForList<ChannelSettingModel>("SelectChannelSettingList", new DataMap() { { "ChannelID", channel.ID } });
+					if (settingList == null || settingList.Count == 0)
+					{
+						channel.Setting.ChannelID = channel.ID;
+						channel.Setting.CreateBy = req.User.UserId;
+						channel.Setting.CreateByName = req.User.UserName;
+
+						object id = DaoFactory.InstanceBiz.Insert("InsertChannelSetting", channel.Setting);
+						channel.Setting.ID = id.ToIntegerNullToNull();
+					}
+					else
+					{
+						channel.Setting.ID = settingList[0].ID;
+						channel.Setting.UpdateBy = req.User.UserId;
+						channel.Setting.UpdateByName = req.User.UserName;
+						DaoFactory.InstanceBiz.Update("UpdateChannelSetting", channel.Setting);
+					}
+
 					req.Result.Count = 1;
 					req.Result.ReturnValue = channel.ID;
 					req.Error.Number = 0;

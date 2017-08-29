@@ -70,6 +70,10 @@ namespace IKaan.Win.View.Biz.Customer
 			lupFindUseYn.BindData("Yn", "All");
 			lupChannelType.BindData("ChannelType");
 
+			spnOrderNoDigit.SetFormat("N0", false, HorzAlignment.Near);
+			spnOrderLine.SetFormat("N0", false, HorzAlignment.Near);
+			spnAccountLine.SetFormat("N0", false, HorzAlignment.Near);
+
 			InitGrid();
 
 			lcTab.CustomHeaderButtons.OfType<CustomHeaderButton>().Where(x => x.Tag.ToStringNullToEmpty() == "DEL").ToList().ForEach(button =>
@@ -255,6 +259,14 @@ namespace IKaan.Win.View.Biz.Customer
 			gridContacts.Clear<ChannelContactModel>();
 			gridManagers.Clear<ChannelManagerModel>();
 
+			chkOrderDateYn.Checked = true;
+			chkOrderAddYearYn.Checked = false;
+			spnOrderNoDigit.EditValue = 0;
+			chkOptionYn.Checked = true;
+			txtOptionFormat.EditValue = null;
+			spnOrderLine.EditValue = 2;
+			spnAccountLine.EditValue = 2;
+
 			lcTab.CustomHeaderButtons.OfType<CustomHeaderButton>().Where(x => x.Tag.ToStringNullToEmpty() == "ADD").ToList().ForEach(button =>
 			{
 				button.Enabled = false;
@@ -296,8 +308,18 @@ namespace IKaan.Win.View.Biz.Customer
 					model.Contacts = new List<ChannelContactModel>();
 				if (model.Managers == null)
 					model.Managers = new List<ChannelManagerModel>();
+				if (model.Setting == null)
+					model.Setting = new ChannelSettingModel();
 
 				SetControlData(model);
+
+				chkOrderDateYn.Checked = (model.Setting.OrderDateYn == "Y") ? true : false;
+				chkOrderAddYearYn.Checked = (model.Setting.OrderAddYearYn == "Y") ? true : false;
+				spnOrderNoDigit.EditValue = model.Setting.OrderNoDigit;
+				chkOptionYn.Checked = (model.Setting.OptionYn == "Y") ? true : false;
+				txtOptionFormat.EditValue = model.Setting.OptionFormat;
+				spnOrderLine.EditValue = model.Setting.OrderLine;
+				spnAccountLine.EditValue = model.Setting.AccountLine;
 
 				gridBrands.DataSource = model.Brands;
 				gridCustomers.DataSource = model.Customers;
@@ -325,6 +347,17 @@ namespace IKaan.Win.View.Biz.Customer
 			try
 			{
 				var model = this.GetControlData<ChannelModel>();
+				model.Setting = new ChannelSettingModel()
+				{
+					ChannelID = txtID.EditValue.ToIntegerNullToNull(),
+					OrderDateYn = chkOrderDateYn.Checked ? "Y" : "N",
+					OrderAddYearYn = chkOrderAddYearYn.Checked ? "Y" : "N",
+					OrderNoDigit = spnOrderNoDigit.EditValue.ToIntegerNullToZero(),
+					OptionYn = chkOptionYn.Checked ? "Y" : "N",
+					OptionFormat = txtOptionFormat.EditValue.ToStringNullToNull(),
+					OrderLine = spnOrderLine.EditValue.ToIntegerNullToZero(),
+					AccountLine = spnOrderLine.EditValue.ToIntegerNullToZero()
+				};
 
 				using (var res = WasHandler.Execute<ChannelModel>("Biz", "Save", (this.EditMode == EditModeEnum.New) ? "Insert" : "Update", model, "ID"))
 				{

@@ -102,6 +102,7 @@
     <EmbeddedResource Include="SqlMaps\IKBiz\SearchBrandActivitySQL.xml" />
     <EmbeddedResource Include="SqlMaps\IKBiz\GoodsInfoNoticeSQL.xml" />
     <EmbeddedResource Include="SqlMaps\IKBiz\GoodsAttributeSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\IKBase\FileUploadSQL.xml" />
     <Content Include="SqlMaps\IKBase\CalendarSQL.xml" />
     <EmbeddedResource Include="SqlMaps\IKBase\MessageSQL.xml" />
     <EmbeddedResource Include="SqlMaps\IKBase\TableSQL.xml" />
@@ -136,6 +137,7 @@
     <EmbeddedResource Include="SqlMaps\IKBiz\ChannelContactSQL.xml" />
     <EmbeddedResource Include="SqlMaps\IKBiz\ChannelManagerSQL.xml" />
     <EmbeddedResource Include="SqlMaps\IKLive\ChannelOrderSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\IKBiz\ChannelSettingSQL.xml" />
     <Content Include="SqlMaps\IKReport\ReportSQL.xml" />
   </ItemGroup>
   <ItemGroup />

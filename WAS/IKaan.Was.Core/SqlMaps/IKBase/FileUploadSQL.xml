@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectFileUploadList" parameterClass="DataMap" resultClass="FileUploadModel" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
+					,	AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.UploadType
+					,	BB.Name			as UploadTypeName
+					,	AA.FileName
+					
+				FROM	IKBase.dbo.TFileUpload AA WITH (NOLOCK)
+						LEFT JOIN
+							IKBase.dbo.TCode BB WITH (NOLOCK)
+								ON AA.UploadType = BB.Code
+									AND BB.ParentCode = 'UploadType'
+				WHERE	1=1				
+			]]>
+			<isNotEmpty property="UploadType">
+				<![CDATA[
+					AND	AA.UploadType = #UploadType#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(
+							AA.FileName		LIKE '%' + #FindText# + '%'
+						)
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectFileUpload" parameterClass="DataMap" resultClass="FileUploadModel" >
+			<![CDATA[
+				SELECT  *
+				FROM	dbo.TFileUpload AA WITH (NOLOCK)
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<select id="SelectFileUploadByFileName" parameterClass="DataMap" resultClass="FileUploadModel" >
+			<![CDATA[
+				SELECT  *
+				FROM	IKBase.dbo.TFileUpload AA WITH (NOLOCK)
+				WHERE	AA.ID = 
+							(	
+								SELECT	MAX(ID)
+								FROM	IKBase.dbo.TFileUpload
+								WHERE	FileName = #FileName#
+							)
+			]]>
+		</select>
+		<insert id="InsertFileUpload" parameterClass="FileUploadModel" >
+			<![CDATA[
+				INSERT INTO IKBase.dbo.TFileUpload
+				( 
+					CreateDate, CreateBy, CreateByName,
+					UploadType, FileName
+				)
+				VALUES
+				(
+					GetDate(), #CreateBy#, #CreateByName#,
+					#UploadType#, #FileName#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateFileUpload" parameterClass="FileUploadModel">
+			<![CDATA[
+				UPDATE  IKBase.dbo.TFileUpload
+				SET     UpdateDate	= GetDate()
+					,	UpdateBy	= #UpdateBy#
+					,	UpdateByName= #UpdateByName#
+					
+					,	UploadType	= #UploadType#
+					,	FileName	= #FileName#
+				WHERE	ID			= #ID#
+			]]>
+		</update>
+		<delete id="DeleteButton" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM	IKBase.dbo.TFileUpload WHERE ID = #ID#;
+			]]>
+		</delete>
+	</statements>
+</sqlMap>

@@ -49,6 +49,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\FileUploadModel.cs" />
+    <Compile Include="Biz\ChannelSettingModel.cs" />
     <Compile Include="Common\Attributes\CustomPropertyAttribute.cs" />
     <Compile Include="Common\Base\IModelBase.cs" />
     <Compile Include="Common\Base\PagedList.cs" />

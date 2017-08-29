@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectChannelSettingList" parameterClass="DataMap" resultClass="ChannelSettingModel" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
+					,	AA.ID
+					,	AA.CreateDate
+					,	AA.CreateBy
+					,	AA.CreateByName
+					,	AA.UpdateDate
+					,	AA.UpdateBy
+					,	AA.UpdateByName
+					
+					,	AA.ChannelID
+					,	AA.OrderDateYn
+					,	AA.OrderAddYearYn
+					,	AA.OrderNoDigit
+					,	AA.OptionYn
+					,	AA.OptionFormat
+					,	AA.OrderLine
+					,	AA.AccountLine
+					
+				FROM	dbo.TChannelSetting AA WITH (NOLOCK)
+				WHERE	AA.ChannelID = #ChannelID#
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectChannelSetting" parameterClass="DataMap" resultClass="ChannelSettingModel" >
+			<![CDATA[
+				SELECT  *
+				FROM	dbo.TChannelSetting AA WITH (NOLOCK)
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<insert id="InsertChannelSetting" parameterClass="ChannelSettingModel" >
+			<![CDATA[
+				INSERT INTO dbo.TChannelSetting
+				( 
+					CreateDate, CreateBy, CreateByName,
+					ChannelID, OrderDateYn, OrderAddYearYn, OrderNoDigit, OptionYn, OptionFormat, OrderLine, AccountLine
+				)
+				VALUES
+				(
+					GetDate(), #CreateBy#, #CreateByName#,
+					#ChannelID#, #OrderDateYn#, #OrderAddYearYn#, #OrderNoDigit#, #OptionYn#, #OptionFormat#, #OrderLine#, #AccountLine#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateChannelSetting" parameterClass="ChannelSettingModel">
+			<![CDATA[
+				UPDATE  dbo.TChannelSetting
+				SET     UpdateDate		= GetDate()
+					,	UpdateBy		= #UpdateBy#
+					,	UpdateByName	= #UpdateByName#
+					
+					,	ChannelID		= #ChannelID#
+					,	OrderDateYn		= #OrderDateYn#
+					,	OrderAddYearYn	= #OrderAddYearYn#
+					,	OrderNoDigit	= #OrderNoDigit#
+					,	OptionYn		= #OptionYn#
+					,	OptionFormat	= #OptionFormat#
+					,	OrderLine		= #OrderLine#
+					,	AccountLine		= #AccountLine#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
+		<delete id="DeleteChannelSetting" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM dbo.TChannelSetting WHERE ID = #ID#;
+			]]>
+		</delete>
+	</statements>
+</sqlMap>

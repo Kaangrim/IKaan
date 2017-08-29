@@ -1,23 +1,29 @@
 ﻿using System;
+using System.Collections.Generic;
 using DevExpress.Data;
 using DevExpress.Utils;
 using IKaan.Base.Map;
+using IKaan.Model.Biz;
 using IKaan.Model.Live;
 using IKaan.Win.Core.Controls.Grid;
 using IKaan.Win.Core.Forms;
 using IKaan.Win.Core.Handler;
 using IKaan.Win.Core.Model;
 using IKaan.Win.Core.Utils;
+using IKaan.Win.Core.Was.Handler;
 
 namespace IKaan.Win.View.Live.ChannelOrder
 {
 	public partial class ChannelOrderListForm : EditForm
 	{
+		private ChannelSettingModel channelSetting = null;
+
 		public ChannelOrderListForm()
 		{
 			InitializeComponent();
 
 			btnUpload.Click += delegate (object sender, EventArgs e) { UploadChannelOrder(); };
+			lupChannelID.EditValueChanged += (object sender, EventArgs e) => { ChangeChannel(); };
 		}
 
 		protected override void OnShown(EventArgs e)
@@ -29,7 +35,7 @@ namespace IKaan.Win.View.Live.ChannelOrder
 		protected override void InitButton()
 		{
 			base.InitButton();
-			SetToolbarButtons(new ToolbarButtons() { Refresh = true });
+			SetToolbarButtons(new ToolbarButtons() { Refresh = true, Save = true });
 		}
 		protected override void InitControls()
 		{
@@ -56,6 +62,7 @@ namespace IKaan.Win.View.Live.ChannelOrder
 			{
 				gridList.Init();
 				gridList.AddGridColumns(
+					new XGridColumn() { FieldName = "Checked" },
 					new XGridColumn() { FieldName = "RowNo" },
 					new XGridColumn() { FieldName = "ChannelID", Visible = false },
 					new XGridColumn() { FieldName = "ChannelName", Width = 120 },
@@ -91,6 +98,9 @@ namespace IKaan.Win.View.Live.ChannelOrder
 					new XGridColumn() { FieldName = "GiftName", Width = 200 }
 				);
 				gridList.ColumnFix("RowNo");
+				gridList.ColumnFix("Checked");
+				gridList.SetRepositoryItemCheckEdit("Checked");
+				gridList.SetEditable("Checked");
 			}
 			catch(Exception ex)
 			{
@@ -119,8 +129,45 @@ namespace IKaan.Win.View.Live.ChannelOrder
 		{
 			try
 			{
-				if (UploadHandler.Execute<ChannelOrderModel>("Live", "SaveChannelOrder", ""))
+				if (lupChannelID.EditValue == null)
+				{
+					ShowMsgBox("채널을 먼저 선택해야 합니다.");
+					return;
+				}
+
+				int startLine = 2;
+				if (channelSetting != null)
+				{
+					startLine = channelSetting.OrderLine;
+				}
+
+				if (UploadHandler.Execute<ChannelOrderModel>("Live", "Save", "Insert", startLine))
 					DataLoad(null);
+			}
+			catch(Exception ex)
+			{
+				ShowErrBox(ex);
+			}
+		}
+
+		private void ChangeChannel()
+		{
+			try
+			{
+				if (lupChannelID.EditValue == null)
+				{
+					btnUpload.Enabled = false;
+					channelSetting = null;
+				}
+				else
+				{
+					btnUpload.Enabled = true;
+					var list = WasHandler.GetList<ChannelSettingModel>("Biz", "GetList", "Select", new DataMap() { { "ChannelID", lupChannelID.EditValue } });
+					if (list == null)
+						throw new Exception("조회할 데이터가 없습니다.");
+
+					channelSetting = list[0];
+				}
 			}
 			catch(Exception ex)
 			{
