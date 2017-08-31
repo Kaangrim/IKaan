@@ -9,12 +9,12 @@
 			<![CDATA[
 				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID)	AS RowNo
 					,	AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					
 					,	AA.ChannelID
 					,	AA.StartDate
@@ -49,12 +49,12 @@
 		<select id="SelectChannelManager" parameterClass="DataMap" resultClass="ChannelManagerModel" >
 			<![CDATA[
 				SELECT  AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					
 					,	AA.ChannelID
 					,	AA.EmployeeID
@@ -75,12 +75,12 @@
 			<![CDATA[
 				INSERT INTO dbo.TChannelManager
 				( 
-					CreateDate, CreateBy, CreateByName,
+					CreatedOn, CreatedBy, CreatedByName,
 					ChannelID, EmployeeID, StartDate, EndDate, Description
 				)
 				VALUES
 				(
-					GetDate(), #CreateBy#, #CreateByName#,
+					GetDate(), #CreatedBy#, #CreatedByName#,
 					#ChannelID#, #EmployeeID#, #StartDate#, #EndDate#, #Description#
 				)
 			]]>
@@ -93,9 +93,9 @@
 		<update id="UpdateChannelManager" parameterClass="ChannelManagerModel">
 			<![CDATA[
 				UPDATE  dbo.TChannelManager
-				SET     UpdateDate		= GetDate()
-					,	UpdateBy		= #UpdateBy#
-					,	UpdateByName	= #UpdateByName#
+				SET     UpdatedOn		= GetDate()
+					,	UpdatedBy		= #UpdatedBy#
+					,	UpdatedByName	= #UpdatedByName#
 					
 					,	EmployeeID		= #EmployeeID#
 					,	StartDate		= #StartDate#
@@ -113,12 +113,12 @@
 		<select id="SelectChannelManagerDuplicate" parameterClass="DataMap" resultClass="ChannelManagerModel" >
 			<![CDATA[
 				SELECT  AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					
 					,	AA.ChannelID
 					,	AA.EmployeeID
@@ -134,12 +134,12 @@
 		<select id="SelectChannelManagerBefore" parameterClass="DataMap" resultClass="ChannelManagerModel" >
 			<![CDATA[
 				SELECT  AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					
 					,	AA.ChannelID
 					,	AA.EmployeeID
@@ -158,12 +158,12 @@
 		<select id="SelectChannelManagerAfter" parameterClass="DataMap" resultClass="ChannelManagerModel" >
 			<![CDATA[
 				SELECT  AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					
 					,	AA.ChannelID
 					,	AA.EmployeeID
@@ -182,9 +182,9 @@
 		<update id="UpdateChannelManagerEndDate" parameterClass="ChannelManagerModel">
 			<![CDATA[
 				UPDATE  dbo.TChannelManager
-				SET     UpdateDate		= GetDate()
-					,	UpdateBy		= #UpdateBy#
-					,	UpdateByName	= #UpdateByName#
+				SET     UpdatedOn		= GetDate()
+					,	UpdatedBy		= #UpdatedBy#
+					,	UpdatedByName	= #UpdatedByName#
 					,	EndDate			= #EndDate#
 				WHERE	ID				= #ID#
 			]]>

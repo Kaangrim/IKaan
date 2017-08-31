@@ -42,10 +42,10 @@ namespace IKaan.Win.View.Biz.Organization
 			SetFieldNames();
 
 			txtID.SetEnable(false);
-			txtCreateDate.SetEnable(false);
-			txtCreateByName.SetEnable(false);
-			txtUpdateDate.SetEnable(false);
-			txtUpdateByName.SetEnable(false);
+			txtCreatedOn.SetEnable(false);
+			txtCreatedByName.SetEnable(false);
+			txtUpdatedOn.SetEnable(false);
+			txtUpdatedByName.SetEnable(false);
 
 			lupFindDepartment.BindData("DepartmentList", "All");
 			lupParentID.BindData("DepartmentList", "Root");
@@ -67,10 +67,10 @@ namespace IKaan.Win.View.Biz.Organization
 				new XGridColumn() { FieldName = "HierName", CaptionCode = "DepartmentName", Width = 200 },
 				new XGridColumn() { FieldName = "ManagerName", Width = 100, HorzAlignment = HorzAlignment.Center },
 				new XGridColumn() { FieldName = "UseYn", Width = 80, HorzAlignment = HorzAlignment.Center },
-				new XGridColumn() { FieldName = "CreateDate" },
-				new XGridColumn() { FieldName = "CreateByName" },
-				new XGridColumn() { FieldName = "UpdateDate" },
-				new XGridColumn() { FieldName = "UpdateByName" }
+				new XGridColumn() { FieldName = "CreatedOn" },
+				new XGridColumn() { FieldName = "CreatedByName" },
+				new XGridColumn() { FieldName = "UpdatedOn" },
+				new XGridColumn() { FieldName = "UpdatedByName" }
 			);
 			gridList.SetRepositoryItemCheckEdit("UseYn");
 			gridList.ColumnFix("RowNo");
@@ -107,10 +107,10 @@ namespace IKaan.Win.View.Biz.Organization
 				new XGridColumn() { FieldName = "ManagerName", Width = 100 },
 				new XGridColumn() { FieldName = "StartDate", Width = 80, HorzAlignment = HorzAlignment.Center },
 				new XGridColumn() { FieldName = "EndDate", Width = 80, HorzAlignment = HorzAlignment.Center },
-				new XGridColumn() { FieldName = "CreateDate" },
-				new XGridColumn() { FieldName = "CreateByName" },
-				new XGridColumn() { FieldName = "UpdateDate" },
-				new XGridColumn() { FieldName = "UpdateByName" }
+				new XGridColumn() { FieldName = "CreatedOn" },
+				new XGridColumn() { FieldName = "CreatedByName" },
+				new XGridColumn() { FieldName = "UpdatedOn" },
+				new XGridColumn() { FieldName = "UpdatedByName" }
 			);
 			gridHistory.ColumnFix("RowNo");
 			#endregion
@@ -125,10 +125,10 @@ namespace IKaan.Win.View.Biz.Organization
 				new XGridColumn() { FieldName = "EmployeeName", Width = 100, HorzAlignment = HorzAlignment.Center },
 				new XGridColumn() { FieldName = "StartDate", Width = 80, HorzAlignment = HorzAlignment.Center },
 				new XGridColumn() { FieldName = "EndDate", Width = 80, HorzAlignment = HorzAlignment.Center },
-				new XGridColumn() { FieldName = "CreateDate" },
-				new XGridColumn() { FieldName = "CreateByName" },
-				new XGridColumn() { FieldName = "UpdateDate" },
-				new XGridColumn() { FieldName = "UpdateByName" }
+				new XGridColumn() { FieldName = "CreatedOn" },
+				new XGridColumn() { FieldName = "CreatedByName" },
+				new XGridColumn() { FieldName = "UpdatedOn" },
+				new XGridColumn() { FieldName = "UpdatedByName" }
 			);
 			gridAppointment.ColumnFix("RowNo");
 			#endregion

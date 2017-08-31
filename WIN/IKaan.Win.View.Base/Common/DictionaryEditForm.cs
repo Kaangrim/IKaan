@@ -43,10 +43,10 @@ namespace IKaan.Win.View.Base.Common
 			SetFieldNames();
 
 			txtID.SetEnable(false);
-			txtCreateDate.SetEnable(false);
-			txtCreateByName.SetEnable(false);
-			txtUpdateDate.SetEnable(false);
-			txtUpdateByName.SetEnable(false);
+			txtCreatedOn.SetEnable(false);
+			txtCreatedByName.SetEnable(false);
+			txtUpdatedOn.SetEnable(false);
+			txtUpdatedByName.SetEnable(false);
 
 			lupLanguageCode.BindData("LanguageCode", null, true);
 			InitGrid();
@@ -62,10 +62,10 @@ namespace IKaan.Win.View.Base.Common
 				new XGridColumn() { FieldName = "ID", HorzAlignment = HorzAlignment.Center, Width = 80 },
 				new XGridColumn() { FieldName = "LogicalName", Width = 200 },
 				new XGridColumn() { FieldName = "PhysicalName", Width = 200 },
-				new XGridColumn() { FieldName = "CreateDate" },
-				new XGridColumn() { FieldName = "CreateByName" },
-				new XGridColumn() { FieldName = "UpdateDate" },
-				new XGridColumn() { FieldName = "UpdateByName" }
+				new XGridColumn() { FieldName = "CreatedOn" },
+				new XGridColumn() { FieldName = "CreatedByName" },
+				new XGridColumn() { FieldName = "UpdatedOn" },
+				new XGridColumn() { FieldName = "UpdatedByName" }
 			);
 			gridList.ColumnFix("RowNo");
 
@@ -100,10 +100,10 @@ namespace IKaan.Win.View.Base.Common
 				new XGridColumn() { FieldName = "LanguageName", Width = 200 },
 				new XGridColumn() { FieldName = "LogicalName", Width = 200 },
 				new XGridColumn() { FieldName = "PhysicalName", Visible = false },
-				new XGridColumn() { FieldName = "CreateDate" },
-				new XGridColumn() { FieldName = "CreateByName" },
-				new XGridColumn() { FieldName = "UpdateDate" },
-				new XGridColumn() { FieldName = "UpdateByName" }
+				new XGridColumn() { FieldName = "CreatedOn" },
+				new XGridColumn() { FieldName = "CreatedByName" },
+				new XGridColumn() { FieldName = "UpdatedOn" },
+				new XGridColumn() { FieldName = "UpdatedByName" }
 			);
 			gridLangList.SetEditable("LogicalName");
 			gridLangList.SetRespositoryItemTextEdit("LogicalName");

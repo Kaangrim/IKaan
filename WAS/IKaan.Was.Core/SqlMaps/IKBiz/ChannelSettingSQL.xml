@@ -9,12 +9,12 @@
 			<![CDATA[
 				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
 					,	AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					
 					,	AA.ChannelID
 					,	AA.OrderDateYn
@@ -41,12 +41,12 @@
 			<![CDATA[
 				INSERT INTO dbo.TChannelSetting
 				( 
-					CreateDate, CreateBy, CreateByName,
+					CreatedOn, CreatedBy, CreatedByName,
 					ChannelID, OrderDateYn, OrderAddYearYn, OrderNoDigit, OptionYn, OptionFormat, OrderLine, AccountLine
 				)
 				VALUES
 				(
-					GetDate(), #CreateBy#, #CreateByName#,
+					GetDate(), #CreatedBy#, #CreatedByName#,
 					#ChannelID#, #OrderDateYn#, #OrderAddYearYn#, #OrderNoDigit#, #OptionYn#, #OptionFormat#, #OrderLine#, #AccountLine#
 				)
 			]]>
@@ -59,9 +59,9 @@
 		<update id="UpdateChannelSetting" parameterClass="ChannelSettingModel">
 			<![CDATA[
 				UPDATE  dbo.TChannelSetting
-				SET     UpdateDate		= GetDate()
-					,	UpdateBy		= #UpdateBy#
-					,	UpdateByName	= #UpdateByName#
+				SET     UpdatedOn		= GetDate()
+					,	UpdatedBy		= #UpdatedBy#
+					,	UpdatedByName	= #UpdatedByName#
 					
 					,	ChannelID		= #ChannelID#
 					,	OrderDateYn		= #OrderDateYn#

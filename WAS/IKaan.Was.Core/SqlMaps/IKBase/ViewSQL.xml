@@ -9,12 +9,12 @@
 			<![CDATA[
 				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
 					,	AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					
 					,	AA.ViewName
 					,	AA.ViewType
@@ -63,12 +63,12 @@
 		<select id="SelectView" parameterClass="DataMap" resultClass="ViewModel" >
 			<![CDATA[
 				SELECT  AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					,	AA.ViewName
 					,	AA.ViewType
 					,	AA.ParentID
@@ -86,12 +86,12 @@
 			<![CDATA[
 				INSERT INTO dbo.TView
 				( 
-					CreateDate, CreateBy, CreateByName,
+					CreatedOn, CreatedBy, CreatedByName,
 					ViewName, ViewType, ParentID, ModuleID, Namespace, Instance, UseYn, Description, HelpID
 				)
 				VALUES
 				(
-					GetDate(), #CreateBy#, #CreateByName#,
+					GetDate(), #CreatedBy#, #CreatedByName#,
 					#ViewName#, #ViewType#, #ParentID#, #ModuleID#, #Namespace#, #Instance#, #UseYn#, #Description#, #HelpID#
 				)
 			]]>
@@ -104,9 +104,9 @@
 		<update id="UpdateView" parameterClass="ViewModel">
 			<![CDATA[
 				UPDATE  dbo.TView
-				SET     UpdateDate	= GetDate()
-					,	UpdateBy	= #UpdateBy#
-					,	UpdateByName= #UpdateByName#
+				SET     UpdatedOn	= GetDate()
+					,	UpdatedBy	= #UpdatedBy#
+					,	UpdatedByName= #UpdatedByName#
 					
 					,	ViewName	= #ViewName#
 					,	ViewType	= #ViewType#
@@ -138,12 +138,12 @@
 							ELSE AA.UseYn
 						END									as Checked
 					,	AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					,	#ID#								as ViewID
 					,	CC.ID								as ButtonID
 					,	CC.ButtonName

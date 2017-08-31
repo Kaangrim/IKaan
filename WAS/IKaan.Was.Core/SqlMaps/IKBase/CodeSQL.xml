@@ -62,12 +62,12 @@
 				)
 				SELECT	ROW_NUMBER() OVER (ORDER BY BB.HierID)	AS RowNo
 					,	AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					
 					,	BB.HierID
 					,	REPLICATE(' ', (BB.CodeLevel -1) * 5) + 
@@ -118,12 +118,12 @@
 		<select id="SelectCode" parameterClass="DataMap" resultClass="CodeModel">
 			<![CDATA[
 				SELECT	AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName					
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName					
 					,	AA.Code
 					,	AA.Name
 					,	AA.Value
@@ -150,14 +150,14 @@
 			<![CDATA[
 				INSERT INTO dbo.TCode
 				(
-					CreateDate, CreateBy, CreateByName,
+					CreatedOn, CreatedBy, CreatedByName,
 					Code, Name, Value, ParentCode, Description, UseYn, SortOrder, MaxLength,
 					CodeValue01, CodeValue02, CodeValue03, CodeValue04, CodeValue05, 
 					CodeValue06, CodeValue07, CodeValue08, CodeValue09, CodeValue10
 				)
 				VALUES
 				(
-					GetDate(), #CreateBy#, #CreateByName#,
+					GetDate(), #CreatedBy#, #CreatedByName#,
 					#Code#, #Name#, #Value#, #ParentCode#, #Description#, #UseYn#, #SortOrder#, #MaxLength#,
 					#CodeValue01#, #CodeValue02#, #CodeValue03#, #CodeValue04#, #CodeValue05#, 
 					#CodeValue06#, #CodeValue07#, #CodeValue08#, #CodeValue09#, #CodeValue10#
@@ -173,16 +173,16 @@
 			<![CDATA[
 				UPDATE	dbo.TCode
 				SET		ParentCode	= #Code#
-					,	UpdateDate	= GetDate()
-					,	UpdateBy	= #UpdateBy#
-					,	UpdateByName= #UpdateByName#
+					,	UpdatedOn	= GetDate()
+					,	UpdatedBy	= #UpdatedBy#
+					,	UpdatedByName= #UpdatedByName#
 				WHERE	ParentCode	= (	SELECT	Code
 										FROM	dbo.TCode
 										WHERE	ID = #ID# );
 				UPDATE	dbo.TCode
-				SET		UpdateDate	= GetDate()
-					,	UpdateBy	= #UpdateBy#
-					,	UpdateByName= #UpdateByName#
+				SET		UpdatedOn	= GetDate()
+					,	UpdatedBy	= #UpdatedBy#
+					,	UpdatedByName= #UpdatedByName#
 					,	Code		= #Code#
 					,	Name		= #Name#
 					,	Value		= #Value#

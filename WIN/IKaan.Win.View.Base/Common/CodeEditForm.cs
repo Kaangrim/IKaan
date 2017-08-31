@@ -114,10 +114,10 @@ namespace IKaan.Win.View.Base.Common
 			lcItemValue.SetFieldName("CodeValue");
 		
 			txtID.SetEnable(false);
-			txtCreateDate.SetEnable(false);
-			txtCreateByName.SetEnable(false);
-			txtUpdateDate.SetEnable(false);
-			txtUpdateByName.SetEnable(false);
+			txtCreatedOn.SetEnable(false);
+			txtCreatedByName.SetEnable(false);
+			txtUpdatedOn.SetEnable(false);
+			txtUpdatedByName.SetEnable(false);
 
 			spnSortOrder.SetFormat("D", false, HorzAlignment.Near);
 			spnMaxLength.SetFormat("D", false, HorzAlignment.Near);
@@ -205,10 +205,10 @@ namespace IKaan.Win.View.Base.Common
 			txtCodeValue04.Clear();
 			txtCodeValue05.Clear();
 
-			txtCreateDate.Clear();
-			txtCreateByName.Clear();
-			txtUpdateDate.Clear();
-			txtUpdateByName.Clear();
+			txtCreatedOn.Clear();
+			txtCreatedByName.Clear();
+			txtUpdatedOn.Clear();
+			txtUpdatedByName.Clear();
 
 			SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true });
 			this.EditMode = EditModeEnum.New;

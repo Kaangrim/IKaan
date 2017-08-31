@@ -40,10 +40,10 @@ namespace IKaan.Win.View.Base.Common
 			SetFieldNames();
 
 			txtID.SetEnable(false);
-			txtCreateDate.SetEnable(false);
-			txtCreateByName.SetEnable(false);
-			txtUpdateDate.SetEnable(false);
-			txtUpdateByName.SetEnable(false);
+			txtCreatedOn.SetEnable(false);
+			txtCreatedByName.SetEnable(false);
+			txtUpdatedOn.SetEnable(false);
+			txtUpdatedByName.SetEnable(false);
 
 			lupFindLanguage.BindData("LanguageCode");
 			InitGrid();
@@ -58,10 +58,10 @@ namespace IKaan.Win.View.Base.Common
 				new XGridColumn() { FieldName = "ID", HorzAlignment = HorzAlignment.Center, Width = 80 },
 				new XGridColumn() { FieldName = "LogicalName", Width = 200 },
 				new XGridColumn() { FieldName = "PhysicalName", Width = 200 },
-				new XGridColumn() { FieldName = "CreateDate" },
-				new XGridColumn() { FieldName = "CreateByName" },
-				new XGridColumn() { FieldName = "UpdateDate" },
-				new XGridColumn() { FieldName = "UpdateByName" }
+				new XGridColumn() { FieldName = "CreatedOn" },
+				new XGridColumn() { FieldName = "CreatedByName" },
+				new XGridColumn() { FieldName = "UpdatedOn" },
+				new XGridColumn() { FieldName = "UpdatedByName" }
 			);
 			gridList.ColumnFix("RowNo");
 
@@ -98,10 +98,10 @@ namespace IKaan.Win.View.Base.Common
 			txtPhysicalName.Clear();
 			memDescription.Clear();
 
-			txtCreateDate.Clear();
-			txtCreateByName.Clear();
-			txtUpdateDate.Clear();
-			txtUpdateByName.Clear();
+			txtCreatedOn.Clear();
+			txtCreatedByName.Clear();
+			txtUpdatedOn.Clear();
+			txtUpdatedByName.Clear();
 
 			SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true });
 			this.EditMode = EditModeEnum.New;

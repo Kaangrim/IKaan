@@ -9,12 +9,12 @@
 			<![CDATA[
 				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
 					,	AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					,	AA.UserName
 					,	AA.UserType
 					,	M1.Name		as UserTypeName
@@ -41,12 +41,12 @@
 			<![CDATA[
 				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
 					,	AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					,	AA.UserName
 					,	AA.UserType
 					,	AA.LoginID
@@ -60,14 +60,14 @@
 			<![CDATA[
 				INSERT INTO dbo.TUser
 				( 
-					CreateDate, CreateBy, CreateByName,
+					CreatedOn, CreatedBy, CreatedByName,
 					UserName, UserType, LoginID, Password, UseYn, Description
 				)
 				VALUES
 				( 
 					GetDate()
-				,	#CreateBy#
-				,	#CreateByName#
+				,	#CreatedBy#
+				,	#CreatedByName#
 				,	#UserName#
 				,	#UserType#
 				,	#LoginID#
@@ -85,9 +85,9 @@
 		<update id="UpdateUser" parameterClass="UserModel">
 			<![CDATA[
 				UPDATE  dbo.TUser
-				SET		UpdateDate	= GetDate()
-					,	UpdateBy	= #UpdateBy#
-					,	UpdateByName= #UpdateByName#
+				SET		UpdatedOn	= GetDate()
+					,	UpdatedBy	= #UpdatedBy#
+					,	UpdatedByName= #UpdatedByName#
 					,	UserName	= #UserName#
 					,	UserType	= #UserType#
 					,	LoginID		= #LoginID#
@@ -107,9 +107,9 @@
 			<![CDATA[
 				UPDATE  dbo.TUser
 				SET     Password	= PWDENCRYPT(LoginID)
-					,	UpdateDate	= GetDate()
-					,	UpdateBy	= #UpdateBy#
-					,	UpdateByName= #UpdateByName#
+					,	UpdatedOn	= GetDate()
+					,	UpdatedBy	= #UpdatedBy#
+					,	UpdatedByName= #UpdatedByName#
 				WHERE	ID			= #ID#
 			]]>
 		</update>
@@ -117,12 +117,12 @@
 			<![CDATA[
 				INSERT INTO dbo.TUserPasswordHist
 				(
-					CreateDate, CreateBy, CreateByName,
+					CreatedOn, CreatedBy, CreatedByName,
 					UserID, OldPassword, NewPassword
 				)
 				SELECT	GetDate()
-					,	#CreateBy#
-					,	#CreateByName#
+					,	#CreatedBy#
+					,	#CreatedByName#
 					,	#UserID#
 					,	Password
 					,	PWDENCRYPT(#Password#)
@@ -130,9 +130,9 @@
 				WHERE	ID = #UserID#;
 				UPDATE  dbo.TUser
 				SET     Password	= PWDENCRYPT(#Password#)
-					,	UpdateDate	= GetDate()
-					,	UpdateBy	= #UpdateBy#
-					,	UpdateByName= #UpdateByName#
+					,	UpdatedOn	= GetDate()
+					,	UpdatedBy	= #UpdatedBy#
+					,	UpdatedByName= #UpdatedByName#
 				WHERE	ID			= #ID#;				
 			]]>
 		</update>
@@ -166,12 +166,12 @@
 							ELSE UG.UseYn
 						END										AS Checked
 					,	UG.ID
-					,	UG.CreateDate
-					,	UG.CreateBy
-					,	UG.CreateByName
-					,	UG.UpdateDate
-					,	UG.UpdateBy
-					,	UG.UpdateByName
+					,	UG.CreatedOn
+					,	UG.CreatedBy
+					,	UG.CreatedByName
+					,	UG.UpdatedOn
+					,	UG.UpdatedBy
+					,	UG.UpdatedByName
 					
 					,	#ID#					as UserID
 					,	AA.ID					as GroupID
@@ -226,12 +226,12 @@
 							ELSE UR.UseYn
 						END										AS Checked
 					,	UR.ID
-					,	UR.CreateDate
-					,	UR.CreateBy
-					,	UR.CreateByName
-					,	UR.UpdateDate
-					,	UR.UpdateBy
-					,	UR.UpdateByName
+					,	UR.CreatedOn
+					,	UR.CreatedBy
+					,	UR.CreatedByName
+					,	UR.UpdatedOn
+					,	UR.UpdatedBy
+					,	UR.UpdatedByName
 					
 					,	#ID#					as UserID
 					,	AA.ID					as RoleID
@@ -261,12 +261,12 @@
 			<![CDATA[
 				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID)	AS RowNo
 					,	AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName					
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName					
 					,	AA.UserID
 					,	AA.OldPassword
 					,	AA.NewPassword					

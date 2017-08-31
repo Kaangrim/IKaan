@@ -9,12 +9,12 @@
 			<![CDATA[
 				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID)	AS RowNo
 					,	AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					
 					,	AA.BrandID
 					,	AA.StartDate
@@ -49,12 +49,12 @@
 		<select id="SelectBrandManager" parameterClass="DataMap" resultClass="BrandManagerModel" >
 			<![CDATA[
 				SELECT  AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					
 					,	AA.BrandID
 					,	AA.EmployeeID
@@ -75,12 +75,12 @@
 			<![CDATA[
 				INSERT INTO dbo.TBrandManager
 				( 
-					CreateDate, CreateBy, CreateByName,
+					CreatedOn, CreatedBy, CreatedByName,
 					BrandID, EmployeeID, StartDate, EndDate, Description
 				)
 				VALUES
 				(
-					GetDate(), #CreateBy#, #CreateByName#,
+					GetDate(), #CreatedBy#, #CreatedByName#,
 					#BrandID#, #EmployeeID#, #StartDate#, #EndDate#, #Description#
 				)
 			]]>
@@ -93,9 +93,9 @@
 		<update id="UpdateBrandManager" parameterClass="BrandManagerModel">
 			<![CDATA[
 				UPDATE  dbo.TBrandManager
-				SET     UpdateDate		= GetDate()
-					,	UpdateBy		= #UpdateBy#
-					,	UpdateByName	= #UpdateByName#
+				SET     UpdatedOn		= GetDate()
+					,	UpdatedBy		= #UpdatedBy#
+					,	UpdatedByName	= #UpdatedByName#
 					
 					,	EmployeeID		= #EmployeeID#
 					,	StartDate		= #StartDate#
@@ -113,12 +113,12 @@
 		<select id="SelectBrandManagerDuplicate" parameterClass="DataMap" resultClass="BrandManagerModel" >
 			<![CDATA[
 				SELECT  AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					
 					,	AA.BrandID
 					,	AA.EmployeeID
@@ -134,12 +134,12 @@
 		<select id="SelectBrandManagerBefore" parameterClass="DataMap" resultClass="BrandManagerModel" >
 			<![CDATA[
 				SELECT  AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					
 					,	AA.BrandID
 					,	AA.EmployeeID
@@ -158,12 +158,12 @@
 		<select id="SelectBrandManagerAfter" parameterClass="DataMap" resultClass="BrandManagerModel" >
 			<![CDATA[
 				SELECT  AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					
 					,	AA.BrandID
 					,	AA.EmployeeID
@@ -182,9 +182,9 @@
 		<update id="UpdateBrandManagerEndDate" parameterClass="BrandManagerModel">
 			<![CDATA[
 				UPDATE  dbo.TBrandManager
-				SET     UpdateDate		= GetDate()
-					,	UpdateBy		= #UpdateBy#
-					,	UpdateByName	= #UpdateByName#					
+				SET     UpdatedOn		= GetDate()
+					,	UpdatedBy		= #UpdatedBy#
+					,	UpdatedByName	= #UpdatedByName#					
 					,	EndDate			= #EndDate#
 				WHERE	ID				= #ID#
 			]]>

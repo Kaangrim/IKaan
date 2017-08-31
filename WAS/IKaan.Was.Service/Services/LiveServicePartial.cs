@@ -16,16 +16,16 @@ namespace IKaan.Was.Service.Services
 				{
 					if (model.ID == null)
 					{
-						model.CreateBy = req.User.UserId;
-						model.CreateByName = req.User.UserName;
+						model.CreatedBy = req.User.UserId;
+						model.CreatedByName = req.User.UserName;
 
 						object id = DaoFactory.InstanceLive.Insert("InsertChannelOrder", model);
 						model.ID = id.ToIntegerNullToNull();
 					}
 					else
 					{
-						model.UpdateBy = req.User.UserId;
-						model.UpdateByName = req.User.UserName;
+						model.UpdatedBy = req.User.UserId;
+						model.UpdatedByName = req.User.UserName;
 
 						DaoFactory.InstanceLive.Update("UpdateChannelOrder", model);
 					}
@@ -49,16 +49,16 @@ namespace IKaan.Was.Service.Services
 				{
 					if (model.ID == null)
 					{
-						model.CreateBy = req.User.UserId;
-						model.CreateByName = req.User.UserName;
+						model.CreatedBy = req.User.UserId;
+						model.CreatedByName = req.User.UserName;
 
 						object id = DaoFactory.InstanceLive.Insert("InsertChannelOrderCancel", model);
 						model.ID = id.ToIntegerNullToNull();
 					}
 					else
 					{
-						model.UpdateBy = req.User.UserId;
-						model.UpdateByName = req.User.UserName;
+						model.UpdatedBy = req.User.UserId;
+						model.UpdatedByName = req.User.UserName;
 
 						DaoFactory.InstanceLive.Update("UpdateChannelOrderCancel", model);
 					}
@@ -83,16 +83,16 @@ namespace IKaan.Was.Service.Services
 				{
 					if (model.ID == null)
 					{
-						model.CreateBy = req.User.UserId;
-						model.CreateByName = req.User.UserName;
+						model.CreatedBy = req.User.UserId;
+						model.CreatedByName = req.User.UserName;
 
 						object id = DaoFactory.InstanceLive.Insert("InsertChannelOrderReturn", model);
 						model.ID = id.ToIntegerNullToNull();
 					}
 					else
 					{
-						model.UpdateBy = req.User.UserId;
-						model.UpdateByName = req.User.UserName;
+						model.UpdatedBy = req.User.UserId;
+						model.UpdatedByName = req.User.UserName;
 
 						DaoFactory.InstanceLive.Update("UpdateChannelOrderReturn", model);
 					}

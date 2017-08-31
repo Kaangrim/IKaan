@@ -9,12 +9,12 @@
 			<![CDATA[
 				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
 					,	AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					
 					,	AA.ChannelName
 					,	AA.EngName
@@ -57,12 +57,12 @@
 		<select id="SelectChannel" parameterClass="DataMap" resultClass="ChannelModel" >
 			<![CDATA[
 				SELECT  AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					
 					,	AA.ChannelName
 					,	AA.EngName
@@ -79,12 +79,12 @@
 			<![CDATA[
 				INSERT INTO dbo.TChannel
 				( 
-					CreateDate, CreateBy, CreateByName,
+					CreatedOn, CreatedBy, CreatedByName,
 					ChannelName, EngName, ChannelCode, ChannelType, Description, UseYn
 				)
 				VALUES
 				(
-					GetDate(), #CreateBy#, #CreateByName#,
+					GetDate(), #CreatedBy#, #CreatedByName#,
 					#ChannelName#, #EngName#, #ChannelCode#, #ChannelType#, #Description#, #UseYn#
 				)
 			]]>
@@ -97,9 +97,9 @@
 		<update id="UpdateChannel" parameterClass="ChannelModel">
 			<![CDATA[
 				UPDATE  dbo.TChannel
-				SET     UpdateDate		= GetDate()
-					,	UpdateBy		= #UpdateBy#
-					,	UpdateByName	= #UpdateByName#
+				SET     UpdatedOn		= GetDate()
+					,	UpdatedBy		= #UpdatedBy#
+					,	UpdatedByName	= #UpdatedByName#
 					
 					,	ChannelName		= #ChannelName#
 					,	EngName			= #EngName#

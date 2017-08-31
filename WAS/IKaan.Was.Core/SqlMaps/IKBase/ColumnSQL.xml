@@ -9,12 +9,12 @@
 			<![CDATA[
 				SELECT	ROW_NUMBER() OVER (ORDER BY AA.SortOrder)	AS RowNo
 					,	AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					
 					,	AA.TableID
 					,	AA.PhysicalName
@@ -36,12 +36,12 @@
 			<![CDATA[
 				SELECT	ROW_NUMBER() OVER (ORDER BY AA.SortOrder)	AS RowNo
 					,	AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					
 					,	AA.TableID
 					,	AA.PhysicalName
@@ -63,13 +63,13 @@
 			<![CDATA[
 				INSERT INTO IKBase.dbo.TColumn
 				( 
-					CreateDate, CreateBy, CreateByName,
+					CreatedOn, CreatedBy, CreatedByName,
 					TableID, PhysicalName, LogicalName, Description, 
 					DataType, NullYn, PkYn, FkYn, IdentityYn, DefaultValue, SortOrder
 				)
 				VALUES
 				( 
-					GetDate(), #CreateBy#, #CreateByName#,
+					GetDate(), #CreatedBy#, #CreatedByName#,
 					#TableID#, #PhysicalName#, #LogicalName#, #Description#, 
 					#DataType#, #NullYn#, #PkYn#, #FkYn#, #IdentityYn#, #DefaultValue#, #SortOrder#
 				)
@@ -83,9 +83,9 @@
 		<update id="UpdateColumn" parameterClass="ColumnModel">
 			<![CDATA[
 				UPDATE  IKBase.dbo.TColumn
-				SET     UpdateDate		= GetDate()
-					,	UpdateBy		= #UpdateBy#
-					,	UpdateByName	= #UpdateByName#
+				SET     UpdatedOn		= GetDate()
+					,	UpdatedBy		= #UpdatedBy#
+					,	UpdatedByName	= #UpdatedByName#
 					
 					,	PhysicalName	= #PhysicalName#
 					,	LogicalName		= #LogicalName#
@@ -110,12 +110,12 @@
 			<![CDATA[
 				SELECT  ROW_NUMBER() OVER (ORDER BY XX.ColumnID)	AS RowNo
 					,	YY.ID
-					,	YY.CreateDate
-					,	YY.CreateBy
-					,	YY.CreateByName
-					,	YY.UpdateDate
-					,	YY.UpdateBy
-					,	YY.UpdateByName
+					,	YY.CreatedOn
+					,	YY.CreatedBy
+					,	YY.CreatedByName
+					,	YY.UpdatedOn
+					,	YY.UpdatedBy
+					,	YY.UpdatedByName
 					
 					,	CONVERT(VARCHAR, XX.TableID)		AS TableID
 					,	XX.TableName						AS TableName
@@ -247,12 +247,12 @@
 			<![CDATA[
 				SELECT	ROW_NUMBER() OVER (ORDER BY AA.ORDINAL_POSITION)	AS RowNo
 					,	CC.ID
-					,	CC.CreateDate
-					,	CC.CreateBy
-					,	CC.CreateByName
-					,	CC.UpdateDate
-					,	CC.UpdateBy
-					,	CC.UpdateByName
+					,	CC.CreatedOn
+					,	CC.CreatedBy
+					,	CC.CreatedByName
+					,	CC.UpdatedOn
+					,	CC.UpdatedBy
+					,	CC.UpdatedByName
 					
 					,	BB.TABLE_TYPE + ' ' + BB.TABLE_NAME					AS TableID
 					,	AA.TABLE_NAME										AS TableName
@@ -296,12 +296,12 @@
 			<![CDATA[
 				SELECT	ROW_NUMBER() OVER (ORDER BY AA.SortOrder)	AS RowNo
 					,	AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					
 					,	AA.TableID
 					,	AA.PhysicalName

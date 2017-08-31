@@ -9,12 +9,12 @@
 			<![CDATA[
 				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
 					,	AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					,	AA.LanguageCode
 					,	AA.PhysicalName
 					,	AA.LogicalName
@@ -38,12 +38,12 @@
 		<select id="SelectMessage" parameterClass="DataMap" resultClass="MessageModel" >
 			<![CDATA[
 				SELECT  AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					,	AA.LanguageCode
 					,	AA.PhysicalName
 					,	AA.LogicalName
@@ -56,12 +56,12 @@
 			<![CDATA[
 				INSERT INTO dbo.TMessage
 				( 
-					CreateDate, CreateBy, CreateByName,
+					CreatedOn, CreatedBy, CreatedByName,
 					LanguageCode, PhysicalName, LogicalName, Description
 				)
 				VALUES
 				( 
-					GetDate(), #CreateBy#, #CreateByName#,
+					GetDate(), #CreatedBy#, #CreatedByName#,
 					#LanguageCode#, #PhysicalName#, #LogicalName#, #Description#
 				)
 			]]>							
@@ -74,9 +74,9 @@
 		<update id="UpdateMessage" parameterClass="MessageModel">
 			<![CDATA[
 				UPDATE	dbo.TMessage
-				SET 	UpdateDate		= GetDate()
-					,	UpdateBy		= #UpdateBy#
-					,	UpdateByName	= #UpdateByName#
+				SET 	UpdatedOn		= GetDate()
+					,	UpdatedBy		= #UpdatedBy#
+					,	UpdatedByName	= #UpdatedByName#
 					,	LanguageCode	= #LanguageCode#
 					,	PhysicalName	= #PhysicalName#
 					,	LogicalName		= #LogicalName#

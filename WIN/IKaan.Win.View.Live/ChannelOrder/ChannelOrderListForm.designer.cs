@@ -28,42 +28,42 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions1 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions2 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
 			this.lcGroupSearch = new DevExpress.XtraLayout.LayoutControlGroup();
-			this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
 			this.lcItemOrderDate = new DevExpress.XtraLayout.LayoutControlItem();
 			this.datOrderDate = new DevExpress.XtraEditors.DateEdit();
 			this.lcItemChannel = new DevExpress.XtraLayout.LayoutControlItem();
 			this.lupChannelID = new IKaan.Win.Core.Controls.Common.XLookup();
 			this.esSearchTitle = new DevExpress.XtraLayout.EmptySpaceItem();
-			this.lcButtonUpload = new DevExpress.XtraLayout.LayoutControlItem();
-			this.btnUpload = new DevExpress.XtraEditors.SimpleButton();
+			this.lcButtonBrandMapping = new DevExpress.XtraLayout.LayoutControlItem();
+			this.btnBrandMapping = new DevExpress.XtraEditors.SimpleButton();
 			this.gridList = new IKaan.Win.Core.Controls.Grid.XGrid();
 			this.lcGroupList = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.lcGridList = new DevExpress.XtraLayout.LayoutControlItem();
-			this.btnBrandMapping = new DevExpress.XtraEditors.SimpleButton();
-			this.lcButtonBrandMapping = new DevExpress.XtraLayout.LayoutControlItem();
+			this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
+			this.btnFileUpload = new DevExpress.XtraEditors.SimpleButton();
+			this.lcButtonFileUpload = new DevExpress.XtraLayout.LayoutControlItem();
 			((System.ComponentModel.ISupportInitialize)(this.lc)).BeginInit();
 			this.lc.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupBase)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupSearch)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemOrderDate)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.datOrderDate.Properties.CalendarTimeProperties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.datOrderDate.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemChannel)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lupChannelID.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.esSearchTitle)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcButtonUpload)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcButtonBrandMapping)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupList)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGridList)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcButtonBrandMapping)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcButtonFileUpload)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// lc
 			// 
+			this.lc.Controls.Add(this.btnFileUpload);
 			this.lc.Controls.Add(this.btnBrandMapping);
-			this.lc.Controls.Add(this.btnUpload);
 			this.lc.Controls.Add(this.gridList);
 			this.lc.Controls.Add(this.datOrderDate);
 			this.lc.Controls.Add(this.lupChannelID);
@@ -87,26 +87,18 @@
 			// 
 			this.lcGroupSearch.ExpandButtonVisible = true;
 			this.lcGroupSearch.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
-            this.emptySpaceItem2,
             this.lcItemOrderDate,
             this.lcItemChannel,
             this.esSearchTitle,
-            this.lcButtonUpload,
-            this.lcButtonBrandMapping});
+            this.lcButtonBrandMapping,
+            this.emptySpaceItem1,
+            this.lcButtonFileUpload});
 			this.lcGroupSearch.Location = new System.Drawing.Point(0, 0);
 			this.lcGroupSearch.Name = "lcGroupSearch";
 			this.lcGroupSearch.Padding = new DevExpress.XtraLayout.Utils.Padding(4, 4, 4, 4);
 			this.lcGroupSearch.Size = new System.Drawing.Size(270, 548);
 			this.lcGroupSearch.TextLocation = DevExpress.Utils.Locations.Left;
 			this.lcGroupSearch.TextVisible = false;
-			// 
-			// emptySpaceItem2
-			// 
-			this.emptySpaceItem2.AllowHotTrack = false;
-			this.emptySpaceItem2.Location = new System.Drawing.Point(0, 122);
-			this.emptySpaceItem2.Name = "emptySpaceItem2";
-			this.emptySpaceItem2.Size = new System.Drawing.Size(236, 361);
-			this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
 			// 
 			// lcItemOrderDate
 			// 
@@ -149,7 +141,7 @@
 			this.lupChannelID.NullText = "[EditValue is null]";
 			this.lupChannelID.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions2, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
 			this.lupChannelID.SelectedIndex = -1;
 			this.lupChannelID.Size = new System.Drawing.Size(232, 20);
 			this.lupChannelID.StyleController = this.lc;
@@ -178,23 +170,23 @@
 			this.esSearchTitle.TextSize = new System.Drawing.Size(91, 0);
 			this.esSearchTitle.TextVisible = true;
 			// 
-			// lcButtonUpload
+			// lcButtonBrandMapping
 			// 
-			this.lcButtonUpload.Control = this.btnUpload;
-			this.lcButtonUpload.Location = new System.Drawing.Point(0, 483);
-			this.lcButtonUpload.Name = "lcButtonUpload";
-			this.lcButtonUpload.Size = new System.Drawing.Size(236, 26);
-			this.lcButtonUpload.TextSize = new System.Drawing.Size(0, 0);
-			this.lcButtonUpload.TextVisible = false;
+			this.lcButtonBrandMapping.Control = this.btnBrandMapping;
+			this.lcButtonBrandMapping.Location = new System.Drawing.Point(0, 509);
+			this.lcButtonBrandMapping.Name = "lcButtonBrandMapping";
+			this.lcButtonBrandMapping.Size = new System.Drawing.Size(236, 26);
+			this.lcButtonBrandMapping.TextSize = new System.Drawing.Size(0, 0);
+			this.lcButtonBrandMapping.TextVisible = false;
 			// 
-			// btnUpload
+			// btnBrandMapping
 			// 
-			this.btnUpload.Location = new System.Drawing.Point(31, 493);
-			this.btnUpload.Name = "btnUpload";
-			this.btnUpload.Size = new System.Drawing.Size(232, 22);
-			this.btnUpload.StyleController = this.lc;
-			this.btnUpload.TabIndex = 21;
-			this.btnUpload.Text = "엑셀업로드";
+			this.btnBrandMapping.Location = new System.Drawing.Point(31, 519);
+			this.btnBrandMapping.Name = "btnBrandMapping";
+			this.btnBrandMapping.Size = new System.Drawing.Size(232, 22);
+			this.btnBrandMapping.StyleController = this.lc;
+			this.btnBrandMapping.TabIndex = 22;
+			this.btnBrandMapping.Text = "브랜드 자동매핑";
 			// 
 			// gridList
 			// 
@@ -239,23 +231,31 @@
 			this.lcGridList.TextSize = new System.Drawing.Size(0, 0);
 			this.lcGridList.TextVisible = false;
 			// 
-			// btnBrandMapping
+			// emptySpaceItem1
 			// 
-			this.btnBrandMapping.Location = new System.Drawing.Point(31, 519);
-			this.btnBrandMapping.Name = "btnBrandMapping";
-			this.btnBrandMapping.Size = new System.Drawing.Size(232, 22);
-			this.btnBrandMapping.StyleController = this.lc;
-			this.btnBrandMapping.TabIndex = 22;
-			this.btnBrandMapping.Text = "브랜드 자동매핑";
+			this.emptySpaceItem1.AllowHotTrack = false;
+			this.emptySpaceItem1.Location = new System.Drawing.Point(0, 122);
+			this.emptySpaceItem1.Name = "emptySpaceItem1";
+			this.emptySpaceItem1.Size = new System.Drawing.Size(236, 361);
+			this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
 			// 
-			// lcButtonBrandMapping
+			// btnFileUpload
 			// 
-			this.lcButtonBrandMapping.Control = this.btnBrandMapping;
-			this.lcButtonBrandMapping.Location = new System.Drawing.Point(0, 509);
-			this.lcButtonBrandMapping.Name = "lcButtonBrandMapping";
-			this.lcButtonBrandMapping.Size = new System.Drawing.Size(236, 26);
-			this.lcButtonBrandMapping.TextSize = new System.Drawing.Size(0, 0);
-			this.lcButtonBrandMapping.TextVisible = false;
+			this.btnFileUpload.Location = new System.Drawing.Point(31, 493);
+			this.btnFileUpload.Name = "btnFileUpload";
+			this.btnFileUpload.Size = new System.Drawing.Size(232, 22);
+			this.btnFileUpload.StyleController = this.lc;
+			this.btnFileUpload.TabIndex = 23;
+			this.btnFileUpload.Text = "파일업로드";
+			// 
+			// lcButtonFileUpload
+			// 
+			this.lcButtonFileUpload.Control = this.btnFileUpload;
+			this.lcButtonFileUpload.Location = new System.Drawing.Point(0, 483);
+			this.lcButtonFileUpload.Name = "lcButtonFileUpload";
+			this.lcButtonFileUpload.Size = new System.Drawing.Size(236, 26);
+			this.lcButtonFileUpload.TextSize = new System.Drawing.Size(0, 0);
+			this.lcButtonFileUpload.TextVisible = false;
 			// 
 			// ChannelOrderListForm
 			// 
@@ -271,17 +271,17 @@
 			this.lc.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupBase)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupSearch)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemOrderDate)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.datOrderDate.Properties.CalendarTimeProperties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.datOrderDate.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemChannel)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lupChannelID.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.esSearchTitle)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcButtonUpload)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcButtonBrandMapping)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupList)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGridList)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcButtonBrandMapping)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcButtonFileUpload)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -291,16 +291,16 @@
 		private DevExpress.XtraLayout.LayoutControlGroup lcGroupSearch;
 		private Core.Controls.Common.XLookup lupChannelID;
 		private DevExpress.XtraLayout.LayoutControlItem lcItemChannel;
-		private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem2;
 		private DevExpress.XtraEditors.DateEdit datOrderDate;
 		private DevExpress.XtraLayout.LayoutControlItem lcItemOrderDate;
 		private DevExpress.XtraLayout.EmptySpaceItem esSearchTitle;
 		private Core.Controls.Grid.XGrid gridList;
 		private DevExpress.XtraLayout.LayoutControlGroup lcGroupList;
 		private DevExpress.XtraLayout.LayoutControlItem lcGridList;
-		private DevExpress.XtraEditors.SimpleButton btnUpload;
-		private DevExpress.XtraLayout.LayoutControlItem lcButtonUpload;
 		private DevExpress.XtraEditors.SimpleButton btnBrandMapping;
 		private DevExpress.XtraLayout.LayoutControlItem lcButtonBrandMapping;
+		private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem1;
+		private DevExpress.XtraEditors.SimpleButton btnFileUpload;
+		private DevExpress.XtraLayout.LayoutControlItem lcButtonFileUpload;
 	}
 }

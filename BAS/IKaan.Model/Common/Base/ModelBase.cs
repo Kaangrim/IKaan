@@ -26,26 +26,26 @@ namespace IKaan.Model.Common.Base
 
 		[DataMember]
 		[Display(Name = "생성일시")]
-		public DateTime? CreateDate { get; set; }
+		public DateTime? CreatedOn { get; set; }
 
 		[DataMember]
 		[Display(Name = "생성자ID")]
-		public int? CreateBy { get; set; }
+		public int? CreatedBy { get; set; }
 
 		[DataMember]
 		[Display(Name = "생성자명")]
-		public string CreateByName { get; set; }
+		public string CreatedByName { get; set; }
 
 		[DataMember]
 		[Display(Name = "수정일시")]
-		public DateTime? UpdateDate { get; set; }
+		public DateTime? UpdatedOn { get; set; }
 
 		[DataMember]
 		[Display(Name = "수정자ID")]
-		public int? UpdateBy { get; set; }
+		public int? UpdatedBy { get; set; }
 
 		[DataMember]
 		[Display(Name = "수정자명")]
-		public string UpdateByName { get; set; }
+		public string UpdatedByName { get; set; }
 	}
 }

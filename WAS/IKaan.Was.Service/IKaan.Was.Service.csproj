@@ -50,6 +50,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\FileUploadServicePartial.cs" />
+    <Compile Include="Common\FileUploadService.cs" />
     <Compile Include="Common\EmailService.cs" />
     <Compile Include="Services\BaseServicePartial.cs" />
     <Compile Include="Services\BizService.cs" />

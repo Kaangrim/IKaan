@@ -9,7 +9,7 @@ namespace IKaan.Model.Base
 	{
 		[DataMember]
 		[Display(Name = "업로드유형")]
-		public object UploadType { get; set; }
+		public string UploadType { get; set; }
 
 		[DataMember]
 		[Display(Name = "파일명")]

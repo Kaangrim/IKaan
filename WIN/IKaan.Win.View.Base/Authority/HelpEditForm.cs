@@ -37,10 +37,10 @@ namespace IKaan.Win.View.Base.Authority
 			SetFieldNames();
 
 			txtID.SetEnable(false);
-			txtCreateDate.SetEnable(false);
-			txtCreateByName.SetEnable(false);
-			txtUpdateDate.SetEnable(false);
-			txtUpdateByName.SetEnable(false);
+			txtCreatedOn.SetEnable(false);
+			txtCreatedByName.SetEnable(false);
+			txtUpdatedOn.SetEnable(false);
+			txtUpdatedByName.SetEnable(false);
 
 			InitCombo();
 			InitGrid();

@@ -30,12 +30,12 @@
 			<![CDATA[
 				SELECT  ROW_NUMBER() OVER (ORDER BY AA.SortOrder, AA.ID)	AS RowNo
 					,	AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					
 					,	AA.UserID
 					,	AA.MenuID
@@ -53,12 +53,12 @@
 		<select id="SelectBookmark" parameterClass="DataMap" resultClass="BookmarkModel" >
 			<![CDATA[
 				SELECT  AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					,	AA.UserID
 					,	AA.MenuID
 					,	AA.SortOrder
@@ -70,12 +70,12 @@
 			<![CDATA[
 				INSERT INTO dbo.TBookmark
 				( 
-					CreateDate, CreateBy, CreateByName,
+					CreatedOn, CreatedBy, CreatedByName,
 					UserID, MenuID, SortOrder
 				)
 				VALUES
 				(
-					GetDate(), #CreateBy#, #CreateByName#,
+					GetDate(), #CreatedBy#, #CreatedByName#,
 					#UserID#, #MenuID#, #SortOrder#
 				)
 			]]>
@@ -88,9 +88,9 @@
 		<update id="UpdateBookmark" parameterClass="BookmarkModel">
 			<![CDATA[
 				UPDATE  dbo.TBookmark
-				SET     UpdateDate	= GetDate()
-					,	UpdateBy	= #UpdateBy#
-					,	UpdateByName= #UpdateByName#
+				SET     UpdatedOn	= GetDate()
+					,	UpdatedBy	= #UpdatedBy#
+					,	UpdatedByName= #UpdatedByName#
 					
 					,	UserID		= #UserID#
 					,	MenuID		= #MenuID#

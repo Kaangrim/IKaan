@@ -9,12 +9,12 @@
 			<![CDATA[
 				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
 					,	AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					
 					,	AA.EmployeeNo
 					,	AA.EmployeeName
@@ -55,12 +55,12 @@
 		<select id="SelectEmployee" parameterClass="DataMap" resultClass="EmployeeModel" >
 			<![CDATA[
 				SELECT  AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					
 					,	AA.EmployeeNo
 					,	AA.EmployeeName
@@ -75,12 +75,12 @@
 			<![CDATA[
 				INSERT INTO dbo.TEmployee
 				( 
-					CreateDate, CreateBy, CreateByName,
+					CreatedOn, CreatedBy, CreatedByName,
 					EmployeeNo, EmployeeName, UseYn, PersonID
 				)
 				VALUES
 				(
-					GetDate(), #CreateBy#, #CreateByName#,
+					GetDate(), #CreatedBy#, #CreatedByName#,
 					#EmployeeNo#, #EmployeeName#, #UseYn#, #PersonID#
 				)
 			]]>
@@ -93,9 +93,9 @@
 		<update id="UpdateEmployee" parameterClass="EmployeeModel">
 			<![CDATA[
 				UPDATE  dbo.TEmployee
-				SET     UpdateDate		= GetDate()
-					,	UpdateBy		= #UpdateBy#
-					,	UpdateByName	= #UpdateByName#
+				SET     UpdatedOn		= GetDate()
+					,	UpdatedBy		= #UpdatedBy#
+					,	UpdatedByName	= #UpdatedByName#
 					
 					,	EmployeeNo		= #EmployeeNo#
 					,	EmployeeName	= #EmployeeName#

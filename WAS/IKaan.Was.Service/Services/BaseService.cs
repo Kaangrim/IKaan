@@ -254,16 +254,10 @@ namespace IKaan.Was.Service.Services
 							switch (req.ModelName.Replace("Model", ""))
 							{
 								case "Menu":
-									var menu = req.SaveData<MenuModel>();
-									if (menu.MenuView != null && menu.MenuView.Count > 0)
-										req.SaveMenuView(menu.MenuView);
+									req.SaveMenu();
 									break;
 								case "Group":
-									var group = req.SaveData<GroupModel>();
-									if (group.GroupRole != null && group.GroupRole.Count > 0)
-										req.SaveGroupRole(group.GroupRole);
-									if (group.GroupMenu != null && group.GroupMenu.Count > 0)
-										req.SaveGroupMenu(group.GroupMenu);
+									req.SaveGroup();
 									break;
 								case "Help":
 									req.SaveData<HelpModel>();
@@ -275,24 +269,16 @@ namespace IKaan.Was.Service.Services
 									req.SaveData<RoleModel>();
 									break;
 								case "User":
-									var user = req.SaveData<UserModel>();
-									if (user.UserGroup != null && user.UserGroup.Count > 0)
-										req.SaveUserGroup(user.UserGroup);
-									if (user.UserRole != null && user.UserRole.Count > 0)
-										req.SaveUserRole(user.UserRole);
+									req.SaveUser();
 									break;
 								case "View":
-									var view = req.SaveData<ViewModel>();
-									if (view.ViewButton != null && view.ViewButton.Count > 0)
-										req.SaveViewButton(view.ViewButton);
+									req.SaveView();
 									break;
 								case "Button":
 									req.SaveData<ButtonModel>();
 									break;
 								case "Dictionary":
-									var dictionary = req.SaveData<DictionaryModel>();
-									if (dictionary.ID != null && dictionary.LanguageList.Count > 0)
-										req.SaveDictionaryLanguage(dictionary);
+									req.SaveDictionary();
 									break;
 								case "Message":
 									req.SaveData<MessageModel>();
@@ -446,6 +432,79 @@ namespace IKaan.Was.Service.Services
 				catch (Exception ex)
 				{
 					if (isTran)
+						DaoFactory.Instance.RollBackTransaction();
+
+					throw new Exception(ex.Message);
+				}
+
+				if (isOneRequest)
+				{
+					request = list[0];
+				}
+				else
+				{
+					request.Data = list;
+				}
+
+				return request;
+			}
+			catch (Exception ex)
+			{
+				request.Error.Number = ex.HResult;
+				request.Error.Message = ex.Message;
+				return request;
+			}
+		}
+
+		public static WasRequest SaveDatabaseToTables(WasRequest request)
+		{
+			bool isTran = false;
+
+			try
+			{
+				if (request == null || (request.Data == null && request.SqlId.IsNullOrEmpty()))
+					throw new Exception("처리요청이 없습니다.");
+
+				bool isOneRequest = true;
+				List<WasRequest> list = new List<WasRequest>();
+				if (request.Data != null && request.Data.GetType() == typeof(JArray))
+				{
+					list = request.Data.JsonToAnyType<List<WasRequest>>();
+					isOneRequest = false;
+				}
+				else
+				{
+					list.Add(request);
+				}
+
+				if (request.IsTransaction)
+				{
+					DaoFactory.Instance.BeginTransaction();
+					isTran = true;
+				}
+
+				try
+				{
+					//테이블
+					if (list.Count > 0)
+					{
+						foreach (WasRequest req in list)
+						{
+							if (req.Data == null)
+								throw new Exception("처리할 데이터가 존재하지 않습니다.");
+
+							var parameters = req.Parameter.JsonToAnyType<DataMap>();
+							var table_list = DaoFactory.Instance.QueryForList<TableStatisticsModel>("SelectTableByMSSQL", parameters);
+
+						}
+					}
+
+					if (request.IsTransaction && isTran)
+						DaoFactory.Instance.CommitTransaction();
+				}
+				catch (Exception ex)
+				{
+					if (request.IsTransaction && isTran)
 						DaoFactory.Instance.RollBackTransaction();
 
 					throw new Exception(ex.Message);

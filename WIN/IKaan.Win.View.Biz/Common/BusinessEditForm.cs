@@ -82,10 +82,10 @@ namespace IKaan.Win.View.Biz.Common
 			SetFieldNames();
 
 			txtID.SetEnable(false);
-			txtCreateDate.SetEnable(false);
-			txtCreateByName.SetEnable(false);
-			txtUpdateDate.SetEnable(false);
-			txtUpdateByName.SetEnable(false);
+			txtCreatedOn.SetEnable(false);
+			txtCreatedByName.SetEnable(false);
+			txtUpdatedOn.SetEnable(false);
+			txtUpdatedByName.SetEnable(false);
 
 			txtAddressID.SetEnable(false);
 
@@ -116,10 +116,10 @@ namespace IKaan.Win.View.Biz.Common
 				new XGridColumn() { FieldName = "BizKind", Width = 100 },
 				new XGridColumn() { FieldName = "BizItem", Width = 100 },
 				new XGridColumn() { FieldName = "StatusName", Width = 80, HorzAlignment = HorzAlignment.Center },
-				new XGridColumn() { FieldName = "CreateDate" },
-				new XGridColumn() { FieldName = "CreateByName" },
-				new XGridColumn() { FieldName = "UpdateDate" },
-				new XGridColumn() { FieldName = "UpdateByName" }
+				new XGridColumn() { FieldName = "CreatedOn" },
+				new XGridColumn() { FieldName = "CreatedByName" },
+				new XGridColumn() { FieldName = "UpdatedOn" },
+				new XGridColumn() { FieldName = "UpdatedByName" }
 			);
 			gridList.ColumnFix("RowNo");
 
@@ -153,10 +153,10 @@ namespace IKaan.Win.View.Biz.Common
 				new XGridColumn() { FieldName = "CustomerName", Width = 150 },
 				new XGridColumn() { FieldName = "StartDate", Width = 80, HorzAlignment = HorzAlignment.Center },
 				new XGridColumn() { FieldName = "EndDate", Width = 80, HorzAlignment = HorzAlignment.Center },
-				new XGridColumn() { FieldName = "CreateDate" },
-				new XGridColumn() { FieldName = "CreateByName" },
-				new XGridColumn() { FieldName = "UpdateDate" },
-				new XGridColumn() { FieldName = "UpdateByName" }
+				new XGridColumn() { FieldName = "CreatedOn" },
+				new XGridColumn() { FieldName = "CreatedByName" },
+				new XGridColumn() { FieldName = "UpdatedOn" },
+				new XGridColumn() { FieldName = "UpdatedByName" }
 			);
 			gridCustomers.ColumnFix("RowNo");
 			#endregion
@@ -329,11 +329,11 @@ namespace IKaan.Win.View.Biz.Common
 		{
 			try
 			{
-				if (UploadHandler.Execute<BusinessModel>("Biz", "Save"))
-				{
-					ShowMsgBox("저장하였습니다.");
-					DataLoad(null);
-				}
+				//if (UploadHandler.Execute<BusinessModel>("Biz", "Save"))
+				//{
+				//	ShowMsgBox("저장하였습니다.");
+				//	DataLoad(null);
+				//}
 			}
 			catch(Exception ex)
 			{

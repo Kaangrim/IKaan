@@ -37,10 +37,10 @@ namespace IKaan.Win.View.Base.Database
 			SetFieldNames();
 
 			txtID.SetEnable(false);
-			txtCreateDate.SetEnable(false);
-			txtCreateByName.SetEnable(false);
-			txtUpdateDate.SetEnable(false);
-			txtUpdateByName.SetEnable(false);
+			txtCreatedOn.SetEnable(false);
+			txtCreatedByName.SetEnable(false);
+			txtUpdatedOn.SetEnable(false);
+			txtUpdatedByName.SetEnable(false);
 
 			InitCombo();
 			InitGrid();
@@ -58,10 +58,10 @@ namespace IKaan.Win.View.Base.Database
 				new XGridColumn() { FieldName = "ID", Visible = false },
 				new XGridColumn() { FieldName = "SystemName", Width = 300 },
 				new XGridColumn() { FieldName = "UseYn", HorzAlignment = HorzAlignment.Center, Width = 80, RepositoryItem = gridList.GetRepositoryItemCheckEdit() },
-				new XGridColumn() { FieldName = "CreateDate" },
-				new XGridColumn() { FieldName = "CreateByName" },
-				new XGridColumn() { FieldName = "UpdateDate" },
-				new XGridColumn() { FieldName = "UpdateByName" }
+				new XGridColumn() { FieldName = "CreatedOn" },
+				new XGridColumn() { FieldName = "CreatedByName" },
+				new XGridColumn() { FieldName = "UpdatedOn" },
+				new XGridColumn() { FieldName = "UpdatedByName" }
 			);
 			gridList.ColumnFix("RowNo");
 

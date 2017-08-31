@@ -9,12 +9,12 @@
 			<![CDATA[
 				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
 					,	AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					,	AA.LanguageCode
 					,	AA.PhysicalName
 					,	AA.LogicalName
@@ -38,12 +38,12 @@
 		<select id="SelectDictionary" parameterClass="DataMap" resultClass="DictionaryModel" >
 			<![CDATA[
 				SELECT  AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					,	AA.LanguageCode
 					,	AA.PhysicalName
 					,	AA.LogicalName
@@ -55,12 +55,12 @@
 		<select id="SelectDictionaryExists" parameterClass="DictionaryModel" resultClass="DictionaryModel" >
 			<![CDATA[
 				SELECT  AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					,	AA.LanguageCode
 					,	AA.PhysicalName
 					,	AA.LogicalName
@@ -74,12 +74,12 @@
 			<![CDATA[
 				INSERT INTO dbo.TDictionary
 				( 
-					CreateDate, CreateBy, CreateByName,
+					CreatedOn, CreatedBy, CreatedByName,
 					LanguageCode, PhysicalName, LogicalName, Description
 				)
 				VALUES
 				( 
-					GetDate(), #CreateBy#, #CreateByName#,
+					GetDate(), #CreatedBy#, #CreatedByName#,
 					#LanguageCode#, #PhysicalName#, #LogicalName#, #Description#
 				)
 			]]>							
@@ -92,9 +92,9 @@
 		<update id="UpdateDictionary" parameterClass="DataMap">
 			<![CDATA[
 				UPDATE	dbo.TDictionary
-				SET 	UpdateDate		= GetDate()
-					,	UpdateBy		= #UpdateBy#
-					,	UpdateByName	= #UpdateByName#
+				SET 	UpdatedOn		= GetDate()
+					,	UpdatedBy		= #UpdatedBy#
+					,	UpdatedByName	= #UpdatedByName#
 					,	LanguageCode	= #LanguageCode#
 					,	PhysicalName	= #PhysicalName#
 					,	LogicalName		= #LogicalName#
@@ -112,12 +112,12 @@
 			<![CDATA[
 				SELECT	ROW_NUMBER() OVER (ORDER BY AA.SortOrder, AA.ID)	as RowNo
 					,	BB.ID
-					,	BB.CreateDate
-					,	BB.CreateBy
-					,	BB.CreateByName
-					,	BB.UpdateDate
-					,	BB.UpdateBy
-					,	BB.UpdateByName
+					,	BB.CreatedOn
+					,	BB.CreatedBy
+					,	BB.CreatedByName
+					,	BB.UpdatedOn
+					,	BB.UpdatedBy
+					,	BB.UpdatedByName
 					,	AA.Code				as LanguageCode
 					,	AA.Name				as LanguageName
 					,	BB.PhysicalName

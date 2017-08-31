@@ -125,6 +125,10 @@ namespace IKaan.Model.Live
 		public string GiftName { get; set; }
 
 		[DataMember]
+		[Display(Name = "파일업로드ID")]
+		public int? FileUploadID { get; set; }
+
+		[DataMember]
 		[Display(Name = "채널명")]
 		public string ChannelName { get; set; }
 

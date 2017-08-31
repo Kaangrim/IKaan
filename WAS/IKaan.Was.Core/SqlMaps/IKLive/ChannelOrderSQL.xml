@@ -9,12 +9,12 @@
 			<![CDATA[
 				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
 					,	AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					
 					,	AA.ChannelID
 					,	AA.OrderDate
@@ -75,15 +75,23 @@
 		<select id="SelectChannelOrder" parameterClass="DataMap" resultClass="ChannelOrderModel" >
 			<![CDATA[
 				SELECT  *
-				FROM	dbo.TAddress AA WITH (NOLOCK)
+				FROM	dbo.TChannelOrder AA WITH (NOLOCK)
 				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<select id="SelectChannelOrderByOrderNo" parameterClass="DataMap" resultClass="ChannelOrderModel" >
+			<![CDATA[
+				SELECT  *
+				FROM	dbo.TChannelOrder AA WITH (NOLOCK)
+				WHERE	AA.OrderNo = #OrderNo#
+				AND		AA.OrderSeq= #OrderSeq#
 			]]>
 		</select>
 		<insert id="InsertChannelOrder" parameterClass="ChannelOrderModel" >
 			<![CDATA[
 				INSERT INTO dbo.TChannelOrder
 				( 
-					CreateDate, CreateBy, CreateByName,
+					CreatedOn, CreatedBy, CreatedByName,
 					ChannelID, OrderDate, OrderNo, OrderSeq,
 					GoodsCode, GoodsName, Option1, Option2, 
 					Orderer, OrdererEmail, OrdererMobile, OrdererTelNo,
@@ -94,7 +102,7 @@
 				)
 				VALUES
 				(
-					GetDate(), #CreateBy#, #CreateByName#,
+					GetDate(), #CreatedBy#, #CreatedByName#,
 					#ChannelID#, #OrderDate#, #OrderNo#, #OrderSeq#,
 					#GoodsCode#, #GoodsName#, #Option1#, #Option2#, 
 					#Orderer#, #OrdererEmail#, #OrdererMobile#, #OrdererTelNo#,
@@ -112,10 +120,10 @@
 		</insert>
 		<update id="UpdateChannelOrder" parameterClass="ChannelOrderModel">
 			<![CDATA[
-				UPDATE  dbo.TAddress
-				SET     UpdateDate		= GetDate()
-					,	UpdateBy		= #UpdateBy#
-					,	UpdateByName	= #UpdateByName#
+				UPDATE  dbo.TChannelOrder
+				SET     UpdatedOn		= GetDate()
+					,	UpdatedBy		= #UpdatedBy#
+					,	UpdatedByName	= #UpdatedByName#
 					
 					,	ChannelID		= #ChannelID#
 					,	OrderDate		= #OrderDate#
@@ -149,7 +157,7 @@
 				WHERE	ID				= #ID#
 			]]>
 		</update>
-		<delete id="DeleteAddress" parameterClass="DataMap">
+		<delete id="DeleteChannelOrder" parameterClass="DataMap">
 			<![CDATA[
 				DELETE FROM dbo.TChannelOrder WHERE ID = #ID#;
 			]]>

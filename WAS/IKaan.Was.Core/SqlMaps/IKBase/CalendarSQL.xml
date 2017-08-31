@@ -5,7 +5,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
 
 	<statements>
-		<select id="SelectCalendar" parameterClass="DataMap" resultClass="CalendarModel" >
+		<select id="SelectCalendarList" parameterClass="DataMap" resultClass="CalendarModel" >
 			<![CDATA[
 				SELECT	aa.CalDate  
 					,	aa.CalYear
@@ -16,12 +16,12 @@
 					,	aa.DayOfYear
 					,	aa.WeekOfYear
 					,	aa.Description
-					,	aa.CreateDate
-					,	aa.CreateBy
-					,	aa.CreateByName
-					,	aa.UpdateDate
-					,	aa.UpdateBy
-					,	aa.UpdateByNamess
+					,	aa.CreatedOn
+					,	aa.CreatedBy
+					,	aa.CreatedByName
+					,	aa.UpdatedOn
+					,	aa.UpdatedBy
+					,	aa.UpdatedByNamess
 				FROM	dbo.TCaledar aa WITH (NOLOCK)
 				WHERE	1=1
 			]]>
@@ -34,7 +34,7 @@
 			</isNotEmpty>
 			<isNotEmpty property="CalYear">
 				<![CDATA[
-					AND	AA.CalYear = #v#
+					AND	AA.CalYear = #CalYear#
 				]]>
 			</isNotEmpty>
 			<isNotEmpty property="CalDate">
@@ -49,11 +49,11 @@
 		<update id="UpdateCalendar" parameterClass="CalendarModel">
 			<![CDATA[
 				UPDATE	dbo.Calendar
-				SET     Description	= #Description#
-					,	UpdateDate	= GETDATE()
-					,	UpdateBy	= #UpdateBy#
-					,	UpdateByName= #UpdateByName#
-				WHERE	CalDate		= #CalDate#
+				SET     Description		= #Description#
+					,	UpdatedOn		= GETDATE()
+					,	UpdatedBy		= #UpdatedBy#
+					,	UpdatedByName	= #UpdatedByName#
+				WHERE	CalDate			= #CalDate#
 			]]>
 		</update>
 		<procedure id="CreateCalendar" parameterMap="paramCreateCalendar" resultClass="Int">
@@ -63,7 +63,7 @@
 	<parameterMaps>
 		<parameterMap id="paramCreateCalendar" class="DataMap">
 			<parameter property="CalYear" column="CalYear" />
-			<parameter property="CreateBy" column="CreateBy" />
+			<parameter property="CreatedBy" column="CreatedBy" />
 		</parameterMap>
 	</parameterMaps>
 </sqlMap>

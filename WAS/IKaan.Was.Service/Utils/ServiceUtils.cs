@@ -95,8 +95,8 @@ namespace IKaan.Was.Service.Utils
 
 				if (req.SqlId.Equals("Insert") || ((IModelBase)model).ID == null || ((IModelBase)model).ID == default(int))
 				{
-					((IModelBase)model).CreateBy = req.User.UserId;
-					((IModelBase)model).CreateByName = req.User.UserName;
+					((IModelBase)model).CreatedBy = req.User.UserId;
+					((IModelBase)model).CreatedByName = req.User.UserName;
 
 					if (req.ServiceId.StartsWith("Biz"))
 						id = DaoFactory.InstanceBiz.Insert(sqlId, model);
@@ -112,8 +112,8 @@ namespace IKaan.Was.Service.Utils
 				}
 				else
 				{
-					((IModelBase)model).UpdateBy = req.User.UserId;
-					((IModelBase)model).UpdateByName = req.User.UserName;
+					((IModelBase)model).UpdatedBy = req.User.UserId;
+					((IModelBase)model).UpdatedByName = req.User.UserName;
 
 					if (req.ServiceId.StartsWith("Biz"))
 						DaoFactory.InstanceBiz.Update(sqlId, model);
@@ -166,8 +166,8 @@ namespace IKaan.Was.Service.Utils
 
 					if (((IModelBase)data).Checked == "Y")
 					{
-						((IModelBase)data).CreateBy = req.User.UserId;
-						((IModelBase)data).CreateByName = req.User.UserName;
+						((IModelBase)data).CreatedBy = req.User.UserId;
+						((IModelBase)data).CreatedByName = req.User.UserName;
 
 						if (req.ServiceId.StartsWith("Biz"))
 							DaoFactory.InstanceBiz.Insert(sqlId, data);
@@ -186,8 +186,8 @@ namespace IKaan.Was.Service.Utils
 					sqlId = string.Concat("Update", modelName);
 
 					((IModelBase)data).ID = ((IModelBase)rm).ID;
-					((IModelBase)data).UpdateBy = req.User.UserId;
-					((IModelBase)data).UpdateByName = req.User.UserName;
+					((IModelBase)data).UpdatedBy = req.User.UserId;
+					((IModelBase)data).UpdatedByName = req.User.UserName;
 
 					if (req.ServiceId.StartsWith("Biz"))
 						DaoFactory.InstanceBiz.Update(sqlId, data);

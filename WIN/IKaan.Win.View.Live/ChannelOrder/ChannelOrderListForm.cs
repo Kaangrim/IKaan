@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using DevExpress.Data;
 using DevExpress.Utils;
 using IKaan.Base.Map;
@@ -21,9 +20,9 @@ namespace IKaan.Win.View.Live.ChannelOrder
 		public ChannelOrderListForm()
 		{
 			InitializeComponent();
-
-			btnUpload.Click += delegate (object sender, EventArgs e) { UploadChannelOrder(); };
+			
 			lupChannelID.EditValueChanged += (object sender, EventArgs e) => { ChangeChannel(); };
+			btnFileUpload.Click += (object sender, EventArgs e) => { UploadChannelOrder(); };
 		}
 
 		protected override void OnShown(EventArgs e)
@@ -55,7 +54,7 @@ namespace IKaan.Win.View.Live.ChannelOrder
 				ShowErrBox(ex);
 			}
 		}
-
+		
 		void InitGrid()
 		{
 			try
@@ -95,7 +94,12 @@ namespace IKaan.Win.View.Live.ChannelOrder
 					new XGridColumn() { FieldName = "BrandID", Width = 100 },
 					new XGridColumn() { FieldName = "BrandName", Width = 150 },
 					new XGridColumn() { FieldName = "DueDate", Width = 100 },
-					new XGridColumn() { FieldName = "GiftName", Width = 200 }
+					new XGridColumn() { FieldName = "GiftName", Width = 200 },
+					new XGridColumn() { FieldName = "FileUploadID", Width = 80 },
+					new XGridColumn() { FieldName = "CreatedOn" },
+					new XGridColumn() { FieldName = "CreatedByName" },
+					new XGridColumn() { FieldName = "UpdatedOn" },
+					new XGridColumn() { FieldName = "UpdatedByName" }
 				);
 				gridList.ColumnFix("RowNo");
 				gridList.ColumnFix("Checked");
@@ -141,8 +145,16 @@ namespace IKaan.Win.View.Live.ChannelOrder
 					startLine = channelSetting.OrderLine;
 				}
 
-				if (UploadHandler.Execute<ChannelOrderModel>("Live", "Save", "Insert", startLine))
+				var addData = new DataMap()
+				{
+					{ "ChannelID", lupChannelID.EditValue },
+					{ "OrderDate", datOrderDate.DateTime }
+				};
+				if (UploadHandler.Execute<ChannelOrderModel>(null, null, startLine, addData))
+				{
+					ShowMsgBox("저장하였습니다.");
 					DataLoad(null);
+				}
 			}
 			catch(Exception ex)
 			{
@@ -156,12 +168,10 @@ namespace IKaan.Win.View.Live.ChannelOrder
 			{
 				if (lupChannelID.EditValue == null)
 				{
-					btnUpload.Enabled = false;
 					channelSetting = null;
 				}
 				else
 				{
-					btnUpload.Enabled = true;
 					var list = WasHandler.GetList<ChannelSettingModel>("Biz", "GetList", "Select", new DataMap() { { "ChannelID", lupChannelID.EditValue } });
 					if (list == null)
 						throw new Exception("조회할 데이터가 없습니다.");

@@ -18,7 +18,8 @@ namespace IKaan.Was.Controllers
 				request.ServiceId.Equals("Email") ||
 				request.ServiceId.Equals("AUTH") ||
 				request.ServiceId.Equals("Common") ||
-				request.ServiceId.Equals("Report"))
+				request.ServiceId.Equals("Report") ||
+				request.ServiceId.Equals("FileUpload"))
 			{
 				serviceType = "Common";
 			}

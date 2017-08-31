@@ -36,8 +36,8 @@ namespace IKaan.Was.Service.Common
 
 				foreach (WasRequest req in (request.Data as List<WasRequest>))
 				{
-					(req.Parameter as DataMap).SetValue("CreateBy", request.User.UserId);
-					(req.Parameter as DataMap).SetValue("CreateByName", request.User.UserName);
+					(req.Parameter as DataMap).SetValue("CreatedBy", request.User.UserId);
+					(req.Parameter as DataMap).SetValue("CreatedByName", request.User.UserName);
 					req.Data = DaoFactory.Instance.QueryForList<DataMap>(req.SqlId, (req.Parameter as DataMap));
 				}
 
@@ -87,8 +87,8 @@ namespace IKaan.Was.Service.Common
 
 				foreach (WasRequest req in list)
 				{
-					(req.Parameter as DataMap).SetValue("CreateBy", request.User.UserId);
-					(req.Parameter as DataMap).SetValue("CreateByName", request.User.UserName);
+					(req.Parameter as DataMap).SetValue("CreatedBy", request.User.UserId);
+					(req.Parameter as DataMap).SetValue("CreatedByName", request.User.UserName);
 					req.Data = DaoFactory.Instance.QueryForObject<DataMap>(req.SqlId, (req.Parameter as DataMap));
 				}
 
@@ -168,8 +168,8 @@ namespace IKaan.Was.Service.Common
 
 						foreach (DataMap map in datalist)
 						{
-							map.SetValue("CreateBy", request.User.UserId);
-							map.SetValue("CreateByName", request.User.UserName);
+							map.SetValue("CreatedBy", request.User.UserId);
+							map.SetValue("CreatedByName", request.User.UserName);
 
 							if (isKey &&
 								data.Master.IsMaster == false &&
@@ -277,8 +277,8 @@ namespace IKaan.Was.Service.Common
 					else
 						continue;
 
-					parameter.SetValue("CreateBy", req.User.UserId);
-					parameter.SetValue("CreateByName", req.User.UserName);
+					parameter.SetValue("CreatedBy", req.User.UserId);
+					parameter.SetValue("CreatedByName", req.User.UserName);
 					var map = DaoFactory.Instance.QueryForObject<DataMap>(string.Format("Select{0}", req.SqlId), parameter);
 					if (map != null)
 					{
@@ -328,8 +328,8 @@ namespace IKaan.Was.Service.Common
 				{
 					if (req.Parameter == null)
 						req.Parameter = new DataMap();
-					(req.Parameter as DataMap).SetValue("CreateBy", req.User.UserId);
-					(req.Parameter as DataMap).SetValue("CreateByName", req.User.UserName);
+					(req.Parameter as DataMap).SetValue("CreatedBy", req.User.UserId);
+					(req.Parameter as DataMap).SetValue("CreatedByName", req.User.UserName);
 					DaoFactory.Instance.QueryForObject<int>(req.SqlId, (req.Parameter as DataMap));
 				}
 

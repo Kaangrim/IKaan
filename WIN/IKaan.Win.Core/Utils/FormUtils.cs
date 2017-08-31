@@ -92,10 +92,10 @@ namespace IKaan.Win.Core.Utils
 						{
 							form.ContentByRte = rtfValue;
 						}
-						form.InsertDtime = data.CreateDate.ToStringNullToEmpty();
-						form.InsertUserName = data.CreateByName.ToStringNullToEmpty();
-						form.UpdateDtime = data.UpdateDate.ToStringNullToEmpty();
-						form.UpdateUserName = data.UpdateByName.ToStringNullToEmpty();
+						form.InsertDtime = data.CreatedOn.ToStringNullToEmpty();
+						form.InsertUserName = data.CreatedByName.ToStringNullToEmpty();
+						form.UpdateDtime = data.UpdatedOn.ToStringNullToEmpty();
+						form.UpdateUserName = data.UpdatedByName.ToStringNullToEmpty();
 						form.StartPosition = FormStartPosition.CenterScreen;
 						form.TopMost = true;
 						form.Show();

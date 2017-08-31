@@ -9,12 +9,12 @@
 			<![CDATA[
 				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
 					,	AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					
 					,	AA.BrandName
 					,	AA.EngName
@@ -70,12 +70,12 @@
 		<select id="SelectBrand" parameterClass="DataMap" resultClass="BrandModel" >
 			<![CDATA[
 				SELECT  AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					
 					,	AA.BrandName
 					,	AA.EngName
@@ -100,12 +100,12 @@
 			<![CDATA[
 				INSERT INTO dbo.TBrand
 				( 
-					CreateDate, CreateBy, CreateByName,
+					CreatedOn, CreatedBy, CreatedByName,
 					BrandName, EngName, ShortName, HomePage, BrandCategory, BrandStyle, Description, UseYn
 				)
 				VALUES
 				(
-					GetDate(), #CreateBy#, #CreateByName#,
+					GetDate(), #CreatedBy#, #CreatedByName#,
 					#BrandName#, #EngName#, #ShortName#, #HomePage#, #BrandCategory#, #BrandStyle#, #Description#, #UseYn#
 				)
 			]]>
@@ -118,9 +118,9 @@
 		<update id="UpdateBrand" parameterClass="BrandModel">
 			<![CDATA[
 				UPDATE  dbo.TBrand
-				SET     UpdateDate		= GetDate()
-					,	UpdateBy		= #UpdateBy#
-					,	UpdateByName	= #UpdateByName#
+				SET     UpdatedOn		= GetDate()
+					,	UpdatedBy		= #UpdatedBy#
+					,	UpdatedByName	= #UpdatedByName#
 					
 					,	BrandName		= #BrandName#
 					,	EngName			= #EngName#

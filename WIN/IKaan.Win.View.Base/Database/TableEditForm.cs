@@ -54,10 +54,10 @@ namespace IKaan.Win.View.Base.Database
 			SetFieldNames();
 
 			txtID.SetEnable(false);
-			txtCreateDate.SetEnable(false);
-			txtCreateByName.SetEnable(false);
-			txtUpdateDate.SetEnable(false);
-			txtUpdateByName.SetEnable(false);
+			txtCreatedOn.SetEnable(false);
+			txtCreatedByName.SetEnable(false);
+			txtUpdatedOn.SetEnable(false);
+			txtUpdatedByName.SetEnable(false);
 			txtSchemaName.SetEnable(false);
 
 			InitCombo();
@@ -84,10 +84,10 @@ namespace IKaan.Win.View.Base.Database
 				new XGridColumn() { FieldName = "Description", Width = 200 },
 				new XGridColumn() { FieldName = "SchemaName", Width = 80 },
 				new XGridColumn() { FieldName = "DatabaseName", Width = 100, HorzAlignment = HorzAlignment.Center },
-				new XGridColumn() { FieldName = "CreateDate" },
-				new XGridColumn() { FieldName = "CreateByName" },
-				new XGridColumn() { FieldName = "UpdateDate" },
-				new XGridColumn() { FieldName = "UpdateByName" }
+				new XGridColumn() { FieldName = "CreatedOn" },
+				new XGridColumn() { FieldName = "CreatedByName" },
+				new XGridColumn() { FieldName = "UpdatedOn" },
+				new XGridColumn() { FieldName = "UpdatedByName" }
 			);
 			gridList.ColumnFix("RowNo");
 
@@ -126,10 +126,10 @@ namespace IKaan.Win.View.Base.Database
 				new XGridColumn() { FieldName = "IdentityYn", HorzAlignment = HorzAlignment.Center, Width = 60, RepositoryItem = gridList.GetRepositoryItemCheckEdit() },
 				new XGridColumn() { FieldName = "DefaultValue", Width = 100, HorzAlignment = HorzAlignment.Center },
 				new XGridColumn() { FieldName = "SortOrder", Width = 80, HorzAlignment = HorzAlignment.Center },
-				new XGridColumn() { FieldName = "CreateDate" },
-				new XGridColumn() { FieldName = "CreateByName" },
-				new XGridColumn() { FieldName = "UpdateDate" },
-				new XGridColumn() { FieldName = "UpdateByName" }
+				new XGridColumn() { FieldName = "CreatedOn" },
+				new XGridColumn() { FieldName = "CreatedByName" },
+				new XGridColumn() { FieldName = "UpdatedOn" },
+				new XGridColumn() { FieldName = "UpdatedByName" }
 			);
 			gridColumns.SetRespositoryItemTextEdit("LogicalName");
 			gridColumns.SetRespositoryItemTextEdit("Description");
@@ -196,22 +196,22 @@ namespace IKaan.Win.View.Base.Database
 							case "ID":
 								col.LogicalName = "ID";
 								break;
-							case "CreateDate":
+							case "CreatedOn":
 								col.LogicalName = "최초생성일";
 								break;
-							case "CreateBy":
+							case "CreatedBy":
 								col.LogicalName = "최초생성자ID";
 								break;
-							case "CreateByName":
+							case "CreatedByName":
 								col.LogicalName = "최초생성자명";
 								break;
-							case "UpdateDate":
+							case "UpdatedOn":
 								col.LogicalName = "최종수정일";
 								break;
-							case "UpdateBy":
+							case "UpdatedBy":
 								col.LogicalName = "최종수정자ID";
 								break;
-							case "UpdateByName":
+							case "UpdatedByName":
 								col.LogicalName = "최종수정자명";
 								break;
 							default:

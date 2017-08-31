@@ -8,12 +8,12 @@
 		<select id="SelectUserGroup" parameterClass="DataMap" resultClass="UserGroupModel" >
 			<![CDATA[
 				SELECT  AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					,	AA.UserID
 					,	AA.GroupID
 					,	AA.UseYn
@@ -24,12 +24,12 @@
 		<select id="SelectUserGroupExists" parameterClass="UserGroupModel" resultClass="UserGroupModel" >
 			<![CDATA[
 				SELECT  AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					,	AA.UserID
 					,	AA.GroupID
 					,	AA.UseYn
@@ -42,12 +42,12 @@
 			<![CDATA[
 				INSERT INTO dbo.TUserGroup
 				( 
-					CreateDate, CreateBy, CreateByName,
+					CreatedOn, CreatedBy, CreatedByName,
 					UserID, GroupID, UseYn
 				)
 				VALUES
 				(
-					GetDate(), #CreateBy#, #CreateByName#,
+					GetDate(), #CreatedBy#, #CreatedByName#,
 					#UserID#, #GroupID#, #UseYn#
 				)
 			]]>
@@ -60,9 +60,9 @@
 		<update id="UpdateUserGroup" parameterClass="UserGroupModel">
 			<![CDATA[
 				UPDATE  dbo.TUserGroup
-				SET     UpdateDate	= GetDate()
-					,	UpdateBy	= #UpdateBy#
-					,	UpdateByName= #UpdateByName#
+				SET     UpdatedOn	= GetDate()
+					,	UpdatedBy	= #UpdatedBy#
+					,	UpdatedByName= #UpdatedByName#
 					
 					,	UserID		= #UserID#
 					,	GroupID		= #GroupID#

@@ -20,12 +20,12 @@
 			<![CDATA[ 
 				INSERT INTO dbo.TLoginLog
 				( 
-					CreateDate, CreateBy, CreateByName,
+					CreatedOn, CreatedBy, CreatedByName,
 					UserId, LoginId, Version, MainSkin, GridSkin, IpAddress, MacAddress, Status
 				)
 				VALUES
 				( 
-					GetDate(), #CreateBy#, #CreateByName#,
+					GetDate(), #CreatedBy#, #CreatedByName#,
 					#UserId#, #LoginId#, #Version#, #MainSkin#, #GridSkin#, #IpAddress#, #MacAddress#, '0'
 				)
 			]]>
@@ -33,12 +33,12 @@
 		<update id="UpdateLogout" parameterClass="DataMap">
 			<![CDATA[
 				UPDATE	dbo.TLoginLog
-				SET		UpdateDate	= GetDate()
-					,	UpdateBy	= #UpdateBy#
-					,	UpdateByName= #UpdateByName#
+				SET		UpdatedOn	= GetDate()
+					,	UpdatedBy	= #UpdatedBy#
+					,	UpdatedByName= #UpdatedByName#
 				WHERE	UserID		= #UserID#
 				AND		MacAddress	= #MacAddress#
-				AND		UpdateDate	IS NULL
+				AND		UpdatedOn	IS NULL
 			]]>			
 		</update>
 		<select id="GetMainMenu" parameterClass="DataMap" resultClass="UMainMenu">

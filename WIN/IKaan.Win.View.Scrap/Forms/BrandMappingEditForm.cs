@@ -53,10 +53,10 @@ namespace IKaan.Win.View.Scrap.Forms
 				new XGridColumn() { FieldName = "Name", Caption = "검색경로명", Width = 200 },
 				new XGridColumn() { FieldName = "Value", Caption = "검색URL", Width = 200 },
 				new XGridColumn() { FieldName = "CodeValue01", Caption = "사이트URL", Width = 200 },
-				new XGridColumn() { FieldName = "CreateDate" },
-				new XGridColumn() { FieldName = "CreateByName" },
-				new XGridColumn() { FieldName = "UpdateDate" },
-				new XGridColumn() { FieldName = "UpdateByName" }
+				new XGridColumn() { FieldName = "CreatedOn" },
+				new XGridColumn() { FieldName = "CreatedByName" },
+				new XGridColumn() { FieldName = "UpdatedOn" },
+				new XGridColumn() { FieldName = "UpdatedByName" }
 			);
 			gridSiteList.ColumnFix("RowNo");
 			gridSiteList.SetRepositoryItemCheckEdit("Checked");

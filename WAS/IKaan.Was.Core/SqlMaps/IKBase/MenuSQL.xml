@@ -43,12 +43,12 @@
 				)
 				SELECT  ROW_NUMBER() OVER (ORDER BY BB.HierID)	AS RowNo
 					,	AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					
 					,	AA.MenuName
 					,	AA.ParentID
@@ -85,12 +85,12 @@
 		<select id="SelectMenu" parameterClass="DataMap" resultClass="MenuModel" >
 			<![CDATA[
 				SELECT  AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					,	AA.MenuName
 					,	AA.ParentID
 					,	AA.MenuType
@@ -111,12 +111,12 @@
 			<![CDATA[
 				INSERT INTO dbo.TMenu
 				( 
-					CreateDate, CreateBy, CreateByName,
+					CreatedOn, CreatedBy, CreatedByName,
 					MenuName, MenuType, ParentID, SortOrder, MenuPath, UseYn, Description
 				)
 				VALUES
 				(
-					GetDate(), #CreateBy#, #CreateByName#,
+					GetDate(), #CreatedBy#, #CreatedByName#,
 					#MenuName#, #MenuType#, #ParentID#, #SortOrder#, #MenuPath#, #UseYn#, #Description#
 				)
 			]]>
@@ -129,9 +129,9 @@
 		<update id="UpdateMenu" parameterClass="MenuModel">
 			<![CDATA[
 				UPDATE  dbo.TMenu
-				SET     UpdateDate	= GetDate()
-					,	UpdateBy	= #UpdateBy#
-					,	UpdateByName= #UpdateByName#
+				SET     UpdatedOn	= GetDate()
+					,	UpdatedBy	= #UpdatedBy#
+					,	UpdatedByName= #UpdatedByName#
 					
 					,	MenuName	= #MenuName#
 					,	MenuType	= #MenuType#

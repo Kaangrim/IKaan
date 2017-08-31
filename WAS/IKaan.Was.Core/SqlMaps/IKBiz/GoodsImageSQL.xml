@@ -9,12 +9,12 @@
 			<![CDATA[
 				SELECT  ROW_NUMBER() OVER (ORDER BY M1.SortOrder, M2.SortOrder, AA.ID)	AS RowNo
 					,	AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					
 					,	AA.GoodsID
 					,	AA.ImageType
@@ -40,12 +40,12 @@
 		<select id="SelectGoodsImage" parameterClass="DataMap" resultClass="GoodsImageModel" >
 			<![CDATA[
 				SELECT  AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					
 					,	AA.GoodsID
 					,	AA.ImageType
@@ -60,12 +60,12 @@
 			<![CDATA[
 				INSERT INTO dbo.TGoodsImage
 				( 
-					CreateDate, CreateBy, CreateByName,
+					CreatedOn, CreatedBy, CreatedByName,
 					GoodsID, ImageType, ImageGroup, ImageUrl
 				)
 				VALUES
 				(
-					GetDate(), #CreateBy#, #CreateByName#,
+					GetDate(), #CreatedBy#, #CreatedByName#,
 					#GoodsID#, #ImageType#, #ImageGroup#, #ImageUrl#
 				)
 			]]>
@@ -78,9 +78,9 @@
 		<update id="UpdateGoodsImage" parameterClass="GoodsImageModel">
 			<![CDATA[
 				UPDATE  dbo.TGoodsImage
-				SET     UpdateDate		= GetDate()
-					,	UpdateBy		= #UpdateBy#
-					,	UpdateByName	= #UpdateByName#
+				SET     UpdatedOn		= GetDate()
+					,	UpdatedBy		= #UpdatedBy#
+					,	UpdatedByName	= #UpdatedByName#
 					
 					,	GoodsID			= #GoodsID#
 					,	ImageType		= #ImageType#

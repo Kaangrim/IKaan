@@ -40,12 +40,12 @@
 				)
 				SELECT  ROW_NUMBER() OVER (ORDER BY BB.HierID)	AS RowNo
 					,	AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					
 					,	AA.GroupName
 					,	AA.ParentID
@@ -79,12 +79,12 @@
 		<select id="SelectGroup" parameterClass="DataMap" resultClass="GroupModel" >
 			<![CDATA[
 				SELECT  AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					,	AA.GroupName
 					,	AA.ParentID
 					,	AA.UseYn
@@ -97,12 +97,12 @@
 			<![CDATA[
 				INSERT INTO dbo.TGroup
 				( 
-					CreateDate, CreateBy, CreateByName,
+					CreatedOn, CreatedBy, CreatedByName,
 					GroupName, ParentID, UseYn, Description
 				)
 				VALUES
 				(
-					GetDate(), #CreateBy#, #CreateByName#,
+					GetDate(), #CreatedBy#, #CreatedByName#,
 					#GroupName#, #ParentID#, #UseYn#, #Description#
 				)
 			]]>
@@ -115,9 +115,9 @@
 		<update id="UpdateGroup" parameterClass="GroupModel">
 			<![CDATA[
 				UPDATE  dbo.TGroup
-				SET     UpdateDate	= GetDate()
-					,	UpdateBy	= #UpdateBy#
-					,	UpdateByName= #UpdateByName#
+				SET     UpdatedOn	= GetDate()
+					,	UpdatedBy	= #UpdatedBy#
+					,	UpdatedByName= #UpdatedByName#
 					
 					,	GroupName	= #GroupName#
 					,	ParentID	= #ParentID#
@@ -168,12 +168,12 @@
 							ELSE GR.UseYn
 						END										AS Checked
 					,	GR.ID
-					,	GR.CreateDate
-					,	GR.CreateBy
-					,	GR.CreateByName
-					,	GR.UpdateDate
-					,	GR.UpdateBy
-					,	GR.UpdateByName
+					,	GR.CreatedOn
+					,	GR.CreatedBy
+					,	GR.CreatedByName
+					,	GR.UpdatedOn
+					,	GR.UpdatedBy
+					,	GR.UpdatedByName
 					
 					,	#ID#					as GroupID
 					,	AA.ID					as RoleID
@@ -234,12 +234,12 @@
 							ELSE GM.UseYn
 						END										AS Checked
 					,	GM.ID
-					,	GM.CreateDate
-					,	GM.CreateBy
-					,	GM.CreateByName
-					,	GM.UpdateDate
-					,	GM.UpdateBy
-					,	GM.UpdateByName
+					,	GM.CreatedOn
+					,	GM.CreatedBy
+					,	GM.CreatedByName
+					,	GM.UpdatedOn
+					,	GM.UpdatedBy
+					,	GM.UpdatedByName
 					
 					,	#ID#					as GroupID
 					,	AA.ID					as MenuID

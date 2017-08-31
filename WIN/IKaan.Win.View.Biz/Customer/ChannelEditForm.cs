@@ -61,10 +61,10 @@ namespace IKaan.Win.View.Biz.Customer
 			SetFieldNames();
 
 			txtID.SetEnable(false);
-			txtCreateDate.SetEnable(false);
-			txtCreateByName.SetEnable(false);
-			txtUpdateDate.SetEnable(false);
-			txtUpdateByName.SetEnable(false);
+			txtCreatedOn.SetEnable(false);
+			txtCreatedByName.SetEnable(false);
+			txtUpdatedOn.SetEnable(false);
+			txtUpdatedByName.SetEnable(false);
 
 			lupFindChannelType.BindData("ChannelType", "All");
 			lupFindUseYn.BindData("Yn", "All");
@@ -95,10 +95,10 @@ namespace IKaan.Win.View.Biz.Customer
 				new XGridColumn() { FieldName = "ChannelName", Width = 150 },
 				new XGridColumn() { FieldName = "ChannelTypeName", Width = 100, HorzAlignment = HorzAlignment.Center },
 				new XGridColumn() { FieldName = "UseYn", Width = 80, HorzAlignment = HorzAlignment.Center },
-				new XGridColumn() { FieldName = "CreateDate" },
-				new XGridColumn() { FieldName = "CreateByName" },
-				new XGridColumn() { FieldName = "UpdateDate" },
-				new XGridColumn() { FieldName = "UpdateByName" }
+				new XGridColumn() { FieldName = "CreatedOn" },
+				new XGridColumn() { FieldName = "CreatedByName" },
+				new XGridColumn() { FieldName = "UpdatedOn" },
+				new XGridColumn() { FieldName = "UpdatedByName" }
 			);
 			gridList.SetRepositoryItemCheckEdit("UseYn");
 			gridList.ColumnFix("RowNo");
@@ -134,10 +134,10 @@ namespace IKaan.Win.View.Biz.Customer
 				new XGridColumn() { FieldName = "BrandName", Width = 150 },
 				new XGridColumn() { FieldName = "ChannelMargin", Width = 80, HorzAlignment = HorzAlignment.Far, FormatType = FormatType.Numeric, FormatString = "N2" },
 				new XGridColumn() { FieldName = "BrandMargin", Width = 80, HorzAlignment = HorzAlignment.Far, FormatType = FormatType.Numeric, FormatString = "N2" },
-				new XGridColumn() { FieldName = "CreateDate" },
-				new XGridColumn() { FieldName = "CreateByName" },
-				new XGridColumn() { FieldName = "UpdateDate" },
-				new XGridColumn() { FieldName = "UpdateByName" }
+				new XGridColumn() { FieldName = "CreatedOn" },
+				new XGridColumn() { FieldName = "CreatedByName" },
+				new XGridColumn() { FieldName = "UpdatedOn" },
+				new XGridColumn() { FieldName = "UpdatedByName" }
 			);
 			gridBrands.ColumnFix("RowNo");
 			gridBrands.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
@@ -163,10 +163,10 @@ namespace IKaan.Win.View.Biz.Customer
 				new XGridColumn() { FieldName = "EndDate", Width = 100, HorzAlignment = HorzAlignment.Center },
 				new XGridColumn() { FieldName = "CustomerID", Visible = false },
 				new XGridColumn() { FieldName = "CustomerName", Width = 200 },
-				new XGridColumn() { FieldName = "CreateDate" },
-				new XGridColumn() { FieldName = "CreateByName" },
-				new XGridColumn() { FieldName = "UpdateDate" },
-				new XGridColumn() { FieldName = "UpdateByName" }
+				new XGridColumn() { FieldName = "CreatedOn" },
+				new XGridColumn() { FieldName = "CreatedByName" },
+				new XGridColumn() { FieldName = "UpdatedOn" },
+				new XGridColumn() { FieldName = "UpdatedByName" }
 			);
 			gridCustomers.ColumnFix("RowNo");
 			gridCustomers.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
@@ -196,10 +196,10 @@ namespace IKaan.Win.View.Biz.Customer
 				new XGridColumn() { FieldName = "PhoneNo1", Width = 100 },
 				new XGridColumn() { FieldName = "PhoneNo2", Width = 100 },
 				new XGridColumn() { FieldName = "FaxNo", Width = 100 },
-				new XGridColumn() { FieldName = "CreateDate" },
-				new XGridColumn() { FieldName = "CreateByName" },
-				new XGridColumn() { FieldName = "UpdateDate" },
-				new XGridColumn() { FieldName = "UpdateByName" }
+				new XGridColumn() { FieldName = "CreatedOn" },
+				new XGridColumn() { FieldName = "CreatedByName" },
+				new XGridColumn() { FieldName = "UpdatedOn" },
+				new XGridColumn() { FieldName = "UpdatedByName" }
 			);
 			gridContacts.ColumnFix("RowNo");
 			gridContacts.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
@@ -225,10 +225,10 @@ namespace IKaan.Win.View.Biz.Customer
 				new XGridColumn() { FieldName = "StartDate", Width = 100, HorzAlignment = HorzAlignment.Center },
 				new XGridColumn() { FieldName = "EndDate", Width = 100, HorzAlignment = HorzAlignment.Center },
 				new XGridColumn() { FieldName = "EmployeeName", Width = 100, HorzAlignment = HorzAlignment.Center },
-				new XGridColumn() { FieldName = "CreateDate" },
-				new XGridColumn() { FieldName = "CreateByName" },
-				new XGridColumn() { FieldName = "UpdateDate" },
-				new XGridColumn() { FieldName = "UpdateByName" }
+				new XGridColumn() { FieldName = "CreatedOn" },
+				new XGridColumn() { FieldName = "CreatedByName" },
+				new XGridColumn() { FieldName = "UpdatedOn" },
+				new XGridColumn() { FieldName = "UpdatedByName" }
 			);
 			gridManagers.ColumnFix("RowNo");
 			gridManagers.RowCellClick += delegate (object sender, RowCellClickEventArgs e)

@@ -89,8 +89,8 @@ namespace IKaan.Was.Service.Services
 						equal.DepartmentName = department.DepartmentName;
 						equal.ParentID = department.ParentID;
 						equal.ManagerID = department.ManagerID;
-						equal.UpdateBy = req.User.UserId;
-						equal.UpdateByName = req.User.UserName;
+						equal.UpdatedBy = req.User.UserId;
+						equal.UpdatedByName = req.User.UserName;
 
 						DaoFactory.InstanceBiz.Update("UpdateDepartmentHist", equal);
 					}
@@ -102,8 +102,8 @@ namespace IKaan.Was.Service.Services
 						if (before != null)
 						{
 							before.EndDate = department.StartDate.Value.AddDays(-1);
-							before.UpdateBy = req.User.UserId;
-							before.UpdateByName = req.User.UserName;
+							before.UpdatedBy = req.User.UserId;
+							before.UpdatedByName = req.User.UserName;
 
 							DaoFactory.InstanceBiz.Update("UpdateDepartmentHistBefore", before);
 						}
@@ -117,8 +117,8 @@ namespace IKaan.Was.Service.Services
 							ManagerID = department.ManagerID,
 							StartDate = department.StartDate,
 							EndDate = null,
-							CreateBy = req.User.UserId,
-							CreateByName = req.User.UserName
+							CreatedBy = req.User.UserId,
+							CreatedByName = req.User.UserName
 						};
 						DaoFactory.InstanceBiz.Insert("InsertDepartmentHist", history);
 					}
@@ -148,8 +148,8 @@ namespace IKaan.Was.Service.Services
 						if (employee.PersonID != null)
 						{
 							employee.Person.ID = employee.PersonID;
-							employee.Person.UpdateBy = req.User.UserId;
-							employee.Person.UpdateByName = req.User.UserName;
+							employee.Person.UpdatedBy = req.User.UserId;
+							employee.Person.UpdatedByName = req.User.UserName;
 
 							DaoFactory.InstanceBiz.Update("UpdatePerson", employee.Person);
 							personID = employee.PersonID;
@@ -157,8 +157,8 @@ namespace IKaan.Was.Service.Services
 						else
 						{
 							employee.Person.PersonType = "E";
-							employee.Person.CreateBy = req.User.UserId;
-							employee.Person.CreateByName = req.User.UserName;
+							employee.Person.CreatedBy = req.User.UserId;
+							employee.Person.CreatedByName = req.User.UserName;
 
 							personID = DaoFactory.InstanceBiz.Insert("InsertPerson", employee.Person);
 						}
@@ -204,8 +204,8 @@ namespace IKaan.Was.Service.Services
 							if (appointment.ID != dup.ID)
 								throw new Exception("동일한 일자에 등록된 내역이 존재합니다.");
 
-							appointment.UpdateBy = req.User.UserId;
-							appointment.UpdateByName = req.User.UserName;
+							appointment.UpdatedBy = req.User.UserId;
+							appointment.UpdatedByName = req.User.UserName;
 
 							DaoFactory.InstanceBiz.Update("UpdateAppointment", appointment);
 							id = appointment.ID;
@@ -219,8 +219,8 @@ namespace IKaan.Was.Service.Services
 						if (before != null)
 						{
 							before.EndDate = appointment.StartDate.Value.AddDays(-1);
-							before.UpdateBy = req.User.UserId;
-							before.UpdateByName = req.User.UserName;
+							before.UpdatedBy = req.User.UserId;
+							before.UpdatedByName = req.User.UserName;
 
 							DaoFactory.InstanceBiz.Update("UpdateAppointmentBefore", before);
 						}
@@ -234,15 +234,15 @@ namespace IKaan.Was.Service.Services
 
 						if (appointment.ID == null)
 						{
-							appointment.CreateBy = req.User.UserId;
-							appointment.CreateByName = req.User.UserName;
+							appointment.CreatedBy = req.User.UserId;
+							appointment.CreatedByName = req.User.UserName;
 
 							id = DaoFactory.InstanceBiz.Insert("InsertAppointment", appointment);
 						}
 						else
 						{
-							appointment.UpdateBy = req.User.UserId;
-							appointment.UpdateByName = req.User.UserName;
+							appointment.UpdatedBy = req.User.UserId;
+							appointment.UpdatedByName = req.User.UserName;
 
 							DaoFactory.InstanceBiz.Update("UpdateAppointment", appointment);
 							id = appointment.ID;
@@ -371,16 +371,16 @@ namespace IKaan.Was.Service.Services
 					#region 상품 기본정보 저장
 					if (model.ID.IsNullOrEmpty())
 					{
-						model.CreateBy = req.User.UserId;
-						model.CreateByName = req.User.UserName;
+						model.CreatedBy = req.User.UserId;
+						model.CreatedByName = req.User.UserName;
 
 						object id = DaoFactory.InstanceBiz.Insert("InsertGoods", model);
 						model.ID = id.ToIntegerNullToNull();
 					}
 					else
 					{
-						model.UpdateBy = req.User.UserId;
-						model.UpdateByName = req.User.UserName;
+						model.UpdatedBy = req.User.UserId;
+						model.UpdatedByName = req.User.UserName;
 
 						DaoFactory.InstanceBiz.Update("UpdateGoods", model);
 					}
@@ -391,15 +391,15 @@ namespace IKaan.Was.Service.Services
 					if (detail == null)
 					{
 						model.Detail.GoodsID = model.ID;
-						model.Detail.CreateBy = req.User.UserId;
-						model.Detail.CreateByName = req.User.UserName;
+						model.Detail.CreatedBy = req.User.UserId;
+						model.Detail.CreatedByName = req.User.UserName;
 
 						DaoFactory.InstanceBiz.Insert("InsertGoodsDetail", model.Detail);
 					}
 					else
 					{
-						model.Detail.UpdateBy = req.User.UserId;
-						model.Detail.UpdateByName = req.User.UserName;
+						model.Detail.UpdatedBy = req.User.UserId;
+						model.Detail.UpdatedByName = req.User.UserName;
 
 						DaoFactory.InstanceBiz.Update("UpdateGoodsDetail", model.Detail);
 					}
@@ -413,8 +413,8 @@ namespace IKaan.Was.Service.Services
 							if (item.ID.IsNullOrEmpty())
 							{
 								item.GoodsID = model.ID;
-								item.CreateBy = req.User.UserId;
-								item.CreateByName = req.User.UserName;
+								item.CreatedBy = req.User.UserId;
+								item.CreatedByName = req.User.UserName;
 
 								DaoFactory.InstanceBiz.Insert("InsertGoodsItem", item);
 							}
@@ -428,8 +428,8 @@ namespace IKaan.Was.Service.Services
 										old.Option2Type != item.Option2Type ||
 										old.Option2Name != item.Option2Name)
 									{
-										item.UpdateBy = req.User.UserId;
-										item.UpdateByName = req.User.UserName;
+										item.UpdatedBy = req.User.UserId;
+										item.UpdatedByName = req.User.UserName;
 
 										DaoFactory.InstanceBiz.Update("UpdateGoodsItem", item);
 									}
@@ -447,8 +447,8 @@ namespace IKaan.Was.Service.Services
 							if (attr.ID.IsNullOrEmpty())
 							{
 								attr.GoodsID = model.ID;
-								attr.CreateBy = req.User.UserId;
-								attr.CreateByName = req.User.UserName;
+								attr.CreatedBy = req.User.UserId;
+								attr.CreatedByName = req.User.UserName;
 
 								DaoFactory.InstanceBiz.Insert("InsertGoodsAttribute", attr);
 							}
@@ -467,8 +467,8 @@ namespace IKaan.Was.Service.Services
 											old.AttrCode != attr.AttrCode ||
 											old.AttrName != attr.AttrName)
 										{
-											attr.UpdateBy = req.User.UserId;
-											attr.UpdateByName = req.User.UserName;
+											attr.UpdatedBy = req.User.UserId;
+											attr.UpdatedByName = req.User.UserName;
 
 											DaoFactory.InstanceBiz.Update("UpdateGoodsAttribute", attr);
 										}
@@ -489,8 +489,8 @@ namespace IKaan.Was.Service.Services
 								if (info.InfoNoticeValue.IsNullOrEmpty() == false)
 								{
 									info.GoodsID = model.ID;
-									info.CreateBy = req.User.UserId;
-									info.CreateByName = req.User.UserName;
+									info.CreatedBy = req.User.UserId;
+									info.CreatedByName = req.User.UserName;
 
 									DaoFactory.InstanceBiz.Insert("InsertGoodsInfoNotice", info);
 								}
@@ -511,8 +511,8 @@ namespace IKaan.Was.Service.Services
 										if (old.InfoNoticeItemID != info.InfoNoticeItemID ||
 											old.InfoNoticeValue != info.InfoNoticeValue)
 										{
-											info.UpdateBy = req.User.UserId;
-											info.UpdateByName = req.User.UserName;
+											info.UpdatedBy = req.User.UserId;
+											info.UpdatedByName = req.User.UserName;
 
 											DaoFactory.InstanceBiz.Update("UpdateGoodsInfoNotice", info);
 										}
@@ -550,8 +550,8 @@ namespace IKaan.Was.Service.Services
 							if (image.ID.IsNullOrEmpty())
 							{
 								image.GoodsID = model.ID;
-								image.CreateBy = req.User.UserId;
-								image.CreateByName = req.User.UserName;
+								image.CreatedBy = req.User.UserId;
+								image.CreatedByName = req.User.UserName;
 
 								DaoFactory.InstanceBiz.Insert("InsertGoodsImage", image);
 							}
@@ -564,8 +564,8 @@ namespace IKaan.Was.Service.Services
 										old.ImageGroup != image.ImageGroup ||
 										old.ImageUrl != image.ImageUrl)
 									{
-										image.UpdateBy = req.User.UserId;
-										image.UpdateByName = req.User.UserName;
+										image.UpdatedBy = req.User.UserId;
+										image.UpdatedByName = req.User.UserName;
 
 										DaoFactory.InstanceBiz.Update("UpdateGoodsImage", image);
 									}
@@ -892,15 +892,15 @@ namespace IKaan.Was.Service.Services
 
 					if (person.ID == null)
 					{
-						person.CreateBy = req.User.UserId;
-						person.CreateByName = req.User.UserName;
+						person.CreatedBy = req.User.UserId;
+						person.CreatedByName = req.User.UserName;
 
 						personID = DaoFactory.InstanceBiz.Insert("InsertPerson", person);
 					}
 					else
 					{
-						person.UpdateBy = req.User.UserId;
-						person.UpdateByName = req.User.UserName;
+						person.UpdatedBy = req.User.UserId;
+						person.UpdatedByName = req.User.UserName;
 
 						DaoFactory.InstanceBiz.Update("UpdatePerson", person);
 						personID = person.ID;
@@ -910,15 +910,15 @@ namespace IKaan.Was.Service.Services
 
 					if (contact.ID == null)
 					{
-						contact.CreateBy = req.User.UserId;
-						contact.CreateByName = req.User.UserName;
+						contact.CreatedBy = req.User.UserId;
+						contact.CreatedByName = req.User.UserName;
 
 						contactID = DaoFactory.InstanceBiz.Insert("InsertBrandContact", contact);
 					}
 					else
 					{
-						contact.UpdateBy = req.User.UserId;
-						contact.UpdateByName = req.User.UserName;
+						contact.UpdatedBy = req.User.UserId;
+						contact.UpdatedByName = req.User.UserName;
 
 						DaoFactory.InstanceBiz.Update("UpdateBrandContact", contact);
 						contactID = contact.ID;
@@ -961,8 +961,8 @@ namespace IKaan.Was.Service.Services
 							if (manager.ID != dup.ID)
 								throw new Exception("동일 시작일로 등록된 데이터가 존재합니다.");
 
-							manager.UpdateBy = req.User.UserId;
-							manager.UpdateByName = req.User.UserName;
+							manager.UpdatedBy = req.User.UserId;
+							manager.UpdatedByName = req.User.UserName;
 
 							DaoFactory.InstanceBiz.Update("UpdateBrandManager", manager);
 							id = manager.ID;
@@ -974,8 +974,8 @@ namespace IKaan.Was.Service.Services
 						if (before != null)
 						{
 							before.EndDate = manager.StartDate.Value.AddDays(-1);
-							before.UpdateBy = req.User.UserId;
-							before.UpdateByName = req.User.UserName;
+							before.UpdatedBy = req.User.UserId;
+							before.UpdatedByName = req.User.UserName;
 
 							DaoFactory.InstanceBiz.Update("UpdateBrandManagerEndDate", before);
 						}
@@ -992,16 +992,16 @@ namespace IKaan.Was.Service.Services
 
 						if (manager.ID != null)
 						{
-							manager.UpdateBy = req.User.UserId;
-							manager.UpdateByName = req.User.UserName;
+							manager.UpdatedBy = req.User.UserId;
+							manager.UpdatedByName = req.User.UserName;
 
 							DaoFactory.InstanceBiz.Update("UpdateBrandManager", manager);
 							id = manager.ID;
 						}
 						else
 						{
-							manager.CreateBy = req.User.UserId;
-							manager.CreateByName = req.User.UserName;
+							manager.CreatedBy = req.User.UserId;
+							manager.CreatedByName = req.User.UserName;
 
 							id = DaoFactory.InstanceBiz.Insert("InsertBrandManager", manager);
 						}
@@ -1031,8 +1031,8 @@ namespace IKaan.Was.Service.Services
 					if (settingList == null || settingList.Count == 0)
 					{
 						channel.Setting.ChannelID = channel.ID;
-						channel.Setting.CreateBy = req.User.UserId;
-						channel.Setting.CreateByName = req.User.UserName;
+						channel.Setting.CreatedBy = req.User.UserId;
+						channel.Setting.CreatedByName = req.User.UserName;
 
 						object id = DaoFactory.InstanceBiz.Insert("InsertChannelSetting", channel.Setting);
 						channel.Setting.ID = id.ToIntegerNullToNull();
@@ -1040,8 +1040,8 @@ namespace IKaan.Was.Service.Services
 					else
 					{
 						channel.Setting.ID = settingList[0].ID;
-						channel.Setting.UpdateBy = req.User.UserId;
-						channel.Setting.UpdateByName = req.User.UserName;
+						channel.Setting.UpdatedBy = req.User.UserId;
+						channel.Setting.UpdatedByName = req.User.UserName;
 						DaoFactory.InstanceBiz.Update("UpdateChannelSetting", channel.Setting);
 					}
 
@@ -1088,8 +1088,8 @@ namespace IKaan.Was.Service.Services
 					if (before != null)
 					{
 						before.EndDate = model.StartDate.Value.AddDays(-1);
-						before.UpdateBy = req.User.UserId;
-						before.UpdateByName = req.User.UserName;
+						before.UpdatedBy = req.User.UserId;
+						before.UpdatedByName = req.User.UserName;
 
 						DaoFactory.InstanceBiz.Update("UpdateChannelBrand", before);
 					}
@@ -1106,16 +1106,16 @@ namespace IKaan.Was.Service.Services
 
 					if (model.ID.IsNullOrDefault())
 					{
-						model.CreateBy = req.User.UserId;
-						model.CreateByName = req.User.UserName;
+						model.CreatedBy = req.User.UserId;
+						model.CreatedByName = req.User.UserName;
 
 						object id = DaoFactory.InstanceBiz.Insert("InsertChannelBrand", model);
 						model.ID = id.ToIntegerNullToNull();
 					}
 					else
 					{
-						model.UpdateBy = req.User.UserId;
-						model.UpdateByName = req.User.UserName;
+						model.UpdatedBy = req.User.UserId;
+						model.UpdatedByName = req.User.UserName;
 
 						DaoFactory.InstanceBiz.Update("UpdateChannelBrand", model);
 					}
@@ -1154,15 +1154,15 @@ namespace IKaan.Was.Service.Services
 
 					if (person.ID == null)
 					{
-						person.CreateBy = req.User.UserId;
-						person.CreateByName = req.User.UserName;
+						person.CreatedBy = req.User.UserId;
+						person.CreatedByName = req.User.UserName;
 
 						personID = DaoFactory.InstanceBiz.Insert("InsertPerson", person);
 					}
 					else
 					{
-						person.UpdateBy = req.User.UserId;
-						person.UpdateByName = req.User.UserName;
+						person.UpdatedBy = req.User.UserId;
+						person.UpdatedByName = req.User.UserName;
 
 						DaoFactory.InstanceBiz.Update("UpdatePerson", person);
 						personID = person.ID;
@@ -1172,15 +1172,15 @@ namespace IKaan.Was.Service.Services
 
 					if (contact.ID == null)
 					{
-						contact.CreateBy = req.User.UserId;
-						contact.CreateByName = req.User.UserName;
+						contact.CreatedBy = req.User.UserId;
+						contact.CreatedByName = req.User.UserName;
 
 						contactID = DaoFactory.InstanceBiz.Insert("InsertChannelContact", contact);
 					}
 					else
 					{
-						contact.UpdateBy = req.User.UserId;
-						contact.UpdateByName = req.User.UserName;
+						contact.UpdatedBy = req.User.UserId;
+						contact.UpdatedByName = req.User.UserName;
 
 						DaoFactory.InstanceBiz.Update("UpdateChannelContact", contact);
 						contactID = contact.ID;
@@ -1223,8 +1223,8 @@ namespace IKaan.Was.Service.Services
 							if (manager.ID != dup.ID)
 								throw new Exception("동일 시작일로 등록된 데이터가 존재합니다.");
 
-							manager.UpdateBy = req.User.UserId;
-							manager.UpdateByName = req.User.UserName;
+							manager.UpdatedBy = req.User.UserId;
+							manager.UpdatedByName = req.User.UserName;
 
 							DaoFactory.InstanceBiz.Update("UpdateChannelManager", manager);
 							id = manager.ID;
@@ -1236,8 +1236,8 @@ namespace IKaan.Was.Service.Services
 						if (before != null)
 						{
 							before.EndDate = manager.StartDate.Value.AddDays(-1);
-							before.UpdateBy = req.User.UserId;
-							before.UpdateByName = req.User.UserName;
+							before.UpdatedBy = req.User.UserId;
+							before.UpdatedByName = req.User.UserName;
 
 							DaoFactory.InstanceBiz.Update("UpdateChannelManagerEndDate", before);
 						}
@@ -1254,16 +1254,16 @@ namespace IKaan.Was.Service.Services
 
 						if (manager.ID != null)
 						{
-							manager.UpdateBy = req.User.UserId;
-							manager.UpdateByName = req.User.UserName;
+							manager.UpdatedBy = req.User.UserId;
+							manager.UpdatedByName = req.User.UserName;
 
 							DaoFactory.InstanceBiz.Update("UpdateChannelManager", manager);
 							id = manager.ID;
 						}
 						else
 						{
-							manager.CreateBy = req.User.UserId;
-							manager.CreateByName = req.User.UserName;
+							manager.CreatedBy = req.User.UserId;
+							manager.CreatedByName = req.User.UserName;
 
 							id = DaoFactory.InstanceBiz.Insert("InsertChannelManager", manager);
 						}
@@ -1293,8 +1293,8 @@ namespace IKaan.Was.Service.Services
 						{
 							if (model.Address.PostalCode.IsNullOrEmpty() == false)
 							{
-								model.Address.CreateBy = req.User.UserId;
-								model.Address.CreateByName = req.User.UserName;
+								model.Address.CreatedBy = req.User.UserId;
+								model.Address.CreatedByName = req.User.UserName;
 
 								object id = DaoFactory.InstanceBiz.Insert("InsertAddress", model.Address);
 								model.AddressID = id.ToIntegerNullToNull();
@@ -1302,8 +1302,8 @@ namespace IKaan.Was.Service.Services
 						}
 						else
 						{
-							model.Address.UpdateBy = req.User.UserId;
-							model.Address.UpdateByName = req.User.UserName;
+							model.Address.UpdatedBy = req.User.UserId;
+							model.Address.UpdatedByName = req.User.UserName;
 
 							DaoFactory.InstanceBiz.Update("UpdateAddress", model.Address);
 						}
@@ -1311,16 +1311,16 @@ namespace IKaan.Was.Service.Services
 
 					if (model.ID.IsNullOrDefault())
 					{
-						model.CreateBy = req.User.UserId;
-						model.CreateByName = req.User.UserName;
+						model.CreatedBy = req.User.UserId;
+						model.CreatedByName = req.User.UserName;
 
 						object id = DaoFactory.InstanceBiz.Insert("InsertBusiness", model);
 						model.ID = id.ToIntegerNullToNull();
 					}
 					else
 					{
-						model.UpdateBy = req.User.UserId;
-						model.UpdateByName = req.User.UserName;
+						model.UpdatedBy = req.User.UserId;
+						model.UpdatedByName = req.User.UserName;
 
 						DaoFactory.InstanceBiz.Update("UpdateBusiness", model);
 					}
@@ -1353,8 +1353,8 @@ namespace IKaan.Was.Service.Services
 							if (data.ID == null || data.ID == default(int))
 							{
 								data.CustomerID = customer.ID;
-								data.CreateBy = req.User.UserId;
-								data.CreateByName = req.User.UserName;
+								data.CreatedBy = req.User.UserId;
+								data.CreatedByName = req.User.UserName;
 
 								DaoFactory.InstanceBiz.Insert("InsertCustomerAddress", data);
 							}
@@ -1362,8 +1362,8 @@ namespace IKaan.Was.Service.Services
 							{
 								if (data.RowState == "UPDATE")
 								{
-									data.UpdateBy = req.User.UserId;
-									data.UpdateByName = req.User.UserName;
+									data.UpdatedBy = req.User.UserId;
+									data.UpdatedByName = req.User.UserName;
 
 									DaoFactory.InstanceBiz.Update("UpdateCustomerAddress", data);
 								}
@@ -1379,8 +1379,8 @@ namespace IKaan.Was.Service.Services
 							if (data.ID == null || data.ID == default(int))
 							{
 								data.CustomerID = customer.ID;
-								data.CreateBy = req.User.UserId;
-								data.CreateByName = req.User.UserName;
+								data.CreatedBy = req.User.UserId;
+								data.CreatedByName = req.User.UserName;
 
 								DaoFactory.InstanceBiz.Insert("InsertCustomerBank", data);
 							}
@@ -1388,8 +1388,8 @@ namespace IKaan.Was.Service.Services
 							{
 								if (data.RowState == "UPDATE")
 								{
-									data.UpdateBy = req.User.UserId;
-									data.UpdateByName = req.User.UserName;
+									data.UpdatedBy = req.User.UserId;
+									data.UpdatedByName = req.User.UserName;
 
 									DaoFactory.InstanceBiz.Update("UpdateCustomerBank", data);
 								}
@@ -1405,8 +1405,8 @@ namespace IKaan.Was.Service.Services
 							if (data.ID == null || data.ID == default(int))
 							{
 								data.CustomerID = customer.ID;
-								data.CreateBy = req.User.UserId;
-								data.CreateByName = req.User.UserName;
+								data.CreatedBy = req.User.UserId;
+								data.CreatedByName = req.User.UserName;
 
 								DaoFactory.InstanceBiz.Insert("InsertCustomerBrand", data);
 							}
@@ -1414,8 +1414,8 @@ namespace IKaan.Was.Service.Services
 							{
 								if (data.RowState == "UPDATE")
 								{
-									data.UpdateBy = req.User.UserId;
-									data.UpdateByName = req.User.UserName;
+									data.UpdatedBy = req.User.UserId;
+									data.UpdatedByName = req.User.UserName;
 
 									DaoFactory.InstanceBiz.Update("UpdateCustomerBrand", data);
 								}
@@ -1431,8 +1431,8 @@ namespace IKaan.Was.Service.Services
 							if (data.ID == null || data.ID == default(int))
 							{
 								data.CustomerID = customer.ID;
-								data.CreateBy = req.User.UserId;
-								data.CreateByName = req.User.UserName;
+								data.CreatedBy = req.User.UserId;
+								data.CreatedByName = req.User.UserName;
 
 								DaoFactory.InstanceBiz.Insert("InsertCustomerChannel", data);
 							}
@@ -1440,8 +1440,8 @@ namespace IKaan.Was.Service.Services
 							{
 								if (data.RowState == "UPDATE")
 								{
-									data.UpdateBy = req.User.UserId;
-									data.UpdateByName = req.User.UserName;
+									data.UpdatedBy = req.User.UserId;
+									data.UpdatedByName = req.User.UserName;
 
 									DaoFactory.InstanceBiz.Update("UpdateCustomerChannel", data);
 								}
@@ -1477,8 +1477,8 @@ namespace IKaan.Was.Service.Services
 						{
 							if (customer.Business.AddressID.IsNullOrDefault())
 							{
-								customer.Business.Address.CreateBy = req.User.UserId;
-								customer.Business.Address.CreateByName = req.User.UserName;
+								customer.Business.Address.CreatedBy = req.User.UserId;
+								customer.Business.Address.CreatedByName = req.User.UserName;
 
 								addressId = DaoFactory.InstanceBiz.Insert("InsertAddress", customer.Business.Address);
 								customer.Business.Address.ID = addressId.ToIntegerNullToNull();
@@ -1487,8 +1487,8 @@ namespace IKaan.Was.Service.Services
 							else
 							{
 								customer.Business.Address.ID = customer.Business.AddressID;
-								customer.Business.Address.UpdateBy = req.User.UserId;
-								customer.Business.Address.UpdateByName = req.User.UserName;
+								customer.Business.Address.UpdatedBy = req.User.UserId;
+								customer.Business.Address.UpdatedByName = req.User.UserName;
 
 								DaoFactory.InstanceBiz.Update("UpdateAddress", customer.Business.Address);
 							}
@@ -1496,8 +1496,8 @@ namespace IKaan.Was.Service.Services
 
 						if (customer.BusinessID.IsNullOrDefault())
 						{
-							customer.Business.CreateBy = req.User.UserId;
-							customer.Business.CreateByName = req.User.UserName;
+							customer.Business.CreatedBy = req.User.UserId;
+							customer.Business.CreatedByName = req.User.UserName;
 
 							businessId = DaoFactory.InstanceBiz.Insert("InsertBusiness", customer.Business);
 							customer.Business.ID = businessId.ToIntegerNullToNull();
@@ -1505,8 +1505,8 @@ namespace IKaan.Was.Service.Services
 						}
 						else
 						{
-							customer.Business.UpdateBy = req.User.UserId;
-							customer.Business.UpdateByName = req.User.UserName;
+							customer.Business.UpdatedBy = req.User.UserId;
+							customer.Business.UpdatedByName = req.User.UserName;
 
 							DaoFactory.InstanceBiz.Update("UpdateBusiness", customer.Business);
 						}
@@ -1533,8 +1533,8 @@ namespace IKaan.Was.Service.Services
 							if (customer.ID != dup.ID)
 								throw new Exception("동일 시작일로 등록된 데이터가 존재합니다.");
 
-							customer.UpdateBy = req.User.UserId;
-							customer.UpdateByName = req.User.UserName;
+							customer.UpdatedBy = req.User.UserId;
+							customer.UpdatedByName = req.User.UserName;
 
 							DaoFactory.InstanceBiz.Update("UpdateCustomerBusiness", customer);
 						}
@@ -1544,8 +1544,8 @@ namespace IKaan.Was.Service.Services
 						var before = DaoFactory.InstanceBiz.QueryForObject<CustomerBusinessModel>("SelectCustomerBusinessBefore", map);
 						if (before != null)
 						{
-							before.UpdateBy = req.User.UserId;
-							before.UpdateByName = req.User.UserName;
+							before.UpdatedBy = req.User.UserId;
+							before.UpdatedByName = req.User.UserName;
 							before.EndDate = customer.StartDate.Value.AddDays(-1);
 
 							DaoFactory.InstanceBiz.Update("UpdateCustomerBusinessEndDate", before);
@@ -1559,16 +1559,16 @@ namespace IKaan.Was.Service.Services
 
 						if (customer.ID.IsNullOrDefault())
 						{
-							customer.CreateBy = req.User.UserId;
-							customer.CreateByName = req.User.UserName;
+							customer.CreatedBy = req.User.UserId;
+							customer.CreatedByName = req.User.UserName;
 
 							customerId = DaoFactory.InstanceBiz.Insert("InsertCustomerBusiness", customer);
 							customer.ID = customerId.ToIntegerNullToNull();
 						}
 						else
 						{
-							customer.UpdateBy = req.User.UserId;
-							customer.UpdateByName = req.User.UserName;
+							customer.UpdatedBy = req.User.UserId;
+							customer.UpdatedByName = req.User.UserName;
 
 							DaoFactory.InstanceBiz.Update("UpdateCustomerBusiness", customer);
 						}
@@ -1607,8 +1607,8 @@ namespace IKaan.Was.Service.Services
 								StateProvince = customer.StateProvince,
 								AddressLine1 = customer.AddressLine1,
 								AddressLine2 = customer.AddressLine2,
-								CreateBy = req.User.UserId,
-								CreateByName = req.User.UserName
+								CreatedBy = req.User.UserId,
+								CreatedByName = req.User.UserName
 							};
 
 							addressId = DaoFactory.InstanceBiz.Insert("InsertAddress", address);
@@ -1626,8 +1626,8 @@ namespace IKaan.Was.Service.Services
 							StateProvince = customer.StateProvince,
 							AddressLine1 = customer.AddressLine1,
 							AddressLine2 = customer.AddressLine2,
-							UpdateBy = req.User.UserId,
-							UpdateByName = req.User.UserName
+							UpdatedBy = req.User.UserId,
+							UpdatedByName = req.User.UserName
 						};
 
 						DaoFactory.InstanceBiz.Update("UpdateAddress", address);
@@ -1635,16 +1635,16 @@ namespace IKaan.Was.Service.Services
 
 					if (customer.ID.IsNullOrDefault())
 					{
-						customer.CreateBy = req.User.UserId;
-						customer.CreateByName = req.User.UserName;
+						customer.CreatedBy = req.User.UserId;
+						customer.CreatedByName = req.User.UserName;
 
 						customerId = DaoFactory.InstanceBiz.Insert("InsertCustomerAddress", customer);
 						customer.ID = customerId.ToIntegerNullToNull();
 					}
 					else
 					{
-						customer.UpdateBy = req.User.UserId;
-						customer.UpdateByName = req.User.UserName;
+						customer.UpdatedBy = req.User.UserId;
+						customer.UpdatedByName = req.User.UserName;
 
 						DaoFactory.InstanceBiz.Update("UpdateCustomerAddress", customer);
 					}
@@ -1671,16 +1671,16 @@ namespace IKaan.Was.Service.Services
 				{
 					if (customer.ID.IsNullOrDefault())
 					{
-						customer.CreateBy = req.User.UserId;
-						customer.CreateByName = req.User.UserName;
+						customer.CreatedBy = req.User.UserId;
+						customer.CreatedByName = req.User.UserName;
 
 						id = DaoFactory.InstanceBiz.Insert("InsertCustomerBank", customer);
 						customer.ID = id.ToIntegerNullToNull();
 					}
 					else
 					{
-						customer.UpdateBy = req.User.UserId;
-						customer.UpdateByName = req.User.UserName;
+						customer.UpdatedBy = req.User.UserId;
+						customer.UpdatedByName = req.User.UserName;
 
 						DaoFactory.InstanceBiz.Update("UpdateCustomerBank", customer);
 					}
@@ -1707,16 +1707,16 @@ namespace IKaan.Was.Service.Services
 				{
 					if (customer.ID.IsNullOrDefault())
 					{
-						customer.CreateBy = req.User.UserId;
-						customer.CreateByName = req.User.UserName;
+						customer.CreatedBy = req.User.UserId;
+						customer.CreatedByName = req.User.UserName;
 
 						id = DaoFactory.InstanceBiz.Insert("InsertCustomerBrand", customer);
 						customer.ID = id.ToIntegerNullToNull();
 					}
 					else
 					{
-						customer.UpdateBy = req.User.UserId;
-						customer.UpdateByName = req.User.UserName;
+						customer.UpdatedBy = req.User.UserId;
+						customer.UpdatedByName = req.User.UserName;
 
 						DaoFactory.InstanceBiz.Update("UpdateCustomerBrand", customer);
 					}
@@ -1743,16 +1743,16 @@ namespace IKaan.Was.Service.Services
 				{
 					if (customer.ID.IsNullOrDefault())
 					{
-						customer.CreateBy = req.User.UserId;
-						customer.CreateByName = req.User.UserName;
+						customer.CreatedBy = req.User.UserId;
+						customer.CreatedByName = req.User.UserName;
 
 						id = DaoFactory.InstanceBiz.Insert("InsertCustomerChannel", customer);
 						customer.ID = id.ToIntegerNullToNull();
 					}
 					else
 					{
-						customer.UpdateBy = req.User.UserId;
-						customer.UpdateByName = req.User.UserName;
+						customer.UpdatedBy = req.User.UserId;
+						customer.UpdatedByName = req.User.UserName;
 
 						DaoFactory.InstanceBiz.Update("UpdateCustomerChannel", customer);
 					}
@@ -1795,8 +1795,8 @@ namespace IKaan.Was.Service.Services
 							{
 								if (line.OrderQty != 0 || line.OrderAmt != 0)
 								{
-									line.CreateBy = req.User.UserId;
-									line.CreateByName = req.User.UserName;
+									line.CreatedBy = req.User.UserId;
+									line.CreatedByName = req.User.UserName;
 
 									object id = DaoFactory.InstanceBiz.Insert("InsertOrderSum", line);
 									line.ID = id.ToIntegerNullToNull();
@@ -1810,8 +1810,8 @@ namespace IKaan.Was.Service.Services
 									if (line.ID.IsNullOrDefault())
 										line.ID = dup.ID;
 
-									line.UpdateBy = req.User.UserId;
-									line.UpdateByName = req.User.UserName;
+									line.UpdatedBy = req.User.UserId;
+									line.UpdatedByName = req.User.UserName;
 
 									DaoFactory.InstanceBiz.Update("UpdateOrderSum", line);
 									count++;
@@ -1857,8 +1857,8 @@ namespace IKaan.Was.Service.Services
 							{
 								if (line.OrderQty != 0 || line.OrderAmt != 0)
 								{
-									line.CreateBy = req.User.UserId;
-									line.CreateByName = req.User.UserName;
+									line.CreatedBy = req.User.UserId;
+									line.CreatedByName = req.User.UserName;
 
 									object id = DaoFactory.InstanceBiz.Insert("InsertOrderSum", line);
 									line.ID = id.ToIntegerNullToNull();
@@ -1872,8 +1872,8 @@ namespace IKaan.Was.Service.Services
 									if (line.ID.IsNullOrDefault())
 										line.ID = dup.ID;
 
-									line.UpdateBy = req.User.UserId;
-									line.UpdateByName = req.User.UserName;
+									line.UpdatedBy = req.User.UserId;
+									line.UpdatedByName = req.User.UserName;
 
 									DaoFactory.InstanceBiz.Update("UpdateOrderSum", line);
 									count++;

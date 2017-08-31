@@ -43,12 +43,12 @@
 				)
 				SELECT  ROW_NUMBER() OVER (ORDER BY BB.HierID)	AS RowNo
 					,	AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					
 					,	AA.DepartmentName
 					,	AA.ParentID
@@ -82,12 +82,12 @@
 		<select id="SelectDepartment" parameterClass="DataMap" resultClass="DepartmentModel" >
 			<![CDATA[
 				SELECT  AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					
 					,	AA.DepartmentName
 					,	AA.ParentID
@@ -112,12 +112,12 @@
 			<![CDATA[
 				INSERT INTO dbo.TDepartment
 				( 
-					CreateDate, CreateBy, CreateByName,
+					CreatedOn, CreatedBy, CreatedByName,
 					DepartmentName, ParentID, UseYn, ManagerID
 				)
 				VALUES
 				(
-					GetDate(), #CreateBy#, #CreateByName#,
+					GetDate(), #CreatedBy#, #CreatedByName#,
 					#DepartmentName#, #ParentID#, #UseYn#, #ManagerID#
 				)
 			]]>
@@ -130,9 +130,9 @@
 		<update id="UpdateDepartment" parameterClass="DepartmentModel">
 			<![CDATA[
 				UPDATE  dbo.TDepartment
-				SET     UpdateDate		= GetDate()
-					,	UpdateBy		= #UpdateBy#
-					,	UpdateByName	= #UpdateByName#
+				SET     UpdatedOn		= GetDate()
+					,	UpdatedBy		= #UpdatedBy#
+					,	UpdatedByName	= #UpdatedByName#
 					
 					,	DepartmentName	= #DepartmentName#
 					,	ParentID		= #ParentID#

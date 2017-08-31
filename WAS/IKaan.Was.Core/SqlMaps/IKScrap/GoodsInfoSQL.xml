@@ -9,12 +9,12 @@
 			<![CDATA[
 				SELECT  ROW_NUMBER() OVER (ORDER BY AA.BrandName)	as RowNo
 					,	AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					
 					,	AA.SiteCode
 					,	AA.BrandCode
@@ -49,12 +49,12 @@
 		<select id="SelectGoodsInfo" parameterClass="DataMap" resultClass="GoodsInfoModel" >
 			<![CDATA[
 				SELECT  AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					
 					,	AA.SiteCode
 					,	AA.BrandCode
@@ -78,13 +78,13 @@
 			<![CDATA[
 				INSERT INTO dbo.TGoodsInfo
 				( 
-					CreateDate, CreateBy, CreateByName,
+					CreatedOn, CreatedBy, CreatedByName,
 					SiteCode, BrandCode, 
 					GoodsCode, GoodsName, GoodsURL, ListPrice, SalePrice, ImageURL, Option1Type, Option1Name, Option2Type, Option2Name, CategoryName
 				)
 				VALUES
 				(
-					GetDate(), #CreateBy#, #CreateByName#,
+					GetDate(), #CreatedBy#, #CreatedByName#,
 					#SiteCode#, #BrandCode#, 
 					#GoodsCode#, #GoodsName#, #GoodsURL#, #ListPrice#, #SalePrice#, #ImageURL#, #Option1Type#, #Option1Name#, #Option2Type#, #Option2Name#, #CategoryName#
 				)
@@ -98,9 +98,9 @@
 		<update id="UpdateGoodsInfo" parameterClass="GoodsInfoModel">
 			<![CDATA[
 				UPDATE  dbo.TGoodsInfo
-				SET     UpdateDate		= GetDate()
-					,	UpdateBy		= #UpdateBy#
-					,	UpdateByName	= #UpdateByName#
+				SET     UpdatedOn		= GetDate()
+					,	UpdatedBy		= #UpdatedBy#
+					,	UpdatedByName	= #UpdatedByName#
 					
 					,	SiteCode		= #SiteCode#
 					,	BrandCode		= #BrandCode#
@@ -128,12 +128,12 @@
 			<![CDATA[
 				SELECT  ROW_NUMBER() OVER (ORDER BY AA.GoodsCode)	as RowNo
 					,	AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					
 					,	AA.SiteCode
 					,	AA.BrandCode

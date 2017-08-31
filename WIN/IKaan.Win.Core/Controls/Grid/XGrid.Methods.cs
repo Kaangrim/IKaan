@@ -321,12 +321,12 @@ namespace IKaan.Win.Core.Controls.Grid
 			{
 				case "Checked":
 				case "RowNo":
-				case "CreateDate":
-				case "CreateBy":
-				case "CreateByName":
-				case "UpdateDate":
-				case "UpdateBy":
-				case "UpdateByName":
+				case "CreatedOn":
+				case "CreatedBy":
+				case "CreatedByName":
+				case "UpdatedOn":
+				case "UpdatedBy":
+				case "UpdatedByName":
 					gridColumn.AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
 					break;
 				default:
@@ -339,8 +339,8 @@ namespace IKaan.Win.Core.Controls.Grid
 
 			switch (column.FieldName)
 			{
-				case "CreateDate":
-				case "UpdateDate":
+				case "CreatedOn":
+				case "UpdatedOn":
 					gridColumn.DisplayFormat.FormatType =
 						gridColumn.GroupFormat.FormatType = FormatType.DateTime;
 					break;
@@ -426,18 +426,18 @@ namespace IKaan.Win.Core.Controls.Grid
 						gridColumn.Width = 50;
 						gridColumn.MinWidth = 50;
 						break;
-					case "CreateDate":
-					case "UpdateDate":
+					case "CreatedOn":
+					case "UpdatedOn":
 						gridColumn.Width = 160;
 						gridColumn.MinWidth = 160;
 						break;
-					case "CreateBy":
-					case "UpdateBy":
+					case "CreatedBy":
+					case "UpdatedBy":
 						gridColumn.Width = 80;
 						gridColumn.MinWidth = 80;
 						break;
-					case "CreateByName":
-					case "UpdateByName":
+					case "CreatedByName":
+					case "UpdatedByName":
 						gridColumn.Width = 80;
 						gridColumn.MinWidth = 80;
 						break;
@@ -500,12 +500,12 @@ namespace IKaan.Win.Core.Controls.Grid
 			{
 				case "Checked":
 				case "RowNo":
-				case "CreateDate":
-				case "CreateBy":
-				case "CreateByName":
-				case "UpdateDate":
-				case "UpdateBy":
-				case "UpdateByName":
+				case "CreatedOn":
+				case "CreatedBy":
+				case "CreatedByName":
+				case "UpdatedOn":
+				case "UpdatedBy":
+				case "UpdatedByName":
 					bandedColumn.AppearanceCell.TextOptions.HAlignment = HorzAlignment.Center;
 					break;
 				default:
@@ -596,18 +596,18 @@ namespace IKaan.Win.Core.Controls.Grid
 						bandedColumn.Width = 50;
 						bandedColumn.MinWidth = 50;
 						break;
-					case "CreateDate":
-					case "UpdateDate":
+					case "CreatedOn":
+					case "UpdatedOn":
 						bandedColumn.Width = 150;
 						bandedColumn.MinWidth = 150;
 						break;
-					case "CreateBy":
-					case "UpdateBy":
+					case "CreatedBy":
+					case "UpdatedBy":
 						bandedColumn.Width = 100;
 						bandedColumn.MinWidth = 100;
 						break;
-					case "CreateByName":
-					case "UpdateByName":
+					case "CreatedByName":
+					case "UpdatedByName":
 						bandedColumn.Width = 100;
 						bandedColumn.MinWidth = 100;
 						break;

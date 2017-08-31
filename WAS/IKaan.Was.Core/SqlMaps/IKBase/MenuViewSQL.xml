@@ -8,12 +8,12 @@
 		<select id="SelectMenuView" parameterClass="DataMap" resultClass="MenuViewModel" >
 			<![CDATA[
 				SELECT  AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					,	AA.MenuID
 					,	AA.ViewID
 					,	AA.Parameter
@@ -24,12 +24,12 @@
 		<select id="SelectMenuViewExists" parameterClass="DataMap" resultClass="MenuViewModel" >
 			<![CDATA[
 				SELECT  AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					,	AA.MenuID
 					,	AA.ViewID
 					,	AA.Parameter
@@ -41,12 +41,12 @@
 			<![CDATA[
 				INSERT INTO dbo.TMenuView
 				( 
-					CreateDate, CreateBy, CreateByName,
+					CreatedOn, CreatedBy, CreatedByName,
 					MenuID, ViewID, Parameter
 				)
 				VALUES
 				(
-					GetDate(), #CreateBy#, #CreateByName#,
+					GetDate(), #CreatedBy#, #CreatedByName#,
 					#MenuID#, #ViewID#, #Parameter#
 				)
 			]]>
@@ -59,9 +59,9 @@
 		<update id="UpdateMenuView" parameterClass="MenuViewModel">
 			<![CDATA[
 				UPDATE  dbo.TMenuView
-				SET     UpdateDate	= GetDate()
-					,	UpdateBy	= #UpdateBy#
-					,	UpdateByName= #UpdateByName#
+				SET     UpdatedOn	= GetDate()
+					,	UpdatedBy	= #UpdatedBy#
+					,	UpdatedByName= #UpdatedByName#
 					
 					,	MenuID		= #MenuID#
 					,	ViewID		= #ViewID#

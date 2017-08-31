@@ -9,12 +9,12 @@
 			<![CDATA[
 				SELECT	ROW_NUMBER() OVER (ORDER BY BB.SchemaName, AA.TableName)	AS RowNo
 					,	AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					
 					,	AA.DatabaseID
 					,	AA.SchemaName
@@ -54,12 +54,12 @@
 			<![CDATA[
 				SELECT	ROW_NUMBER() OVER (ORDER BY AA.SchemaName, AA.TableName)	AS RowNo
 					,	AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					
 					,	AA.DatabaseID
 					,	CC.DatabaseName
@@ -79,12 +79,12 @@
 			<![CDATA[
 				INSERT INTO IKBase.dbo.TTable
 				( 
-					CreateDate, CreateBy, CreateByName,
+					CreatedOn, CreatedBy, CreatedByName,
 					DatabaseID, SchemaName, TableName, UseYn, Description
 				)
 				VALUES
 				( 
-					GETDATE(), #CreateBy#, #CreateByName#,
+					GETDATE(), #CreatedBy#, #CreatedByName#,
 					#DatabaseID#, #SchemaName#, #TableName#, #UseYn#, #Description#
 				)
 			]]>
@@ -97,9 +97,9 @@
 		<update id="UpdateTable" parameterClass="TableModel">
 			<![CDATA[
 				UPDATE  IKBase.dbo.TTable
-				SET     UpdateDate	= GetDate()
-					,	UpdateBy	= #UpdateBy#
-					,	UpdateByName= #UpdateByName#
+				SET     UpdatedOn	= GetDate()
+					,	UpdatedBy	= #UpdatedBy#
+					,	UpdatedByName= #UpdatedByName#
 					
 					,	DatabaseID	= #DatabaseID#
 					,	SchemaName	= #SchemaName#
@@ -137,12 +137,12 @@
 							(ORDER BY aa.SchemaName, aa.TableName)	as RowNo
 							
 					,	tt.ID
-					,	tt.CreateDate
-					,	tt.CreateBy
-					,	tt.CreateByName
-					,	tt.UpdateDate
-					,	tt.UpdateBy
-					,	tt.UpdateByName
+					,	tt.CreatedOn
+					,	tt.CreatedBy
+					,	tt.CreatedByName
+					,	tt.UpdatedOn
+					,	tt.UpdatedBy
+					,	tt.UpdatedByName
 					
 					,	aa.SchemaName		as SchemaName
 					,	aa.TableID			as TableID
@@ -259,12 +259,12 @@
 							(ORDER BY AA.TABLE_NAME)					as RowNo
 							
 					,	tt.ID
-					,	tt.CreateDate
-					,	tt.CreateBy
-					,	tt.CreateByName
-					,	tt.UpdateDate
-					,	tt.UpdateBy
-					,	tt.UpdateByName
+					,	tt.CreatedOn
+					,	tt.CreatedBy
+					,	tt.CreatedByName
+					,	tt.UpdatedOn
+					,	tt.UpdatedBy
+					,	tt.UpdatedByName
 					
 					,	AA.TABLE_SCHEMA									as SchemaName
 					,	AA.TABLE_TYPE + ' ' + AA.TABLE_NAME				as TableID
@@ -300,12 +300,12 @@
 			<![CDATA[
 				SELECT	ROW_NUMBER() OVER (ORDER BY AA.SchemaName, AA.TableName)	AS RowNo
 					,	AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					
 					,	AA.DatabaseID
 					,	CC.DatabaseName

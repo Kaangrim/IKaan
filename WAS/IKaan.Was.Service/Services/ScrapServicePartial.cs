@@ -22,8 +22,8 @@ namespace IKaan.Was.Service.Services
 				var exists = DaoFactory.InstanceScrap.QueryForObject<BrandInfoModel>("SelectBrandInfoExists", map);
 				if (exists == null)
 				{
-					brand.CreateBy = req.User.UserId;
-					brand.CreateByName = req.User.UserName;
+					brand.CreatedBy = req.User.UserId;
+					brand.CreatedByName = req.User.UserName;
 
 					object id = DaoFactory.InstanceScrap.Insert("InsertBrandInfo", brand);
 					brand.ID = id.ToIntegerNullToNull();
@@ -36,8 +36,8 @@ namespace IKaan.Was.Service.Services
 						exists.GoodsCnt != brand.GoodsCnt)
 					{
 						brand.ID = exists.ID;
-						brand.UpdateBy = req.User.UserId;
-						brand.UpdateByName = req.User.UserName;
+						brand.UpdatedBy = req.User.UserId;
+						brand.UpdatedByName = req.User.UserName;
 
 						DaoFactory.InstanceScrap.Update("UpdateBrandInfo", brand);
 					}
@@ -69,8 +69,8 @@ namespace IKaan.Was.Service.Services
 				var exists = DaoFactory.InstanceScrap.QueryForObject<GoodsInfoModel>("SelectGoodsInfoExists", map);
 				if (exists == null)
 				{
-					goods.CreateBy = req.User.UserId;
-					goods.CreateByName = req.User.UserName;
+					goods.CreatedBy = req.User.UserId;
+					goods.CreatedByName = req.User.UserName;
 
 					object id = DaoFactory.InstanceScrap.Insert("InsertGoodsInfo", goods);
 					goods.ID = id.ToIntegerNullToNull();
@@ -90,8 +90,8 @@ namespace IKaan.Was.Service.Services
 						exists.Option2Name != goods.Option2Name)
 					{
 						goods.ID = exists.ID;
-						goods.UpdateBy = req.User.UserId;
-						goods.UpdateByName = req.User.UserName;
+						goods.UpdatedBy = req.User.UserId;
+						goods.UpdatedByName = req.User.UserName;
 
 						DaoFactory.InstanceScrap.Update("UpdateGoodsInfo", goods);
 					}

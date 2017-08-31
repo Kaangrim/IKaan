@@ -1,41 +1,73 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
-using IKaan.Model.Common.Was;
 using IKaan.Model.Base;
+using IKaan.Model.Common.Was;
 using IKaan.Was.Core.Mappers;
 using IKaan.Was.Service.Utils;
-using Newtonsoft.Json.Linq;
 
 namespace IKaan.Was.Service.Services
 {
 	public static class BaseServicePartial
 	{
-		public static void SaveMenuView(this WasRequest req, IList<MenuViewModel> list)
+		public static void SaveMenu(this WasRequest req)
 		{
 			try
 			{
-				foreach (var data in list)
+				var model = req.Data.JsonToAnyType<MenuModel>();
+				if (model.ID == null)
 				{
-					if (data.MenuID == null)
-					{
-						data.MenuID = req.Result.ReturnValue.ToIntegerNullToNull();
-					}
+					model.CreatedBy = req.User.UserId;
+					model.CreatedByName = req.User.UserName;
+					object id = DaoFactory.Instance.Insert("InsertMenu", model);
+					model.ID = id.ToIntegerNullToNull();
+				}
+				else
+				{
+					model.UpdatedBy = req.User.UserId;
+					model.UpdatedByName = req.User.UserName;
+					DaoFactory.Instance.Update("UpdateMenu", model);
+				}
 
-					if (data.ID == null)
+				if (model.MenuView != null && model.MenuView.Count > 0)
+				{
+					foreach (var data in model.MenuView)
 					{
-						if (data.ViewID != null)
-							req.SaveSubData<MenuViewModel>(data);
-					}
-					else
-					{
-						if (data.ViewID != null)
-							req.SaveSubData<MenuViewModel>(data);
+						data.MenuID = model.ID;
+
+						if (data.ID == null)
+						{
+							if (data.ViewID != null)
+							{
+								data.CreatedBy = req.User.UserId;
+								data.CreatedByName = req.User.UserName;
+								object menuviewid = DaoFactory.Instance.Insert("InsertMenuView", data);
+								data.ID = menuviewid.ToIntegerNullToNull();
+							}
+						}
 						else
-							req.DeleteSubData<MenuViewModel>(data);
+						{
+							if (data.ViewID != null)
+							{
+								data.UpdatedBy = req.User.UserId;
+								data.UpdatedByName = req.User.UserName;
+								DaoFactory.Instance.Update("UpdateMenuView", data);
+							}
+							else
+							{
+								DataMap map = new DataMap()
+								{
+									{ "ID", data.ID }
+								};
+								DaoFactory.Instance.Delete("DeleteMenuView", map);
+							}
+						}						
 					}
 				}
+
+				req.Result.Count = 1;
+				req.Result.ReturnValue = model.ID;
+				req.Error.Number = 0;
 			}
 			catch
 			{
@@ -43,30 +75,72 @@ namespace IKaan.Was.Service.Services
 			}
 		}
 
-		public static void SaveViewButton(this WasRequest req, IList<ViewButtonModel> list)
+		public static void SaveGroup(this WasRequest req)
 		{
 			try
 			{
-				foreach (var data in list)
+				var model = req.Data.JsonToAnyType<GroupModel>();
+				if (model.ID == null)
 				{
-					if (data.ViewID == null)
-					{
-						data.ViewID = req.Result.ReturnValue.ToIntegerNullToNull();
-					}
-
-					bool isSkip = false;
-					if (data.Checked == "Y" && data.UseYn == "Y")
-						isSkip = true;
-
-					if ((data.Checked == "Y" && data.UseYn == "N") ||
-						(data.Checked == "N" && data.UseYn == "Y"))
-					{
-						data.UseYn = data.Checked;
-					}
-
-					if (!isSkip)
-						req.SaveSubData<ViewButtonModel>(data);
+					model.CreatedBy = req.User.UserId;
+					model.CreatedByName = req.User.UserName;
+					object id = DaoFactory.Instance.Insert("InsertGroup", model);
+					model.ID = id.ToIntegerNullToNull();
 				}
+				else
+				{
+					model.UpdatedBy = req.User.UserId;
+					model.UpdatedByName = req.User.UserName;
+					DaoFactory.Instance.Update("UpdateGroup", model);
+				}
+
+				if (model.GroupRole != null && model.GroupRole.Count > 0)
+				{
+					foreach (var data in model.GroupRole)
+					{
+						data.GroupID = model.ID;
+
+						bool isSkip = false;
+						if (data.Checked == "Y" && data.UseYn == "Y")
+							isSkip = true;
+
+						if ((data.Checked == "Y" && data.UseYn == "N") ||
+							(data.Checked == "N" && data.UseYn == "Y"))
+						{
+							data.UseYn = data.Checked;
+						}
+
+						if (!isSkip)
+							req.SaveSubData<UserGroupModel>(data);
+						req.SaveSubData<GroupRoleModel>(data);
+					}
+				}
+
+				if (model.GroupMenu != null && model.GroupMenu.Count > 0)
+				{
+					foreach (var data in model.GroupMenu)
+					{
+						data.GroupID = model.ID;
+
+						bool isSkip = false;
+						if (data.Checked == "Y" && data.UseYn == "Y")
+							isSkip = true;
+
+						if ((data.Checked == "Y" && data.UseYn == "N") ||
+							(data.Checked == "N" && data.UseYn == "Y"))
+						{
+							data.UseYn = data.Checked;
+						}
+
+						if (!isSkip)
+							req.SaveSubData<UserGroupModel>(data);
+						req.SaveSubData<GroupMenuModel>(data);
+					}
+				}
+
+				req.Result.Count = 1;
+				req.Result.ReturnValue = model.ID;
+				req.Error.Number = 0;
 			}
 			catch
 			{
@@ -74,158 +148,220 @@ namespace IKaan.Was.Service.Services
 			}
 		}
 
-		public static void SaveUserGroup(this WasRequest req, IList<UserGroupModel> list)
+		public static void SaveUser(this WasRequest req)
 		{
 			try
 			{
-				foreach (var data in list)
+				var model = req.Data.JsonToAnyType<UserModel>();
+				if (model.ID == null)
 				{
-					if (data.UserID == null)
-					{
-						data.UserID = req.Result.ReturnValue.ToIntegerNullToNull();
-					}
-
-					bool isSkip = false;
-					if (data.Checked == "Y" && data.UseYn == "Y")
-						isSkip = true;
-
-					if ((data.Checked == "Y" && data.UseYn == "N") ||
-						(data.Checked == "N" && data.UseYn == "Y"))
-					{
-						data.UseYn = data.Checked;
-					}
-
-					if (!isSkip)
-						req.SaveSubData<UserGroupModel>(data);
+					model.CreatedBy = req.User.UserId;
+					model.CreatedByName = req.User.UserName;
+					object id = DaoFactory.Instance.Insert("InsertUser", model);
+					model.ID = id.ToIntegerNullToNull();
 				}
-			}
-			catch
-			{
-				throw;
-			}
-		}
-
-		public static void SaveUserRole(this WasRequest req, IList<UserRoleModel> list)
-		{
-			try
-			{
-				foreach (var data in list)
+				else
 				{
-					if (data.UserID == null)
-					{
-						data.UserID = req.Result.ReturnValue.ToIntegerNullToNull();
-					}
-
-					bool isSkip = false;
-					if (data.Checked == "Y" && data.UseYn == "Y")
-						isSkip = true;
-
-					if ((data.Checked == "Y" && data.UseYn == "N") ||
-						(data.Checked == "N" && data.UseYn == "Y"))
-					{
-						data.UseYn = data.Checked;
-					}
-
-					if (!isSkip)
-						req.SaveSubData<UserGroupModel>(data);
-					req.SaveSubData<UserRoleModel>(data);
+					model.UpdatedBy = req.User.UserId;
+					model.UpdatedByName = req.User.UserName;
+					DaoFactory.Instance.Update("UpdateUser", model);
 				}
-			}
-			catch
-			{
-				throw;
-			}
-		}
 
-		public static void SaveGroupRole(this WasRequest req, IList<GroupRoleModel> list)
-		{
-			try
-			{
-				foreach (var data in list)
+				if (model.UserGroup != null && model.UserGroup.Count > 0)
 				{
-					if (data.GroupID == null)
+					foreach (var data in model.UserGroup)
 					{
-						data.GroupID = req.Result.ReturnValue.ToIntegerNullToNull();
-					}
+						data.UserID = model.ID;
 
-					bool isSkip = false;
-					if (data.Checked == "Y" && data.UseYn == "Y")
-						isSkip = true;
+						if (data.Checked == "Y")
+						{
+							if (data.UseYn != "Y")
+							{
+								data.UseYn = data.Checked;
 
-					if ((data.Checked == "Y" && data.UseYn == "N") ||
-						(data.Checked == "N" && data.UseYn == "Y"))
-					{
-						data.UseYn = data.Checked;
-					}
-
-					if (!isSkip)
-						req.SaveSubData<UserGroupModel>(data);
-					req.SaveSubData<GroupRoleModel>(data);
-				}
-			}
-			catch
-			{
-				throw;
-			}
-		}
-
-		public static void SaveGroupMenu(this WasRequest req, IList<GroupMenuModel> list)
-		{
-			try
-			{
-				foreach (var data in list)
-				{
-					if (data.GroupID == null)
-					{
-						data.GroupID = req.Result.ReturnValue.ToIntegerNullToNull();
-					}
-
-					bool isSkip = false;
-					if (data.Checked == "Y" && data.UseYn == "Y")
-						isSkip = true;
-
-					if ((data.Checked == "Y" && data.UseYn == "N") ||
-						(data.Checked == "N" && data.UseYn == "Y"))
-					{
-						data.UseYn = data.Checked;
-					}
-
-					if (!isSkip)
-						req.SaveSubData<UserGroupModel>(data);
-					req.SaveSubData<GroupMenuModel>(data);
-				}
-			}
-			catch
-			{
-				throw;
-			}
-		}
-
-		public static void SaveDictionaryLanguage(this WasRequest req, DictionaryModel model)
-		{
-			try
-			{
-				foreach (var data in model.LanguageList)
-				{
-					data.Checked = "Y";
-					if (data.PhysicalName == null)
-					{
-						data.PhysicalName = model.PhysicalName;
-					}
-
-					if (data.ID == null)
-					{
-						if (data.LogicalName.IsNullOrEmpty() == false)
-							req.SaveSubData<DictionaryModel>(data);
-					}
-					else
-					{
-						if (data.LogicalName.IsNullOrEmpty() == false)
-							req.SaveSubData<DictionaryModel>(data);
+								if (data.ID == null)
+								{
+									data.CreatedBy = req.User.UserId;
+									data.CreatedByName = req.User.UserName;
+									object usergroupid = DaoFactory.Instance.Insert("InsertUserGroup", data);
+									data.ID = usergroupid.ToIntegerNullToNull();
+								}
+								else
+								{
+									data.UpdatedBy = req.User.UserId;
+									data.UpdatedByName = req.User.UserName;
+									DaoFactory.Instance.Update("UpdateUserGroup", data);
+								}
+							}
+						}
 						else
-							req.DeleteSubData<DictionaryModel>(data);
+						{
+							if (data.ID != null)
+							{
+								DataMap map = new DataMap() { { "ID", data.ID } };
+								DaoFactory.Instance.Delete("DeleteUserGroup", map);
+							}
+						}
 					}
 				}
+
+				if (model.UserRole != null && model.UserRole.Count > 0)
+				{
+					foreach (var data in model.UserRole)
+					{
+						data.UserID = model.ID;
+
+						if (data.Checked == "Y")
+						{
+							if (data.UseYn != "Y")
+							{
+								data.UseYn = data.Checked;
+
+								if (data.ID == null)
+								{
+									data.CreatedBy = req.User.UserId;
+									data.CreatedByName = req.User.UserName;
+									object usergroupid = DaoFactory.Instance.Insert("InsertUserRole", data);
+									data.ID = usergroupid.ToIntegerNullToNull();
+								}
+								else
+								{
+									data.UpdatedBy = req.User.UserId;
+									data.UpdatedByName = req.User.UserName;
+									DaoFactory.Instance.Update("UpdateUserRole", data);
+								}
+							}
+						}
+						else
+						{
+							if (data.ID != null)
+							{
+								DataMap map = new DataMap() { { "ID", data.ID } };
+								DaoFactory.Instance.Delete("DeleteUserRole", map);
+							}
+						}
+					}
+				}
+
+				req.Result.Count = 1;
+				req.Result.ReturnValue = model.ID;
+				req.Error.Number = 0;
+			}
+			catch
+			{
+				throw;
+			}
+		}
+
+		public static void SaveView(this WasRequest req)
+		{
+			try
+			{
+				var model = req.Data.JsonToAnyType<ViewModel>();
+				if (model.ID == null)
+				{
+					model.CreatedBy = req.User.UserId;
+					model.CreatedByName = req.User.UserName;
+					object id = DaoFactory.Instance.Insert("InsertView", model);
+					model.ID = id.ToIntegerNullToNull();
+				}
+				else
+				{
+					model.UpdatedBy = req.User.UserId;
+					model.UpdatedByName = req.User.UserName;
+					DaoFactory.Instance.Update("UpdateView", model);
+				}
+
+				if (model.ViewButton != null && model.ViewButton.Count > 0)
+				{
+					foreach (var data in model.ViewButton)
+					{
+						data.ViewID = model.ID;
+
+						if (data.Checked == "Y")
+						{
+							if (data.UseYn != "Y")
+							{
+								data.UseYn = data.Checked;
+
+								if (data.ID == null)
+								{
+									data.CreatedBy = req.User.UserId;
+									data.CreatedByName = req.User.UserName;
+									object usergroupid = DaoFactory.Instance.Insert("InsertViewButton", data);
+									data.ID = usergroupid.ToIntegerNullToNull();
+								}
+								else
+								{
+									data.UpdatedBy = req.User.UserId;
+									data.UpdatedByName = req.User.UserName;
+									DaoFactory.Instance.Update("UpdateViewButton", data);
+								}
+							}
+						}
+						else
+						{
+							if (data.ID != null)
+							{
+								DataMap map = new DataMap() { { "ID", data.ID } };
+								DaoFactory.Instance.Delete("DeleteViewButton", map);
+							}
+						}
+					}
+				}
+				
+				req.Result.Count = 1;
+				req.Result.ReturnValue = model.ID;
+				req.Error.Number = 0;
+			}
+			catch
+			{
+				throw;
+			}
+		}
+
+		public static void SaveDictionary(this WasRequest req)
+		{
+			try
+			{
+				var model = req.Data.JsonToAnyType<DictionaryModel>();
+				if (model.ID == null)
+				{
+					model.CreatedBy = req.User.UserId;
+					model.CreatedByName = req.User.UserName;
+					object id = DaoFactory.Instance.Insert("InsertDictionary", model);
+					model.ID = id.ToIntegerNullToNull();
+				}
+				else
+				{
+					model.UpdatedBy = req.User.UserId;
+					model.UpdatedByName = req.User.UserName;
+					DaoFactory.Instance.Update("UpdateDictionary", model);
+				}
+
+				if (model.ID != null && model.LanguageList.Count > 0)
+				{
+					foreach (var data in model.LanguageList)
+					{
+						if (data.ID == null)
+						{
+							data.CreatedBy = req.User.UserId;
+							data.CreatedByName = req.User.UserName;
+							object usergroupid = DaoFactory.Instance.Insert("InsertDictionary", data);
+							data.ID = usergroupid.ToIntegerNullToNull();
+						}
+						else
+						{
+							data.UpdatedBy = req.User.UserId;
+							data.UpdatedByName = req.User.UserName;
+							DaoFactory.Instance.Update("UpdateDictionary", data);
+						}
+					}
+				}
+
+				req.Result.Count = 1;
+				req.Result.ReturnValue = model.ID;
+				req.Error.Number = 0;
 			}
 			catch
 			{
@@ -275,12 +411,12 @@ namespace IKaan.Was.Service.Services
 							{
 								RowNo = data.RowNo,
 								ID = data.ID,
-								CreateDate = data.CreateDate,
-								CreateBy = data.CreateBy,
-								CreateByName = data.CreateByName,
-								UpdateDate = data.UpdateDate,
-								UpdateBy = data.UpdateBy,
-								UpdateByName = data.UpdateByName,
+								CreatedOn = data.CreatedOn,
+								CreatedBy = data.CreatedBy,
+								CreatedByName = data.CreatedByName,
+								UpdatedOn = data.UpdatedOn,
+								UpdatedBy = data.UpdatedBy,
+								UpdatedByName = data.UpdatedByName,
 								DatabaseID = db.ID.ToIntegerNullToZero(),
 								DatabaseName = db.DatabaseName,
 								SchemaName = data.SchemaName,
@@ -342,12 +478,12 @@ namespace IKaan.Was.Service.Services
 						{
 							RowNo = tableDB.RowNo,
 							ID = tableDB.ID,
-							CreateDate = tableDB.CreateDate,
-							CreateBy = tableDB.CreateBy,
-							CreateByName = tableDB.CreateByName,
-							UpdateDate = tableDB.UpdateDate,
-							UpdateBy = tableDB.UpdateBy,
-							UpdateByName = tableDB.UpdateByName,
+							CreatedOn = tableDB.CreatedOn,
+							CreatedBy = tableDB.CreatedBy,
+							CreatedByName = tableDB.CreatedByName,
+							UpdatedOn = tableDB.UpdatedOn,
+							UpdatedBy = tableDB.UpdatedBy,
+							UpdatedByName = tableDB.UpdatedByName,
 							DatabaseID = db.ID.ToIntegerNullToZero(),
 							DatabaseName = db.DatabaseName,
 							SchemaName = tableDB.SchemaName,
@@ -400,16 +536,16 @@ namespace IKaan.Was.Service.Services
 					TableModel exists = DaoFactory.Instance.QueryForObject<TableModel>("SelectTableExists", map);
 					if (exists == null)
 					{
-						table.CreateBy = req.User.UserId;
-						table.CreateByName = req.User.UserName;
+						table.CreatedBy = req.User.UserId;
+						table.CreatedByName = req.User.UserName;
 
 						object id = DaoFactory.Instance.Insert("InsertTable", table);
 						table.ID = id.ToIntegerNullToNull();
 					}
 					else
 					{
-						table.UpdateBy = req.User.UserId;
-						table.UpdateByName = req.User.UserName;
+						table.UpdatedBy = req.User.UserId;
+						table.UpdatedByName = req.User.UserName;
 
 						DaoFactory.Instance.Update("UpdateTable", table);
 					}
@@ -445,15 +581,15 @@ namespace IKaan.Was.Service.Services
 							ColumnModel columnExists = DaoFactory.Instance.QueryForObject<ColumnModel>("SelectColumnExists", map);
 							if (columnExists == null)
 							{
-								column.CreateBy = req.User.UserId;
-								column.CreateByName = req.User.UserName;
+								column.CreatedBy = req.User.UserId;
+								column.CreatedByName = req.User.UserName;
 								object columnID = DaoFactory.Instance.Insert("InsertColumn", column);
 								column.ID = columnID.ToIntegerNullToNull();
 							}
 							else
 							{
-								column.UpdateBy = req.User.UserId;
-								column.UpdateByName = req.User.UserName;
+								column.UpdatedBy = req.User.UserId;
+								column.UpdatedByName = req.User.UserName;
 
 								DaoFactory.Instance.Update("UpdateColumn", column);
 							}
@@ -481,79 +617,6 @@ namespace IKaan.Was.Service.Services
 			catch
 			{
 				throw;
-			}
-		}
-
-		public static WasRequest SaveDatabaseToTables(WasRequest request)
-		{
-			bool isTran = false;
-
-			try
-			{
-				if (request == null || (request.Data == null && request.SqlId.IsNullOrEmpty()))
-					throw new Exception("처리요청이 없습니다.");
-
-				bool isOneRequest = true;
-				List<WasRequest> list = new List<WasRequest>();
-				if (request.Data != null && request.Data.GetType() == typeof(JArray))
-				{
-					list = request.Data.JsonToAnyType<List<WasRequest>>();
-					isOneRequest = false;
-				}
-				else
-				{
-					list.Add(request);
-				}
-
-				if (request.IsTransaction)
-				{
-					DaoFactory.Instance.BeginTransaction();
-					isTran = true;
-				}
-
-				try
-				{
-					//테이블
-					if (list.Count > 0)
-					{
-						foreach (WasRequest req in list)
-						{
-							if (req.Data == null)
-								throw new Exception("처리할 데이터가 존재하지 않습니다.");
-
-							var parameters = req.Parameter.JsonToAnyType<DataMap>();
-							var table_list = DaoFactory.Instance.QueryForList<TableStatisticsModel>("SelectTableByMSSQL", parameters);
-
-						}
-					}
-
-					if (request.IsTransaction && isTran)
-						DaoFactory.Instance.CommitTransaction();
-				}
-				catch (Exception ex)
-				{
-					if (request.IsTransaction && isTran)
-						DaoFactory.Instance.RollBackTransaction();
-
-					throw new Exception(ex.Message);
-				}
-
-				if (isOneRequest)
-				{
-					request = list[0];
-				}
-				else
-				{
-					request.Data = list;
-				}
-
-				return request;
-			}
-			catch (Exception ex)
-			{
-				request.Error.Number = ex.HResult;
-				request.Error.Message = ex.Message;
-				return request;
 			}
 		}
 

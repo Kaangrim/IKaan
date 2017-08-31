@@ -9,12 +9,12 @@
 			<![CDATA[
 				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
 					,	AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					
 					,	AA.CustomerID
 					,	AA.BrandID
@@ -55,12 +55,12 @@
 		<select id="SelectCustomerBrand" parameterClass="DataMap" resultClass="CustomerBrandModel" >
 			<![CDATA[
 				SELECT  AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					
 					,	AA.CustomerID
 					,	AA.BrandID
@@ -89,12 +89,12 @@
 			<![CDATA[
 				INSERT INTO dbo.TCustomerBrand
 				( 
-					CreateDate, CreateBy, CreateByName,
+					CreatedOn, CreatedBy, CreatedByName,
 					CustomerID, BrandID, PersonID, StartDate, EndDate
 				)
 				VALUES
 				(
-					GetDate(), #CreateBy#, #CreateByName#,
+					GetDate(), #CreatedBy#, #CreatedByName#,
 					#CustomerID#, #BrandID#, #PersonID#, #StartDate#, #EndDate#
 				)
 			]]>
@@ -107,9 +107,9 @@
 		<update id="UpdateCustomerBrand" parameterClass="CustomerBrandModel">
 			<![CDATA[
 				UPDATE  dbo.TCustomerBrand
-				SET     UpdateDate		= GetDate()
-					,	UpdateBy		= #UpdateBy#
-					,	UpdateByName	= #UpdateByName#
+				SET     UpdatedOn		= GetDate()
+					,	UpdatedBy		= #UpdatedBy#
+					,	UpdatedByName	= #UpdatedByName#
 					
 					,	CustomerID		= #CustomerID#
 					,	BrandID			= #BrandID#

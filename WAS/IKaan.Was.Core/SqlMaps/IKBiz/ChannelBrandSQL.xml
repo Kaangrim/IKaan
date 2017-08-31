@@ -9,12 +9,12 @@
 			<![CDATA[
 				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
 					,	AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					
 					,	AA.ChannelID
 					,	AA.BrandID
@@ -52,12 +52,12 @@
 		<select id="SelectChannelBrand" parameterClass="DataMap" resultClass="ChannelBrandModel" >
 			<![CDATA[
 				SELECT  AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					
 					,	AA.ChannelID
 					,	AA.BrandID
@@ -84,13 +84,13 @@
 			<![CDATA[
 				INSERT INTO dbo.TChannelBrand
 				( 
-					CreateDate, CreateBy, CreateByName,
+					CreatedOn, CreatedBy, CreatedByName,
 					ChannelID, BrandID, StartDate, EndDate, 
 					ChannelMargin, BrandMargin, Description
 				)
 				VALUES
 				(
-					GetDate(), #CreateBy#, #CreateByName#,
+					GetDate(), #CreatedBy#, #CreatedByName#,
 					#ChannelID#, #BrandID#, #StartDate#, #EndDate#, 
 					#ChannelMargin#, #BrandMargin#, #Description#
 				)
@@ -104,9 +104,9 @@
 		<update id="UpdateChannelBrand" parameterClass="ChannelBrandModel">
 			<![CDATA[
 				UPDATE  dbo.TChannelBrand
-				SET     UpdateDate		= GetDate()
-					,	UpdateBy		= #UpdateBy#
-					,	UpdateByName	= #UpdateByName#
+				SET     UpdatedOn		= GetDate()
+					,	UpdatedBy		= #UpdatedBy#
+					,	UpdatedByName	= #UpdatedByName#
 					
 					,	ChannelID		= #ChannelID#
 					,	BrandID			= #BrandID#
@@ -127,12 +127,12 @@
 		<select id="SelectChannelBrandDuplicate" parameterClass="DataMap" resultClass="ChannelBrandModel" >
 			<![CDATA[
 				SELECT  AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					
 					,	AA.ChannelID
 					,	AA.BrandID
@@ -151,12 +151,12 @@
 		<select id="SelectChannelBrandBefore" parameterClass="DataMap" resultClass="ChannelBrandModel" >
 			<![CDATA[
 				SELECT  AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					
 					,	AA.ChannelID
 					,	AA.BrandID
@@ -182,12 +182,12 @@
 		<select id="SelectChannelBrandAfter" parameterClass="DataMap" resultClass="ChannelBrandModel" >
 			<![CDATA[
 				SELECT  AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					
 					,	AA.ChannelID
 					,	AA.BrandID
@@ -213,9 +213,9 @@
 		<update id="UpdateChannelBrandEndDate" parameterClass="ChannelBrandModel">
 			<![CDATA[
 				UPDATE  dbo.TChannelBrand
-				SET     UpdateDate		= GetDate()
-					,	UpdateBy		= #UpdateBy#
-					,	UpdateByName	= #UpdateByName#
+				SET     UpdatedOn		= GetDate()
+					,	UpdatedBy		= #UpdatedBy#
+					,	UpdatedByName	= #UpdatedByName#
 					
 					,	EndDate			= #EndDate#
 				WHERE	ID				= #ID#

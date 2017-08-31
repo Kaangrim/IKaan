@@ -12,6 +12,7 @@
 		public const string REGISTRY_CULTURE = @"Culture";
 		public const string REGISTRY_DASHBOARD = @"Dashboard";
 		public const string REGISTRY_GRID_LAYOUT = @"Layouts\GridLayout";
+		public const string REGISTRY_FILE_PATH = @"FilePath";
 
 		//Application
 		public const string APP_PATH = @"C:\IKaan";

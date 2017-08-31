@@ -209,10 +209,10 @@ namespace IKaan.Win.Core.Was.Handler
 				if (parameter == null)
 					parameter = new DataMap();
 
-				if (parameter.ContainsKey("CreateBy") == false)
-					parameter.SetValue("CreateBy", GlobalVar.UserInfo.UserId);
-				if (parameter.ContainsKey("CreateByName") == false)
-					parameter.SetValue("CreateByName", GlobalVar.UserInfo.UserName);
+				if (parameter.ContainsKey("CreatedBy") == false)
+					parameter.SetValue("CreatedBy", GlobalVar.UserInfo.UserId);
+				if (parameter.ContainsKey("CreatedByName") == false)
+					parameter.SetValue("CreatedByName", GlobalVar.UserInfo.UserName);
 
 				var res = (new WasRequest()
 				{
@@ -289,10 +289,10 @@ namespace IKaan.Win.Core.Was.Handler
 				if (parameter == null)
 					parameter = new DataMap();
 
-				if (parameter.ContainsKey("CreateBy") == false)
-					parameter.SetValue("CreateBy", GlobalVar.UserInfo.UserId);
-				if (parameter.ContainsKey("CreateByName") == false)
-					parameter.SetValue("CreateByName", GlobalVar.UserInfo.UserName);
+				if (parameter.ContainsKey("CreatedBy") == false)
+					parameter.SetValue("CreatedBy", GlobalVar.UserInfo.UserId);
+				if (parameter.ContainsKey("CreatedByName") == false)
+					parameter.SetValue("CreatedByName", GlobalVar.UserInfo.UserName);
 
 				var res = (new WasRequest()
 				{
@@ -306,6 +306,39 @@ namespace IKaan.Win.Core.Was.Handler
 
 				if (res == null)
 					throw new Exception("처리결과를 수신하지 못했습니다.");
+
+				if (res.Error.Number != 0)
+					throw new Exception(res.Error.Message);
+
+				return res;
+			}
+			catch
+			{
+				throw;
+			}
+		}
+
+		public static WasRequest FileUpload(object data, object parameter)
+		{
+			try
+			{
+				var res = (new WasRequest()
+				{
+					ServiceId = "FileUpload",
+					ProcessId = "Save",
+					SqlId = null,
+					Parameter = parameter,
+					Data = data,
+					ModelName = "FileUpload",
+					Master = new WasMaster()
+					{
+						IsMaster = true,
+						KeyField = "ID"
+					}
+				}).Execute();
+
+				if (res == null)
+					throw new Exception("요청결과가 없습니다.");
 
 				if (res.Error.Number != 0)
 					throw new Exception(res.Error.Message);

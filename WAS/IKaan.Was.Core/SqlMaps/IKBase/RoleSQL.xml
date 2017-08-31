@@ -40,12 +40,12 @@
 				)
 				SELECT  ROW_NUMBER() OVER (ORDER BY BB.HierID)	AS RowNo
 					,	AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					
 					,	AA.RoleName
 					,	AA.ParentID
@@ -79,12 +79,12 @@
 		<select id="SelectRole" parameterClass="DataMap" resultClass="RoleModel" >
 			<![CDATA[
 				SELECT  AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					,	AA.RoleName
 					,	AA.ParentID
 					,	AA.UseYn
@@ -97,12 +97,12 @@
 			<![CDATA[
 				INSERT INTO dbo.TRole
 				( 
-					CreateDate, CreateBy, CreateByName,
+					CreatedOn, CreatedBy, CreatedByName,
 					RoleName, ParentID, UseYn, Description
 				)
 				VALUES
 				(
-					GetDate(), #CreateBy#, #CreateByName#,
+					GetDate(), #CreatedBy#, #CreatedByName#,
 					#RoleName#, #ParentID#, #UseYn#, #Description#
 				)
 			]]>
@@ -115,9 +115,9 @@
 		<update id="UpdateRole" parameterClass="RoleModel">
 			<![CDATA[
 				UPDATE  dbo.TRole
-				SET     UpdateDate	= GetDate()
-					,	UpdateBy	= #UpdateBy#
-					,	UpdateByName= #UpdateByName#
+				SET     UpdatedOn	= GetDate()
+					,	UpdatedBy	= #UpdatedBy#
+					,	UpdatedByName= #UpdatedByName#
 					
 					,	RoleName	= #RoleName#
 					,	ParentID	= #ParentID#

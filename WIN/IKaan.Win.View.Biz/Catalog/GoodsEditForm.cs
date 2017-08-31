@@ -223,10 +223,10 @@ namespace IKaan.Win.View.Biz.Catalog
 			lcGroupInfoNotice.Text = DomainUtils.GetFieldName("InfoNotice");
 
 			txtID.SetEnable(false);
-			txtCreateDate.SetEnable(false);
-			txtCreateByName.SetEnable(false);
-			txtUpdateDate.SetEnable(false);
-			txtUpdateByName.SetEnable(false);
+			txtCreatedOn.SetEnable(false);
+			txtCreatedByName.SetEnable(false);
+			txtUpdatedOn.SetEnable(false);
+			txtUpdatedByName.SetEnable(false);
 
 			lupCategoryID.BindData("CategoryList", "카테고리선택");
 			lupBrandID.BindData("BrandList", "브랜드선택");
@@ -262,10 +262,10 @@ namespace IKaan.Win.View.Biz.Catalog
 				new XGridColumn() { FieldName = "AttrTypeName", Width = 100 },
 				new XGridColumn() { FieldName = "AttrCode", Width = 80 },
 				new XGridColumn() { FieldName = "AttrName", Width = 100 },
-				new XGridColumn() { FieldName = "CreateDate" },
-				new XGridColumn() { FieldName = "CreateByName" },
-				new XGridColumn() { FieldName = "UpdateDate" },
-				new XGridColumn() { FieldName = "UpdateByName" }
+				new XGridColumn() { FieldName = "CreatedOn" },
+				new XGridColumn() { FieldName = "CreatedByName" },
+				new XGridColumn() { FieldName = "UpdatedOn" },
+				new XGridColumn() { FieldName = "UpdatedByName" }
 			);
 			gridAttribute.ColumnFix("RowNo");
 			gridAttribute.SetRespositoryItemTextEdit("AttrCode");
@@ -283,10 +283,10 @@ namespace IKaan.Win.View.Biz.Catalog
 				new XGridColumn() { FieldName = "Option1Name", Width = 100 },
 				new XGridColumn() { FieldName = "Option2Type", Width = 100 },
 				new XGridColumn() { FieldName = "Option2Name", Width = 100 },
-				new XGridColumn() { FieldName = "CreateDate" },
-				new XGridColumn() { FieldName = "CreateByName" },
-				new XGridColumn() { FieldName = "UpdateDate" },
-				new XGridColumn() { FieldName = "UpdateByName" }
+				new XGridColumn() { FieldName = "CreatedOn" },
+				new XGridColumn() { FieldName = "CreatedByName" },
+				new XGridColumn() { FieldName = "UpdatedOn" },
+				new XGridColumn() { FieldName = "UpdatedByName" }
 			);
 			gridItem.ColumnFix("RowNo");
 			gridItem.SetRepositoryItemLookUpEdit("Option1Type", "OptionType", "None");
@@ -304,10 +304,10 @@ namespace IKaan.Win.View.Biz.Catalog
 				new XGridColumn() { FieldName = "ImageGroup", Visible = false },
 				new XGridColumn() { FieldName = "ImageGroupName", Width = 80, HorzAlignment = HorzAlignment.Center },
 				new XGridColumn() { FieldName = "ImageUrl", Width = 200 },
-				new XGridColumn() { FieldName = "CreateDate" },
-				new XGridColumn() { FieldName = "CreateByName" },
-				new XGridColumn() { FieldName = "UpdateDate" },
-				new XGridColumn() { FieldName = "UpdateByName" }
+				new XGridColumn() { FieldName = "CreatedOn" },
+				new XGridColumn() { FieldName = "CreatedByName" },
+				new XGridColumn() { FieldName = "UpdatedOn" },
+				new XGridColumn() { FieldName = "UpdatedByName" }
 			);
 			gridImage.ColumnFix("RowNo");
 			#endregion
@@ -321,10 +321,10 @@ namespace IKaan.Win.View.Biz.Catalog
 				new XGridColumn() { FieldName = "InfoNoticeItemID", Visible = false },
 				new XGridColumn() { FieldName = "InfoNoticeItemName", Width = 150 },
 				new XGridColumn() { FieldName = "InfoNoticeValue", Width = 200 },
-				new XGridColumn() { FieldName = "CreateDate" },
-				new XGridColumn() { FieldName = "CreateByName" },
-				new XGridColumn() { FieldName = "UpdateDate" },
-				new XGridColumn() { FieldName = "UpdateByName" }
+				new XGridColumn() { FieldName = "CreatedOn" },
+				new XGridColumn() { FieldName = "CreatedByName" },
+				new XGridColumn() { FieldName = "UpdatedOn" },
+				new XGridColumn() { FieldName = "UpdatedByName" }
 			);
 			gridInfoNotice.ColumnFix("RowNo");
 			gridInfoNotice.SetRespositoryItemTextEdit("InfoNoticeValue");

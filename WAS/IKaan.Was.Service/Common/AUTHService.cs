@@ -272,8 +272,8 @@ namespace IKaan.Was.Service.Common
 				if (request.Parameter != null)
 					parameter = request.Parameter.JsonToAnyType<DataMap>();
 				parameter.SetValue("UserId", request.User.UserId);
-				parameter.SetValue("UpdateBy", request.User.UserId);
-				parameter.SetValue("UpdateByName", request.User.UserName);
+				parameter.SetValue("UpdatedBy", request.User.UserId);
+				parameter.SetValue("UpdatedByName", request.User.UserName);
 
 				DaoFactory.Instance.Update("ClearPassword", parameter);
 				return request;
@@ -294,8 +294,8 @@ namespace IKaan.Was.Service.Common
 				if (request.Parameter != null)
 					parameter = request.Parameter.JsonToAnyType<DataMap>();
 				parameter.SetValue("UserId", request.User.UserId);
-				parameter.SetValue("UpdateBy", request.User.UserId);
-				parameter.SetValue("UpdateByName", request.User.UserName);
+				parameter.SetValue("UpdatedBy", request.User.UserId);
+				parameter.SetValue("UpdatedByName", request.User.UserName);
 
 				var data = DaoFactory.Instance.QueryForObject<ULoginUser>("GetLoginUser", parameter);
 

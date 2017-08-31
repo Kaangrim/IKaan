@@ -19,8 +19,8 @@
 								,	U1.UserName
 								,	AA.LoginID
 								,	COUNT(AA.ID)		as LoginCount
-								,	MIN(AA.CreateDate)	as FirstLoginDate
-								,	MAX(AA.CreateDate)	as LastLoginDate
+								,	MIN(AA.CreatedOn)	as FirstLoginDate
+								,	MAX(AA.CreatedOn)	as LastLoginDate
 							FROM	dbo.TLoginLog AA WITH (NOLOCK)
 									LEFT JOIN
 										dbo.TUser U1 WITH (NOLOCK)
@@ -40,14 +40,14 @@
 			<isNotPropertyAvailable property="StartDate">
 				<isNotEmpty property="StartDate">
 					<![CDATA[
-							AND		AA.CreateDate >= Convert(Datetime, #StartDate#, 112)
+							AND		AA.CreatedOn >= Convert(Datetime, #StartDate#, 112)
 					]]>
 				</isNotEmpty>
 			</isNotPropertyAvailable>
 			<isNotPropertyAvailable property="EndDate">
 				<isNotEmpty property="EndDate">
 					<![CDATA[
-							AND		AA.CreateDate < DateAdd(Day, 1, Convert(Varchar(8), #EndDate#, 112))
+							AND		AA.CreatedOn < DateAdd(Day, 1, Convert(Varchar(8), #EndDate#, 112))
 					]]>
 				</isNotEmpty>
 			</isNotPropertyAvailable>
@@ -72,8 +72,8 @@
 					,	AA.IpAddress
 					,	AA.MacAddress
 					,	AA.Status
-					,	AA.CreateDate		as LoginDate
-					,	AA.UpdateDate		as LogoutDate
+					,	AA.CreatedOn		as LoginDate
+					,	AA.UpdatedOn		as LogoutDate
 				FROM	dbo.TLoginLog AA WITH (NOLOCK)
 						LEFT JOIN
 							dbo.TUser U1 WITH (NOLOCK)

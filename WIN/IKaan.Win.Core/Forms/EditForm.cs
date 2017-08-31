@@ -232,7 +232,7 @@ namespace IKaan.Win.Core.Forms
 					throw;
 				}
 
-				var items = new string[] { "CreateDate", "CreateBy", "CreateByName", "UpdateDate", "UpdateBy", "UpdateByName" };
+				var items = new string[] { "CreatedOn", "CreatedBy", "CreatedByName", "UpdatedOn", "UpdatedBy", "UpdatedByName" };
 				lc.Items.OfType<LayoutControlItem>().Where(x => items.Contains(x.Name.Replace("lcItem", string.Empty))).ToList().ForEach(x =>
 				{
 					try

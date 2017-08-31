@@ -9,12 +9,12 @@
 			<![CDATA[
 				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
 					,	AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					
 					,	AA.BrandName
 					,	AA.ChannelFitness
@@ -59,12 +59,12 @@
 		<select id="SelectSearchBrand" parameterClass="DataMap" resultClass="SearchBrandModel" >
 			<![CDATA[
 				SELECT  AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					
 					,	AA.BrandName
 					,	AA.ChannelFitness
@@ -89,14 +89,14 @@
 			<![CDATA[
 				INSERT INTO dbo.TSearchBrand
 				( 
-					CreateDate, CreateBy, CreateByName,
+					CreatedOn, CreatedBy, CreatedByName,
 					BrandName, ChannelFitness, HomePage, StyleOrSku, Email, Phone, MainGoods, 
 					Category, Style, Price, Description, TopCategory, 
 					BrandMainUrl, BrandLogoUrl
 				)
 				VALUES
 				(
-					GetDate(), #CreateBy#, #CreateByName#,
+					GetDate(), #CreatedBy#, #CreatedByName#,
 					#BrandName#, #ChannelFitness#, #HomePage#, #StyleOrSku#, #Email#, #Phone#, #MainGoods#, 
 					#Category#, #Style#, #Price#, #Description#, #TopCategory#, 
 					#BrandMainUrl#, #BrandLogoUrl#
@@ -111,9 +111,9 @@
 		<update id="UpdateSearchBrand" parameterClass="SearchBrandModel">
 			<![CDATA[
 				UPDATE  dbo.TSearchBrand
-				SET     UpdateDate		= GetDate()
-					,	UpdateBy		= #UpdateBy#
-					,	UpdateByName	= #UpdateByName#
+				SET     UpdatedOn		= GetDate()
+					,	UpdatedBy		= #UpdatedBy#
+					,	UpdatedByName	= #UpdatedByName#
 					
 					,	BrandName		= #BrandName#
 					,	ChannelFitness	= #ChannelFitness#

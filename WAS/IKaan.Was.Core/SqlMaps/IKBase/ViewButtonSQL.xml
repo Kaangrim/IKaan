@@ -8,12 +8,12 @@
 		<select id="SelectViewButton" parameterClass="DataMap" resultClass="ViewButtonModel" >
 			<![CDATA[
 				SELECT  AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					,	AA.ViewID
 					,	AA.ButtonID
 					,	AA.UseYn
@@ -25,12 +25,12 @@
 		<select id="SelectViewButtonExists" parameterClass="ViewButtonModel" resultClass="ViewButtonModel" >
 			<![CDATA[
 				SELECT  AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					,	AA.ViewID
 					,	AA.ButtonID
 					,	AA.UseYn
@@ -44,12 +44,12 @@
 			<![CDATA[
 				INSERT INTO dbo.TViewButton
 				( 
-					CreateDate, CreateBy, CreateByName,
+					CreatedOn, CreatedBy, CreatedByName,
 					ViewID, ButtonID, UseYn, LinkViewID
 				)
 				VALUES
 				(
-					GetDate(), #CreateBy#, #CreateByName#,
+					GetDate(), #CreatedBy#, #CreatedByName#,
 					#ViewID#, #ButtonID#, #UseYn#, #LinkViewID#
 				)
 			]]>
@@ -62,9 +62,9 @@
 		<update id="UpdateViewButton" parameterClass="ViewButtonModel">
 			<![CDATA[
 				UPDATE  dbo.TViewButton
-				SET     UpdateDate	= GetDate()
-					,	UpdateBy	= #UpdateBy#
-					,	UpdateByName= #UpdateByName#
+				SET     UpdatedOn	= GetDate()
+					,	UpdatedBy	= #UpdatedBy#
+					,	UpdatedByName= #UpdatedByName#
 					
 					,	ViewID		= #ViewID#
 					,	ButtonID	= #ButtonID#

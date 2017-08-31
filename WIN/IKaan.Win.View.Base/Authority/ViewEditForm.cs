@@ -41,10 +41,10 @@ namespace IKaan.Win.View.Base.Authority
 			SetFieldNames();
 
 			txtID.SetEnable(false);
-			txtCreateDate.SetEnable(false);
-			txtCreateByName.SetEnable(false);
-			txtUpdateDate.SetEnable(false);
-			txtUpdateByName.SetEnable(false);
+			txtCreatedOn.SetEnable(false);
+			txtCreatedByName.SetEnable(false);
+			txtUpdatedOn.SetEnable(false);
+			txtUpdatedByName.SetEnable(false);
 
 			InitCombo();
 			InitGrid();
@@ -75,10 +75,10 @@ namespace IKaan.Win.View.Base.Authority
 				new XGridColumn() { FieldName = "Namespace", Width = 100 },
 				new XGridColumn() { FieldName = "Instance", Width = 100 },
 				new XGridColumn() { FieldName = "UseYn", HorzAlignment = HorzAlignment.Center, Width = 80, RepositoryItem = gridList.GetRepositoryItemCheckEdit() },
-				new XGridColumn() { FieldName = "CreateDate" },
-				new XGridColumn() { FieldName = "CreateByName" },
-				new XGridColumn() { FieldName = "UpdateDate" },
-				new XGridColumn() { FieldName = "UpdateByName" }
+				new XGridColumn() { FieldName = "CreatedOn" },
+				new XGridColumn() { FieldName = "CreatedByName" },
+				new XGridColumn() { FieldName = "UpdatedOn" },
+				new XGridColumn() { FieldName = "UpdatedByName" }
 			);
 			gridList.ColumnFix("RowNo");
 
@@ -113,10 +113,10 @@ namespace IKaan.Win.View.Base.Authority
 				new XGridColumn() { FieldName = "ButtonType", Width = 100, Visible = false },
 				new XGridColumn() { FieldName = "ButtonTypeName", Width = 100, HorzAlignment = HorzAlignment.Center },
 				new XGridColumn() { FieldName = "LinkViewCode", Width = 200 },
-				new XGridColumn() { FieldName = "CreateDate" },
-				new XGridColumn() { FieldName = "CreateByName" },
-				new XGridColumn() { FieldName = "UpdateDate" },
-				new XGridColumn() { FieldName = "UpdateByName" }
+				new XGridColumn() { FieldName = "CreatedOn" },
+				new XGridColumn() { FieldName = "CreatedByName" },
+				new XGridColumn() { FieldName = "UpdatedOn" },
+				new XGridColumn() { FieldName = "UpdatedByName" }
 			);
 			gridViewButtons.SetEditable("Checked", "LinkViewCode");
 			gridViewButtons.SetRepositoryItemCheckEdit("Checked");

@@ -9,12 +9,12 @@
 			<![CDATA[
 				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
 					,	AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					
 					,	AA.PersonType
 					,	AA.PersonName
@@ -53,12 +53,12 @@
 		<select id="SelectPerson" parameterClass="DataMap" resultClass="PersonModel" >
 			<![CDATA[
 				SELECT  AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					
 					,	AA.PersonType
 					,	AA.PersonName
@@ -77,12 +77,12 @@
 			<![CDATA[
 				INSERT INTO dbo.TPerson
 				( 
-					CreateDate, CreateBy, CreateByName,
+					CreatedOn, CreatedBy, CreatedByName,
 					PersonType, PersonName, EngName, Email, PhoneNo1, PhoneNo2, FaxNo, ImageUrl
 				)
 				VALUES
 				(
-					GetDate(), #CreateBy#, #CreateByName#,
+					GetDate(), #CreatedBy#, #CreatedByName#,
 					#PersonType#, #PersonName#, #EngName#, #Email#, #PhoneNo1#, #PhoneNo2#, #FaxNo#, #ImageUrl#
 				)
 			]]>
@@ -95,9 +95,9 @@
 		<update id="UpdatePerson" parameterClass="PersonModel">
 			<![CDATA[
 				UPDATE  dbo.TPerson
-				SET     UpdateDate		= GetDate()
-					,	UpdateBy		= #UpdateBy#
-					,	UpdateByName	= #UpdateByName#
+				SET     UpdatedOn		= GetDate()
+					,	UpdatedBy		= #UpdatedBy#
+					,	UpdatedByName	= #UpdatedByName#
 					
 					,	PersonType		= #PersonType#
 					,	PersonName		= #PersonName#
@@ -119,9 +119,9 @@
 		<update id="UpdatePersonImageUrl" parameterClass="DataMap">
 			<![CDATA[
 				UPDATE  dbo.TPerson
-				SET     UpdateDate		= GetDate()
-					,	UpdateBy		= #UpdateBy#
-					,	UpdateByName	= #UpdateByName#
+				SET     UpdatedOn		= GetDate()
+					,	UpdatedBy		= #UpdatedBy#
+					,	UpdatedByName	= #UpdatedByName#
 					
 					,	ImageUrl		= #ImageUrl#
 				WHERE	ID				= #ID#

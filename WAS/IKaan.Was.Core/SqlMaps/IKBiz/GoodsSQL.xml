@@ -9,12 +9,12 @@
 			<![CDATA[
 				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
 					,	AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					
 					,	AA.GoodsCode
 					,	AA.GoodsName
@@ -114,12 +114,12 @@
 		<select id="SelectGoods" parameterClass="DataMap" resultClass="GoodsModel" >
 			<![CDATA[
 				SELECT  AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					
 					,	AA.GoodsCode
 					,	AA.GoodsName
@@ -137,12 +137,12 @@
 			<![CDATA[
 				INSERT INTO dbo.TGoods
 				( 
-					CreateDate, CreateBy, CreateByName,
+					CreatedOn, CreatedBy, CreatedByName,
 					GoodsCode, GoodsName, BrandID, CategoryID, UseYn, ListPrice, SalePrice
 				)
 				VALUES
 				(
-					GetDate(), #CreateBy#, #CreateByName#,
+					GetDate(), #CreatedBy#, #CreatedByName#,
 					#GoodsCode#, #GoodsName#, #BrandID#, #CategoryID#, #UseYn#, #ListPrice#, #SalePrice#
 				)
 			]]>
@@ -155,9 +155,9 @@
 		<update id="UpdateGoods" parameterClass="GoodsModel">
 			<![CDATA[
 				UPDATE  dbo.TGoods
-				SET     UpdateDate		= GetDate()
-					,	UpdateBy		= #UpdateBy#
-					,	UpdateByName	= #UpdateByName#
+				SET     UpdatedOn		= GetDate()
+					,	UpdatedBy		= #UpdatedBy#
+					,	UpdatedByName	= #UpdatedByName#
 					
 					,	GoodsCode		= #GoodsCode#
 					,	GoodsName		= #GoodsName#

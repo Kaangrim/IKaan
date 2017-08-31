@@ -9,12 +9,12 @@
 			<![CDATA[
 				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
 					,	AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					
 					,	AA.EmployeeID
 					,	AA.DepartmentID
@@ -56,12 +56,12 @@
 		<select id="SelectAppointment" parameterClass="DataMap" resultClass="AppointmentModel" >
 			<![CDATA[
 				SELECT  AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					
 					,	AA.EmployeeID
 					,	AA.DepartmentID
@@ -79,12 +79,12 @@
 			<![CDATA[
 				INSERT INTO dbo.TAppointment
 				( 
-					CreateDate, CreateBy, CreateByName,
+					CreatedOn, CreatedBy, CreatedByName,
 					EmployeeID, DepartmentID, MainYn, Position, StartDate, EndDate, Description
 				)
 				VALUES
 				(
-					GetDate(), #CreateBy#, #CreateByName#,					
+					GetDate(), #CreatedBy#, #CreatedByName#,					
 					#EmployeeID#, #DepartmentID#, #MainYn#, #Position#, #StartDate#, #EndDate#, #Description#
 				)
 			]]>
@@ -97,9 +97,9 @@
 		<update id="UpdateAppointment" parameterClass="AppointmentModel">
 			<![CDATA[
 				UPDATE  dbo.TAppointment
-				SET     UpdateDate		= GetDate()
-					,	UpdateBy		= #UpdateBy#
-					,	UpdateByName	= #UpdateByName#
+				SET     UpdatedOn		= GetDate()
+					,	UpdatedBy		= #UpdatedBy#
+					,	UpdatedByName	= #UpdatedByName#
 					
 					,	EmployeeID		= #EmployeeID#
 					,	DepartmentID	= #DepartmentID#
@@ -120,12 +120,12 @@
 		<select id="SelectAppointmentDuplicate" parameterClass="DataMap" resultClass="AppointmentModel" >
 			<![CDATA[
 				SELECT  AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					
 					,	AA.EmployeeID
 					,	AA.DepartmentID
@@ -143,12 +143,12 @@
 		<select id="SelectAppointmentBefore" parameterClass="DataMap" resultClass="AppointmentModel" >
 			<![CDATA[
 				SELECT  AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					
 					,	AA.EmployeeID
 					,	AA.DepartmentID
@@ -169,12 +169,12 @@
 		<select id="SelectAppointmentAfter" parameterClass="DataMap" resultClass="AppointmentModel" >
 			<![CDATA[
 				SELECT  AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					
 					,	AA.EmployeeID
 					,	AA.DepartmentID
@@ -195,9 +195,9 @@
 		<update id="UpdateAppointmentBefore" parameterClass="AppointmentModel">
 			<![CDATA[
 				UPDATE  dbo.TAppointment
-				SET     UpdateDate		= GetDate()
-					,	UpdateBy		= #UpdateBy#
-					,	UpdateByName	= #UpdateByName#
+				SET     UpdatedOn		= GetDate()
+					,	UpdatedBy		= #UpdatedBy#
+					,	UpdatedByName	= #UpdatedByName#
 					
 					,	EndDate			= #EndDate#
 				WHERE	ID				= #ID#

@@ -43,12 +43,12 @@
 				)
 				SELECT  ROW_NUMBER() OVER (ORDER BY BB.HierID)	AS RowNo
 					,	AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					
 					,	AA.CategoryName
 					,	AA.ParentID
@@ -82,12 +82,12 @@
 		<select id="SelectCategory" parameterClass="DataMap" resultClass="CategoryModel" >
 			<![CDATA[
 				SELECT  AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					
 					,	AA.CategoryName
 					,	AA.ParentID
@@ -130,14 +130,14 @@
 			<![CDATA[
 				INSERT INTO dbo.TCategory
 				( 
-					CreateDate, CreateBy, CreateByName,
+					CreatedOn, CreatedBy, CreatedByName,
 					CategoryName, ParentID,
 					Category1, Category2, Category3, Category4, Category5,
 					InfoNoticeID, UseYn, SortOrder
 				)
 				VALUES
 				(
-					GetDate(), #CreateBy#, #CreateByName#,
+					GetDate(), #CreatedBy#, #CreatedByName#,
 					#CategoryName#, #ParentID#,
 					#Category1#, #Category2#, #Category3#, #Category4#, #Category5#,
 					#InfoNoticeID#, #UseYn#, #SortOrder#
@@ -152,9 +152,9 @@
 		<update id="UpdateCategory" parameterClass="CategoryModel">
 			<![CDATA[
 				UPDATE  dbo.TCategory
-				SET     UpdateDate	= GetDate()
-					,	UpdateBy	= #UpdateBy#
-					,	UpdateByName= #UpdateByName#
+				SET     UpdatedOn	= GetDate()
+					,	UpdatedBy	= #UpdatedBy#
+					,	UpdatedByName= #UpdatedByName#
 					
 					,	CategoryName= #CategoryName#
 					,	ParentID	= #ParentID#

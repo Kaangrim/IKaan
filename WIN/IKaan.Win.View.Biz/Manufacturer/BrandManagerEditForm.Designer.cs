@@ -36,14 +36,14 @@
 			this.lcItemDescription = new DevExpress.XtraLayout.LayoutControlItem();
 			this.memDescription = new DevExpress.XtraEditors.MemoEdit();
 			this.lcGroupRegInfo = new DevExpress.XtraLayout.LayoutControlGroup();
-			this.lcItemCreateDate = new DevExpress.XtraLayout.LayoutControlItem();
-			this.txtCreateDate = new DevExpress.XtraEditors.TextEdit();
-			this.lcItemCreateByName = new DevExpress.XtraLayout.LayoutControlItem();
-			this.txtCreateByName = new DevExpress.XtraEditors.TextEdit();
-			this.lcItemUpdateDate = new DevExpress.XtraLayout.LayoutControlItem();
-			this.txtUpdateDate = new DevExpress.XtraEditors.TextEdit();
-			this.lcItemUpdateByName = new DevExpress.XtraLayout.LayoutControlItem();
-			this.txtUpdateByName = new DevExpress.XtraEditors.TextEdit();
+			this.lcItemCreatedOn = new DevExpress.XtraLayout.LayoutControlItem();
+			this.txtCreatedOn = new DevExpress.XtraEditors.TextEdit();
+			this.lcItemCreatedByName = new DevExpress.XtraLayout.LayoutControlItem();
+			this.txtCreatedByName = new DevExpress.XtraEditors.TextEdit();
+			this.lcItemUpdatedOn = new DevExpress.XtraLayout.LayoutControlItem();
+			this.txtUpdatedOn = new DevExpress.XtraEditors.TextEdit();
+			this.lcItemUpdatedByName = new DevExpress.XtraLayout.LayoutControlItem();
+			this.txtUpdatedByName = new DevExpress.XtraEditors.TextEdit();
 			this.txtEmployeeID = new IKaan.Win.Core.Controls.Common.XSearch();
 			this.lcItemEmployee = new DevExpress.XtraLayout.LayoutControlItem();
 			this.datStartDate = new DevExpress.XtraEditors.DateEdit();
@@ -61,14 +61,14 @@
 			((System.ComponentModel.ISupportInitialize)(this.lcItemDescription)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.memDescription.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupRegInfo)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemCreateDate)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.txtCreateDate.Properties)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemCreateByName)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.txtCreateByName.Properties)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemUpdateDate)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.txtUpdateDate.Properties)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemUpdateByName)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.txtUpdateByName.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemCreatedOn)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtCreatedOn.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemCreatedByName)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtCreatedByName.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemUpdatedOn)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtUpdatedOn.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemUpdatedByName)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtUpdatedByName.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemEmployee)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.datStartDate.Properties.CalendarTimeProperties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.datStartDate.Properties)).BeginInit();
@@ -87,10 +87,10 @@
 			this.lc.Controls.Add(this.memDescription);
 			this.lc.Controls.Add(this.txtBrandID);
 			this.lc.Controls.Add(this.txtID);
-			this.lc.Controls.Add(this.txtUpdateByName);
-			this.lc.Controls.Add(this.txtUpdateDate);
-			this.lc.Controls.Add(this.txtCreateByName);
-			this.lc.Controls.Add(this.txtCreateDate);
+			this.lc.Controls.Add(this.txtUpdatedByName);
+			this.lc.Controls.Add(this.txtUpdatedOn);
+			this.lc.Controls.Add(this.txtCreatedByName);
+			this.lc.Controls.Add(this.txtCreatedOn);
 			this.lc.Location = new System.Drawing.Point(0, 44);
 			this.lc.Margin = new System.Windows.Forms.Padding(0);
 			this.lc.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new System.Drawing.Rectangle(894, 198, 450, 400);
@@ -184,79 +184,79 @@
 			// lcGroupRegInfo
 			// 
 			this.lcGroupRegInfo.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
-            this.lcItemCreateDate,
-            this.lcItemCreateByName,
-            this.lcItemUpdateDate,
-            this.lcItemUpdateByName});
+            this.lcItemCreatedOn,
+            this.lcItemCreatedByName,
+            this.lcItemUpdatedOn,
+            this.lcItemUpdatedByName});
 			this.lcGroupRegInfo.Location = new System.Drawing.Point(0, 236);
 			this.lcGroupRegInfo.Name = "lcGroupRegInfo";
 			this.lcGroupRegInfo.Padding = new DevExpress.XtraLayout.Utils.Padding(4, 4, 4, 4);
 			this.lcGroupRegInfo.Size = new System.Drawing.Size(494, 62);
 			this.lcGroupRegInfo.TextVisible = false;
 			// 
-			// lcItemCreateDate
+			// lcItemCreatedOn
 			// 
-			this.lcItemCreateDate.Control = this.txtCreateDate;
-			this.lcItemCreateDate.Location = new System.Drawing.Point(0, 0);
-			this.lcItemCreateDate.Name = "lcItemCreateDate";
-			this.lcItemCreateDate.Size = new System.Drawing.Size(240, 24);
-			this.lcItemCreateDate.TextSize = new System.Drawing.Size(118, 14);
+			this.lcItemCreatedOn.Control = this.txtCreatedOn;
+			this.lcItemCreatedOn.Location = new System.Drawing.Point(0, 0);
+			this.lcItemCreatedOn.Name = "lcItemCreatedOn";
+			this.lcItemCreatedOn.Size = new System.Drawing.Size(240, 24);
+			this.lcItemCreatedOn.TextSize = new System.Drawing.Size(118, 14);
 			// 
-			// txtCreateDate
+			// txtCreatedOn
 			// 
-			this.txtCreateDate.Location = new System.Drawing.Point(133, 247);
-			this.txtCreateDate.Name = "txtCreateDate";
-			this.txtCreateDate.Size = new System.Drawing.Size(114, 20);
-			this.txtCreateDate.StyleController = this.lc;
-			this.txtCreateDate.TabIndex = 4;
+			this.txtCreatedOn.Location = new System.Drawing.Point(133, 247);
+			this.txtCreatedOn.Name = "txtCreatedOn";
+			this.txtCreatedOn.Size = new System.Drawing.Size(114, 20);
+			this.txtCreatedOn.StyleController = this.lc;
+			this.txtCreatedOn.TabIndex = 4;
 			// 
-			// lcItemCreateByName
+			// lcItemCreatedByName
 			// 
-			this.lcItemCreateByName.Control = this.txtCreateByName;
-			this.lcItemCreateByName.Location = new System.Drawing.Point(0, 24);
-			this.lcItemCreateByName.Name = "lcItemCreateByName";
-			this.lcItemCreateByName.Size = new System.Drawing.Size(240, 24);
-			this.lcItemCreateByName.TextSize = new System.Drawing.Size(118, 14);
+			this.lcItemCreatedByName.Control = this.txtCreatedByName;
+			this.lcItemCreatedByName.Location = new System.Drawing.Point(0, 24);
+			this.lcItemCreatedByName.Name = "lcItemCreatedByName";
+			this.lcItemCreatedByName.Size = new System.Drawing.Size(240, 24);
+			this.lcItemCreatedByName.TextSize = new System.Drawing.Size(118, 14);
 			// 
-			// txtCreateByName
+			// txtCreatedByName
 			// 
-			this.txtCreateByName.Location = new System.Drawing.Point(133, 271);
-			this.txtCreateByName.Name = "txtCreateByName";
-			this.txtCreateByName.Size = new System.Drawing.Size(114, 20);
-			this.txtCreateByName.StyleController = this.lc;
-			this.txtCreateByName.TabIndex = 5;
+			this.txtCreatedByName.Location = new System.Drawing.Point(133, 271);
+			this.txtCreatedByName.Name = "txtCreatedByName";
+			this.txtCreatedByName.Size = new System.Drawing.Size(114, 20);
+			this.txtCreatedByName.StyleController = this.lc;
+			this.txtCreatedByName.TabIndex = 5;
 			// 
-			// lcItemUpdateDate
+			// lcItemUpdatedOn
 			// 
-			this.lcItemUpdateDate.Control = this.txtUpdateDate;
-			this.lcItemUpdateDate.Location = new System.Drawing.Point(240, 0);
-			this.lcItemUpdateDate.Name = "lcItemUpdateDate";
-			this.lcItemUpdateDate.Size = new System.Drawing.Size(240, 24);
-			this.lcItemUpdateDate.TextSize = new System.Drawing.Size(118, 14);
+			this.lcItemUpdatedOn.Control = this.txtUpdatedOn;
+			this.lcItemUpdatedOn.Location = new System.Drawing.Point(240, 0);
+			this.lcItemUpdatedOn.Name = "lcItemUpdatedOn";
+			this.lcItemUpdatedOn.Size = new System.Drawing.Size(240, 24);
+			this.lcItemUpdatedOn.TextSize = new System.Drawing.Size(118, 14);
 			// 
-			// txtUpdateDate
+			// txtUpdatedOn
 			// 
-			this.txtUpdateDate.Location = new System.Drawing.Point(373, 247);
-			this.txtUpdateDate.Name = "txtUpdateDate";
-			this.txtUpdateDate.Size = new System.Drawing.Size(114, 20);
-			this.txtUpdateDate.StyleController = this.lc;
-			this.txtUpdateDate.TabIndex = 6;
+			this.txtUpdatedOn.Location = new System.Drawing.Point(373, 247);
+			this.txtUpdatedOn.Name = "txtUpdatedOn";
+			this.txtUpdatedOn.Size = new System.Drawing.Size(114, 20);
+			this.txtUpdatedOn.StyleController = this.lc;
+			this.txtUpdatedOn.TabIndex = 6;
 			// 
-			// lcItemUpdateByName
+			// lcItemUpdatedByName
 			// 
-			this.lcItemUpdateByName.Control = this.txtUpdateByName;
-			this.lcItemUpdateByName.Location = new System.Drawing.Point(240, 24);
-			this.lcItemUpdateByName.Name = "lcItemUpdateByName";
-			this.lcItemUpdateByName.Size = new System.Drawing.Size(240, 24);
-			this.lcItemUpdateByName.TextSize = new System.Drawing.Size(118, 14);
+			this.lcItemUpdatedByName.Control = this.txtUpdatedByName;
+			this.lcItemUpdatedByName.Location = new System.Drawing.Point(240, 24);
+			this.lcItemUpdatedByName.Name = "lcItemUpdatedByName";
+			this.lcItemUpdatedByName.Size = new System.Drawing.Size(240, 24);
+			this.lcItemUpdatedByName.TextSize = new System.Drawing.Size(118, 14);
 			// 
-			// txtUpdateByName
+			// txtUpdatedByName
 			// 
-			this.txtUpdateByName.Location = new System.Drawing.Point(373, 271);
-			this.txtUpdateByName.Name = "txtUpdateByName";
-			this.txtUpdateByName.Size = new System.Drawing.Size(114, 20);
-			this.txtUpdateByName.StyleController = this.lc;
-			this.txtUpdateByName.TabIndex = 7;
+			this.txtUpdatedByName.Location = new System.Drawing.Point(373, 271);
+			this.txtUpdatedByName.Name = "txtUpdatedByName";
+			this.txtUpdatedByName.Size = new System.Drawing.Size(114, 20);
+			this.txtUpdatedByName.StyleController = this.lc;
+			this.txtUpdatedByName.TabIndex = 7;
 			// 
 			// txtEmployeeID
 			// 
@@ -355,14 +355,14 @@
 			((System.ComponentModel.ISupportInitialize)(this.lcItemDescription)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.memDescription.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupRegInfo)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemCreateDate)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.txtCreateDate.Properties)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemCreateByName)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.txtCreateByName.Properties)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemUpdateDate)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.txtUpdateDate.Properties)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemUpdateByName)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.txtUpdateByName.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemCreatedOn)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtCreatedOn.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemCreatedByName)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtCreatedByName.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemUpdatedOn)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtUpdatedOn.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemUpdatedByName)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtUpdatedByName.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemEmployee)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.datStartDate.Properties.CalendarTimeProperties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.datStartDate.Properties)).EndInit();
@@ -380,14 +380,14 @@
 
 		private DevExpress.XtraLayout.LayoutControlGroup lcGroupEdit;
 		private DevExpress.XtraLayout.LayoutControlGroup lcGroupRegInfo;
-		private DevExpress.XtraEditors.TextEdit txtUpdateByName;
-		private DevExpress.XtraEditors.TextEdit txtUpdateDate;
-		private DevExpress.XtraEditors.TextEdit txtCreateByName;
-		private DevExpress.XtraEditors.TextEdit txtCreateDate;
-		private DevExpress.XtraLayout.LayoutControlItem lcItemCreateDate;
-		private DevExpress.XtraLayout.LayoutControlItem lcItemCreateByName;
-		private DevExpress.XtraLayout.LayoutControlItem lcItemUpdateDate;
-		private DevExpress.XtraLayout.LayoutControlItem lcItemUpdateByName;
+		private DevExpress.XtraEditors.TextEdit txtUpdatedByName;
+		private DevExpress.XtraEditors.TextEdit txtUpdatedOn;
+		private DevExpress.XtraEditors.TextEdit txtCreatedByName;
+		private DevExpress.XtraEditors.TextEdit txtCreatedOn;
+		private DevExpress.XtraLayout.LayoutControlItem lcItemCreatedOn;
+		private DevExpress.XtraLayout.LayoutControlItem lcItemCreatedByName;
+		private DevExpress.XtraLayout.LayoutControlItem lcItemUpdatedOn;
+		private DevExpress.XtraLayout.LayoutControlItem lcItemUpdatedByName;
 		private Core.Controls.Common.XSearch txtBrandID;
 		private DevExpress.XtraEditors.TextEdit txtID;
 		private DevExpress.XtraLayout.LayoutControlItem lcItemID;

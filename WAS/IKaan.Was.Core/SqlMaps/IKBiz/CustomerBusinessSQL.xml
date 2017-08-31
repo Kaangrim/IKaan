@@ -9,12 +9,12 @@
 			<![CDATA[
 				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
 					,	AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					
 					,	AA.CustomerID
 					,	AA.BusinessID
@@ -53,12 +53,12 @@
 		<select id="SelectCustomerBusiness" parameterClass="DataMap" resultClass="CustomerBusinessModel" >
 			<![CDATA[
 				SELECT  AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					
 					,	AA.CustomerID
 					,	AA.BusinessID
@@ -73,12 +73,12 @@
 			<![CDATA[
 				INSERT INTO dbo.TCustomerBusiness
 				( 
-					CreateDate, CreateBy, CreateByName,
+					CreatedOn, CreatedBy, CreatedByName,
 					CustomerID, BusinessID, StartDate, EndDate
 				)
 				VALUES
 				(
-					GetDate(), #CreateBy#, #CreateByName#,
+					GetDate(), #CreatedBy#, #CreatedByName#,
 					#CustomerID#, #BusinessID#, #StartDate#, #EndDate#
 				)
 			]]>
@@ -91,9 +91,9 @@
 		<update id="UpdateCustomerBusiness" parameterClass="CustomerBusinessModel">
 			<![CDATA[
 				UPDATE  dbo.TCustomerBusiness
-				SET     UpdateDate		= GetDate()
-					,	UpdateBy		= #UpdateBy#
-					,	UpdateByName	= #UpdateByName#
+				SET     UpdatedOn		= GetDate()
+					,	UpdatedBy		= #UpdatedBy#
+					,	UpdatedByName	= #UpdatedByName#
 					
 					,	CustomerID		= #CustomerID#
 					,	BusinessID		= #BusinessID#
@@ -111,12 +111,12 @@
 		<select id="SelectCustomerBusinessDuplicate" parameterClass="DataMap" resultClass="CustomerBusinessModel" >
 			<![CDATA[
 				SELECT  AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					
 					,	AA.CustomerID
 					,	AA.BusinessID
@@ -131,12 +131,12 @@
 		<select id="SelectCustomerBusinessBefore" parameterClass="DataMap" resultClass="CustomerBusinessModel" >
 			<![CDATA[
 				SELECT  AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					
 					,	AA.CustomerID
 					,	AA.BusinessID
@@ -154,12 +154,12 @@
 		<select id="SelectCustomerBusinessAfter" parameterClass="DataMap" resultClass="CustomerBusinessModel" >
 			<![CDATA[
 				SELECT  AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					
 					,	AA.CustomerID
 					,	AA.BusinessID
@@ -177,9 +177,9 @@
 		<update id="UpdateCustomerBusinessEndDate" parameterClass="CustomerBusinessModel">
 			<![CDATA[
 				UPDATE  dbo.TCustomerBusiness
-				SET     UpdateDate		= GetDate()
-					,	UpdateBy		= #UpdateBy#
-					,	UpdateByName	= #UpdateByName#					
+				SET     UpdatedOn		= GetDate()
+					,	UpdatedBy		= #UpdatedBy#
+					,	UpdatedByName	= #UpdatedByName#					
 					,	EndDate			= #EndDate#
 				WHERE	ID				= #ID#
 			]]>

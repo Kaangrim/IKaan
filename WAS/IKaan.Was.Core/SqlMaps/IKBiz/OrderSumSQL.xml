@@ -9,12 +9,12 @@
 			<![CDATA[
 				SELECT  ROW_NUMBER() OVER (ORDER BY BB.BrandName, CC.ChannelName)	as RowNo
 					,	AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					
 					,	AA.BrandID
 					,	AA.ChannelID
@@ -52,12 +52,12 @@
 		<select id="SelectOrderSum" parameterClass="DataMap" resultClass="OrderSumModel" >
 			<![CDATA[
 				SELECT  AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					
 					,	AA.BrandID
 					,	AA.ChannelID
@@ -82,12 +82,12 @@
 			<![CDATA[
 				INSERT INTO dbo.TOrderSum
 				( 
-					CreateDate, CreateBy, CreateByName,
+					CreatedOn, CreatedBy, CreatedByName,
 					BrandID, ChannelID, OrderDate, OrderQty, OrderAmt
 				)
 				VALUES
 				(
-					GetDate(), #CreateBy#, #CreateByName#,
+					GetDate(), #CreatedBy#, #CreatedByName#,
 					#BrandID#, #ChannelID#, #OrderDate#, #OrderQty#, #OrderAmt#
 				)
 			]]>
@@ -100,9 +100,9 @@
 		<update id="UpdateTOrderSum" parameterClass="OrderSumModel">
 			<![CDATA[
 				UPDATE  dbo.TOrderSum
-				SET     UpdateDate		= GetDate()
-					,	UpdateBy		= #UpdateBy#
-					,	UpdateByName	= #UpdateByName#
+				SET     UpdatedOn		= GetDate()
+					,	UpdatedBy		= #UpdatedBy#
+					,	UpdatedByName	= #UpdatedByName#
 					
 					,	BrandID			= #BrandID#
 					,	ChannelID		= #ChannelID#
@@ -122,12 +122,12 @@
 			<![CDATA[
 				SELECT	ROW_NUMBER() OVER (ORDER BY CC.BrandName)	as  RowNo
 					,	BB.ID
-					,	BB.CreateDate
-					,	BB.CreateBy
-					,	BB.CreateByName
-					,	BB.UpdateDate
-					,	BB.UpdateBy
-					,	BB.UpdateByName
+					,	BB.CreatedOn
+					,	BB.CreatedBy
+					,	BB.CreatedByName
+					,	BB.UpdatedOn
+					,	BB.UpdatedBy
+					,	BB.UpdatedByName
 					
 					,	AA.ChannelID
 					,	AA.BrandID
@@ -151,12 +151,12 @@
 						LEFT JOIN
 						(
 							SELECT	ID
-								,	CreateDate
-								,	CreateBy
-								,	CreateByName
-								,	UpdateDate
-								,	UpdateBy
-								,	UpdateByName
+								,	CreatedOn
+								,	CreatedBy
+								,	CreatedByName
+								,	UpdatedOn
+								,	UpdatedBy
+								,	UpdatedByName
 								,	ChannelID
 								,	BrandID
 								,	OrderDate
@@ -178,12 +178,12 @@
 			<![CDATA[
 				SELECT	ROW_NUMBER() OVER (ORDER BY CC.ChannelName)	as  RowNo
 					,	BB.ID
-					,	BB.CreateDate
-					,	BB.CreateBy
-					,	BB.CreateByName
-					,	BB.UpdateDate
-					,	BB.UpdateBy
-					,	BB.UpdateByName
+					,	BB.CreatedOn
+					,	BB.CreatedBy
+					,	BB.CreatedByName
+					,	BB.UpdatedOn
+					,	BB.UpdatedBy
+					,	BB.UpdatedByName
 					
 					,	AA.ChannelID
 					,	AA.BrandID
@@ -207,12 +207,12 @@
 						LEFT JOIN
 						(
 							SELECT	ID
-								,	CreateDate
-								,	CreateBy
-								,	CreateByName
-								,	UpdateDate
-								,	UpdateBy
-								,	UpdateByName
+								,	CreatedOn
+								,	CreatedBy
+								,	CreatedByName
+								,	UpdatedOn
+								,	UpdatedBy
+								,	UpdatedByName
 								,	ChannelID
 								,	BrandID
 								,	OrderDate
@@ -233,12 +233,12 @@
 		<select id="SelectOrderSumDuplicate" parameterClass="DataMap" resultClass="OrderSumModel" >
 			<![CDATA[
 				SELECT  AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					
 					,	AA.BrandID
 					,	AA.ChannelID

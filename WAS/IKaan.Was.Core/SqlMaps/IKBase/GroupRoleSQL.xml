@@ -8,12 +8,12 @@
 		<select id="SelectGroupRole" parameterClass="DataMap" resultClass="GroupRoleModel" >
 			<![CDATA[
 				SELECT  AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					,	AA.GroupID
 					,	AA.RoleID
 					,	AA.UseYn
@@ -24,12 +24,12 @@
 		<select id="SelectGroupRoleExists" parameterClass="GroupRoleModel" resultClass="GroupRoleModel" >
 			<![CDATA[
 				SELECT  AA.ID
-					,	AA.CreateDate
-					,	AA.CreateBy
-					,	AA.CreateByName
-					,	AA.UpdateDate
-					,	AA.UpdateBy
-					,	AA.UpdateByName
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					,	AA.GroupID
 					,	AA.RoleID
 					,	AA.UseYn
@@ -42,12 +42,12 @@
 			<![CDATA[
 				INSERT INTO dbo.TGroupRole
 				( 
-					CreateDate, CreateBy, CreateByName,
+					CreatedOn, CreatedBy, CreatedByName,
 					GroupID, RoleID, UseYn
 				)
 				VALUES
 				(
-					GetDate(), #CreateBy#, #CreateByName#,
+					GetDate(), #CreatedBy#, #CreatedByName#,
 					#GroupID#, #RoleID#, #UseYn#
 				)
 			]]>
@@ -60,9 +60,9 @@
 		<update id="UpdateGroupRole" parameterClass="GroupRoleModel">
 			<![CDATA[
 				UPDATE  dbo.TGroupRole
-				SET     UpdateDate	= GetDate()
-					,	UpdateBy	= #UpdateBy#
-					,	UpdateByName= #UpdateByName#
+				SET     UpdatedOn	= GetDate()
+					,	UpdatedBy	= #UpdatedBy#
+					,	UpdatedByName= #UpdatedByName#
 					
 					,	GroupID		= #GroupID#
 					,	RoleID		= #RoleID#
