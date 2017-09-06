@@ -26,5 +26,9 @@ namespace IKaan.Model.Scrap
 		[DataMember]
 		[Display(Name = "상품수")]
 		public int GoodsCnt { get; set; }
+
+		[DataMember]
+		[Display(Name = "설명")]
+		public string Description { get; set; }
 	}
 }

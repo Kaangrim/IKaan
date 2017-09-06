@@ -80,6 +80,12 @@
     <Compile Include="Authority\BookmarkEditForm.designer.cs">
       <DependentUpon>BookmarkEditForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Common\CalendarEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Common\CalendarEditForm.designer.cs">
+      <DependentUpon>CalendarEditForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Common\FtpEditForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -186,6 +192,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Authority\BookmarkEditForm.resx">
       <DependentUpon>BookmarkEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\CalendarEditForm.resx">
+      <DependentUpon>CalendarEditForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Common\FtpEditForm.resx">
       <DependentUpon>FtpEditForm.cs</DependentUpon>

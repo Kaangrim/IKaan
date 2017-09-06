@@ -7,55 +7,100 @@
 	<statements>
 		<select id="SelectCalendarList" parameterClass="DataMap" resultClass="CalendarModel" >
 			<![CDATA[
-				SELECT	aa.CalDate  
+				SELECT	ROW_NUMBER() OVER (ORDER BY aa.ID)	AS RowNo
+					,	aa.ID
+					,	aa.CreatedOn
+					,	aa.CreatedBy
+					,	aa.CreatedByName
+					,	aa.UpdatedOn
+					,	aa.UpdatedBy
+					,	aa.UpdatedByName
+					,	aa.CalDate  
 					,	aa.CalYear
 					,	aa.CalMonth
 					,	aa.CalDay
 					,	aa.Quarter
 					,	aa.DayOfWeek
 					,	aa.DayOfYear
+					,	aa.WeekOfMonth
 					,	aa.WeekOfYear
+					,	isnull(aa.HolidayYn,'N')	as HolidayYn
 					,	aa.Description
-					,	aa.CreatedOn
-					,	aa.CreatedBy
-					,	aa.CreatedByName
-					,	aa.UpdatedOn
-					,	aa.UpdatedBy
-					,	aa.UpdatedByNamess
-				FROM	dbo.TCaledar aa WITH (NOLOCK)
+					,	case aa.DayOfWeek
+							when 1 then '일'
+							when 2 then '월'
+							when 3 then '화'
+							when 4 then '수'
+							when 5 then '목'
+							when 6 then '금'
+							when 7 then '토'
+						end							as DayOfWeekName
+				FROM	dbo.TCalendar aa with (nolock)
 				WHERE	1=1
 			]]>
-			<isNotEmpty property="FindText">
-				<![CDATA[
-					AND	(
-							AA.Description	LINE '%' + #FIND_TEXT# + '%'
-						)
-				]]>
-			</isNotEmpty>
 			<isNotEmpty property="CalYear">
 				<![CDATA[
-					AND	AA.CalYear = #CalYear#
-				]]>
-			</isNotEmpty>
-			<isNotEmpty property="CalDate">
-				<![CDATA[
-					AND	AA.CalDate	= #CalDate#
+					AND	aa.CalYear = #CalYear#
 				]]>
 			</isNotEmpty>
 			<![CDATA[
-				ORDER BY AA.CalDate ASC
+				ORDER BY RowNo
 			]]>
 		</select>
+		<select id="SelectCalendar" parameterClass="DataMap" resultClass="CalendarModel" >
+			<![CDATA[
+				SELECT	*
+				FROM	dbo.TCalendar aa WITH (NOLOCK)
+				WHERE	ID=#ID#
+			]]>
+		</select>
+		<select id="SelectCalendarByCalDate" parameterClass="DataMap" resultClass="CalendarModel" >
+			<![CDATA[
+				SELECT	*
+				FROM	dbo.TCalendar aa WITH (NOLOCK)
+				WHERE	aa.CalDate = #CalDate#
+			]]>
+		</select>
+		<insert id="InsertCalendar" parameterClass="CalendarModel">
+			<![CDATA[
+				INSERT INTO dbo.TCalendar
+				(
+					CreatedOn, CreatedBy, CreatedByName,
+					CalDate, CalYear, CalMonth, CalDay, Quarter,
+					DayOfWeek, DayOfYear, WeekOfMonth, WeekOfYear,
+					HolidayYn, Description
+				)
+				VALUES
+				(
+					GetDate(), #CreatedBy#, #CreatedByName#,
+					#CalDate#, #CalYear#, #CalMonth#, #CalDay#, #Quarter#,
+					#DayOfWeek#, #DayOfYear#, #WeekOfMonth#, #WeekOfYear#,
+					#HolidayYn#, #Description#
+				)
+			]]>
+			<selectKey property="ID" type="post" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
 		<update id="UpdateCalendar" parameterClass="CalendarModel">
 			<![CDATA[
-				UPDATE	dbo.Calendar
-				SET     Description		= #Description#
+				UPDATE	dbo.TCalendar
+				SET     WeekOfMonth		= #WeekOfMonth#
+					,	HolidayYn		= #HolidayYn#
+					,	Description		= #Description#
 					,	UpdatedOn		= GETDATE()
 					,	UpdatedBy		= #UpdatedBy#
 					,	UpdatedByName	= #UpdatedByName#
-				WHERE	CalDate			= #CalDate#
+				WHERE	ID				= #ID#
 			]]>
 		</update>
+		<delete id="DeleteCalendar" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM dbo.TCalendar WHERE ID = #ID#;
+			]]>
+		</delete>
 		<procedure id="CreateCalendar" parameterMap="paramCreateCalendar" resultClass="Int">
 			spCreateCalendar
 		</procedure>		
@@ -64,6 +109,7 @@
 		<parameterMap id="paramCreateCalendar" class="DataMap">
 			<parameter property="CalYear" column="CalYear" />
 			<parameter property="CreatedBy" column="CreatedBy" />
+			<parameter property="CreatedByName" column="CreatedByName" />
 		</parameterMap>
 	</parameterMaps>
 </sqlMap>

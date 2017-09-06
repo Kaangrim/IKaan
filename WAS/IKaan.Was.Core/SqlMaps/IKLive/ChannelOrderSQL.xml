@@ -45,6 +45,7 @@
 					,	AA.BrandID
 					,	AA.DueDate
 					,	AA.GiftName
+					,	AA.FileUploadID
 					
 					,	CC.ChannelName
 					,	BB.BrandName
@@ -57,6 +58,7 @@
 							IKBiz.dbo.TBrand BB WITH (NOLOCK)
 								ON AA.BrandID = BB.ID
 				WHERE	1=1
+				AND		AA.OrderDate = #OrderDate#
 			]]>
 			<isNotEmpty property="ChannelID">
 				<![CDATA[
@@ -83,8 +85,32 @@
 			<![CDATA[
 				SELECT  *
 				FROM	dbo.TChannelOrder AA WITH (NOLOCK)
-				WHERE	AA.OrderNo = #OrderNo#
-				AND		AA.OrderSeq= #OrderSeq#
+				WHERE	1=1
+			]]>
+			<isNotEmpty property="OrderNo">
+				<![CDATA[
+					AND	AA.OrderNo = #OrderNo#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="OrderSeq">
+				<![CDATA[
+					AND	AA.OrderSeq = #OrderSeq#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="GoodsCode">
+				<![CDATA[
+					AND	AA.GoodsCode = #GoodsCode#
+				]]>
+			</isNotEmpty>
+		</select>
+		<select id="SelectChannelOrderByGoodsCode" parameterClass="DataMap" resultClass="ChannelOrderModel" >
+			<![CDATA[
+				SELECT  TOP 1 AA.*
+				FROM	dbo.TChannelOrder AA WITH (NOLOCK)
+				WHERE	AA.ChannelID = #ChannelID#
+				AND		AA.GoodsCode = #GoodsCode#
+				AND		AA.BrandID	IS NOT NULL
+				ORDER BY AA.ID DESC
 			]]>
 		</select>
 		<insert id="InsertChannelOrder" parameterClass="ChannelOrderModel" >
@@ -162,5 +188,16 @@
 				DELETE FROM dbo.TChannelOrder WHERE ID = #ID#;
 			]]>
 		</delete>
+		<update id="UpdateChannelOrderBrand" parameterClass="ChannelOrderModel">
+			<![CDATA[
+				UPDATE  dbo.TChannelOrder
+				SET     UpdatedOn		= GetDate()
+					,	UpdatedBy		= #UpdatedBy#
+					,	UpdatedByName	= #UpdatedByName#
+					
+					,	BrandID			= #BrandID#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
 	</statements>
 </sqlMap>

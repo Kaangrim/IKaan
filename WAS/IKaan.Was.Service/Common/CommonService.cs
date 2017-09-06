@@ -4,6 +4,7 @@ using IKaan.Base.Map;
 using IKaan.Base.Utils;
 using IKaan.Model.Common.Was;
 using IKaan.Was.Core.Mappers;
+using Newtonsoft.Json.Linq;
 
 namespace IKaan.Was.Service.Common
 {
@@ -314,9 +315,9 @@ namespace IKaan.Was.Service.Common
 
 				bool isOneRequest = true;
 				List<WasRequest> list = new List<WasRequest>();
-				if (request.Data.GetType() == typeof(List<WasRequest>))
+				if (request.Data != null && request.Data.GetType() == typeof(JArray))
 				{
-					list = (request.Data as List<WasRequest>);
+					list = request.Data.JsonToAnyType<List<WasRequest>>();
 					isOneRequest = false;
 				}
 				else
@@ -326,20 +327,22 @@ namespace IKaan.Was.Service.Common
 
 				foreach (WasRequest req in list)
 				{
-					if (req.Parameter == null)
-						req.Parameter = new DataMap();
-					(req.Parameter as DataMap).SetValue("CreatedBy", req.User.UserId);
-					(req.Parameter as DataMap).SetValue("CreatedByName", req.User.UserName);
-					DaoFactory.Instance.QueryForObject<int>(req.SqlId, (req.Parameter as DataMap));
+					var parameter = req.Parameter.JsonToAnyType<DataMap>();
+					if (parameter == null)
+						parameter = new DataMap();
+					parameter.SetValue("CreatedBy", req.User.UserId);
+					parameter.SetValue("CreatedByName", req.User.UserName);
+
+					DaoFactory.Instance.QueryForObject<int>(req.SqlId, parameter);
 				}
 
 				if (isOneRequest)
 				{
-					request.Data = list;
+					request = list[0];
 				}
 				else
 				{
-					request = list[0];
+					request.Data = list;
 				}
 
 				return request;

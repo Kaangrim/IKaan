@@ -166,7 +166,14 @@ namespace IKaan.Was.Service.Services
 							switch (req.ModelName.Replace("Model", ""))
 							{
 								case "ChannelOrder":
-									req.SaveChannelOrder();
+									if (req.SqlId.Equals("UpdateChannelOrderBrand"))
+									{
+										req.SaveChannelOrderBrand();
+									}
+									else
+									{
+										req.SaveChannelOrder();
+									}
 									break;
 								case "ChannelOrderCancel":
 									req.SaveChannelOrderCancel();

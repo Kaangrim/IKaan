@@ -58,5 +58,9 @@ namespace IKaan.Model.Scrap
 		[DataMember]
 		[Display(Name = "카테고리명")]
 		public string CategoryName { get; set; }
+
+		[DataMember]
+		[Display(Name = "설명")]
+		public string Description { get; set; }
 	}
 }

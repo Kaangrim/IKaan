@@ -282,26 +282,20 @@ namespace IKaan.Win.Core.Was.Handler
 			}
 		}
 
-		public static WasRequest ProcedureCall<T>(string sqlId, DataMap parameter)
+		public static WasRequest ProcedureCall(string sqlId, DataMap parameter)
 		{
 			try
 			{
 				if (parameter == null)
 					parameter = new DataMap();
 
-				if (parameter.ContainsKey("CreatedBy") == false)
-					parameter.SetValue("CreatedBy", GlobalVar.UserInfo.UserId);
-				if (parameter.ContainsKey("CreatedByName") == false)
-					parameter.SetValue("CreatedByName", GlobalVar.UserInfo.UserName);
-
 				var res = (new WasRequest()
 				{
-					ServiceId = "Base",
+					ServiceId = "Common",
 					ProcessId = "ProcedureCall",
 					SqlId = sqlId,
 					IsTransaction = true,
-					Parameter = parameter,
-					ModelName = typeof(T).Name
+					Parameter = parameter
 				}).Execute();
 
 				if (res == null)

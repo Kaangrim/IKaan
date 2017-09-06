@@ -117,31 +117,7 @@
 		</select>
 		<select id="SelectCode" parameterClass="DataMap" resultClass="CodeModel">
 			<![CDATA[
-				SELECT	AA.ID
-					,	AA.CreatedOn
-					,	AA.CreatedBy
-					,	AA.CreatedByName
-					,	AA.UpdatedOn
-					,	AA.UpdatedBy
-					,	AA.UpdatedByName					
-					,	AA.Code
-					,	AA.Name
-					,	AA.Value
-					,	AA.ParentCode
-					,	AA.Description
-					,	AA.UseYn
-					,	AA.SortOrder
-					,	AA.MaxLength
-					,	AA.CodeValue01
-					,	AA.CodeValue02
-					,	AA.CodeValue03
-					,	AA.CodeValue04
-					,	AA.CodeValue05
-					,	AA.CodeValue06
-					,	AA.CodeValue07
-					,	AA.CodeValue08
-					,	AA.CodeValue09
-					,	AA.CodeValue10
+				SELECT	*
 				FROM	dbo.TCode AA WITH (NOLOCK)
 				WHERE	AA.ID = #ID#
 			]]>

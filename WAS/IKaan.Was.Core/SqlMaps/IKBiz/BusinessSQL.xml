@@ -28,7 +28,7 @@
 					
 				FROM	dbo.TBusiness AA WITH (NOLOCK)
 						LEFT JOIN
-							dbo.TCode M1 WITH (NOLOCK)
+							IKBase.dbo.TCode M1 WITH (NOLOCK)
 								ON AA.BizType = M1.Code
 									AND M1.ParentCode = 'BizType'
 				WHERE	1=1				

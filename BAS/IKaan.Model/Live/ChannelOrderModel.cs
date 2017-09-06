@@ -10,11 +10,11 @@ namespace IKaan.Model.Live
 	{
 		[DataMember]
 		[Display(Name = "채널ID")]
-		public int ChannelID { get; set; }
+		public int? ChannelID { get; set; }
 
 		[DataMember]
 		[Display(Name = "주문일자")]
-		public DateTime OrderDate { get; set; }
+		public DateTime? OrderDate { get; set; }
 
 		[DataMember]
 		[Display(Name = "주문번호")]

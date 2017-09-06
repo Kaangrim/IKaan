@@ -140,7 +140,7 @@
     <Compile Include="Base\UserRoleModel.cs" />
     <Compile Include="Base\ViewModel.cs" />
     <Compile Include="Base\ViewRoleModel.cs" />
-    <Compile Include="Biz\HolidayModel.cs" />
+    <Compile Include="Base\HolidayModel.cs" />
     <Compile Include="Base\CalendarModel.cs" />
     <Compile Include="Common\Enums\ColumnTypeEnum.cs" />
     <Compile Include="Common\Enums\FormatTypeEnum.cs" />

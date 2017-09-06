@@ -92,6 +92,9 @@ namespace IKaan.Was.Service.Services
 						case "TableStatistics":
 							req.GetTableStatistics();
 							break;
+						case "Calendar":
+							req.SetList<CalendarModel>();
+							break;
 					}
 				}
 
@@ -191,6 +194,9 @@ namespace IKaan.Was.Service.Services
 							break;
 						case "Column":
 							req.SetData<ColumnModel>();
+							break;
+						case "Calendar":
+							req.SetData<CalendarModel>();
 							break;
 					}
 				}
@@ -297,6 +303,12 @@ namespace IKaan.Was.Service.Services
 									break;
 								case "Table":
 									req.SaveTableAndColumn();
+									break;
+								case "Calendar":
+									if (req.SqlId == "CreateCalendar")
+										req.CreateCalendar();
+									else
+										req.SaveCalendar();
 									break;
 							}
 						}

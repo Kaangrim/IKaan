@@ -39,20 +39,7 @@
 		</select>
 		<select id="SelectBrandInfo" parameterClass="DataMap" resultClass="BrandInfoModel" >
 			<![CDATA[
-				SELECT  AA.ID
-					,	AA.CreatedOn
-					,	AA.CreatedBy
-					,	AA.CreatedByName
-					,	AA.UpdatedOn
-					,	AA.UpdatedBy
-					,	AA.UpdatedByName
-					
-					,	AA.SiteCode
-					,	AA.BrandCode
-					,	AA.BrandName
-					,	AA.BrandURL
-					,	AA.GoodsCnt
-					
+				SELECT  *					
 				FROM	dbo.TBrandInfo AA WITH (NOLOCK)
 				WHERE	AA.ID = #ID#
 			]]>
@@ -62,12 +49,12 @@
 				INSERT INTO dbo.TBrandInfo
 				( 
 					CreatedOn, CreatedBy, CreatedByName,
-					SiteCode, BrandCode, BrandName, BrandURL, GoodsCnt
+					SiteCode, BrandCode, BrandName, BrandURL, GoodsCnt, Description
 				)
 				VALUES
 				(
 					GetDate(), #CreatedBy#, #CreatedByName#,
-					#SiteCode#, #BrandCode#, #BrandName#, #BrandURL#, #GoodsCnt#
+					#SiteCode#, #BrandCode#, #BrandName#, #BrandURL#, #GoodsCnt#, #Description#
 				)
 			]]>
 			<selectKey type="post" property="ID" resultClass="Int">
@@ -88,6 +75,7 @@
 					,	BrandName		= #BrandName#
 					,	BrandURL		= #BrandURL#
 					,	GoodsCnt		= #GoodsCnt#
+					,	Description		= #Description#
 				WHERE	ID				= #ID#
 			]]>
 		</update>
@@ -99,21 +87,7 @@
 
 		<select id="SelectBrandInfoExists" parameterClass="DataMap" resultClass="BrandInfoModel" >
 			<![CDATA[
-				SELECT  ROW_NUMBER() OVER (ORDER BY AA.BrandName)	as RowNo
-					,	AA.ID
-					,	AA.CreatedOn
-					,	AA.CreatedBy
-					,	AA.CreatedByName
-					,	AA.UpdatedOn
-					,	AA.UpdatedBy
-					,	AA.UpdatedByName
-					
-					,	AA.SiteCode
-					,	AA.BrandCode
-					,	AA.BrandName
-					,	AA.BrandURL
-					,	AA.GoodsCnt
-					
+				SELECT  *					
 				FROM	dbo.TBrandInfo AA WITH (NOLOCK)
 				WHERE	AA.SiteCode = #SiteCode#
 				AND		(

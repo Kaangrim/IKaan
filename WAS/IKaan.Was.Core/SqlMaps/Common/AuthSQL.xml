@@ -52,34 +52,7 @@
 									ROW_NUMBER() OVER (ORDER BY AA.SortOrder, AA.ID)), 4) AS VARCHAR(MAX))	as HierID
 					FROM	dbo.TMenu AA WITH (NOLOCK)
 					WHERE	AA.UseYn = 'Y'
-			]]>			
-			<isNotEmpty property="MenuGroup">
-				<![CDATA[
-					AND		CASE 
-								WHEN #MenuGroup# IN ('SYS','RDS','LIB') THEN AA.ParentID
-								ELSE AA.ID
-							END =	(	
-										SELECT	CONVERT(INT, Value) 
-										FROM	dbo.TCode WITH (NOLOCK)
-										WHERE	Code		= #MenuGroup#
-										AND		ParentCode	= 'MenuGroup'
-										AND		Value		IS NOT NULL
-									)
-				]]>
-			</isNotEmpty>
-			<isEmpty property="MenuGroup">
-				<isNotEmpty property="ID">
-					<![CDATA[
-						AND		AA.ID = #ID#
-					]]>
-				</isNotEmpty>
-				<isEmpty property="ID">
-					<![CDATA[
-						AND		AA.ParentID IS NULL
-					]]>
-				</isEmpty>
-			</isEmpty>
-			<![CDATA[
+					AND		AA.ParentID IS NULL
 					UNION ALL
 					SELECT	AA.ID				AS MenuID
 						,	BB.MenuLevel + 1	AS MenuLevel
@@ -127,6 +100,39 @@
 				WHERE	1=1
 				ORDER BY 
 					BB.HierID
+			]]>
+		</select>
+		<select id="GetBookmark" parameterClass="DataMap" resultClass="UMainMenu">
+			<![CDATA[
+				SELECT	AA.ID			as MenuID
+					,	AA.ParentId		as ParentID
+					,	AA.MenuName		as MenuName
+					,	FF.Assembly		as Assembly
+					,	DD.Namespace	as Namespace
+					,	DD.Instance		as Instance
+					,	DD.ViewType		as ViewType
+					,	CASE 
+							WHEN DD.ID IS NULL THEN 'N'
+							ELSE 'Y'
+						END				AS ViewYn
+					,	'N'				AS EditYn
+				FROM	dbo.TMenu AA WITH (NOLOCK)
+						INNER JOIN 
+							dbo.TBookmark BB 
+								ON AA.ID = BB.MenuID
+									AND BB.UserID = #UserID#
+						LEFT JOIN
+							dbo.TMenuView CC WITH (NOLOCK)
+								ON AA.ID = CC.MenuID
+						LEFT JOIN
+							dbo.TView DD WITH (NOLOCK)
+								ON CC.ViewID = DD.ID
+						LEFT JOIN
+							dbo.TModule FF WITH (NOLOCK)
+								ON DD.ModuleID = FF.ID
+				WHERE	1=1
+				ORDER BY 
+					BB.SortOrder, AA.MenuName
 			]]>
 		</select>
 		<select id="GetMenuView" parameterClass="DataMap" resultClass="UMenuView">

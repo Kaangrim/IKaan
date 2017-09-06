@@ -48,28 +48,7 @@
 		</select>
 		<select id="SelectGoodsInfo" parameterClass="DataMap" resultClass="GoodsInfoModel" >
 			<![CDATA[
-				SELECT  AA.ID
-					,	AA.CreatedOn
-					,	AA.CreatedBy
-					,	AA.CreatedByName
-					,	AA.UpdatedOn
-					,	AA.UpdatedBy
-					,	AA.UpdatedByName
-					
-					,	AA.SiteCode
-					,	AA.BrandCode
-					,	AA.GoodsCode
-					,	AA.GoodsName
-					,	AA.GoodsURL
-					,	AA.ListPrice
-					,	AA.SalePrice
-					,	AA.ImageURL
-					,	AA.Option1Type
-					,	AA.Option1Name
-					,	AA.Option2Type
-					,	AA.Option2Name
-					,	AA.CategoryName
-					
+				SELECT  *					
 				FROM	dbo.TGoodsInfo AA WITH (NOLOCK)
 				WHERE	AA.ID = #ID#
 			]]>
@@ -80,13 +59,21 @@
 				( 
 					CreatedOn, CreatedBy, CreatedByName,
 					SiteCode, BrandCode, 
-					GoodsCode, GoodsName, GoodsURL, ListPrice, SalePrice, ImageURL, Option1Type, Option1Name, Option2Type, Option2Name, CategoryName
+					GoodsCode, GoodsName, GoodsURL, ListPrice, SalePrice, 
+					ImageURL, 
+					Option1Type, Option1Name, Option2Type, Option2Name, 
+					CategoryName,
+					Description
 				)
 				VALUES
 				(
 					GetDate(), #CreatedBy#, #CreatedByName#,
 					#SiteCode#, #BrandCode#, 
-					#GoodsCode#, #GoodsName#, #GoodsURL#, #ListPrice#, #SalePrice#, #ImageURL#, #Option1Type#, #Option1Name#, #Option2Type#, #Option2Name#, #CategoryName#
+					#GoodsCode#, #GoodsName#, #GoodsURL#, #ListPrice#, #SalePrice#, 
+					#ImageURL#, 
+					#Option1Type#, #Option1Name#, #Option2Type#, #Option2Name#, 
+					#CategoryName#,
+					#Description#
 				)
 			]]>
 			<selectKey type="post" property="ID" resultClass="Int">
@@ -115,6 +102,7 @@
 					,	Option2Type		= #Option2Type#
 					,	Option2Name		= #Option2Name#
 					,	CategoryName	= #CategoryName#
+					,	Description		= #Description#
 				WHERE	ID				= #ID#
 			]]>
 		</update>
@@ -126,29 +114,7 @@
 
 		<select id="SelectGoodsInfoExists" parameterClass="DataMap" resultClass="GoodsInfoModel" >
 			<![CDATA[
-				SELECT  ROW_NUMBER() OVER (ORDER BY AA.GoodsCode)	as RowNo
-					,	AA.ID
-					,	AA.CreatedOn
-					,	AA.CreatedBy
-					,	AA.CreatedByName
-					,	AA.UpdatedOn
-					,	AA.UpdatedBy
-					,	AA.UpdatedByName
-					
-					,	AA.SiteCode
-					,	AA.BrandCode
-					,	AA.GoodsCode
-					,	AA.GoodsName
-					,	AA.GoodsURL
-					,	AA.ListPrice
-					,	AA.SalePrice
-					,	AA.ImageURL
-					,	AA.Option1Type
-					,	AA.Option1Name
-					,	AA.Option2Type
-					,	AA.Option2Name
-					,	AA.CategoryName
-					
+				SELECT  *					
 				FROM	dbo.TGoodsInfo AA WITH (NOLOCK)
 				WHERE	AA.SiteCode  = #SiteCode#
 				AND		AA.BrandCode = #BrandCode#

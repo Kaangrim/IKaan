@@ -187,3 +187,4 @@ D:\Repositories\IKaan\WIN\IKaan.Win.View.Scrap\obj\Debug\IKaan.Win.View.Scrap.Fo
 D:\Repositories\IKaan\WIN\IKaan.Win.View.Scrap\obj\Debug\IKaan.Win.View.Scrap.Forms.WebCrawlerEditForm.resources
 D:\Repositories\IKaan\WIN\IKaan.Win.View.Scrap\obj\Debug\IKaan.Win.View.Scrap.dll
 D:\Repositories\IKaan\WIN\IKaan.Win.View.Scrap\obj\Debug\IKaan.Win.View.Scrap.pdb
+D:\Repositories\IKaan\WIN\IKaan.Win.View.Scrap\obj\Debug\IKaan.Win.View.Scrap.dll.licenses

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
 using IKaan.Model.Base;
@@ -35,7 +36,8 @@ namespace IKaan.Was.Service.Services
 					{
 						data.MenuID = model.ID;
 
-						if (data.ID == null)
+						var exists = DaoFactory.Instance.QueryForObject<MenuViewModel>("SelectMenuViewExists", new DataMap() { { "MenuID", model.ID } });
+						if (exists == null)
 						{
 							if (data.ViewID != null)
 							{
@@ -49,17 +51,14 @@ namespace IKaan.Was.Service.Services
 						{
 							if (data.ViewID != null)
 							{
-								data.UpdatedBy = req.User.UserId;
-								data.UpdatedByName = req.User.UserName;
-								DaoFactory.Instance.Update("UpdateMenuView", data);
+								exists.ViewID = data.ViewID;
+								exists.UpdatedBy = req.User.UserId;
+								exists.UpdatedByName = req.User.UserName;
+								DaoFactory.Instance.Update("UpdateMenuView", exists);
 							}
 							else
 							{
-								DataMap map = new DataMap()
-								{
-									{ "ID", data.ID }
-								};
-								DaoFactory.Instance.Delete("DeleteMenuView", map);
+								DaoFactory.Instance.Delete("DeleteMenuView", new DataMap() { { "ID", data.ID } });
 							}
 						}						
 					}
@@ -345,16 +344,28 @@ namespace IKaan.Was.Service.Services
 					{
 						if (data.ID == null)
 						{
-							data.CreatedBy = req.User.UserId;
-							data.CreatedByName = req.User.UserName;
-							object usergroupid = DaoFactory.Instance.Insert("InsertDictionary", data);
-							data.ID = usergroupid.ToIntegerNullToNull();
+							if (data.LogicalName.IsNullOrEmpty() == false)
+							{
+								data.CreatedBy = req.User.UserId;
+								data.CreatedByName = req.User.UserName;
+								data.PhysicalName = model.PhysicalName;
+								object usergroupid = DaoFactory.Instance.Insert("InsertDictionary", data);
+								data.ID = usergroupid.ToIntegerNullToNull();
+							}
 						}
 						else
 						{
-							data.UpdatedBy = req.User.UserId;
-							data.UpdatedByName = req.User.UserName;
-							DaoFactory.Instance.Update("UpdateDictionary", data);
+							if (data.LogicalName.IsNullOrEmpty())
+							{
+								DaoFactory.Instance.Delete("DeleteCalendar", new DataMap() { { "ID", data.ID } });
+							}
+							else
+							{
+								data.UpdatedBy = req.User.UserId;
+								data.UpdatedByName = req.User.UserName;
+								data.PhysicalName = model.PhysicalName;
+								DaoFactory.Instance.Update("UpdateDictionary", data);
+							}
 						}
 					}
 				}
@@ -656,6 +667,130 @@ namespace IKaan.Was.Service.Services
 					req.Data = list;
 					req.Result.Count = list.Count;
 				}
+			}
+			catch
+			{
+				throw;
+			}
+		}
+
+		public static void CreateCalendar(this WasRequest req)
+		{
+			try
+			{
+				var parameter = req.Data.JsonToAnyType<DataMap>();
+				if (parameter == null || parameter.GetType() != typeof(DataMap) || parameter.GetValue("CalYear") == null)
+					throw new Exception("전달 파라미터가 정확하지 않습니다.");
+
+				int calYear = parameter.GetValue("CalYear").ToIntegerNullToZero();
+				DateTime dt = new DateTime(calYear, 1, 1);
+				DateTime endDate = new DateTime(calYear, 12, 31);
+				int count = 0;
+				string holidayYn = "N";
+				string description = string.Empty;
+
+				while (dt <= endDate)
+				{
+					holidayYn = "N";
+					description = string.Empty;
+
+					//기존에 등록된 건이 있으면 삭제한다.
+					CalendarModel exists = DaoFactory.Instance.QueryForObject<CalendarModel>("SelectCalendarByCalDate", new DataMap() { { "CalDate", dt } });
+					if (exists != null)
+						DaoFactory.Instance.Delete("DeleteCalendar", new DataMap() { { "ID", exists.ID } });
+
+					//휴일체크
+					var holiday = DaoFactory.Instance.QueryForObject<HolidayModel>("SelectHolidayByDate", new DataMap() { { "HolidayDate", dt } });
+					if (holiday != null)
+					{
+						holidayYn = "Y";
+						description = holiday.Description;
+					}
+					else
+					{
+						if (dt.DayOfWeek == DayOfWeek.Sunday || dt.DayOfWeek == DayOfWeek.Saturday)
+							holidayYn = "Y";
+					}
+
+					CalendarModel model = new CalendarModel()
+					{
+						CreatedBy = req.User.UserId,
+						CreatedByName = req.User.UserName,
+						CalDate = dt,
+						CalYear = dt.Year,
+						CalMonth = dt.Month,
+						CalDay = dt.Day,
+						Quarter = (dt.Month - 1) / 3 + 1,
+						DayOfWeek = (int)dt.DayOfWeek + 1,
+						DayOfYear = dt.DayOfYear,
+						WeekOfMonth = dt.GetWeekOfMonth(),
+						WeekOfYear = dt.GetWeekOfYear(),
+						HolidayYn = holidayYn,
+						Description = description
+					};
+
+					object id = DaoFactory.Instance.Insert("InsertCalendar", model);
+					model.ID = id.ToIntegerNullToNull();
+					count++;
+					dt = dt.AddDays(1);
+				}
+				req.Result.Count = count;
+				req.Result.ReturnValue = calYear;
+				req.Error.Number = 0;
+			}
+			catch
+			{
+				throw;
+			}
+		}
+
+		public static void SaveCalendar(this WasRequest req)
+		{
+			try
+			{
+				var model = req.Data.JsonToAnyType<CalendarModel>();
+				if (model != null)
+				{
+					model.UpdatedBy = req.User.UserId;
+					model.UpdatedByName = req.User.UserName;
+					DaoFactory.Instance.Update("UpdateCalendar", model);
+
+					var holiday = DaoFactory.Instance.QueryForObject<HolidayModel>("SelectHolidayByDate", new DataMap() { { "HolidayDate", model.CalDate } });
+					if (holiday != null)
+					{
+						if (model.HolidayYn != "Y")
+						{
+							DaoFactory.Instance.Delete("DeleteHoliday", new DataMap() { { "ID", holiday.ID } });
+						}
+						else
+						{
+							holiday.UpdatedBy = req.User.UserId;
+							holiday.UpdatedByName = req.User.UserName;
+							holiday.HolidayDate = model.CalDate;
+							holiday.Description = model.Description;
+							DaoFactory.Instance.Update("UpdateHoliday", holiday);
+						}
+					}
+					else
+					{
+						if (model.HolidayYn == "Y")
+						{
+							holiday = new HolidayModel()
+							{
+								HolidayDate = model.CalDate,
+								Description = model.Description,
+								CreatedBy = req.User.UserId,
+								CreatedByName = req.User.UserName
+							};
+							object id = DaoFactory.Instance.Insert("InsertHoliday", holiday);
+							holiday.ID = id.ToIntegerNullToNull();
+						}
+					}
+				}
+				
+				req.Result.Count = 1;
+				req.Result.ReturnValue = model.ID;
+				req.Error.Number = 0;
 			}
 			catch
 			{

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using IKaan.Model.Common.Base;
 
@@ -9,7 +10,7 @@ namespace IKaan.Model.Base
 	{
 		[DataMember]
 		[Display(Name = "일자")]
-		public string CalDate { get; set; }
+		public DateTime CalDate { get; set; }
 
 		[DataMember]
 		[Display(Name = "연")]
@@ -36,8 +37,20 @@ namespace IKaan.Model.Base
 		public int DayOfYear { get; set; }
 
 		[DataMember]
-		[Display(Name = "연간 주차")]
+		[Display(Name = "월 주차")]
+		public int WeekOfMonth { get; set; }
+
+		[DataMember]
+		[Display(Name = "연 주차")]
 		public int WeekOfYear { get; set; }
+
+		[DataMember]
+		[Display(Name = "요일")]
+		public string DayOfWeekName { get; set; }
+
+		[DataMember]
+		[Display(Name = "휴일여부")]
+		public string HolidayYn { get; set; }
 
 		[DataMember]
 		[Display(Name = "설명")]

@@ -61,7 +61,22 @@ namespace IKaan.Was.Service.Common
 						}
 					}
 					else
-					{
+					{						
+						if (data.BrandID == null || data.BrandID == default(int))
+						{
+							DataMap findMap = new DataMap()
+							{
+								{ "ChannelID", data.ChannelID },
+								{ "GoodsCode", data.GoodsCode }
+							};
+							var find = DaoFactory.InstanceLive.QueryForObject<ChannelOrderModel>("SelectChannelOrderByGoodsCode", findMap);
+							if (find != null && find.BrandID != null)
+							{
+								data.BrandID = find.BrandID;
+								data.BrandName = find.BrandName;
+							}
+						}
+
 						data.CreatedBy = req.User.UserId;
 						data.CreatedByName = req.User.UserName;
 						data.FileUploadID = model.ID;

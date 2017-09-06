@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using DevExpress.Data;
 using DevExpress.Utils;
 using IKaan.Base.Map;
+using IKaan.Base.Utils;
 using IKaan.Model.Biz;
 using IKaan.Model.Live;
 using IKaan.Win.Core.Controls.Grid;
@@ -23,6 +25,10 @@ namespace IKaan.Win.View.Live.ChannelOrder
 			
 			lupChannelID.EditValueChanged += (object sender, EventArgs e) => { ChangeChannel(); };
 			btnFileUpload.Click += (object sender, EventArgs e) => { UploadChannelOrder(); };
+			btnBrandMapping.Click += (object sender, EventArgs e) => { BrandMapping(); };
+			btnSave.Click += (object sender, EventArgs e) => { SaveOrder(); };
+			btnDelete.Click += (object sender, EventArgs e) => { DeleteOrder(); };
+			btnApply.Click += (object sender, EventArgs e) => { ApplyOrder(); };
 		}
 
 		protected override void OnShown(EventArgs e)
@@ -34,7 +40,8 @@ namespace IKaan.Win.View.Live.ChannelOrder
 		protected override void InitButton()
 		{
 			base.InitButton();
-			SetToolbarButtons(new ToolbarButtons() { Refresh = true, Save = true });
+			SetToolbarButtons(new ToolbarButtons() { Refresh = true });
+			btnSave.Enabled = btnDelete.Enabled = btnApply.Enabled = true;
 		}
 		protected override void InitControls()
 		{
@@ -44,9 +51,16 @@ namespace IKaan.Win.View.Live.ChannelOrder
 
 				SetFieldNames();
 
-				lupChannelID.BindData("ChannelList", "All");
+				lcItemStartLine.SetFieldCaption("시작라인");
+				lcItemFileRows.SetFieldCaption("파일건수");
+				lcItemSelectBrand.SetFieldCaption("브랜드선택");
+				
 				datOrderDate.Init(Core.Enum.CalendarViewType.DayView);
 
+				txtStartLine.SetEnable(false);
+				txtFileRows.SetEnable(false);
+
+				InitLookup();
 				InitGrid();
 			}
 			catch(Exception ex)
@@ -54,13 +68,20 @@ namespace IKaan.Win.View.Live.ChannelOrder
 				ShowErrBox(ex);
 			}
 		}
+
+		void InitLookup()
+		{
+			lupChannelID.BindData("ChannelList", "All");
+			lupBrandID.BindData("BrandList", "All");
+			lupSelectBrand.BindData("BrandList", "==선택하세요==");
+		}
 		
 		void InitGrid()
 		{
 			try
 			{
-				gridList.Init();
-				gridList.AddGridColumns(
+				gridOrders.Init();
+				gridOrders.AddGridColumns(
 					new XGridColumn() { FieldName = "Checked" },
 					new XGridColumn() { FieldName = "RowNo" },
 					new XGridColumn() { FieldName = "ChannelID", Visible = false },
@@ -68,6 +89,8 @@ namespace IKaan.Win.View.Live.ChannelOrder
 					new XGridColumn() { FieldName = "OrderDate", Width = 80, HorzAlignment = HorzAlignment.Center },
 					new XGridColumn() { FieldName = "OrderNo", Width = 120 },
 					new XGridColumn() { FieldName = "OrderSeq", Width = 100 },
+					new XGridColumn() { FieldName = "BrandID", Width = 100 },
+					new XGridColumn() { FieldName = "BrandName", Width = 150 },
 					new XGridColumn() { FieldName = "GoodsCode", Width = 100 },
 					new XGridColumn() { FieldName = "GoodsName", Width = 200 },
 					new XGridColumn() { FieldName = "Option1", Width = 100 },
@@ -91,8 +114,6 @@ namespace IKaan.Win.View.Live.ChannelOrder
 					new XGridColumn() { FieldName = "BrandAccAmt", Width = 100, FormatType = FormatType.Numeric, FormatString = "N0", HorzAlignment = HorzAlignment.Far, IsSummary = true, SummaryItemType = SummaryItemType.Sum },
 					new XGridColumn() { FieldName = "CouponAmt", Width = 70, FormatType = FormatType.Numeric, FormatString = "N2", HorzAlignment = HorzAlignment.Far },
 					new XGridColumn() { FieldName = "DealNo", Width = 100 },
-					new XGridColumn() { FieldName = "BrandID", Width = 100 },
-					new XGridColumn() { FieldName = "BrandName", Width = 150 },
 					new XGridColumn() { FieldName = "DueDate", Width = 100 },
 					new XGridColumn() { FieldName = "GiftName", Width = 200 },
 					new XGridColumn() { FieldName = "FileUploadID", Width = 80 },
@@ -101,10 +122,10 @@ namespace IKaan.Win.View.Live.ChannelOrder
 					new XGridColumn() { FieldName = "UpdatedOn" },
 					new XGridColumn() { FieldName = "UpdatedByName" }
 				);
-				gridList.ColumnFix("RowNo");
-				gridList.ColumnFix("Checked");
-				gridList.SetRepositoryItemCheckEdit("Checked");
-				gridList.SetEditable("Checked");
+				gridOrders.ColumnFix("Checked");
+				gridOrders.ColumnFix("RowNo");
+				gridOrders.SetRepositoryItemCheckEdit("Checked");
+				gridOrders.SetEditable("Checked");
 			}
 			catch(Exception ex)
 			{
@@ -116,12 +137,33 @@ namespace IKaan.Win.View.Live.ChannelOrder
 		{
 			try
 			{
-				DataMap parameter = new DataMap()
+				if (lcTab.SelectedTabPage.Name == lcGroupOrder.Name)
 				{
-					{ "OrderDate", datOrderDate.GetDate() },
-					{ "ChannelID", lupChannelID.EditValue }
-				};
-				gridList.BindList<ChannelOrderModel>("Live", "GetList", "Select", parameter);
+					DataMap parameter = new DataMap()
+					{
+						{ "OrderDate", datOrderDate.GetDate() },
+						{ "ChannelID", lupChannelID.EditValue }
+					};
+					gridOrders.BindList<ChannelOrderModel>("Live", "GetList", "Select", parameter);
+				}
+				else if (lcTab.SelectedTabPage.Name == lcGroupCancel.Name)
+				{
+					DataMap parameter = new DataMap()
+					{
+						{ "CancelDate", datOrderDate.GetDate() },
+						{ "ChannelID", lupChannelID.EditValue }
+					};
+					gridOrders.BindList<ChannelOrderCancelModel>("Live", "GetList", "Select", parameter);
+				}
+				else if (lcTab.SelectedTabPage.Name == lcGroupReturn.Name)
+				{
+					DataMap parameter = new DataMap()
+					{
+						{ "ReturnDate", datOrderDate.GetDate() },
+						{ "ChannelID", lupChannelID.EditValue }
+					};
+					gridOrders.BindList<ChannelOrderReturnModel>("Live", "GetList", "Select", parameter);
+				}
 			}
 			catch(Exception ex)
 			{
@@ -145,12 +187,21 @@ namespace IKaan.Win.View.Live.ChannelOrder
 					startLine = channelSetting.OrderLine;
 				}
 
-				var addData = new DataMap()
+				var fileName = FileUtils.OpenExcelFile();
+				IList<ChannelOrderModel> data = UploadHandler.GetExcelData<ChannelOrderModel>(fileName, startLine);
+				if (data == null || data.Count == 0)
+					throw new Exception("처리할 내용이 없습니다.");
+				txtFileRows.EditValue = data.Count;
+
+				foreach(var line in data)
 				{
-					{ "ChannelID", lupChannelID.EditValue },
-					{ "OrderDate", datOrderDate.DateTime }
-				};
-				if (UploadHandler.Execute<ChannelOrderModel>(null, null, startLine, addData))
+					if (line.OrderDate == null || line.OrderDate == default(DateTime))
+						line.OrderDate = datOrderDate.DateTime;
+					if (line.ChannelID == null)
+						line.ChannelID = lupChannelID.EditValue.ToIntegerNullToZero();
+				}
+
+				if (UploadHandler.Execute(null, fileName, startLine, data))
 				{
 					ShowMsgBox("저장하였습니다.");
 					DataLoad(null);
@@ -166,6 +217,9 @@ namespace IKaan.Win.View.Live.ChannelOrder
 		{
 			try
 			{
+				txtStartLine.Clear();
+				txtFileRows.Clear();
+
 				if (lupChannelID.EditValue == null)
 				{
 					channelSetting = null;
@@ -177,6 +231,8 @@ namespace IKaan.Win.View.Live.ChannelOrder
 						throw new Exception("조회할 데이터가 없습니다.");
 
 					channelSetting = list[0];
+					if (channelSetting != null)
+						txtStartLine.EditValue = channelSetting.OrderLine;
 				}
 			}
 			catch(Exception ex)
@@ -184,5 +240,228 @@ namespace IKaan.Win.View.Live.ChannelOrder
 				ShowErrBox(ex);
 			}
 		}
+
+		private void BrandMapping()
+		{
+			try
+			{
+				if (lupSelectBrand.EditValue == null)
+				{
+					ShowMsgBox("적용할 브랜드를 선택하세요!!!");
+					lupSelectBrand.Focus();
+					return;
+				}
+
+				if (lcTab.SelectedTabPage.Name == lcGroupOrder.Name)
+				{
+					if (gridOrders.RowCount == 0)
+					{
+						ShowMsgBox("처리할 건이 없습니다.");
+						return;
+					}
+
+					for (int i = 0; i < gridOrders.RowCount; i++)
+					{
+						if (gridOrders.GetValue(i, "Checked").ToStringNullToEmpty() == "Y")
+						{
+							gridOrders.SetValue(i, "BrandID", lupSelectBrand.EditValue);
+							gridOrders.SetValue(i, "BrandName", lupSelectBrand.Text);
+						}
+					}
+				}
+				else if (lcTab.SelectedTabPage.Name == lcGroupCancel.Name)
+				{
+					if (gridCancel.RowCount == 0)
+					{
+						ShowMsgBox("처리할 건이 없습니다.");
+						return;
+					}
+
+					for (int i = 0; i < gridCancel.RowCount; i++)
+					{
+						if (gridCancel.GetValue(i, "Checked").ToStringNullToEmpty() == "Y")
+						{
+							gridCancel.SetValue(i, "BrandID", lupSelectBrand.EditValue);
+							gridCancel.SetValue(i, "BrandName", lupSelectBrand.Text);
+						}
+					}
+				}
+				else if (lcTab.SelectedTabPage.Name == lcGroupReturn.Name)
+				{
+					if (gridReturn.RowCount == 0)
+					{
+						ShowMsgBox("처리할 건이 없습니다.");
+						return;
+					}
+
+					for (int i = 0; i < gridReturn.RowCount; i++)
+					{
+						if (gridReturn.GetValue(i, "Checked").ToStringNullToEmpty() == "Y")
+						{
+							gridReturn.SetValue(i, "BrandID", lupSelectBrand.EditValue);
+							gridReturn.SetValue(i, "BrandName", lupSelectBrand.Text);
+						}
+					}
+				}
+			}
+			catch(Exception ex)
+			{
+				ShowErrBox(ex);
+			}
+		}
+
+		#region Save
+		void Save()
+		{
+			if (lcTab.SelectedTabPage.Name == lcGroupOrder.Name)
+				SaveOrder();
+			else if (lcTab.SelectedTabPage.Name == lcGroupCancel.Name)
+				SaveCancel();
+			else if (lcTab.SelectedTabPage.Name == lcGroupReturn.Name)
+				SaveReturn();
+		}
+		void SaveOrder()
+		{
+			try
+			{
+				if (gridOrders.RowCount == 0)
+				{
+					ShowMsgBox("처리할 건이 없습니다.");
+					return;
+				}
+				IList<ChannelOrderModel> list = gridOrders.DataSource as IList<ChannelOrderModel>;
+				if (list == null || list.Count == 0)
+				{
+					ShowMsgBox("처리할 건이 없습니다.");
+					return;
+				}
+
+				using (var res = WasHandler.Execute<ChannelOrderModel>("Live", "Save", "UpdateChannelOrderBrand", list, "ID"))
+				{
+					if (res.Error.Number != 0)
+						throw new Exception(res.Error.Message);
+
+					ShowMsgBox("저장하였습니다.");
+					DataLoad(null);
+				}
+			}
+			catch(Exception ex)
+			{
+				ShowErrBox(ex);
+			}
+		}
+		void SaveCancel()
+		{
+			try
+			{
+
+			}
+			catch (Exception ex)
+			{
+				ShowErrBox(ex);
+			}
+		}
+		void SaveReturn()
+		{
+			try
+			{
+
+			}
+			catch (Exception ex)
+			{
+				ShowErrBox(ex);
+			}
+		}
+		#endregion
+
+		#region Delete
+		void Delete()
+		{
+			if (lcTab.SelectedTabPage.Name == lcGroupOrder.Name)
+				DeleteOrder();
+			else if (lcTab.SelectedTabPage.Name == lcGroupCancel.Name)
+				DeleteCancel();
+			else if (lcTab.SelectedTabPage.Name == lcGroupReturn.Name)
+				DeleteReturn();
+		}
+		void DeleteOrder()
+		{
+			try
+			{
+
+			}
+			catch (Exception ex)
+			{
+				ShowErrBox(ex);
+			}
+		}
+		void DeleteCancel()
+		{
+			try
+			{
+
+			}
+			catch (Exception ex)
+			{
+				ShowErrBox(ex);
+			}
+		}
+		void DeleteReturn()
+		{
+			try
+			{
+
+			}
+			catch (Exception ex)
+			{
+				ShowErrBox(ex);
+			}
+		}
+		#endregion
+
+		#region Apply
+		void Apply()
+		{
+			if (lcTab.SelectedTabPage.Name == lcGroupOrder.Name)
+				ApplyOrder();
+			else if (lcTab.SelectedTabPage.Name == lcGroupCancel.Name)
+				ApplyCancel();
+			else if (lcTab.SelectedTabPage.Name == lcGroupReturn.Name)
+				ApplyReturn();
+		}
+		void ApplyOrder()
+		{
+			try
+			{
+
+			}
+			catch (Exception ex)
+			{
+				ShowErrBox(ex);
+			}
+		}
+		void ApplyCancel()
+		{
+			try
+			{
+
+			}
+			catch (Exception ex)
+			{
+				ShowErrBox(ex);
+			}
+		}
+		void ApplyReturn()
+		{
+			try
+			{
+
+			}
+			catch (Exception ex)
+			{
+				ShowErrBox(ex);
+			}
+		}
+		#endregion
 	}
 }

@@ -411,3 +411,4 @@ D:\Repositories\IKaan\WIN\IKaan.Win.View.Base\obj\Debug\IKaan.Win.View.Base.dll
 D:\Repositories\IKaan\WIN\IKaan.Win.View.Base\obj\Debug\IKaan.Win.View.Base.pdb
 D:\Repositories\IKaan\WIN\IKaan.Win.View.Base\obj\Debug\IKaan.Win.View.Base.Database.ServerEditForm.resources
 D:\Repositories\IKaan\WIN\IKaan.Win.View.Base\obj\Debug\IKaan.Win.View.Base.Database.DatabaseEditForm.resources
+D:\Repositories\IKaan\WIN\IKaan.Win.View.Base\obj\Debug\IKaan.Win.View.Base.Common.CalendarEditForm.resources

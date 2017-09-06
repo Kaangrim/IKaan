@@ -103,7 +103,7 @@
     <EmbeddedResource Include="SqlMaps\IKBiz\GoodsInfoNoticeSQL.xml" />
     <EmbeddedResource Include="SqlMaps\IKBiz\GoodsAttributeSQL.xml" />
     <EmbeddedResource Include="SqlMaps\IKBase\FileUploadSQL.xml" />
-    <Content Include="SqlMaps\IKBase\CalendarSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\IKBase\CalendarSQL.xml" />
     <EmbeddedResource Include="SqlMaps\IKBase\MessageSQL.xml" />
     <EmbeddedResource Include="SqlMaps\IKBase\TableSQL.xml" />
     <EmbeddedResource Include="SqlMaps\IKBase\DictionarySQL.xml" />
@@ -136,8 +136,11 @@
     <EmbeddedResource Include="SqlMaps\IKBiz\BrandManagerSQL.xml" />
     <EmbeddedResource Include="SqlMaps\IKBiz\ChannelContactSQL.xml" />
     <EmbeddedResource Include="SqlMaps\IKBiz\ChannelManagerSQL.xml" />
-    <EmbeddedResource Include="SqlMaps\IKLive\ChannelOrderSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\IKLive\ChannelOrderSQL.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="SqlMaps\IKBiz\ChannelSettingSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\IKBase\HolidaySQL.xml" />
     <Content Include="SqlMaps\IKReport\ReportSQL.xml" />
   </ItemGroup>
   <ItemGroup />

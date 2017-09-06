@@ -99,17 +99,20 @@ namespace IKaan.Win.Core.Handler
 			return result;
 		}
 
-		public static bool Execute<T>(string uploadType, string fileName = null, int startLine = 2, object addData = null)
+		public static bool Execute<T>(string uploadType, string fileName = null, int startLine = 2, IList<T> list = null, object addData = null)
 		{
 			try
 			{
 				if (startLine == default(int))
 					startLine = 2;
 
-				if (fileName.IsNullOrEmpty())
-					fileName = FileUtils.OpenExcelFile();
+				if (list == null || list.Count == 0)
+				{
+					if (fileName.IsNullOrEmpty())
+						fileName = FileUtils.OpenExcelFile();
 
-				IList<T> list = UploadHandler.GetExcelData<T>(fileName, startLine);
+					list = UploadHandler.GetExcelData<T>(fileName, startLine);
+				}
 				if (list == null || list.Count == 0)
 					return false;
 

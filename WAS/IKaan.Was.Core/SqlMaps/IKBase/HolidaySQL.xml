@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectHolidayList" parameterClass="DataMap" resultClass="HolidayModel" >
+			<![CDATA[
+				SELECT	ROW_NUMBER() OVER (ORDER BY aa.HolidayDate)	AS RowNo
+					,	aa.ID
+					,	aa.CreatedOn
+					,	aa.CreatedBy
+					,	aa.CreatedByName
+					,	aa.UpdatedOn
+					,	aa.UpdatedBy
+					,	aa.UpdatedByName
+					,	aa.HolidayDate
+					,	aa.Description
+				FROM	dbo.THoliday aa WITH (NOLOCK)
+				WHERE	1=1
+			]]>
+			<isNotEmpty property="CalYear">
+				<![CDATA[
+					AND	aa.HolidayDate >= CONVERT(DATE, #CalYear#+'0101', 112)
+					AND aa.HolidayDate <= CONVERT(DATE, #CalYear#+'1231', 112)
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectHoliday" parameterClass="DataMap" resultClass="HolidayModel" >
+			<![CDATA[
+				SELECT	*
+				FROM	dbo.THoliday aa WITH (NOLOCK)
+				WHERE	ID=#ID#
+			]]>
+		</select>
+		<select id="SelectHolidayByDate" parameterClass="DataMap" resultClass="HolidayModel" >
+			<![CDATA[
+				SELECT	*
+				FROM	dbo.THoliday aa WITH (NOLOCK)
+				WHERE	aa.HolidayDate = #HolidayDate#
+			]]>
+		</select>
+		<insert id="InsertHoliday" parameterClass="HolidayModel">
+			<![CDATA[
+				INSERT INTO dbo.THoliday
+				(
+					CreatedOn, CreatedBy, CreatedByName,
+					HolidayDate, Description
+				)
+				VALUES
+				(
+					GetDate(), #CreatedBy#, #CreatedByName#,
+					#HolidayDate#, #Description#
+				)
+			]]>
+			<selectKey property="ID" type="post" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateHoliday" parameterClass="HolidayModel">
+			<![CDATA[
+				UPDATE	dbo.TCalendar
+				SET     UpdatedOn		= GETDATE()
+					,	UpdatedBy		= #UpdatedBy#
+					,	UpdatedByName	= #UpdatedByName#
+					
+					,	HolidayDate		= #HolidayDate#
+					,	Description		= #Description#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
+		<delete id="DeleteHoliday" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM dbo.THoliday WHERE ID = #ID#;
+			]]>
+		</delete>
+	</statements>
+</sqlMap>

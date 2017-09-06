@@ -94,7 +94,8 @@ namespace IKaan.Win.View.Scrap.Forms
 				new XGridColumn() { FieldName = "BrandCode", Width = 80, Visible = false },
 				new XGridColumn() { FieldName = "BrandName", Width = 150 },
 				new XGridColumn() { FieldName = "GoodsCnt", Width = 60, HorzAlignment = HorzAlignment.Far },
-				new XGridColumn() { FieldName = "BrandURL", Width = 300 }
+				new XGridColumn() { FieldName = "BrandURL", Width = 300 },
+				new XGridColumn() { FieldName = "Description", Width = 200 }
 			);
 			gridBrandList.ColumnFix("RowNo");
 			#endregion
@@ -148,7 +149,7 @@ namespace IKaan.Win.View.Scrap.Forms
 		
 		protected override void DataLoad(object param = null)
 		{
-			gridSiteList.BindList<CodeModel>("Biz", "GetList", "Select", new DataMap()
+			gridSiteList.BindList<CodeModel>("Base", "GetList", "Select", new DataMap()
 			{
 				{ "FindText", txtFindText.EditValue },
 				{ "UseYn", "Y" },
@@ -372,6 +373,25 @@ namespace IKaan.Win.View.Scrap.Forms
 						if (brandCode.IsNullOrEmpty())
 							continue;
 
+						//브랜드정보
+						doc = web.Load(siteUrl + @"/ShopMain/BrandShop.cshtml?brandcd=" + brandCode);
+						if (doc != null)
+						{
+							var brandPageNodes = doc.DocumentNode.SelectNodes("//div[@class='brand_info']");
+							if (brandPageNodes != null && brandPageNodes.Count > 0)
+							{
+								foreach (HtmlNode brandPageNode in brandPageNodes)
+								{
+									HtmlNode brandDescription = brandPageNode.SelectSingleNode(".//p[@class='desc ellipsis multiline']");
+									if (brandDescription != null)
+									{
+										string brand_description = brandDescription.InnerText;
+										gridBrandList.SetValue(rowIndex, "Description", brand_description);
+									}
+								}
+							}
+						}
+
 						string postUrl = string.Concat(
 							listUrl, 
 							"?PageIndex=", 
@@ -409,7 +429,7 @@ namespace IKaan.Win.View.Scrap.Forms
 						SetMessage("브랜드 정보 저장하는 중입니다... 잠시만...");
 						Application.DoEvents();
 
-						BrandInfoModel brand = gridBrandList.MainView.GetRow(rowIndex) as BrandInfoModel;
+						var brand = gridBrandList.MainView.GetRow(rowIndex) as BrandInfoModel;
 						if (brand != null)
 						{
 							using (var res = WasHandler.Execute<BrandInfoModel>("Scrap", "Save", "SaveBrandInfo", brand, "ID"))
@@ -549,35 +569,8 @@ namespace IKaan.Win.View.Scrap.Forms
 								#endregion
 
 								#region 상품 이미지 경로 및 이미지 저장
-								HtmlNodeCollection linkNodes = doc.DocumentNode.SelectNodes("//div[@class='img_area']");
-								foreach (HtmlNode linkNode in linkNodes)
-								{
-									HtmlNode imageNode = linkNode.SelectSingleNode(".//img[@id='img_01']");
-									HtmlAttribute src = imageNode.Attributes["src"];
-									if (src != null)
-									{
-										imageUrl = src.Value;
-										picImage.EditValue = null;
-										picImage.LoadAsync(imageUrl);
-										string imagePath = siteUrl.Replace(".", "").Replace("/", "").Replace(":", "") + "\\" + brandName;
-										ImageUtils.DownloadByStream(imageUrl, imagePath, gCode);
-
-										int ii = 0;
-										while (picImage.IsLoading)
-										{
-											if (picImage.IsLoading == false)
-												break;
-
-											if (ii > 100)
-												break;
-
-											Thread.Sleep(100);
-											ii++;
-										}
-										gridGoodsList.SetValue(gIndex, "ImageURL", imageUrl);
-										Application.DoEvents();
-									}
-								}
+								GetProductImages(doc, siteUrl, brandName, gIndex, gCode, "M", "//div[@class='img_goods']", ".//img[@id='img_01']");
+								GetProductImages(doc, siteUrl, brandName, gIndex, gCode, "D", "//div[@class='marketing']", ".//img[@class='txc-image']");
 								#endregion
 
 								#region 상품설명 가져오기
@@ -634,6 +627,69 @@ namespace IKaan.Win.View.Scrap.Forms
 			catch
 			{
 				throw;
+			}
+		}
+		
+		private void GetProductImages(HtmlAgilityPack.HtmlDocument doc, string siteUrl, string brandName, int gIndex, string gCode, string gubun, string groupNodes, string imageNodes)
+		{
+			string imgUrl = string.Empty;
+			string orgUrl = string.Empty;
+			int index = 0;
+
+			try
+			{
+
+				HtmlNodeCollection linkNodes = doc.DocumentNode.SelectNodes(groupNodes);
+				foreach (HtmlNode linkNode in linkNodes)
+				{
+					var imageNodeList = linkNode.SelectNodes(imageNodes);
+					if (imageNodeList == null)
+						continue;
+
+					foreach (HtmlNode imageNode in imageNodeList)
+					{
+						HtmlAttribute src = imageNode.Attributes["src"];
+						if (src != null)
+						{
+							imgUrl = src.Value;
+							if (imgUrl.IndexOf("?") > 0)
+							{
+								imgUrl = imgUrl.Substring(0, imgUrl.IndexOf("?"));
+							}
+
+							if (orgUrl == imgUrl)
+								continue;
+							else
+								orgUrl = imgUrl;
+
+							index++;
+							picImage.EditValue = null;
+							picImage.LoadAsync(imgUrl);
+							string imagePath = siteUrl.Replace(".", "").Replace("/", "").Replace(":", "") + "\\" + brandName;
+							ImageUtils.DownloadByStream(imgUrl, imagePath, gCode + "_" + gubun + "_" + index.ToString());
+
+							int ii = 0;
+							while (picImage.IsLoading)
+							{
+								if (picImage.IsLoading == false)
+									break;
+
+								if (ii > 100)
+									break;
+
+								Thread.Sleep(100);
+								ii++;
+							}
+							if (gubun == "M" && index == 1)
+								gridGoodsList.SetValue(gIndex, "ImageURL", imgUrl);
+							Application.DoEvents();
+						}
+					}
+				}
+			}
+			catch(Exception ex)
+			{
+				ShowErrBox(ex.Message + Environment.NewLine + "Image URL: " + imgUrl);
 			}
 		}
 	}

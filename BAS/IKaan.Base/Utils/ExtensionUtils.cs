@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 
 namespace IKaan.Base.Utils
 {
 	public static class ExtensionUtils
 	{
+		static GregorianCalendar gc = new GregorianCalendar();
+
+		#region Boolean
 		public static bool YnToBool(this object obj)
 		{
 			if (obj == null || !(obj is string))
@@ -19,7 +23,9 @@ namespace IKaan.Base.Utils
 		{
 			return str == "Y" ? true : false;
 		}
-
+		#endregion
+		
+		#region DateTime String to String
 		public static string ToDateTime(this string str, string format = "yyyy-MM-dd")
 		{
 			return str.Length == 8 ? DateTime.ParseExact(str, "yyyyMMdd", null).ToString(format) : DateTime.Parse(str).ToString(format);
@@ -33,7 +39,9 @@ namespace IKaan.Base.Utils
 			}
 			return obj.ToString().ToDateTime(format);
 		}
+		#endregion
 
+		#region String to Lower
 		public static string ToLowerUpper(this string str, bool? isUpper)
 		{
 			if (isUpper != null)
@@ -50,7 +58,9 @@ namespace IKaan.Base.Utils
 
 			return str;
 		}
+		#endregion
 
+		#region Decimal
 		public static decimal ToDecimalNullToZero(this object obj)
 		{
 			if (obj == null || obj == DBNull.Value || obj.ToString() == string.Empty)
@@ -74,7 +84,9 @@ namespace IKaan.Base.Utils
 				return Convert.ToDecimal(obj);
 			}
 		}
+		#endregion
 
+		#region Integer
 		public static int ToIntegerNullToZero(this object obj)
 		{
 			if (obj == null || obj == DBNull.Value || obj.ToString() == string.Empty)
@@ -108,7 +120,9 @@ namespace IKaan.Base.Utils
 		{
 			return Convert.ToInt32(d);
 		}
+		#endregion
 
+		#region Double
 		public static double ToDoubleNullToZero(this object obj)
 		{
 			if (obj == null || obj == DBNull.Value || obj.ToString() == string.Empty)
@@ -120,6 +134,7 @@ namespace IKaan.Base.Utils
 				return Convert.ToDouble(obj);
 			}
 		}
+		#endregion
 
 		public static bool ToBooleanNullToFalse(this object obj)
 		{
@@ -223,5 +238,19 @@ namespace IKaan.Base.Utils
 		{
 			return kb / 1024f;
 		}
+
+		#region WeekOfMonth
+		public static int GetWeekOfMonth(this DateTime dt)
+		{
+			DateTime first = new DateTime(dt.Year, dt.Month, 1);
+			return dt.GetWeekOfYear() - first.GetWeekOfYear() + 1;
+		}
+
+		public static int GetWeekOfYear(this DateTime dt)
+		{
+			GregorianCalendar gc = new GregorianCalendar();
+			return gc.GetWeekOfYear(dt, CalendarWeekRule.FirstDay, DayOfWeek.Sunday);
+		}
+		#endregion
 	}
 }

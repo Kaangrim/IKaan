@@ -30,11 +30,11 @@
 					
 				FROM	dbo.TBrand AA WITH (NOLOCK)
 						LEFT JOIN
-							dbo.TCode M1 WITH (NOLOCK)
+							IKBase.dbo.TCode M1 WITH (NOLOCK)
 								ON AA.BrandCategory = M1.Code
 									AND M1.ParentCode = 'BrandCategory'
 						LEFT JOIN
-							dbo.TCode M2 WITH (NOLOCK)
+							IKBase.dbo.TCode M2 WITH (NOLOCK)
 								ON AA.BrandStyle = M2.Code
 									AND M2.ParentCode = 'BrandStyle'
 				WHERE	1=1				

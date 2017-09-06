@@ -15,10 +15,10 @@ using DevExpress.XtraNavBar;
 using DevExpress.XtraSplashScreen;
 using DevExpress.XtraTabbedMdi;
 using DevExpress.XtraTreeList;
-using IKaan.Win.View.Forms;
 using IKaan.Base.Logging;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
+using IKaan.Model.Common.UserModels;
 using IKaan.Win.Core.Controls.Common;
 using IKaan.Win.Core.Enum;
 using IKaan.Win.Core.Forms;
@@ -29,7 +29,6 @@ using IKaan.Win.Core.Resources;
 using IKaan.Win.Core.Utils;
 using IKaan.Win.Core.Variables;
 using IKaan.Win.Core.Was.Handler;
-using IKaan.Model.Common.UserModels ;
 
 namespace IKaan.Win.View.Forms
 {
@@ -433,68 +432,42 @@ namespace IKaan.Win.View.Forms
 				navBarNavigate.Groups.Clear();
 				navBarNavigate.Items.Clear();
 
-				var navBarGroupBusiness = new NavBarGroup()
+				var navBarGroupMainMenu = new NavBarGroup()
 				{
-					Name = "navBarGroupBusiness",
-					Caption = "Business",
+					Name = "navBarGroupMainMenu",
+					Caption = "Main Menu",
 					GroupStyle = NavBarGroupStyle.ControlContainer,
 					SmallImage = MenuResource.menu_business_16x16,
 					LargeImage = MenuResource.menu_business_32x32
 				};
-				var navBarGroupLibrary = new NavBarGroup()
+				var navBarGroupBookmark = new NavBarGroup()
 				{
-					Name = "navBarGroupLibrary",
-					Caption = "Library",
-					SmallImage = MenuResource.menu_system_16x16,
-					LargeImage = MenuResource.menu_system_32x32
-				};
-				var navBarGroupSystem = new NavBarGroup()
-				{
-					Name = "navBarGroupSystem",
-					Caption = "System",					
-					SmallImage = MenuResource.menu_system_16x16,
-					LargeImage = MenuResource.menu_system_32x32
-				};
-				var navBarGroupDatabase = new NavBarGroup()
-				{
-					Name = "navBarGroupDatabase",
-					Caption = "Database",
+					Name = "navBarGroupBookmark",
+					Caption = "Bookmark",
 					SmallImage = MenuResource.menu_system_16x16,
 					LargeImage = MenuResource.menu_system_32x32
 				};
 
 				navBarNavigate.OptionsNavPane.ShowExpandButton = false;
 				//navBarNavigate.Groups.AddRange(new NavBarGroup[] { navBarGroupBusiness, navBarGroupAnalysis, navBarGroupSystem });
-				navBarNavigate.Groups.AddRange(new NavBarGroup[] { navBarGroupBusiness, navBarGroupLibrary, navBarGroupSystem, navBarGroupDatabase });
-				navBarGroupBusiness.ControlContainer = new NavBarGroupControlContainer();
-;
-				//navBarNavigate.Groups.AddRange(new NavBarGroup[] { navBarGroupBusiness, navBarGroupAnalysis, navBarGroupSystem });
-				//navBarNavigate.Groups.AddRange(new NavBarGroup[] { navBarGroupBusiness, navBarGroupSystem });
-				//navBarGroupBusiness.ControlContainer = new NavBarGroupControlContainer();
-
-				//#region Search TextBox
-				//navBarGroupBusiness.ControlContainer.Controls.Add(new ComboBoxEdit()
-				//{
-				//	Name = "txtFindMenu",
-				//	Dock = DockStyle.Top,
-				//	Margin = new Padding(3)				
-				//});
-				//#endregion
+				navBarNavigate.Groups.AddRange(new NavBarGroup[] { navBarGroupMainMenu, navBarGroupBookmark });
+				navBarGroupMainMenu.ControlContainer = new NavBarGroupControlContainer();
 
 				#region Load TreeMenu
 				mainMenu = new XTree()
 				{
 					Name = "mainMenu",
-					Dock = DockStyle.Fill
+					Dock = DockStyle.Fill					
 				};
-
+				
 				mainMenu.LookAndFeel.UseDefaultLookAndFeel = false;
 				mainMenu.LookAndFeel.SetSkinStyle(GlobalVar.SkinInfo.MainSkin);
 
 				if (mainMenu != null)
 				{
-					navBarGroupBusiness.ControlContainer.Controls.Add(mainMenu);
+					navBarGroupMainMenu.ControlContainer.Controls.Add(mainMenu);
 
+					#region 트리메뉴 일반설정
 					mainMenu.OptionsBehavior.PopulateServiceColumns = true;
 					mainMenu.OptionsBehavior.AllowExpandOnDblClick = true;
 					mainMenu.OptionsView.ShowColumns = false;
@@ -504,7 +477,20 @@ namespace IKaan.Win.View.Forms
 					mainMenu.OptionsView.AutoWidth = true;
 					mainMenu.OptionsView.EnableAppearanceEvenRow = false;
 					mainMenu.OptionsView.EnableAppearanceOddRow = false;
+					#endregion
 
+					#region 트리메뉴 검색설정
+					mainMenu.OptionsFind.AllowFindPanel = 
+						mainMenu.OptionsFind.AllowIncrementalSearch = 
+						mainMenu.OptionsFind.AlwaysVisible = 
+						mainMenu.OptionsFind.ExpandNodesOnIncrementalSearch = true;
+					mainMenu.OptionsFind.FindMode = FindMode.Always;
+					mainMenu.OptionsFind.ShowClearButton =
+						mainMenu.OptionsFind.ShowCloseButton =
+						mainMenu.OptionsFind.ShowFindButton = false;
+					#endregion
+
+					#region 이미지 컬렉션 설정
 					imageCollection.Clear();
 					imageCollection.AddImage(MenuResource.tree_group_collapse_16x16);
 					imageCollection.AddImage(MenuResource.tree_group_expand_16x16);
@@ -513,6 +499,7 @@ namespace IKaan.Win.View.Forms
 					imageCollection.AddImage(MenuResource.tree_item_not3_16x16);
 
 					mainMenu.StateImageList = imageCollection;
+					#endregion
 
 					#region mainMenu.GetStateImage
 					mainMenu.GetStateImage += delegate (object sender, GetStateImageEventArgs e)
@@ -633,9 +620,8 @@ namespace IKaan.Win.View.Forms
 				}
 				#endregion
 
-				LoadMenuGroup("navBarGroupLibrary", "LIB");
-				LoadMenuGroup("navBarGroupSystem", "SYS");
-				LoadMenuGroup("navBarGroupDatabase", "RDS");
+				//Set Bookmark
+				LoadMenuGroup("navBarGroupBookmark", "Bookmark");
 
 				navBarNavigate.EndUpdate();
 			}
@@ -653,14 +639,13 @@ namespace IKaan.Win.View.Forms
 				{
 					var list = WasHandler.GetData<List<UMainMenu>>("AUTH", "GetMainMenu", null, new DataMap()
 					{
-						{ "UserID", GlobalVar.UserInfo.UserId },
-						{ "MenuGroup", "BIZ" }
+						{ "UserID", GlobalVar.UserInfo.UserId }
 					});
 
 					if (list != null)
 					{
 						mainMenu.DataSource = list;
-						mainMenu.ExpandAll();
+						mainMenu.ExpandToLevel(2);
 						mainMenu.BestFitColumns();
 						mainMenu.Sort(new string[] { "HierID" }, new SortOrder[] { SortOrder.Ascending });
 					}
@@ -692,6 +677,41 @@ namespace IKaan.Win.View.Forms
 						foreach (UMainMenu model in list)
 						{
 							navGroup.ItemLinks.Add(navBarNavigate.Items.Add(new DevExpress.XtraNavBar.NavBarItem()
+							{
+								Caption = model.MenuName.ToStringNullToEmpty(),
+								Tag = model,
+								SmallImage = MenuResource.menu_system_16x16,
+								SmallImageSize = new Size(16, 16)
+							}));
+						}
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				MsgBox.Show(ex);
+			}
+		}
+
+		private void LoadBookmark()
+		{
+			try
+			{
+				if (navBarNavigate != null && navBarNavigate.Groups.Where(x => x.Name == "navBarGroupBookmark").Any())
+				{
+					var navGroup = navBarNavigate.Groups.Where(x => x.Name == "navBarGroupBookmark").FirstOrDefault();
+					navGroup.ItemLinks.Clear();
+
+					var list = WasHandler.GetData<List<UMainMenu>>("AUTH", "GetBookmark", null, new DataMap()
+					{
+						{ "UserID", GlobalVar.UserInfo.UserId }
+					});
+
+					if (list != null)
+					{
+						foreach (UMainMenu model in list)
+						{
+							navGroup.ItemLinks.Add(navBarNavigate.Items.Add(new NavBarItem()
 							{
 								Caption = model.MenuName.ToStringNullToEmpty(),
 								Tag = model,

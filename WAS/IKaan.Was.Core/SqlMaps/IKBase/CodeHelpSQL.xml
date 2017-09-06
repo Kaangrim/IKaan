@@ -95,6 +95,38 @@
 					Name, ID
 			]]>
 		</select>
+		<select id="SelectCodeHelpMenuGroup" parameterClass="DataMap" resultClass="UCodeHelp" >
+			<![CDATA[
+				SELECT	aa.ID										as ID					
+					,	CONVERT(VARCHAR, aa.ID)						as Code
+					,	aa.MenuName									as Name
+					,	aa.MenuName									as ListName
+					,	aa.MenuName									as DispName
+					,	CONVERT(VARCHAR, aa.ID)						as Value
+					,	ROW_NUMBER() OVER (ORDER BY aa.SortOrder)	as SortOrder
+					,	0											as MaxLength
+					,	aa.ID										as Option1
+					,	null										as Option2
+					,	null										as Option3
+					,	null										as Option4
+					,	null										as Option5
+					,	null										as Option6
+					,	null										as Option7
+					,	null										as Option8
+					,	null										as Option9
+				FROM	IKBase.dbo.TMenu aa
+				WHERE	1=1
+				AND		aa.ParentID IS NULL
+			]]>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	aa.MenuName	Like '%'+#FindText#+'%'
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY SortOrder, Name
+			]]>
+		</select>
 		<select id="SelectCodeHelpMenuList" parameterClass="DataMap" resultClass="UCodeHelp" >
 			<![CDATA[
 				WITH CTE (ID, Name, Path, ParentID, HierID, Level)
