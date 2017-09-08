@@ -95,13 +95,13 @@
     <EmbeddedResource Include="SqlMaps\IKBiz\EmployeeSQL.xml" />
     <EmbeddedResource Include="SqlMaps\IKBiz\DepartmentSQL.xml" />
     <EmbeddedResource Include="SqlMaps\IKBiz\AppointmentSQL.xml" />
-    <EmbeddedResource Include="SqlMaps\IKBiz\DepartmentHistSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\IKBiz\DepartmentHistorySQL.xml" />
     <EmbeddedResource Include="SqlMaps\IKBiz\OrderSumSQL.xml" />
     <EmbeddedResource Include="SqlMaps\IKScrap\BrandInfoSQL.xml" />
     <EmbeddedResource Include="SqlMaps\IKScrap\GoodsInfoSQL.xml" />
     <EmbeddedResource Include="SqlMaps\IKBiz\SearchBrandActivitySQL.xml" />
-    <EmbeddedResource Include="SqlMaps\IKBiz\GoodsInfoNoticeSQL.xml" />
-    <EmbeddedResource Include="SqlMaps\IKBiz\GoodsAttributeSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\IKBiz\ProductInfoNoticeSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\IKBiz\ProductAttributeSQL.xml" />
     <EmbeddedResource Include="SqlMaps\IKBase\FileUploadSQL.xml" />
     <EmbeddedResource Include="SqlMaps\IKBase\CalendarSQL.xml" />
     <EmbeddedResource Include="SqlMaps\IKBase\MessageSQL.xml" />
@@ -112,16 +112,16 @@
     <EmbeddedResource Include="SqlMaps\IKBase\UserSQL.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="SqlMaps\IKBiz\GoodsDetailSQL.xml" />
-    <EmbeddedResource Include="SqlMaps\IKBiz\GoodsImageSQL.xml" />
-    <EmbeddedResource Include="SqlMaps\IKBiz\GoodsItemSQL.xml" />
-    <EmbeddedResource Include="SqlMaps\IKBiz\GoodsSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\IKBiz\ProductDescriptionSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\IKBiz\ProductImageSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\IKBiz\ProductItemSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\IKBiz\ProductSQL.xml" />
     <EmbeddedResource Include="SqlMaps\IKBiz\BrandImageSQL.xml" />
     <EmbeddedResource Include="SqlMaps\IKBiz\BrandSQL.xml" />
     <EmbeddedResource Include="SqlMaps\IKBiz\ChannelBrandSQL.xml" />
     <EmbeddedResource Include="SqlMaps\IKBiz\ChannelSQL.xml" />
     <EmbeddedResource Include="SqlMaps\IKBiz\CustomerAddressSQL.xml" />
-    <EmbeddedResource Include="SqlMaps\IKBiz\CustomerBankSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\IKBiz\CustomerBankAccountSQL.xml" />
     <EmbeddedResource Include="SqlMaps\IKBiz\CustomerBrandSQL.xml" />
     <EmbeddedResource Include="SqlMaps\IKBiz\CustomerBusinessSQL.xml" />
     <EmbeddedResource Include="SqlMaps\IKBiz\CustomerChannelSQL.xml" />
@@ -131,16 +131,40 @@
     <EmbeddedResource Include="SqlMaps\IKBiz\InfoNoticeItemSQL.xml" />
     <EmbeddedResource Include="SqlMaps\IKBiz\BusinessSQL.xml" />
     <EmbeddedResource Include="SqlMaps\IKBiz\AddressSQL.xml" />
-    <EmbeddedResource Include="SqlMaps\IKBiz\BrandContactSQL.xml" />
-    <EmbeddedResource Include="SqlMaps\IKBiz\PersonSQL.xml" />
-    <EmbeddedResource Include="SqlMaps\IKBiz\BrandManagerSQL.xml" />
-    <EmbeddedResource Include="SqlMaps\IKBiz\ChannelContactSQL.xml" />
-    <EmbeddedResource Include="SqlMaps\IKBiz\ChannelManagerSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\IKBiz\ContactSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\IKBiz\CustomerContactSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\IKBiz\CustomerManagerSQL.xml" />
     <EmbeddedResource Include="SqlMaps\IKLive\ChannelOrderSQL.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="SqlMaps\IKBiz\ChannelSettingSQL.xml" />
     <EmbeddedResource Include="SqlMaps\IKBase\HolidaySQL.xml" />
+    <EmbeddedResource Include="SqlMaps\IKBiz\StoreSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\IKBiz\AttributeSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\IKBiz\AttributeTypeSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\IKBiz\BankAccountSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\IKBiz\BillingAddressSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\IKBiz\BrandAttributeSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\IKBiz\ChannelAttributeSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\IKBiz\CompanySQL.xml" />
+    <EmbeddedResource Include="SqlMaps\IKBiz\CompanyAddressSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\IKBiz\CompanyBankAccountSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\IKBiz\CompanyBusinessSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\IKBiz\CompanyContactSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\IKBiz\CompanyStoreSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\IKBiz\CustomerStoreSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\IKBiz\ImageSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\IKBiz\PartnerSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\IKBiz\PartnerAddressSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\IKBiz\PartnerBankAccountSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\IKBiz\PartnerBrandSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\IKBiz\PartnerBusinessSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\IKBiz\PartnerChannelSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\IKBiz\PartnerContactSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\IKBiz\PartnerManagerSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\IKBiz\PartnerStoreSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\IKBiz\ShippingAddressSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\IKBiz\ProductChannelGoodsSQL.xml" />
     <Content Include="SqlMaps\IKReport\ReportSQL.xml" />
   </ItemGroup>
   <ItemGroup />

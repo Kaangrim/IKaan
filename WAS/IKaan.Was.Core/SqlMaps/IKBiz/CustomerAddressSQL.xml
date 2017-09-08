@@ -19,8 +19,9 @@
 					,	AA.CustomerID
 					,	AA.AddressID
 					,	AA.AddressType
-					,	M1.Name			as AddressTypeName
 					,	AA.Description
+					
+					,	M1.Name			as AddressTypeName
 					
 					,	BB.PostalCode
 					,	BB.Country
@@ -43,18 +44,7 @@
 		</select>
 		<select id="SelectCustomerAddress" parameterClass="DataMap" resultClass="CustomerAddressModel" >
 			<![CDATA[
-				SELECT  AA.ID
-					,	AA.CreatedOn
-					,	AA.CreatedBy
-					,	AA.CreatedByName
-					,	AA.UpdatedOn
-					,	AA.UpdatedBy
-					,	AA.UpdatedByName
-					
-					,	AA.CustomerID
-					,	AA.AddressID
-					,	AA.AddressType
-					,	AA.Description
+				SELECT  AA.*
 					
 					,	BB.PostalCode
 					,	BB.Country
@@ -105,17 +95,7 @@
 		</update>
 		<delete id="DeleteCustomerAddress" parameterClass="DataMap">
 			<![CDATA[
-				DELETE
-				FROM	dbo.TAddress
-				WHERE	ID = 
-							(	
-								SELECT	AddressID
-								FROM	dbo.TCustomerAddress
-								WHERE	ID = #ID#
-							);
-				DELETE 
-				FROM	dbo.TCustomerAddress 
-				WHERE	ID = #ID#;
+				DELETE FROM dbo.TCustomerAddress WHERE ID = #ID#;
 			]]>
 		</delete>
 	</statements>

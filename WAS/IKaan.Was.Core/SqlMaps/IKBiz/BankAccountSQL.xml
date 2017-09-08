@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectBankAccountList" parameterClass="DataMap" resultClass="BankAccountModel" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
+					,	AA.ID
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
+					
+					,	AA.Name
+					,	AA.BankName
+					,	AA.AccountNo
+					,	AA.Depositor
+					,	AA.ImageID
+					,	AA.Description
+					
+				FROM	dbo.TBankAccount AA WITH (NOLOCK)
+				WHERE	1=1
+			]]>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	AA.Name LIKE '%'+#FindText#+'%'
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectBankAccount" parameterClass="DataMap" resultClass="BankAccountModel" >
+			<![CDATA[
+				SELECT  *					
+				FROM	dbo.TBankAccount AA WITH (NOLOCK)
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<insert id="InsertBankAccount" parameterClass="BankAccountModel" >
+			<![CDATA[
+				INSERT INTO dbo.TBankAccount
+				( 
+					CreatedOn, CreatedBy, CreatedByName,
+					Name, BankName, AccountNo, Depositor, ImageID, Description
+				)
+				VALUES
+				(
+					GetDate(), #CreatedBy#, #CreatedByName#,					
+					#Name#, #BankName#, #AccountNo#, #Depositor#, #ImageID#, #Description#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateBankAccount" parameterClass="BankAccountModel">
+			<![CDATA[
+				UPDATE  dbo.TBankAccount
+				SET     UpdatedOn		= GetDate()
+					,	UpdatedBy		= #UpdatedBy#
+					,	UpdatedByName	= #UpdatedByName#
+					
+					,	Name			= #Name#
+					,	BankName		= #BankName#
+					,	AccountNo		= #AccountNo#
+					,	Depositor		= #Depositor#
+					,	ImageID			= #ImageID#
+					,	Description		= #Description#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
+		<delete id="DeleteBankAccount" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM dbo.TBankAccount WHERE ID = #ID#;
+			]]>
+		</delete>
+	</statements>
+</sqlMap>

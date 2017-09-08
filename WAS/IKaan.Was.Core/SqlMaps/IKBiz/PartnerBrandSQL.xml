@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectPartnerBrandList" parameterClass="DataMap" resultClass="PartnerBrandModel" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
+					,	AA.ID
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
+					
+					,	AA.PartnerID
+					,	AA.BrandID
+					,	AA.StartDate
+					,	AA.EndDate
+					,	AA.Description
+					
+					,	BB.PartnerName
+					,	CC.BrandName
+					
+				FROM	dbo.TPartnerBrand AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.TPartner BB WITH (NOLOCK)
+								ON AA.PartnerID = BB.ID
+						LEFT JOIN
+							dbo.TBrand CC WITH (NOLOCK)
+								ON AA.BrandID = CC.ID
+				WHERE	1=1				
+			]]>
+			<isNotEmpty property="PartnerID">
+				<![CDATA[
+					AND		AA.PartnerID = #PartnerID#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="BrandID">
+				<![CDATA[
+					AND		AA.BrandID = #BrandID#
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectPartnerBrand" parameterClass="DataMap" resultClass="PartnerBrandModel" >
+			<![CDATA[
+				SELECT  AA.*
+					
+					,	BB.PartnerName
+					,	CC.BrandName
+					
+				FROM	dbo.TPartnerBrand AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.TPartner BB WITH (NOLOCK)
+								ON AA.PartnerID = BB.ID
+						LEFT JOIN
+							dbo.TBrand CC WITH (NOLOCK)
+								ON AA.BrandID = CC.ID
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<insert id="InsertPartnerBrand" parameterClass="PartnerBrandModel" >
+			<![CDATA[
+				INSERT INTO dbo.TPartnerBrand
+				( 
+					CreatedOn, CreatedBy, CreatedByName,
+					PartnerID, BrandID, StartDate, EndDate, Description
+				)
+				VALUES
+				(
+					GetDate(), #CreatedBy#, #CreatedByName#,
+					#PartnerID#, #BrandID#, #StartDate#, #EndDate#, #Description#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdatePartnerBrand" parameterClass="PartnerBrandModel">
+			<![CDATA[
+				UPDATE  dbo.TPartnerBrand
+				SET     UpdatedOn		= GetDate()
+					,	UpdatedBy		= #UpdatedBy#
+					,	UpdatedByName	= #UpdatedByName#
+					
+					,	PartnerID		= #PartnerID#
+					,	BrandID			= #BrandID#
+					,	StartDate		= #StartDate#
+					,	EndDate			= #EndDate#
+					,	Description		= #Description#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
+		<delete id="DeletePartnerBrand" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM dbo.TPartnerBrand WHERE ID = #ID#;
+			]]>
+		</delete>
+	</statements>
+</sqlMap>

@@ -63,6 +63,7 @@
 			this.controlContainer1 = new DevExpress.XtraBars.Docking.ControlContainer();
 			this.dpSearch = new DevExpress.XtraBars.Docking.DockPanel();
 			this.dockPanel1_Container = new DevExpress.XtraBars.Docking.ControlContainer();
+			this.wbSearch = new System.Windows.Forms.WebBrowser();
 			this.dpNavigation = new DevExpress.XtraBars.Docking.DockPanel();
 			this.dockPanelMainMenu_Container = new DevExpress.XtraBars.Docking.ControlContainer();
 			this.navBarNavigate = new DevExpress.XtraNavBar.NavBarControl();
@@ -72,10 +73,8 @@
 			this.barPopupUxButtonpandAll = new DevExpress.XtraBars.BarButtonItem();
 			this.barPopupButtonCollapseAll = new DevExpress.XtraBars.BarButtonItem();
 			this.barPopupButtonRefresh = new DevExpress.XtraBars.BarButtonItem();
-			this.barPopupButtonBookmark = new DevExpress.XtraBars.BarButtonItem();
-			this.barPopupButtonDelete = new DevExpress.XtraBars.BarButtonItem();
-			this.barPopupButtonDelete_Like = new DevExpress.XtraBars.BarButtonItem();
-			this.barPopupButtonSave = new DevExpress.XtraBars.BarButtonItem();
+			this.barPopupButtonAddBookmark = new DevExpress.XtraBars.BarButtonItem();
+			this.barPopupButtonDeleteBookmark = new DevExpress.XtraBars.BarButtonItem();
 			this.barButtonTabPageCloseAll = new DevExpress.XtraBars.BarButtonItem();
 			this.barButtonTabPageCloseAllButThis = new DevExpress.XtraBars.BarButtonItem();
 			this.barButtonChangeSkin = new DevExpress.XtraBars.SkinBarSubItem();
@@ -90,7 +89,6 @@
 			this.timerHomeShow = new System.Windows.Forms.Timer();
 			this.notifyIcon1 = new System.Windows.Forms.NotifyIcon();
 			this.popupMenuTabPage = new DevExpress.XtraBars.PopupMenu();
-			this.wbSearch = new System.Windows.Forms.WebBrowser();
 			((System.ComponentModel.ISupportInitialize)(this.barManager)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.barAndDockingController)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.dockManager)).BeginInit();
@@ -124,8 +122,7 @@
             new DevExpress.XtraBars.BarManagerCategory("Edit", new System.Guid("187f1f34-7a4a-479d-83b8-80cebc184b65")),
             new DevExpress.XtraBars.BarManagerCategory("Help", new System.Guid("99851dff-d89b-4f5f-8a8e-af8c9e6cf4d7")),
             new DevExpress.XtraBars.BarManagerCategory("StatusBar", new System.Guid("5964b91a-9a71-4806-b984-83f41320e95f")),
-            new DevExpress.XtraBars.BarManagerCategory("PopupMenuOfMainMenu", new System.Guid("0435dc73-6ef8-49fc-b877-fa038cb079b7")),
-            new DevExpress.XtraBars.BarManagerCategory("PopupMenuOfBookmark", new System.Guid("47a24670-3f86-4b66-91ca-9b7113276500")),
+            new DevExpress.XtraBars.BarManagerCategory("PopupMenu", new System.Guid("0435dc73-6ef8-49fc-b877-fa038cb079b7")),
             new DevExpress.XtraBars.BarManagerCategory("View", new System.Guid("a88229de-4627-4658-b6a2-102960a89e38"))});
 			this.barManager.Controller = this.barAndDockingController;
 			this.barManager.DockControls.Add(this.barDockControlTop);
@@ -155,12 +152,10 @@
             this.barPopupUxButtonpandAll,
             this.barPopupButtonCollapseAll,
             this.barPopupButtonRefresh,
-            this.barPopupButtonBookmark,
-            this.barPopupButtonDelete,
+            this.barPopupButtonAddBookmark,
+            this.barPopupButtonDeleteBookmark,
             this.barStatusBarCorpName,
             this.chkKeepAlive,
-            this.barPopupButtonDelete_Like,
-            this.barPopupButtonSave,
             this.barButtonTabPageCloseAll,
             this.barButtonTabPageCloseAllButThis,
             this.barButtonChangeSkin,
@@ -513,6 +508,15 @@
 			this.dockPanel1_Container.Size = new System.Drawing.Size(257, 423);
 			this.dockPanel1_Container.TabIndex = 0;
 			// 
+			// wbSearch
+			// 
+			this.wbSearch.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.wbSearch.Location = new System.Drawing.Point(0, 0);
+			this.wbSearch.MinimumSize = new System.Drawing.Size(20, 20);
+			this.wbSearch.Name = "wbSearch";
+			this.wbSearch.Size = new System.Drawing.Size(257, 423);
+			this.wbSearch.TabIndex = 0;
+			// 
 			// dpNavigation
 			// 
 			this.dpNavigation.Controls.Add(this.dockPanelMainMenu_Container);
@@ -595,39 +599,23 @@
 			this.barPopupButtonRefresh.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barPopupButtonRefresh.ImageOptions.LargeImage")));
 			this.barPopupButtonRefresh.Name = "barPopupButtonRefresh";
 			// 
-			// barPopupButtonBookmark
+			// barPopupButtonAddBookmark
 			// 
-			this.barPopupButtonBookmark.Caption = "북마크 추가";
-			this.barPopupButtonBookmark.CategoryGuid = new System.Guid("0435dc73-6ef8-49fc-b877-fa038cb079b7");
-			this.barPopupButtonBookmark.Id = 49;
-			this.barPopupButtonBookmark.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barPopupButtonBookmark.ImageOptions.Image")));
-			this.barPopupButtonBookmark.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barPopupButtonBookmark.ImageOptions.LargeImage")));
-			this.barPopupButtonBookmark.Name = "barPopupButtonBookmark";
+			this.barPopupButtonAddBookmark.Caption = "북마크 추가";
+			this.barPopupButtonAddBookmark.CategoryGuid = new System.Guid("0435dc73-6ef8-49fc-b877-fa038cb079b7");
+			this.barPopupButtonAddBookmark.Id = 49;
+			this.barPopupButtonAddBookmark.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barPopupButtonAddBookmark.ImageOptions.Image")));
+			this.barPopupButtonAddBookmark.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barPopupButtonAddBookmark.ImageOptions.LargeImage")));
+			this.barPopupButtonAddBookmark.Name = "barPopupButtonAddBookmark";
 			// 
-			// barPopupButtonDelete
+			// barPopupButtonDeleteBookmark
 			// 
-			this.barPopupButtonDelete.Caption = "북마크 삭제";
-			this.barPopupButtonDelete.CategoryGuid = new System.Guid("47a24670-3f86-4b66-91ca-9b7113276500");
-			this.barPopupButtonDelete.Id = 52;
-			this.barPopupButtonDelete.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barPopupButtonDelete.ImageOptions.Image")));
-			this.barPopupButtonDelete.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barPopupButtonDelete.ImageOptions.LargeImage")));
-			this.barPopupButtonDelete.Name = "barPopupButtonDelete";
-			// 
-			// barPopupButtonDelete_Like
-			// 
-			this.barPopupButtonDelete_Like.Caption = "나만의 메뉴 삭제";
-			this.barPopupButtonDelete_Like.Id = 63;
-			this.barPopupButtonDelete_Like.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barPopupButtonDelete_Like.ImageOptions.Image")));
-			this.barPopupButtonDelete_Like.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barPopupButtonDelete_Like.ImageOptions.LargeImage")));
-			this.barPopupButtonDelete_Like.Name = "barPopupButtonDelete_Like";
-			// 
-			// barPopupButtonSave
-			// 
-			this.barPopupButtonSave.Caption = "나만의 메뉴 저장";
-			this.barPopupButtonSave.Id = 64;
-			this.barPopupButtonSave.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barPopupButtonSave.ImageOptions.Image")));
-			this.barPopupButtonSave.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barPopupButtonSave.ImageOptions.LargeImage")));
-			this.barPopupButtonSave.Name = "barPopupButtonSave";
+			this.barPopupButtonDeleteBookmark.Caption = "북마크 삭제";
+			this.barPopupButtonDeleteBookmark.CategoryGuid = new System.Guid("0435dc73-6ef8-49fc-b877-fa038cb079b7");
+			this.barPopupButtonDeleteBookmark.Id = 52;
+			this.barPopupButtonDeleteBookmark.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barPopupButtonDeleteBookmark.ImageOptions.Image")));
+			this.barPopupButtonDeleteBookmark.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barPopupButtonDeleteBookmark.ImageOptions.LargeImage")));
+			this.barPopupButtonDeleteBookmark.Name = "barPopupButtonDeleteBookmark";
 			// 
 			// barButtonTabPageCloseAll
 			// 
@@ -683,7 +671,8 @@
 			// popupMenuOfMainMenu
 			// 
 			this.popupMenuOfMainMenu.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
-            new DevExpress.XtraBars.LinkPersistInfo(this.barPopupButtonBookmark),
+            new DevExpress.XtraBars.LinkPersistInfo(this.barPopupButtonAddBookmark),
+            new DevExpress.XtraBars.LinkPersistInfo(this.barPopupButtonDeleteBookmark),
             new DevExpress.XtraBars.LinkPersistInfo(this.barPopupUxButtonpandAll, true),
             new DevExpress.XtraBars.LinkPersistInfo(this.barPopupButtonCollapseAll),
             new DevExpress.XtraBars.LinkPersistInfo(this.barPopupButtonRefresh, true)});
@@ -693,7 +682,7 @@
 			// popupMenuOfBookmark
 			// 
 			this.popupMenuOfBookmark.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
-            new DevExpress.XtraBars.LinkPersistInfo(this.barPopupButtonDelete)});
+            new DevExpress.XtraBars.LinkPersistInfo(this.barPopupButtonDeleteBookmark)});
 			this.popupMenuOfBookmark.Manager = this.barManager;
 			this.popupMenuOfBookmark.Name = "popupMenuOfBookmark";
 			// 
@@ -709,15 +698,6 @@
             new DevExpress.XtraBars.LinkPersistInfo(this.barButtonTabPageCloseAllButThis)});
 			this.popupMenuTabPage.Manager = this.barManager;
 			this.popupMenuTabPage.Name = "popupMenuTabPage";
-			// 
-			// wbSearch
-			// 
-			this.wbSearch.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.wbSearch.Location = new System.Drawing.Point(0, 0);
-			this.wbSearch.MinimumSize = new System.Drawing.Size(20, 20);
-			this.wbSearch.Name = "wbSearch";
-			this.wbSearch.Size = new System.Drawing.Size(257, 423);
-			this.wbSearch.TabIndex = 0;
 			// 
 			// MainForm
 			// 
@@ -800,16 +780,14 @@
 		private DevExpress.XtraBars.BarButtonItem barPopupUxButtonpandAll;
 		private DevExpress.XtraBars.BarButtonItem barPopupButtonCollapseAll;
 		private DevExpress.XtraBars.BarButtonItem barPopupButtonRefresh;
-		private DevExpress.XtraBars.BarButtonItem barPopupButtonBookmark;
+		private DevExpress.XtraBars.BarButtonItem barPopupButtonAddBookmark;
 		private DevExpress.XtraBars.PopupMenu popupMenuOfBookmark;
-		private DevExpress.XtraBars.BarButtonItem barPopupButtonDelete;
+		private DevExpress.XtraBars.BarButtonItem barPopupButtonDeleteBookmark;
 		//private DevExpress.XtraBars.BarButtonItem barPopupButtonSave;
 		private DevExpress.XtraBars.BarButtonItem barButtonDownload;
 		private System.Windows.Forms.Timer timerHomeShow;
 		private DevExpress.XtraBars.BarStaticItem barStatusBarCorpName;
 		private DevExpress.XtraBars.BarCheckItem chkKeepAlive;
-		private DevExpress.XtraBars.BarButtonItem barPopupButtonDelete_Like;
-		private DevExpress.XtraBars.BarButtonItem barPopupButtonSave;
 		private System.Windows.Forms.NotifyIcon notifyIcon1;
 		private DevExpress.XtraBars.PopupMenu popupMenuTabPage;
 		private DevExpress.XtraBars.BarButtonItem barButtonTabPageCloseAll;

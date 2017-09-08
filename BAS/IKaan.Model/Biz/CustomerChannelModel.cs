@@ -25,8 +25,8 @@ namespace IKaan.Model.Biz
 		public DateTime? EndDate { get; set; }
 
 		[DataMember]
-		[Display(Name = "거래처명")]
-		public string CustomerName { get; set; }
+		[Display(Name = "설명")]
+		public string Description { get; set; }
 
 		[DataMember]
 		[Display(Name = "채널명")]

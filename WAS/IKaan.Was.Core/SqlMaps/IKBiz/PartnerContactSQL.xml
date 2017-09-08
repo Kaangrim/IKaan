@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectPartnerContactList" parameterClass="DataMap" resultClass="PartnerContactModel" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID)	AS RowNo
+					,	AA.ID
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
+					
+					,	AA.PartnerID
+					,	AA.ContactID
+					,	AA.Position
+					,	AA.AssignedTask
+					,	AA.Description
+					
+					,	BB.Name			as ContactName
+					,	BB.PersonType
+					,	BB.Email
+					,	BB.PhoneNo
+					,	BB.MobileNo
+					,	BB.FaxNo
+					
+				FROM	dbo.TPartnerContact AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.TContact BB WITH (NOLOCK)
+								ON AA.ContactID = BB.ID
+				WHERE	AA.PartnerID = #PartnerID#
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectPartnerContact" parameterClass="DataMap" resultClass="PartnerContactModel" >
+			<![CDATA[
+				SELECT  AA.*					
+				FROM	dbo.TPartnerContact AA WITH (NOLOCK)
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<insert id="InsertPartnerContact" parameterClass="PartnerContactModel" >
+			<![CDATA[
+				INSERT INTO dbo.TPartnerContact
+				( 
+					CreatedOn, CreatedBy, CreatedByName,
+					PartnerID, ContactID, Position, AssignedTask, Description
+				)
+				VALUES
+				(
+					GetDate(), #CreatedBy#, #CreatedByName#,
+					#PartnerID#, #ContactID#, #Position#, #AssignedTask#, #Description#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdatePartnerContact" parameterClass="PartnerContactModel">
+			<![CDATA[
+				UPDATE  dbo.TPartnerContact
+				SET     UpdatedOn		= GetDate()
+					,	UpdatedBy		= #UpdatedBy#
+					,	UpdatedByName	= #UpdatedByName#
+					
+					,	PartnerID		= #PartnerID#
+					,	ContactID		= #ContactID#
+					,	Position		= #Position#
+					,	AssignedTask	= #AssignedTask#
+					,	Description		= #Description#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
+		<delete id="DeletePartnerContact" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM dbo.TPartnerContact WHERE ID = #ID#;
+			]]>
+		</delete>
+	</statements>
+</sqlMap>

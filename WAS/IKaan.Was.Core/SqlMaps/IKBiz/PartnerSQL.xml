@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectPartnerList" parameterClass="DataMap" resultClass="PartnerModel" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
+					,	AA.ID
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
+					
+					,	AA.Name
+					,	AA.PartnerType
+					,	AA.UseYn
+					,	AA.Description
+					
+					,	M1.Name			as PartnerTypeName
+					
+				FROM	dbo.TPartner AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.TCode M1 WITH (NOLOCK)
+								ON AA.PartnerType = M1.Code
+									AND M1.ParentCode = 'PartnerType'
+				WHERE	1=1				
+			]]>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(
+							AA.Name	LIKE '%' + #FindText# + '%'
+						)
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectPartner" parameterClass="DataMap" resultClass="PartnerModel" >
+			<![CDATA[
+				SELECT  AA.*					
+				FROM	dbo.TPartner AA WITH (NOLOCK)
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<insert id="InsertPartner" parameterClass="PartnerModel" >
+			<![CDATA[
+				INSERT INTO dbo.TPartner
+				( 
+					CreatedOn, CreatedBy, CreatedByName,
+					Name, PartnerType, UseYn, Description
+				)
+				VALUES
+				(
+					GetDate(), #CreatedBy#, #CreatedByName#,
+					#Name#, #PartnerType#, #UseYn#, #Description#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdatePartner" parameterClass="PartnerModel">
+			<![CDATA[
+				UPDATE  dbo.TPartner
+				SET     UpdatedOn		= GetDate()
+					,	UpdatedBy		= #UpdatedBy#
+					,	UpdatedByName	= #UpdatedByName#
+					
+					,	Name			= #Name#
+					,	PartnerType	= #PartnerType#
+					,	UseYn			= #UseYn#
+					,	Description		= #Description#
+					
+				WHERE	ID				= #ID#
+			]]>
+		</update>
+		<delete id="DeletePartner" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM dbo.TPartner WHERE ID = #ID#;
+			]]>
+		</delete>
+	</statements>
+</sqlMap>

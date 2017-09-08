@@ -16,35 +16,31 @@
 					,	AA.UpdatedBy
 					,	AA.UpdatedByName
 					
-					,	AA.BrandName
-					,	AA.EngName
-					,	AA.ShortName
-					,	AA.HomePage
-					,	AA.BrandCategory
-					,	AA.BrandStyle
-					,	AA.Description
+					,	AA.Name
+					,	AA.Url
+					,	AA.Category
+					,	AA.Style
 					,	AA.UseYn
+					,	AA.Description					
 					
-					,	M1.Name				as BrandCategoryName
-					,	M2.Name				as BrandStyleName
+					,	M1.Name				as CategoryName
+					,	M2.Name				as StyleName
 					
 				FROM	dbo.TBrand AA WITH (NOLOCK)
 						LEFT JOIN
 							IKBase.dbo.TCode M1 WITH (NOLOCK)
-								ON AA.BrandCategory = M1.Code
+								ON AA.Category = M1.Code
 									AND M1.ParentCode = 'BrandCategory'
 						LEFT JOIN
 							IKBase.dbo.TCode M2 WITH (NOLOCK)
-								ON AA.BrandStyle = M2.Code
+								ON AA.Style = M2.Code
 									AND M2.ParentCode = 'BrandStyle'
 				WHERE	1=1				
 			]]>
 			<isNotEmpty property="FindText">
 				<![CDATA[
 					AND	(
-							AA.BrandName		LIKE '%' + #FindText# + '%' OR
-							AA.EngName			LIKE '%' + #FindText# + '%' OR
-							AA.ShortName		LIKE '%' + #FindText# + '%'
+							AA.BrandName		LIKE '%' + #FindText# + '%'
 						)
 				]]>
 			</isNotEmpty>
@@ -53,14 +49,14 @@
 					AND	AA.UseYn = #UseYn#
 				]]>
 			</isNotEmpty>
-			<isNotEmpty property="BrandCategory">
+			<isNotEmpty property="Category">
 				<![CDATA[
-					AND	AA.BrandCategory = #BrandCategory#
+					AND	AA.Category = #Category#
 				]]>
 			</isNotEmpty>
-			<isNotEmpty property="BrandStyle">
+			<isNotEmpty property="Style">
 				<![CDATA[
-					AND	AA.BrandStyle = #BrandStyle#
+					AND	AA.Style = #Style#
 				]]>
 			</isNotEmpty>
 			<![CDATA[
@@ -69,30 +65,17 @@
 		</select>
 		<select id="SelectBrand" parameterClass="DataMap" resultClass="BrandModel" >
 			<![CDATA[
-				SELECT  AA.ID
-					,	AA.CreatedOn
-					,	AA.CreatedBy
-					,	AA.CreatedByName
-					,	AA.UpdatedOn
-					,	AA.UpdatedBy
-					,	AA.UpdatedByName
-					
-					,	AA.BrandName
-					,	AA.EngName
-					,	AA.ShortName
-					,	AA.HomePage
-					,	AA.BrandCategory
-					,	AA.BrandStyle
-					,	AA.Description
-					,	AA.UseYn
-					
-					,	BB.ImageUrl
+				SELECT  AA.*					
+					,	CC.Url		as ImageUrl
 					
 				FROM	dbo.TBrand AA WITH (NOLOCK)
 						LEFT JOIN
 							dbo.TBrandImage BB WITH (NOLOCK)
 								ON AA.ID = BB.BrandID
 									AND BB.ImageType = '11'
+						LEFT JOIN
+							dbo.TImage CC with (nolock)
+								ON BB.ImageID = CC.ID
 				WHERE	AA.ID = #ID#
 			]]>
 		</select>
@@ -101,12 +84,12 @@
 				INSERT INTO dbo.TBrand
 				( 
 					CreatedOn, CreatedBy, CreatedByName,
-					BrandName, EngName, ShortName, HomePage, BrandCategory, BrandStyle, Description, UseYn
+					Name, Url, Category, Style, UseYn, Description, DescriptionRTF
 				)
 				VALUES
 				(
 					GetDate(), #CreatedBy#, #CreatedByName#,
-					#BrandName#, #EngName#, #ShortName#, #HomePage#, #BrandCategory#, #BrandStyle#, #Description#, #UseYn#
+					#Name#, #Url#, #Category#, #Style#, #UseYn#, #Description#, #DescriptionRTF#
 				)
 			]]>
 			<selectKey type="post" property="ID" resultClass="Int">
@@ -122,22 +105,18 @@
 					,	UpdatedBy		= #UpdatedBy#
 					,	UpdatedByName	= #UpdatedByName#
 					
-					,	BrandName		= #BrandName#
-					,	EngName			= #EngName#
-					,	ShortName		= #ShortName#
-					,	HomePage		= #HomePage#
-					,	BrandCategory	= #BrandCategory#
-					,	BrandStyle		= #BrandStyle#
+					,	Name			= #Name#
+					,	Url				= #Url#
+					,	Category		= #BrandCategory#
+					,	Style			= #BrandStyle#
 					,	Description		= #Description#
+					,	DescriptionRTF	= #DescriptionRTF#
 					,	UseYn			= #UseYn#
 				WHERE	ID				= #ID#
 			]]>
 		</update>
 		<delete id="DeleteBrand" parameterClass="DataMap">
 			<![CDATA[
-				DELETE FROM dbo.TBrandContact	WHERE BrandID = #ID#;
-				DELETE FROM dbo.TBrandManager	WHERE BrandID = #ID#;
-				DELETE FROM dbo.TBrandImage		WHERE BrandID = #ID#;
 				DELETE FROM dbo.TBrand			WHERE ID = #ID#;
 			]]>
 		</delete>

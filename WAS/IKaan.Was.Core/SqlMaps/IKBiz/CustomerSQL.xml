@@ -16,25 +16,14 @@
 					,	AA.UpdatedBy
 					,	AA.UpdatedByName
 					
+					,	AA.Name
 					,	AA.CustomerType
-					,	AA.CustomerName
-					,	AA.EngName
 					,	AA.UseYn
 					,	AA.Description
 					
-					,	CC.BizNo
-					,	CC.RepName
 					,	M1.Name			as CustomerTypeName
 					
 				FROM	dbo.TCustomer AA WITH (NOLOCK)
-						LEFT JOIN
-							dbo.TCustomerBusiness BB WITH (NOLOCK)
-								ON AA.ID = BB.CustomerID
-									AND BB.StartDate <= GETDATE()
-									AND ISNULL(BB.EndDate, DATEADD(DAY, 1, GETDATE())) >= CONVERT(DATETIME, CONVERT(VARCHAR(8), GETDATE(), 112), 112)
-						LEFT JOIN
-							dbo.TBusiness CC WITH (NOLOCK)
-								ON BB.BusinessID = CC.ID
 						LEFT JOIN
 							dbo.TCode M1 WITH (NOLOCK)
 								ON AA.CustomerType = M1.Code
@@ -44,8 +33,7 @@
 			<isNotEmpty property="FindText">
 				<![CDATA[
 					AND	(
-							AA.CustomerName		LIKE '%' + #FindText# + '%' OR
-							AA.EngName			LIKE '%' + #FindText# + '%'
+							AA.Name	LIKE '%' + #FindText# + '%'
 						)
 				]]>
 			</isNotEmpty>
@@ -55,41 +43,8 @@
 		</select>
 		<select id="SelectCustomer" parameterClass="DataMap" resultClass="CustomerModel" >
 			<![CDATA[
-				SELECT  AA.ID
-					,	AA.CreatedOn
-					,	AA.CreatedBy
-					,	AA.CreatedByName
-					,	AA.UpdatedOn
-					,	AA.UpdatedBy
-					,	AA.UpdatedByName
-					
-					,	AA.CustomerType
-					,	AA.CustomerName
-					,	AA.EngName
-					,	AA.UseYn
-					,	AA.Description
-					
-					,	B2.BizType
-					,	B2.BizNo
-					,	B2.BizName
-					,	B2.RepName
-					,	B2.BizKind
-					,	B2.BizItem
-					,	B3.AddressLine1
-					,	B3.AddressLine2
-					
+				SELECT  AA.*					
 				FROM	dbo.TCustomer AA WITH (NOLOCK)
-						LEFT JOIN
-							dbo.TCustomerBusiness BB WITH (NOLOCK)
-								ON AA.ID = BB.CustomerID
-									AND BB.StartDate <= CONVERT(DATETIME, CONVERT(VARCHAR(8), GETDATE(), 112), 112)
-									AND ISNULL(BB.EndDate, DATEADD(DAY, 1, GETDATE())) >= CONVERT(DATETIME, CONVERT(VARCHAR(8), GETDATE(), 112), 112)
-						LEFT JOIN
-							dbo.TBusiness B2 WITH (NOLOCK)
-								ON BB.BusinessID = B2.ID
-						LEFT JOIN
-							dbo.TAddress B3 WITH (NOLOCK)
-								ON B2.AddressID = B3.ID
 				WHERE	AA.ID = #ID#
 			]]>
 		</select>
@@ -98,12 +53,12 @@
 				INSERT INTO dbo.TCustomer
 				( 
 					CreatedOn, CreatedBy, CreatedByName,
-					CustomerType, CustomerName, EngName, UseYn, Description
+					Name, CustomerType, UseYn, Description
 				)
 				VALUES
 				(
 					GetDate(), #CreatedBy#, #CreatedByName#,
-					#CustomerType#, #CustomerName#, #EngName#, #UseYn#, #Description#
+					#Name#, #CustomerType#, #UseYn#, #Description#
 				)
 			]]>
 			<selectKey type="post" property="ID" resultClass="Int">
@@ -119,9 +74,8 @@
 					,	UpdatedBy		= #UpdatedBy#
 					,	UpdatedByName	= #UpdatedByName#
 					
+					,	Name			= #Name#
 					,	CustomerType	= #CustomerType#
-					,	CustomerName	= #CustomerName#
-					,	EngName			= #EngName#
 					,	UseYn			= #UseYn#
 					,	Description		= #Description#
 					

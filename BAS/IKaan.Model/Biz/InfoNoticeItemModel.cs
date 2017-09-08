@@ -9,7 +9,7 @@ namespace IKaan.Model.Biz
 	{
 		[DataMember]
 		[Display(Name = "정보고시항목명")]
-		public string ItemName { get; set; }
+		public string Name { get; set; }
 
 		[DataMember]
 		[Display(Name = "정보고시ID")]

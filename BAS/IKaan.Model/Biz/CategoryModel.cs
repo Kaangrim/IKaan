@@ -8,13 +8,13 @@ namespace IKaan.Model.Biz
 	public class CategoryModel : ModelBase
 	{
 		[DataMember]
-		[Display(Name = "부모ID")]
-		public int? ParentID { get; set; }
+		[Display(Name = "카테고리명")]
+		public string Name { get; set; }
 
 		[DataMember]
-		[Display(Name = "브랜드ID")]
-		public string CategoryName { get; set; }
-
+		[Display(Name = "상위카테고리ID")]
+		public int? ParentID { get; set; }
+		
 		[DataMember]
 		[Display(Name = "카테고리1")]
 		public int? Category1 { get; set; }
@@ -78,5 +78,9 @@ namespace IKaan.Model.Biz
 		[DataMember]
 		[Display(Name = "카테고리5명")]
 		public string Category5Name { get; set; }
+
+		[DataMember]
+		[Display(Name = "정보고시명")]
+		public string InfoNoticeName { get; set; }
 	}
 }

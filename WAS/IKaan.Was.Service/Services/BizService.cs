@@ -53,10 +53,10 @@ namespace IKaan.Was.Service.Services
 							req.SetList<InfoNoticeModel>();
 							break;
 						case "Goods":
-							req.SetList<GoodsModel>();
+							req.SetList<ProductModel>();
 							break;
 						case "GoodsInfoNotice":
-							req.SetList<GoodsInfoNoticeModel>();
+							req.SetList<ProductInfoNoticeModel>();
 							break;
 						case "Address":
 							req.SetList<AddressModel>();
@@ -84,6 +84,9 @@ namespace IKaan.Was.Service.Services
 							break;
 						case "OrderSumSales":
 							req.SetList<OrderSumSalesModel>();
+							break;
+						case "Store":
+							req.SetList<StoreModel>();
 							break;
 					}
 				}
@@ -150,8 +153,8 @@ namespace IKaan.Was.Service.Services
 							req.SetData<InfoNoticeModel>();
 							(req.Data as InfoNoticeModel).Items = req.GetList<InfoNoticeItemModel>();
 							break;
-						case "Goods":
-							req.GetGoodsData();
+						case "Product":
+							req.GetProductData();
 							break;
 						case "Address":
 							req.SetData<AddressModel>();
@@ -162,16 +165,14 @@ namespace IKaan.Was.Service.Services
 						case "Brand":
 							req.SetData<BrandModel>();
 							(req.Data as BrandModel).Images = req.GetList<BrandImageModel>();
-							(req.Data as BrandModel).Customers = req.GetList<CustomerBrandModel>();
+							(req.Data as BrandModel).Attributes = req.GetList<BrandAttributeModel>();
 							(req.Data as BrandModel).Channels = req.GetList<ChannelBrandModel>();
-							(req.Data as BrandModel).Contacts = req.GetList<BrandContactModel>();
-							(req.Data as BrandModel).Managers = req.GetList<BrandManagerModel>();
 							break;
 						case "BrandContact":
-							req.SetData<BrandContactModel>();
+							req.SetData<PartnerContactModel>();
 							break;
 						case "BrandManager":
-							req.SetData<BrandManagerModel>();
+							req.SetData<PartnerManagerModel>();
 							break;
 						case "Channel":
 							req.GetChannelData();
@@ -180,10 +181,10 @@ namespace IKaan.Was.Service.Services
 							req.SetData<ChannelBrandModel>();
 							break;
 						case "ChannelContact":
-							req.SetData<ChannelContactModel>();
+							req.SetData<CustomerContactModel>();
 							break;
 						case "ChannelManager":
-							req.SetData<ChannelManagerModel>();
+							req.SetData<CustomerManagerModel>();
 							break;
 						case "ChannelSetting":
 							req.SetData<ChannelSettingModel>();
@@ -204,7 +205,7 @@ namespace IKaan.Was.Service.Services
 							req.GetCustomerAddress();
 							break;
 						case "CustomerBank":
-							req.SetData<CustomerBankModel>();
+							req.SetData<CustomerBankAccountModel>();
 							break;
 						case "CustomerBrand":
 							req.SetData<CustomerBrandModel>();
@@ -214,6 +215,9 @@ namespace IKaan.Was.Service.Services
 							break;
 						case "OrderSum":
 							req.SetData<OrderSumModel>();
+							break;
+						case "Store":
+							req.SetData<StoreModel>();
 							break;
 					}
 				}
@@ -293,11 +297,11 @@ namespace IKaan.Was.Service.Services
 									if (infoNotice != null)
 										req.SaveInfoNoticeItem(infoNotice);
 									break;
-								case "Goods":
-									req.SaveGoods();
+								case "Product":
+									req.SaveProduct();
 									break;
-								case "GoodsImage":
-									req.SaveGoodsImage();
+								case "ProductImage":
+									req.SaveProductImage();
 									break;
 								case "Business":
 									req.SaveBusiness();
@@ -308,23 +312,17 @@ namespace IKaan.Was.Service.Services
 								case "BrandImage":
 									req.SaveData<BrandImageModel>();
 									break;
-								case "BrandContact":
-									req.SaveBrandContact();
-									break;
-								case "BrandManager":
-									req.SaveBrandManager();
-									break;
 								case "Channel":
 									req.SaveChannel();
 									break;
 								case "ChannelBrand":
 									req.SaveChannelBrand();
 									break;
-								case "ChannelContact":
-									req.SaveChannelContact();
+								case "CustomerContact":
+									req.SaveCustomerContact();
 									break;
-								case "ChannelManager":
-									req.SaveChannelManager();
+								case "CustomerManager":
+									req.SaveCustomerManager();
 									break;
 								case "SearchBrand":
 									req.SaveData<SearchBrandModel>();
@@ -341,8 +339,8 @@ namespace IKaan.Was.Service.Services
 								case "CustomerAddress":
 									req.SaveCustomerAddress();
 									break;
-								case "CustomerBank":
-									req.SaveCustomerBank();
+								case "CustomerBankAccount":
+									req.SaveCustomerBankAccount();
 									break;
 								case "CustomerBrand":
 									req.SaveCustomerBrand();
@@ -355,6 +353,9 @@ namespace IKaan.Was.Service.Services
 									break;
 								case "OrderSumByBrand":
 									req.SaveOrderSumByBrand();
+									break;
+								case "Store":
+									req.SaveData<StoreModel>();
 									break;
 							}
 						}

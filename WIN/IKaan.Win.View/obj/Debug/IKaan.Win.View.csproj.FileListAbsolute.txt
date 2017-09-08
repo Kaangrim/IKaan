@@ -219,7 +219,6 @@ D:\Repositories\IKaan\IKaan.Win\IKaan.Win.View\obj\Debug\IKaan.Win.View.dll
 D:\Repositories\IKaan\IKaan.Win\IKaan.Win.View\obj\Debug\IKaan.Win.View.pdb
 D:\Repositories\IKaan\IKaan.Win\IKaan.Win.View\bin\Debug\IKaan.Win.View.Smp.dll.config
 D:\Repositories\IKaan\WIN\IKaan.Win.View\obj\Debug\IKaan.Win.View.csprojResolveAssemblyReference.cache
-D:\Repositories\IKaan\WIN\IKaan.Win.View\obj\Debug\IKaan.Win.View.Forms.DownloadCodeForm.resources
 D:\Repositories\IKaan\WIN\IKaan.Win.View\obj\Debug\IKaan.Win.View.Forms.EmailForm.resources
 D:\Repositories\IKaan\WIN\IKaan.Win.View\obj\Debug\IKaan.Win.View.Forms.WebForm.resources
 D:\Repositories\IKaan\WIN\IKaan.Win.View\obj\Debug\IKaan.Win.View.Forms.HomeForm.resources
@@ -439,3 +438,4 @@ D:\Repositories\IKaan\WIN\IKaan.Win.View\bin\Debug\IKaan.Win.View.B2B.dll
 D:\Repositories\IKaan\WIN\IKaan.Win.View\bin\Debug\IKaan.Win.View.Live.dll
 D:\Repositories\IKaan\WIN\IKaan.Win.View\bin\Debug\IKaan.Win.View.B2B.pdb
 D:\Repositories\IKaan\WIN\IKaan.Win.View\bin\Debug\IKaan.Win.View.Live.pdb
+D:\Repositories\IKaan\WIN\IKaan.Win.View\obj\Debug\IKaan.Win.View.Forms.DownloadForm.resources

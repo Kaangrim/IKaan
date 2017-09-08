@@ -47,21 +47,19 @@
 							dbo.TMenu BB WITH (NOLOCK)
 								ON AA.MenuID = BB.ID
 				WHERE	AA.UserID = #UserID#
+			]]>
+			<isNotEmpty property="MenuID">
+				<![CDATA[
+					AND	AA.MenuID = #MenuID#
+				]]>
+			</isNotEmpty>
+			<![CDATA[
 				ORDER BY RowNo
 			]]>
 		</select>
 		<select id="SelectBookmark" parameterClass="DataMap" resultClass="BookmarkModel" >
 			<![CDATA[
-				SELECT  AA.ID
-					,	AA.CreatedOn
-					,	AA.CreatedBy
-					,	AA.CreatedByName
-					,	AA.UpdatedOn
-					,	AA.UpdatedBy
-					,	AA.UpdatedByName
-					,	AA.UserID
-					,	AA.MenuID
-					,	AA.SortOrder
+				SELECT  *
 				FROM	dbo.TBookmark AA WITH (NOLOCK)
 				WHERE	AA.ID = #ID#
 			]]>

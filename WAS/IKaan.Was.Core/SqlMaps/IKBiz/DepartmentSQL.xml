@@ -12,9 +12,9 @@
 				(
 					SELECT	AA.ID		as ID
 						,	CAST(RIGHT('0000' + 
-									CONVERT(VARCHAR, ROW_NUMBER() OVER (ORDER BY AA.DepartmentName, AA.ID)), 4) AS VARCHAR(MAX))	AS HierID
-						,	1																			AS Level
-						,	CAST(ROW_NUMBER() OVER (ORDER BY AA.DepartmentName, AA.ID) AS VARCHAR(MAX))	AS SeqNo
+									CONVERT(VARCHAR, ROW_NUMBER() OVER (ORDER BY AA.Name, AA.ID)), 4) AS VARCHAR(MAX))	as HierID
+						,	1																							as Level
+						,	CAST(ROW_NUMBER() OVER (ORDER BY AA.Name, AA.ID) AS VARCHAR(MAX))							as SeqNo
 					FROM	dbo.TDepartment AA WITH (NOLOCK)
 					WHERE	1=1
 			]]>
@@ -32,10 +32,10 @@
 					UNION ALL
 					SELECT	AA.ID			as ID
 						,	CAST(BB.HierID + 
-								 RIGHT('0000' + CONVERT(VARCHAR, ROW_NUMBER() OVER (ORDER BY AA.DepartmentName, AA.ID)), 4) AS VARCHAR(MAX))	AS HierID
-						,	BB.Level + 1																										AS Level
+								 RIGHT('0000' + CONVERT(VARCHAR, ROW_NUMBER() OVER (ORDER BY AA.Name, AA.ID)), 4) AS VARCHAR(MAX))	as HierID
+						,	BB.Level + 1																							as Level
 						,	CAST(BB.SeqNo + '.' + 
-								 CONVERT(VARCHAR, ROW_NUMBER() OVER (ORDER BY AA.DepartmentName, AA.ID)) AS VARCHAR(MAX))						AS SeqNo
+								 CONVERT(VARCHAR, ROW_NUMBER() OVER (ORDER BY AA.Name, AA.ID)) AS VARCHAR(MAX))						as SeqNo
 					FROM	dbo.TDepartment AA WITH (NOLOCK)
 							INNER JOIN 
 								CTE BB 
@@ -50,15 +50,15 @@
 					,	AA.UpdatedBy
 					,	AA.UpdatedByName
 					
-					,	AA.DepartmentName
+					,	AA.Name
 					,	AA.ParentID
 					,	AA.ManagerID
 					,	AA.UseYn
 					
-					,	EE.EmployeeName		as ManagerName
+					,	EE.Name			as ManagerName
 					
 					,	BB.HierID
-					,	REPLICATE(' ', (BB.Level -1) * 5) + BB.SeqNo + '. ' + AA.DepartmentName	AS HierName
+					,	REPLICATE(' ', (BB.Level -1) * 5) + BB.SeqNo + '. ' + AA.Name	AS HierName
 					,	BB.Level		
 					
 				FROM	dbo.TDepartment AA WITH (NOLOCK)
@@ -72,7 +72,7 @@
 			]]>
 			<isNotEmpty property="FindText">
 				<![CDATA[
-					AND	AA.DepartmentName LIKE '%' + #FindText# + '%'
+					AND	AA.Name LIKE '%' + #FindText# + '%'
 				]]>
 			</isNotEmpty>
 			<![CDATA[
@@ -81,20 +81,9 @@
 		</select>
 		<select id="SelectDepartment" parameterClass="DataMap" resultClass="DepartmentModel" >
 			<![CDATA[
-				SELECT  AA.ID
-					,	AA.CreatedOn
-					,	AA.CreatedBy
-					,	AA.CreatedByName
-					,	AA.UpdatedOn
-					,	AA.UpdatedBy
-					,	AA.UpdatedByName
+				SELECT  AA.*
 					
-					,	AA.DepartmentName
-					,	AA.ParentID
-					,	AA.UseYn
-					,	AA.ManagerID
-					
-					,	BB.EmployeeName	as ManagerName
+					,	BB.Name			as ManagerName
 					,	DD.StartDate
 					
 				FROM	dbo.TDepartment AA WITH (NOLOCK)
@@ -102,7 +91,7 @@
 							dbo.TEmployee BB WITH (NOLOCK)
 								ON AA.ManagerID = BB.ID
 						LEFT JOIN
-							dbo.TDepartmentHist DD WITH (NOLOCK)
+							dbo.TDepartmentHistory DD WITH (NOLOCK)
 								ON AA.ID = DD.DepartmentID
 									AND DD.EndDate IS NULL
 				WHERE	AA.ID = #ID#
@@ -113,12 +102,12 @@
 				INSERT INTO dbo.TDepartment
 				( 
 					CreatedOn, CreatedBy, CreatedByName,
-					DepartmentName, ParentID, UseYn, ManagerID
+					Name, ParentID, UseYn, ManagerID
 				)
 				VALUES
 				(
 					GetDate(), #CreatedBy#, #CreatedByName#,
-					#DepartmentName#, #ParentID#, #UseYn#, #ManagerID#
+					#Name#, #ParentID#, #UseYn#, #ManagerID#
 				)
 			]]>
 			<selectKey type="post" property="ID" resultClass="Int">
@@ -134,7 +123,7 @@
 					,	UpdatedBy		= #UpdatedBy#
 					,	UpdatedByName	= #UpdatedByName#
 					
-					,	DepartmentName	= #DepartmentName#
+					,	Name			= #Name#
 					,	ParentID		= #ParentID#
 					,	UseYn			= #UseYn#
 					,	ManagerID		= #ManagerID#

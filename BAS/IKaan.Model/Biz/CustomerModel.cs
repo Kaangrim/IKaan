@@ -9,88 +9,63 @@ namespace IKaan.Model.Biz
 	public class CustomerModel : ModelBase
 	{
 		[DataMember]
+		[Display(Name = "거래처명")]
+		public string Name { get; set; }
+
+		[DataMember]
 		[Display(Name = "거래처유형")]
 		public string CustomerType { get; set; }
-
-		[DataMember]
-		[Display(Name = "거래처명")]
-		public string CustomerName { get; set; }
-
-		[DataMember]
-		[Display(Name = "영문명")]
-		public string EngName { get; set; }
-
-		[DataMember]
-		[Display(Name = "사용여부")]
-		public string UseYn { get; set; }
 
 		[DataMember]
 		[Display(Name = "설명")]
 		public string Description { get; set; }
 
 		[DataMember]
-		[Display(Name = "사업자유형")]
-		public string BizType { get; set; }
+		[Display(Name = "사용여부")]
+		public string UseYn { get; set; }
 
 		[DataMember]
-		[Display(Name = "사업자번호")]
-		public string BizNo { get; set; }
+		[Display(Name = "거래처주소")]
+		public IList<CustomerAddressModel> Addresses { get; set; }
 
 		[DataMember]
-		[Display(Name = "상호")]
-		public string BizName { get; set; }
+		[Display(Name = "거래처은행계좌")]
+		public IList<CustomerBankAccountModel> BankAccounts { get; set; }
 
 		[DataMember]
-		[Display(Name = "대표자")]
-		public string RepName { get; set; }
+		[Display(Name = "거래처브랜드")]
+		public IList<CustomerBrandModel> Brands { get; set; }
 
 		[DataMember]
-		[Display(Name = "업태")]
-		public string BizKind { get; set; }
+		[Display(Name = "거래처사업자")]
+		public IList<CustomerBusinessModel> Businesses { get; set; }
 
 		[DataMember]
-		[Display(Name = "종목")]
-		public string BizItem { get; set; }
+		[Display(Name = "거래처채널")]
+		public IList<CustomerChannelModel> Channels { get; set; }
 
 		[DataMember]
-		[Display(Name = "주소1")]
-		public string AddressLine1 { get; set; }
+		[Display(Name = "거래처담당자")]
+		public IList<CustomerContactModel> Contacts { get; set; }
 
 		[DataMember]
-		[Display(Name = "주소2")]
-		public string AddressLine2 { get; set; }
+		[Display(Name = "거래처매니저")]
+		public IList<CustomerManagerModel> Managers { get; set; }
 
 		[DataMember]
-		[Display(Name = "거래처유형명")]
-		public string CustomerTypeName { get; set; }
-
-		[DataMember]
-		[Display(Name = "거래처, 은행 매핑")]
-		public IList<CustomerBankModel> BankList { get; set; }
-
-		[DataMember]
-		[Display(Name = "거래처, 브랜드 매핑")]
-		public IList<CustomerBrandModel> BrandList { get; set; }
-
-		[DataMember]
-		[Display(Name = "거래처, 채널 매핑")]
-		public IList<CustomerChannelModel> ChannelList { get; set; }
-
-		[DataMember]
-		[Display(Name = "거래처, 주소 매핑")]
-		public IList<CustomerAddressModel> AddressList { get; set; }
-
-		[DataMember]
-		[Display(Name = "거래처, 사업자 매핑")]
-		public IList<CustomerBusinessModel> BusinessList { get; set; }
+		[Display(Name = "거래처상점")]
+		public IList<CustomerStoreModel> Stores { get; set; }
 
 		public CustomerModel()
 		{
-			BankList = new List<CustomerBankModel>();
-			BrandList = new List<CustomerBrandModel>();
-			ChannelList = new List<CustomerChannelModel>();
-			AddressList = new List<CustomerAddressModel>();
-			BusinessList = new List<CustomerBusinessModel>();
+			Addresses = new List<CustomerAddressModel>();
+			BankAccounts = new List<CustomerBankAccountModel>();
+			Brands = new List<CustomerBrandModel>();
+			Businesses = new List<CustomerBusinessModel>();
+			Channels = new List<CustomerChannelModel>();
+			Contacts = new List<CustomerContactModel>();
+			Managers = new List<CustomerManagerModel>();
+			Stores = new List<CustomerStoreModel>();
 		}
 	}
 }

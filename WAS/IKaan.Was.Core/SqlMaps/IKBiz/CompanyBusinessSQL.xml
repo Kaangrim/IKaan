@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectCompanyBusinessList" parameterClass="DataMap" resultClass="CompanyBusinessModel" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
+					,	AA.ID
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
+					
+					,	AA.CompanyID
+					,	AA.BusinessID
+					,	AA.StartDate
+					,	AA.EndDate
+					
+					,	BB.Name
+					,	BB.BizNo
+					,	BB.RepName
+					
+				FROM	dbo.TCompanyBusiness AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.TBusiness BB WITH (NOLOCK)
+								ON AA.BusinessID = BB.ID
+				WHERE	1=1
+			]]>
+			<isNotEmpty property="CompanyID">
+				<![CDATA[
+					AND	AA.CompanyID = #CompanyID#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="BusinessID">
+				<![CDATA[
+					AND	AA.BusinessID = #BusinessID#
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectCompanyBusiness" parameterClass="DataMap" resultClass="CompanyBusinessModel" >
+			<![CDATA[
+				SELECT  AA.*					
+				FROM	dbo.TCompanyBusiness AA WITH (NOLOCK)
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<insert id="InsertCompanyBusiness" parameterClass="CompanyBusinessModel" >
+			<![CDATA[
+				INSERT INTO dbo.TCompanyBusiness
+				( 
+					CreatedOn, CreatedBy, CreatedByName,
+					CompanyID, BusinessID, StartDate, EndDate, Description
+				)
+				VALUES
+				(
+					GetDate(), #CreatedBy#, #CreatedByName#,
+					#CompanyID#, #BusinessID#, #StartDate#, #EndDate#, #Description#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateCompanyBusiness" parameterClass="CompanyBusinessModel">
+			<![CDATA[
+				UPDATE  dbo.TCompanyBusiness
+				SET     UpdatedOn		= GetDate()
+					,	UpdatedBy		= #UpdatedBy#
+					,	UpdatedByName	= #UpdatedByName#
+					
+					,	CompanyID		= #CompanyID#
+					,	BusinessID		= #BusinessID#
+					,	StartDate		= #StartDate#
+					,	EndDate			= #EndDate#
+					,	Description		= #Description#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
+		<delete id="DeleteCompanyBusiness" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM dbo.TCompanyBusiness WHERE ID = #ID#;
+			]]>
+		</delete>
+
+		<select id="SelectCompanyBusinessDuplicate" parameterClass="DataMap" resultClass="CompanyBusinessModel" >
+			<![CDATA[
+				SELECT  *					
+				FROM	dbo.TCompanyBusiness AA WITH (NOLOCK)
+				WHERE	AA.CompanyID	= #CompanyID#
+				AND		AA.StartDate	= #StartDate# 
+			]]>
+		</select>
+		<select id="SelectCompanyBusinessBefore" parameterClass="DataMap" resultClass="CompanyBusinessModel" >
+			<![CDATA[
+				SELECT  *					
+				FROM	dbo.TCompanyBusiness AA WITH (NOLOCK)
+				WHERE	AA.CompanyID	= #CompanyID#
+				AND		AA.StartDate	= (	SELECT	MAX(StartDate)
+											FROM	DBO.TCompanyBusiness
+											WHERE	CompanyID	= #CompanyID#
+											AND		StartDate	< #StartDate# )
+			]]>
+		</select>
+		<select id="SelectCompanyBusinessAfter" parameterClass="DataMap" resultClass="CompanyBusinessModel" >
+			<![CDATA[
+				SELECT  *					
+				FROM	dbo.TCompanyBusiness AA WITH (NOLOCK)
+				WHERE	AA.CompanyID	= #CompanyID#
+				AND		AA.StartDate	= (	SELECT	MIN(StartDate)
+											FROM	DBO.TCompanyBusiness
+											WHERE	CompanyID	= #CompanyID#
+											AND		StartDate	> #StartDate# )
+			]]>
+		</select>
+		<update id="UpdateCompanyBusinessEndDate" parameterClass="CompanyBusinessModel">
+			<![CDATA[
+				UPDATE  dbo.TCompanyBusiness
+				SET     UpdatedOn		= GetDate()
+					,	UpdatedBy		= #UpdatedBy#
+					,	UpdatedByName	= #UpdatedByName#					
+					,	EndDate			= #EndDate#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
+	</statements>
+</sqlMap>

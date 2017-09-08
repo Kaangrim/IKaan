@@ -218,18 +218,18 @@ namespace IKaan.Win.View.Biz.Organization
 					throw new Exception("조회할 데이터가 없습니다.");
 
 				SetControlData(model);
-				if (model.Person == null)
-					model.Person = new PersonModel();
 
-				loadUrl = model.Person.ImageUrl;
-				picImage.LoadAsync(ConstsVar.IMG_URL + loadUrl);
-				txtImageUrl.EditValue = loadUrl;
+				if (model.Image != null && model.Image.Url.IsNullOrEmpty() == false)
+				{
+					loadUrl = model.Image.Url;
+					picImage.LoadAsync(ConstsVar.IMG_URL + loadUrl);
+					txtImageUrl.EditValue = loadUrl;
+				}
 
-				txtEngName.EditValue = model.Person.EngName;
-				txtEmail.EditValue = model.Person.Email;
-				txtPhoneNo1.EditValue = model.Person.PhoneNo1;
-				txtPhoneNo2.EditValue = model.Person.PhoneNo2;
-				txtFaxNo.EditValue = model.Person.FaxNo;
+				txtEmail.EditValue = model.Email;
+				txtPhoneNo1.EditValue = model.PhoneNo;
+				txtPhoneNo2.EditValue = model.MobileNo;
+				txtFaxNo.EditValue = model.FaxNo;
 
 				gridAppointment.DataSource = model.Appointments;
 
@@ -258,17 +258,7 @@ namespace IKaan.Win.View.Biz.Organization
 				if (DataValidate() == false) return;
 
 				var model = this.GetControlData<EmployeeModel>();
-				model.Person = new PersonModel()
-				{
-					PersonType = "",
-					PersonName = txtEmployeeName.EditValue.ToString(),
-					EngName = txtEngName.EditValue.ToStringNullToEmpty(),
-					Email = txtEmail.EditValue.ToStringNullToEmpty(),
-					PhoneNo1 = txtPhoneNo1.EditValue.ToStringNullToEmpty(),
-					PhoneNo2 = txtPhoneNo2.EditValue.ToStringNullToEmpty(),
-					FaxNo = txtFaxNo.EditValue.ToStringNullToEmpty(),
-					ImageUrl = txtImageUrl.EditValue.ToStringNullToEmpty()
-				};
+				model.Email = txtEmail.EditValue.ToStringNullToEmpty();
 
 				using (var res = WasHandler.Execute<EmployeeModel>("Biz", "Save", (this.EditMode == EditModeEnum.New) ? "Insert" : "Update", model, "ID"))
 				{
@@ -291,8 +281,7 @@ namespace IKaan.Win.View.Biz.Organization
 			{
 				DataMap map = new DataMap()
 				{
-					{ "ID", txtID.EditValue },
-					{ "PersonID", txtPersonID.EditValue }
+					{ "ID", txtID.EditValue }
 				};
 				using (var res = WasHandler.Execute<DataMap>("Biz", "Delete", "DeleteEmployee", map, "ID"))
 				{

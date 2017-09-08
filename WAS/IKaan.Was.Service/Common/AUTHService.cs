@@ -133,6 +133,26 @@ namespace IKaan.Was.Service.Common
 			}
 		}
 
+		public static WasRequest GetBookmark(WasRequest request)
+		{
+			try
+			{
+				DataMap parameter = new DataMap();
+				if (request.Parameter != null)
+					parameter = request.Parameter.JsonToAnyType<DataMap>();
+				var result = DaoFactory.Instance.QueryForList<UMainMenu>("GetBookmark", parameter);
+				request.Data = result;
+				request.Result.Count = result.Count;
+				return request;
+			}
+			catch (Exception ex)
+			{
+				request.Error.Number = ex.HResult;
+				request.Error.Message = ex.Message;
+				return request;
+			}
+		}
+
 		/// <summary>
 		/// GetFormData
 		/// 화면정보 가져오기
@@ -178,11 +198,42 @@ namespace IKaan.Was.Service.Common
 				DataMap parameter = new DataMap();
 				if (request.Parameter != null)
 					parameter = request.Parameter.JsonToAnyType<DataMap>();
-
-				var data = DaoFactory.Instance.QueryForObject<BookmarkModel>("SelectBookmark", parameter);
+				
+				var data = DaoFactory.Instance.QueryForObject<BookmarkModel>("SelectBookmarkList", parameter);
 				if (data == null || data.ID == default(int))
 				{
-					DaoFactory.Instance.Insert("InsertBookmark", parameter);
+					if (request.SqlId == "Insert")
+					{
+						//정렬순서 계산
+						int sortOrder = parameter.GetValue("SortOrder").ToIntegerNullToZero();
+						var list = DaoFactory.Instance.QueryForList<BookmarkModel>("SelectBookmarkList", parameter);
+						if (list != null && list.Count > 0)
+						{
+							foreach (var d in list)
+							{
+								if (d.SortOrder > sortOrder)
+									sortOrder = d.SortOrder;
+							}
+						}
+
+						//데이터 저장
+						data = new BookmarkModel()
+						{
+							UserID = parameter.GetValue("UserID").ToIntegerNullToZero(),
+							MenuID = parameter.GetValue("MenuID").ToIntegerNullToZero(),
+							SortOrder = sortOrder,
+							CreatedBy = request.User.UserId,
+							CreatedByName = request.User.UserName
+						};
+						DaoFactory.Instance.Insert("InsertBookmark", data);
+					}
+				}
+				else
+				{
+					if (request.SqlId == "Delete")
+					{
+						DaoFactory.Instance.Delete("DeleteBookmark", new DataMap() { { "ID", data.ID } });
+					}
 				}
 				return request;
 			}

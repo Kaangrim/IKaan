@@ -18,13 +18,12 @@
 					
 					,	AA.CustomerID
 					,	AA.BrandID
-					,	AA.PersonID
 					,	AA.StartDate
 					,	AA.EndDate
+					,	AA.Description
 					
 					,	BB.CustomerName
 					,	CC.BrandName
-					,	DD.PersonName
 					
 				FROM	dbo.TCustomerBrand AA WITH (NOLOCK)
 						LEFT JOIN
@@ -33,9 +32,6 @@
 						LEFT JOIN
 							dbo.TBrand CC WITH (NOLOCK)
 								ON AA.BrandID = CC.ID
-						LEFT JOIN
-							dbo.TPerson DD WITH (NOLOCK)
-								ON AA.PersonID = DD.ID
 				WHERE	1=1				
 			]]>
 			<isNotEmpty property="CustomerID">
@@ -54,23 +50,10 @@
 		</select>
 		<select id="SelectCustomerBrand" parameterClass="DataMap" resultClass="CustomerBrandModel" >
 			<![CDATA[
-				SELECT  AA.ID
-					,	AA.CreatedOn
-					,	AA.CreatedBy
-					,	AA.CreatedByName
-					,	AA.UpdatedOn
-					,	AA.UpdatedBy
-					,	AA.UpdatedByName
-					
-					,	AA.CustomerID
-					,	AA.BrandID
-					,	AA.PersonID
-					,	AA.StartDate
-					,	AA.EndDate
+				SELECT  AA.*
 					
 					,	BB.CustomerName
 					,	CC.BrandName
-					,	DD.PersonName
 					
 				FROM	dbo.TCustomerBrand AA WITH (NOLOCK)
 						LEFT JOIN
@@ -79,9 +62,6 @@
 						LEFT JOIN
 							dbo.TBrand CC WITH (NOLOCK)
 								ON AA.BrandID = CC.ID
-						LEFT JOIN
-							dbo.TPerson DD WITH (NOLOCK)
-								ON AA.PersonID = DD.ID
 				WHERE	AA.ID = #ID#
 			]]>
 		</select>
@@ -90,12 +70,12 @@
 				INSERT INTO dbo.TCustomerBrand
 				( 
 					CreatedOn, CreatedBy, CreatedByName,
-					CustomerID, BrandID, PersonID, StartDate, EndDate
+					CustomerID, BrandID, StartDate, EndDate, Description
 				)
 				VALUES
 				(
 					GetDate(), #CreatedBy#, #CreatedByName#,
-					#CustomerID#, #BrandID#, #PersonID#, #StartDate#, #EndDate#
+					#CustomerID#, #BrandID#, #StartDate#, #EndDate#, #Description#
 				)
 			]]>
 			<selectKey type="post" property="ID" resultClass="Int">
@@ -113,9 +93,9 @@
 					
 					,	CustomerID		= #CustomerID#
 					,	BrandID			= #BrandID#
-					,	PersonID		= #PersonID#
 					,	StartDate		= #StartDate#
 					,	EndDate			= #EndDate#
+					,	Description		= #Description#
 				WHERE	ID				= #ID#
 			]]>
 		</update>

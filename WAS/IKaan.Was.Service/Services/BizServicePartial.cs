@@ -16,14 +16,14 @@ namespace IKaan.Was.Service.Services
 		{
 			try
 			{
-				DataMap parameter = req.Parameter.JsonToAnyType<DataMap>();
-				DepartmentModel department = DaoFactory.InstanceBiz.QueryForObject<DepartmentModel>("SelectDepartment", parameter);
+				var parameter = req.Parameter.JsonToAnyType<DataMap>();
+				var department = DaoFactory.InstanceBiz.QueryForObject<DepartmentModel>("SelectDepartment", parameter);
 				if (department != null)
 				{
 					//부서이력
 					parameter = new DataMap() { { "DepartmentID", department.ID } };
-					IList<DepartmentHistModel> history = DaoFactory.InstanceBiz.QueryForList<DepartmentHistModel>("SelectDepartmentHistList", parameter);
-					department.History = history;
+					IList<DepartmentHistoryModel> history = DaoFactory.InstanceBiz.QueryForList<DepartmentHistoryModel>("SelectDepartmentHistList", parameter);
+					department.Histories = history;
 
 					//발령정보
 					parameter = new DataMap() { { "DepartmentID", department.ID } };
@@ -44,15 +44,10 @@ namespace IKaan.Was.Service.Services
 		{
 			try
 			{
-				DataMap parameter = req.Parameter.JsonToAnyType<DataMap>();
-				EmployeeModel employee = DaoFactory.InstanceBiz.QueryForObject<EmployeeModel>("SelectEmployee", parameter);
+				var parameter = req.Parameter.JsonToAnyType<DataMap>();
+				var employee = DaoFactory.InstanceBiz.QueryForObject<EmployeeModel>("SelectEmployee", parameter);
 				if (employee != null)
 				{
-					//사람정보 가져오기
-					parameter = new DataMap() { { "ID", employee.PersonID } };
-					PersonModel person = DaoFactory.InstanceBiz.QueryForObject<PersonModel>("SelectPerson", parameter);
-					employee.Person = person;
-
 					//발령정보 가져오기
 					parameter = new DataMap() { { "EmployeeID", employee.ID } };
 					IList<AppointmentModel> appointments = DaoFactory.InstanceBiz.QueryForList<AppointmentModel>("SelectAppointmentList", parameter);
@@ -72,21 +67,21 @@ namespace IKaan.Was.Service.Services
 		{
 			try
 			{
-				DepartmentModel department = req.Data.JsonToAnyType<DepartmentModel>();
+				var department = req.Data.JsonToAnyType<DepartmentModel>();
 				department = req.SaveData<DepartmentModel>(department);
 				if (department != null)
 				{
-					DataMap parameter = new DataMap()
+					var parameter = new DataMap()
 					{
 						{ "DepartmentID", department.ID },
 						{ "StartDate", department.StartDate }
 					};
 
-					DepartmentHistModel equal = DaoFactory.InstanceBiz.QueryForObject<DepartmentHistModel>("SelectDepartmentHistEqual", parameter);
+					DepartmentHistoryModel equal = DaoFactory.InstanceBiz.QueryForObject<DepartmentHistoryModel>("SelectDepartmentHistEqual", parameter);
 					if (equal != null)
 					{
 						//시작일이 동일한 경우 업데이트한다.
-						equal.DepartmentName = department.DepartmentName;
+						equal.Name = department.Name;
 						equal.ParentID = department.ParentID;
 						equal.ManagerID = department.ManagerID;
 						equal.UpdatedBy = req.User.UserId;
@@ -98,7 +93,7 @@ namespace IKaan.Was.Service.Services
 					{
 						//동일 시작일의 데이터가 없는 경우
 						//직전 이력을 찾아서 종료일을 변경한 후 새로운 이력을 저장한다.
-						DepartmentHistModel before = DaoFactory.InstanceBiz.QueryForObject<DepartmentHistModel>("SelectDepartmentHistBefore", parameter);
+						DepartmentHistoryModel before = DaoFactory.InstanceBiz.QueryForObject<DepartmentHistoryModel>("SelectDepartmentHistBefore", parameter);
 						if (before != null)
 						{
 							before.EndDate = department.StartDate.Value.AddDays(-1);
@@ -109,10 +104,10 @@ namespace IKaan.Was.Service.Services
 						}
 
 						//새로운 이력을 저장한다.
-						DepartmentHistModel history = new DepartmentHistModel()
+						var history = new DepartmentHistoryModel()
 						{
 							DepartmentID = department.ID,
-							DepartmentName = department.DepartmentName,
+							Name = department.Name,
 							ParentID = department.ParentID,
 							ManagerID = department.ManagerID,
 							StartDate = department.StartDate,
@@ -138,33 +133,10 @@ namespace IKaan.Was.Service.Services
 		{
 			try
 			{
-				object personID = null;
-				EmployeeModel employee = req.Data.JsonToAnyType<EmployeeModel>();
+				var employee = req.Data.JsonToAnyType<EmployeeModel>();
 
 				if (employee != null)
 				{
-					if (employee.Person != null)
-					{
-						if (employee.PersonID != null)
-						{
-							employee.Person.ID = employee.PersonID;
-							employee.Person.UpdatedBy = req.User.UserId;
-							employee.Person.UpdatedByName = req.User.UserName;
-
-							DaoFactory.InstanceBiz.Update("UpdatePerson", employee.Person);
-							personID = employee.PersonID;
-						}
-						else
-						{
-							employee.Person.PersonType = "E";
-							employee.Person.CreatedBy = req.User.UserId;
-							employee.Person.CreatedByName = req.User.UserName;
-
-							personID = DaoFactory.InstanceBiz.Insert("InsertPerson", employee.Person);
-						}
-					}
-
-					employee.PersonID = personID.ToIntegerNullToNull();
 					employee = req.SaveData<EmployeeModel>(employee);
 
 					req.Result.Count = 1;
@@ -183,16 +155,16 @@ namespace IKaan.Was.Service.Services
 			try
 			{
 				object id = null;
-				AppointmentModel appointment = req.Data.JsonToAnyType<AppointmentModel>();
+				var appointment = req.Data.JsonToAnyType<AppointmentModel>();
 				if (appointment != null)
 				{
-					DataMap parameter = new DataMap()
+					var parameter = new DataMap()
 					{
 						{ "EmployeeID", appointment.EmployeeID },
 						{ "StartDate", appointment.StartDate }
 					};
 
-					AppointmentModel dup = DaoFactory.InstanceBiz.QueryForObject<AppointmentModel>("SelectAppointmentDuplicate", parameter);
+					var dup = DaoFactory.InstanceBiz.QueryForObject<AppointmentModel>("SelectAppointmentDuplicate", parameter);
 					if (dup != null)
 					{
 						if (appointment.ID == null)
@@ -215,7 +187,7 @@ namespace IKaan.Was.Service.Services
 					{
 						//동일 시작일의 데이터가 없는 경우
 						//직전 이력을 찾아서 종료일을 변경한 후 새로운 이력을 저장한다.
-						AppointmentModel before = DaoFactory.InstanceBiz.QueryForObject<AppointmentModel>("SelectAppointmentBefore", parameter);
+						var before = DaoFactory.InstanceBiz.QueryForObject<AppointmentModel>("SelectAppointmentBefore", parameter);
 						if (before != null)
 						{
 							before.EndDate = appointment.StartDate.Value.AddDays(-1);
@@ -262,7 +234,7 @@ namespace IKaan.Was.Service.Services
 
 		public static void SaveCategory(this WasRequest req)
 		{
-			CategoryModel model = req.SaveData<CategoryModel>();
+			var model = req.SaveData<CategoryModel>();
 			int? parentID = null;
 			List<int?> catlist = new List<int?>();
 
@@ -306,53 +278,53 @@ namespace IKaan.Was.Service.Services
 			}
 		}
 
-		public static IList<GoodsModel> GetGoodsList(DataMap parameter)
+		public static IList<ProductModel> GetProductList(DataMap parameter)
 		{
-			return DaoFactory.InstanceBiz.QueryForList<GoodsModel>("SelectGoodsList", parameter);
+			return DaoFactory.InstanceBiz.QueryForList<ProductModel>("SelectProductList", parameter);
 		}
 
-		public static GoodsModel GetGoodsData(this WasRequest req)
+		public static ProductModel GetProductData(this WasRequest req)
 		{
 			try
 			{
-				DataMap parameter = req.Parameter.JsonToAnyType<DataMap>();
-				GoodsModel goods = DaoFactory.InstanceBiz.QueryForObject<GoodsModel>("SelectGoods", parameter);
-				if (goods != null)
+				var parameter = req.Parameter.JsonToAnyType<DataMap>();
+				var Product = DaoFactory.InstanceBiz.QueryForObject<ProductModel>("SelectProduct", parameter);
+				if (Product != null)
 				{
 					parameter = new DataMap()
 					{
-						{ "GoodsID", goods.ID },
-						{ "CategoryID", goods.CategoryID }
+						{ "ProductID", Product.ID },
+						{ "CategoryID", Product.CategoryID }
 					};
 
 					//상품상세
-					goods.Detail = DaoFactory.InstanceBiz.QueryForObject<GoodsDetailModel>("SelectGoodsDetail", parameter);
-					if (goods.Detail == null)
-						goods.Detail = new GoodsDetailModel();
+					Product.Description = DaoFactory.InstanceBiz.QueryForObject<ProductDescriptionModel>("SelectProductDescription", parameter);
+					if (Product.Description == null)
+						Product.Description = new ProductDescriptionModel();
 
 					//상품 이미지
-					goods.Image = DaoFactory.InstanceBiz.QueryForList<GoodsImageModel>("SelectGoodsImageList", parameter);
-					if (goods.Image == null)
-						goods.Image = new List<GoodsImageModel>();
+					Product.Images = DaoFactory.InstanceBiz.QueryForList<ProductImageModel>("SelectProductImageList", parameter);
+					if (Product.Images == null)
+						Product.Images = new List<ProductImageModel>();
 
 					//상품 옵션
-					goods.Item = DaoFactory.InstanceBiz.QueryForList<GoodsItemModel>("SelectGoodsItemList", parameter);
-					if (goods.Item == null)
-						goods.Item = new List<GoodsItemModel>();
+					Product.Items = DaoFactory.InstanceBiz.QueryForList<ProductItemModel>("SelectProductItemList", parameter);
+					if (Product.Items == null)
+						Product.Items = new List<ProductItemModel>();
 
 					//정보고시
-					goods.InfoNotice = DaoFactory.InstanceBiz.QueryForList<GoodsInfoNoticeModel>("SelectGoodsInfoNoticeByCategory", parameter);
-					if (goods.InfoNotice == null)
-						goods.InfoNotice = new List<GoodsInfoNoticeModel>();
+					Product.InfoNotices = DaoFactory.InstanceBiz.QueryForList<ProductInfoNoticeModel>("SelectProductInfoNoticeByCategory", parameter);
+					if (Product.InfoNotices == null)
+						Product.InfoNotices = new List<ProductInfoNoticeModel>();
 
 					//상품속성
-					goods.Attribute = DaoFactory.InstanceBiz.QueryForList<GoodsAttributeModel>("SelectGoodsAttributeList", parameter);
-					if (goods.Attribute == null)
-						goods.Attribute = new List<GoodsAttributeModel>();
+					Product.Attributes = DaoFactory.InstanceBiz.QueryForList<ProductAttributeModel>("SelectProductAttributeList", parameter);
+					if (Product.Attributes == null)
+						Product.Attributes = new List<ProductAttributeModel>();
 				}
-				req.Data = goods;
+				req.Data = Product;
 				req.Result.Count = 1;
-				return goods;
+				return Product;
 			}
 			catch
 			{
@@ -360,11 +332,11 @@ namespace IKaan.Was.Service.Services
 			}
 		}
 
-		public static void SaveGoods(this WasRequest req)
+		public static void SaveProduct(this WasRequest req)
 		{
 			try
 			{
-				GoodsModel model = req.Data.JsonToAnyType<GoodsModel>();
+				ProductModel model = req.Data.JsonToAnyType<ProductModel>();
 
 				if (model != null)
 				{
@@ -374,7 +346,7 @@ namespace IKaan.Was.Service.Services
 						model.CreatedBy = req.User.UserId;
 						model.CreatedByName = req.User.UserName;
 
-						object id = DaoFactory.InstanceBiz.Insert("InsertGoods", model);
+						object id = DaoFactory.InstanceBiz.Insert("InsertProduct", model);
 						model.ID = id.ToIntegerNullToNull();
 					}
 					else
@@ -382,45 +354,45 @@ namespace IKaan.Was.Service.Services
 						model.UpdatedBy = req.User.UserId;
 						model.UpdatedByName = req.User.UserName;
 
-						DaoFactory.InstanceBiz.Update("UpdateGoods", model);
+						DaoFactory.InstanceBiz.Update("UpdateProduct", model);
 					}
 					#endregion
 
 					#region 상품상세정보
-					GoodsDetailModel detail = DaoFactory.InstanceBiz.QueryForObject<GoodsDetailModel>("SelectGoodsDetailList", new DataMap() { { "GoodsID", model.ID } });
+					ProductDescriptionModel detail = DaoFactory.InstanceBiz.QueryForObject<ProductDescriptionModel>("SelectProductDetailList", new DataMap() { { "ProductID", model.ID } });
 					if (detail == null)
 					{
-						model.Detail.GoodsID = model.ID;
-						model.Detail.CreatedBy = req.User.UserId;
-						model.Detail.CreatedByName = req.User.UserName;
+						model.Description.ProductID = model.ID;
+						model.Description.CreatedBy = req.User.UserId;
+						model.Description.CreatedByName = req.User.UserName;
 
-						DaoFactory.InstanceBiz.Insert("InsertGoodsDetail", model.Detail);
+						DaoFactory.InstanceBiz.Insert("InsertProductDetail", model.Description);
 					}
 					else
 					{
-						model.Detail.UpdatedBy = req.User.UserId;
-						model.Detail.UpdatedByName = req.User.UserName;
+						model.Description.UpdatedBy = req.User.UserId;
+						model.Description.UpdatedByName = req.User.UserName;
 
-						DaoFactory.InstanceBiz.Update("UpdateGoodsDetail", model.Detail);
+						DaoFactory.InstanceBiz.Update("UpdateProductDetail", model.Description);
 					}
 					#endregion
 
 					#region 품목정보
-					if (model.Item != null && model.Item.Count > 0)
+					if (model.Items != null && model.Items.Count > 0)
 					{
-						foreach (GoodsItemModel item in model.Item)
+						foreach (ProductItemModel item in model.Items)
 						{
 							if (item.ID.IsNullOrEmpty())
 							{
-								item.GoodsID = model.ID;
+								item.ProductID = model.ID;
 								item.CreatedBy = req.User.UserId;
 								item.CreatedByName = req.User.UserName;
 
-								DaoFactory.InstanceBiz.Insert("InsertGoodsItem", item);
+								DaoFactory.InstanceBiz.Insert("InsertProductItem", item);
 							}
 							else
 							{
-								GoodsItemModel old = DaoFactory.InstanceBiz.QueryForObject<GoodsItemModel>("SelectGoodsItem", new DataMap() { { "ID", item.ID } });
+								ProductItemModel old = DaoFactory.InstanceBiz.QueryForObject<ProductItemModel>("SelectProductItem", new DataMap() { { "ID", item.ID } });
 								if (old != null)
 								{
 									if (old.Option1Type != item.Option1Type ||
@@ -431,7 +403,7 @@ namespace IKaan.Was.Service.Services
 										item.UpdatedBy = req.User.UserId;
 										item.UpdatedByName = req.User.UserName;
 
-										DaoFactory.InstanceBiz.Update("UpdateGoodsItem", item);
+										DaoFactory.InstanceBiz.Update("UpdateProductItem", item);
 									}
 								}
 							}
@@ -440,37 +412,37 @@ namespace IKaan.Was.Service.Services
 					#endregion
 
 					#region 속성저장
-					if (model.Attribute != null && model.Attribute.Count > 0)
+					if (model.Attributes != null && model.Attributes.Count > 0)
 					{
-						foreach (GoodsAttributeModel attr in model.Attribute)
+						foreach (ProductAttributeModel attr in model.Attributes)
 						{
 							if (attr.ID.IsNullOrEmpty())
 							{
-								attr.GoodsID = model.ID;
+								attr.ProductID = model.ID;
 								attr.CreatedBy = req.User.UserId;
 								attr.CreatedByName = req.User.UserName;
 
-								DaoFactory.InstanceBiz.Insert("InsertGoodsAttribute", attr);
+								DaoFactory.InstanceBiz.Insert("InsertProductAttribute", attr);
 							}
 							else
 							{
-								GoodsAttributeModel old = DaoFactory.InstanceBiz.QueryForObject<GoodsAttributeModel>("SelectGoodsAttribute", new DataMap() { { "ID", attr.ID } });
+								ProductAttributeModel old = DaoFactory.InstanceBiz.QueryForObject<ProductAttributeModel>("SelectProductAttribute", new DataMap() { { "ID", attr.ID } });
 								if (old != null)
 								{
-									if (attr.AttrName.IsNullOrEmpty())
+									if (attr.AttributeName.IsNullOrEmpty())
 									{
-										DaoFactory.InstanceBiz.Delete("DeleteGoodsAttribute", new DataMap() { { "ID", attr.ID } });
+										DaoFactory.InstanceBiz.Delete("DeleteProductAttribute", new DataMap() { { "ID", attr.ID } });
 									}
 									else
 									{
-										if (old.AttrType != attr.AttrType ||
-											old.AttrCode != attr.AttrCode ||
-											old.AttrName != attr.AttrName)
+										if (old.AttributeTypeID != attr.AttributeTypeID ||
+											old.AttributeID != attr.AttributeID ||
+											old.AttributeName != attr.AttributeName)
 										{
 											attr.UpdatedBy = req.User.UserId;
 											attr.UpdatedByName = req.User.UserName;
 
-											DaoFactory.InstanceBiz.Update("UpdateGoodsAttribute", attr);
+											DaoFactory.InstanceBiz.Update("UpdateProductAttribute", attr);
 										}
 									}
 								}
@@ -480,31 +452,31 @@ namespace IKaan.Was.Service.Services
 					#endregion
 
 					#region 정보고시저장
-					if (model.InfoNotice != null && model.InfoNotice.Count > 0)
+					if (model.InfoNotices != null && model.InfoNotices.Count > 0)
 					{
-						foreach (GoodsInfoNoticeModel info in model.InfoNotice)
+						foreach (var info in model.InfoNotices)
 						{
 							if (info.ID.IsNullOrEmpty())
 							{
 								if (info.InfoNoticeValue.IsNullOrEmpty() == false)
 								{
-									info.GoodsID = model.ID;
+									info.ProductID = model.ID;
 									info.CreatedBy = req.User.UserId;
 									info.CreatedByName = req.User.UserName;
 
-									DaoFactory.InstanceBiz.Insert("InsertGoodsInfoNotice", info);
+									DaoFactory.InstanceBiz.Insert("InsertProductInfoNotice", info);
 								}
 							}
 							else
 							{
-								GoodsInfoNoticeModel old = DaoFactory.InstanceBiz.QueryForObject<GoodsInfoNoticeModel>("SelectGoodsInfoNotice", new DataMap() { { "ID", info.ID } });
+								var old = DaoFactory.InstanceBiz.QueryForObject<ProductInfoNoticeModel>("SelectProductInfoNotice", new DataMap() { { "ID", info.ID } });
 
 								if (old != null)
 								{
 									//정보고시값이 없으면 삭제한다.
 									if (info.InfoNoticeValue.IsNullOrEmpty())
 									{
-										DaoFactory.InstanceBiz.Delete("DeleteGoodsInfoNotice", new DataMap() { { "ID", info.ID } });
+										DaoFactory.InstanceBiz.Delete("DeleteProductInfoNotice", new DataMap() { { "ID", info.ID } });
 									}
 									else
 									{
@@ -514,7 +486,7 @@ namespace IKaan.Was.Service.Services
 											info.UpdatedBy = req.User.UserId;
 											info.UpdatedByName = req.User.UserName;
 
-											DaoFactory.InstanceBiz.Update("UpdateGoodsInfoNotice", info);
+											DaoFactory.InstanceBiz.Update("UpdateProductInfoNotice", info);
 										}
 									}
 								}
@@ -534,40 +506,40 @@ namespace IKaan.Was.Service.Services
 			}
 		}
 
-		public static void SaveGoodsImage(this WasRequest req)
+		public static void SaveProductImage(this WasRequest req)
 		{
 			try
 			{
-				GoodsModel model = req.Data.JsonToAnyType<GoodsModel>();
+				var model = req.Data.JsonToAnyType<ProductModel>();
 
 				if (model != null)
 				{
 					#region 이미지
-					if (model.Image != null && model.Image.Count > 0)
+					if (model.Images != null && model.Images.Count > 0)
 					{
-						foreach (GoodsImageModel image in model.Image)
+						foreach (var image in model.Images)
 						{
 							if (image.ID.IsNullOrEmpty())
 							{
-								image.GoodsID = model.ID;
+								image.ProductID = model.ID;
 								image.CreatedBy = req.User.UserId;
 								image.CreatedByName = req.User.UserName;
 
-								DaoFactory.InstanceBiz.Insert("InsertGoodsImage", image);
+								DaoFactory.InstanceBiz.Insert("InsertProductImage", image);
 							}
 							else
 							{
-								GoodsImageModel old = DaoFactory.InstanceBiz.QueryForObject<GoodsImageModel>("SelectGoodsImage", new DataMap() { { "ID", image.ID } });
+								var old = DaoFactory.InstanceBiz.QueryForObject<ProductImageModel>("SelectProductImage", new DataMap() { { "ID", image.ID } });
 								if (old != null)
 								{
 									if (old.ImageType != image.ImageType ||
 										old.ImageGroup != image.ImageGroup ||
-										old.ImageUrl != image.ImageUrl)
+										old.ImageID != image.ImageID)
 									{
 										image.UpdatedBy = req.User.UserId;
 										image.UpdatedByName = req.User.UserName;
 
-										DaoFactory.InstanceBiz.Update("UpdateGoodsImage", image);
+										DaoFactory.InstanceBiz.Update("UpdateProductImage", image);
 									}
 								}
 							}
@@ -618,12 +590,12 @@ namespace IKaan.Was.Service.Services
 					//테이블
 					if (list.Count > 0)
 					{
-						foreach (WasRequest req in list)
+						foreach (var req in list)
 						{
 							if (req.Data == null)
 								throw new Exception("저장할 데이터가 존재하지 않습니다.");
 
-							DataMap parameter = req.Data.JsonToAnyType<DataMap>();
+							var parameter = req.Data.JsonToAnyType<DataMap>();
 							DaoFactory.InstanceBiz.Update("UpdatePersonImageUrl", parameter);
 						}
 					}
@@ -662,8 +634,8 @@ namespace IKaan.Was.Service.Services
 		{
 			try
 			{
-				DataMap parameter = req.Parameter.JsonToAnyType<DataMap>();
-				ChannelModel channel = DaoFactory.InstanceBiz.QueryForObject<ChannelModel>("SelectChannel", parameter);
+				var parameter = req.Parameter.JsonToAnyType<DataMap>();
+				var channel = DaoFactory.InstanceBiz.QueryForObject<ChannelModel>("SelectChannel", parameter);
 				if (channel != null)
 				{
 					//채널, 브랜드 매핑
@@ -676,18 +648,8 @@ namespace IKaan.Was.Service.Services
 					if (channel.Customers == null)
 						channel.Customers = new List<CustomerChannelModel>();
 
-					//채널, 연락처 매핑
-					channel.Contacts = DaoFactory.InstanceBiz.QueryForList<ChannelContactModel>("SelectChannelContactList", parameter);
-					if (channel.Contacts == null)
-						channel.Contacts = new List<ChannelContactModel>();
-
-					//채널, 매니저 매핑
-					channel.Managers = DaoFactory.InstanceBiz.QueryForList<ChannelManagerModel>("SelectChannelManagerList", parameter);
-					if (channel.Managers == null)
-						channel.Managers = new List<ChannelManagerModel>();
-
 					//채널, 설정 매핑
-					IList<ChannelSettingModel> channelSettingList = DaoFactory.InstanceBiz.QueryForList<ChannelSettingModel>("SelectChannelSettingList", parameter);
+					var channelSettingList = DaoFactory.InstanceBiz.QueryForList<ChannelSettingModel>("SelectChannelSettingList", parameter);
 					if (channelSettingList == null || channelSettingList.Count == 0)
 						channel.Setting = new ChannelSettingModel();
 					else
@@ -708,8 +670,8 @@ namespace IKaan.Was.Service.Services
 		{
 			try
 			{
-				DataMap parameter = req.Parameter.JsonToAnyType<DataMap>();
-				BusinessModel business = DaoFactory.InstanceBiz.QueryForObject<BusinessModel>("SelectBusiness", parameter);
+				var parameter = req.Parameter.JsonToAnyType<DataMap>();
+				var business = DaoFactory.InstanceBiz.QueryForObject<BusinessModel>("SelectBusiness", parameter);
 				if (business != null)
 				{
 					//주소
@@ -720,9 +682,9 @@ namespace IKaan.Was.Service.Services
 
 					//거래처목록
 					parameter = new DataMap() { { "BusinessID", business.ID } };
-					business.Customers = DaoFactory.InstanceBiz.QueryForList<CustomerBusinessModel>("SelectCustomerBusinessList", parameter);
-					if (business.Customers == null)
-						business.Customers = new List<CustomerBusinessModel>();
+					business.Links = DaoFactory.InstanceBiz.QueryForList<BusinessLinksModel>("SelectBusinessLinks", parameter);
+					if (business.Links == null)
+						business.Links = new List<BusinessLinksModel>();
 				}
 				req.Data = business;
 				req.Result.Count = 1;
@@ -745,29 +707,29 @@ namespace IKaan.Was.Service.Services
 					parameter = new DataMap() { { "CustomerID", customer.ID } };
 
 					//주소
-					customer.AddressList = DaoFactory.InstanceBiz.QueryForList<CustomerAddressModel>("SelectCustomerAddressList", parameter);
-					if (customer.AddressList == null)
-						customer.AddressList = new List<CustomerAddressModel>();
+					customer.Addresses = DaoFactory.InstanceBiz.QueryForList<CustomerAddressModel>("SelectCustomerAddressList", parameter);
+					if (customer.Addresses == null)
+						customer.Addresses = new List<CustomerAddressModel>();
 
 					//계좌
-					customer.BankList = DaoFactory.InstanceBiz.QueryForList<CustomerBankModel>("SelectCustomerBankList", parameter);
-					if (customer.BankList == null)
-						customer.BankList = new List<CustomerBankModel>();
+					customer.BankAccounts = DaoFactory.InstanceBiz.QueryForList<CustomerBankAccountModel>("SelectCustomerBankList", parameter);
+					if (customer.BankAccounts == null)
+						customer.BankAccounts = new List<CustomerBankAccountModel>();
 
 					//사업자
-					customer.BusinessList = DaoFactory.InstanceBiz.QueryForList<CustomerBusinessModel>("SelectCustomerBusinessList", parameter);
-					if (customer.BusinessList == null)
-						customer.BusinessList = new List<CustomerBusinessModel>();
+					customer.Businesses = DaoFactory.InstanceBiz.QueryForList<CustomerBusinessModel>("SelectCustomerBusinessList", parameter);
+					if (customer.Businesses == null)
+						customer.Businesses = new List<CustomerBusinessModel>();
 
 					//브랜드
-					customer.BrandList = DaoFactory.InstanceBiz.QueryForList<CustomerBrandModel>("SelectCustomerBrandList", parameter);
-					if (customer.BrandList == null)
-						customer.BrandList = new List<CustomerBrandModel>();
+					customer.Brands = DaoFactory.InstanceBiz.QueryForList<CustomerBrandModel>("SelectCustomerBrandList", parameter);
+					if (customer.Brands == null)
+						customer.Brands = new List<CustomerBrandModel>();
 
 					//채널
-					customer.ChannelList = DaoFactory.InstanceBiz.QueryForList<CustomerChannelModel>("SelectCustomerChannelList", parameter);
-					if (customer.ChannelList == null)
-						customer.ChannelList = new List<CustomerChannelModel>();
+					customer.Channels = DaoFactory.InstanceBiz.QueryForList<CustomerChannelModel>("SelectCustomerChannelList", parameter);
+					if (customer.Channels == null)
+						customer.Channels = new List<CustomerChannelModel>();
 				}
 				req.Data = customer;
 				req.Result.Count = 1;
@@ -783,8 +745,8 @@ namespace IKaan.Was.Service.Services
 		{
 			try
 			{
-				DataMap parameter = req.Parameter.JsonToAnyType<DataMap>();
-				SearchBrandModel brand = DaoFactory.InstanceBiz.QueryForObject<SearchBrandModel>("SelectSearchBrand", parameter);
+				var parameter = req.Parameter.JsonToAnyType<DataMap>();
+				var brand = DaoFactory.InstanceBiz.QueryForObject<SearchBrandModel>("SelectSearchBrand", parameter);
 				if (brand != null)
 				{
 					parameter = new DataMap() { { "SearchBrandID", brand.ID } };
@@ -808,8 +770,8 @@ namespace IKaan.Was.Service.Services
 		{
 			try
 			{
-				DataMap parameter = req.Parameter.JsonToAnyType<DataMap>();
-				CustomerBusinessModel customer = DaoFactory.InstanceBiz.QueryForObject<CustomerBusinessModel>("SelectCustomerBusiness", parameter);
+				var parameter = req.Parameter.JsonToAnyType<DataMap>();
+				var customer = DaoFactory.InstanceBiz.QueryForObject<CustomerBusinessModel>("SelectCustomerBusiness", parameter);
 				if (customer != null)
 				{
 					//사업자
@@ -837,8 +799,8 @@ namespace IKaan.Was.Service.Services
 		{
 			try
 			{
-				DataMap parameter = req.Parameter.JsonToAnyType<DataMap>();
-				CustomerAddressModel customer = DaoFactory.InstanceBiz.QueryForObject<CustomerAddressModel>("SelectCustomerAddress", parameter);
+				var parameter = req.Parameter.JsonToAnyType<DataMap>();
+				var customer = DaoFactory.InstanceBiz.QueryForObject<CustomerAddressModel>("SelectCustomerAddress", parameter);
 				req.Data = customer;
 				req.Result.Count = 1;
 				return customer;
@@ -853,7 +815,7 @@ namespace IKaan.Was.Service.Services
 		{
 			try
 			{
-				BrandModel brand = req.Data.JsonToAnyType<BrandModel>();
+				var brand = req.Data.JsonToAnyType<BrandModel>();
 				brand = req.SaveData<BrandModel>(brand);
 
 				if (brand != null)
@@ -868,166 +830,17 @@ namespace IKaan.Was.Service.Services
 				throw;
 			}
 		}
-
-		public static void SaveBrandContact(this WasRequest req)
-		{
-			try
-			{
-				BrandContactModel contact = req.Data.JsonToAnyType<BrandContactModel>();
-				if (contact != null)
-				{
-					PersonModel person = new PersonModel()
-					{
-						ID = contact.PersonID,
-						PersonName = contact.PersonName,
-						PersonType = "B",
-						Email = contact.Email,
-						PhoneNo1 = contact.PhoneNo1,
-						PhoneNo2 = contact.PhoneNo2,
-						FaxNo = contact.FaxNo
-					};
-
-					object contactID = null;
-					object personID = null;
-
-					if (person.ID == null)
-					{
-						person.CreatedBy = req.User.UserId;
-						person.CreatedByName = req.User.UserName;
-
-						personID = DaoFactory.InstanceBiz.Insert("InsertPerson", person);
-					}
-					else
-					{
-						person.UpdatedBy = req.User.UserId;
-						person.UpdatedByName = req.User.UserName;
-
-						DaoFactory.InstanceBiz.Update("UpdatePerson", person);
-						personID = person.ID;
-					}
-
-					contact.PersonID = personID.ToIntegerNullToNull();
-
-					if (contact.ID == null)
-					{
-						contact.CreatedBy = req.User.UserId;
-						contact.CreatedByName = req.User.UserName;
-
-						contactID = DaoFactory.InstanceBiz.Insert("InsertBrandContact", contact);
-					}
-					else
-					{
-						contact.UpdatedBy = req.User.UserId;
-						contact.UpdatedByName = req.User.UserName;
-
-						DaoFactory.InstanceBiz.Update("UpdateBrandContact", contact);
-						contactID = contact.ID;
-					}
-
-					req.Result.Count = 1;
-					req.Result.ReturnValue = contactID;
-					req.Error.Number = 0;
-				}
-			}
-			catch
-			{
-				throw;
-			}
-		}
-
-		public static void SaveBrandManager(this WasRequest req)
-		{
-			try
-			{
-				object id = null;
-				BrandManagerModel manager = req.Data.JsonToAnyType<BrandManagerModel>();
-				if (manager != null)
-				{
-					DataMap map = new DataMap()
-					{
-						{ "BrandID", manager.BrandID },
-						{ "StartDate", manager.StartDate }
-					};
-
-					BrandManagerModel dup = DaoFactory.InstanceBiz.QueryForObject<BrandManagerModel>("SelectBrandManagerDuplicate", map);
-					if (dup != null)
-					{
-						if (manager.ID == null)
-						{
-							throw new Exception("동일 시작일로 등록된 데이터가 존재합니다.");
-						}
-						else
-						{
-							if (manager.ID != dup.ID)
-								throw new Exception("동일 시작일로 등록된 데이터가 존재합니다.");
-
-							manager.UpdatedBy = req.User.UserId;
-							manager.UpdatedByName = req.User.UserName;
-
-							DaoFactory.InstanceBiz.Update("UpdateBrandManager", manager);
-							id = manager.ID;
-						}
-					}
-					else
-					{
-						var before = DaoFactory.InstanceBiz.QueryForObject<BrandManagerModel>("SelectBrandManagerBefore", map);
-						if (before != null)
-						{
-							before.EndDate = manager.StartDate.Value.AddDays(-1);
-							before.UpdatedBy = req.User.UserId;
-							before.UpdatedByName = req.User.UserName;
-
-							DaoFactory.InstanceBiz.Update("UpdateBrandManagerEndDate", before);
-						}
-
-						var after = DaoFactory.InstanceBiz.QueryForObject<BrandManagerModel>("SelectBrandManagerAfter", map);
-						if (after != null)
-						{
-							manager.EndDate = after.StartDate.Value.AddDays(-1);
-						}
-						else
-						{
-							manager.EndDate = null;
-						}
-
-						if (manager.ID != null)
-						{
-							manager.UpdatedBy = req.User.UserId;
-							manager.UpdatedByName = req.User.UserName;
-
-							DaoFactory.InstanceBiz.Update("UpdateBrandManager", manager);
-							id = manager.ID;
-						}
-						else
-						{
-							manager.CreatedBy = req.User.UserId;
-							manager.CreatedByName = req.User.UserName;
-
-							id = DaoFactory.InstanceBiz.Insert("InsertBrandManager", manager);
-						}
-					}
-
-					req.Result.Count = 1;
-					req.Result.ReturnValue = id;
-					req.Error.Number = 0;
-				}
-			}
-			catch
-			{
-				throw;
-			}
-		}
-
+		
 		public static void SaveChannel(this WasRequest req)
 		{
 			try
 			{
-				ChannelModel channel = req.Data.JsonToAnyType<ChannelModel>();
+				var channel = req.Data.JsonToAnyType<ChannelModel>();
 				channel = req.SaveData<ChannelModel>(channel);
 
 				if (channel != null)
 				{
-					IList<ChannelSettingModel> settingList = DaoFactory.InstanceBiz.QueryForList<ChannelSettingModel>("SelectChannelSettingList", new DataMap() { { "ChannelID", channel.ID } });
+					var settingList = DaoFactory.InstanceBiz.QueryForList<ChannelSettingModel>("SelectChannelSettingList", new DataMap() { { "ChannelID", channel.ID } });
 					if (settingList == null || settingList.Count == 0)
 					{
 						channel.Setting.ChannelID = channel.ID;
@@ -1060,7 +873,7 @@ namespace IKaan.Was.Service.Services
 		{
 			try
 			{
-				ChannelBrandModel model = req.Data.JsonToAnyType<ChannelBrandModel>();
+				var model = req.Data.JsonToAnyType<ChannelBrandModel>();
 				if (model != null)
 				{
 					DataMap parameter = new DataMap()
@@ -1131,59 +944,58 @@ namespace IKaan.Was.Service.Services
 			}
 		}
 
-		public static void SaveChannelContact(this WasRequest req)
+		public static void SaveCustomerContact(this WasRequest req)
 		{
 			try
 			{
-				ChannelContactModel contact = req.Data.JsonToAnyType<ChannelContactModel>();
-				if (contact != null)
+				var model = req.Data.JsonToAnyType<CustomerContactModel>();
+				if (model != null)
 				{
-					PersonModel person = new PersonModel()
+					var contact = new ContactModel()
 					{
-						ID = contact.PersonID,
-						PersonName = contact.PersonName,
-						PersonType = "C",
-						Email = contact.Email,
-						PhoneNo1 = contact.PhoneNo1,
-						PhoneNo2 = contact.PhoneNo2,
-						FaxNo = contact.FaxNo
+						ID = model.ContactID,
+						Name = model.ContactName,
+						ContactType = "C",
+						Email = model.Email,
+						PhoneNo = model.PhoneNo,
+						MobileNo = model.MobileNo,
+						FaxNo = model.FaxNo
 					};
 
 					object contactID = null;
-					object personID = null;
-
-					if (person.ID == null)
-					{
-						person.CreatedBy = req.User.UserId;
-						person.CreatedByName = req.User.UserName;
-
-						personID = DaoFactory.InstanceBiz.Insert("InsertPerson", person);
-					}
-					else
-					{
-						person.UpdatedBy = req.User.UserId;
-						person.UpdatedByName = req.User.UserName;
-
-						DaoFactory.InstanceBiz.Update("UpdatePerson", person);
-						personID = person.ID;
-					}
-
-					contact.PersonID = personID.ToIntegerNullToNull();
 
 					if (contact.ID == null)
 					{
 						contact.CreatedBy = req.User.UserId;
 						contact.CreatedByName = req.User.UserName;
 
-						contactID = DaoFactory.InstanceBiz.Insert("InsertChannelContact", contact);
+						contactID = DaoFactory.InstanceBiz.Insert("InsertContact", contact);
 					}
 					else
 					{
 						contact.UpdatedBy = req.User.UserId;
 						contact.UpdatedByName = req.User.UserName;
 
-						DaoFactory.InstanceBiz.Update("UpdateChannelContact", contact);
+						DaoFactory.InstanceBiz.Update("UpdateContact", contact);
 						contactID = contact.ID;
+					}
+
+					model.ContactID = contactID.ToIntegerNullToNull();
+
+					if (model.ID == null)
+					{
+						model.CreatedBy = req.User.UserId;
+						model.CreatedByName = req.User.UserName;
+
+						contactID = DaoFactory.InstanceBiz.Insert("InsertCustomerContact", model);
+					}
+					else
+					{
+						model.UpdatedBy = req.User.UserId;
+						model.UpdatedByName = req.User.UserName;
+
+						DaoFactory.InstanceBiz.Update("UpdateCustomerContact", model);
+						contactID = model.ID;
 					}
 
 					req.Result.Count = 1;
@@ -1197,21 +1009,21 @@ namespace IKaan.Was.Service.Services
 			}
 		}
 
-		public static void SaveChannelManager(this WasRequest req)
+		public static void SaveCustomerManager(this WasRequest req)
 		{
 			try
 			{
 				object id = null;
-				ChannelManagerModel manager = req.Data.JsonToAnyType<ChannelManagerModel>();
+				var manager = req.Data.JsonToAnyType<CustomerManagerModel>();
 				if (manager != null)
 				{
 					DataMap map = new DataMap()
 					{
-						{ "ChannelID", manager.ChannelID },
+						{ "CustomerID", manager.CustomerID },
 						{ "StartDate", manager.StartDate }
 					};
 
-					BrandManagerModel dup = DaoFactory.InstanceBiz.QueryForObject<BrandManagerModel>("SelectChannelManagerDuplicate", map);
+					var dup = DaoFactory.InstanceBiz.QueryForObject<PartnerManagerModel>("SelectCustomerManagerDuplicate", map);
 					if (dup != null)
 					{
 						if (manager.ID == null)
@@ -1226,23 +1038,23 @@ namespace IKaan.Was.Service.Services
 							manager.UpdatedBy = req.User.UserId;
 							manager.UpdatedByName = req.User.UserName;
 
-							DaoFactory.InstanceBiz.Update("UpdateChannelManager", manager);
+							DaoFactory.InstanceBiz.Update("UpdateCustomerManager", manager);
 							id = manager.ID;
 						}
 					}
 					else
 					{
-						var before = DaoFactory.InstanceBiz.QueryForObject<BrandManagerModel>("SelectChannelManagerBefore", map);
+						var before = DaoFactory.InstanceBiz.QueryForObject<PartnerManagerModel>("SelectCustomerManagerBefore", map);
 						if (before != null)
 						{
 							before.EndDate = manager.StartDate.Value.AddDays(-1);
 							before.UpdatedBy = req.User.UserId;
 							before.UpdatedByName = req.User.UserName;
 
-							DaoFactory.InstanceBiz.Update("UpdateChannelManagerEndDate", before);
+							DaoFactory.InstanceBiz.Update("UpdateCustomerManagerEndDate", before);
 						}
 
-						var after = DaoFactory.InstanceBiz.QueryForObject<BrandManagerModel>("SelectChannelManagerAfter", map);
+						var after = DaoFactory.InstanceBiz.QueryForObject<PartnerManagerModel>("SelectCustomerManagerAfter", map);
 						if (after != null)
 						{
 							manager.EndDate = after.StartDate.Value.AddDays(-1);
@@ -1257,7 +1069,7 @@ namespace IKaan.Was.Service.Services
 							manager.UpdatedBy = req.User.UserId;
 							manager.UpdatedByName = req.User.UserName;
 
-							DaoFactory.InstanceBiz.Update("UpdateChannelManager", manager);
+							DaoFactory.InstanceBiz.Update("UpdateCustomerManager", manager);
 							id = manager.ID;
 						}
 						else
@@ -1284,7 +1096,7 @@ namespace IKaan.Was.Service.Services
 		{
 			try
 			{
-				BusinessModel model = req.Data.JsonToAnyType<BusinessModel>();
+				var model = req.Data.JsonToAnyType<BusinessModel>();
 				if (model != null)
 				{
 					if (model.Address != null)
@@ -1340,15 +1152,15 @@ namespace IKaan.Was.Service.Services
 		{
 			try
 			{
-				CustomerModel customer = req.Data.JsonToAnyType<CustomerModel>();
+				var customer = req.Data.JsonToAnyType<CustomerModel>();
 				customer = req.SaveData<CustomerModel>(customer);
 
 				if (customer != null)
 				{
 					//거래처 주소
-					if (customer.AddressList != null && customer.AddressList.Count > 0)
+					if (customer.Addresses != null && customer.Addresses.Count > 0)
 					{
-						foreach (var data in customer.AddressList)
+						foreach (var data in customer.Addresses)
 						{
 							if (data.ID == null || data.ID == default(int))
 							{
@@ -1372,9 +1184,9 @@ namespace IKaan.Was.Service.Services
 					}
 
 					//거래처 계좌정보
-					if (customer.BankList != null && customer.BankList.Count > 0)
+					if (customer.BankAccounts != null && customer.BankAccounts.Count > 0)
 					{
-						foreach (var data in customer.BankList)
+						foreach (var data in customer.BankAccounts)
 						{
 							if (data.ID == null || data.ID == default(int))
 							{
@@ -1382,7 +1194,7 @@ namespace IKaan.Was.Service.Services
 								data.CreatedBy = req.User.UserId;
 								data.CreatedByName = req.User.UserName;
 
-								DaoFactory.InstanceBiz.Insert("InsertCustomerBank", data);
+								DaoFactory.InstanceBiz.Insert("InsertCustomerBankAccount", data);
 							}
 							else
 							{
@@ -1391,16 +1203,16 @@ namespace IKaan.Was.Service.Services
 									data.UpdatedBy = req.User.UserId;
 									data.UpdatedByName = req.User.UserName;
 
-									DaoFactory.InstanceBiz.Update("UpdateCustomerBank", data);
+									DaoFactory.InstanceBiz.Update("UpdateCustomerBankAccount", data);
 								}
 							}
 						}
 					}
 
 					//거래처 브랜드
-					if (customer.BrandList != null && customer.BrandList.Count > 0)
+					if (customer.Brands != null && customer.Brands.Count > 0)
 					{
-						foreach (var data in customer.BrandList)
+						foreach (var data in customer.Brands)
 						{
 							if (data.ID == null || data.ID == default(int))
 							{
@@ -1424,9 +1236,9 @@ namespace IKaan.Was.Service.Services
 					}
 
 					//거래처 채널
-					if (customer.ChannelList != null && customer.ChannelList.Count > 0)
+					if (customer.Channels != null && customer.Channels.Count > 0)
 					{
-						foreach (var data in customer.ChannelList)
+						foreach (var data in customer.Channels)
 						{
 							if (data.ID == null || data.ID == default(int))
 							{
@@ -1468,7 +1280,7 @@ namespace IKaan.Was.Service.Services
 				object addressId = null;
 				object businessId = null;
 
-				CustomerBusinessModel customer = req.Data.JsonToAnyType<CustomerBusinessModel>();
+				var customer = req.Data.JsonToAnyType<CustomerBusinessModel>();
 				if (customer != null)
 				{
 					if (customer.Business != null)
@@ -1515,13 +1327,13 @@ namespace IKaan.Was.Service.Services
 					//시작일, 종료일 이력을 체크하여 저장한다.
 					//이력이 변경되는 건인 경우에는 직전 이력의 종료일을 -1로 설정한다.
 					//직후 이력이 존재하는 경우에는 저장하는 데이터의 종료일을 직후 이력의 시작일 -1로 설정한다.
-					DataMap map = new DataMap()
+					var map = new DataMap()
 					{
 						{ "CustomerID", customer.CustomerID },
 						{ "StartDate", customer.StartDate }
 					};
 
-					CustomerBusinessModel dup = DaoFactory.InstanceBiz.QueryForObject<CustomerBusinessModel>("SelectCustomerBusinessDuplicate", map);
+					var dup = DaoFactory.InstanceBiz.QueryForObject<CustomerBusinessModel>("SelectCustomerBusinessDuplicate", map);
 					if (dup != null)
 					{
 						if (customer.ID.IsNullOrDefault())
@@ -1592,21 +1404,21 @@ namespace IKaan.Was.Service.Services
 				object customerId = null;
 				object addressId = null;
 
-				CustomerAddressModel customer = req.Data.JsonToAnyType<CustomerAddressModel>();
+				var customer = req.Data.JsonToAnyType<CustomerAddressModel>();
 				if (customer != null)
 				{
 					if (customer.AddressID.IsNullOrDefault())
 					{
-						if (customer.PostalCode.IsNullOrEmpty() == false)
+						if (customer.Address.PostalCode.IsNullOrEmpty() == false)
 						{
-							AddressModel address = new AddressModel()
+							var address = new AddressModel()
 							{
-								PostalCode = customer.PostalCode,
-								Country = customer.Country,
-								City = customer.City,
-								StateProvince = customer.StateProvince,
-								AddressLine1 = customer.AddressLine1,
-								AddressLine2 = customer.AddressLine2,
+								PostalCode = customer.Address.PostalCode,
+								Country = customer.Address.Country,
+								City = customer.Address.City,
+								StateProvince = customer.Address.StateProvince,
+								AddressLine1 = customer.Address.AddressLine1,
+								AddressLine2 = customer.Address.AddressLine2,
 								CreatedBy = req.User.UserId,
 								CreatedByName = req.User.UserName
 							};
@@ -1617,15 +1429,15 @@ namespace IKaan.Was.Service.Services
 					}
 					else
 					{
-						AddressModel address = new AddressModel()
+						var address = new AddressModel()
 						{
 							ID = customer.AddressID,
-							PostalCode = customer.PostalCode,
-							Country = customer.Country,
-							City = customer.City,
-							StateProvince = customer.StateProvince,
-							AddressLine1 = customer.AddressLine1,
-							AddressLine2 = customer.AddressLine2,
+							PostalCode = customer.Address.PostalCode,
+							Country = customer.Address.Country,
+							City = customer.Address.City,
+							StateProvince = customer.Address.StateProvince,
+							AddressLine1 = customer.Address.AddressLine1,
+							AddressLine2 = customer.Address.AddressLine2,
 							UpdatedBy = req.User.UserId,
 							UpdatedByName = req.User.UserName
 						};
@@ -1660,13 +1472,13 @@ namespace IKaan.Was.Service.Services
 			}
 		}
 
-		public static void SaveCustomerBank(this WasRequest req)
+		public static void SaveCustomerBankAccount(this WasRequest req)
 		{
 			try
 			{
 				object id = null;
 
-				CustomerBankModel customer = req.Data.JsonToAnyType<CustomerBankModel>();
+				var customer = req.Data.JsonToAnyType<CustomerBankAccountModel>();
 				if (customer != null)
 				{
 					if (customer.ID.IsNullOrDefault())
@@ -1674,7 +1486,7 @@ namespace IKaan.Was.Service.Services
 						customer.CreatedBy = req.User.UserId;
 						customer.CreatedByName = req.User.UserName;
 
-						id = DaoFactory.InstanceBiz.Insert("InsertCustomerBank", customer);
+						id = DaoFactory.InstanceBiz.Insert("InsertCustomerBankAccount", customer);
 						customer.ID = id.ToIntegerNullToNull();
 					}
 					else
@@ -1682,7 +1494,7 @@ namespace IKaan.Was.Service.Services
 						customer.UpdatedBy = req.User.UserId;
 						customer.UpdatedByName = req.User.UserName;
 
-						DaoFactory.InstanceBiz.Update("UpdateCustomerBank", customer);
+						DaoFactory.InstanceBiz.Update("UpdateCustomerBankAccount", customer);
 					}
 
 					req.Result.Count = 1;
@@ -1702,7 +1514,7 @@ namespace IKaan.Was.Service.Services
 			{
 				object id = null;
 
-				CustomerBrandModel customer = req.Data.JsonToAnyType<CustomerBrandModel>();
+				var customer = req.Data.JsonToAnyType<CustomerBrandModel>();
 				if (customer != null)
 				{
 					if (customer.ID.IsNullOrDefault())
@@ -1738,7 +1550,7 @@ namespace IKaan.Was.Service.Services
 			{
 				object id = null;
 
-				CustomerChannelModel customer = req.Data.JsonToAnyType<CustomerChannelModel>();
+				var customer = req.Data.JsonToAnyType<CustomerChannelModel>();
 				if (customer != null)
 				{
 					if (customer.ID.IsNullOrDefault())
@@ -1773,7 +1585,7 @@ namespace IKaan.Was.Service.Services
 			try
 			{
 				int count = 0;
-				OrderSumByChannelModel model = req.Data.JsonToAnyType<OrderSumByChannelModel>();
+				var model = req.Data.JsonToAnyType<OrderSumByChannelModel>();
 				if (model != null)
 				{
 					if (model.OrderSumList != null && model.OrderSumList.Count > 0)

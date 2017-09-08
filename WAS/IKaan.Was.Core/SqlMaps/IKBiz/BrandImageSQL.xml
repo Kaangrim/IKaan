@@ -17,8 +17,8 @@
 					,	AA.UpdatedByName
 					
 					,	AA.BrandID
+					,	AA.ImageID
 					,	AA.ImageType
-					,	AA.ImageUrl
 					
 				FROM	dbo.TBrandImage AA WITH (NOLOCK)
 				WHERE	AA.BrandID = #BrandID#
@@ -27,18 +27,7 @@
 		</select>
 		<select id="SelectBrandImage" parameterClass="DataMap" resultClass="BrandImageModel" >
 			<![CDATA[
-				SELECT  AA.ID
-					,	AA.CreatedOn
-					,	AA.CreatedBy
-					,	AA.CreatedByName
-					,	AA.UpdatedOn
-					,	AA.UpdatedBy
-					,	AA.UpdatedByName
-					
-					,	AA.BrandID
-					,	AA.ImageType
-					,	AA.ImageUrl
-					
+				SELECT  *					
 				FROM	dbo.TBrandImage AA WITH (NOLOCK)
 				WHERE	AA.ID = #ID#
 			]]>
@@ -48,12 +37,12 @@
 				INSERT INTO dbo.TBrandImage
 				( 
 					CreatedOn, CreatedBy, CreatedByName,
-					BrandID, ImageType, ImageUrl
+					BrandID, ImageID, ImageType
 				)
 				VALUES
 				(
 					GetDate(), #CreatedBy#, #CreatedByName#,
-					#BrandID#, #ImageType#, #ImageUrl#
+					#BrandID#, #ImageID#, #ImageType#
 				)
 			]]>
 			<selectKey type="post" property="ID" resultClass="Int">
@@ -70,7 +59,7 @@
 					,	UpdatedByName	= #UpdatedByName#
 					
 					,	ImageType		= #ImageType#
-					,	ImageUrl		= #ImageUrl#
+					,	ImageID			= #ImageID#
 				WHERE	ID				= #ID#
 			]]>
 		</update>

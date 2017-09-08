@@ -50,7 +50,7 @@
 					,	AA.UpdatedBy
 					,	AA.UpdatedByName
 					
-					,	AA.CategoryName
+					,	AA.Name
 					,	AA.ParentID
 					,	AA.Category1
 					,	AA.Category2
@@ -61,7 +61,7 @@
 					,	AA.UseYn
 					
 					,	BB.HierID
-					,	REPLICATE(' ', (BB.Level -1) * 5) + BB.SeqNo + '. ' + AA.CategoryName	AS HierName
+					,	REPLICATE(' ', (BB.Level -1) * 5) + BB.SeqNo + '. ' + AA.Name	AS HierName
 					,	BB.Level		
 					
 				FROM	dbo.TCategory AA WITH (NOLOCK)
@@ -72,7 +72,7 @@
 			]]>
 			<isNotEmpty property="FindText">
 				<![CDATA[
-					AND	AA.CategoryName LIKE '%' + #FindText# + '%'
+					AND	AA.Name LIKE '%' + #FindText# + '%'
 				]]>
 			</isNotEmpty>
 			<![CDATA[
@@ -81,31 +81,12 @@
 		</select>
 		<select id="SelectCategory" parameterClass="DataMap" resultClass="CategoryModel" >
 			<![CDATA[
-				SELECT  AA.ID
-					,	AA.CreatedOn
-					,	AA.CreatedBy
-					,	AA.CreatedByName
-					,	AA.UpdatedOn
-					,	AA.UpdatedBy
-					,	AA.UpdatedByName
-					
-					,	AA.CategoryName
-					,	AA.ParentID
-					,	AA.InfoNoticeID
-					,	AA.SortOrder
-					,	AA.UseYn
-					
-					,	AA.Category1
-					,	AA.Category2
-					,	AA.Category3
-					,	AA.Category4
-					,	AA.Category5
-					
-					,	C1.CategoryName			as Category1Name
-					,	C2.CategoryName			as Category2Name
-					,	C3.CategoryName			as Category3Name
-					,	C4.CategoryName			as Category4Name
-					,	C5.CategoryName			as Category5Name
+				SELECT  AA.*
+					,	C1.Name			as Category1Name
+					,	C2.Name			as Category2Name
+					,	C3.Name			as Category3Name
+					,	C4.Name			as Category4Name
+					,	C5.Name			as Category5Name
 					
 				FROM	dbo.TCategory AA WITH (NOLOCK)
 						LEFT JOIN
@@ -131,14 +112,14 @@
 				INSERT INTO dbo.TCategory
 				( 
 					CreatedOn, CreatedBy, CreatedByName,
-					CategoryName, ParentID,
+					Name, ParentID,
 					Category1, Category2, Category3, Category4, Category5,
 					InfoNoticeID, UseYn, SortOrder
 				)
 				VALUES
 				(
 					GetDate(), #CreatedBy#, #CreatedByName#,
-					#CategoryName#, #ParentID#,
+					#Name#, #ParentID#,
 					#Category1#, #Category2#, #Category3#, #Category4#, #Category5#,
 					#InfoNoticeID#, #UseYn#, #SortOrder#
 				)
@@ -156,7 +137,7 @@
 					,	UpdatedBy	= #UpdatedBy#
 					,	UpdatedByName= #UpdatedByName#
 					
-					,	CategoryName= #CategoryName#
+					,	Name		= #Name#
 					,	ParentID	= #ParentID#
 					,	Category1	= #Category1#
 					,	Category2	= #Category2#

@@ -16,12 +16,14 @@
 					,	AA.UpdatedBy
 					,	AA.UpdatedByName
 					
-					,	AA.ChannelName
-					,	AA.EngName
+					,	AA.Name
+					,	AA.Code
 					,	AA.ChannelType
-					,	AA.ChannelCode
 					,	AA.Description
+					,	AA.DescriptionRTF
 					,	AA.UseYn
+					,	AA.ImageID
+					
 					,	M1.Name				as ChannelTypeName
 					
 				FROM	dbo.TChannel AA WITH (NOLOCK)
@@ -44,9 +46,8 @@
 			<isNotEmpty property="FindText">
 				<![CDATA[
 					AND	(
-							AA.ChannelName		LIKE '%' + #FindText# + '%' OR
-							AA.EngName			LIKE '%' + #FindText# + '%' OR
-							AA.ChannelCode		LIKE '%' + #FindText# + '%'
+							AA.Name		LIKE '%' + #FindText# + '%' OR
+							AA.Code		LIKE '%' + #FindText# + '%'
 						)
 				]]>
 			</isNotEmpty>
@@ -56,21 +57,7 @@
 		</select>
 		<select id="SelectChannel" parameterClass="DataMap" resultClass="ChannelModel" >
 			<![CDATA[
-				SELECT  AA.ID
-					,	AA.CreatedOn
-					,	AA.CreatedBy
-					,	AA.CreatedByName
-					,	AA.UpdatedOn
-					,	AA.UpdatedBy
-					,	AA.UpdatedByName
-					
-					,	AA.ChannelName
-					,	AA.EngName
-					,	AA.ChannelType
-					,	AA.ChannelCode
-					,	AA.Description
-					,	AA.UseYn
-					
+				SELECT  *					
 				FROM	dbo.TChannel AA WITH (NOLOCK)
 				WHERE	AA.ID = #ID#
 			]]>
@@ -80,12 +67,12 @@
 				INSERT INTO dbo.TChannel
 				( 
 					CreatedOn, CreatedBy, CreatedByName,
-					ChannelName, EngName, ChannelCode, ChannelType, Description, UseYn
+					Name, Code, ChannelType, Description, DescriptionRTF, UseYn, ImageID
 				)
 				VALUES
 				(
 					GetDate(), #CreatedBy#, #CreatedByName#,
-					#ChannelName#, #EngName#, #ChannelCode#, #ChannelType#, #Description#, #UseYn#
+					#Name#, #Code#, #ChannelType#, #Description#, #DescriptionRTF#, #UseYn#, #ImageID#
 				)
 			]]>
 			<selectKey type="post" property="ID" resultClass="Int">
@@ -101,12 +88,13 @@
 					,	UpdatedBy		= #UpdatedBy#
 					,	UpdatedByName	= #UpdatedByName#
 					
-					,	ChannelName		= #ChannelName#
-					,	EngName			= #EngName#
+					,	Name			= #Name#
+					,	Code			= #Code#
 					,	ChannelType		= #ChannelType#
-					,	ChannelCode		= #ChannelCode#
 					,	Description		= #Description#
+					,	DescriptionRTF	= #DescriptionRTF#
 					,	UseYn			= #UseYn#
+					,	ImageID			= #ImageID#
 				WHERE	ID				= #ID#
 			]]>
 		</update>

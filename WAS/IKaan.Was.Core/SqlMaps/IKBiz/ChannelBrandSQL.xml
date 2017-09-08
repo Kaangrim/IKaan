@@ -22,6 +22,7 @@
 					,	AA.EndDate
 					,	AA.ChannelMargin
 					,	AA.BrandMargin
+					,	AA.Description
 					
 					,	BB.ChannelName
 					,	CC.BrandName
@@ -51,22 +52,7 @@
 		</select>
 		<select id="SelectChannelBrand" parameterClass="DataMap" resultClass="ChannelBrandModel" >
 			<![CDATA[
-				SELECT  AA.ID
-					,	AA.CreatedOn
-					,	AA.CreatedBy
-					,	AA.CreatedByName
-					,	AA.UpdatedOn
-					,	AA.UpdatedBy
-					,	AA.UpdatedByName
-					
-					,	AA.ChannelID
-					,	AA.BrandID
-					,	AA.StartDate
-					,	AA.EndDate
-					,	AA.ChannelMargin
-					,	AA.BrandMargin
-					,	AA.Description
-					
+				SELECT  AA.*					
 					,	BB.ChannelName
 					,	CC.BrandName
 					

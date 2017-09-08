@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using DevExpress.Utils;
+using DevExpress.XtraEditors.Controls;
 using DevExpress.XtraGrid.Views.Grid;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
@@ -26,9 +27,9 @@ namespace IKaan.Win.View.Biz.Common
 		{
 			InitializeComponent();
 
-			txtPostalCode.ButtonClick += delegate (object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
+			txtPostalCode.ButtonClick += delegate (object sender, ButtonPressedEventArgs e)
 			{
-				if(e.Button.Kind== DevExpress.XtraEditors.Controls.ButtonPredefines.Ellipsis)
+				if(e.Button.Kind== ButtonPredefines.Ellipsis)
 				{
 					PostalCode data = SearchPostCode.Find();
 					if (data != null)
@@ -54,14 +55,6 @@ namespace IKaan.Win.View.Biz.Common
 			{
 				txtImageUrl.EditValue = loadUrl;
 			};
-
-			lcTab.CustomHeaderButtonClick += delegate (object sender, DevExpress.XtraTab.ViewInfo.CustomHeaderButtonEventArgs e)
-			{
-				if (e.Button.Tag.ToStringNullToEmpty() == "UPLOAD")
-				{
-					UploadGetData();
-				}
-			};
 		}
 
 		protected override void OnShown(EventArgs e)
@@ -80,6 +73,8 @@ namespace IKaan.Win.View.Biz.Common
 			base.InitControls();
 
 			SetFieldNames();
+
+			
 
 			txtID.SetEnable(false);
 			txtCreatedOn.SetEnable(false);
@@ -222,11 +217,11 @@ namespace IKaan.Win.View.Biz.Common
 					txtStateProvince.EditValue = model.Address.StateProvince;
 				}
 
-				if (model.Customers == null)
-					model.Customers = new List<CustomerBusinessModel>();
-				gridCustomers.DataSource = model.Customers;
+				if (model.Links == null)
+					model.Links = new List<BusinessLinksModel>();
+				gridCustomers.DataSource = model.Links;
 
-				loadUrl = model.ImageUrl;
+				loadUrl = model.Image.Url;
 				if (loadUrl.IsNullOrEmpty())
 				{
 					picImage.EditValue = null;
@@ -272,7 +267,7 @@ namespace IKaan.Win.View.Biz.Common
 					if (path.IsNullOrEmpty() == false)
 					{
 						string url = FTPHandler.UploadBusiness(txtImageUrl.EditValue.ToString(), txtBizNo.EditValue.ToString().Replace("-", ""));
-						model.ImageUrl = url;
+						model.Image.Url = url;
 					}
 				}
 				else
@@ -320,22 +315,6 @@ namespace IKaan.Win.View.Biz.Common
 				}
 			}
 			catch (Exception ex)
-			{
-				ShowErrBox(ex);
-			}
-		}
-
-		private void UploadGetData()
-		{
-			try
-			{
-				//if (UploadHandler.Execute<BusinessModel>("Biz", "Save"))
-				//{
-				//	ShowMsgBox("저장하였습니다.");
-				//	DataLoad(null);
-				//}
-			}
-			catch(Exception ex)
 			{
 				ShowErrBox(ex);
 			}

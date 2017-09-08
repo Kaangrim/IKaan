@@ -10,15 +10,11 @@ namespace IKaan.Model.Biz
 	{
 		[DataMember]
 		[Display(Name = "채널명")]
-		public string ChannelName { get; set; }
-
-		[DataMember]
-		[Display(Name = "영문명")]
-		public string EngName { get; set; }
+		public string Name { get; set; }
 
 		[DataMember]
 		[Display(Name = "채널코드")]
-		public string ChannelCode { get; set; }
+		public string Code { get; set; }
 
 		[DataMember]
 		[Display(Name = "채널유형")]
@@ -29,12 +25,24 @@ namespace IKaan.Model.Biz
 		public string Description { get; set; }
 
 		[DataMember]
+		[Display(Name = "설명(RTF)")]
+		public string DescriptionRTF { get; set; }
+
+		[DataMember]
 		[Display(Name = "사용여부")]
 		public string UseYn { get; set; }
 
 		[DataMember]
+		[Display(Name = "이미지ID")]
+		public int? ImageID { get; set; }
+
+		[DataMember]
 		[Display(Name = "채널유형명")]
 		public string ChannelTypeName { get; set; }
+
+		[DataMember]
+		[Display(Name = "채널속성")]
+		public IList<ChannelAttributeModel> Attributes { get; set; }
 
 		[DataMember]
 		[Display(Name = "채널, 브랜드")]
@@ -45,23 +53,14 @@ namespace IKaan.Model.Biz
 		public IList<CustomerChannelModel> Customers { get; set; }
 
 		[DataMember]
-		[Display(Name = "채널, 담당자")]
-		public IList<ChannelContactModel> Contacts { get; set; }
-
-		[DataMember]
-		[Display(Name = "채널, 관리자")]
-		public IList<ChannelManagerModel> Managers { get; set; }
-
-		[DataMember]
 		[Display(Name = "채널, 설정")]
 		public ChannelSettingModel Setting { get; set; }
 
 		public ChannelModel()
 		{
+			Attributes = new List<ChannelAttributeModel>();
 			Brands = new List<ChannelBrandModel>();
 			Customers = new List<CustomerChannelModel>();
-			Contacts = new List<ChannelContactModel>();
-			Managers = new List<ChannelManagerModel>();
 			Setting = new ChannelSettingModel();
 		}
 	}

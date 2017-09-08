@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectPartnerChannelList" parameterClass="DataMap" resultClass="PartnerChannelModel" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
+					,	AA.ID
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
+					
+					,	AA.PartnerID
+					,	AA.ChannelID
+					,	AA.StartDate
+					,	AA.EndDate
+					,	AA.Description
+					
+					,	BB.PartnerName
+					,	CC.ChannelName
+					
+				FROM	dbo.TPartnerChannel AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.TPartner BB WITH (NOLOCK)
+								ON AA.PartnerID = BB.ID
+						LEFT JOIN
+							dbo.TChannel CC WITH (NOLOCK)
+								ON AA.ChannelID = CC.ID
+				WHERE	1=1				
+			]]>
+			<isNotEmpty property="PartnerID">
+				<![CDATA[
+					AND		AA.PartnerID = #PartnerID#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="ChannelID">
+				<![CDATA[
+					AND		AA.ChannelID = #ChannelID#
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectPartnerChannel" parameterClass="DataMap" resultClass="PartnerChannelModel" >
+			<![CDATA[
+				SELECT  AA.*
+					
+					,	BB.PartnerName
+					,	CC.ChannelName
+					
+				FROM	dbo.TPartnerChannel AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.TPartner BB WITH (NOLOCK)
+								ON AA.PartnerID = BB.ID
+						LEFT JOIN
+							dbo.TChannel CC WITH (NOLOCK)
+								ON AA.ChannelID = CC.ID
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<insert id="InsertPartnerChannel" parameterClass="PartnerChannelModel" >
+			<![CDATA[
+				INSERT INTO dbo.TPartnerChannel
+				( 
+					CreatedOn, CreatedBy, CreatedByName,
+					PartnerID, ChannelID, StartDate, EndDate, Description
+				)
+				VALUES
+				(
+					GetDate(), #CreatedBy#, #CreatedByName#,
+					#PartnerID#, #ChannelID#, #StartDate#, #EndDate#, #Description#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdatePartnerChannel" parameterClass="PartnerChannelModel">
+			<![CDATA[
+				UPDATE  dbo.TPartnerChannel
+				SET     UpdatedOn		= GetDate()
+					,	UpdatedBy		= #UpdatedBy#
+					,	UpdatedByName	= #UpdatedByName#
+					
+					,	PartnerID		= #PartnerID#
+					,	ChannelID		= #ChannelID#	
+					,	StartDate		= #StartDate#
+					,	EndDate			= #EndDate#
+					,	Description		= #Description#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
+		<delete id="DeletePartnerChannel" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM dbo.TPartnerChannel WHERE ID = #ID#;
+			]]>
+		</delete>
+	</statements>
+</sqlMap>

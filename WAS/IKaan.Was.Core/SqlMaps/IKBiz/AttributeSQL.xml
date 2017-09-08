@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectAttributeList" parameterClass="DataMap" resultClass="AttributeModel" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
+					,	AA.ID
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
+					
+					,	AA.Name
+					,	AA.AttributeTypeID
+					,	AA.UseYn
+					,	AA.Description
+					
+					,	BB.Name				as AttributeTypeName
+					
+				FROM	dbo.TAttribute AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.TAttributeType BB WITH (NOLOCK)
+								ON AA.AttributeTypeID = BB.ID
+				WHERE	1=1
+			]]>
+			<isNotEmpty property="AttributeTypeID">
+				<![CDATA[
+					AND	(
+							AA.AttributeTypeID = #AttributeTypeID#
+						)
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectAttribute" parameterClass="DataMap" resultClass="AttributeModel" >
+			<![CDATA[
+				SELECT  *					
+				FROM	dbo.TAttribute AA WITH (NOLOCK)
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<insert id="InsertAttribute" parameterClass="AttributeModel" >
+			<![CDATA[
+				INSERT INTO dbo.TAttribute
+				( 
+					CreatedOn, CreatedBy, CreatedByName,
+					Name, AttributeTypeID, UseYn, Description
+				)
+				VALUES
+				(
+					GetDate(), #CreatedBy#, #CreatedByName#,					
+					#Name#, #AttributeTypeID#, #UseYn#, #Description#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateAttribute" parameterClass="AttributeModel">
+			<![CDATA[
+				UPDATE  dbo.TAttribute
+				SET     UpdatedOn		= GetDate()
+					,	UpdatedBy		= #UpdatedBy#
+					,	UpdatedByName	= #UpdatedByName#
+					
+					,	Name			= #Name#
+					,	AttributeTypeID	= #AttributeTypeID#
+					,	UseYn			= #UseYn#
+					,	Description		= #Description#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
+		<delete id="DeleteAttribute" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM dbo.TAttribute WHERE ID = #ID#;
+			]]>
+		</delete>
+	</statements>
+</sqlMap>

@@ -34,6 +34,7 @@ namespace IKaan.Win.View.Forms
 {
 	public partial class MainForm : XtraForm, IMainForm
 	{
+		private object currentMenuId = null;
 		private string currentFormName = string.Empty;
 		private XTree mainMenu = null;
 
@@ -46,7 +47,7 @@ namespace IKaan.Win.View.Forms
 
 			this.barManager.ItemClick += delegate (object sender, ItemClickEventArgs e) { ToolbarButtonClick(sender, e); };
 			this.navBarNavigate.LinkClicked += delegate (object sender, NavBarLinkEventArgs e) { NavBarNavigateLinkClicked(sender, e); };
-
+			
 			#region mdiManager Events
 			mdiManager.PageAdded += delegate (object sender, MdiTabPageEventArgs e)
 			{
@@ -213,9 +214,27 @@ namespace IKaan.Win.View.Forms
 			barPopupButtonRefresh.ItemClick += delegate (object sender, ItemClickEventArgs e)
 			{
 				LoadMainMenu();
-				LoadMenuGroup("navBarGroupSystem", "SYS");
-				LoadMenuGroup("navBarGroupDatabase", "RDS");
+				LoadBookmark();
+				//LoadMenuGroup("navBarGroupSystem", "SYS");
+				//LoadMenuGroup("navBarGroupDatabase", "RDS");
 			};
+			barPopupButtonAddBookmark.ItemClick += (object sender, ItemClickEventArgs e) =>
+			{
+				if (currentMenuId != null)
+				{
+					SaveBookmark();
+					currentMenuId = null;
+				}
+			};
+			barPopupButtonDeleteBookmark.ItemClick += (object sender, ItemClickEventArgs e) =>
+			{
+				if (currentMenuId != null)
+				{
+					DeleteBookmark();
+					currentMenuId = null;
+				}
+			};
+
 			#endregion
 
 			#region TabPage Close Popup Events
@@ -253,9 +272,8 @@ namespace IKaan.Win.View.Forms
 			try
 			{
 				if (sender == null)
-				{
 					return;
-				}
+				
 				if (e.Link.Item.Tag != null)
 				{
 					if (e.Link.Item.Tag is UMainMenu)
@@ -369,6 +387,51 @@ namespace IKaan.Win.View.Forms
 			}
 		}
 
+		private void SaveBookmark()
+		{
+			try
+			{
+				DataMap parameter = new DataMap()
+				{
+					{ "UserID", GlobalVar.UserInfo.UserId },
+					{ "MenuID", currentMenuId },
+					{ "SortOrder", 0 }
+				};
+				using (var res = WasHandler.Execute("AUTH", "SaveBookmark", "Insert", parameter))
+				{
+					if (res.Error.Number != 0)
+						throw new Exception(res.Error.Message);
+				}
+				LoadBookmark();
+			}
+			catch (Exception ex)
+			{
+				MsgBox.Show(ex);
+			}
+		}
+
+		private void DeleteBookmark()
+		{
+			try
+			{
+				DataMap parameter = new DataMap()
+				{
+					{ "UserID", GlobalVar.UserInfo.UserId },
+					{ "MenuID", currentMenuId }
+				};
+				using (var res = WasHandler.Execute("AUTH", "SaveBookmark", "Delete", parameter))
+				{
+					if (res.Error.Number != 0)
+						throw new Exception(res.Error.Message);
+				}
+				LoadBookmark();
+			}
+			catch (Exception ex)
+			{
+				MsgBox.Show(ex);
+			}
+		}
+
 		protected override void OnLoad(EventArgs e)
 		{
 			base.OnLoad(e);
@@ -444,8 +507,8 @@ namespace IKaan.Win.View.Forms
 				{
 					Name = "navBarGroupBookmark",
 					Caption = "Bookmark",
-					SmallImage = MenuResource.menu_system_16x16,
-					LargeImage = MenuResource.menu_system_32x32
+					SmallImage = MenuResource.favorite_16x16,
+					LargeImage = MenuResource.favorite_32x32
 				};
 
 				navBarNavigate.OptionsNavPane.ShowExpandButton = false;
@@ -581,11 +644,22 @@ namespace IKaan.Win.View.Forms
 							{
 								if (info.HitInfoType == HitInfoType.Cell && info.Node.HasChildren == false)
 								{
-									barPopupButtonBookmark.Visibility = BarItemVisibility.Always;
+									if (info.Node.GetValue("BookmarkYn").ToStringNullToEmpty() == "N")
+									{
+										barPopupButtonAddBookmark.Visibility = BarItemVisibility.Always;
+										barPopupButtonDeleteBookmark.Visibility = BarItemVisibility.Never;
+									}
+									else
+									{
+										barPopupButtonAddBookmark.Visibility = BarItemVisibility.Never;
+										barPopupButtonDeleteBookmark.Visibility = BarItemVisibility.Always;
+									}
+									currentMenuId = info.Node.GetValue("MenuID");
 								}
 								else
 								{
-									barPopupButtonBookmark.Visibility = BarItemVisibility.Never;
+									barPopupButtonAddBookmark.Visibility = BarItemVisibility.Never;
+									barPopupButtonDeleteBookmark.Visibility = BarItemVisibility.Never;
 								}
 								popupMenuOfMainMenu.ShowPopup(MousePosition);
 							}
@@ -621,7 +695,8 @@ namespace IKaan.Win.View.Forms
 				#endregion
 
 				//Set Bookmark
-				LoadMenuGroup("navBarGroupBookmark", "Bookmark");
+				//LoadMenuGroup("navBarGroupBookmark", "Bookmark");
+				LoadBookmark();
 
 				navBarNavigate.EndUpdate();
 			}
@@ -878,7 +953,7 @@ namespace IKaan.Win.View.Forms
 						ToggleDockPanel(dockPanelLog);
 						break;
 					case "DOWNLOAD":
-						using (DownloadCodeForm form = new DownloadCodeForm())
+						using (DownloadForm form = new DownloadForm())
 						{
 							form.Text = "공통코드 다운로드";
 							form.StartPosition = FormStartPosition.CenterScreen;
@@ -1060,9 +1135,9 @@ namespace IKaan.Win.View.Forms
 			}
 		}
 
-		public void RefreshMainMenu() { }
-
-		public void RefreshBookmark() { }
+		public void RefreshMainMenu() { LoadMainMenu(); }
+		
+		public void RefreshBookmark() { LoadBookmark(); }
 
 		public void OpenSaleTran(object param = null)
 		{

@@ -16,12 +16,17 @@
 					,	AA.UpdatedBy
 					,	AA.UpdatedByName
 					
+					,	AA.Name
 					,	AA.EmployeeNo
-					,	AA.EmployeeName
+					,	AA.EmployeeType
+					,	AA.Email
+					,	AA.PhoneNo
+					,	AA.MobileNo
+					,	AA.FaxNo
 					,	AA.UseYn
-					,	AA.PersonID
+					,	AA.Description
 					
-					,	DD.DepartmentName
+					,	DD.Name			as DepartmentName
 					,	BB.Position
 					
 				FROM	dbo.TEmployee AA WITH (NOLOCK)
@@ -38,8 +43,8 @@
 			<isNotEmpty property="FindText">
 				<![CDATA[
 					AND	(
-							AA.EmployeeNo		LIKE '%' + #FindText# + '%' OR
-							AA.EmployeeName		LIKE '%' + #FindText# + '%'
+							AA.EmployeeNo	LIKE '%' + #FindText# + '%' OR
+							AA.Name			LIKE '%' + #FindText# + '%'
 						)
 				]]>
 			</isNotEmpty>
@@ -54,19 +59,7 @@
 		</select>
 		<select id="SelectEmployee" parameterClass="DataMap" resultClass="EmployeeModel" >
 			<![CDATA[
-				SELECT  AA.ID
-					,	AA.CreatedOn
-					,	AA.CreatedBy
-					,	AA.CreatedByName
-					,	AA.UpdatedOn
-					,	AA.UpdatedBy
-					,	AA.UpdatedByName
-					
-					,	AA.EmployeeNo
-					,	AA.EmployeeName
-					,	AA.UseYn
-					,	AA.PersonID
-					
+				SELECT  AA.*					
 				FROM	dbo.TEmployee AA WITH (NOLOCK)
 				WHERE	AA.ID = #ID#
 			]]>
@@ -76,12 +69,12 @@
 				INSERT INTO dbo.TEmployee
 				( 
 					CreatedOn, CreatedBy, CreatedByName,
-					EmployeeNo, EmployeeName, UseYn, PersonID
+					Name, EmployeeNo, EmployeeType, Email, PhoneNo, MobileNo, FaxNo, UseYn, Description
 				)
 				VALUES
 				(
 					GetDate(), #CreatedBy#, #CreatedByName#,
-					#EmployeeNo#, #EmployeeName#, #UseYn#, #PersonID#
+					#Name#, #EmployeeNo#, #EmployeeType#, #Email#, #PhoneNo#, #MobileNo#, #FaxNo#, #UseYn#, #Description#
 				)
 			]]>
 			<selectKey type="post" property="ID" resultClass="Int">
@@ -97,16 +90,20 @@
 					,	UpdatedBy		= #UpdatedBy#
 					,	UpdatedByName	= #UpdatedByName#
 					
+					,	Name			= #Name#
 					,	EmployeeNo		= #EmployeeNo#
-					,	EmployeeName	= #EmployeeName#
+					,	EmployeeType	= #EmployeeType#
+					,	Email			= #Email#
+					,	PhoneNo			= #PhoneNo#
+					,	MobileNo		= #MobileNo#
+					,	FaxNo			= #FaxNo#
 					,	UseYn			= #UseYn#
-					,	PersonID		= #PersonID#
+					,	Description		= #Description#
 				WHERE	ID				= #ID#
 			]]>
 		</update>
 		<delete id="DeleteEmployee" parameterClass="DataMap">
 			<![CDATA[
-				DELETE FROM dbo.TPerson		WHERE ID = #PersonID#;
 				DELETE FROM dbo.TEmployee	WHERE ID = #ID#;
 			]]>
 		</delete>

@@ -20,6 +20,7 @@
 					,	AA.ChannelID
 					,	AA.StartDate
 					,	AA.EndDate
+					,	AA.Description
 					
 					,	BB.CustomerName
 					,	CC.ChannelName
@@ -49,18 +50,7 @@
 		</select>
 		<select id="SelectCustomerChannel" parameterClass="DataMap" resultClass="CustomerChannelModel" >
 			<![CDATA[
-				SELECT  AA.ID
-					,	AA.CreatedOn
-					,	AA.CreatedBy
-					,	AA.CreatedByName
-					,	AA.UpdatedOn
-					,	AA.UpdatedBy
-					,	AA.UpdatedByName
-					
-					,	AA.CustomerID
-					,	AA.ChannelID
-					,	AA.StartDate
-					,	AA.EndDate
+				SELECT  AA.*
 					
 					,	BB.CustomerName
 					,	CC.ChannelName
@@ -80,12 +70,12 @@
 				INSERT INTO dbo.TCustomerChannel
 				( 
 					CreatedOn, CreatedBy, CreatedByName,
-					CustomerID, ChannelID, StartDate, EndDate
+					CustomerID, ChannelID, StartDate, EndDate, Description
 				)
 				VALUES
 				(
 					GetDate(), #CreatedBy#, #CreatedByName#,
-					#CustomerID#, #ChannelID#, #StartDate#, #EndDate#
+					#CustomerID#, #ChannelID#, #StartDate#, #EndDate#, #Description#
 				)
 			]]>
 			<selectKey type="post" property="ID" resultClass="Int">
@@ -105,6 +95,7 @@
 					,	ChannelID		= #ChannelID#	
 					,	StartDate		= #StartDate#
 					,	EndDate			= #EndDate#
+					,	Description		= #Description#
 				WHERE	ID				= #ID#
 			]]>
 		</update>

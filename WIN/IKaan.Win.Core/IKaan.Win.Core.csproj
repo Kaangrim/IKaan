@@ -360,6 +360,8 @@
     <Content Include="Resources\Icons\special-offer.ico" />
     <Content Include="Resources\Icons\suppliers.ico" />
     <Content Include="Resources\Icons\ticket.ico" />
+    <Content Include="Resources\Images\menus\favorite_16x16.png" />
+    <Content Include="Resources\Images\menus\favorite_32x32.png" />
     <Content Include="Resources\Images\menus\tree_file_16x16.png" />
     <Content Include="Resources\Images\menus\tree_up_16x16.png" />
     <Content Include="Resources\Images\menus\Window_16x16.png" />

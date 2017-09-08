@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectCompanyAddressList" parameterClass="DataMap" resultClass="CompanyAddressModel" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
+					,	AA.ID
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
+					
+					,	AA.CompanyID
+					,	AA.AddressID
+					,	AA.AddressType					
+					,	AA.Description
+					
+					,	M1.Name			as AddressTypeName
+					
+				FROM	dbo.TCompanyAddress AA WITH (NOLOCK)
+						LEFT JOIN
+							IKBase.dbo.TCode M1 WITH (NOLOCK)
+								ON AA.AddressType = M1.Code
+									AND M1.ParentCode = 'AddressType'
+				WHERE	AA.CompanyID = #CompanyID#
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectCompanyAddress" parameterClass="DataMap" resultClass="CompanyAddressModel" >
+			<![CDATA[
+				SELECT  AA.*					
+				FROM	dbo.TCompanyAddress AA WITH (NOLOCK)
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<insert id="InsertCompanyAddress" parameterClass="CompanyAddressModel" >
+			<![CDATA[
+				INSERT INTO dbo.TCompanyAddress
+				( 
+					CreatedOn, CreatedBy, CreatedByName,
+					CompanyID, AddressID, AddressType, Description
+				)
+				VALUES
+				(
+					GetDate(), #CreatedBy#, #CreatedByName#,
+					#CompanyID#, #AddressID#, #AddressType#, #Description#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateCompanyAddress" parameterClass="CompanyAddressModel">
+			<![CDATA[
+				UPDATE  dbo.TCompanyAddress
+				SET     UpdatedOn		= GetDate()
+					,	UpdatedBy		= #UpdatedBy#
+					,	UpdatedByName	= #UpdatedByName#
+					
+					,	CompanyID		= #CompanyID#
+					,	AddressID		= #AddressID#
+					,	AddressType		= #AddressType#
+					,	Description		= #Description#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
+		<delete id="DeleteCompanyAddress" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM dbo.TCompanyAddress WHERE ID = #ID#;
+			]]>
+		</delete>
+	</statements>
+</sqlMap>

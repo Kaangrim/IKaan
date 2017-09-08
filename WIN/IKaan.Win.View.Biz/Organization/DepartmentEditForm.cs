@@ -145,7 +145,7 @@ namespace IKaan.Win.View.Biz.Organization
 			ClearControlData<DepartmentModel>();
 			txtManagerID.Clear();
 
-			gridHistory.Clear<DepartmentHistModel>();
+			gridHistory.Clear<DepartmentHistoryModel>();
 			gridAppointment.Clear<AppointmentModel>();
 
 			SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true });
@@ -181,7 +181,7 @@ namespace IKaan.Win.View.Biz.Organization
 
 				if (model != null)
 				{
-					gridHistory.DataSource = model.History;
+					gridHistory.DataSource = model.Histories;
 					gridAppointment.DataSource = model.Appointments;
 				}
 

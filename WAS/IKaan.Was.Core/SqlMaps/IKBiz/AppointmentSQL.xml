@@ -55,22 +55,7 @@
 		</select>
 		<select id="SelectAppointment" parameterClass="DataMap" resultClass="AppointmentModel" >
 			<![CDATA[
-				SELECT  AA.ID
-					,	AA.CreatedOn
-					,	AA.CreatedBy
-					,	AA.CreatedByName
-					,	AA.UpdatedOn
-					,	AA.UpdatedBy
-					,	AA.UpdatedByName
-					
-					,	AA.EmployeeID
-					,	AA.DepartmentID
-					,	AA.MainYn
-					,	AA.Position
-					,	AA.StartDate
-					,	AA.EndDate
-					,	AA.Description
-					
+				SELECT  *					
 				FROM	dbo.TAppointment AA WITH (NOLOCK)
 				WHERE	AA.ID = #ID#
 			]]>

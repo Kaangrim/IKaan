@@ -17,10 +17,6 @@ namespace IKaan.Model.Biz
 		public int? BrandID { get; set; }
 
 		[DataMember]
-		[Display(Name = "담당자ID")]
-		public int? PersonID { get; set; }
-
-		[DataMember]
 		[Display(Name = "시작일")]
 		public DateTime? StartDate { get; set; }
 
@@ -29,15 +25,11 @@ namespace IKaan.Model.Biz
 		public DateTime? EndDate { get; set; }
 
 		[DataMember]
-		[Display(Name = "거래처명")]
-		public string CustomerName { get; set; }
+		[Display(Name = "설명")]
+		public string Description { get; set; }
 
 		[DataMember]
 		[Display(Name = "브랜드명")]
 		public string BrandName { get; set; }
-
-		[DataMember]
-		[Display(Name = "담당자명")]
-		public string PersonName { get; set; }
 	}
 }

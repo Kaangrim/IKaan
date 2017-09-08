@@ -12,11 +12,15 @@ namespace IKaan.Model.Biz
 		public int? BrandID { get; set; }
 
 		[DataMember]
+		[Display(Name = "이미지ID")]
+		public int? ImageID { get; set; }
+
+		[DataMember]
 		[Display(Name = "이미지구분")]
 		public string ImageType { get; set; }
 
 		[DataMember]
-		[Display(Name = "이미지URL")]
-		public string ImageUrl { get; set; }
+		[Display(Name = "이미지")]
+		public ImageModel Image { get; set; }
 	}
 }

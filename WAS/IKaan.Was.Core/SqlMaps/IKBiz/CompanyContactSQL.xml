@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectCompanyContactList" parameterClass="DataMap" resultClass="CompanyContactModel" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID)	AS RowNo
+					,	AA.ID
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
+					
+					,	AA.CompanyID
+					,	AA.ContactID
+					,	AA.Position
+					,	AA.AssignedTask
+					,	AA.Description
+					
+					,	BB.Name				as ContactName
+					,	BB.ContactType
+					,	BB.Email
+					,	BB.PhoneNo
+					,	BB.MobileNo
+					,	BB.FaxNo
+					
+				FROM	dbo.TCompanyContact AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.TContact BB WITH (NOLOCK)
+								ON AA.ContactID = BB.ID
+						LEFT JOIN
+							IKBase.dbo.TCode CC with (nolock)
+								ON BB.ContactType = CC.Code
+									AND CC.ParentCode = 'ContactType'
+				WHERE	AA.CompanyID = #CompanyID#
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectCompanyContact" parameterClass="DataMap" resultClass="CompanyContactModel" >
+			<![CDATA[
+				SELECT  AA.*
+					
+					,	PP.Name			as ContactName
+					,	PP.ContactType
+					,	PP.Email
+					,	PP.PhoneNo
+					,	PP.MobileNo
+					,	PP.FaxNo
+					
+				FROM	dbo.TCompanyContact AA WITH (NOLOCK)
+						LEFT JOIN
+							IKBiz.dbo.TContact PP WITH (NOLOCK)
+								ON AA.ContactID = PP.ID
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<insert id="InsertCompanyContact" parameterClass="CompanyContactModel" >
+			<![CDATA[
+				INSERT INTO dbo.TCompanyContact
+				( 
+					CreatedOn, CreatedBy, CreatedByName,
+					CompanyID, ContactID, Position, AssignedTask, Description
+				)
+				VALUES
+				(
+					GetDate(), #CreatedBy#, #CreatedByName#,
+					#CompanyID#, #ContactID#, #Position#, #AssignedTask#, #Description#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateCompanyContact" parameterClass="CompanyContactModel">
+			<![CDATA[
+				UPDATE  dbo.TCompanyContact
+				SET     UpdatedOn		= GetDate()
+					,	UpdatedBy		= #UpdatedBy#
+					,	UpdatedByName	= #UpdatedByName#
+					
+					,	CompanyID		= #CompanyID#
+					,	ContactID		= #ContactID#
+					,	Position		= #Position#
+					,	AssignedTask	= #AssignedTask#
+					,	Description		= #Description#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
+		<delete id="DeleteCompanyContact" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM dbo.TCompanyContact WHERE ID = #ID#;
+			]]>
+		</delete>
+	</statements>
+</sqlMap>

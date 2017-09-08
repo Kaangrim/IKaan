@@ -16,9 +16,9 @@
 					,	AA.UpdatedBy
 					,	AA.UpdatedByName
 					
+					,	AA.Name
 					,	AA.BizType					
 					,	AA.BizNo
-					,	AA.BizName
 					,	AA.RepName
 					,	AA.BizKind
 					,	AA.BizItem
@@ -36,8 +36,8 @@
 			<isNotEmpty property="FindText">
 				<![CDATA[
 					AND	(
-							AA.BizNo	LIKE '%' + #FindText# + '%' OR
-							AA.BizName	LIKE '%' + #FindText# + '%' OR
+							AA.Name		LIKE '%' + #FindText# + '%' OR
+							AA.BizNo	LIKE '%' + #FindText# + '%' OR							
 							AA.RepName	LIKE '%' + #FindText# + '%' OR
 							AA.BizKind	LIKE '%' + #FindText# + '%' OR
 							AA.BizItem	LIKE '%' + #FindText# + '%'
@@ -60,35 +60,8 @@
 		</select>
 		<select id="SelectBusiness" parameterClass="DataMap" resultClass="BusinessModel" >
 			<![CDATA[
-				SELECT  AA.ID
-					,	AA.CreatedOn
-					,	AA.CreatedBy
-					,	AA.CreatedByName
-					,	AA.UpdatedOn
-					,	AA.UpdatedBy
-					,	AA.UpdatedByName
-					
-					,	AA.BizType
-					,	AA.BizNo
-					,	AA.BizName
-					,	AA.RepName
-					,	AA.BizKind
-					,	AA.BizItem
-					,	AA.Status
-					,	AA.Email
-					,	AA.ImageUrl
-					,	AA.AddressID
-					,	BB.PostalCode
-					,	BB.City
-					,	BB.StateProvince
-					,	BB.Country
-					,	BB.AddressLine1
-					,	BB.AddressLine2
-					
+				SELECT	*
 				FROM	dbo.TBusiness AA WITH (NOLOCK)
-						LEFT JOIN
-							dbo.TAddress BB WITH (NOLOCK)
-								ON AA.AddressID = BB.ID
 				WHERE	AA.ID = #ID#
 			]]>
 		</select>
@@ -97,12 +70,12 @@
 				INSERT INTO dbo.TBusiness
 				( 
 					CreatedOn, CreatedBy, CreatedByName,
-					BizType, BizNo, BizName, RepName, BizKind, BizItem, AddressID, Status, ImageUrl, Email
+					Name, BizType, BizNo, RepName, BizKind, BizItem, AddressID, Status, Email, ImageID
 				)
 				VALUES
 				(
 					GetDate(), #CreatedBy#, #CreatedByName#,
-					#BizType#, #BizNo#, #BizName#, #RepName#, #BizKind#, #BizItem#, #AddressID#, #Status#, #ImageUrl#, #Email#
+					#Name#, #BizType#, #BizNo#, #RepName#, #BizKind#, #BizItem#, #AddressID#, #Status#, #Email#, #ImageID#
 				)
 			]]>
 			<selectKey type="post" property="ID" resultClass="Int">
@@ -118,35 +91,26 @@
 					,	UpdatedBy		= #UpdatedBy#
 					,	UpdatedByName	= #UpdatedByName#
 					
+					,	Name			= #Name#
 					,	BizType			= #BizType#
 					,	BizNo			= #BizNo#
-					,	BizName			= #BizName#
 					,	RepName			= #RepName#
 					,	BizKind			= #BizKind#
 					,	BizItem			= #BizItem#
 					,	Status			= #Status#
 					,	AddressID		= #AddressID#
-					,	ImageUrl		= #ImageUrl#
 					,	Email			= #Email#
+					,	ImageID			= #ImageID#
 				WHERE	ID				= #ID#
 			]]>
 		</update>
 		<delete id="DeleteBusiness" parameterClass="DataMap">
 			<![CDATA[
-				DELETE 
-				FROM	dbo.TAddress 
-				WHERE	ID = 
-							(	SELECT	AddressID 
-								FROM	dbo.TBusiness 
-								WHERE	ID = #ID#
-							);
-				DELETE 
-				FROM	dbo.TBusiness 
-				WHERE	ID = #ID#;
+				DELETE FROM dbo.TBusiness WHERE ID = #ID#;
 			]]>
 		</delete>
 
-		<select id="SelectBusinessCustomerList" parameterClass="DataMap" resultClass="CustomerBusinessModel" >
+		<select id="SelectBusinessLinks" parameterClass="DataMap" resultClass="BusinessLinksModel" >
 			<![CDATA[
 				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
 					,	AA.ID
@@ -157,17 +121,68 @@
 					,	AA.UpdatedBy
 					,	AA.UpdatedByName
 					
-					,	AA.BusinessID
-					,	AA.CustomerID
-					,	BB.CustomerName
+					,	AA.LinkType
+					,	AA.LinkID
+					,	AA.LinkName
 					,	AA.StartDate
 					,	AA.EndDate
 					
-				FROM	dbo.TCustomerBusiness AA WITH (NOLOCK)
-						LEFT JOIN
-							dbo.TCustomer BB WITH (NOLOCK)
-								ON AA.CustomerID = BB.ID
-				WHERE	AA.BusinessID = #BusinessID#
+				FROM	(
+							SELECT	AA.ID
+								,	AA.CreatedOn
+								,	AA.CreatedBy
+								,	AA.CreatedByName
+								,	AA.UpdatedOn
+								,	AA.UpdatedBy
+								,	AA.UpdatedByName
+								,	'Company'			as LinkType
+								,	AA.CompanyID		as LinkID
+								,	BB.Name				as LinkName
+								,	AA.StartDate
+								,	AA.EndDate
+							FROM	dbo.TCompanyBusiness AA WITH (NOLOCK)
+									INNER JOIN
+										dbo.TCompany BB WITH (NOLOCK)
+											ON AA.CompanyID = BB.ID
+							WHERE	AA.BusinessID = #BusinessID#
+							UNION ALL
+							SELECT	AA.ID
+								,	AA.CreatedOn
+								,	AA.CreatedBy
+								,	AA.CreatedByName
+								,	AA.UpdatedOn
+								,	AA.UpdatedBy
+								,	AA.UpdatedByName
+								,	'Customer'			as LinkType
+								,	AA.CustomerID		as LinkID
+								,	BB.Name				as LinkName
+								,	AA.StartDate
+								,	AA.EndDate
+							FROM	dbo.TCustomerBusiness AA WITH (NOLOCK)
+									INNER JOIN
+										dbo.TCustomer BB WITH (NOLOCK)
+											ON AA.CustomerID = BB.ID
+							WHERE	AA.BusinessID = #BusinessID#
+							UNION ALL
+							SELECT	AA.ID
+								,	AA.CreatedOn
+								,	AA.CreatedBy
+								,	AA.CreatedByName
+								,	AA.UpdatedOn
+								,	AA.UpdatedBy
+								,	AA.UpdatedByName
+								,	'Partner'			as LinkType
+								,	AA.PartnerID		as LinkID
+								,	BB.Name				as LinkName
+								,	AA.StartDate
+								,	AA.EndDate
+							FROM	dbo.TPartnerBusiness AA WITH (NOLOCK)
+									INNER JOIN
+										dbo.TPartner BB WITH (NOLOCK)
+											ON AA.PartnerID = BB.ID
+							WHERE	AA.BusinessID = #BusinessID#
+						) AA
+				WHERE	1=1	
 				ORDER BY RowNo
 			]]>
 		</select>

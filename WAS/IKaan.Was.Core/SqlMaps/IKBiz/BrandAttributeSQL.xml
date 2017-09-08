@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectBrandAttributeList" parameterClass="DataMap" resultClass="BrandAttributeModel" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID)	AS RowNo
+					,	AA.ID
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
+					
+					,	AA.BrandID
+					,	AA.AttributeTypeID
+					,	AA.AttributeID
+					,	AA.AttributeName
+					
+					,	BB.AttributeTypeName
+					,	CC.AttributeItemName
+					
+				FROM	dbo.TBrandAttribute AA WITH (NOLOCK)
+						INNER JOIN
+							dbo.TAttributeType BB WITH (NOLOCK)
+								ON AA.AttributeTypeID = BB.ID
+						INNER JOIN
+							dbo.TAttribute CC WITH (NOLOCK)
+								ON AA.AttributeID = CC.ID
+				WHERE	AA.BrandID = #BrandID#
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectBrandAttribute" parameterClass="DataMap" resultClass="BrandAttributeModel" >
+			<![CDATA[
+				SELECT  *					
+				FROM	dbo.TBrandAttribute AA WITH (NOLOCK)
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<insert id="InsertBrandAttribute" parameterClass="BrandAttributeModel" >
+			<![CDATA[
+				INSERT INTO dbo.TBrandAttribute
+				( 
+					CreatedOn, CreatedBy, CreatedByName,
+					BrandID, AttributeTypeID, AttributeID, AttributeName
+				)
+				VALUES
+				(
+					GetDate(), #CreatedBy#, #CreatedByName#,
+					#BrandID#, #AttributeTypeID#, #AttributeID#, #AttributeName#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateBrandAttribute" parameterClass="BrandAttributeModel">
+			<![CDATA[
+				UPDATE  dbo.TBrandAttribute
+				SET     UpdatedOn		= GetDate()
+					,	UpdatedBy		= #UpdatedBy#
+					,	UpdatedByName	= #UpdatedByName#
+					
+					,	BrandID			= #BrandID#
+					,	AttributeTypeID	= #AttributeTypeID#
+					,	AttributeID		= #AttributeID#
+					,	AttributeName	= #AttributeName#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
+		<delete id="DeleteBrandAttribute" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM dbo.TBrandAttribute WHERE ID = #ID#;
+			]]>
+		</delete>
+	</statements>
+</sqlMap>

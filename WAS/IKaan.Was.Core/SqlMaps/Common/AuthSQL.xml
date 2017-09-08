@@ -75,15 +75,18 @@
 					,	DD.Namespace	as Namespace
 					,	DD.Instance		as Instance
 					,	DD.ViewType		as ViewType
-					,	'N'				AS BookmarkYn
+					,	CASE
+							WHEN TB.ID IS NULL THEN 'N'
+							ELSE 'Y'
+						END				as BookmarkYn
 					,	ISNULL((	SELECT	COUNT(*)
 									FROM	dbo.TMenu BB
-									WHERE	BB.ParentID = AA.ID), 0)	AS ChildCount
+									WHERE	BB.ParentID = AA.ID), 0)	as ChildCount
 					,	CASE 
 							WHEN DD.ID IS NULL THEN 'N'
 							ELSE 'Y'
-						END				AS ViewYn
-					,	'N'				AS EditYn
+						END				as ViewYn
+					,	'N'				as EditYn
 				FROM	dbo.TMenu AA WITH (NOLOCK)
 						INNER JOIN 
 							MenuList BB 
@@ -97,6 +100,10 @@
 						LEFT JOIN
 							dbo.TModule FF WITH (NOLOCK)
 								ON DD.ModuleID = FF.ID
+						LEFT JOIN
+							dbo.TBookmark TB WITH (NOLOCK)
+								ON AA.ID = TB.MenuID
+									AND TB.UserID = #UserID#
 				WHERE	1=1
 				ORDER BY 
 					BB.HierID

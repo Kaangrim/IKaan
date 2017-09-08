@@ -11,7 +11,7 @@ namespace IKaan.Model.Biz
 	{
 		[DataMember]
 		[Display(Name = "부서명")]
-		public string DepartmentName { get; set; }
+		public string Name { get; set; }
 
 		[DataMember]
 		[Display(Name = "상위ID")]
@@ -47,7 +47,7 @@ namespace IKaan.Model.Biz
 
 		[DataMember]
 		[Display(Name = "변동이력")]
-		public IList<DepartmentHistModel> History { get; set; }
+		public IList<DepartmentHistoryModel> Histories { get; set; }
 
 		[DataMember]
 		[Display(Name = "사원목록")]
@@ -55,7 +55,7 @@ namespace IKaan.Model.Biz
 
 		public DepartmentModel()
 		{
-			History = new List<DepartmentHistModel>();
+			Histories = new List<DepartmentHistoryModel>();
 			Appointments = new List<AppointmentModel>();
 		}
 	}

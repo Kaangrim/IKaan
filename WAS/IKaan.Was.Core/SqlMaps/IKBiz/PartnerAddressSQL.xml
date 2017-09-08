@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectPartnerAddressList" parameterClass="DataMap" resultClass="PartnerAddressModel" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
+					,	AA.ID
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
+					
+					,	AA.PartnerID
+					,	AA.AddressID
+					,	AA.AddressType
+					,	AA.Description
+					
+					,	M1.Name			as AddressTypeName
+					
+					,	BB.PostalCode
+					,	BB.Country
+					,	BB.City
+					,	BB.StateProvince
+					,	BB.AddressLine1
+					,	BB.AddressLine2
+					
+				FROM	dbo.TPartnerAddress AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.TAddress BB WITH (NOLOCK)
+								ON AA.AddressID = BB.ID
+						LEFT JOIN
+							IKBase.dbo.TCode M1 WITH (NOLOCK)
+								ON AA.AddressType = M1.Code
+									AND M1.ParentCode = 'AddressType'
+				WHERE	AA.PartnerID = #PartnerID#
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectPartnerAddress" parameterClass="DataMap" resultClass="PartnerAddressModel" >
+			<![CDATA[
+				SELECT  AA.*
+					
+					,	BB.PostalCode
+					,	BB.Country
+					,	BB.City
+					,	BB.StateProvince
+					,	BB.AddressLine1
+					,	BB.AddressLine2
+					
+				FROM	dbo.TPartnerAddress AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.TAddress BB WITH (NOLOCK)
+								ON AA.AddressID = BB.ID
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<insert id="InsertPartnerAddress" parameterClass="PartnerAddressModel" >
+			<![CDATA[
+				INSERT INTO dbo.TPartnerAddress
+				( 
+					CreatedOn, CreatedBy, CreatedByName,
+					PartnerID, AddressID, AddressType, Description
+				)
+				VALUES
+				(
+					GetDate(), #CreatedBy#, #CreatedByName#,
+					#PartnerID#, #AddressID#, #AddressType#, #Description#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdatePartnerAddress" parameterClass="PartnerAddressModel">
+			<![CDATA[
+				UPDATE  dbo.TPartnerAddress
+				SET     UpdatedOn		= GetDate()
+					,	UpdatedBy		= #UpdatedBy#
+					,	UpdatedByName	= #UpdatedByName#
+					
+					,	PartnerID		= #PartnerID#
+					,	AddressID		= #AddressID#
+					,	AddressType		= #AddressType#
+					,	Description		= #Description#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
+		<delete id="DeletePartnerAddress" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM dbo.TPartnerAddress WHERE ID = #ID#;
+			]]>
+		</delete>
+	</statements>
+</sqlMap>

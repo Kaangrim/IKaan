@@ -63,6 +63,26 @@ namespace IKaan.Win.Core.Resources {
         /// <summary>
         ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
         /// </summary>
+        public static System.Drawing.Bitmap favorite_16x16 {
+            get {
+                object obj = ResourceManager.GetObject("favorite_16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
+        public static System.Drawing.Bitmap favorite_32x32 {
+            get {
+                object obj = ResourceManager.GetObject("favorite_32x32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        /// </summary>
         public static System.Drawing.Bitmap menu_analysis_16x16 {
             get {
                 object obj = ResourceManager.GetObject("menu_analysis_16x16", resourceCulture);

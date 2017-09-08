@@ -20,9 +20,10 @@
 					,	AA.BusinessID
 					,	AA.StartDate
 					,	AA.EndDate
+					,	AA.Description
 					
+					,	BB.Name				as BizName
 					,	BB.BizNo
-					,	BB.BizName
 					,	BB.RepName
 					
 					,	CC.CustomerName
@@ -52,19 +53,7 @@
 		</select>
 		<select id="SelectCustomerBusiness" parameterClass="DataMap" resultClass="CustomerBusinessModel" >
 			<![CDATA[
-				SELECT  AA.ID
-					,	AA.CreatedOn
-					,	AA.CreatedBy
-					,	AA.CreatedByName
-					,	AA.UpdatedOn
-					,	AA.UpdatedBy
-					,	AA.UpdatedByName
-					
-					,	AA.CustomerID
-					,	AA.BusinessID
-					,	AA.StartDate
-					,	AA.EndDate
-					
+				SELECT  AA.*					
 				FROM	dbo.TCustomerBusiness AA WITH (NOLOCK)
 				WHERE	AA.ID = #ID#
 			]]>
@@ -74,12 +63,12 @@
 				INSERT INTO dbo.TCustomerBusiness
 				( 
 					CreatedOn, CreatedBy, CreatedByName,
-					CustomerID, BusinessID, StartDate, EndDate
+					CustomerID, BusinessID, StartDate, EndDate, Description
 				)
 				VALUES
 				(
 					GetDate(), #CreatedBy#, #CreatedByName#,
-					#CustomerID#, #BusinessID#, #StartDate#, #EndDate#
+					#CustomerID#, #BusinessID#, #StartDate#, #EndDate#, #Description#
 				)
 			]]>
 			<selectKey type="post" property="ID" resultClass="Int">
@@ -99,6 +88,7 @@
 					,	BusinessID		= #BusinessID#
 					,	StartDate		= #StartDate#
 					,	EndDate			= #EndDate#
+					,	Description		= #Description#
 				WHERE	ID				= #ID#
 			]]>
 		</update>
@@ -110,19 +100,7 @@
 
 		<select id="SelectCustomerBusinessDuplicate" parameterClass="DataMap" resultClass="CustomerBusinessModel" >
 			<![CDATA[
-				SELECT  AA.ID
-					,	AA.CreatedOn
-					,	AA.CreatedBy
-					,	AA.CreatedByName
-					,	AA.UpdatedOn
-					,	AA.UpdatedBy
-					,	AA.UpdatedByName
-					
-					,	AA.CustomerID
-					,	AA.BusinessID
-					,	AA.StartDate
-					,	AA.EndDate
-					
+				SELECT  AA.*					
 				FROM	dbo.TCustomerBusiness AA WITH (NOLOCK)
 				WHERE	AA.CustomerID	= #CustomerID#
 				AND		AA.StartDate	= #StartDate# 
@@ -130,19 +108,7 @@
 		</select>
 		<select id="SelectCustomerBusinessBefore" parameterClass="DataMap" resultClass="CustomerBusinessModel" >
 			<![CDATA[
-				SELECT  AA.ID
-					,	AA.CreatedOn
-					,	AA.CreatedBy
-					,	AA.CreatedByName
-					,	AA.UpdatedOn
-					,	AA.UpdatedBy
-					,	AA.UpdatedByName
-					
-					,	AA.CustomerID
-					,	AA.BusinessID
-					,	AA.StartDate
-					,	AA.EndDate
-					
+				SELECT  AA.*					
 				FROM	dbo.TCustomerBusiness AA WITH (NOLOCK)
 				WHERE	AA.CustomerID	= #CustomerID#
 				AND		AA.StartDate	= (	SELECT	MAX(StartDate)
@@ -153,19 +119,7 @@
 		</select>
 		<select id="SelectCustomerBusinessAfter" parameterClass="DataMap" resultClass="CustomerBusinessModel" >
 			<![CDATA[
-				SELECT  AA.ID
-					,	AA.CreatedOn
-					,	AA.CreatedBy
-					,	AA.CreatedByName
-					,	AA.UpdatedOn
-					,	AA.UpdatedBy
-					,	AA.UpdatedByName
-					
-					,	AA.CustomerID
-					,	AA.BusinessID
-					,	AA.StartDate
-					,	AA.EndDate
-					
+				SELECT  AA.*					
 				FROM	dbo.TCustomerBusiness AA WITH (NOLOCK)
 				WHERE	AA.CustomerID	= #CustomerID#
 				AND		AA.StartDate	= (	SELECT	MIN(StartDate)

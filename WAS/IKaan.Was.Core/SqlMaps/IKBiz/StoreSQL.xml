@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectStoreList" parameterClass="DataMap" resultClass="StoreModel" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
+					,	AA.ID
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
+					
+					,	AA.Name
+					,	AA.StoreType
+					,	AA.Url
+					,	AA.Hosts
+					,	AA.Description
+					,	AA.ImageID
+					
+					,	M1.Name			as StoreTypeName
+					
+				FROM	dbo.TStore AA WITH (NOLOCK)
+						LEFT JOIN
+							IKBase.dbo.TCode M1 WITH (NOLOCK)
+								ON AA.StoreType = M1.Code
+									AND M1.ParentCode = 'StoreType'
+				WHERE	1=1
+			]]>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	AA.Name	LIKE '%' + #FindText# + '%'
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectStore" parameterClass="DataMap" resultClass="StoreModel" >
+			<![CDATA[
+				SELECT  *					
+				FROM	dbo.TStore AA WITH (NOLOCK)
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<insert id="InsertStore" parameterClass="StoreModel" >
+			<![CDATA[
+				INSERT INTO dbo.TStore
+				( 
+					CreatedOn, CreatedBy, CreatedByName,
+					Name, StoreType, Url, Hosts, Description, ImageID
+				)
+				VALUES
+				(
+					GetDate(), #CreatedBy#, #CreatedByName#,
+					#Name#, #StoreType#, #Url#, #Hosts#, #Description#, #ImageID#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateStore" parameterClass="StoreModel">
+			<![CDATA[
+				UPDATE  dbo.TStore
+				SET     UpdatedOn		= GetDate()
+					,	UpdatedBy		= #UpdatedBy#
+					,	UpdatedByName	= #UpdatedByName#
+					
+					,	Name			= #Name#
+					,	StoreType		= #StoreType#					
+					,	Url				= #Url#
+					,	Hosts			= #Hosts#
+					,	Description		= #Description#
+					,	ImageID			= #ImageID#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
+		<delete id="DeleteStore" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM dbo.TStore WHERE ID = #ID#;
+			]]>
+		</delete>
+	</statements>
+</sqlMap>

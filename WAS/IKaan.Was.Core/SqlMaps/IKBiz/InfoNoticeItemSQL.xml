@@ -16,7 +16,7 @@
 					,	AA.UpdatedBy
 					,	AA.UpdatedByName
 					
-					,	AA.ItemName
+					,	AA.Name
 					,	AA.InfoNoticeID
 					,	AA.UseYn
 					,	AA.SortOrder
@@ -28,19 +28,7 @@
 		</select>
 		<select id="SelectInfoNoticeItem" parameterClass="DataMap" resultClass="InfoNoticeItemModel" >
 			<![CDATA[
-				SELECT  AA.ID
-					,	AA.CreatedOn
-					,	AA.CreatedBy
-					,	AA.CreatedByName
-					,	AA.UpdatedOn
-					,	AA.UpdatedBy
-					,	AA.UpdatedByName
-					
-					,	AA.ItemName
-					,	AA.InfoNoticeID
-					,	AA.UseYn
-					,	Aa.SortOrder
-					
+				SELECT  AA.*					
 				FROM	dbo.TInfoNoticeItem AA WITH (NOLOCK)
 				WHERE	AA.ID = #ID#
 			]]>
@@ -50,12 +38,12 @@
 				INSERT INTO dbo.TInfoNoticeItem
 				( 
 					CreatedOn, CreatedBy, CreatedByName,
-					ItemName, InfoNoticeID, UseYn, SortOrder
+					Name, InfoNoticeID, UseYn, SortOrder
 				)
 				VALUES
 				(
 					GetDate(), #CreatedBy#, #CreatedByName#,
-					#ItemName#, #InfoNoticeID#, #UseYn#, #SortOrder#
+					#Name#, #InfoNoticeID#, #UseYn#, #SortOrder#
 				)
 			]]>
 			<selectKey type="post" property="ID" resultClass="Int">
@@ -71,7 +59,7 @@
 					,	UpdatedBy		= #UpdatedBy#
 					,	UpdatedByName	= #UpdatedByName#
 					
-					,	ItemName		= #ItemName#
+					,	Name			= #Name#
 					,	InfoNoticeID	= #InfoNoticeID#
 					,	UseYn			= #UseYn#
 					,	SortOrder		= #SortOrder#

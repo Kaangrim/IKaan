@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectAttributeTypeList" parameterClass="DataMap" resultClass="AttributeTypeModel" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID DESC)	AS RowNo
+					,	AA.ID
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
+					
+					,	AA.Name
+					,	AA.UseYn
+					,	AA.Description
+					
+				FROM	dbo.TAttributeType AA WITH (NOLOCK)
+				WHERE	1=1
+			]]>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	AA.Name LIKE '%'+#FindText#+'%'
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectAttributeType" parameterClass="DataMap" resultClass="AttributeTypeModel" >
+			<![CDATA[
+				SELECT  *					
+				FROM	dbo.TAttributeType AA WITH (NOLOCK)
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<insert id="InsertAttributeType" parameterClass="AttributeTypeModel" >
+			<![CDATA[
+				INSERT INTO dbo.TAttributeType
+				( 
+					CreatedOn, CreatedBy, CreatedByName,
+					Name, UseYn, Description
+				)
+				VALUES
+				(
+					GetDate(), #CreatedBy#, #CreatedByName#,					
+					#Name#, #UseYn#, #Description#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateAttributeType" parameterClass="AttributeTypeModel">
+			<![CDATA[
+				UPDATE  dbo.TAttributeType
+				SET     UpdatedOn		= GetDate()
+					,	UpdatedBy		= #UpdatedBy#
+					,	UpdatedByName	= #UpdatedByName#
+					
+					,	Name			= #Name#
+					,	UseYn			= #UseYn#
+					,	Description		= #Description#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
+		<delete id="DeleteAttributeType" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM dbo.TAttributeType WHERE ID = #ID#;
+			]]>
+		</delete>
+	</statements>
+</sqlMap>

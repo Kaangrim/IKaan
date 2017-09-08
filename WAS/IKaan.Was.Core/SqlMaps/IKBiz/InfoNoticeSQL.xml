@@ -16,7 +16,7 @@
 					,	AA.UpdatedBy
 					,	AA.UpdatedByName
 					
-					,	AA.InfoNoticeName
+					,	AA.Name
 					,	AA.UseYn
 					
 				FROM	dbo.TInfoNotice AA WITH (NOLOCK)
@@ -24,7 +24,7 @@
 			]]>
 			<isNotEmpty property="FindText">
 				<![CDATA[
-					AND	AA.InfoNoticeName	LIKE '%' + #FindText# + '%'
+					AND	AA.Name	LIKE '%' + #FindText# + '%'
 				]]>
 			</isNotEmpty>
 			<isNotEmpty property="UseYn">
@@ -38,17 +38,7 @@
 		</select>
 		<select id="SelectInfoNotice" parameterClass="DataMap" resultClass="InfoNoticeModel" >
 			<![CDATA[
-				SELECT  AA.ID
-					,	AA.CreatedOn
-					,	AA.CreatedBy
-					,	AA.CreatedByName
-					,	AA.UpdatedOn
-					,	AA.UpdatedBy
-					,	AA.UpdatedByName
-					
-					,	AA.InfoNoticeName
-					,	AA.UseYn
-					
+				SELECT  AA.*					
 				FROM	dbo.TInfoNotice AA WITH (NOLOCK)
 				WHERE	AA.ID = #ID#
 			]]>
@@ -58,12 +48,12 @@
 				INSERT INTO dbo.TInfoNotice
 				( 
 					CreatedOn, CreatedBy, CreatedByName,
-					InfoNoticeName, UseYn
+					Name, UseYn
 				)
 				VALUES
 				(
 					GetDate(), #CreatedBy#, #CreatedByName#,
-					#InfoNoticeName#, #UseYn#
+					#Name#, #UseYn#
 				)
 			]]>
 			<selectKey type="post" property="ID" resultClass="Int">
@@ -79,14 +69,13 @@
 					,	UpdatedBy		= #UpdatedBy#
 					,	UpdatedByName	= #UpdatedByName#
 					
-					,	InfoNoticeName	= #InfoNoticeName#
+					,	Name			= #Name#
 					,	UseYn			= #UseYn#
 				WHERE	ID				= #ID#
 			]]>
 		</update>
 		<delete id="DeleteInfoNotice" parameterClass="DataMap">
 			<![CDATA[
-				DELETE FROM dbo.TInfoNoticeItem WHERE InfoNoticeID = #ID#;
 				DELETE FROM	dbo.TInfoNotice		WHERE ID = #ID#;
 			]]>
 		</delete>

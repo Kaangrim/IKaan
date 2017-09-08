@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectPartnerManagerList" parameterClass="DataMap" resultClass="PartnerManagerModel" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID)	AS RowNo
+					,	AA.ID
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
+					
+					,	AA.PartnerID
+					,	AA.EmployeeID
+					,	AA.StartDate
+					,	AA.EndDate
+					,	AA.Description
+					
+					,	EE.Name			as EmployeeName
+					,	EE.EmployeeType
+					,	EE.EmployeeNo
+					,	EE.Email
+					,	EE.PhoneNo
+					,	EE.MobileNo
+					,	EE.FaxNo
+					
+					,	M1.Name			as EmployeeTypeName
+					
+				FROM	dbo.TPartnerManager AA WITH (NOLOCK)
+						INNER JOIN
+							dbo.TEmployee EE WITH (NOLOCK)
+								ON AA.EmployeeID = EE.ID
+						LEFT JOIN
+							IKBase.dbo.TCode M1 WITH (NOLOCK)
+								ON EE.EmployeeType = M1.Code
+									AND M1.ParentCode = 'EmployeeType'
+				WHERE	AA.PartnerID = #PartnerID#
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectPartnerManager" parameterClass="DataMap" resultClass="PartnerManagerModel" >
+			<![CDATA[
+				SELECT  AA.*					
+					,	EE.Name		as EmployeeName
+					
+				FROM	dbo.TPartnerManager AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.TEmployee EE WITH (NOLOCK)
+								ON AA.EmployeeID = EE.ID
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<insert id="InsertPartnerManager" parameterClass="PartnerManagerModel" >
+			<![CDATA[
+				INSERT INTO dbo.TPartnerManager
+				( 
+					CreatedOn, CreatedBy, CreatedByName,
+					PartnerID, EmployeeID, StartDate, EndDate, Description
+				)
+				VALUES
+				(
+					GetDate(), #CreatedBy#, #CreatedByName#,
+					#PartnerID#, #EmployeeID#, #StartDate#, #EndDate#, #Description#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdatePartnerManager" parameterClass="PartnerManagerModel">
+			<![CDATA[
+				UPDATE  dbo.TPartnerManager
+				SET     UpdatedOn		= GetDate()
+					,	UpdatedBy		= #UpdatedBy#
+					,	UpdatedByName	= #UpdatedByName#
+					
+					,	PartnerID		= #PartnerID#
+					,	EmployeeID		= #EmployeeID#
+					,	StartDate		= #StartDate#
+					,	EndDate			= #EndDate#
+					,	Description		= #Description#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
+		<delete id="DeletePartnerManager" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM dbo.TPartnerManager WHERE ID = #ID#;
+			]]>
+		</delete>
+
+		<select id="SelectPartnerManagerDuplicate" parameterClass="DataMap" resultClass="PartnerManagerModel" >
+			<![CDATA[
+				SELECT  AA.*					
+				FROM	dbo.TPartnerManager AA WITH (NOLOCK)
+				WHERE	AA.PartnerID = #PartnerID#
+				AND		AA.StartDate = #StartDate#
+			]]>
+		</select>
+		<select id="SelectPartnerManagerBefore" parameterClass="DataMap" resultClass="PartnerManagerModel" >
+			<![CDATA[
+				SELECT  AA.*					
+				FROM	dbo.TPartnerManager AA WITH (NOLOCK)
+				WHERE	AA.PartnerID = #PartnerID#
+				AND		AA.StartDate = (SELECT	MAX(StartDate)
+										FROM	dbo.TPartnerManager
+										WHERE	PartnerID = #PartnerID#
+										AND		StartDate < #StartDate# )
+			]]>
+		</select>
+		<select id="SelectPartnerManagerAfter" parameterClass="DataMap" resultClass="PartnerManagerModel" >
+			<![CDATA[
+				SELECT  AA.*					
+				FROM	dbo.TPartnerManager AA WITH (NOLOCK)
+				WHERE	AA.PartnerID = #PartnerID#
+				AND		AA.StartDate = (SELECT	MIN(StartDate)
+										FROM	dbo.TPartnerManager
+										WHERE	PartnerID = #PartnerID#
+										AND		StartDate > #StartDate# )
+			]]>
+		</select>
+		<update id="UpdatePartnerManagerEndDate" parameterClass="PartnerManagerModel">
+			<![CDATA[
+				UPDATE  dbo.TPartnerManager
+				SET     UpdatedOn		= GetDate()
+					,	UpdatedBy		= #UpdatedBy#
+					,	UpdatedByName	= #UpdatedByName#
+					,	EndDate			= #EndDate#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
+	</statements>
+</sqlMap>

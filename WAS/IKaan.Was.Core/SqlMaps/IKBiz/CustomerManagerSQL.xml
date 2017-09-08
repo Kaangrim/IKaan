@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectCustomerManagerList" parameterClass="DataMap" resultClass="CustomerManagerModel" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID)	AS RowNo
+					,	AA.ID
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
+					
+					,	AA.CustomerID
+					,	AA.EmployeeID
+					,	AA.StartDate
+					,	AA.EndDate
+					,	AA.Description
+					
+					,	EE.Name			as EmployeeName
+					,	EE.EmployeeType
+					,	EE.EmployeeNo
+					,	EE.Email
+					,	EE.PhoneNo
+					,	EE.MobileNo
+					,	EE.FaxNo
+					
+					,	M1.Name			as EmployeeTypeName
+					
+				FROM	dbo.TCustomerManager AA WITH (NOLOCK)
+						INNER JOIN
+							dbo.TEmployee EE WITH (NOLOCK)
+								ON AA.EmployeeID = EE.ID
+						LEFT JOIN
+							IKBase.dbo.TCode M1 WITH (NOLOCK)
+								ON EE.EmployeeType = M1.Code
+									AND M1.ParentCode = 'EmployeeType'
+				WHERE	AA.CustomerID = #CustomerID#
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectCustomerManager" parameterClass="DataMap" resultClass="CustomerManagerModel" >
+			<![CDATA[
+				SELECT  AA.*					
+					,	EE.Name		as EmployeeName
+					
+				FROM	dbo.TCustomerManager AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.TEmployee EE WITH (NOLOCK)
+								ON AA.EmployeeID = EE.ID
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<insert id="InsertCustomerManager" parameterClass="CustomerManagerModel" >
+			<![CDATA[
+				INSERT INTO dbo.TCustomerManager
+				( 
+					CreatedOn, CreatedBy, CreatedByName,
+					CustomerID, EmployeeID, StartDate, EndDate, Description
+				)
+				VALUES
+				(
+					GetDate(), #CreatedBy#, #CreatedByName#,
+					#CustomerID#, #EmployeeID#, #StartDate#, #EndDate#, #Description#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateCustomerManager" parameterClass="CustomerManagerModel">
+			<![CDATA[
+				UPDATE  dbo.TCustomerManager
+				SET     UpdatedOn		= GetDate()
+					,	UpdatedBy		= #UpdatedBy#
+					,	UpdatedByName	= #UpdatedByName#
+					
+					,	CustomerID		= #CustomerID#
+					,	EmployeeID		= #EmployeeID#
+					,	StartDate		= #StartDate#
+					,	EndDate			= #EndDate#
+					,	Description		= #Description#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
+		<delete id="DeleteCustomerManager" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM dbo.TCustomerManager WHERE ID = #ID#;
+			]]>
+		</delete>
+
+		<select id="SelectCustomerManagerDuplicate" parameterClass="DataMap" resultClass="CustomerManagerModel" >
+			<![CDATA[
+				SELECT  AA.*					
+				FROM	dbo.TCustomerManager AA WITH (NOLOCK)
+				WHERE	AA.CustomerID = #CustomerID#
+				AND		AA.StartDate = #StartDate#
+			]]>
+		</select>
+		<select id="SelectCustomerManagerBefore" parameterClass="DataMap" resultClass="CustomerManagerModel" >
+			<![CDATA[
+				SELECT  AA.*					
+				FROM	dbo.TCustomerManager AA WITH (NOLOCK)
+				WHERE	AA.CustomerID = #CustomerID#
+				AND		AA.StartDate = (SELECT	MAX(StartDate)
+										FROM	dbo.TCustomerManager
+										WHERE	CustomerID = #CustomerID#
+										AND		StartDate < #StartDate# )
+			]]>
+		</select>
+		<select id="SelectCustomerManagerAfter" parameterClass="DataMap" resultClass="CustomerManagerModel" >
+			<![CDATA[
+				SELECT  AA.*					
+				FROM	dbo.TCustomerManager AA WITH (NOLOCK)
+				WHERE	AA.CustomerID = #CustomerID#
+				AND		AA.StartDate = (SELECT	MIN(StartDate)
+										FROM	dbo.TCustomerManager
+										WHERE	CustomerID = #CustomerID#
+										AND		StartDate > #StartDate# )
+			]]>
+		</select>
+		<update id="UpdateCustomerManagerEndDate" parameterClass="CustomerManagerModel">
+			<![CDATA[
+				UPDATE  dbo.TCustomerManager
+				SET     UpdatedOn		= GetDate()
+					,	UpdatedBy		= #UpdatedBy#
+					,	UpdatedByName	= #UpdatedByName#
+					,	EndDate			= #EndDate#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
+	</statements>
+</sqlMap>
