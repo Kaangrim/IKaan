@@ -17,6 +17,7 @@
 					,	AA.UpdatedByName
 					
 					,	AA.Name
+					,	AA.Code
 					,	AA.UseYn
 					,	AA.Description
 					
@@ -44,12 +45,12 @@
 				INSERT INTO dbo.TAttributeType
 				( 
 					CreatedOn, CreatedBy, CreatedByName,
-					Name, UseYn, Description
+					Name, Code, UseYn, Description
 				)
 				VALUES
 				(
 					GetDate(), #CreatedBy#, #CreatedByName#,					
-					#Name#, #UseYn#, #Description#
+					#Name#, #Code#, #UseYn#, #Description#
 				)
 			]]>
 			<selectKey type="post" property="ID" resultClass="Int">
@@ -66,6 +67,7 @@
 					,	UpdatedByName	= #UpdatedByName#
 					
 					,	Name			= #Name#
+					,	Code			= #Code#
 					,	UseYn			= #UseYn#
 					,	Description		= #Description#
 				WHERE	ID				= #ID#

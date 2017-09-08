@@ -107,8 +107,8 @@
 					
 					,	Name			= #Name#
 					,	Url				= #Url#
-					,	Category		= #BrandCategory#
-					,	Style			= #BrandStyle#
+					,	Category		= #Category#
+					,	Style			= #Style#
 					,	Description		= #Description#
 					,	DescriptionRTF	= #DescriptionRTF#
 					,	UseYn			= #UseYn#
@@ -117,7 +117,7 @@
 		</update>
 		<delete id="DeleteBrand" parameterClass="DataMap">
 			<![CDATA[
-				DELETE FROM dbo.TBrand			WHERE ID = #ID#;
+				DELETE FROM dbo.TBrand WHERE ID = #ID#;
 			]]>
 		</delete>
 	</statements>
