@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.10
+VisualStudioVersion = 15.0.26730.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WAS", "WAS", "{D6A4C222-C13B-4109-8ABB-32A17FBDD138}"
 EndProject
@@ -171,7 +171,7 @@ Global
 		{4239DC42-4989-473F-94DA-8039E9416AF9} = {B3CD85A0-6ADA-42E7-A8CD-27288327B28F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {965BBB8E-F6BB-4031-8BD6-B57B54BE58F1}
 		VisualSVNWorkingCopyRoot = .
+		SolutionGuid = {965BBB8E-F6BB-4031-8BD6-B57B54BE58F1}
 	EndGlobalSection
 EndGlobal
