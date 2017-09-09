@@ -43,18 +43,6 @@ namespace IKaan.Win.View.Biz.Common
 					}
 				}
 			};
-
-			picImage.EditValueChanged += delegate (object sender, EventArgs e)
-			{
-				if (this.IsLoaded)
-				{
-					txtImageUrl.EditValue = picImage.GetLoadedImageLocation();
-				}
-			};
-			picImage.LoadCompleted += delegate (object sender, EventArgs e)
-			{
-				txtImageUrl.EditValue = loadUrl;
-			};
 		}
 
 		protected override void OnShown(EventArgs e)
@@ -74,14 +62,13 @@ namespace IKaan.Win.View.Biz.Common
 
 			SetFieldNames();
 
-			
+			lcItemName.SetFieldName("BizName");
 
 			txtID.SetEnable(false);
 			txtCreatedOn.SetEnable(false);
 			txtCreatedByName.SetEnable(false);
 			txtUpdatedOn.SetEnable(false);
 			txtUpdatedByName.SetEnable(false);
-
 			txtAddressID.SetEnable(false);
 
 			InitCombo();
@@ -138,14 +125,15 @@ namespace IKaan.Win.View.Biz.Common
 			};
 			#endregion
 
-			#region Customer List
-			gridCustomers.Init();
-			gridCustomers.AddGridColumns(
+			#region Links
+			gridLinks.Init();
+			gridLinks.AddGridColumns(
 				new XGridColumn() { FieldName = "RowNo", Width = 40 },
 				new XGridColumn() { FieldName = "ID", Visible = false },
 				new XGridColumn() { FieldName = "BusinessID", Visible = false },
-				new XGridColumn() { FieldName = "CustomerID", Visible = false },				
-				new XGridColumn() { FieldName = "CustomerName", Width = 150 },
+				new XGridColumn() { FieldName = "LinkType", Width = 100, HorzAlignment = HorzAlignment.Center },
+				new XGridColumn() { FieldName = "LinkID", Visible = false },				
+				new XGridColumn() { FieldName = "LinkName", Width = 150 },
 				new XGridColumn() { FieldName = "StartDate", Width = 80, HorzAlignment = HorzAlignment.Center },
 				new XGridColumn() { FieldName = "EndDate", Width = 80, HorzAlignment = HorzAlignment.Center },
 				new XGridColumn() { FieldName = "CreatedOn" },
@@ -153,7 +141,7 @@ namespace IKaan.Win.View.Biz.Common
 				new XGridColumn() { FieldName = "UpdatedOn" },
 				new XGridColumn() { FieldName = "UpdatedByName" }
 			);
-			gridCustomers.ColumnFix("RowNo");
+			gridLinks.ColumnFix("RowNo");
 			#endregion
 		}
 
@@ -166,7 +154,7 @@ namespace IKaan.Win.View.Biz.Common
 		protected override void DataInit()
 		{
 			ClearControlData<BusinessModel>();
-			gridCustomers.Clear<CustomerBusinessModel>();
+			gridLinks.Clear<BusinessLinksModel>();
 
 			txtAddressID.Clear();
 			txtPostalCode.Clear();
@@ -219,18 +207,16 @@ namespace IKaan.Win.View.Biz.Common
 
 				if (model.Links == null)
 					model.Links = new List<BusinessLinksModel>();
-				gridCustomers.DataSource = model.Links;
+				gridLinks.DataSource = model.Links;
 
 				loadUrl = model.Image.Url;
 				if (loadUrl.IsNullOrEmpty())
 				{
 					picImage.EditValue = null;
-					txtImageUrl.EditValue = null;
 				}
 				else
 				{
 					picImage.LoadAsync(ConstsVar.IMG_URL + loadUrl);
-					txtImageUrl.EditValue = loadUrl;
 				}
 
 				SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true, Delete = true });
@@ -266,7 +252,7 @@ namespace IKaan.Win.View.Biz.Common
 					string path = picImage.GetLoadedImageLocation();
 					if (path.IsNullOrEmpty() == false)
 					{
-						string url = FTPHandler.UploadBusiness(txtImageUrl.EditValue.ToString(), txtBizNo.EditValue.ToString().Replace("-", ""));
+						string url = FTPHandler.UploadBusiness(picImage.GetLoadedImageLocation(), txtBizNo.EditValue.ToString().Replace("-", ""));
 						model.Image.Url = url;
 					}
 				}
@@ -298,9 +284,9 @@ namespace IKaan.Win.View.Biz.Common
 		{
 			try
 			{
-				if (txtImageUrl.EditValue.IsNullOrEmpty() == false)
+				if (loadUrl.IsNullOrEmpty() == false)
 				{
-					FTPHandler.DeleteFile(txtImageUrl.EditValue.ToString());
+					FTPHandler.DeleteFile(loadUrl);
 					loadUrl = string.Empty;
 				}
 

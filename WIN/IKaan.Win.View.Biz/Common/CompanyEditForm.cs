@@ -131,13 +131,13 @@ namespace IKaan.Win.View.Biz.Common
 		protected override void OnShown(EventArgs e)
 		{
 			base.OnShown(e);
-			txtFindText.Focus();
+			txtName.Focus();
 		}
 
 		protected override void InitButton()
 		{
 			base.InitButton();
-			SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true });
+			SetToolbarButtons(new ToolbarButtons() { New = true, Save = true, SaveAndClose = true, SaveAndNew = true });
 		}
 		protected override void InitControls()
 		{
@@ -166,9 +166,6 @@ namespace IKaan.Win.View.Biz.Common
 
 			lupBizType.BindData("BizType");
 
-			lupFindUseYn.BindData("Yn", "All");
-			lupFindUseYn.EditValue = "Y";
-
 			InitGrid();
 
 			lcTab.SelectedTabPageIndex = 0;
@@ -176,43 +173,6 @@ namespace IKaan.Win.View.Biz.Common
 
 		void InitGrid()
 		{
-			#region Company List
-			gridList.Init();
-			gridList.AddGridColumns(
-				new XGridColumn() { FieldName = "RowNo" },
-				new XGridColumn() { FieldName = "ID", Visible = false },
-				new XGridColumn() { FieldName = "Name", CaptionCode = "CompanyName", Width = 200 },
-				new XGridColumn() { FieldName = "BizNo", Width = 100, HorzAlignment = HorzAlignment.Center },
-				new XGridColumn() { FieldName = "RepName", Width = 100, HorzAlignment = HorzAlignment.Center },
-				new XGridColumn() { FieldName = "UseYn", Width = 80, HorzAlignment = HorzAlignment.Center },
-				new XGridColumn() { FieldName = "CreatedOn" },
-				new XGridColumn() { FieldName = "CreatedByName" },
-				new XGridColumn() { FieldName = "UpdatedOn" },
-				new XGridColumn() { FieldName = "UpdatedByName" }
-			);
-			gridList.SetRepositoryItemCheckEdit("UseYn");
-			gridList.ColumnFix("RowNo");
-
-			gridList.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
-			{
-				if (e.RowHandle < 0)
-					return;
-
-				try
-				{
-					if (e.Button == MouseButtons.Left && e.Clicks == 1)
-					{
-						GridView view = sender as GridView;
-						DetailDataLoad(view.GetRowCellValue(e.RowHandle, "ID"));
-					}
-				}
-				catch(Exception ex)
-				{
-					ShowErrBox(ex);
-				}
-			};
-			#endregion
-
 			#region Address List
 			gridAddress.Init();
 			gridAddress.AddGridColumns(
@@ -314,12 +274,6 @@ namespace IKaan.Win.View.Biz.Common
 			#endregion
 		}
 
-		protected override void LoadForm()
-		{
-			base.LoadForm();
-			DataLoad();
-		}
-
 		protected override void DataInit()
 		{
 			ClearControlData<CompanyModel>();
@@ -332,32 +286,18 @@ namespace IKaan.Win.View.Biz.Common
 
 			lcTab.CustomHeaderButtons[0].Enabled = false;
 
-			SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true });
+			SetToolbarButtons(new ToolbarButtons() { New = true, Save = true, SaveAndClose = true, SaveAndNew = true });
 			EditMode = EditModeEnum.New;
 			txtName.Focus();
 		}
 
 		protected override void DataLoad(object param = null)
 		{
-			gridList.BindList<CompanyModel>("Biz", "GetList", "Select", new DataMap()
-			{
-				{ "FindText", txtFindText.EditValue },
-				{ "UseYn", lupFindUseYn.EditValue }
-			});
-
-			if (param != null)
-				DetailDataLoad(param);
-			else
-				DataInit();
-		}
-
-		void DetailDataLoad(object id)
-		{
 			try
 			{
 				DataMap parameter = new DataMap()
 				{
-					{ "ID", id }
+					{ "ID", param }
 				};
 				var model = WasHandler.GetData<CompanyModel>("Biz", "GetData", "Select", parameter);
 				if (model == null)
@@ -389,7 +329,7 @@ namespace IKaan.Win.View.Biz.Common
 				txtName.Focus();
 
 			}
-			catch(Exception ex)
+			catch (Exception ex)
 			{
 				ShowErrBox(ex);
 			}

@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Windows.Forms;
-using DevExpress.Utils;
-using DevExpress.XtraGrid.Views.Grid;
+using DevExpress.XtraEditors.Controls;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
 using IKaan.Model.Biz;
-using IKaan.Win.Core.Controls.Grid;
 using IKaan.Win.Core.Enum;
 using IKaan.Win.Core.Forms;
 using IKaan.Win.Core.Model;
@@ -21,7 +18,7 @@ namespace IKaan.Win.View.Biz.Common
 		{
 			InitializeComponent();
 
-			txtPostalCode.ButtonClick += delegate (object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
+			txtPostalCode.ButtonClick += delegate (object sender, ButtonPressedEventArgs e)
 			{
 				if (e.Button.Kind == DevExpress.XtraEditors.Controls.ButtonPredefines.Ellipsis)
 				{
@@ -42,7 +39,7 @@ namespace IKaan.Win.View.Biz.Common
 		protected override void OnShown(EventArgs e)
 		{
 			base.OnShown(e);
-			txtFindText.Focus();
+			txtPostalCode.Focus();
 		}
 
 		protected override void InitButton()
@@ -62,61 +59,7 @@ namespace IKaan.Win.View.Biz.Common
 			txtUpdatedOn.SetEnable(false);
 			txtUpdatedByName.SetEnable(false);
 
-			InitCombo();
-			InitGrid();
-		}
-
-		void InitCombo()
-		{
-			lupFindCountry.BindData("Country", "All");
 			lupCountry.BindData("Country");
-		}
-
-		void InitGrid()
-		{
-			#region List
-			gridList.Init();
-			gridList.AddGridColumns(
-				new XGridColumn() { FieldName = "RowNo", Width = 40 },
-				new XGridColumn() { FieldName = "ID", Visible = false },
-				new XGridColumn() { FieldName = "CountryName", Width = 150 },
-				new XGridColumn() { FieldName = "PostalCode", Width = 100 },
-				new XGridColumn() { FieldName = "AddressLine1", Width = 150 },
-				new XGridColumn() { FieldName = "AddressLine2", Width = 150 },
-				new XGridColumn() { FieldName = "City", Width = 100 },
-				new XGridColumn() { FieldName = "StateProvince", Width = 100 },
-				new XGridColumn() { FieldName = "CreatedOn" },
-				new XGridColumn() { FieldName = "CreatedByName" },
-				new XGridColumn() { FieldName = "UpdatedOn" },
-				new XGridColumn() { FieldName = "UpdatedByName" }
-			);
-			gridList.ColumnFix("RowNo");
-
-			gridList.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
-			{
-				if (e.RowHandle < 0)
-					return;
-
-				try
-				{
-					if (e.Button == MouseButtons.Left && e.Clicks == 1)
-					{
-						GridView view = sender as GridView;
-						DetailDataLoad(view.GetRowCellValue(e.RowHandle, "ID"));
-					}
-				}
-				catch(Exception ex)
-				{
-					ShowErrBox(ex);
-				}
-			};
-			#endregion
-		}
-
-		protected override void LoadForm()
-		{
-			base.LoadForm();
-			DataLoad();
 		}
 
 		protected override void DataInit()
@@ -125,28 +68,14 @@ namespace IKaan.Win.View.Biz.Common
 
 			SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true });
 			EditMode = EditModeEnum.New;
-			lupCountry.Focus();
+			txtPostalCode.Focus();
 		}
 
 		protected override void DataLoad(object param = null)
 		{
-			gridList.BindList<AddressModel>("Biz", "GetList", "Select", new DataMap()
-			{
-				{ "FindText", txtFindText.EditValue },
-				{ "BizType", lupFindCountry.EditValue }
-			});
-
-			if (param != null)
-				DetailDataLoad(param);
-			else
-				DataInit();
-		}
-
-		void DetailDataLoad(object id)
-		{
 			try
 			{
-				var model = WasHandler.GetData<AddressModel>("Biz", "GetData", "Select", new DataMap() { { "ID", id } });
+				var model = WasHandler.GetData<AddressModel>("Biz", "GetData", "Select", new DataMap() { { "ID", param } });
 				if (model == null)
 					throw new Exception("조회할 데이터가 없습니다.");
 
@@ -154,10 +83,10 @@ namespace IKaan.Win.View.Biz.Common
 
 				SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true, Delete = true });
 				this.EditMode = EditModeEnum.Modify;
-				lupCountry.Focus();
+				txtPostalCode.Focus();
 
 			}
-			catch(Exception ex)
+			catch (Exception ex)
 			{
 				ShowErrBox(ex);
 			}

@@ -28,13 +28,13 @@ namespace IKaan.Win.View.Biz.Common
 		protected override void OnShown(EventArgs e)
 		{
 			base.OnShown(e);
-			txtFindText.Focus();
+			txtName.Focus();
 		}
 
 		protected override void InitButton()
 		{
 			base.InitButton();
-			SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true });
+			SetToolbarButtons(new ToolbarButtons() { New = true, Save = true, SaveAndClose = true, SaveAndNew = true });
 		}
 		protected override void InitControls()
 		{
@@ -54,92 +54,22 @@ namespace IKaan.Win.View.Biz.Common
 			txtUpdatedByName.SetEnable(false);
 
 			lupStoreType.BindData("StoreType");
-
-			lupFindStoreType.BindData("StoreType", "All");
-			lupFindUseYn.BindData("Yn", "All");
-			lupFindUseYn.EditValue = "Y";
-
-			InitGrid();
-		}
-
-		void InitGrid()
-		{
-			#region List
-			gridList.Init();
-			gridList.AddGridColumns(
-				new XGridColumn() { FieldName = "RowNo" },
-				new XGridColumn() { FieldName = "ID", Visible = false },
-				new XGridColumn() { FieldName = "Name", CaptionCode = "StoreName", Width = 200 },
-				new XGridColumn() { FieldName = "StoreTypeName", Width = 100, HorzAlignment = HorzAlignment.Center },
-				new XGridColumn() { FieldName = "UseYn", Width = 80, HorzAlignment = HorzAlignment.Center },
-				new XGridColumn() { FieldName = "CreatedOn" },
-				new XGridColumn() { FieldName = "CreatedByName" },
-				new XGridColumn() { FieldName = "UpdatedOn" },
-				new XGridColumn() { FieldName = "UpdatedByName" }
-			);
-			gridList.SetRepositoryItemCheckEdit("UseYn");
-			gridList.ColumnFix("RowNo");
-
-			gridList.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
-			{
-				if (e.RowHandle < 0)
-					return;
-
-				try
-				{
-					if (e.Button == MouseButtons.Left && e.Clicks == 1)
-					{
-						GridView view = sender as GridView;
-						DetailDataLoad(view.GetRowCellValue(e.RowHandle, "ID"));
-					}
-				}
-				catch(Exception ex)
-				{
-					ShowErrBox(ex);
-				}
-			};
-			#endregion
-		}
-
-		protected override void LoadForm()
-		{
-			base.LoadForm();
-			DataLoad();
 		}
 
 		protected override void DataInit()
 		{
 			ClearControlData<StoreModel>();
 
-			SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true });
+			SetToolbarButtons(new ToolbarButtons() { New = true, Save = true, SaveAndClose = true, SaveAndNew = true });
 			EditMode = EditModeEnum.New;
 			txtName.Focus();
 		}
 
 		protected override void DataLoad(object param = null)
 		{
-			gridList.BindList<StoreModel>("Biz", "GetList", "Select", new DataMap()
-			{
-				{ "FindText", txtFindText.EditValue },
-				{ "UseYn", lupFindUseYn.EditValue },
-				{ "StoreType", lupFindStoreType.EditValue }
-			});
-
-			if (param != null)
-				DetailDataLoad(param);
-			else
-				DataInit();
-		}
-
-		void DetailDataLoad(object id)
-		{
 			try
 			{
-				DataMap parameter = new DataMap()
-				{
-					{ "ID", id }
-				};
-				var model = WasHandler.GetData<StoreModel>("Biz", "GetData", "Select", parameter);
+				var model = WasHandler.GetData<StoreModel>("Biz", "GetData", "Select", new DataMap() { { "ID", param } });
 				if (model == null)
 					throw new Exception("조회할 데이터가 없습니다.");
 
@@ -150,12 +80,12 @@ namespace IKaan.Win.View.Biz.Common
 					picImage.LoadAsync(ConstsVar.IMG_URL + model.Image.Url);
 				}
 
-				SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true, Delete = true });
+				SetToolbarButtons(new ToolbarButtons() { New = true, Save = true, SaveAndClose = true, SaveAndNew = true, Delete = true });
 				this.EditMode = EditModeEnum.Modify;
 				txtName.Focus();
 
 			}
-			catch(Exception ex)
+			catch (Exception ex)
 			{
 				ShowErrBox(ex);
 			}

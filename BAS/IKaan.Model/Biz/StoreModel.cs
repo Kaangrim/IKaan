@@ -32,6 +32,10 @@ namespace IKaan.Model.Biz
 		public string UseYn { get; set; }
 
 		[DataMember]
+		[Display(Name = "이미지ID")]
+		public int? ImageID { get; set; }
+
+		[DataMember]
 		[Display(Name = "이미지")]
 		public ImageModel Image { get; set; }
 	}

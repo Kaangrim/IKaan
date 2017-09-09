@@ -27,7 +27,7 @@
 					
 				FROM	dbo.TAddress AA WITH (NOLOCK)
 						LEFT JOIN
-							dbo.TCode M1 WITH (NOLOCK)
+							IKBase.dbo.TCode M1 WITH (NOLOCK)
 								ON AA.Country = M1.Code
 									AND M1.ParentCode = 'Country'
 				WHERE	1=1

@@ -51,6 +51,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\AddressListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Common\AddressListForm.designer.cs">
+      <DependentUpon>AddressListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\StoreListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Common\StoreListForm.designer.cs">
+      <DependentUpon>StoreListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common\CompanyListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Common\CompanyListForm.designer.cs">
+      <DependentUpon>CompanyListForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Common\StoreEditForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -255,6 +273,15 @@
     <Folder Include="Manufacturer\" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Common\AddressListForm.resx">
+      <DependentUpon>AddressListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\StoreListForm.resx">
+      <DependentUpon>StoreListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\CompanyListForm.resx">
+      <DependentUpon>CompanyListForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Common\StoreEditForm.resx">
       <DependentUpon>StoreEditForm.cs</DependentUpon>
     </EmbeddedResource>

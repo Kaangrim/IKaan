@@ -12,6 +12,10 @@ namespace IKaan.Model.Biz
 		public string Name { get; set; }
 
 		[DataMember]
+		[Display(Name = "속성코드")]
+		public string Code { get; set; }
+
+		[DataMember]
 		[Display(Name = "사용여부")]
 		public string UseYn { get; set; }
 

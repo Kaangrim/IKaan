@@ -53,12 +53,12 @@
 				INSERT INTO dbo.TStore
 				( 
 					CreatedOn, CreatedBy, CreatedByName,
-					Name, StoreType, Url, Hosts, Description, ImageID
+					Name, StoreType, Url, Hosts, UseYn, Description, ImageID
 				)
 				VALUES
 				(
 					GetDate(), #CreatedBy#, #CreatedByName#,
-					#Name#, #StoreType#, #Url#, #Hosts#, #Description#, #ImageID#
+					#Name#, #StoreType#, #Url#, #Hosts#, #UseYn#, #Description#, #ImageID#
 				)
 			]]>
 			<selectKey type="post" property="ID" resultClass="Int">
@@ -79,6 +79,7 @@
 					,	Url				= #Url#
 					,	Hosts			= #Hosts#
 					,	Description		= #Description#
+					,	UseYn			= #UseYn#
 					,	ImageID			= #ImageID#
 				WHERE	ID				= #ID#
 			]]>

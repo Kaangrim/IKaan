@@ -456,3 +456,6 @@ D:\Repositories\IKaan\WIN\IKaan.Win.View.Biz\obj\Debug\IKaan.Win.View.Biz.Catalo
 D:\Repositories\IKaan\WIN\IKaan.Win.View.Biz\obj\Debug\IKaan.Win.View.Biz.Catalog.ProductListForm.resources
 D:\Repositories\IKaan\WIN\IKaan.Win.View.Biz\obj\Debug\IKaan.Win.View.Biz.Channel.CustomerManagerEditForm.resources
 D:\Repositories\IKaan\WIN\IKaan.Win.View.Biz\obj\Debug\IKaan.Win.View.Biz.Customer.CustomerContactEditForm.resources
+D:\Repositories\IKaan\WIN\IKaan.Win.View.Biz\obj\Debug\IKaan.Win.View.Biz.Common.AddressListForm.resources
+D:\Repositories\IKaan\WIN\IKaan.Win.View.Biz\obj\Debug\IKaan.Win.View.Biz.Common.CompanyListForm.resources
+D:\Repositories\IKaan\WIN\IKaan.Win.View.Biz\obj\Debug\IKaan.Win.View.Biz.Common.StoreListForm.resources
