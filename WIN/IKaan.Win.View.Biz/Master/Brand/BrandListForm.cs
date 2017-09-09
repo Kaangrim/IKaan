@@ -42,7 +42,7 @@ namespace IKaan.Win.View.Biz.Master.Brand
 		{
 			lupCategory.BindData("BrandCategory", "All");
 			lupStyle.BindData("BrandStyle", "All");
-			lupUseYn.BindData("UseYn", "All");
+			lupUseYn.BindData("Yn", "All");
 			lupUseYn.EditValue = "Y";
 		}
 
