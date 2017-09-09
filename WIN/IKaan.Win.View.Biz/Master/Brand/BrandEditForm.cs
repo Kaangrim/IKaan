@@ -190,7 +190,7 @@ namespace IKaan.Win.View.Biz.Master.Brand
 			lcTab.CustomHeaderButtons[0].Enabled = false;
 			lcTab.CustomHeaderButtons[1].Enabled = false;
 
-			SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true });
+			SetToolbarButtons(new ToolbarButtons() { New = true, Save = true, SaveAndNew = true, SaveAndClose = true });
 			EditMode = EditModeEnum.New;
 			txtName.Focus();
 		}
@@ -223,7 +223,7 @@ namespace IKaan.Win.View.Biz.Master.Brand
 				else
 					lcTab.CustomHeaderButtons[1].Enabled = false;
 
-				SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true, Delete = true });
+				SetToolbarButtons(new ToolbarButtons() { New = true, Save = true, SaveAndNew = true, SaveAndClose = true, Delete = true });
 				this.EditMode = EditModeEnum.Modify;
 				txtName.Focus();
 

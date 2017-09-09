@@ -182,15 +182,15 @@
     <Compile Include="Model\LookupSource.cs" />
     <Compile Include="Model\MainInfo.cs" />
     <Compile Include="Model\NavBarItem.cs" />
-    <Compile Include="Model\PostalCode.cs" />
+    <Compile Include="Model\PostalCodeModel.cs" />
     <Compile Include="Model\SkinInfo.cs" />
     <Compile Include="Model\UserMenu.cs" />
-    <Compile Include="PostCode\SearchPostCode.cs" />
-    <Compile Include="PostCode\SearchPostCodeForm.cs">
+    <Compile Include="PostalCode\SearchPostalCode.cs" />
+    <Compile Include="PostalCode\SearchPostalCodeForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PostCode\SearchPostCodeForm.designer.cs">
-      <DependentUpon>SearchPostCodeForm.cs</DependentUpon>
+    <Compile Include="PostalCode\SearchPostalCodeForm.designer.cs">
+      <DependentUpon>SearchPostalCodeForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -307,8 +307,8 @@
     <EmbeddedResource Include="Helper\MsgBoxForm.resx">
       <DependentUpon>MsgBoxForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PostCode\SearchPostCodeForm.resx">
-      <DependentUpon>SearchPostCodeForm.cs</DependentUpon>
+    <EmbeddedResource Include="PostalCode\SearchPostalCodeForm.resx">
+      <DependentUpon>SearchPostalCodeForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">

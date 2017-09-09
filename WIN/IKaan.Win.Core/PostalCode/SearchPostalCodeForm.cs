@@ -7,15 +7,15 @@ using IKaan.Win.Core.Model;
 using IKaan.Win.Core.Variables;
 using Newtonsoft.Json.Linq;
 
-namespace IKaan.Win.Core.PostCode
+namespace IKaan.Win.Core.PostalCode
 {
 	[PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
-	[System.Runtime.InteropServices.ComVisibleAttribute(true)]
-	public partial class SearchPostCodeForm : XtraForm
+	[System.Runtime.InteropServices.ComVisible(true)]
+	public partial class SearchPostalCodeForm : XtraForm
 	{
 		private bool bOpened = false;   //중복실행방지
 
-		public SearchPostCodeForm()
+		public SearchPostalCodeForm()
 		{
 			InitializeComponent();
 
@@ -69,7 +69,7 @@ namespace IKaan.Win.Core.PostCode
 			}
 		}
 
-		public PostalCode ReturnData { get; set; }
+		public PostalCodeModel ReturnData { get; set; }
 
 		public void Callback(object data)
 		{
@@ -77,7 +77,7 @@ namespace IKaan.Win.Core.PostCode
 			{
 				JObject obj = JObject.Parse(data.ToString());
 
-				PostalCode returnData = new PostalCode()
+				var returnData = new PostalCodeModel()
 				{
 					PostalNo = obj["postcode"].ToString().Replace("-", ""),
 					ZoneCode = obj["zonecode"].ToString(),

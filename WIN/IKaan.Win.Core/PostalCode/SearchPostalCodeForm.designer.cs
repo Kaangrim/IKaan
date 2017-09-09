@@ -1,6 +1,6 @@
-﻿namespace IKaan.Win.Core.PostCode
+﻿namespace IKaan.Win.Core.PostalCode
 {
-	partial class SearchPostCodeForm
+	partial class SearchPostalCodeForm
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -50,7 +50,7 @@
 			this.LookAndFeel.UseDefaultLookAndFeel = false;
 			this.MaximizeBox = false;
 			this.MinimizeBox = false;
-			this.Name = "SearchPostCodeForm";
+			this.Name = "SearchPostalCodeForm";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "우편번호검색";
 			this.ResumeLayout(false);

@@ -5,7 +5,7 @@ using IKaan.Model.Biz;
 using IKaan.Win.Core.Enum;
 using IKaan.Win.Core.Forms;
 using IKaan.Win.Core.Model;
-using IKaan.Win.Core.PostCode;
+using IKaan.Win.Core.PostalCode;
 using IKaan.Win.Core.Utils;
 using IKaan.Win.Core.Was.Handler;
 
@@ -21,7 +21,7 @@ namespace IKaan.Win.View.Biz.Customer
 			{
 				if (e.Button.Kind == DevExpress.XtraEditors.Controls.ButtonPredefines.Ellipsis)
 				{
-					var data = SearchPostCode.Find();
+					var data = SearchPostalCode.Find();
 					if (data != null)
 					{
 						txtPostalCode.EditValue = data.ZoneCode + "(" + data.PostalNo + ")";

@@ -10,7 +10,7 @@ using IKaan.Win.Core.Enum;
 using IKaan.Win.Core.Forms;
 using IKaan.Win.Core.Handler;
 using IKaan.Win.Core.Model;
-using IKaan.Win.Core.PostCode;
+using IKaan.Win.Core.PostalCode;
 using IKaan.Win.Core.Utils;
 using IKaan.Win.Core.Variables;
 using IKaan.Win.Core.Was.Handler;
@@ -29,7 +29,7 @@ namespace IKaan.Win.View.Biz.Master.Business
 			{
 				if(e.Button.Kind== ButtonPredefines.Ellipsis)
 				{
-					PostalCode data = SearchPostCode.Find();
+					var data = SearchPostalCode.Find();
 					if (data != null)
 					{
 						if (data.PostalNo.IsNullOrEmpty())
