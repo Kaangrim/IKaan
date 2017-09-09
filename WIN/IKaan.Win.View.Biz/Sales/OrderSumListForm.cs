@@ -4,7 +4,7 @@ using DevExpress.Data;
 using DevExpress.Utils;
 using DevExpress.XtraPivotGrid;
 using IKaan.Base.Map;
-using IKaan.Model.Biz;
+using IKaan.Model.Biz.Sales;
 using IKaan.Win.Core.Controls.Grid;
 using IKaan.Win.Core.Forms;
 using IKaan.Win.Core.Model;
@@ -107,7 +107,7 @@ namespace IKaan.Win.View.Biz.Sales
 		{
 			try
 			{
-				DataMap parameter = new DataMap()
+				var parameter = new DataMap()
 				{
 					{ "StartDate", datPeriod.DateFrEdit.GetDate() },
 					{ "EndDate", datPeriod.DateToEdit.GetDate() },

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using DevExpress.Utils;
 using DevExpress.XtraGrid.Views.Grid;
 using IKaan.Base.Map;
-using IKaan.Model.Base;
+using IKaan.Model.Base.Common;
 using IKaan.Win.Core.Controls.Grid;
 using IKaan.Win.Core.Enum;
 using IKaan.Win.Core.Forms;
@@ -172,14 +172,12 @@ namespace IKaan.Win.View.Base.Common
 			{
 				var model = GetControlData<DictionaryModel>();
 				model.LanguageCode = lupLanguageCode.EditValue.ToString();
-
-				List<DictionaryModel> languageList = new List<DictionaryModel>();
+				var languageList = new List<DictionaryModel>();
 
 				if (gridLangList.RowCount > 0)
 					languageList = gridLangList.DataSource as List<DictionaryModel>;
 
 				model.LanguageList = languageList;
-
 				using (var res = WasHandler.Execute<DictionaryModel>("Base", "Save", (this.EditMode == EditModeEnum.New) ? "Insert" : "Update", model, "ID"))
 				{
 					if (res.Error.Number != 0)
@@ -199,12 +197,7 @@ namespace IKaan.Win.View.Base.Common
 		{
 			try
 			{
-				DataMap data = new DataMap()
-				{
-					{ "ID", txtID.EditValue }
-				};
-
-				using (var res = WasHandler.Execute<DataMap>("Base", "Delete", "DeleteDictionary", data, null))
+				using (var res = WasHandler.Execute<DataMap>("Base", "Delete", "DeleteDictionary", new DataMap() { { "ID", txtID.EditValue } }, null))
 				{
 					if (res.Error.Number != 0)
 						throw new Exception(res.Error.Message);

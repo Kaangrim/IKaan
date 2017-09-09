@@ -3,7 +3,7 @@ using System.Windows.Forms;
 using DevExpress.Utils;
 using DevExpress.XtraGrid.Views.Grid;
 using IKaan.Base.Map;
-using IKaan.Model.Biz;
+using IKaan.Model.Biz.Catalog;
 using IKaan.Win.Core.Controls.Grid;
 using IKaan.Win.Core.Enum;
 using IKaan.Win.Core.Forms;
@@ -158,7 +158,6 @@ namespace IKaan.Win.View.Biz.Catalog
 			try
 			{
 				var model = this.GetControlData<CategoryModel>();
-
 				using (var res = WasHandler.Execute<CategoryModel>("Biz", "Save", (this.EditMode == EditModeEnum.New) ? "Insert" : "Update", model, "ID"))
 				{
 					if (res.Error.Number != 0)
@@ -178,8 +177,7 @@ namespace IKaan.Win.View.Biz.Catalog
 		{
 			try
 			{
-				DataMap map = new DataMap() { { "ID", txtID.EditValue } };
-				using (var res = WasHandler.Execute<DataMap>("Biz", "Delete", "DeleteCategory", map, "ID"))
+				using (var res = WasHandler.Execute<DataMap>("Biz", "Delete", "DeleteCategory", new DataMap() { { "ID", txtID.EditValue } }, "ID"))
 				{
 					if (res.Error.Number != 0)
 						throw new Exception(res.Error.Message);

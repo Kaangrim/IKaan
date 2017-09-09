@@ -9,7 +9,7 @@ using DevExpress.XtraTab.Buttons;
 using DevExpress.XtraTab.ViewInfo;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
-using IKaan.Model.Biz;
+using IKaan.Model.Biz.Catalog;
 using IKaan.Win.Core.Controls.Grid;
 using IKaan.Win.Core.Enum;
 using IKaan.Win.Core.Forms;
@@ -407,7 +407,7 @@ namespace IKaan.Win.View.Biz.Catalog
 				if (model.Images != null && model.Images.Count > 0)
 				{
 					int i = 0;
-					foreach (ProductImageModel image in model.Images)
+					foreach (var image in model.Images)
 					{
 						i++;
 						if (i > 3)
@@ -451,7 +451,6 @@ namespace IKaan.Win.View.Biz.Catalog
 			try
 			{
 				var model = this.GetControlData<ProductModel>();
-
 				model.Description = new ProductDescriptionModel()
 				{
 					Description = rteDescription.EditText,
@@ -481,7 +480,7 @@ namespace IKaan.Win.View.Biz.Catalog
 				//이미지 파일저장
 				if (model.Images != null && model.Images.Count > 0) {
 					//FTP저장
-					foreach (ProductImageModel image in model.Images.Where(x => x.RowState == "INSERT"))
+					foreach (var image in model.Images.Where(x => x.RowState == "INSERT"))
 					{
 						var url = FTPHandler.UploadGoods(image.ImageUrl, model.BrandID.ToString(), model.ID.ToString(), image.ImageType, image.ImageGroup);
 						image.ImageUrl = url;
@@ -509,7 +508,7 @@ namespace IKaan.Win.View.Biz.Catalog
 		{
 			try
 			{
-				DataMap map = new DataMap() { { "ID", txtID.EditValue } };
+				var map = new DataMap() { { "ID", txtID.EditValue } };
 				using (var res = WasHandler.Execute<DataMap>("Biz", "Delete", "DeleteGoods", map, "ID"))
 				{
 					if (res.Error.Number != 0)
@@ -565,7 +564,7 @@ namespace IKaan.Win.View.Biz.Catalog
 				}
 				else
 				{
-					DataMap map = new DataMap() { { "ID", gridItem.GetValue(gridItem.FocusedRowHandle, "ID") } };
+					var map = new DataMap() { { "ID", gridItem.GetValue(gridItem.FocusedRowHandle, "ID") } };
 					using (var res = WasHandler.Execute<DataMap>("Biz", "Delete", "DeleteGoodsItem", map, "ID"))
 					{
 						if (res.Error.Number != 0)
@@ -596,7 +595,7 @@ namespace IKaan.Win.View.Biz.Catalog
 				}
 				else
 				{
-					DataMap map = new DataMap() { { "ID", gridImage.GetValue(gridImage.FocusedRowHandle, "ID") } };
+					var map = new DataMap() { { "ID", gridImage.GetValue(gridImage.FocusedRowHandle, "ID") } };
 					using (var res = WasHandler.Execute<DataMap>("Biz", "Delete", "DeleteGoodsImage", map, "ID"))
 					{
 						if (res.Error.Number != 0)

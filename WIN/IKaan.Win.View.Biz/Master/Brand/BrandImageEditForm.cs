@@ -1,7 +1,8 @@
 ﻿using System;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
-using IKaan.Model.Biz;
+using IKaan.Model.Biz.Brand;
+using IKaan.Model.Biz.Common;
 using IKaan.Win.Core.Enum;
 using IKaan.Win.Core.Forms;
 using IKaan.Win.Core.Handler;
@@ -169,8 +170,7 @@ namespace IKaan.Win.View.Biz.Master.Brand
 				if (txtBrandID.EditValue == null)
 					return;
 
-				DataMap map = new DataMap() { { "ID", txtBrandID.EditValue } };
-				using (var res = WasHandler.Execute<DataMap>("Biz", "Delete", "DeleteBrandImage", map, "ID"))
+				using (var res = WasHandler.Execute<DataMap>("Biz", "Delete", "DeleteBrandImage", new DataMap() { { "ID", txtBrandID.EditValue } }, "ID"))
 				{
 					if (res.Error.Number != 0)
 						throw new Exception(res.Error.Message);

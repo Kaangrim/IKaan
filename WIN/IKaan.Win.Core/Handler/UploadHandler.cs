@@ -7,6 +7,7 @@ using DevExpress.Spreadsheet;
 using DevExpress.XtraSpreadsheet;
 using IKaan.Base.Utils;
 using IKaan.Model.Base;
+using IKaan.Model.Base.Common;
 using IKaan.Win.Core.Was.Handler;
 
 namespace IKaan.Win.Core.Handler
@@ -121,7 +122,7 @@ namespace IKaan.Win.Core.Handler
 
 				string netFileName = Path.GetFileName(fileName);
 
-				FileUploadModel model = new FileUploadModel()
+				var model = new FileUploadModel()
 				{
 					UploadType = uploadType,
 					FileName = netFileName,

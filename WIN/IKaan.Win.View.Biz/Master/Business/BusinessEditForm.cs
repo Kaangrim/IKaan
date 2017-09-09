@@ -4,7 +4,7 @@ using DevExpress.Utils;
 using DevExpress.XtraEditors.Controls;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
-using IKaan.Model.Biz;
+using IKaan.Model.Biz.Common;
 using IKaan.Win.Core.Controls.Grid;
 using IKaan.Win.Core.Enum;
 using IKaan.Win.Core.Forms;
@@ -226,8 +226,7 @@ namespace IKaan.Win.View.Biz.Master.Business
 					loadUrl = string.Empty;
 				}
 
-				DataMap map = new DataMap() { { "ID", txtID.EditValue } };
-				using (var res = WasHandler.Execute<DataMap>("Biz", "Delete", "DeleteBusiness", map, "ID"))
+				using (var res = WasHandler.Execute<DataMap>("Biz", "Delete", "DeleteBusiness", new DataMap() { { "ID", txtID.EditValue } }, "ID"))
 				{
 					if (res.Error.Number != 0)
 						throw new Exception(res.Error.Message);

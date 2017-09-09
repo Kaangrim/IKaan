@@ -6,7 +6,7 @@ using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraTab.ViewInfo;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
-using IKaan.Model.Biz;
+using IKaan.Model.Biz.Company;
 using IKaan.Win.Core.Controls.Grid;
 using IKaan.Win.Core.Enum;
 using IKaan.Win.Core.Forms;
@@ -295,11 +295,7 @@ namespace IKaan.Win.View.Biz.Master.Company
 		{
 			try
 			{
-				DataMap parameter = new DataMap()
-				{
-					{ "ID", param }
-				};
-				var model = WasHandler.GetData<CompanyModel>("Biz", "GetData", "Select", parameter);
+				var model = WasHandler.GetData<CompanyModel>("Biz", "GetData", "Select", new DataMap() { { "ID", param } });
 				if (model == null)
 					throw new Exception("조회할 데이터가 없습니다.");
 
@@ -340,7 +336,6 @@ namespace IKaan.Win.View.Biz.Master.Company
 			try
 			{
 				var model = this.GetControlData<CompanyModel>();
-
 				using (var res = WasHandler.Execute<CompanyModel>("Biz", "Save", (this.EditMode == EditModeEnum.New) ? "Insert" : "Update", model, "ID"))
 				{
 					if (res.Error.Number != 0)
@@ -360,8 +355,7 @@ namespace IKaan.Win.View.Biz.Master.Company
 		{
 			try
 			{
-				DataMap map = new DataMap() { { "ID", txtID.EditValue } };
-				using (var res = WasHandler.Execute<DataMap>("Biz", "Delete", "DeleteCompany", map, "ID"))
+				using (var res = WasHandler.Execute<DataMap>("Biz", "Delete", "DeleteCompany", new DataMap() { { "ID", txtID.EditValue } }, "ID"))
 				{
 					if (res.Error.Number != 0)
 						throw new Exception(res.Error.Message);

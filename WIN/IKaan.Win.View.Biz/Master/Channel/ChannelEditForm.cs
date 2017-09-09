@@ -5,9 +5,11 @@ using System.Windows.Forms;
 using DevExpress.Utils;
 using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraTab.Buttons;
+using DevExpress.XtraTab.ViewInfo;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
-using IKaan.Model.Biz;
+using IKaan.Model.Biz.Channel;
+using IKaan.Model.Biz.Customer;
 using IKaan.Win.Core.Controls.Grid;
 using IKaan.Win.Core.Enum;
 using IKaan.Win.Core.Forms;
@@ -23,7 +25,7 @@ namespace IKaan.Win.View.Biz.Master.Channel
 		{
 			InitializeComponent();
 
-			lcTab.CustomHeaderButtonClick += delegate (object sender, DevExpress.XtraTab.ViewInfo.CustomHeaderButtonEventArgs e)
+			lcTab.CustomHeaderButtonClick += delegate (object sender, CustomHeaderButtonEventArgs e)
 			{
 				if (e.Button.Tag.ToStringNullToEmpty() == "ADD")
 				{
@@ -307,8 +309,7 @@ namespace IKaan.Win.View.Biz.Master.Channel
 		{
 			try
 			{
-				DataMap map = new DataMap() { { "ID", txtID.EditValue } };
-				using (var res = WasHandler.Execute<DataMap>("Biz", "Delete", "DeleteChannel", map, "ID"))
+				using (var res = WasHandler.Execute<DataMap>("Biz", "Delete", "DeleteChannel", new DataMap() { { "ID", txtID.EditValue } }, "ID"))
 				{
 					if (res.Error.Number != 0)
 						throw new Exception(res.Error.Message);

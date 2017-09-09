@@ -1,7 +1,8 @@
 ﻿using System;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
-using IKaan.Model.Biz;
+using IKaan.Model.Biz.Partner;
+using IKaan.Model.Biz.Search;
 using IKaan.Win.Core.Enum;
 using IKaan.Win.Core.Forms;
 using IKaan.Win.Core.Model;
@@ -114,7 +115,7 @@ namespace IKaan.Win.View.Biz.Activity
 		{
 			try
 			{
-				DataMap map = new DataMap() { { "ID", txtID.EditValue } };
+				var map = new DataMap() { { "ID", txtID.EditValue } };
 				using (var res = WasHandler.Execute<DataMap>("Biz", "Delete", "DeleteSearchBrandActivity", map, "ID"))
 				{
 					if (res.Error.Number != 0)

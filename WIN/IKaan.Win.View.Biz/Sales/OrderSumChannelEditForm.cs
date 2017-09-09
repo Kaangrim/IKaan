@@ -4,7 +4,7 @@ using DevExpress.Data;
 using DevExpress.Utils;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
-using IKaan.Model.Biz;
+using IKaan.Model.Biz.Sales;
 using IKaan.Win.Core.Controls.Grid;
 using IKaan.Win.Core.Enum;
 using IKaan.Win.Core.Forms;
@@ -126,7 +126,7 @@ namespace IKaan.Win.View.Biz.Sales
 				gridList.PostEditor();
 				gridList.UpdateCurrentRow();
 
-				OrderSumByChannelModel model = new OrderSumByChannelModel()
+				var model = new OrderSumByChannelModel()
 				{
 					ChannelID = txtChannelID.EditValue.ToIntegerNullToZero(),
 					OrderDate = datOrderDate.GetDate(),
@@ -151,7 +151,7 @@ namespace IKaan.Win.View.Biz.Sales
 		{
 			try
 			{
-				DataMap map = new DataMap()
+				var map = new DataMap()
 				{
 					{ "ChannelID", txtChannelID.EditValue },
 					{ "OrderDate", datOrderDate.GetDate() }

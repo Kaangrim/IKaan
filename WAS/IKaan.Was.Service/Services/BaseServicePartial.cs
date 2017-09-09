@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
-using IKaan.Model.Base;
+using IKaan.Model.Base.Authority;
+using IKaan.Model.Base.Common;
+using IKaan.Model.Base.Database;
 using IKaan.Model.Common.Was;
 using IKaan.Was.Core.Mappers;
 using IKaan.Was.Service.Utils;

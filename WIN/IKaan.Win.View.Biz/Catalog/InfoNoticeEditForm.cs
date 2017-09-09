@@ -6,7 +6,7 @@ using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraTab.ViewInfo;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
-using IKaan.Model.Biz;
+using IKaan.Model.Biz.InfoNotice;
 using IKaan.Win.Core.Controls.Grid;
 using IKaan.Win.Core.Enum;
 using IKaan.Win.Core.Forms;
@@ -196,13 +196,12 @@ namespace IKaan.Win.View.Biz.Catalog
 			try
 			{
 				var model = this.GetControlData<InfoNoticeModel>();
-				List<InfoNoticeItemModel> items = new List<InfoNoticeItemModel>();
+				var items = new List<InfoNoticeItemModel>();
 
 				if (gridItems.RowCount > 0)
 					items = gridItems.DataSource as List<InfoNoticeItemModel>;
 
 				model.Items = items;
-
 				using (var res = WasHandler.Execute<InfoNoticeModel>("Biz", "Save", (this.EditMode == EditModeEnum.New) ? "Insert" : "Update", model, "ID"))
 				{
 					if (res.Error.Number != 0)
@@ -222,8 +221,7 @@ namespace IKaan.Win.View.Biz.Catalog
 		{
 			try
 			{
-				DataMap map = new DataMap() { { "ID", txtID.EditValue } };
-				using (var res = WasHandler.Execute<DataMap>("Biz", "Delete", "DeleteInfoNotice", map, "ID"))
+				using (var res = WasHandler.Execute<DataMap>("Biz", "Delete", "DeleteInfoNotice", new DataMap() { { "ID", txtID.EditValue } }, "ID"))
 				{
 					if (res.Error.Number != 0)
 						throw new Exception(res.Error.Message);

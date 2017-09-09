@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using DevExpress.Utils;
 using DevExpress.XtraGrid.Views.Grid;
 using IKaan.Base.Map;
-using IKaan.Model.Base;
+using IKaan.Model.Base.Authority;
 using IKaan.Win.Core.Controls.Grid;
 using IKaan.Win.Core.Enum;
 using IKaan.Win.Core.Forms;
@@ -216,8 +216,8 @@ namespace IKaan.Win.View.Base.Authority
 				if (DataValidate() == false) return;
 
 				var userData = this.GetControlData<UserModel>();
-				List<UserGroupModel> userGroup = new List<UserGroupModel>();
-				List<UserRoleModel> userRole = new List<UserRoleModel>();
+				var userGroup = new List<UserGroupModel>();
+				var userRole = new List<UserRoleModel>();
 
 				if (gridUserGroup.RowCount > 0)
 					userGroup = gridUserGroup.DataSource as List<UserGroupModel>;
@@ -247,8 +247,7 @@ namespace IKaan.Win.View.Base.Authority
 		{
 			try
 			{
-				DataMap map = new DataMap() { { "ID", txtID.EditValue } };
-				using (var res = WasHandler.Execute<DataMap>("Base", "Delete", "DeleteUser", map, "ID"))
+				using (var res = WasHandler.Execute<DataMap>("Base", "Delete", "DeleteUser", new DataMap() { { "ID", txtID.EditValue } }, "ID"))
 				{
 					if (res.Error.Number != 0)
 						throw new Exception(res.Error.Message);
@@ -267,8 +266,7 @@ namespace IKaan.Win.View.Base.Authority
 		{
 			try
 			{
-				DataMap map = new DataMap() { { "ID", txtID.EditValue } };
-				using (var res = WasHandler.Execute<DataMap>("Base", "ClearPassword", "ClearPassword", map, "ID"))
+				using (var res = WasHandler.Execute<DataMap>("Base", "ClearPassword", "ClearPassword", new DataMap() { { "ID", txtID.EditValue } }, "ID"))
 				{
 					if (res.Error.Number != 0)
 						throw new Exception(res.Error.Message);

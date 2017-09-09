@@ -4,7 +4,7 @@ using DevExpress.Utils;
 using DevExpress.XtraGrid.Views.Grid;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
-using IKaan.Model.Biz;
+using IKaan.Model.Biz.Organization;
 using IKaan.Win.Core.Controls.Grid;
 using IKaan.Win.Core.Enum;
 using IKaan.Win.Core.Forms;
@@ -279,7 +279,7 @@ namespace IKaan.Win.View.Biz.Organization
 		{
 			try
 			{
-				DataMap map = new DataMap()
+				var map = new DataMap()
 				{
 					{ "ID", txtID.EditValue }
 				};
@@ -306,11 +306,7 @@ namespace IKaan.Win.View.Biz.Organization
 					throw new Exception("처리할 건이 없습니다.");
 
 				object id = gridAppointment.GetValue(gridAppointment.FocusedRowHandle, "ID");
-				DataMap map = new DataMap()
-				{
-					{ "ID", id }
-				};
-				using (var res = WasHandler.Execute<DataMap>("Biz", "Delete", "DeleteAppointment", map, "ID"))
+				using (var res = WasHandler.Execute<DataMap>("Biz", "Delete", "DeleteAppointment", new DataMap() { { "ID", id } }, "ID"))
 				{
 					if (res.Error.Number != 0)
 						throw new Exception(res.Error.Message);
@@ -327,7 +323,7 @@ namespace IKaan.Win.View.Biz.Organization
 
 		private void ShowAppointmentForm(object id = null)
 		{
-			using (AppointmentEditForm form = new AppointmentEditForm())
+			using (var form = new AppointmentEditForm())
 			{
 				form.Text = "발령등록";
 				form.StartPosition = FormStartPosition.CenterScreen;
@@ -353,7 +349,7 @@ namespace IKaan.Win.View.Biz.Organization
 					return;
 
 				string url = FTPHandler.UploadPerson(picImage.GetLoadedImageLocation(), txtPersonID.EditValue.ToString());
-				DataMap map = new DataMap()
+				var map = new DataMap()
 				{
 					{ "ID", txtPersonID.EditValue },
 					{ "ImageUrl", url }
@@ -382,7 +378,7 @@ namespace IKaan.Win.View.Biz.Organization
 
 				FTPHandler.DeleteFile(txtImageUrl.EditValue.ToString());
 
-				DataMap map = new DataMap()
+				var map = new DataMap()
 				{
 					{ "ID", txtPersonID.EditValue },
 					{ "ImageUrl", null }

@@ -10,7 +10,7 @@ using DevExpress.XtraGrid.Views.Grid;
 using HtmlAgilityPack;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
-using IKaan.Model.Base;
+using IKaan.Model.Base.Common;
 using IKaan.Model.Scrap;
 using IKaan.Win.Core.Controls.Grid;
 using IKaan.Win.Core.Forms;

@@ -3,7 +3,7 @@ using System.Windows.Forms;
 using DevExpress.Utils;
 using DevExpress.XtraGrid.Views.Grid;
 using IKaan.Base.Map;
-using IKaan.Model.Biz;
+using IKaan.Model.Biz.Company;
 using IKaan.Win.Core.Controls.Grid;
 using IKaan.Win.Core.Forms;
 using IKaan.Win.Core.Model;
@@ -42,7 +42,6 @@ namespace IKaan.Win.View.Biz.Master.Company
 
 		void InitGrid()
 		{
-			#region List
 			gridList.Init();
 			gridList.AddGridColumns(
 				new XGridColumn() { FieldName = "RowNo" },
@@ -77,7 +76,6 @@ namespace IKaan.Win.View.Biz.Master.Company
 					ShowErrBox(ex);
 				}
 			};
-			#endregion
 		}
 
 		protected override void DataLoad(object param = null)

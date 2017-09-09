@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using DevExpress.Utils;
 using DevExpress.XtraGrid.Views.Grid;
 using IKaan.Base.Map;
-using IKaan.Model.Base;
+using IKaan.Model.Base.Authority;
 using IKaan.Win.Core.Controls.Grid;
 using IKaan.Win.Core.Enum;
 using IKaan.Win.Core.Forms;
@@ -143,7 +143,7 @@ namespace IKaan.Win.View.Base.Authority
 
 		protected override void DataLoad(object param = null)
 		{
-			DataMap parameter = new DataMap()
+			var parameter = new DataMap()
 			{
 				{ "ModuleID", lupFindModuleID.EditValue },
 				{ "FindText", txtFindText.EditValue }
@@ -188,13 +188,12 @@ namespace IKaan.Win.View.Base.Authority
 			try
 			{
 				var viewData = this.GetControlData<ViewModel>();
-				List<ViewButtonModel> viewButtonList = new List<ViewButtonModel>();
+				var viewButtonList = new List<ViewButtonModel>();
 
 				if (gridViewButtons.RowCount > 0)
 					viewButtonList = gridViewButtons.DataSource as List<ViewButtonModel>;
 
 				viewData.ViewButton = viewButtonList;
-
 				using (var res = WasHandler.Execute<ViewModel>("Base", "Save", (this.EditMode == EditModeEnum.New) ? "Insert" : "Update", viewData, "ID"))
 				{
 					if (res.Error.Number != 0)
@@ -214,8 +213,7 @@ namespace IKaan.Win.View.Base.Authority
 		{
 			try
 			{
-				DataMap map = new DataMap() { { "ID", txtID.EditValue } };
-				using (var res = WasHandler.Execute<DataMap>("Base", "Delete", "DeleteView", map, "ID"))
+				using (var res = WasHandler.Execute<DataMap>("Base", "Delete", "DeleteView", new DataMap() { { "ID", txtID.EditValue } }, "ID"))
 				{
 					if (res.Error.Number != 0)
 						throw new Exception(res.Error.Message);

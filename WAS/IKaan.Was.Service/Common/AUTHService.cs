@@ -1,9 +1,9 @@
 ﻿using System;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
+using IKaan.Model.Base.Authority;
 using IKaan.Model.Common.UserModels;
 using IKaan.Model.Common.Was;
-using IKaan.Model.Base;
 using IKaan.Was.Core.Mappers;
 
 namespace IKaan.Was.Service.Common
@@ -195,7 +195,7 @@ namespace IKaan.Was.Service.Common
 		{
 			try
 			{
-				DataMap parameter = new DataMap();
+				var parameter = new DataMap();
 				if (request.Parameter != null)
 					parameter = request.Parameter.JsonToAnyType<DataMap>();
 				

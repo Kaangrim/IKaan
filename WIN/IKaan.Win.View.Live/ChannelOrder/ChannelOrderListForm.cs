@@ -4,7 +4,7 @@ using DevExpress.Data;
 using DevExpress.Utils;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
-using IKaan.Model.Biz;
+using IKaan.Model.Biz.Channel;
 using IKaan.Model.Live;
 using IKaan.Win.Core.Controls.Grid;
 using IKaan.Win.Core.Forms;

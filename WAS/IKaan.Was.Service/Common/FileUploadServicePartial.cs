@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
-using IKaan.Model.Base;
+using IKaan.Model.Base.Common;
 using IKaan.Model.Common.Was;
 using IKaan.Model.Live;
 using IKaan.Was.Core.Mappers;
@@ -13,7 +13,7 @@ namespace IKaan.Was.Service.Common
 	{
 		public static void SaveChannelOrder(this WasRequest req, FileUploadModel model, DataMap parameter)
 		{
-			IList<ChannelOrderModel> datalist = model.UploadData.JsonToAnyType<List<ChannelOrderModel>>();
+			var datalist = model.UploadData.JsonToAnyType<List<ChannelOrderModel>>();
 			string orderNo = string.Empty;
 			string orderSeq = string.Empty;
 			string goodsCode = string.Empty;
@@ -40,7 +40,7 @@ namespace IKaan.Was.Service.Common
 						}
 
 						//채널주문 중복검사 및 기 등록된 데이터 삭제
-						DataMap map = new DataMap()
+						var map = new DataMap()
 						{
 							{ "OrderNo", orderNo },
 							{ "OrderSeq", orderSeq },
@@ -64,7 +64,7 @@ namespace IKaan.Was.Service.Common
 					{						
 						if (data.BrandID == null || data.BrandID == default(int))
 						{
-							DataMap findMap = new DataMap()
+							var findMap = new DataMap()
 							{
 								{ "ChannelID", data.ChannelID },
 								{ "GoodsCode", data.GoodsCode }
@@ -89,7 +89,7 @@ namespace IKaan.Was.Service.Common
 						}
 
 						//채널주문 중복검사 및 기 등록된 데이터 삭제
-						DataMap map = new DataMap()
+						var map = new DataMap()
 						{
 							{ "OrderNo", data.OrderNo },
 							{ "OrderSeq", data.OrderSeq },

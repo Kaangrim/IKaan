@@ -1,7 +1,8 @@
 ﻿using System;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
-using IKaan.Model.Biz;
+using IKaan.Model.Biz.Common;
+using IKaan.Model.Biz.Customer;
 using IKaan.Win.Core.Enum;
 using IKaan.Win.Core.Forms;
 using IKaan.Win.Core.Handler;
@@ -97,7 +98,7 @@ namespace IKaan.Win.View.Biz.Customer
 
 			try
 			{
-				DataMap parameter = new DataMap(){ { "ID", (param as DataMap).GetValue("ID") } };
+				var parameter = new DataMap(){ { "ID", (param as DataMap).GetValue("ID") } };
 				var model = WasHandler.GetData<CustomerBusinessModel>("Biz", "GetData", "Select", parameter);
 				if (model == null)
 					throw new Exception("조회할 데이터가 없습니다.");
@@ -245,8 +246,7 @@ namespace IKaan.Win.View.Biz.Customer
 					loadUrl = string.Empty;
 				}
 
-				DataMap map = new DataMap() { { "ID", txtID.EditValue } };
-				using (var res = WasHandler.Execute<DataMap>("Biz", "Delete", "DeleteCustomerBusiness", map, "ID"))
+				using (var res = WasHandler.Execute<DataMap>("Biz", "Delete", "DeleteCustomerBusiness", new DataMap() { { "ID", txtID.EditValue } }, "ID"))
 				{
 					if (res.Error.Number != 0)
 						throw new Exception(res.Error.Message);

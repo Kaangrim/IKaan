@@ -4,7 +4,7 @@ using DevExpress.Utils;
 using DevExpress.XtraGrid.Views.Grid;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
-using IKaan.Model.Base;
+using IKaan.Model.Base.Database;
 using IKaan.Win.Core.Controls.Grid;
 using IKaan.Win.Core.Enum;
 using IKaan.Win.Core.Forms;
@@ -156,7 +156,7 @@ namespace IKaan.Win.View.Base.Database
 
 		protected override void DataLoad(object param = null)
 		{
-			DataMap parameter = new DataMap()
+			var parameter = new DataMap()
 			{
 				{ "ServerID", lupServerID.EditValue },
 				{ "DatabaseID", lupDatabaseID.EditValue },
@@ -174,7 +174,7 @@ namespace IKaan.Win.View.Base.Database
 		{
 			try
 			{
-				DataMap map = new DataMap()
+				var map = new DataMap()
 				{
 					{ "DatabaseID", lupDatabaseID.EditValue },
 					{ "TableName", id }
@@ -187,7 +187,7 @@ namespace IKaan.Win.View.Base.Database
 				if (model.Columns == null)
 					model.Columns = new List<ColumnModel>();
 
-				foreach (ColumnModel col in model.Columns)
+				foreach (var col in model.Columns)
 				{
 					if (col.LogicalName.IsNullOrEmpty())
 					{
@@ -238,13 +238,12 @@ namespace IKaan.Win.View.Base.Database
 			{
 				var model = this.GetControlData<TableModel>();
 				model.DatabaseID = lupDatabaseID.EditValue.ToIntegerNullToZero();
-				List<ColumnModel> columns = new List<ColumnModel>();
+				var columns = new List<ColumnModel>();
 
 				if (gridColumns.RowCount > 0)
 					columns = gridColumns.DataSource as List<ColumnModel>;
 
 				model.Columns = columns;
-
 				using (var res = WasHandler.Execute<TableModel>("Base", "Save", (this.EditMode == EditModeEnum.New) ? "Insert" : "Update", model, "ID"))
 				{
 					if (res.Error.Number != 0)
@@ -264,8 +263,7 @@ namespace IKaan.Win.View.Base.Database
 		{
 			try
 			{
-				DataMap map = new DataMap() { { "ID", txtID.EditValue } };
-				using (var res = WasHandler.Execute<DataMap>("Base", "Delete", "DeleteTable", map, "ID"))
+				using (var res = WasHandler.Execute<DataMap>("Base", "Delete", "DeleteTable", new DataMap() { { "ID", txtID.EditValue } }, "ID"))
 				{
 					if (res.Error.Number != 0)
 						throw new Exception(res.Error.Message);

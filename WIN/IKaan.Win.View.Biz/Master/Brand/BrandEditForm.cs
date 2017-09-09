@@ -7,7 +7,8 @@ using DevExpress.XtraLayout;
 using DevExpress.XtraTab.ViewInfo;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
-using IKaan.Model.Biz;
+using IKaan.Model.Biz.Brand;
+using IKaan.Model.Biz.Channel;
 using IKaan.Win.Core.Controls.Grid;
 using IKaan.Win.Core.Enum;
 using IKaan.Win.Core.Forms;
@@ -184,7 +185,7 @@ namespace IKaan.Win.View.Biz.Master.Brand
 			picBrandLogo.EditValue = null;
 
 			gridImages.Clear<BrandImageModel>();
-			gridAttributes.Clear<CustomerBrandModel>();
+			gridAttributes.Clear<BrandAttributeModel>();
 			gridChannels.Clear<ChannelBrandModel>();
 
 			lcTab.CustomHeaderButtons[0].Enabled = false;
@@ -239,7 +240,6 @@ namespace IKaan.Win.View.Biz.Master.Brand
 			try
 			{
 				var model = this.GetControlData<BrandModel>();
-
 				using (var res = WasHandler.Execute<BrandModel>("Biz", "Save", (this.EditMode == EditModeEnum.New) ? "Insert" : "Update", model, "ID"))
 				{
 					if (res.Error.Number != 0)
@@ -259,8 +259,7 @@ namespace IKaan.Win.View.Biz.Master.Brand
 		{
 			try
 			{
-				DataMap map = new DataMap() { { "ID", txtID.EditValue } };
-				using (var res = WasHandler.Execute<DataMap>("Biz", "Delete", "DeleteBrand", map, "ID"))
+				using (var res = WasHandler.Execute<DataMap>("Biz", "Delete", "DeleteBrand", new DataMap() { { "ID", txtID.EditValue } }, "ID"))
 				{
 					if (res.Error.Number != 0)
 						throw new Exception(res.Error.Message);

@@ -2,7 +2,7 @@
 using DevExpress.Utils;
 using DevExpress.XtraGrid.Views.Grid;
 using IKaan.Base.Map;
-using IKaan.Model.Base;
+using IKaan.Model.Base.Database;
 using IKaan.Win.Core.Controls.Grid;
 using IKaan.Win.Core.Enum;
 using IKaan.Win.Core.Forms;
@@ -153,8 +153,7 @@ namespace IKaan.Win.View.Base.Database
 		{
 			try
 			{
-				DataMap map = new DataMap() { { "ID", txtID.EditValue } };
-				using (var res = WasHandler.Execute<DataMap>("Base", "Delete", "DeleteSystem", map, "ID"))
+				using (var res = WasHandler.Execute<DataMap>("Base", "Delete", "DeleteSystem", new DataMap() { { "ID", txtID.EditValue } }, "ID"))
 				{
 					if (res.Error.Number != 0)
 						throw new Exception(res.Error.Message);

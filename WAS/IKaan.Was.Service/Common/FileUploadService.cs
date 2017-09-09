@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
 using IKaan.Model.Base;
+using IKaan.Model.Base.Common;
 using IKaan.Model.Common.Was;
 using IKaan.Model.Live;
 using IKaan.Was.Core.Mappers;
@@ -139,7 +140,7 @@ namespace IKaan.Was.Service.Common
 							if (req.Data == null)
 								throw new Exception("저장할 데이터가 존재하지 않습니다.");
 
-							FileUploadModel model = req.Data.JsonToAnyType<FileUploadModel>();
+							var model = req.Data.JsonToAnyType<FileUploadModel>();
 							if (model.ID == null)
 							{
 								model.CreatedBy = req.User.UserId;

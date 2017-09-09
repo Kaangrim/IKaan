@@ -6,7 +6,7 @@ using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraTab.ViewInfo;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
-using IKaan.Model.Biz;
+using IKaan.Model.Biz.Customer;
 using IKaan.Win.Core.Controls.Grid;
 using IKaan.Win.Core.Enum;
 using IKaan.Win.Core.Forms;
@@ -407,7 +407,6 @@ namespace IKaan.Win.View.Biz.Customer
 			try
 			{
 				var model = this.GetControlData<CustomerModel>();
-
 				using (var res = WasHandler.Execute<CustomerModel>("Biz", "Save", (this.EditMode == EditModeEnum.New) ? "Insert" : "Update", model, "ID"))
 				{
 					if (res.Error.Number != 0)
@@ -427,8 +426,7 @@ namespace IKaan.Win.View.Biz.Customer
 		{
 			try
 			{
-				DataMap map = new DataMap() { { "ID", txtID.EditValue } };
-				using (var res = WasHandler.Execute<DataMap>("Biz", "Delete", "DeleteCustomer", map, "ID"))
+				using (var res = WasHandler.Execute<DataMap>("Biz", "Delete", "DeleteCustomer", new DataMap() { { "ID", txtID.EditValue } }, "ID"))
 				{
 					if (res.Error.Number != 0)
 						throw new Exception(res.Error.Message);
@@ -450,7 +448,7 @@ namespace IKaan.Win.View.Biz.Customer
 				if (txtID.EditValue.IsNullOrEmpty())
 					return;
 
-				using (CustomerAddressEditForm form = new CustomerAddressEditForm()
+				using (var form = new CustomerAddressEditForm()
 				{
 					Text = "주소등록",
 					StartPosition = FormStartPosition.CenterScreen,
@@ -481,7 +479,7 @@ namespace IKaan.Win.View.Biz.Customer
 				if (txtID.EditValue.IsNullOrEmpty())
 					return;
 
-				using (CustomerBusinessEditForm form = new CustomerBusinessEditForm()
+				using (var form = new CustomerBusinessEditForm()
 				{
 					Text = "사업자정보등록",
 					StartPosition = FormStartPosition.CenterScreen,
@@ -512,7 +510,7 @@ namespace IKaan.Win.View.Biz.Customer
 				if (txtID.EditValue.IsNullOrEmpty())
 					return;
 
-				using (CustomerBankEditForm form = new CustomerBankEditForm()
+				using (var form = new CustomerBankEditForm()
 				{
 					Text = "계좌정보등록",
 					StartPosition = FormStartPosition.CenterScreen,
@@ -543,7 +541,7 @@ namespace IKaan.Win.View.Biz.Customer
 				if (txtID.EditValue.IsNullOrEmpty())
 					return;
 
-				using (CustomerBrandEditForm form = new CustomerBrandEditForm()
+				using (var form = new CustomerBrandEditForm()
 				{
 					Text = "브랜드등록",
 					StartPosition = FormStartPosition.CenterScreen,
@@ -574,7 +572,7 @@ namespace IKaan.Win.View.Biz.Customer
 				if (txtID.EditValue.IsNullOrEmpty())
 					return;
 
-				using (CustomerChannelEditForm form = new CustomerChannelEditForm()
+				using (var form = new CustomerChannelEditForm()
 				{
 					Text = "채널등록",
 					StartPosition = FormStartPosition.CenterScreen,
