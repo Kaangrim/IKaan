@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using IKaan.Model.Common.Base;
 
-namespace IKaan.Model.Biz.Customer
+namespace IKaan.Model.Biz.Master.Customer
 {
 	[DataContract]
 	public class CustomerManagerModel : ModelBase

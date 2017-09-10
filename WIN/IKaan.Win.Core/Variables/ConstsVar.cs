@@ -58,15 +58,17 @@
 		public const string IMG_URL_BRAND = @"/Images/Brand";
 		public const string IMG_URL_GOODS = @"/Images/Goods";
 		public const string IMG_URL_SEARCH_BRAND = @"/Images/SearchBrand";
-		public const string IMG_URL_PERSON = @"/Images/Person";
+		public const string IMG_URL_EMPLOYEE = @"/Images/Employee";
 		public const string IMG_URL_BUSINESS = @"/Images/Business";
 		public const string IMG_URL_BANK = @"/Images/Bank";
+		public const string IMG_URL_STORE = @"/Images/Store";
 
 		public const string FILE_DEFINE_GOODS = "{0}_{1}{2}";			//{0} 상품ID, {1} M, D, L, {2} M, S
 		public const string FILE_DEFINE_BRAND_LOGO = "{0}_LOGO";	//{0} : 브랜드ID
 		public const string FILE_DEFINE_BRAND_MAIN = "{0}_MAIN";
-		public const string FILE_DEFINE_PERSON = "PERSON_{0}";
+		public const string FILE_DEFINE_EMPLOYEE = "EMPLOYEE_{0}";
 		public const string FILE_DEFINE_BUSINESS = "BIZ_{0}";
 		public const string FILE_DEFINE_BANK = "BANK_{0}";
+		public const string FILE_DEFINE_STORE = "STORE_{0}";
 	}
 }

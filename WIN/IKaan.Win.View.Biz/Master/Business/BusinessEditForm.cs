@@ -4,7 +4,7 @@ using DevExpress.Utils;
 using DevExpress.XtraEditors.Controls;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
-using IKaan.Model.Biz.Common;
+using IKaan.Model.Biz.Master.Common;
 using IKaan.Win.Core.Controls.Grid;
 using IKaan.Win.Core.Enum;
 using IKaan.Win.Core.Forms;

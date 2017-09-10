@@ -3,7 +3,7 @@ using System.Windows.Forms;
 using DevExpress.Utils;
 using DevExpress.XtraGrid.Views.Grid;
 using IKaan.Base.Map;
-using IKaan.Model.Biz.Common;
+using IKaan.Model.Biz.Master.Common;
 using IKaan.Win.Core.Controls.Grid;
 using IKaan.Win.Core.Forms;
 using IKaan.Win.Core.Model;
@@ -48,6 +48,7 @@ namespace IKaan.Win.View.Biz.Master.Store
 				new XGridColumn() { FieldName = "RowNo" },
 				new XGridColumn() { FieldName = "ID", Visible = false },
 				new XGridColumn() { FieldName = "Name", CaptionCode = "StoreName", Width = 200 },
+				new XGridColumn() { FieldName = "StoreTypeName", Width = 150 },
 				new XGridColumn() { FieldName = "UseYn", Width = 80, HorzAlignment = HorzAlignment.Center },
 				new XGridColumn() { FieldName = "Description", Width = 300 },
 				new XGridColumn() { FieldName = "CreatedOn" },

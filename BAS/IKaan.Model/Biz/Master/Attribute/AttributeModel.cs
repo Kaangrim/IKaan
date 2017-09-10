@@ -2,7 +2,7 @@
 using System.Runtime.Serialization;
 using IKaan.Model.Common.Base;
 
-namespace IKaan.Model.Biz.Attribute
+namespace IKaan.Model.Biz.Master.Attribute
 {
 	[DataContract]
 	public class AttributeModel : ModelBase

@@ -20,6 +20,7 @@
 					,	AA.StoreType
 					,	AA.Url
 					,	AA.Hosts
+					,	AA.UseYn
 					,	AA.Description
 					,	AA.ImageID
 					

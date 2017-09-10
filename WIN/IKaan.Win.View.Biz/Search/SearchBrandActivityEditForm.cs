@@ -1,7 +1,7 @@
 ﻿using System;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
-using IKaan.Model.Biz.Partner;
+using IKaan.Model.Biz.Master.Partner;
 using IKaan.Model.Biz.Search;
 using IKaan.Win.Core.Enum;
 using IKaan.Win.Core.Forms;

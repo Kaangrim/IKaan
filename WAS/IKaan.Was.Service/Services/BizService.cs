@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
-using IKaan.Model.Biz.Brand;
 using IKaan.Model.Biz.Catalog;
-using IKaan.Model.Biz.Channel;
-using IKaan.Model.Biz.Common;
-using IKaan.Model.Biz.Customer;
-using IKaan.Model.Biz.InfoNotice;
+using IKaan.Model.Biz.Master.Brand;
+using IKaan.Model.Biz.Master.Channel;
+using IKaan.Model.Biz.Master.Common;
+using IKaan.Model.Biz.Master.Customer;
+using IKaan.Model.Biz.Master.InfoNotice;
+using IKaan.Model.Biz.Master.Partner;
 using IKaan.Model.Biz.Organization;
-using IKaan.Model.Biz.Partner;
 using IKaan.Model.Biz.Sales;
 using IKaan.Model.Biz.Search;
 using IKaan.Model.Common.Was;
@@ -226,7 +226,7 @@ namespace IKaan.Was.Service.Services
 							req.SetData<OrderSumModel>();
 							break;
 						case "Store":
-							req.SetData<StoreModel>();
+							req.GetStore();
 							break;
 					}
 				}
@@ -364,7 +364,7 @@ namespace IKaan.Was.Service.Services
 									req.SaveOrderSumByBrand();
 									break;
 								case "Store":
-									req.SaveData<StoreModel>();
+									req.SaveStore();
 									break;
 							}
 						}

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
-using IKaan.Model.Biz.Common;
+using IKaan.Model.Biz.Master.Common;
 using IKaan.Model.Common.Base;
 
-namespace IKaan.Model.Biz.Customer
+namespace IKaan.Model.Biz.Master.Customer
 {
 	[DataContract]
 	public class CustomerBusinessModel : ModelBase

@@ -1,8 +1,8 @@
 ﻿using System;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
-using IKaan.Model.Biz.Brand;
-using IKaan.Model.Biz.Common;
+using IKaan.Model.Biz.Master.Brand;
+using IKaan.Model.Biz.Master.Common;
 using IKaan.Win.Core.Enum;
 using IKaan.Win.Core.Forms;
 using IKaan.Win.Core.Handler;

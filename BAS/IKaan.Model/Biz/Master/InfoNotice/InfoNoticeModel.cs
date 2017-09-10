@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using IKaan.Model.Common.Base;
 
-namespace IKaan.Model.Biz.InfoNotice
+namespace IKaan.Model.Biz.Master.InfoNotice
 {
 	[DataContract]
 	public class InfoNoticeModel : ModelBase

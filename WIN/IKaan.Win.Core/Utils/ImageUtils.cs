@@ -105,5 +105,10 @@ namespace IKaan.Win.Core.Utils
 				Width = image.PixelWidth
 			};
 		}
+
+		public static string GetFileName(string imagePath)
+		{
+			return Path.GetFileName(imagePath);
+		}
 	}
 }

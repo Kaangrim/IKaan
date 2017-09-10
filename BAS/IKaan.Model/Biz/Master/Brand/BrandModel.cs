@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
-using IKaan.Model.Biz.Channel;
+using IKaan.Model.Biz.Master.Channel;
 using IKaan.Model.Common.Base;
 
-namespace IKaan.Model.Biz.Brand
+namespace IKaan.Model.Biz.Master.Brand
 {
 	[DataContract]
 	public class BrandModel : ModelBase

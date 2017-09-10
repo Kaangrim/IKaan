@@ -1,9 +1,10 @@
 ﻿using System;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
-using IKaan.Model.Biz.Common;
+using IKaan.Model.Biz.Master.Common;
 using IKaan.Win.Core.Enum;
 using IKaan.Win.Core.Forms;
+using IKaan.Win.Core.Handler;
 using IKaan.Win.Core.Model;
 using IKaan.Win.Core.Utils;
 using IKaan.Win.Core.Variables;
@@ -13,6 +14,8 @@ namespace IKaan.Win.View.Biz.Master.Store
 {
 	public partial class StoreEditForm : EditForm
 	{
+		private string loadImageUrl = string.Empty;
+
 		public StoreEditForm()
 		{
 			InitializeComponent();
@@ -70,7 +73,12 @@ namespace IKaan.Win.View.Biz.Master.Store
 
 				if (model.Image != null && model.Image.Url.IsNullOrEmpty() == false)
 				{
+					loadImageUrl = model.Image.Url;
 					picImage.LoadAsync(ConstsVar.IMG_URL + model.Image.Url);
+				}
+				else
+				{
+					loadImageUrl = string.Empty;
 				}
 
 				SetToolbarButtons(new ToolbarButtons() { New = true, Save = true, SaveAndClose = true, SaveAndNew = true, Delete = true });
@@ -89,6 +97,33 @@ namespace IKaan.Win.View.Biz.Master.Store
 			try
 			{
 				var model = this.GetControlData<StoreModel>();
+				if (model.Image == null)
+					model.Image = new ImageModel();
+
+				//이미지 업로드
+				if (picImage.EditValue != null)
+				{
+					string path = picImage.GetLoadedImageLocation();
+					if (path.IsNullOrEmpty() == false)
+					{
+						string url = FTPHandler.UploadStore(path, txtName.EditValue.ToString());
+						model.Image.Url = url;
+						model.Image.Name = ImageUtils.GetFileName(path);
+						model.Image.Width = ImageUtils.GetSizePixel(path).Width;
+						model.Image.Height = ImageUtils.GetSizePixel(path).Height;
+						model.Image.ImageType = "40";
+					}
+				}
+				else
+				{
+					if (loadImageUrl.IsNullOrEmpty() == false)
+					{
+						FTPHandler.DeleteFile(loadImageUrl);
+						loadImageUrl = string.Empty;
+					}
+				}
+
+				
 				using (var res = WasHandler.Execute<StoreModel>("Biz", "Save", (this.EditMode == EditModeEnum.New) ? "Insert" : "Update", model, "ID"))
 				{
 					if (res.Error.Number != 0)

@@ -2,7 +2,7 @@
 using System.Runtime.Serialization;
 using IKaan.Model.Common.Base;
 
-namespace IKaan.Model.Biz.Common
+namespace IKaan.Model.Biz.Master.Common
 {
 	[DataContract]
 	public class AddressModel : ModelBase

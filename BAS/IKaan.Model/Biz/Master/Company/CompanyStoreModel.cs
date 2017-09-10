@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using IKaan.Model.Common.Base;
 
-namespace IKaan.Model.Biz.Company
+namespace IKaan.Model.Biz.Master.Company
 {
 	[DataContract]
 	public class CompanyStoreModel : ModelBase

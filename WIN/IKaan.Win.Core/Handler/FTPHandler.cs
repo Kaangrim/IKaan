@@ -168,7 +168,7 @@ namespace IKaan.Win.Core.Handler
 				throw;
 			}
 		}
-		public static string UploadPerson(string localPath, string personID)
+		public static string UploadEmployee(string localPath, string employeeNo)
 		{
 			try
 			{
@@ -178,8 +178,8 @@ namespace IKaan.Win.Core.Handler
 
 				FileInfo info = new FileInfo(localPath);
 				string ext = info.Extension;
-				string fileName = string.Format(ConstsVar.FILE_DEFINE_PERSON, personID) + ext;
-				string remotePath = ConstsVar.IMG_URL_PERSON;
+				string fileName = string.Format(ConstsVar.FILE_DEFINE_EMPLOYEE, employeeNo) + ext;
+				string remotePath = ConstsVar.IMG_URL_EMPLOYEE;
 				string remoteFull = remotePath + "/" + fileName;
 
 				using (var ftp = new FtpClient())
@@ -246,6 +246,39 @@ namespace IKaan.Win.Core.Handler
 				string ext = info.Extension;
 				string fileName = string.Format(ConstsVar.FILE_DEFINE_BANK, bankName+"_" + accountNo) + ext;
 				string remotePath = ConstsVar.IMG_URL_BANK;
+				string remoteFull = remotePath + "/" + fileName;
+
+				using (var ftp = new FtpClient())
+				{
+					ftp.Host = url;
+					ftp.Credentials = new System.Net.NetworkCredential(id, pw);
+					ftp.Connect();
+					if (ftp.DirectoryExists(remotePath) == false)
+						ftp.CreateDirectory(remotePath);
+					if (ftp.FileExists(remoteFull))
+						ftp.DeleteFile(remoteFull);
+					ftp.UploadFile(localPath, remoteFull);
+					ftp.Disconnect();
+				}
+				return remoteFull;
+			}
+			catch
+			{
+				throw;
+			}
+		}
+		public static string UploadStore(string localPath, string storeName)
+		{
+			try
+			{
+				if (localPath.IsNullOrEmpty())
+					throw new Exception("로컬 파일 경로가 정확하지 않습니다.");
+
+
+				FileInfo info = new FileInfo(localPath);
+				string ext = info.Extension;
+				string fileName = string.Format(ConstsVar.FILE_DEFINE_STORE, storeName) + ext;
+				string remotePath = ConstsVar.IMG_URL_STORE;
 				string remoteFull = remotePath + "/" + fileName;
 
 				using (var ftp = new FtpClient())

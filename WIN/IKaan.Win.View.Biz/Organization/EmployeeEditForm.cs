@@ -348,7 +348,7 @@ namespace IKaan.Win.View.Biz.Organization
 				if (txtPersonID.EditValue == null)
 					return;
 
-				string url = FTPHandler.UploadPerson(picImage.GetLoadedImageLocation(), txtPersonID.EditValue.ToString());
+				string url = FTPHandler.UploadEmployee(picImage.GetLoadedImageLocation(), txtEmployeeNo.EditValue.ToString());
 				var map = new DataMap()
 				{
 					{ "ID", txtPersonID.EditValue },

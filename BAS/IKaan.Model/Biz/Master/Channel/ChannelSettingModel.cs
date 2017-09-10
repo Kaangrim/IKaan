@@ -2,7 +2,7 @@
 using System.Runtime.Serialization;
 using IKaan.Model.Common.Base;
 
-namespace IKaan.Model.Biz.Channel
+namespace IKaan.Model.Biz.Master.Channel
 {
 	[DataContract]
 	public class ChannelSettingModel : ModelBase

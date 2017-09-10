@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
-using IKaan.Model.Biz.Common;
+using IKaan.Model.Biz.Master.Common;
 using IKaan.Model.Common.Base;
 
-namespace IKaan.Model.Biz.Brand
+namespace IKaan.Model.Biz.Master.Brand
 {
 	[DataContract]
 	public class BrandImageModel : ModelBase

@@ -55,6 +55,7 @@
     <Compile Include="Common\EmailService.cs" />
     <Compile Include="Services\BaseServicePartial.cs" />
     <Compile Include="Services\BizService.cs" />
+    <Compile Include="Services\BizServiceStore.cs" />
     <Compile Include="Services\BizServicePartial.cs" />
     <Compile Include="Services\LiveService.cs" />
     <Compile Include="Services\ScrapService.cs" />

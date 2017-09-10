@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
-using IKaan.Model.Biz.Common;
+using IKaan.Model.Biz.Master.Common;
 using IKaan.Model.Common.Base;
 
 namespace IKaan.Model.Biz.Sales
@@ -41,7 +41,7 @@ namespace IKaan.Model.Biz.Sales
 		public int? AddressID { get; set; }
 
 		[DataMember]
-		[Display(Name = "이미지")]
+		[Display(Name = "주소")]
 		public AddressModel Address { get; set; }
 	}
 }

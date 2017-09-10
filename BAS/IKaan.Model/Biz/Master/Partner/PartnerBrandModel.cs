@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using IKaan.Model.Common.Base;
 
-namespace IKaan.Model.Biz.Partner
+namespace IKaan.Model.Biz.Master.Partner
 {
 	[DataContract]
 	public class PartnerBrandModel : ModelBase

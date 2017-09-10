@@ -2,7 +2,7 @@
 using System.Runtime.Serialization;
 using IKaan.Model.Common.Base;
 
-namespace IKaan.Model.Biz.Common
+namespace IKaan.Model.Biz.Master.Common
 {
 	[DataContract]
 	public class StoreModel : ModelBase
@@ -38,5 +38,9 @@ namespace IKaan.Model.Biz.Common
 		[DataMember]
 		[Display(Name = "이미지")]
 		public ImageModel Image { get; set; }
+
+		[DataMember]
+		[Display(Name = "상점유형명")]
+		public string StoreTypeName { get; set; }
 	}
 }
