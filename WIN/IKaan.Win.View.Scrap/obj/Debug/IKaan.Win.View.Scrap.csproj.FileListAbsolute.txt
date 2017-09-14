@@ -183,8 +183,10 @@ D:\Repositories\IKaan\WIN\IKaan.Win.View.Scrap\bin\Debug\de\DevExpress.Diagram.v
 D:\Repositories\IKaan\WIN\IKaan.Win.View.Scrap\bin\Debug\es\DevExpress.Diagram.v17.1.Core.resources.dll
 D:\Repositories\IKaan\WIN\IKaan.Win.View.Scrap\bin\Debug\ja\DevExpress.Diagram.v17.1.Core.resources.dll
 D:\Repositories\IKaan\WIN\IKaan.Win.View.Scrap\bin\Debug\ru\DevExpress.Diagram.v17.1.Core.resources.dll
-D:\Repositories\IKaan\WIN\IKaan.Win.View.Scrap\obj\Debug\IKaan.Win.View.Scrap.Forms.BrandMappingEditForm.resources
-D:\Repositories\IKaan\WIN\IKaan.Win.View.Scrap\obj\Debug\IKaan.Win.View.Scrap.Forms.WebCrawlerEditForm.resources
 D:\Repositories\IKaan\WIN\IKaan.Win.View.Scrap\obj\Debug\IKaan.Win.View.Scrap.dll
 D:\Repositories\IKaan\WIN\IKaan.Win.View.Scrap\obj\Debug\IKaan.Win.View.Scrap.pdb
 D:\Repositories\IKaan\WIN\IKaan.Win.View.Scrap\obj\Debug\IKaan.Win.View.Scrap.dll.licenses
+D:\Repositories\IKaan\WIN\IKaan.Win.View.Scrap\obj\Debug\IKaan.Win.View.Scrap.Common.ScrapSiteEditForm.resources
+D:\Repositories\IKaan\WIN\IKaan.Win.View.Scrap\obj\Debug\IKaan.Win.View.Scrap.Common.ScrapEditForm.resources
+D:\Repositories\IKaan\WIN\IKaan.Win.View.Scrap\obj\Debug\IKaan.Win.View.Scrap.Interface.SmapsInterfaceForm.resources
+D:\Repositories\IKaan\WIN\IKaan.Win.View.Scrap\obj\Debug\IKaan.Win.View.Scrap.Mapping.SmapsMappingEditForm.resources

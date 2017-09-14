@@ -1,0 +1,125 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectSmapsLookbookList" parameterClass="DataMap" resultClass="SmapsLookbookModel" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.title)	as RowNo
+					,	AA.ID
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
+					
+					,	AA.RequestID
+					,	AA.uid
+					,	AA.agency_uid
+					,	AA.brand_uid
+					,	AA.title
+					,	AA.marketing
+					,	AA.active_date_start
+					,	AA.active_date_end
+					,	AA.notice
+					
+					,	AA.RequestID
+					,	BB.Status
+					,	BB.RequestDate
+					
+				FROM	IKScrap.dbo.TSmapsLookbook AA WITH (NOLOCK)
+						LEFT JOIN
+							IKScrap.dbo.TSmapsRequest BB WITH (NOLOCK)
+								ON AA.RequestID = BB.ID
+				WHERE	1=1
+			]]>
+			<isNotEmpty property="RequestID">
+				<![CDATA[
+					AND	AA.RequestID = #RequestID#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="AgencyUid">
+				<![CDATA[
+					AND	AA.agency_uid = #AgencyUid#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="BrandUid">
+				<![CDATA[
+					AND	AA.brand_uid = #BrandUid#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(
+							AA.title  LIKE '%'+#FindText#+'%'
+						)
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectSmapsLookbook" parameterClass="DataMap" resultClass="SmapsLookbookModel" >
+			<![CDATA[
+				SELECT  *					
+				FROM	IKScrap.dbo.TSmapsLookbook AA WITH (NOLOCK)
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<select id="SelectSmapsLookbookExists" parameterClass="DataMap" resultClass="SmapsLookbookModel" >
+			<![CDATA[
+				SELECT  *					
+				FROM	IKScrap.dbo.TSmapsLookbook AA WITH (NOLOCK)
+				WHERE	AA.uid = #uid#
+			]]>
+		</select>
+		<insert id="InsertSmapsLookbook" parameterClass="SmapsLookbookModel" >
+			<![CDATA[
+				INSERT INTO dbo.TSmapsLookbook
+				( 
+					CreatedOn, CreatedBy, CreatedByName,
+					RequestID,
+					uid, agency_uid, brand_uid, title, marketing, active_date_start, active_date_end, notice
+				)
+				VALUES
+				(
+					GetDate(), #CreatedBy#, #CreatedByName#,
+					#RequestID#,
+					#uid#, #agency_uid#, #brand_uid#, #title#, #marketing#, #active_date_start#, #active_date_end#, #notice#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateSmapsLookbook" parameterClass="SmapsLookbookModel">
+			<![CDATA[
+				UPDATE  IKScrap.dbo.TSmapsLookbook
+				SET     UpdatedOn		= GetDate()
+					,	UpdatedBy		= #UpdatedBy#
+					,	UpdatedByName	= #UpdatedByName#
+					
+					,	RequestID			= #RequestID#
+					,	uid					= #uid#
+					,	agency_uid			= #agency_uid#
+					,	brand_uid			= #brand_uid#
+					,	title				= #title#
+					,	marketing			= #marketing#
+					,	active_date_start	= #active_date_start#
+					,	active_date_end		= #active_date_end#
+					,	notice				= #notice#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
+		<delete id="DeleteSmapsLookbook" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM	IKScrap.dbo.TSmapsLookbook WHERE ID = #ID#;
+			]]>
+		</delete>
+	</statements>
+</sqlMap>

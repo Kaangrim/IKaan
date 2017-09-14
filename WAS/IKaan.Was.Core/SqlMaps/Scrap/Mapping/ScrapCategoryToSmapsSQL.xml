@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectScrapCategoryToSmapsList" parameterClass="DataMap" resultClass="ScrapCategoryToSmapsModel" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.Name)	as RowNo
+					,	BB.ID
+					,	BB.CreatedOn
+					,	BB.CreatedBy
+					,	BB.CreatedByName
+					,	BB.UpdatedOn
+					,	BB.UpdatedBy
+					,	BB.UpdatedByName
+					
+					,	AA.SiteID			as SiteID					
+					,	AA.Name				as ScrapCategoryName
+					,	BB.SmapsCategoryID	as SmapsCategoryID
+					
+					,	CC.name				as SmapsCategoryName
+					
+				FROM	IKScrap.dbo.TScrapCategory AA WITH (NOLOCK)
+						LEFT JOIN
+							IKScrap.dbo.TScrapCategoryToSmaps BB WITH (NOLOCK)
+								ON AA.Name = BB.ScrapCategoryName
+						LEFT JOIN
+							IKScrap.dbo.TSmapsCategory CC WITH (NOLOCK)
+								ON BB.SmapsCategoryID = CC.ID
+				WHERE	AA.SiteID = #SiteID#
+			]]>
+			<isNotEmpty property="MappingYn">
+				<isEqual property="MappingYn" compareValue="Y">
+					<![CDATA[
+						AND	BB.SmapsCategoryID IS NOT NULL
+					]]>
+				</isEqual>
+				<isEqual property="MappingYn" compareValue="N">
+					<![CDATA[
+						AND	BB.SmapsCategoryID IS NULL
+					]]>
+				</isEqual>
+			</isNotEmpty>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(
+							AA.Name		LIKE '%'+#FindText#+'%' OR
+							CC.name		LIKE '%'+#FindText#+'%'
+						)
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectScrapCategoryToSmaps" parameterClass="DataMap" resultClass="ScrapCategoryToSmapsModel" >
+			<![CDATA[
+				SELECT  *					
+				FROM	IKScrap.dbo.TScrapCategoryToSmaps WITH (NOLOCK)
+				WHERE	ID = #ID#
+			]]>
+		</select>
+		<select id="SelectScrapCategoryToSmapsExists" parameterClass="DataMap" resultClass="ScrapCategoryToSmapsModel" >
+			<![CDATA[
+				SELECT  *					
+				FROM	IKScrap.dbo.TScrapCategoryToSmaps WITH (NOLOCK)
+				WHERE	ScrapCategoryName = #ScrapCategoryName#
+			]]>
+		</select>
+		<insert id="InsertScrapCategoryToSmaps" parameterClass="ScrapCategoryToSmapsModel" >
+			<![CDATA[
+				INSERT INTO dbo.TScrapCategoryToSmaps
+				( 
+					CreatedOn, CreatedBy, CreatedByName,
+					ScrapCategoryName, SmapsCategoryID
+				)
+				VALUES
+				(
+					GetDate(), #CreatedBy#, #CreatedByName#,
+					#ScrapCategoryName#, #SmapsCategoryID#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateScrapCategoryToSmaps" parameterClass="ScrapCategoryToSmapsModel">
+			<![CDATA[
+				UPDATE  IKScrap.dbo.TScrapCategoryToSmaps
+				SET     UpdatedOn			= GetDate()
+					,	UpdatedBy			= #UpdatedBy#
+					,	UpdatedByName		= #UpdatedByName#
+					
+					,	ScrapCategoryName	= #ScrapCategoryName#
+					,	SmapsCategoryID		= #SmapsCategoryID#
+				WHERE	ID					= #ID#
+			]]>
+		</update>
+		<delete id="DeleteScrapCategoryToSmaps" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM	IKScrap.dbo.TScrapCategoryToSmaps WHERE ID = #ID#;
+			]]>
+		</delete>
+	</statements>
+</sqlMap>

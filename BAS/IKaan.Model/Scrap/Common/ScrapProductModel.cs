@@ -1,15 +1,16 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using IKaan.Model.Common.Base;
 
-namespace IKaan.Model.Scrap
+namespace IKaan.Model.Scrap.Common
 {
 	[DataContract]
-	public class GoodsInfoModel : ModelBase
+	public class ScrapProductModel : ModelBase
 	{
 		[DataMember]
-		[Display(Name = "사이트코드")]
-		public string SiteCode { get; set; }
+		[Display(Name = "사이트ID")]
+		public int SiteID { get; set; }
 
 		[DataMember]
 		[Display(Name = "브랜드코드")]
@@ -17,15 +18,15 @@ namespace IKaan.Model.Scrap
 
 		[DataMember]
 		[Display(Name = "상품코드")]
-		public string GoodsCode { get; set; }
+		public string Code { get; set; }
 
 		[DataMember]
 		[Display(Name = "상품명")]
-		public string GoodsName { get; set; }
+		public string Name { get; set; }
 
 		[DataMember]
 		[Display(Name = "상품URL")]
-		public string GoodsURL { get; set; }
+		public string Url { get; set; }
 
 		[DataMember]
 		[Display(Name = "소비자가")]
@@ -34,10 +35,6 @@ namespace IKaan.Model.Scrap
 		[DataMember]
 		[Display(Name = "판매가")]
 		public decimal SalePrice { get; set; }
-
-		[DataMember]
-		[Display(Name = "상품이미지URL")]
-		public string ImageURL { get; set; }
 
 		[DataMember]
 		[Display(Name = "옵션1유형")]
@@ -62,5 +59,18 @@ namespace IKaan.Model.Scrap
 		[DataMember]
 		[Display(Name = "설명")]
 		public string Description { get; set; }
+
+		[DataMember]
+		[Display(Name = "이미지")]
+		public IList<ScrapProductImageModel> Images { get; set; }
+
+		[DataMember]
+		[Display(Name = "브랜드명")]
+		public string BrandName { get; set; }
+
+		public ScrapProductModel()
+		{
+			Images = new List<ScrapProductImageModel>();
+		}
 	}
 }

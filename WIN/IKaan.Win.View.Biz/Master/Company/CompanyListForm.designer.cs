@@ -28,15 +28,15 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions2 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions1 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
 			this.gridList = new IKaan.Win.Core.Controls.Grid.XGrid();
 			this.lcGroupSearch = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.lcItemUseYn = new DevExpress.XtraLayout.LayoutControlItem();
 			this.lupUseYn = new IKaan.Win.Core.Controls.Common.XLookup();
-			this.lcItemFindText = new DevExpress.XtraLayout.LayoutControlItem();
-			this.txtFindText = new DevExpress.XtraEditors.TextEdit();
 			this.esSearchTitle = new DevExpress.XtraLayout.EmptySpaceItem();
 			this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
+			this.lcItemFindText = new DevExpress.XtraLayout.LayoutControlItem();
+			this.txtFindText = new DevExpress.XtraEditors.TextEdit();
 			this.lcTabList = new DevExpress.XtraLayout.TabbedControlGroup();
 			this.lcGroupLists = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
@@ -46,10 +46,10 @@
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupSearch)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemUseYn)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lupUseYn.Properties)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemFindText)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.txtFindText.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.esSearchTitle)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemFindText)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtFindText.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcTabList)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupLists)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
@@ -83,7 +83,7 @@
 			this.gridList.Editable = true;
 			this.gridList.FocusedRowHandle = -2147483648;
 			this.gridList.GridViewType = IKaan.Win.Core.Controls.Grid.GridViewType.GridView;
-			this.gridList.Location = new System.Drawing.Point(261, 35);
+			this.gridList.Location = new System.Drawing.Point(259, 33);
 			this.gridList.Name = "gridList";
 			this.gridList.PageFooterCenter = null;
 			this.gridList.PageFooterLeft = null;
@@ -97,7 +97,7 @@
 			this.gridList.ReadOnly = false;
 			this.gridList.ShowFooter = false;
 			this.gridList.ShowGroupPanel = false;
-			this.gridList.Size = new System.Drawing.Size(718, 506);
+			this.gridList.Size = new System.Drawing.Size(722, 510);
 			this.gridList.TabIndex = 7;
 			// 
 			// lcGroupSearch
@@ -134,29 +134,12 @@
 			this.lupUseYn.NullText = "[EditValue is null]";
 			this.lupUseYn.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions2, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
 			this.lupUseYn.SelectedIndex = -1;
 			this.lupUseYn.Size = new System.Drawing.Size(212, 20);
 			this.lupUseYn.StyleController = this.lc;
 			this.lupUseYn.TabIndex = 31;
 			this.lupUseYn.ValueMember = "";
-			// 
-			// lcItemFindText
-			// 
-			this.lcItemFindText.Control = this.txtFindText;
-			this.lcItemFindText.Location = new System.Drawing.Point(0, 40);
-			this.lcItemFindText.Name = "lcItemFindText";
-			this.lcItemFindText.Size = new System.Drawing.Size(216, 41);
-			this.lcItemFindText.TextLocation = DevExpress.Utils.Locations.Top;
-			this.lcItemFindText.TextSize = new System.Drawing.Size(82, 14);
-			// 
-			// txtFindText
-			// 
-			this.txtFindText.Location = new System.Drawing.Point(31, 67);
-			this.txtFindText.Name = "txtFindText";
-			this.txtFindText.Size = new System.Drawing.Size(212, 20);
-			this.txtFindText.StyleController = this.lc;
-			this.txtFindText.TabIndex = 4;
 			// 
 			// esSearchTitle
 			// 
@@ -187,11 +170,28 @@
 			this.emptySpaceItem2.Size = new System.Drawing.Size(216, 413);
 			this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
 			// 
+			// lcItemFindText
+			// 
+			this.lcItemFindText.Control = this.txtFindText;
+			this.lcItemFindText.Location = new System.Drawing.Point(0, 40);
+			this.lcItemFindText.Name = "lcItemFindText";
+			this.lcItemFindText.Size = new System.Drawing.Size(216, 41);
+			this.lcItemFindText.TextLocation = DevExpress.Utils.Locations.Top;
+			this.lcItemFindText.TextSize = new System.Drawing.Size(82, 14);
+			// 
+			// txtFindText
+			// 
+			this.txtFindText.Location = new System.Drawing.Point(31, 67);
+			this.txtFindText.Name = "txtFindText";
+			this.txtFindText.Size = new System.Drawing.Size(212, 20);
+			this.txtFindText.StyleController = this.lc;
+			this.txtFindText.TabIndex = 4;
+			// 
 			// lcTabList
 			// 
 			this.lcTabList.Location = new System.Drawing.Point(250, 0);
 			this.lcTabList.Name = "lcTabList";
-			this.lcTabList.Padding = new DevExpress.XtraLayout.Utils.Padding(4, 4, 4, 4);
+			this.lcTabList.Padding = new DevExpress.XtraLayout.Utils.Padding(2, 2, 2, 2);
 			this.lcTabList.SelectedTabPage = this.lcGroupLists;
 			this.lcTabList.SelectedTabPageIndex = 0;
 			this.lcTabList.Size = new System.Drawing.Size(736, 548);
@@ -205,7 +205,7 @@
 			this.lcGroupLists.Location = new System.Drawing.Point(0, 0);
 			this.lcGroupLists.Name = "lcGroupLists";
 			this.lcGroupLists.Padding = new DevExpress.XtraLayout.Utils.Padding(4, 4, 4, 4);
-			this.lcGroupLists.Size = new System.Drawing.Size(722, 510);
+			this.lcGroupLists.Size = new System.Drawing.Size(726, 514);
 			this.lcGroupLists.Text = "조회결과";
 			// 
 			// layoutControlItem3
@@ -213,7 +213,7 @@
 			this.layoutControlItem3.Control = this.gridList;
 			this.layoutControlItem3.Location = new System.Drawing.Point(0, 0);
 			this.layoutControlItem3.Name = "layoutControlItem3";
-			this.layoutControlItem3.Size = new System.Drawing.Size(722, 510);
+			this.layoutControlItem3.Size = new System.Drawing.Size(726, 514);
 			this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
 			this.layoutControlItem3.TextVisible = false;
 			// 
@@ -233,10 +233,10 @@
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupSearch)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemUseYn)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lupUseYn.Properties)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemFindText)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.txtFindText.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.esSearchTitle)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemFindText)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtFindText.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcTabList)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupLists)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();

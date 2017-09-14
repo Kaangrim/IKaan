@@ -89,7 +89,7 @@
 			this.gridList.Editable = true;
 			this.gridList.FocusedRowHandle = -2147483648;
 			this.gridList.GridViewType = IKaan.Win.Core.Controls.Grid.GridViewType.GridView;
-			this.gridList.Location = new System.Drawing.Point(261, 35);
+			this.gridList.Location = new System.Drawing.Point(259, 33);
 			this.gridList.Name = "gridList";
 			this.gridList.PageFooterCenter = null;
 			this.gridList.PageFooterLeft = null;
@@ -103,7 +103,7 @@
 			this.gridList.ReadOnly = false;
 			this.gridList.ShowFooter = false;
 			this.gridList.ShowGroupPanel = false;
-			this.gridList.Size = new System.Drawing.Size(718, 506);
+			this.gridList.Size = new System.Drawing.Size(722, 510);
 			this.gridList.TabIndex = 7;
 			// 
 			// lcGroupSearch
@@ -224,7 +224,7 @@
 			// 
 			this.lcTabList.Location = new System.Drawing.Point(250, 0);
 			this.lcTabList.Name = "lcTabList";
-			this.lcTabList.Padding = new DevExpress.XtraLayout.Utils.Padding(4, 4, 4, 4);
+			this.lcTabList.Padding = new DevExpress.XtraLayout.Utils.Padding(2, 2, 2, 2);
 			this.lcTabList.SelectedTabPage = this.lcGroupLists;
 			this.lcTabList.SelectedTabPageIndex = 0;
 			this.lcTabList.Size = new System.Drawing.Size(736, 548);
@@ -238,7 +238,7 @@
 			this.lcGroupLists.Location = new System.Drawing.Point(0, 0);
 			this.lcGroupLists.Name = "lcGroupLists";
 			this.lcGroupLists.Padding = new DevExpress.XtraLayout.Utils.Padding(4, 4, 4, 4);
-			this.lcGroupLists.Size = new System.Drawing.Size(722, 510);
+			this.lcGroupLists.Size = new System.Drawing.Size(726, 514);
 			this.lcGroupLists.Text = "조회결과";
 			// 
 			// layoutControlItem3
@@ -246,7 +246,7 @@
 			this.layoutControlItem3.Control = this.gridList;
 			this.layoutControlItem3.Location = new System.Drawing.Point(0, 0);
 			this.layoutControlItem3.Name = "layoutControlItem3";
-			this.layoutControlItem3.Size = new System.Drawing.Size(722, 510);
+			this.layoutControlItem3.Size = new System.Drawing.Size(726, 514);
 			this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
 			this.layoutControlItem3.TextVisible = false;
 			// 

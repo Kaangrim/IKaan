@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectScrapBrandList" parameterClass="DataMap" resultClass="ScrapBrandModel" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.BrandName)	as RowNo
+					,	AA.ID
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
+					
+					,	AA.SiteID
+					,	AA.Code
+					,	AA.Name
+					,	AA.Url
+					,	AA.ProductCount
+					,	AA.Description
+					
+				FROM	dbo.TScrapBrand AA WITH (NOLOCK)
+				WHERE	AA.SiteID = #SiteID#
+			]]>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(
+							AA.Code = #FindText#	OR
+							AA.Name LIKE '%'+#FindText#+'%'
+						)
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectScrapBrand" parameterClass="DataMap" resultClass="ScrapBrandModel" >
+			<![CDATA[
+				SELECT  *					
+				FROM	dbo.TScrapBrand AA WITH (NOLOCK)
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<insert id="InsertScrapBrand" parameterClass="ScrapBrandModel" >
+			<![CDATA[
+				INSERT INTO dbo.TScrapBrand
+				( 
+					CreatedOn, CreatedBy, CreatedByName,
+					SiteID, Code, Name, Url, ProductCount, Description
+				)
+				VALUES
+				(
+					GetDate(), #CreatedBy#, #CreatedByName#,
+					#SiteID#, #Code#, #Name#, #Url#, #ProductCount#, #Description#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateScrapBrand" parameterClass="ScrapBrandModel">
+			<![CDATA[
+				UPDATE  dbo.TScrapBrand
+				SET     UpdatedOn		= GetDate()
+					,	UpdatedBy		= #UpdatedBy#
+					,	UpdatedByName	= #UpdatedByName#
+					
+					,	SiteID			= #SiteID#
+					,	Code			= #Code#
+					,	Name			= #Name#
+					,	Url				= #Url#
+					,	ProductCount	= #ProductCount#
+					,	Description		= #Description#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
+		<delete id="DeleteScrapBrand" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM	dbo.TScrapBrand WHERE ID = #ID#;
+			]]>
+		</delete>
+
+		<select id="SelectScrapBrandExists" parameterClass="DataMap" resultClass="ScrapBrandModel" >
+			<![CDATA[
+				SELECT  *					
+				FROM	dbo.TScrapBrand AA WITH (NOLOCK)
+				WHERE	AA.SiteID	= #SiteID#
+				AND		AA.Code		= #Code#
+			]]>
+		</select>
+	</statements>
+</sqlMap>

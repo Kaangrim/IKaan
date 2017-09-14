@@ -5,7 +5,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
 
 	<statements>
-		<select id="SelectGoodsInfoList" parameterClass="DataMap" resultClass="GoodsInfoModel" >
+		<select id="SelectScrapProductList" parameterClass="DataMap" resultClass="ScrapProductModel" >
 			<![CDATA[
 				SELECT  ROW_NUMBER() OVER (ORDER BY AA.BrandName)	as RowNo
 					,	AA.ID
@@ -16,29 +16,28 @@
 					,	AA.UpdatedBy
 					,	AA.UpdatedByName
 					
-					,	AA.SiteCode
+					,	AA.SiteID
 					,	AA.BrandCode
-					,	AA.GoodsCode
-					,	AA.GoodsName
-					,	AA.GoodsURL
+					,	AA.Code
+					,	AA.Name
+					,	AA.Url
 					,	AA.ListPrice
 					,	AA.SalePrice
-					,	AA.ImageURL
 					,	AA.Option1Type
 					,	AA.Option1Name
 					,	AA.Option2Type
 					,	AA.Option2Name
 					,	AA.CategoryName
 					
-				FROM	dbo.TGoodsInfo AA WITH (NOLOCK)
-				WHERE	AA.SiteCode		= #SiteCode#
+				FROM	dbo.TScrapProduct AA WITH (NOLOCK)
+				WHERE	AA.SiteID		= #SiteID#
 				AND		AA.BrandCode	= #BrandCode#
 			]]>
 			<isNotEmpty property="FindText">
 				<![CDATA[
 					AND	(
-							AA.GoodsCode	 = #FindText#	OR
-							AA.GoodsName	LIKE '%'+#FindText#+'%'
+							AA.Code	 = #FindText#	OR
+							AA.Name	LIKE '%'+#FindText#+'%'
 						)
 				]]>
 			</isNotEmpty>
@@ -46,21 +45,20 @@
 				ORDER BY RowNo
 			]]>
 		</select>
-		<select id="SelectGoodsInfo" parameterClass="DataMap" resultClass="GoodsInfoModel" >
+		<select id="SelectScrapProduct" parameterClass="DataMap" resultClass="ScrapProductModel" >
 			<![CDATA[
 				SELECT  *					
-				FROM	dbo.TGoodsInfo AA WITH (NOLOCK)
+				FROM	dbo.TScrapProduct AA WITH (NOLOCK)
 				WHERE	AA.ID = #ID#
 			]]>
 		</select>
-		<insert id="InsertGoodsInfo" parameterClass="GoodsInfoModel" >
+		<insert id="InsertScrapProduct" parameterClass="ScrapProductModel" >
 			<![CDATA[
-				INSERT INTO dbo.TGoodsInfo
+				INSERT INTO dbo.TScrapProduct
 				( 
 					CreatedOn, CreatedBy, CreatedByName,
-					SiteCode, BrandCode, 
-					GoodsCode, GoodsName, GoodsURL, ListPrice, SalePrice, 
-					ImageURL, 
+					SiteID, BrandCode, 
+					Code, Name, Url, ListPrice, SalePrice, 
 					Option1Type, Option1Name, Option2Type, Option2Name, 
 					CategoryName,
 					Description
@@ -68,9 +66,8 @@
 				VALUES
 				(
 					GetDate(), #CreatedBy#, #CreatedByName#,
-					#SiteCode#, #BrandCode#, 
-					#GoodsCode#, #GoodsName#, #GoodsURL#, #ListPrice#, #SalePrice#, 
-					#ImageURL#, 
+					#SiteID#, #BrandCode#, 
+					#Code#, #Name#, #Url#, #ListPrice#, #SalePrice#, 
 					#Option1Type#, #Option1Name#, #Option2Type#, #Option2Name#, 
 					#CategoryName#,
 					#Description#
@@ -82,21 +79,20 @@
 				]]>
 			</selectKey>
 		</insert>
-		<update id="UpdateGoodsInfo" parameterClass="GoodsInfoModel">
+		<update id="UpdateScrapProduct" parameterClass="ScrapProductModel">
 			<![CDATA[
-				UPDATE  dbo.TGoodsInfo
+				UPDATE  dbo.TScrapProduct
 				SET     UpdatedOn		= GetDate()
 					,	UpdatedBy		= #UpdatedBy#
 					,	UpdatedByName	= #UpdatedByName#
 					
-					,	SiteCode		= #SiteCode#
+					,	SiteID			= #SiteID#
 					,	BrandCode		= #BrandCode#
-					,	GoodsCode		= #GoodsCode#
-					,	GoodsName		= #GoodsName#
-					,	GoodsURL		= #GoodsURL#
+					,	Code			= #Code#
+					,	Name			= #Name#
+					,	Url				= #Url#
 					,	ListPrice		= #ListPrice#
 					,	SalePrice		= #SalePrice#
-					,	ImageURL		= #ImageURL#
 					,	Option1Type		= #Option1Type#
 					,	Option1Name		= #Option1Name#
 					,	Option2Type		= #Option2Type#
@@ -106,22 +102,19 @@
 				WHERE	ID				= #ID#
 			]]>
 		</update>
-		<delete id="DeleteGoodsInfo" parameterClass="DataMap">
+		<delete id="DeleteScrapProduct" parameterClass="DataMap">
 			<![CDATA[
-				DELETE FROM	dbo.TGoodsInfo WHERE ID = #ID#;
+				DELETE FROM	dbo.TScrapProduct WHERE ID = #ID#;
 			]]>
 		</delete>
 
-		<select id="SelectGoodsInfoExists" parameterClass="DataMap" resultClass="GoodsInfoModel" >
+		<select id="SelectScrapProductExists" parameterClass="DataMap" resultClass="ScrapProductModel" >
 			<![CDATA[
 				SELECT  *					
-				FROM	dbo.TGoodsInfo AA WITH (NOLOCK)
-				WHERE	AA.SiteCode  = #SiteCode#
-				AND		AA.BrandCode = #BrandCode#
-				AND		(
-							AA.GoodsCode = #GoodsCode#	OR
-							AA.GoodsName = #GoodsName#
-						)
+				FROM	dbo.TScrapProduct AA WITH (NOLOCK)
+				WHERE	AA.SiteID	= #SiteID#
+				AND		AA.BrandCode= #BrandCode#
+				AND		AA.Code		= #Code#
 			]]>
 		</select>
 	</statements>

@@ -69,6 +69,21 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="SqlMaps\Scrap\Common\ScrapCategorySQL.xml" />
+    <EmbeddedResource Include="SqlMaps\Scrap\Mapping\ScrapBrandToSmapsSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\Scrap\Mapping\ScrapCategoryToSmapsSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\Scrap\Mapping\ScrapProductToSmapsSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\Scrap\Smaps\SmapsRequestSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\Scrap\Smaps\SmapsUserSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\Scrap\Smaps\SmapsSizeSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\Scrap\Smaps\SmapsProductSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\Scrap\Smaps\SmapsLookbookSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\Scrap\Smaps\SmapsColorSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\Scrap\Smaps\SmapsCategorySQL.xml" />
+    <EmbeddedResource Include="SqlMaps\Scrap\Smaps\SmapsBrandSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\Scrap\Smaps\SmapsAgencySQL.xml" />
+    <EmbeddedResource Include="SqlMaps\Scrap\Common\ScrapProductImageSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\Scrap\Common\ScrapSiteSQL.xml" />
     <EmbeddedResource Include="SqlMaps\Biz\Search\SearchBrandSQL.xml" />
     <EmbeddedResource Include="SqlMaps\Base\Authority\BookmarkSQL.xml" />
     <EmbeddedResource Include="SqlMaps\Base\Authority\HelpSQL.xml" />
@@ -97,8 +112,8 @@
     <EmbeddedResource Include="SqlMaps\Biz\Organization\AppointmentSQL.xml" />
     <EmbeddedResource Include="SqlMaps\Biz\Organization\DepartmentHistorySQL.xml" />
     <EmbeddedResource Include="SqlMaps\Biz\Sales\OrderSumSQL.xml" />
-    <EmbeddedResource Include="SqlMaps\Scrap\BrandInfoSQL.xml" />
-    <EmbeddedResource Include="SqlMaps\Scrap\GoodsInfoSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\Scrap\Common\ScrapBrandSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\Scrap\Common\ScrapProductSQL.xml" />
     <EmbeddedResource Include="SqlMaps\Biz\Search\SearchBrandActivitySQL.xml" />
     <EmbeddedResource Include="SqlMaps\Biz\Catalog\ProductInfoNoticeSQL.xml" />
     <EmbeddedResource Include="SqlMaps\Biz\Catalog\ProductAttributeSQL.xml" />

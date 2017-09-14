@@ -1,50 +1,71 @@
 ﻿using IKaan.Base.Map;
 using IKaan.Base.Utils;
 using IKaan.Model.Common.Was;
-using IKaan.Model.Scrap;
+using IKaan.Model.Scrap.Common;
 using IKaan.Was.Core.Mappers;
 
 namespace IKaan.Was.Service.Services
 {
 	public static class ScrapServicePartial
 	{
-		public static void SaveBrandInfo(this WasRequest req)
+		public static ScrapProductModel GetScrapProduct(this WasRequest req)
 		{
 			try
 			{
-				BrandInfoModel brand = req.Data.JsonToAnyType<BrandInfoModel>();
-
-				DataMap map = new DataMap()
+				var parameter = req.Parameter.JsonToAnyType<DataMap>();
+				var model = DaoFactory.InstanceBiz.QueryForObject<ScrapProductModel>("SelectScrapProduct", parameter);
+				if (model != null)
 				{
-					{ "SiteCode", brand.SiteCode },
-					{ "BrandCode", brand.BrandCode }
-				};
-				var exists = DaoFactory.InstanceScrap.QueryForObject<BrandInfoModel>("SelectBrandInfoExists", map);
+					//이미지
+					var imageList = DaoFactory.InstanceBiz.QueryForList<ScrapProductImageModel>("SelectScrapProductImage", new DataMap() { { "ProductID", model.ID } });
+					model.Images = imageList;
+				}
+				req.Data = model;
+				req.Result.Count = 1;
+				return model;
+			}
+			catch
+			{
+				throw;
+			}
+		}
+
+		public static void SaveScrapBrand(this WasRequest req)
+		{
+			try
+			{
+				ScrapBrandModel model = req.Data.JsonToAnyType<ScrapBrandModel>();
+				var exists = DaoFactory.InstanceScrap.QueryForObject<ScrapBrandModel>("SelectScrapBrandExists", new DataMap()
+				{
+					{ "SiteID", model.SiteID },
+					{ "Code", model.Code }
+				});
+
 				if (exists == null)
 				{
-					brand.CreatedBy = req.User.UserId;
-					brand.CreatedByName = req.User.UserName;
+					model.CreatedBy = req.User.UserId;
+					model.CreatedByName = req.User.UserName;
 
-					object id = DaoFactory.InstanceScrap.Insert("InsertBrandInfo", brand);
-					brand.ID = id.ToIntegerNullToNull();
+					object id = DaoFactory.InstanceScrap.Insert("InsertScrapBrand", model);
+					model.ID = id.ToIntegerNullToNull();
 				}
 				else
 				{
-					if (exists.BrandCode != brand.BrandCode ||
-						exists.BrandCode != brand.BrandName ||
-						exists.BrandURL != brand.BrandURL ||
-						exists.GoodsCnt != brand.GoodsCnt)
+					if (exists.Code != model.Code ||
+						exists.Name != model.Name ||
+						exists.Url != model.Url ||
+						exists.ProductCount != model.ProductCount)
 					{
-						brand.ID = exists.ID;
-						brand.UpdatedBy = req.User.UserId;
-						brand.UpdatedByName = req.User.UserName;
+						model.ID = exists.ID;
+						model.UpdatedBy = req.User.UserId;
+						model.UpdatedByName = req.User.UserName;
 
-						DaoFactory.InstanceScrap.Update("UpdateBrandInfo", brand);
+						DaoFactory.InstanceScrap.Update("UpdateScrapBrand", model);
 					}
 				}
 
 				req.Result.Count = 1;
-				req.Result.ReturnValue = brand.ID;
+				req.Result.ReturnValue = model.ID;
 				req.Error.Number = 0;
 			}
 			catch
@@ -53,52 +74,124 @@ namespace IKaan.Was.Service.Services
 			}
 		}
 
-		public static void SaveGoodsInfo(this WasRequest req)
+		public static void SaveScrapProduct(this WasRequest req)
 		{
 			try
 			{
-				GoodsInfoModel goods = req.Data.JsonToAnyType<GoodsInfoModel>();
+				var model = req.Data.JsonToAnyType<ScrapProductModel>();
 
-				DataMap map = new DataMap()
+				//카테고리저장
+				var categoryMap = new DataMap()
 				{
-					{ "SiteCode", goods.SiteCode },
-					{ "BrandCode", goods.BrandCode },
-					{ "GoodsCode", goods.GoodsCode },
-					{ "GoodsName", goods.GoodsName }
+					{ "SiteID", model.SiteID },
+					{ "Name", model.CategoryName }
 				};
-				var exists = DaoFactory.InstanceScrap.QueryForObject<GoodsInfoModel>("SelectGoodsInfoExists", map);
+				var category = DaoFactory.InstanceScrap.QueryForObject<ScrapCategoryModel>("SelectScrapCategoryByName", categoryMap);
+				if (category == null)
+				{
+					category = new ScrapCategoryModel()
+					{
+						SiteID = model.SiteID,
+						Name = model.CategoryName,
+						CreatedBy = req.User.UserId,
+						CreatedByName = req.User.UserName
+					};
+					DaoFactory.InstanceScrap.Insert("InsertScrapCategory", category);
+				}
+
+				var exists = DaoFactory.InstanceScrap.QueryForObject<ScrapProductModel>("SelectScrapProductExists", new DataMap()
+				{
+					{ "SiteID", model.SiteID },
+					{ "BrandCode", model.BrandCode },
+					{ "Code", model.Code }
+				});
+
 				if (exists == null)
 				{
-					goods.CreatedBy = req.User.UserId;
-					goods.CreatedByName = req.User.UserName;
+					model.CreatedBy = req.User.UserId;
+					model.CreatedByName = req.User.UserName;
 
-					object id = DaoFactory.InstanceScrap.Insert("InsertGoodsInfo", goods);
-					goods.ID = id.ToIntegerNullToNull();
+					object id = DaoFactory.InstanceScrap.Insert("InsertScrapProduct", model);
+					model.ID = id.ToIntegerNullToNull();
 				}
 				else
 				{
-					if (exists.GoodsCode != goods.GoodsCode ||
-						exists.GoodsName != goods.GoodsName ||
-						exists.GoodsURL != goods.GoodsURL ||
-						exists.ListPrice != goods.ListPrice ||
-						exists.SalePrice != goods.SalePrice ||
-						exists.CategoryName != goods.CategoryName ||
-						exists.ImageURL != goods.ImageURL ||
-						exists.Option1Type != goods.Option1Type ||
-						exists.Option1Name != goods.Option1Name ||
-						exists.Option2Type != goods.Option2Type ||
-						exists.Option2Name != goods.Option2Name)
-					{
-						goods.ID = exists.ID;
-						goods.UpdatedBy = req.User.UserId;
-						goods.UpdatedByName = req.User.UserName;
+					model.ID = exists.ID;
 
-						DaoFactory.InstanceScrap.Update("UpdateGoodsInfo", goods);
+					if (exists.Code != model.Code ||
+						exists.Name != model.Name ||
+						exists.Url != model.Url ||
+						exists.ListPrice != model.ListPrice ||
+						exists.SalePrice != model.SalePrice ||
+						exists.CategoryName != model.CategoryName ||
+						exists.Option1Type != model.Option1Type ||
+						exists.Option1Name != model.Option1Name ||
+						exists.Option2Type != model.Option2Type ||
+						exists.Option2Name != model.Option2Name)
+					{	
+						model.UpdatedBy = req.User.UserId;
+						model.UpdatedByName = req.User.UserName;
+
+						DaoFactory.InstanceScrap.Update("UpdateScrapProduct", model);
+					}
+				}
+
+				if (model.Images != null && model.Images.Count > 0)
+				{
+					foreach (var image in model.Images)
+					{
+						if (image.ID == null)
+						{
+							image.ProductID = model.ID;
+							image.CreatedBy = req.User.UserId;
+							image.CreatedByName = req.User.UserName;
+							object imageId = DaoFactory.InstanceScrap.Insert("InsertScrapProductImage", image);
+							image.ID = imageId.ToIntegerNullToNull();
+						}
+						else
+						{
+							image.ProductID = model.ID;
+							image.UpdatedBy = req.User.UserId;
+							image.UpdatedByName = req.User.UserName;
+							DaoFactory.InstanceScrap.Update("UpdateScrapProductImage", image);
+						}
 					}
 				}
 
 				req.Result.Count = 1;
-				req.Result.ReturnValue = goods.ID;
+				req.Result.ReturnValue = model.ID;
+				req.Error.Number = 0;
+			}
+			catch
+			{
+				throw;
+			}
+		}
+
+		public static void SaveScrapSite(this WasRequest req)
+		{
+			try
+			{
+				var model = req.Data.JsonToAnyType<ScrapSiteModel>();
+				if (model == null)
+					throw new System.Exception("저장할 내용이 없습니다.");
+
+				if (model.ID == null)
+				{
+					model.CreatedBy = req.User.UserId;
+					model.CreatedByName = req.User.UserName;
+					object id = DaoFactory.InstanceScrap.Insert("InsertScrapSite", model);
+					model.ID = id.ToIntegerNullToNull();
+				}
+				else
+				{
+					model.UpdatedBy = req.User.UserId;
+					model.UpdatedByName = req.User.UserName;
+					DaoFactory.InstanceScrap.Update("UpdateScrapSite", model);
+				}
+
+				req.Result.Count = 1;
+				req.Result.ReturnValue = model.ID;
 				req.Error.Number = 0;
 			}
 			catch

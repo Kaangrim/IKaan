@@ -41,7 +41,7 @@ namespace IKaan.Win.Core.Utils
 			}
 		}
 
-		public static void DownloadByStream(string url, string localpath, string filename = null)
+		public static string DownloadByStream(string url, string localpath, string filename = null)
 		{
 			if (filename.IsNullOrEmpty())
 				filename = url;
@@ -94,6 +94,7 @@ namespace IKaan.Win.Core.Utils
 					}
 				}
 			}
+			return filepath;
 		}
 
 		public static Size GetSizePixel(string imagePath)

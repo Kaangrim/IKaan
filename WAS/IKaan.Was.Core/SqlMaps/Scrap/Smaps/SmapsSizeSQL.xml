@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectSmapsSizeList" parameterClass="DataMap" resultClass="SmapsSizeModel" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.text)	as RowNo
+					,	AA.ID
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
+					
+					,	AA.uid
+					,	AA.text
+					,	AA.category_uid
+					,	AA.sex
+					
+					,	AA.RequestID
+					,	BB.Status
+					,	BB.RequestDate
+					
+				FROM	IKScrap.dbo.TSmapsSize AA WITH (NOLOCK)
+						LEFT JOIN
+							IKScrap.dbo.TSmapsRequest BB WITH (NOLOCK)
+								ON AA.RequestID = BB.ID
+				WHERE	1=1
+			]]>
+			<isNotEmpty property="RequestID">
+				<![CDATA[
+					AND	AA.RequestID = #RequestID#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="CategoryUid">
+				<![CDATA[
+					AND	AA.category_uid = #CategoryUid#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="Gender">
+				<![CDATA[
+					AND	AA.sex = #Gender#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(
+							AA.text  LIKE '%'+#FindText#+'%'
+						)
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectSmapsSize" parameterClass="DataMap" resultClass="SmapsSizeModel" >
+			<![CDATA[
+				SELECT  *					
+				FROM	IKScrap.dbo.TSmapsSize AA WITH (NOLOCK)
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<select id="SelectSmapsSizeExists" parameterClass="DataMap" resultClass="SmapsSizeModel" >
+			<![CDATA[
+				SELECT  *					
+				FROM	IKScrap.dbo.TSmapsSize AA WITH (NOLOCK)
+				WHERE	AA.uid = #uid#
+			]]>
+		</select>
+		<insert id="InsertSmapsSize" parameterClass="SmapsSizeModel" >
+			<![CDATA[
+				INSERT INTO dbo.TSmapsSize
+				( 
+					CreatedOn, CreatedBy, CreatedByName,
+					RequestID,
+					uid, text, category_uid, sex
+				)
+				VALUES
+				(
+					GetDate(), #CreatedBy#, #CreatedByName#,
+					#RequestID#,
+					#uid#, #text#, #category_uid#, #sex#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateSmapsSize" parameterClass="SmapsSizeModel">
+			<![CDATA[
+				UPDATE  IKScrap.dbo.TSmapsSize
+				SET     UpdatedOn		= GetDate()
+					,	UpdatedBy		= #UpdatedBy#
+					,	UpdatedByName	= #UpdatedByName#
+					
+					,	RequestID		= #RequestID#
+					,	uid				= #uid#
+					,	text			= #text#
+					,	category_uid	= #category_uid#
+					,	sex				= #sex#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
+		<delete id="DeleteSmapsSize" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM	IKScrap.dbo.TSmapsSize WHERE ID = #ID#;
+			]]>
+		</delete>
+	</statements>
+</sqlMap>

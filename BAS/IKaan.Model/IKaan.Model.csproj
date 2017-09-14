@@ -122,8 +122,11 @@
     <Compile Include="Live\ChannelOrderReturnModel.cs" />
     <Compile Include="Live\ChannelOrderCancelModel.cs" />
     <Compile Include="Live\ChannelOrderModel.cs" />
-    <Compile Include="Scrap\GoodsInfoModel.cs" />
-    <Compile Include="Scrap\BrandInfoModel.cs" />
+    <Compile Include="Scrap\Common\ScrapCategoryModel.cs" />
+    <Compile Include="Scrap\Common\ScrapProductImageModel.cs" />
+    <Compile Include="Scrap\Common\ScrapSiteModel.cs" />
+    <Compile Include="Scrap\Common\ScrapProductModel.cs" />
+    <Compile Include="Scrap\Common\ScrapBrandModel.cs" />
     <Compile Include="Base\Authority\BookmarkUserModel.cs" />
     <Compile Include="Base\Authority\ButtonModel.cs" />
     <Compile Include="Base\Authority\HelpModel.cs" />
@@ -180,6 +183,18 @@
     <Compile Include="Report\SaleInvoiceList.cs" />
     <Compile Include="Report\SaleInvoiceTran.cs" />
     <Compile Include="Report\SaleInvoiceTranItem.cs" />
+    <Compile Include="Scrap\Mapping\ScrapBrandToSmapsModel.cs" />
+    <Compile Include="Scrap\Mapping\ScrapCategoryToSmapsModel.cs" />
+    <Compile Include="Scrap\Mapping\ScrapProductToSmapsModel.cs" />
+    <Compile Include="Scrap\Smaps\SmapsRequestModel.cs" />
+    <Compile Include="Scrap\Smaps\SmapsUserModel.cs" />
+    <Compile Include="Scrap\Smaps\SmapsSizeModel.cs" />
+    <Compile Include="Scrap\Smaps\SmapsProductModel.cs" />
+    <Compile Include="Scrap\Smaps\SmapsLookbookModel.cs" />
+    <Compile Include="Scrap\Smaps\SmapsColorModel.cs" />
+    <Compile Include="Scrap\Smaps\SmapsCategoryModel.cs" />
+    <Compile Include="Scrap\Smaps\SmapsBrandModel.cs" />
+    <Compile Include="Scrap\Smaps\SmapsAgencyModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Chang\" />

@@ -30,7 +30,8 @@ namespace IKaan.Was.Service.Common
 				foreach (WasRequest req in list)
 				{
 					var parameter = req.Parameter.JsonToAnyType<DataMap>();
-					IList<UCodeHelp> result = DaoFactory.Instance.QueryForList<UCodeHelp>(string.Concat("SelectCodeHelp", req.SqlId), parameter);
+					var sqlId = string.Concat("SelectCodeHelp", req.SqlId);
+					IList<UCodeHelp> result = DaoFactory.Instance.QueryForList<UCodeHelp>(sqlId, parameter);
 					req.Data = result;
 					req.Result.Count = (result == null) ? 0 : result.Count;
 				}

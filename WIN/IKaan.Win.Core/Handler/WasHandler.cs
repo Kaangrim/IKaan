@@ -17,66 +17,68 @@ namespace IKaan.Win.Core.Was.Handler
 		{
 			try
 			{
-				HttpClient http = new HttpClient();
-				http.DefaultRequestHeaders.Connection.Clear();
-				http.DefaultRequestHeaders.ConnectionClose = false;
-				http.DefaultRequestHeaders.Connection.Add("Keep-Alive");
-				//client.DefaultRequestHeaders.Add("Connection", "keep-alive");
-				//client.DefaultRequestHeaders.Add("Keep-Alive", "timeout=6000");
-				http.DefaultRequestHeaders.Accept.Clear();
-				http.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-				http.DefaultRequestHeaders.ExpectContinue = false;
-				http.Timeout = TimeSpan.FromMinutes(60);
-				http.BaseAddress = new Uri(GlobalVar.ServerInfo.ServerUrl);
-
-				request.User.UserId = GlobalVar.UserInfo.UserId;
-				request.User.UserName = GlobalVar.UserInfo.UserName;
-				request.User.LanguageCode = GlobalVar.UserInfo.LanguageCode;
-				request.DatabaseId = GlobalVar.ServerInfo.DatabaseId;
-
-				bool isTransaction = false;
-
-				//멀티요청인 경우 해당 요청건에 사용자정보를 넣는다.
-				if (request.Data != null && request.Data.GetType() == typeof(List<WasRequest>))
+				using (var http = new HttpClient())
 				{
-					foreach (WasRequest req in (request.Data as List<WasRequest>))
+					http.DefaultRequestHeaders.Connection.Clear();
+					http.DefaultRequestHeaders.ConnectionClose = false;
+					http.DefaultRequestHeaders.Connection.Add("Keep-Alive");
+					//client.DefaultRequestHeaders.Add("Connection", "keep-alive");
+					//client.DefaultRequestHeaders.Add("Keep-Alive", "timeout=6000");
+					http.DefaultRequestHeaders.Accept.Clear();
+					http.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+					http.DefaultRequestHeaders.ExpectContinue = false;
+					http.Timeout = TimeSpan.FromMinutes(60);
+					http.BaseAddress = new Uri(GlobalVar.ServerInfo.ServerUrl);
+
+					request.User.UserId = GlobalVar.UserInfo.UserId;
+					request.User.UserName = GlobalVar.UserInfo.UserName;
+					request.User.LanguageCode = GlobalVar.UserInfo.LanguageCode;
+					request.DatabaseId = GlobalVar.ServerInfo.DatabaseId;
+
+					bool isTransaction = false;
+
+					//멀티요청인 경우 해당 요청건에 사용자정보를 넣는다.
+					if (request.Data != null && request.Data.GetType() == typeof(List<WasRequest>))
 					{
-						if (req.ServiceId.IsNullOrEmpty())
-							req.ServiceId = request.ServiceId;
-						req.User.UserId = GlobalVar.UserInfo.UserId;
-						req.User.UserName = GlobalVar.UserInfo.UserName;
-						req.User.LanguageCode = GlobalVar.UserInfo.LanguageCode;
-						if (req.SqlId.ToStringNullToEmpty().StartsWith("Insert") ||
-							req.SqlId.ToStringNullToEmpty().StartsWith("Update") ||
-							req.SqlId.ToStringNullToEmpty().StartsWith("Delete"))
-							isTransaction = true;
+						foreach (WasRequest req in (request.Data as List<WasRequest>))
+						{
+							if (req.ServiceId.IsNullOrEmpty())
+								req.ServiceId = request.ServiceId;
+							req.User.UserId = GlobalVar.UserInfo.UserId;
+							req.User.UserName = GlobalVar.UserInfo.UserName;
+							req.User.LanguageCode = GlobalVar.UserInfo.LanguageCode;
+							if (req.SqlId.ToStringNullToEmpty().StartsWith("Insert") ||
+								req.SqlId.ToStringNullToEmpty().StartsWith("Update") ||
+								req.SqlId.ToStringNullToEmpty().StartsWith("Delete"))
+								isTransaction = true;
 
-						req.IsTransaction = isTransaction;
+							req.IsTransaction = isTransaction;
+						}
 					}
-				}
-				else
-				{
-					if (request.SqlId.ToStringNullToEmpty().StartsWith("Insert") ||
-						request.SqlId.ToStringNullToEmpty().StartsWith("Update") ||
-						request.SqlId.ToStringNullToEmpty().StartsWith("Delete"))
-						isTransaction = true;
-				}
-				request.IsTransaction = isTransaction;
+					else
+					{
+						if (request.SqlId.ToStringNullToEmpty().StartsWith("Insert") ||
+							request.SqlId.ToStringNullToEmpty().StartsWith("Update") ||
+							request.SqlId.ToStringNullToEmpty().StartsWith("Delete"))
+							isTransaction = true;
+					}
+					request.IsTransaction = isTransaction;
 
-				//서버에 처리요청을 보낸디ㅏ.
-				var response = http.PostAsJsonAsync(apiUrl, request).Result;
-				if (response.IsSuccessStatusCode)
-				{
-					return response.Content.ReadAsAsync<WasRequest>().Result;
-				}
-				else
-				{
-					throw new Exception(string.Format("{0}{1}{2}{3}{4}", 
-						response.StatusCode,
-						Environment.NewLine,
-						response.RequestMessage,
-						Environment.NewLine,
-						response.ReasonPhrase));
+					//서버에 처리요청을 보낸디ㅏ.
+					var response = http.PostAsJsonAsync(apiUrl, request).Result;
+					if (response.IsSuccessStatusCode)
+					{
+						return response.Content.ReadAsAsync<WasRequest>().Result;
+					}
+					else
+					{
+						throw new Exception(string.Format("{0}{1}{2}{3}{4}",
+							response.StatusCode,
+							Environment.NewLine,
+							response.RequestMessage,
+							Environment.NewLine,
+							response.ReasonPhrase));
+					}
 				}
 			}
 			catch (AggregateException ex)

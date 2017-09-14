@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectSmapsAgencyList" parameterClass="DataMap" resultClass="SmapsAgencyModel" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.name)	as RowNo
+					,	AA.ID
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
+					
+					,	AA.uid
+					,	AA.type
+					,	AA.grade
+					,	AA.name
+					,	AA.recommend
+					,	AA.sv_start_date
+					,	AA.sv_end_date
+					,	AA.cp_address
+					,	AA.president_name
+					,	AA.cp_crn
+					,	AA.cp_email
+					,	AA.cp_homepage
+					,	AA.cp_intro
+					,	AA.cp_tel
+					,	AA.ct_department
+					,	AA.ct_email
+					,	AA.ct_fax
+					,	AA.ct_hphone
+					,	AA.ct_name
+					,	AA.ct_position
+					,	AA.ct_tel
+					,	AA.consultation
+					,	AA.using_price
+					,	AA.image
+					,	AA.image_width
+					,	AA.image_height
+					
+					,	AA.RequestID
+					,	BB.Status
+					,	BB.RequestDate
+					
+				FROM	IKScrap.dbo.TSmapsAgency AA WITH (NOLOCK)
+						LEFT JOIN
+							IKScrap.dbo.TSmapsRequest BB WITH (NOLOCK)
+								ON AA.RequestID = BB.ID
+				WHERE	1=1
+			]]>
+			<isNotEmpty property="RequestID">
+				<![CDATA[
+					AND	AA.RequestID = #RequestID#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(
+							AA.name  LIKE '%'+#FindText#+'%' OR
+							AA.ct_name LIKE '%'+#FindText#+'%'
+						)
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectSmapsAgency" parameterClass="DataMap" resultClass="SmapsAgencyModel" >
+			<![CDATA[
+				SELECT  *					
+				FROM	IKScrap.dbo.TSmapsAgency AA WITH (NOLOCK)
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<select id="SelectSmapsAgencyExists" parameterClass="DataMap" resultClass="SmapsAgencyModel" >
+			<![CDATA[
+				SELECT  *					
+				FROM	IKScrap.dbo.TSmapsAgency AA WITH (NOLOCK)
+				WHERE	AA.uid = #uid#
+			]]>
+		</select>
+		<insert id="InsertSmapsAgency" parameterClass="SmapsAgencyModel" >
+			<![CDATA[
+				INSERT INTO dbo.TSmapsAgency
+				( 
+					CreatedOn, CreatedBy, CreatedByName,
+					RequestID,
+					uid, type, grade, name, recommend, sv_start_date, sv_end_date, 
+					cp_address, president_name, cp_crn, cp_email, cp_homepage, cp_intro, cp_tel,
+					ct_department, ct_email, ct_fax, ct_hphone, ct_name, ct_position, ct_tel, 
+					consultation, using_price, image, image_width, image_height
+				)
+				VALUES
+				(
+					GetDate(), #CreatedBy#, #CreatedByName#,
+					#RequestID#,
+					#uid#, #type#, #grade#, #name#, #recommend#, #sv_start_date#, #sv_end_date#, 
+					#cp_address#, #president_name#, #cp_crn#, #cp_email#, #cp_homepage#, #cp_intro#, #cp_tel#,
+					#ct_department#, #ct_email#, #ct_fax#, #ct_hphone#, #ct_name#, #ct_position#, #ct_tel#, 
+					#consultation#, #using_price#, #image#, #image_width#, #image_height#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateSmapsAgency" parameterClass="SmapsAgencyModel">
+			<![CDATA[
+				UPDATE  IKScrap.dbo.TSmapsAgency
+				SET     UpdatedOn		= GetDate()
+					,	UpdatedBy		= #UpdatedBy#
+					,	UpdatedByName	= #UpdatedByName#
+					
+					,	RequestID		= #RequestID#
+					,	uid				= #uid#
+					,	type			= #type#
+					,	grade			= #grade#
+					,	name			= #name#
+					,	recommend		= #recommend#
+					,	sv_start_date	= #sv_start_date#
+					,	sv_end_date		= #sv_end_date#
+					,	cp_address		= #cp_address#
+					,	president_name	= #president_name#
+					,	cp_crn			= #cp_crn#
+					,	cp_email		= #cp_email#
+					,	cp_homepage		= #cp_homepage#
+					,	cp_intro		= #cp_intro#
+					,	cp_tel			= #cp_tel#
+					,	ct_department	= #ct_department#
+					,	ct_email		= #ct_email#
+					,	ct_fax			= #ct_fax#
+					,	ct_hphone		= #ct_hphone#
+					,	ct_name			= #ct_name#
+					,	ct_position		= #ct_position#
+					,	consultation	= #consultation#
+					,	using_price		= #using_price#
+					,	image			= #image#
+					,	image_width		= #image_width#
+					,	image_height	= #image_height#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
+		<delete id="DeleteSmapsAgency" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM	IKScrap.dbo.TSmapsAgency WHERE ID = #ID#;
+			]]>
+		</delete>
+	</statements>
+</sqlMap>

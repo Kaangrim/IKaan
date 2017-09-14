@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectScrapSiteList" parameterClass="DataMap" resultClass="ScrapSiteModel" >
+			<![CDATA[
+				WITH CTE (ID, Level, HierID) AS 
+				(
+					SELECT	AA.ID			as ID
+						,	1				AS Level
+						,	CAST(RIGHT('0000' + CONVERT(VARCHAR, ROW_NUMBER() OVER (ORDER BY AA.SortOrder, AA.ID)), 4) AS VARCHAR(MAX))	as HierID
+					FROM	IKScrap.dbo.TScrapSite AA WITH (NOLOCK)
+					WHERE	1=1
+			]]>
+			<isNotEmpty property="UseYn">
+				<![CDATA[
+					AND		AA.UseYn = #UseYn#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="ParentID">
+				<![CDATA[
+					AND		AA.ID = #ParentID#
+				]]>
+			</isNotEmpty>
+			<isEmpty property="ParentID">
+				<![CDATA[
+					AND		AA.ParentID IS NULL
+				]]>
+			</isEmpty>
+			<![CDATA[
+					UNION ALL
+					SELECT	AA.ID				as ID
+						,	BB.Level + 1		as Level
+						,	CAST(BB.HierID+ '-' + 
+								 RIGHT('0000' + CONVERT(VARCHAR, ROW_NUMBER() OVER (ORDER BY AA.SortOrder, AA.ID)), 4) AS VARCHAR(MAX))	AS HierID
+					FROM	IKScrap.dbo.TScrapSite AA WITH (NOLOCK)
+							INNER JOIN 
+								CTE BB 
+									ON AA.ParentID = BB.ID
+					WHERE	1=1
+			]]>
+			<isNotEmpty property="UseYn">
+				<![CDATA[
+					AND		AA.UseYn = #UseYn#
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				)
+				SELECT	ROW_NUMBER() OVER (ORDER BY BB.HierID)	AS RowNo
+					,	AA.ID
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
+					
+					,	BB.HierID
+					,	REPLICATE(' ', (BB.Level -1) * 5) + 
+						CASE
+							WHEN BB.Level = 1 THEN '▷ '
+							ELSE '▶ ' 
+						END +
+						AA.Name			as HierName
+					,	BB.Level
+					
+					,	AA.Name
+					,	AA.Url
+					,	AA.ParentID
+					,	AA.Description
+					,	AA.UseYn
+					,	AA.SortOrder
+				FROM	IKScrap.dbo.TScrapSite AA WITH (NOLOCK)
+						INNER JOIN
+							CTE BB 
+								on AA.ID = BB.ID
+				WHERE	1=1
+			]]>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(	
+							AA.Name	LIKE '%'+#FindText#+'%'
+						)
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY 
+					RowNo
+			]]>
+		</select>
+		<select id="SelectScrapSite" parameterClass="DataMap" resultClass="ScrapSiteModel" >
+			<![CDATA[
+				SELECT  *					
+				FROM	dbo.TScrapSite AA WITH (NOLOCK)
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<insert id="InsertScrapSite" parameterClass="ScrapSiteModel" >
+			<![CDATA[
+				INSERT INTO dbo.TScrapSite
+				( 
+					CreatedOn, CreatedBy, CreatedByName,
+					Name, ParentID, Url, SortOrder, UseYn, Description
+				)
+				VALUES
+				(
+					GetDate(), #CreatedBy#, #CreatedByName#,
+					#Name#, #ParentID#, #Url#, #SortOrder#, #UseYn#, #Description#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateScrapSite" parameterClass="ScrapSiteModel">
+			<![CDATA[
+				UPDATE  dbo.TScrapSite
+				SET     UpdatedOn		= GetDate()
+					,	UpdatedBy		= #UpdatedBy#
+					,	UpdatedByName	= #UpdatedByName#
+					
+					,	Name			= #Name#
+					,	ParentID		= #ParentID#
+					,	Url				= #Url#
+					,	SortOrder		= #SortOrder#
+					,	UseYn			= #UseYn#
+					,	Description		= #Description#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
+		<delete id="DeleteScrapSite" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM	dbo.TScrapSite WHERE ID = #ID#;
+			]]>
+		</delete>
+	</statements>
+</sqlMap>

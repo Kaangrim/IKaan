@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectSmapsCategoryList" parameterClass="DataMap" resultClass="SmapsCategoryModel" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.name)	as RowNo
+					,	AA.ID
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
+					
+					,	AA.uid
+					,	AA.name
+					
+					,	AA.RequestID
+					,	BB.Status
+					,	BB.RequestDate
+					
+				FROM	IKScrap.dbo.TSmapsCategory AA WITH (NOLOCK)
+						LEFT JOIN
+							IKScrap.dbo.TSmapsRequest BB WITH (NOLOCK)
+								ON AA.RequestID = BB.ID
+				WHERE	1=1
+			]]>
+			<isNotEmpty property="RequestID">
+				<![CDATA[
+					AND	AA.RequestID = #RequestID#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="CategoryUid">
+				<![CDATA[
+					AND	AA.uid = #CategoryUid#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(
+							AA.name  LIKE '%'+#FindText#+'%'
+						)
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectSmapsCategory" parameterClass="DataMap" resultClass="SmapsCategoryModel" >
+			<![CDATA[
+				SELECT  *					
+				FROM	IKScrap.dbo.TSmapsCategory AA WITH (NOLOCK)
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<select id="SelectSmapsCategoryExists" parameterClass="DataMap" resultClass="SmapsCategoryModel" >
+			<![CDATA[
+				SELECT  *					
+				FROM	IKScrap.dbo.TSmapsCategory AA WITH (NOLOCK)
+				WHERE	AA.uid = #uid#
+			]]>
+		</select>
+		<insert id="InsertSmapsCategory" parameterClass="SmapsCategoryModel" >
+			<![CDATA[
+				INSERT INTO dbo.TSmapsCategory
+				( 
+					CreatedOn, CreatedBy, CreatedByName,
+					RequestID,
+					uid, name
+				)
+				VALUES
+				(
+					GetDate(), #CreatedBy#, #CreatedByName#,
+					#RequestID#,
+					#uid#, #name#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateSmapsCategory" parameterClass="SmapsCategoryModel">
+			<![CDATA[
+				UPDATE  IKScrap.dbo.TSmapsCategory
+				SET     UpdatedOn		= GetDate()
+					,	UpdatedBy		= #UpdatedBy#
+					,	UpdatedByName	= #UpdatedByName#
+					
+					,	RequestID		= #RequestID#
+					,	uid				= #uid#
+					,	name			= #name#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
+		<delete id="DeleteSmapsCategory" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM	IKScrap.dbo.TSmapsCategory WHERE ID = #ID#;
+			]]>
+		</delete>
+	</statements>
+</sqlMap>

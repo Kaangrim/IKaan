@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
 using IKaan.Model.Common.Was;
-using IKaan.Model.Scrap;
+using IKaan.Model.Scrap.Common;
+using IKaan.Model.Scrap.Mapping;
+using IKaan.Model.Scrap.Smaps;
 using IKaan.Was.Core.Mappers;
 using IKaan.Was.Service.Utils;
 using Newtonsoft.Json.Linq;
@@ -37,11 +39,50 @@ namespace IKaan.Was.Service.Services
 				{
 					switch (req.ModelName.Replace("Model", ""))
 					{
-						case "BrandInfo":
-							req.SetList<BrandInfoModel>();
+						case "ScrapBrand":
+							req.SetList<ScrapBrandModel>();
 							break;
-						case "GoodsInfo":
-							req.SetList<GoodsInfoModel>();
+						case "ScrapProduct":
+							req.SetList<ScrapProductModel>();
+							break;
+						case "ScrapSite":
+							req.SetList<ScrapSiteModel>();
+							break;
+						case "SmapsAgency":
+							req.SetList<SmapsAgencyModel>();
+							break;
+						case "SmapsBrand":
+							req.SetList<SmapsBrandModel>();
+							break;
+						case "SmapsCategory":
+							req.SetList<SmapsCategoryModel>();
+							break;
+						case "SmapsColor":
+							req.SetList<SmapsColorModel>();
+							break;
+						case "SmapsLookbook":
+							req.SetList<SmapsLookbookModel>();
+							break;
+						case "SmapsProduct":
+							req.SetList<SmapsProductModel>();
+							break;
+						case "SmapsSize":
+							req.SetList<SmapsSizeModel>();
+							break;
+						case "SmapsUser":
+							req.SetList<SmapsUserModel>();
+							break;
+						case "SmapsRequest":
+							req.SetList<SmapsRequestModel>();
+							break;
+						case "ScrapBrandSmaps":
+							req.SetList<ScrapBrandToSmapsModel>();
+							break;
+						case "ScrapCategorySmaps":
+							req.SetList<ScrapCategoryToSmapsModel>();
+							break;
+						case "ScrapProductSmaps":
+							req.SetList<ScrapProductToSmapsModel>();
 							break;
 					}
 				}
@@ -92,11 +133,50 @@ namespace IKaan.Was.Service.Services
 				{
 					switch (req.ModelName.Replace("Model", ""))
 					{
-						case "BrandInfo":
-							req.SetData<BrandInfoModel>();
+						case "ScrapBrand":
+							req.SetData<ScrapBrandModel>();
 							break;
-						case "GoodsInfo":
-							req.SetData<GoodsInfoModel>();
+						case "ScrapProduct":
+							req.GetScrapProduct();
+							break;
+						case "ScrapSite":
+							req.SetData<ScrapSiteModel>();
+							break;
+						case "SmapsAgency":
+							req.SetData<SmapsAgencyModel>();
+							break;
+						case "SmapsBrand":
+							req.SetData<SmapsBrandModel>();
+							break;
+						case "SmapsCategory":
+							req.SetData<SmapsCategoryModel>();
+							break;
+						case "SmapsColor":
+							req.SetData<SmapsColorModel>();
+							break;
+						case "SmapsLookbook":
+							req.SetData<SmapsLookbookModel>();
+							break;
+						case "SmapsProduct":
+							req.SetData<SmapsProductModel>();
+							break;
+						case "SmapsSize":
+							req.SetData<SmapsSizeModel>();
+							break;
+						case "SmapsUser":
+							req.SetData<SmapsUserModel>();
+							break;
+						case "SmapsRequest":
+							req.SetData<SmapsRequestModel>();
+							break;
+						case "ScrapBrandSmaps":
+							req.SetData<ScrapBrandToSmapsModel>();
+							break;
+						case "ScrapCategorySmaps":
+							req.SetData<ScrapCategoryToSmapsModel>();
+							break;
+						case "ScrapProductSmaps":
+							req.SetData<ScrapProductToSmapsModel>();
 							break;
 					}
 				}
@@ -159,11 +239,50 @@ namespace IKaan.Was.Service.Services
 
 							switch (req.ModelName.Replace("Model", ""))
 							{
-								case "BrandInfo":
-									req.SaveBrandInfo();
+								case "ScrapBrand":
+									req.SaveScrapBrand();
 									break;
-								case "GoodsInfo":
-									req.SaveGoodsInfo();
+								case "ScrapProduct":
+									req.SaveScrapProduct();
+									break;
+								case "ScrapSite":
+									req.SaveScrapSite();
+									break;
+								case "SmapsAgency":
+									req.SaveSmapsAgency();
+									break;
+								case "SmapsBrand":
+									req.SaveSmapsBrand();
+									break;
+								case "SmapsCategory":
+									req.SaveSmapsCategory();
+									break;
+								case "SmapsColor":
+									req.SaveSmapsColor();
+									break;
+								case "SmapsLookbook":
+									req.SaveSmapsLookbook();
+									break;
+								case "SmapsProduct":
+									req.SaveSmapsProduct();
+									break;
+								case "SmapsSize":
+									req.SaveSmapsSize();
+									break;
+								case "SmapsUser":
+									req.SaveSmapsUser();
+									break;
+								case "SmapsRequest":
+									req.SaveSmapsRequest();
+									break;
+								case "ScrapBrandSmaps":
+									req.SaveScrapBrandToSmaps();
+									break;
+								case "ScrapCategorySmaps":
+									req.SaveScrapCategoryToSmaps();
+									break;
+								case "ScrapProductSmaps":
+									req.SaveScrapProductToSmaps();
 									break;
 							}
 						}

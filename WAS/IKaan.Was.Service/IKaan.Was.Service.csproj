@@ -65,6 +65,8 @@
     <Compile Include="Common\CodeHelpService.cs" />
     <Compile Include="Common\ReportService.cs" />
     <Compile Include="Services\LiveServicePartial.cs" />
+    <Compile Include="Services\ScrapServiceScrapToSmaps.cs" />
+    <Compile Include="Services\ScrapServiceSmaps.cs" />
     <Compile Include="Services\ScrapServicePartial.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\ServiceUtils.cs" />

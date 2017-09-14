@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectSmapsUserList" parameterClass="DataMap" resultClass="SmapsUserModel" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.BrandName)	as RowNo
+					,	AA.ID
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
+					
+					,	AA.uid
+					,	AA.email
+					,	AA.name
+					,	AA.agency_uid
+					,	AA.passwd
+					,	AA.phone1
+					,	AA.phone2
+					,	AA.phone3
+					,	AA.introduce
+					,	AA.rank
+					,	AA.image
+					,	AA.image_width
+					,	AA.image_height
+					
+					,	AA.RequestID
+					,	BB.Status
+					,	BB.RequestDate
+					
+				FROM	IKScrap.dbo.TSmapsUser AA WITH (NOLOCK)
+						LEFT JOIN
+							IKScrap.dbo.TSmapsRequest BB WITH (NOLOCK)
+								ON AA.RequestID = BB.ID
+				WHERE	1=1
+			]]>
+			<isNotEmpty property="AgencyUid">
+				<![CDATA[
+					AND	AA.agency_uid = #AgencyUid#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(
+							AA.name		LIKE '%'+#FindText#+'%' OR
+							AA.email	LIKE '%'+#FindText#+'%'
+						)
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectSmapsUser" parameterClass="DataMap" resultClass="SmapsUserModel" >
+			<![CDATA[
+				SELECT  *					
+				FROM	IKScrap.dbo.TSmapsUser AA WITH (NOLOCK)
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<select id="SelectSmapsUserExists" parameterClass="DataMap" resultClass="SmapsUserModel" >
+			<![CDATA[
+				SELECT  *					
+				FROM	IKScrap.dbo.TSmapsUser AA WITH (NOLOCK)
+				WHERE	AA.uid = #uid#
+			]]>
+		</select>
+		<insert id="InsertSmapsUser" parameterClass="SmapsUserModel" >
+			<![CDATA[
+				INSERT INTO dbo.TSmapsUser
+				( 
+					CreatedOn, CreatedBy, CreatedByName,
+					RequestID,
+					uid, email, name, agency_uid, passwd, 
+					phone1, phone2, phone3, introduce, rank, 
+					image, image_width, image_height
+				)
+				VALUES
+				(
+					GetDate(), #CreatedBy#, #CreatedByName#,
+					#RequestID#,
+					#uid#, #email#, #name#, #agency_uid#, #passwd#, 
+					#phone1#, #phone2#, #phone3#, #introduce#, #rank#, 
+					#image#, #image_width#, #image_height#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateSmapsUser" parameterClass="SmapsUserModel">
+			<![CDATA[
+				UPDATE  IKScrap.dbo.TSmapsUser
+				SET     UpdatedOn		= GetDate()
+					,	UpdatedBy		= #UpdatedBy#
+					,	UpdatedByName	= #UpdatedByName#
+					
+					,	RequestID		= #RequestID#
+					,	uid				= #uid#
+					,	email			= #email#
+					,	name			= #name#
+					,	agency_uid		= #agency_uid#
+					,	passwd			= #passwd#
+					,	phone1			= #phone1#
+					,	phone2			= #phone2#
+					,	phone3			= #phone3#
+					,	introduce		= #introduce#
+					,	rank			= #rank#
+					,	image			= #image#
+					,	image_width		= #image_width#
+					,	image_height	= #image_height#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
+		<delete id="DeleteSmapsUser" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM	IKScrap.dbo.TSmapsUser WHERE ID = #ID#;
+			]]>
+		</delete>
+	</statements>
+</sqlMap>

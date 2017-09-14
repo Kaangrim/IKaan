@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectScrapProductImageList" parameterClass="DataMap" resultClass="ScrapProductImageModel" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.BrandName)	as RowNo
+					,	AA.ID
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
+					
+					,	AA.Name
+					,	AA.ProductID
+					,	AA.ImageType
+					,	AA.Url
+					,	AA.Width
+					,	AA.Height
+				FROM	dbo.TScrapProductImage AA WITH (NOLOCK)
+				WHERE	AA.ProductID = #ProductID#
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectScrapProductImage" parameterClass="DataMap" resultClass="ScrapProductImageModel" >
+			<![CDATA[
+				SELECT  *					
+				FROM	dbo.TScrapProductImage AA WITH (NOLOCK)
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<insert id="InsertScrapProductImage" parameterClass="ScrapProductImageModel" >
+			<![CDATA[
+				INSERT INTO dbo.TScrapProductImage
+				( 
+					CreatedOn, CreatedBy, CreatedByName,
+					Name, ProductID, ImageType, Url, Width, Height
+				)
+				VALUES
+				(
+					GetDate(), #CreatedBy#, #CreatedByName#,
+					#Name#, #ProductID#, #ImageType#, #Url#, #Width#, #Height#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateScrapProductImage" parameterClass="ScrapProductImageModel">
+			<![CDATA[
+				UPDATE  dbo.TScrapProductImage
+				SET     UpdatedOn		= GetDate()
+					,	UpdatedBy		= #UpdatedBy#
+					,	UpdatedByName	= #UpdatedByName#
+					
+					,	Name			= #Name#
+					,	ProductID		= #ProductID#
+					,	ImageType		= #ImageType#
+					,	Url				= #Url#
+					,	Width			= #Width#
+					,	Height			= #Height#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
+		<delete id="DeleteScrapProductImage" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM	dbo.TScrapProductImage WHERE ID = #ID#;
+			]]>
+		</delete>
+	</statements>
+</sqlMap>

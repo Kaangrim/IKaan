@@ -952,6 +952,342 @@
 			]]>
 		</select>
 
+		<select id="SelectCodeHelpScrapSite" parameterClass="DataMap" resultClass="UCodeHelp" >
+			<![CDATA[
+				SELECT	aa.ID								as ID
+					,	CONVERT(VARCHAR, aa.ID)				as Code
+					,	aa.Name								as Name
+					,	aa.Name								as ListName
+					,	aa.Name								as DispName
+					,	CONVERT(VARCHAR, aa.ID)				as Value
+					,	ROW_NUMBER() OVER (ORDER BY aa.SortOrder, aa.ID)	as SortOrder
+					,	0									as MaxLength
+					,	aa.Url								as Option1
+					,	CONVERT(VARCHAR, aa.ParentID)		as Option2
+					,	null								as Option3
+					,	null								as Option4
+					,	null								as Option5
+					,	null								as Option6
+					,	null								as Option7
+					,	null								as Option8
+					,	null								as Option9
+				FROM	IKScrap.dbo.TScrapSite aa WITH (NOLOCK)
+				WHERE	aa.ParentID IS NULL
+				AND		aa.UseYn = 'Y'
+			]]>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(
+							aa.Name	Like '%'+#FindText#+'%'
+						)
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY SortOrder, Name
+			]]>
+		</select>
+		<select id="SelectCodeHelpScrapBrand" parameterClass="DataMap" resultClass="UCodeHelp" >
+			<![CDATA[
+				SELECT	aa.ID								as ID
+					,	aa.Code								as Code
+					,	aa.Name								as Name
+					,	aa.Name								as ListName
+					,	aa.Name								as DispName
+					,	aa.Code								as Value
+					,	ROW_NUMBER() OVER (ORDER BY aa.Name)	as SortOrder
+					,	0									as MaxLength
+					,	aa.Url								as Option1
+					,	CONVERT(VARCHAR, aa.SiteID)			as Option2
+					,	null								as Option3
+					,	null								as Option4
+					,	null								as Option5
+					,	null								as Option6
+					,	null								as Option7
+					,	null								as Option8
+					,	null								as Option9
+				FROM	IKScrap.dbo.TScrapBrand aa WITH (NOLOCK)
+				WHERE	aa.SiteID = #SiteID#
+			]]>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(
+							aa.Name	Like '%'+#FindText#+'%'
+						)
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY SortOrder, Name
+			]]>
+		</select>
+
+		<select id="SelectCodeHelpSmapsAgency" parameterClass="DataMap" resultClass="UCodeHelp" >
+			<![CDATA[
+				SELECT	aa.ID								as ID
+					,	CONVERT(VARCHAR, aa.uid)			as Code
+					,	aa.name								as Name
+					,	aa.name								as ListName
+					,	aa.name								as DispName
+					,	CONVERT(VARCHAR, aa.uid)			as Value
+					,	ROW_NUMBER() OVER (ORDER BY aa.name, aa.uid)	as SortOrder
+					,	0									as MaxLength
+					,	null								as Option1
+					,	null								as Option2
+					,	null								as Option3
+					,	null								as Option4
+					,	null								as Option5
+					,	null								as Option6
+					,	null								as Option7
+					,	null								as Option8
+					,	null								as Option9
+				FROM	IKScrap.dbo.TSmapsAgency aa WITH (NOLOCK)
+				WHERE	1=1
+			]]>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(
+							aa.name	Like '%'+#FindText#+'%'
+						)
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY SortOrder, Name
+			]]>
+		</select>
+		<select id="SelectCodeHelpSmapsBrand" parameterClass="DataMap" resultClass="UCodeHelp" >
+			<![CDATA[
+				SELECT	aa.ID								as ID
+					,	CONVERT(VARCHAR, aa.uid)			as Code
+					,	aa.name								as Name
+					,	aa.name								as ListName
+					,	aa.name								as DispName
+					,	CONVERT(VARCHAR, aa.uid)			as Value
+					,	ROW_NUMBER() OVER (ORDER BY aa.name, aa.uid)	as SortOrder
+					,	0									as MaxLength
+					,	convert(varchar, aa.agency_uid)		as Option1
+					,	null								as Option2
+					,	null								as Option3
+					,	null								as Option4
+					,	null								as Option5
+					,	null								as Option6
+					,	null								as Option7
+					,	null								as Option8
+					,	null								as Option9
+				FROM	IKScrap.dbo.TSmapsBrand aa WITH (NOLOCK)
+				WHERE	1=1
+			]]>
+			<isNotEmpty property="AgencyUid">
+				<![CDATA[
+					AND	(
+							aa.agency_uid = #AgencyUid#
+						)
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(
+							aa.name	Like '%'+#FindText#+'%'
+						)
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY SortOrder, Name
+			]]>
+		</select>
+		<select id="SelectCodeHelpSmapsLookbook" parameterClass="DataMap" resultClass="UCodeHelp" >
+			<![CDATA[
+				SELECT	aa.ID								as ID
+					,	CONVERT(VARCHAR, aa.uid)			as Code
+					,	aa.title							as Name
+					,	aa.title							as ListName
+					,	aa.title							as DispName
+					,	CONVERT(VARCHAR, aa.uid)			as Value
+					,	ROW_NUMBER() OVER (ORDER BY aa.title, aa.uid)	as SortOrder
+					,	0									as MaxLength
+					,	convert(varchar, aa.agency_uid)		as Option1
+					,	convert(varchar, aa.brand_uid)		as Option2
+					,	null								as Option3
+					,	null								as Option4
+					,	null								as Option5
+					,	null								as Option6
+					,	null								as Option7
+					,	null								as Option8
+					,	null								as Option9
+				FROM	IKScrap.dbo.TSmapsLookbook aa WITH (NOLOCK)
+				WHERE	1=1
+			]]>
+			<isNotEmpty property="AgencyUid">
+				<![CDATA[
+					AND	(
+							aa.agency_uid = #AgencyUid#
+						)
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="BrandUid">
+				<![CDATA[
+					AND	(
+							aa.brand_uid = #BrandUid#
+						)
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(
+							aa.name	Like '%'+#FindText#+'%'
+						)
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY SortOrder, Name
+			]]>
+		</select>
+		<select id="SelectCodeHelpSmapsCategory" parameterClass="DataMap" resultClass="UCodeHelp" >
+			<![CDATA[
+				SELECT	aa.ID								as ID
+					,	CONVERT(VARCHAR, aa.uid)			as Code
+					,	aa.name								as Name
+					,	aa.name								as ListName
+					,	aa.name								as DispName
+					,	CONVERT(VARCHAR, aa.uid)			as Value
+					,	ROW_NUMBER() OVER (ORDER BY aa.name, aa.uid)	as SortOrder
+					,	0									as MaxLength
+					,	null								as Option1
+					,	null								as Option2
+					,	null								as Option3
+					,	null								as Option4
+					,	null								as Option5
+					,	null								as Option6
+					,	null								as Option7
+					,	null								as Option8
+					,	null								as Option9
+				FROM	IKScrap.dbo.TSmapsCategory aa WITH (NOLOCK)
+				WHERE	1=1
+			]]>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(
+							aa.name	Like '%'+#FindText#+'%'
+						)
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY SortOrder, Name
+			]]>
+		</select>
+		<select id="SelectCodeHelpSmapsColor" parameterClass="DataMap" resultClass="UCodeHelp" >
+			<![CDATA[
+				SELECT	aa.ID								as ID
+					,	aa.value							as Code
+					,	aa.text								as Name
+					,	aa.text								as ListName
+					,	aa.text								as DispName
+					,	aa.value							as Value
+					,	ROW_NUMBER() OVER (ORDER BY aa.text, aa.value)	as SortOrder
+					,	0									as MaxLength
+					,	null								as Option1
+					,	null								as Option2
+					,	null								as Option3
+					,	null								as Option4
+					,	null								as Option5
+					,	null								as Option6
+					,	null								as Option7
+					,	null								as Option8
+					,	null								as Option9
+				FROM	IKScrap.dbo.TSmapsColor aa WITH (NOLOCK)
+				WHERE	1=1
+			]]>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(
+							aa.text	Like '%'+#FindText#+'%'
+						)
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY SortOrder, Name
+			]]>
+		</select>
+		<select id="SelectCodeHelpSmapsSize" parameterClass="DataMap" resultClass="UCodeHelp" >
+			<![CDATA[
+				SELECT	aa.ID								as ID
+					,	CONVERT(VARCHAR, aa.uid)			as Code
+					,	aa.text								as Name
+					,	aa.text								as ListName
+					,	aa.text								as DispName
+					,	CONVERT(VARCHAR, aa.uid)			as Value
+					,	ROW_NUMBER() OVER (ORDER BY aa.text, aa.uid)	as SortOrder
+					,	0									as MaxLength
+					,	convert(varchar, aa.category_uid)	as Option1
+					,	aa.sex								as Option2
+					,	null								as Option3
+					,	null								as Option4
+					,	null								as Option5
+					,	null								as Option6
+					,	null								as Option7
+					,	null								as Option8
+					,	null								as Option9
+				FROM	IKScrap.dbo.TSmapsSize aa WITH (NOLOCK)
+				WHERE	1=1
+			]]>
+			<isNotEmpty property="CategoryUid">
+				<![CDATA[
+					AND	aa.category_uid	= #CategoryUid#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="Sex">
+				<![CDATA[
+					AND	aa.sex = #Sex#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	aa.text	Like '%'+#FindText#+'%'
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY SortOrder, Name
+			]]>
+		</select>
+		<select id="SelectCodeHelpSmapsUser" parameterClass="DataMap" resultClass="UCodeHelp" >
+			<![CDATA[
+				SELECT	aa.ID								as ID
+					,	CONVERT(VARCHAR, aa.uid)			as Code
+					,	aa.name								as Name
+					,	aa.name								as ListName
+					,	aa.name								as DispName
+					,	CONVERT(VARCHAR, aa.uid)			as Value
+					,	ROW_NUMBER() OVER (ORDER BY aa.name, aa.uid)	as SortOrder
+					,	0									as MaxLength
+					,	convert(varchar, aa.agency_uid)		as Option1
+					,	sex									as Option2
+					,	null								as Option3
+					,	null								as Option4
+					,	null								as Option5
+					,	null								as Option6
+					,	null								as Option7
+					,	null								as Option8
+					,	null								as Option9
+				FROM	IKScrap.dbo.TSmapsUser aa WITH (NOLOCK)
+				WHERE	1=1
+			]]>
+			<isNotEmpty property="AgencyUid">
+				<![CDATA[
+					AND	(
+							aa.agency_uid = #AgencyUid#
+						)
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(
+							aa.name	Like '%'+#FindText#+'%'
+						)
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY SortOrder, Name
+			]]>
+		</select>
+
 		<select id="SelectCodeLookup" parameterClass="DataMap" resultClass="UCodeLookup" >
 			<![CDATA[
 				SELECT	AA.Code			as Code

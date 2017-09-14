@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectScrapBrandToSmapsList" parameterClass="DataMap" resultClass="ScrapBrandToSmapsModel" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.Name)	as RowNo
+					,	BB.ID
+					,	BB.CreatedOn
+					,	BB.CreatedBy
+					,	BB.CreatedByName
+					,	BB.UpdatedOn
+					,	BB.UpdatedBy
+					,	BB.UpdatedByName
+					
+					,	AA.SiteID		as SiteID
+					,	AA.ID			as ScrapBrandID
+					,	BB.SmapsBrandID	as SmapsBrandID
+					
+					,	AA.Name			as ScrapBrandName
+					,	CC.name			as SmapsBrandName
+					
+				FROM	IKScrap.dbo.TScrapBrand AA WITH (NOLOCK)
+						LEFT JOIN
+							IKScrap.dbo.TScrapBrandToSmaps BB WITH (NOLOCK)
+								ON AA.ID = BB.ScrapBrandID
+						LEFT JOIN
+							IKScrap.dbo.TSmapsBrand CC WITH (NOLOCK)
+								ON BB.SmapsBrandID = CC.ID
+								
+				WHERE	1=1
+				AND		AA.SiteID = #SiteID#
+				AND		(
+							ISNULL(#MappingYn#, '') = '' OR
+							(
+								ISNULL(#MappingYn#, '') != '' AND
+								(
+									(#MappingYn# = 'Y' AND BB.SmapsBrandID IS NOT NULL) OR
+									(#MappingYn# = 'N' AND BB.SmapsBrandID IS NULL)
+								)
+							)
+						)
+			]]>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(
+							AA.Name LIKE '%'+#FindText#+'%' OR
+							CC.name	LIKE '%'+#FindText#+'%'
+						)
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectScrapBrandToSmaps" parameterClass="DataMap" resultClass="ScrapBrandToSmapsModel" >
+			<![CDATA[
+				SELECT  *					
+				FROM	IKScrap.dbo.TScrapBrandToSmaps WITH (NOLOCK)
+				WHERE	ID = #ID#
+			]]>
+		</select>
+		<select id="SelectScrapBrandToSmapsExists" parameterClass="DataMap" resultClass="ScrapBrandToSmapsModel" >
+			<![CDATA[
+				SELECT  *					
+				FROM	IKScrap.dbo.TScrapBrandToSmaps WITH (NOLOCK)
+				WHERE	ScrapBrandID = #ScrapBrandID#
+			]]>
+		</select>
+		<insert id="InsertScrapBrandToSmaps" parameterClass="ScrapBrandToSmapsModel" >
+			<![CDATA[
+				INSERT INTO dbo.TScrapBrandToSmaps
+				( 
+					CreatedOn, CreatedBy, CreatedByName,
+					ScrapBrandID, SmapsBrandID
+				)
+				VALUES
+				(
+					GetDate(), #CreatedBy#, #CreatedByName#,
+					#ScrapBrandID#, #SmapsBrandID#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateScrapBrandToSmaps" parameterClass="ScrapBrandToSmapsModel">
+			<![CDATA[
+				UPDATE  IKScrap.dbo.TScrapBrandToSmaps
+				SET     UpdatedOn		= GetDate()
+					,	UpdatedBy		= #UpdatedBy#
+					,	UpdatedByName	= #UpdatedByName#
+					
+					,	ScrapBrandID	= #ScrapBrandID#
+					,	SmapsBrandID	= #SmapsBrandID#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
+		<delete id="DeleteScrapBrandToSmaps" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM	IKScrap.dbo.TScrapBrandToSmaps WHERE ID = #ID#;
+			]]>
+		</delete>
+	</statements>
+</sqlMap>

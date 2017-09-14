@@ -1,0 +1,173 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectSmapsProductList" parameterClass="DataMap" resultClass="SmapsProductModel" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.uid)	as RowNo
+					,	AA.ID
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
+					
+					,	AA.uid
+					,	AA.agency_uid
+					,	AA.brand_uid
+					,	AA.lookbook_uid
+					,	AA.product_name
+					,	AA.product_number
+					,	AA.product_price
+					,	AA.product_unset_price
+					,	AA.category_uid
+					,	AA.sex
+					,	AA.memo
+					,	AA.caution
+					,	AA.tag
+					,	AA.option
+					,	AA.option_size_uid
+					,	AA.option_size_view
+					,	AA.option_color
+					,	AA.option_color_view
+					,	AA.option_add_date
+					,	AA.image
+					,	AA.image_width
+					,	AA.image_height
+					
+					,	AA.RequestID
+					,	BB.Status
+					,	BB.RequestDate
+					
+				FROM	IKScrap.dbo.TSmapsProduct AA WITH (NOLOCK)
+						LEFT JOIN
+							IKScrap.dbo.TSmapsRequest BB WITH (NOLOCK)
+								ON AA.RequestID = BB.ID
+				WHERE	1=1
+			]]>
+			<isNotEmpty property="RequestID">
+				<![CDATA[
+					AND	AA.RequestID = #RequestID#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="AgencyUid">
+				<![CDATA[
+					AND	AA.agency_uid = #AgencyUid#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="BrandUid">
+				<![CDATA[
+					AND	AA.brand_uid = #BrandUid#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="LookbookUid">
+				<![CDATA[
+					AND	AA.lookbook_uid = #LookbookUid#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="CategoryUid">
+				<![CDATA[
+					AND	AA.category_uid = #CategoryUid#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(
+							AA.product_nmae  LIKE '%'+#FindText#+'%' OR
+							AA.product_number    LIKE '%'+#FindText#+'%'
+						)
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectSmapsProduct" parameterClass="DataMap" resultClass="SmapsProductModel" >
+			<![CDATA[
+				SELECT  *					
+				FROM	IKScrap.dbo.TSmapsProduct AA WITH (NOLOCK)
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<select id="SelectSmapsProductExists" parameterClass="DataMap" resultClass="SmapsProductModel" >
+			<![CDATA[
+				SELECT  *					
+				FROM	IKScrap.dbo.TSmapsProduct AA WITH (NOLOCK)
+				WHERE	AA.uid = #uid#
+			]]>
+		</select>
+		<insert id="InsertSmapsProduct" parameterClass="SmapsProductModel" >
+			<![CDATA[
+				INSERT INTO IKScrap.dbo.TSmapsProduct
+				( 
+					CreatedOn, CreatedBy, CreatedByName,
+					RequestID,
+					uid, agency_uid, brand_uid, lookbook_uid, 
+					product_name, product_number, product_price, product_unset_price,
+					category_uid, sex, memo, caution, tag, 
+					option, option_size_uid, option_size_view, option_color, option_color_view, option_add_date,
+					image, image_width, image_height, is_thumbnail, is_main
+				)
+				VALUES
+				(
+					GetDate(), #CreatedBy#, #CreatedByName#,
+					#RequestID#,
+					#uid#, #agency_uid#, #brand_uid#, #lookbook_uid#, 
+					#product_name#, #product_number#, #product_price#, #product_unset_price#,
+					#category_uid#, #sex#, #memo#, #caution#, #tag#, 
+					#option#, #option_size_uid#, #option_size_view#, #option_color#, #option_color_view#, #option_add_date#,
+					#image#, #image_width#, #image_height#, #is_thumbnail#, #is_main#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateSmapsProduct" parameterClass="SmapsProductModel">
+			<![CDATA[
+				UPDATE  IKScrap.dbo.TSmapsProduct
+				SET     UpdatedOn		= GetDate()
+					,	UpdatedBy		= #UpdatedBy#
+					,	UpdatedByName	= #UpdatedByName#
+					
+					,	RequestID			= #RequestID#
+					,	uid					= #uid#
+					,	agency_uid			= #agency_uid#
+					,	brand_uid			= #brand_uid#
+					,	lookbook_uid		= #lookbook_uid#
+					,	product_name		= #product_name#
+					,	product_number		= #product_number#
+					,	product_price		= #product_price#
+					,	product_unset_price = #product_unset_price#
+					,	category_uid		= #category_uid#
+					,	sex					= #sex#
+					,	memo				= #memo#
+					,	caution				= #caution#
+					,	tag					= #tag#
+					,	option				= #option#
+					,	option_size_uid		= #option_size_uid#
+					,	option_size_view	= #option_size_view#
+					,	option_color		= #option_color#
+					,	option_color_view	= #option_color_view#
+					,	option_add_date		= #option_add_date#
+					,	image				= #image#
+					,	image_width			= #image_width#
+					,	image_height		= #image_height#
+					,	is_thumbnail		= #is_thumbnail#
+					,	is_main				= #is_main#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
+		<delete id="DeleteSmapsProduct" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM	IKScrap.dbo.TSmapsProduct WHERE ID = #ID#;
+			]]>
+		</delete>
+	</statements>
+</sqlMap>
