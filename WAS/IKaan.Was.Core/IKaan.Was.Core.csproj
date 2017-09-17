@@ -69,6 +69,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="SqlMaps\Scrap\Common\ScrapOptionSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\Scrap\Mapping\ScrapSizeToSmapsSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\Scrap\Mapping\ScrapColorToSmapsSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\Scrap\Common\ScrapSizeSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\Scrap\Common\ScrapColorSQL.xml" />
     <EmbeddedResource Include="SqlMaps\Scrap\Common\ScrapCategorySQL.xml" />
     <EmbeddedResource Include="SqlMaps\Scrap\Mapping\ScrapBrandToSmapsSQL.xml" />
     <EmbeddedResource Include="SqlMaps\Scrap\Mapping\ScrapCategoryToSmapsSQL.xml" />

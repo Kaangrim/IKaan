@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Windows.Forms;
+using DevExpress.Utils;
 using DevExpress.XtraGrid.Views.Grid;
 using IKaan.Base.Map;
+using IKaan.Model.Scrap.Common;
 using IKaan.Model.Scrap.Mapping;
 using IKaan.Model.Scrap.Smaps;
 using IKaan.Win.Core.Controls.Grid;
@@ -9,12 +11,13 @@ using IKaan.Win.Core.Forms;
 using IKaan.Win.Core.Helper;
 using IKaan.Win.Core.Model;
 using IKaan.Win.Core.Utils;
+using IKaan.Win.Core.Was.Handler;
 
 namespace IKaan.Win.View.Scrap.Mapping
 {
-	public partial class SmapsMappingEditForm : EditForm
+	public partial class ScrapToSmapsEditForm : EditForm
 	{
-		public SmapsMappingEditForm()
+		public ScrapToSmapsEditForm()
 		{
 			InitializeComponent();
 
@@ -23,9 +26,8 @@ namespace IKaan.Win.View.Scrap.Mapping
 				lupBrand.BindData("ScrapBrand", "All", false, new DataMap() { { "SiteID", lupSite.EditValue } });
 			};
 
-			btnInterface.Click += (object sender, EventArgs e) =>
-			{
-			};
+			btnInterface.Click += (object sender, EventArgs e) => { };
+			btnOptionMatching.Click += (object sender, EventArgs e) => { OptionMatching(); };
 		}
 
 		protected override void OnShown(EventArgs e)
@@ -71,6 +73,7 @@ namespace IKaan.Win.View.Scrap.Mapping
 				new XGridColumn() { FieldName = "SiteID", Visible = false },
 				new XGridColumn() { FieldName = "ScrapBrandID", Width = 100 },
 				new XGridColumn() { FieldName = "ScrapBrandName", Width = 150},
+				new XGridColumn() { FieldName = "ProductCount", Width = 100, HorzAlignment = HorzAlignment.Far, FormatType = FormatType.Numeric, FormatString = "N0" },
 				new XGridColumn() { FieldName = "SmapsBrandID", Width = 100 },
 				new XGridColumn() { FieldName = "SmapsBrandName", Width = 150 },
 				new XGridColumn() { FieldName = "CreatedOn" },
@@ -177,7 +180,12 @@ namespace IKaan.Win.View.Scrap.Mapping
 					if (e.Button == MouseButtons.Left && e.Clicks == 2)
 					{
 						GridView view = sender as GridView;
-						//ShowEdit(view.GetRowCellValue(e.RowHandle, "ID"));
+						var data = CodeHelper.ShowForm("SmapsProduct", null, null);
+						if (data != null)
+						{
+							view.SetRowCellValue(e.RowHandle, "SmapsProductID", (data as DataMap).GetValue("Code"));
+							view.SetRowCellValue(e.RowHandle, "SmapsProductName", (data as DataMap).GetValue("Name"));
+						}
 					}
 				}
 				catch (Exception ex)
@@ -192,8 +200,11 @@ namespace IKaan.Win.View.Scrap.Mapping
 			gridColorList.AddGridColumns(
 				new XGridColumn() { FieldName = "RowNo" },
 				new XGridColumn() { FieldName = "ID", Visible = false },
-				new XGridColumn() { FieldName = "value" },
-				new XGridColumn() { FieldName = "text" },
+				new XGridColumn() { FieldName = "SiteID", Visible = false },
+				new XGridColumn() { FieldName = "ScrapColorID", Width = 100 },
+				new XGridColumn() { FieldName = "ScrapColorName", Width = 200 },
+				new XGridColumn() { FieldName = "SmapsColorID", Width = 100 },
+				new XGridColumn() { FieldName = "SmapsColorName", Width = 200 },
 				new XGridColumn() { FieldName = "CreatedOn" },
 				new XGridColumn() { FieldName = "CreatedByName" },
 				new XGridColumn() { FieldName = "UpdatedOn" },
@@ -211,7 +222,12 @@ namespace IKaan.Win.View.Scrap.Mapping
 					if (e.Button == MouseButtons.Left && e.Clicks == 2)
 					{
 						GridView view = sender as GridView;
-						//ShowEdit(view.GetRowCellValue(e.RowHandle, "ID"));
+						var data = CodeHelper.ShowForm("SmapsColor", null, null);
+						if (data != null)
+						{
+							view.SetRowCellValue(e.RowHandle, "SmapsColorID", (data as DataMap).GetValue("Code"));
+							view.SetRowCellValue(e.RowHandle, "SmapsColorName", (data as DataMap).GetValue("Name"));
+						}
 					}
 				}
 				catch (Exception ex)
@@ -226,10 +242,15 @@ namespace IKaan.Win.View.Scrap.Mapping
 			gridSizeList.AddGridColumns(
 				new XGridColumn() { FieldName = "RowNo" },
 				new XGridColumn() { FieldName = "ID", Visible = false },
-				new XGridColumn() { FieldName = "uid" },
-				new XGridColumn() { FieldName = "text" },
-				new XGridColumn() { FieldName = "category_uid" },
-				new XGridColumn() { FieldName = "sex" },
+				new XGridColumn() { FieldName = "SiteID", Visible = false },
+				new XGridColumn() { FieldName = "CategoryID", Visible = false },
+				new XGridColumn() { FieldName = "CategoryName", Width = 100 },
+				new XGridColumn() { FieldName = "Gender", Visible = false },
+				new XGridColumn() { FieldName = "GenderName", Width = 100 },
+				new XGridColumn() { FieldName = "ScrapSizeID", Width = 100 },
+				new XGridColumn() { FieldName = "ScrapSizeName", Width = 200 },
+				new XGridColumn() { FieldName = "SmapsSizeID", Width = 100 },
+				new XGridColumn() { FieldName = "SmapsSizeName", Width = 200 },
 				new XGridColumn() { FieldName = "CreatedOn" },
 				new XGridColumn() { FieldName = "CreatedByName" },
 				new XGridColumn() { FieldName = "UpdatedOn" },
@@ -246,7 +267,12 @@ namespace IKaan.Win.View.Scrap.Mapping
 					if (e.Button == MouseButtons.Left && e.Clicks == 2)
 					{
 						GridView view = sender as GridView;
-						//ShowEdit(view.GetRowCellValue(e.RowHandle, "ID"));
+						var data = CodeHelper.ShowForm("SmapsSize", null, null);
+						if (data != null)
+						{
+							view.SetRowCellValue(e.RowHandle, "SmapsSizeID", (data as DataMap).GetValue("Code"));
+							view.SetRowCellValue(e.RowHandle, "SmapsSizeName", (data as DataMap).GetValue("Name"));
+						}
 					}
 				}
 				catch (Exception ex)
@@ -291,7 +317,7 @@ namespace IKaan.Win.View.Scrap.Mapping
 				}
 				else if (lcTabList.SelectedTabPage.Name == lcGroupColor.Name)
 				{
-					gridColorList.BindList<SmapsColorModel>("Scrap", "GetList", "Select", new DataMap()
+					gridColorList.BindList<ScrapColorToSmapsModel>("Scrap", "GetList", "Select", new DataMap()
 					{
 						{ "SiteID", lupSite.EditValue },
 						{ "FindText", txtFindText.EditValue },
@@ -300,7 +326,7 @@ namespace IKaan.Win.View.Scrap.Mapping
 				}
 				else if (lcTabList.SelectedTabPage.Name == lcGroupSize.Name)
 				{
-					gridSizeList.BindList<SmapsSizeModel>("Scrap", "GetList", "Select", new DataMap()
+					gridSizeList.BindList<ScrapSizeToSmapsModel>("Scrap", "GetList", "Select", new DataMap()
 					{
 						{ "SiteID", lupSite.EditValue },
 						{ "FindText", txtFindText.EditValue },
@@ -311,6 +337,29 @@ namespace IKaan.Win.View.Scrap.Mapping
 			catch (Exception ex)
 			{
 				ShowErrBox(ex);
+			}
+		}
+
+		private void OptionMatching()
+		{
+			try
+			{
+				SplashUtils.ShowWait("처리하는 중입니다... 잠시만...");
+				using (var res = WasHandler.Batch("Scrap", "Save", "BatchScrapOption", new DataMap() { { "SiteID", lupSite.EditValue } }))
+				{
+					if (res.Error.Number != 0)
+						throw new Exception(res.Error.Message);
+
+					SetMessage("처리하였습니다.");
+				}
+			}
+			catch (Exception ex)
+			{
+				ShowErrBox(ex);
+			}
+			finally
+			{
+				SplashUtils.CloseWait();
 			}
 		}
 	}

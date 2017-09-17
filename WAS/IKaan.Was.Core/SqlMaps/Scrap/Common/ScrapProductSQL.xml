@@ -7,7 +7,7 @@
 	<statements>
 		<select id="SelectScrapProductList" parameterClass="DataMap" resultClass="ScrapProductModel" >
 			<![CDATA[
-				SELECT  ROW_NUMBER() OVER (ORDER BY AA.BrandName)	as RowNo
+				SELECT  ROW_NUMBER() OVER (ORDER BY BB.Name, AA.CategoryName, AA.Name)	as RowNo
 					,	AA.ID
 					,	AA.CreatedOn
 					,	AA.CreatedBy
@@ -28,11 +28,28 @@
 					,	AA.Option2Type
 					,	AA.Option2Name
 					,	AA.CategoryName
+					,	AA.CategoryID
+					,	AA.Gender
+					
+					,	BB.Name				as BrandName
 					
 				FROM	dbo.TScrapProduct AA WITH (NOLOCK)
-				WHERE	AA.SiteID		= #SiteID#
-				AND		AA.BrandCode	= #BrandCode#
+						LEFT JOIN
+							dbo.TScrapBrand BB WITH (NOLOCK)
+								ON AA.SiteID = BB.SiteID
+									AND AA.BrandCode = BB.Code
+				WHERE	AA.SiteID = #SiteID#
 			]]>
+			<isNotEmpty property="BrandCode">
+				<![CDATA[
+					AND	AA.BrandCode = #BrandCode#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="CategoryID">
+				<![CDATA[
+					AND	AA.CategoryID = #CategoryID#
+				]]>
+			</isNotEmpty>
 			<isNotEmpty property="FindText">
 				<![CDATA[
 					AND	(
@@ -60,7 +77,7 @@
 					SiteID, BrandCode, 
 					Code, Name, Url, ListPrice, SalePrice, 
 					Option1Type, Option1Name, Option2Type, Option2Name, 
-					CategoryName,
+					CategoryName, CategoryID, Gender,
 					Description
 				)
 				VALUES
@@ -69,7 +86,7 @@
 					#SiteID#, #BrandCode#, 
 					#Code#, #Name#, #Url#, #ListPrice#, #SalePrice#, 
 					#Option1Type#, #Option1Name#, #Option2Type#, #Option2Name#, 
-					#CategoryName#,
+					#CategoryName#, #CategoryID#, #Gender#,
 					#Description#
 				)
 			]]>
@@ -98,6 +115,8 @@
 					,	Option2Type		= #Option2Type#
 					,	Option2Name		= #Option2Name#
 					,	CategoryName	= #CategoryName#
+					,	CategoryID		= #CategoryID#
+					,	Gender			= #Gender#
 					,	Description		= #Description#
 				WHERE	ID				= #ID#
 			]]>
@@ -115,6 +134,15 @@
 				WHERE	AA.SiteID	= #SiteID#
 				AND		AA.BrandCode= #BrandCode#
 				AND		AA.Code		= #Code#
+			]]>
+		</select>
+		<select id="SelectScrapProductByCategory" parameterClass="DataMap" resultClass="ScrapProductModel" >
+			<![CDATA[
+				SELECT  *					
+				FROM	dbo.TScrapProduct AA WITH (NOLOCK)
+				WHERE	AA.SiteID		= #SiteID#
+				AND		AA.CategoryName	= #CategoryName#
+				AND		AA.CategoryID IS NULL
 			]]>
 		</select>
 	</statements>

@@ -5,9 +5,9 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
 
 	<statements>
-		<select id="SelectScrapProductSmapsList" parameterClass="DataMap" resultClass="ScrapProductSmapsModel" >
+		<select id="SelectScrapProductToSmapsList" parameterClass="DataMap" resultClass="ScrapProductToSmapsModel" >
 			<![CDATA[
-				SELECT  ROW_NUMBER() OVER (ORDER BY EE.Name, AA.CategoryName, AA.Name)	as RowNo
+				SELECT  ROW_NUMBER() OVER (ORDER BY EE.Name, FF.Name, AA.Name)	as RowNo
 					,	BB.ID
 					,	BB.CreatedOn
 					,	BB.CreatedBy
@@ -18,18 +18,18 @@
 					
 					,	AA.SiteID			as SiteID
 					,	AA.BrandCode		as BrandCode
-					,	AA.CategoryName		as CategoryName
+					,	AA.CategoryID		as CategoryID
 					,	AA.ID				as ScrapProductID
 					,	BB.SmapsProductID	as SmapsProductID
 					
 					,	EE.Name				as BrandName
-					,	AA.CategoryName		as CategoryName
+					,	FF.Name				as CategoryName
 					,	AA.Name				as ScrapProductName
 					,	CC.product_name		as SmapsProductName
 					
 				FROM	IKScrap.dbo.TScrapProduct AA WITH (NOLOCK)
 						LEFT JOIN
-							IKScrap.dbo.TScrapProductSmaps BB WITH (NOLOCK)
+							IKScrap.dbo.TScrapProductToSmaps BB WITH (NOLOCK)
 								ON AA.ID = BB.ScrapProductID
 						LEFT JOIN
 							IKScrap.dbo.TSmapsProduct CC WITH (NOLOCK)
@@ -38,11 +38,20 @@
 							IKScrap.dbo.TScrapBrand EE WITH (NOLOCK)
 								ON AA.SiteID = EE.SiteID
 									AND AA.BrandCode = EE.Code
+						LEFT JOIN
+							IKScrap.dbo.TScrapCategory FF WITH (NOLOCK)
+								ON AA.SiteID = FF.SiteID
+									AND AA.CategoryID = FF.ID
 				WHERE	AA.SiteID = #SiteID#
 			]]>
 			<isNotEmpty property="BrandCode">
 				<![CDATA[
 					AND	AA.BrandCode = #BrandCode#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="CategoryID">
+				<![CDATA[
+					AND	AA.CategoryID = #CategoryID#
 				]]>
 			</isNotEmpty>
 			<isNotEmpty property="MappingYn">
@@ -69,23 +78,23 @@
 				ORDER BY RowNo
 			]]>
 		</select>
-		<select id="SelectScrapProductSmaps" parameterClass="DataMap" resultClass="ScrapProductSmapsModel" >
+		<select id="SelectScrapProductToSmaps" parameterClass="DataMap" resultClass="ScrapProductToSmapsModel" >
 			<![CDATA[
 				SELECT  *					
-				FROM	IKScrap.dbo.TScrapProductSmaps AA WITH (NOLOCK)
+				FROM	IKScrap.dbo.TScrapProductToSmaps AA WITH (NOLOCK)
 				WHERE	AA.ID = #ID#
 			]]>
 		</select>
-		<select id="SelectScrapProductSmapsExists" parameterClass="DataMap" resultClass="ScrapProductSmapsModel" >
+		<select id="SelectScrapProductToSmapsExists" parameterClass="DataMap" resultClass="ScrapProductToSmapsModel" >
 			<![CDATA[
 				SELECT  *					
-				FROM	IKScrap.dbo.TScrapProductSmaps AA WITH (NOLOCK)
+				FROM	IKScrap.dbo.TScrapProductToSmaps AA WITH (NOLOCK)
 				WHERE	AA.ScrapProductID = #ScrapProductID#
 			]]>
 		</select>
-		<insert id="InsertScrapProductSmaps" parameterClass="ScrapProductSmapsModel" >
+		<insert id="InsertScrapProductToSmaps" parameterClass="ScrapProductToSmapsModel" >
 			<![CDATA[
-				INSERT INTO dbo.TScrapProductSmaps
+				INSERT INTO dbo.TScrapProductToSmaps
 				( 
 					CreatedOn, CreatedBy, CreatedByName,
 					ScrapProductID, SmapsProductID
@@ -102,9 +111,9 @@
 				]]>
 			</selectKey>
 		</insert>
-		<update id="UpdateScrapProductSmaps" parameterClass="ScrapProductSmapsModel">
+		<update id="UpdateScrapProductToSmaps" parameterClass="ScrapProductToSmapsModel">
 			<![CDATA[
-				UPDATE  IKScrap.dbo.TScrapProductSmaps
+				UPDATE  IKScrap.dbo.TScrapProductToSmaps
 				SET     UpdatedOn		= GetDate()
 					,	UpdatedBy		= #UpdatedBy#
 					,	UpdatedByName	= #UpdatedByName#
@@ -114,9 +123,9 @@
 				WHERE	ID				= #ID#
 			]]>
 		</update>
-		<delete id="DeleteScrapProductSmaps" parameterClass="DataMap">
+		<delete id="DeleteScrapProductToSmaps" parameterClass="DataMap">
 			<![CDATA[
-				DELETE FROM	IKScrap.dbo.TScrapProductSmaps WHERE ID = #ID#;
+				DELETE FROM	IKScrap.dbo.TScrapProductToSmaps WHERE ID = #ID#;
 			]]>
 		</delete>
 	</statements>

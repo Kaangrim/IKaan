@@ -7,7 +7,7 @@
 	<statements>
 		<select id="SelectScrapBrandList" parameterClass="DataMap" resultClass="ScrapBrandModel" >
 			<![CDATA[
-				SELECT  ROW_NUMBER() OVER (ORDER BY AA.BrandName)	as RowNo
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.Name)	as RowNo
 					,	AA.ID
 					,	AA.CreatedOn
 					,	AA.CreatedBy
@@ -23,9 +23,51 @@
 					,	AA.ProductCount
 					,	AA.Description
 					
+					,	ISNULL(BB.ScrapProductCount, 0)	as ScrapProductCount
+					,	ISNULL(BB.ScrapImageCount, 0)	as ScrapImageCount
+					
+					,	ISNULL(BB.GenderMen, 0)			as GenderMen
+					,	ISNULL(BB.GenderFemale, 0)		as GenderFemale
+					,	ISNULL(BB.GenderUnisex, 0)		as GenderUnisex
+					
 				FROM	dbo.TScrapBrand AA WITH (NOLOCK)
+						LEFT JOIN
+						(
+							SELECT	AA.SiteID
+								,	AA.BrandCode
+								,	COUNT(AA.ID)		as ScrapProductCount
+								,	SUM(BB.ImageCount)	as ScrapImageCount
+								,	SUM(CASE WHEN AA.Gender = 'M' THEN 1 ELSE 0 END)	as GenderMen
+								,	SUM(CASE WHEN AA.Gender = 'F' THEN 1 ELSE 0 END)	as GenderFemale
+								,	SUM(CASE WHEN AA.Gender = 'U' THEN 1 ELSE 0 END)	AS GenderUnisex
+							FROM	dbo.TScrapProduct AA WITH (NOLOCK)
+									LEFT JOIN
+									(
+										SELECT	ProductID
+											,	COUNT(*)	as ImageCount
+										FROM	dbo.TScrapProductImage WITH (NOLOCK)
+										GROUP BY ProductID										
+									) BB ON AA.ID = BB.ProductID
+							WHERE	AA.SiteID = #SiteID#
+							GROUP BY
+								AA.SiteID, AA.BrandCode
+						) BB
+							ON AA.SiteID = BB.SiteID
+								AND AA.Code = BB.BrandCode								
 				WHERE	AA.SiteID = #SiteID#
 			]]>
+			<isNotEmpty property="DifferentYn">
+				<isEqual property="DifferentYn" compareValue="Y">
+					<![CDATA[
+						AND	ISNULL(BB.ScrapProductCount, 0) != AA.ProductCount
+					]]>
+				</isEqual>
+				<isEqual property="DifferentYn" compareValue="N">
+					<![CDATA[
+						AND	ISNULL(BB.ScrapProductCount, 0) = AA.ProductCount
+					]]>
+				</isEqual>
+			</isNotEmpty>
 			<isNotEmpty property="FindText">
 				<![CDATA[
 					AND	(

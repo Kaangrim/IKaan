@@ -1019,6 +1019,39 @@
 				ORDER BY SortOrder, Name
 			]]>
 		</select>
+		<select id="SelectCodeHelpScrapCategory" parameterClass="DataMap" resultClass="UCodeHelp" >
+			<![CDATA[
+				SELECT	aa.ID								as ID
+					,	CONVERT(VARCHAR, aa.ID)				as Code
+					,	aa.Name								as Name
+					,	aa.Name								as ListName
+					,	aa.Name								as DispName
+					,	CONVERT(VARCHAR, aa.ID)				as Value
+					,	ROW_NUMBER() OVER (ORDER BY aa.Name)	as SortOrder
+					,	0									as MaxLength
+					,	null								as Option1
+					,	CONVERT(VARCHAR, aa.SiteID)			as Option2
+					,	null								as Option3
+					,	null								as Option4
+					,	null								as Option5
+					,	null								as Option6
+					,	null								as Option7
+					,	null								as Option8
+					,	null								as Option9
+				FROM	IKScrap.dbo.TScrapCategory aa WITH (NOLOCK)
+				WHERE	aa.SiteID = #SiteID#
+			]]>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(
+							aa.Name	Like '%'+#FindText#+'%'
+						)
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY SortOrder, Name
+			]]>
+		</select>
 
 		<select id="SelectCodeHelpSmapsAgency" parameterClass="DataMap" resultClass="UCodeHelp" >
 			<![CDATA[

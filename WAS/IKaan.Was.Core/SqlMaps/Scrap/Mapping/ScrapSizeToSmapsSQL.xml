@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectScrapSizeToSmapsList" parameterClass="DataMap" resultClass="ScrapSizeToSmapsModel" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.Name)	as RowNo
+					,	BB.ID
+					,	BB.CreatedOn
+					,	BB.CreatedBy
+					,	BB.CreatedByName
+					,	BB.UpdatedOn
+					,	BB.UpdatedBy
+					,	BB.UpdatedByName
+					
+					,	AA.SiteID			as SiteID
+					,	AA.CategoryID		as CategoryID
+					,	AA.Gender			as Gender
+					,	AA.ID				as ScrapSizeID
+					,	BB.SmapsSizeID		as SmapsSizeID
+					
+					,	DD.Name				as CategoryName
+					,	M1.Name				as GenderName
+					,	AA.Name				as ScrapSizeName
+					,	CC.text				as SmapsSizeName
+					
+				FROM	IKScrap.dbo.TScrapSize AA WITH (NOLOCK)
+						LEFT JOIN
+							IKScrap.dbo.TScrapSizeToSmaps BB WITH (NOLOCK)
+								ON AA.ID = BB.ScrapSizeID
+						LEFT JOIN
+							IKScrap.dbo.TSmapsSize CC WITH (NOLOCK)
+								ON BB.SmapsSizeID = CC.ID
+						LEFT JOIN
+							IKScrap.dbo.TScrapCategory DD WITH (NOLOCK)
+								ON AA.CategoryID = DD.ID
+						LEFT JOIN
+							IKBase.dbo.TCode M1 WITH (NOLOCK)
+								ON AA.Gender = M1.Code
+									AND M1.ParentCode = 'Gender'
+				WHERE	AA.SiteID = #SiteID#
+			]]>
+			<isNotEmpty property="MappingYn">
+				<isEqual property="MappingYn" compareValue="Y">
+					<![CDATA[
+						AND	BB.SmapsSizeID IS NOT NULL
+					]]>
+				</isEqual>
+				<isEqual property="MappingYn" compareValue="N">
+					<![CDATA[
+						AND	BB.SmapsSizeID IS NULL
+					]]>
+				</isEqual>
+			</isNotEmpty>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(
+							AA.Name		LIKE '%'+#FindText#+'%' OR
+							CC.text		LIKE '%'+#FindText#+'%'
+						)
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectScrapSizeToSmaps" parameterClass="DataMap" resultClass="ScrapSizeToSmapsModel" >
+			<![CDATA[
+				SELECT  *					
+				FROM	IKScrap.dbo.TScrapSizeToSmaps WITH (NOLOCK)
+				WHERE	ID = #ID#
+			]]>
+		</select>
+		<select id="SelectScrapSizeToSmapsExists" parameterClass="DataMap" resultClass="ScrapSizeToSmapsModel" >
+			<![CDATA[
+				SELECT  *					
+				FROM	IKScrap.dbo.TScrapSizeToSmaps WITH (NOLOCK)
+				WHERE	ScrapSizeID = #ScrapSizeID#
+			]]>
+		</select>
+		<insert id="InsertScrapSizeToSmaps" parameterClass="ScrapSizeToSmapsModel" >
+			<![CDATA[
+				INSERT INTO dbo.TScrapSizeToSmaps
+				( 
+					CreatedOn, CreatedBy, CreatedByName,
+					ScrapSizeID, SmapsSizeID
+				)
+				VALUES
+				(
+					GetDate(), #CreatedBy#, #CreatedByName#,
+					#ScrapSizeID#, #SmapsSizeID#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateScrapSizeToSmaps" parameterClass="ScrapSizeToSmapsModel">
+			<![CDATA[
+				UPDATE  IKScrap.dbo.TScrapSizeToSmaps
+				SET     UpdatedOn			= GetDate()
+					,	UpdatedBy			= #UpdatedBy#
+					,	UpdatedByName		= #UpdatedByName#
+					
+					,	ScrapSizeID			= #ScrapSizeID#
+					,	SmapsSizeID			= #SmapsSizeID#
+				WHERE	ID					= #ID#
+			]]>
+		</update>
+		<delete id="DeleteScrapSizeToSmaps" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM	IKScrap.dbo.TScrapSizeToSmaps WHERE ID = #ID#;
+			]]>
+		</delete>
+	</statements>
+</sqlMap>

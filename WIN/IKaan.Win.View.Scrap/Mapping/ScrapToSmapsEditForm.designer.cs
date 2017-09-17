@@ -1,6 +1,6 @@
 ﻿namespace IKaan.Win.View.Scrap.Mapping
 {
-	partial class SmapsMappingEditForm
+	partial class ScrapToSmapsEditForm
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -28,9 +28,9 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions3 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
 			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions2 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
 			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions1 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions4 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
 			this.lcGroupSearch = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.esSearchTitle = new DevExpress.XtraLayout.EmptySpaceItem();
 			this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
@@ -63,6 +63,8 @@
 			this.lcGroupButtons = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.lcButtonInterface = new DevExpress.XtraLayout.LayoutControlItem();
 			this.btnInterface = new DevExpress.XtraEditors.SimpleButton();
+			this.btnOptionMatching = new DevExpress.XtraEditors.SimpleButton();
+			this.lcButtonOptionMatching = new DevExpress.XtraLayout.LayoutControlItem();
 			((System.ComponentModel.ISupportInitialize)(this.lc)).BeginInit();
 			this.lc.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupBase)).BeginInit();
@@ -92,10 +94,12 @@
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupEditBase)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupButtons)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcButtonInterface)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcButtonOptionMatching)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// lc
 			// 
+			this.lc.Controls.Add(this.btnOptionMatching);
 			this.lc.Controls.Add(this.lupSite);
 			this.lc.Controls.Add(this.lupMappingYn);
 			this.lc.Controls.Add(this.btnInterface);
@@ -204,7 +208,7 @@
 			this.lupBrand.NullText = "[EditValue is null]";
 			this.lupBrand.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions3, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions2, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
 			this.lupBrand.SelectedIndex = -1;
 			this.lupBrand.Size = new System.Drawing.Size(212, 20);
 			this.lupBrand.StyleController = this.lc;
@@ -230,7 +234,7 @@
 			this.lupMappingYn.NullText = "[EditValue is null]";
 			this.lupMappingYn.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions2, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
 			this.lupMappingYn.SelectedIndex = -1;
 			this.lupMappingYn.Size = new System.Drawing.Size(212, 20);
 			this.lupMappingYn.StyleController = this.lc;
@@ -256,7 +260,7 @@
 			this.lupSite.NullText = "[EditValue is null]";
 			this.lupSite.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions4, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
 			this.lupSite.SelectedIndex = -1;
 			this.lupSite.Size = new System.Drawing.Size(212, 20);
 			this.lupSite.StyleController = this.lc;
@@ -493,7 +497,7 @@
 			this.emptySpaceItem1.AllowHotTrack = false;
 			this.emptySpaceItem1.Location = new System.Drawing.Point(0, 0);
 			this.emptySpaceItem1.Name = "emptySpaceItem1";
-			this.emptySpaceItem1.Size = new System.Drawing.Size(622, 26);
+			this.emptySpaceItem1.Size = new System.Drawing.Size(522, 26);
 			this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
 			// 
 			// lcGroupEditBase
@@ -511,7 +515,8 @@
 			// 
 			this.lcGroupButtons.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.emptySpaceItem1,
-            this.lcButtonInterface});
+            this.lcButtonInterface,
+            this.lcButtonOptionMatching});
 			this.lcGroupButtons.Location = new System.Drawing.Point(0, 0);
 			this.lcGroupButtons.Name = "lcGroupButtons";
 			this.lcGroupButtons.Padding = new DevExpress.XtraLayout.Utils.Padding(4, 4, 4, 4);
@@ -539,7 +544,28 @@
 			this.btnInterface.TabIndex = 43;
 			this.btnInterface.Text = "데이터연동";
 			// 
-			// SmapsMappingEditForm
+			// btnOptionMatching
+			// 
+			this.btnOptionMatching.Location = new System.Drawing.Point(783, 11);
+			this.btnOptionMatching.Name = "btnOptionMatching";
+			this.btnOptionMatching.Size = new System.Drawing.Size(96, 22);
+			this.btnOptionMatching.StyleController = this.lc;
+			this.btnOptionMatching.TabIndex = 50;
+			this.btnOptionMatching.Text = "옵션매칭";
+			// 
+			// lcButtonOptionMatching
+			// 
+			this.lcButtonOptionMatching.Control = this.btnOptionMatching;
+			this.lcButtonOptionMatching.Location = new System.Drawing.Point(522, 0);
+			this.lcButtonOptionMatching.MaxSize = new System.Drawing.Size(100, 26);
+			this.lcButtonOptionMatching.MinSize = new System.Drawing.Size(100, 26);
+			this.lcButtonOptionMatching.Name = "lcButtonOptionMatching";
+			this.lcButtonOptionMatching.Size = new System.Drawing.Size(100, 26);
+			this.lcButtonOptionMatching.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
+			this.lcButtonOptionMatching.TextSize = new System.Drawing.Size(0, 0);
+			this.lcButtonOptionMatching.TextVisible = false;
+			// 
+			// ScrapToSmapsEditForm
 			// 
 			this.Appearance.BackColor = System.Drawing.Color.White;
 			this.Appearance.Options.UseBackColor = true;
@@ -547,8 +573,8 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(990, 618);
 			this.LookAndFeel.SkinName = "Office 2016 Dark";
-			this.Name = "SmapsMappingEditForm";
-			this.Text = "SmapsMappingEditForm";
+			this.Name = "ScrapToSmapsEditForm";
+			this.Text = "ScrapToSmapsEditForm";
 			((System.ComponentModel.ISupportInitialize)(this.lc)).EndInit();
 			this.lc.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupBase)).EndInit();
@@ -578,6 +604,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupEditBase)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupButtons)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcButtonInterface)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcButtonOptionMatching)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -616,5 +643,7 @@
 		private DevExpress.XtraLayout.LayoutControlItem layoutControlItem7;
 		private Core.Controls.Common.XLookup lupSite;
 		private DevExpress.XtraLayout.LayoutControlItem lcItemSite;
+		private DevExpress.XtraEditors.SimpleButton btnOptionMatching;
+		private DevExpress.XtraLayout.LayoutControlItem lcButtonOptionMatching;
 	}
 }

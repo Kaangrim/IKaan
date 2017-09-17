@@ -62,17 +62,23 @@
     <Compile Include="Common\ScrapEditForm.designer.cs">
       <DependentUpon>ScrapEditForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Common\ScrapListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Common\ScrapListForm.designer.cs">
+      <DependentUpon>ScrapListForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Interface\SmapsInterfaceForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Interface\SmapsInterfaceForm.designer.cs">
       <DependentUpon>SmapsInterfaceForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Mapping\SmapsMappingEditForm.cs">
+    <Compile Include="Mapping\ScrapToSmapsEditForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Mapping\SmapsMappingEditForm.designer.cs">
-      <DependentUpon>SmapsMappingEditForm.cs</DependentUpon>
+    <Compile Include="Mapping\ScrapToSmapsEditForm.designer.cs">
+      <DependentUpon>ScrapToSmapsEditForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -83,11 +89,14 @@
     <EmbeddedResource Include="Common\ScrapEditForm.resx">
       <DependentUpon>ScrapEditForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Common\ScrapListForm.resx">
+      <DependentUpon>ScrapListForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Interface\SmapsInterfaceForm.resx">
       <DependentUpon>SmapsInterfaceForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Mapping\SmapsMappingEditForm.resx">
-      <DependentUpon>SmapsMappingEditForm.cs</DependentUpon>
+    <EmbeddedResource Include="Mapping\ScrapToSmapsEditForm.resx">
+      <DependentUpon>ScrapToSmapsEditForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
   </ItemGroup>

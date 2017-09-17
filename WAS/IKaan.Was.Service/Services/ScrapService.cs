@@ -48,6 +48,15 @@ namespace IKaan.Was.Service.Services
 						case "ScrapSite":
 							req.SetList<ScrapSiteModel>();
 							break;
+						case "ScrapColor":
+							req.SetList<ScrapColorModel>();
+							break;
+						case "ScrapSize":
+							req.SetList<ScrapSizeModel>();
+							break;
+						case "ScrapCategory":
+							req.SetList<ScrapCategoryModel>();
+							break;
 						case "SmapsAgency":
 							req.SetList<SmapsAgencyModel>();
 							break;
@@ -75,14 +84,20 @@ namespace IKaan.Was.Service.Services
 						case "SmapsRequest":
 							req.SetList<SmapsRequestModel>();
 							break;
-						case "ScrapBrandSmaps":
+						case "ScrapBrandToSmaps":
 							req.SetList<ScrapBrandToSmapsModel>();
 							break;
-						case "ScrapCategorySmaps":
+						case "ScrapCategoryToSmaps":
 							req.SetList<ScrapCategoryToSmapsModel>();
 							break;
-						case "ScrapProductSmaps":
+						case "ScrapProductToSmaps":
 							req.SetList<ScrapProductToSmapsModel>();
+							break;
+						case "ScrapColorToSmaps":
+							req.SetList<ScrapColorToSmapsModel>();
+							break;
+						case "ScrapSizeToSmaps":
+							req.SetList<ScrapSizeToSmapsModel>();
 							break;
 					}
 				}
@@ -142,6 +157,15 @@ namespace IKaan.Was.Service.Services
 						case "ScrapSite":
 							req.SetData<ScrapSiteModel>();
 							break;
+						case "ScrapColor":
+							req.SetData<ScrapColorModel>();
+							break;
+						case "ScrapSize":
+							req.SetData<ScrapSizeModel>();
+							break;
+						case "ScrapCategory":
+							req.SetData<ScrapCategoryModel>();
+							break;
 						case "SmapsAgency":
 							req.SetData<SmapsAgencyModel>();
 							break;
@@ -169,14 +193,20 @@ namespace IKaan.Was.Service.Services
 						case "SmapsRequest":
 							req.SetData<SmapsRequestModel>();
 							break;
-						case "ScrapBrandSmaps":
+						case "ScrapBrandToSmaps":
 							req.SetData<ScrapBrandToSmapsModel>();
 							break;
-						case "ScrapCategorySmaps":
+						case "ScrapCategoryToSmaps":
 							req.SetData<ScrapCategoryToSmapsModel>();
 							break;
-						case "ScrapProductSmaps":
+						case "ScrapProductToSmaps":
 							req.SetData<ScrapProductToSmapsModel>();
+							break;
+						case "ScrapColorToSmaps":
+							req.SetData<ScrapColorToSmapsModel>();
+							break;
+						case "ScrapSizeToSmaps":
+							req.SetData<ScrapSizeToSmapsModel>();
 							break;
 					}
 				}
@@ -234,10 +264,20 @@ namespace IKaan.Was.Service.Services
 					{
 						foreach (WasRequest req in list)
 						{
-							if (req.Data == null)
+							if (req.ModelName.IsNullOrEmpty() == false && req.Data == null)
 								throw new Exception("저장할 데이터가 존재하지 않습니다.");
+							
+							if (req.ModelName.IsNullOrEmpty() && req.Parameter == null)
+								throw new Exception("처리할 조건이 존재하지 않습니다.");
 
-							switch (req.ModelName.Replace("Model", ""))
+							string reqId = req.ModelName;
+							if (reqId.IsNullOrEmpty())
+								reqId = req.SqlId;
+
+							if (reqId.IsNullOrEmpty() == false)
+								reqId = reqId.Replace("Model", "");
+
+							switch (reqId)
 							{
 								case "ScrapBrand":
 									req.SaveScrapBrand();
@@ -247,6 +287,12 @@ namespace IKaan.Was.Service.Services
 									break;
 								case "ScrapSite":
 									req.SaveScrapSite();
+									break;
+								case "ScrapColor":
+									req.SaveScrapColor();
+									break;
+								case "ScrapSize":
+									req.SaveScrapSize();
 									break;
 								case "SmapsAgency":
 									req.SaveSmapsAgency();
@@ -275,14 +321,23 @@ namespace IKaan.Was.Service.Services
 								case "SmapsRequest":
 									req.SaveSmapsRequest();
 									break;
-								case "ScrapBrandSmaps":
+								case "ScrapBrandToSmaps":
 									req.SaveScrapBrandToSmaps();
 									break;
-								case "ScrapCategorySmaps":
+								case "ScrapCategoryToSmaps":
 									req.SaveScrapCategoryToSmaps();
 									break;
-								case "ScrapProductSmaps":
+								case "ScrapProductToSmaps":
 									req.SaveScrapProductToSmaps();
+									break;
+								//case "ScrapColorToSmaps":
+								//	req.SaveScrapColorToSmaps();
+								//	break;
+								//case "ScrapSizeToSmaps":
+								//	req.SaveScrapSizeToSmaps();
+								//	break;
+								case "BatchScrapOption":
+									req.BatchScrapOption();
 									break;
 							}
 						}

@@ -189,4 +189,5 @@ D:\Repositories\IKaan\WIN\IKaan.Win.View.Scrap\obj\Debug\IKaan.Win.View.Scrap.dl
 D:\Repositories\IKaan\WIN\IKaan.Win.View.Scrap\obj\Debug\IKaan.Win.View.Scrap.Common.ScrapSiteEditForm.resources
 D:\Repositories\IKaan\WIN\IKaan.Win.View.Scrap\obj\Debug\IKaan.Win.View.Scrap.Common.ScrapEditForm.resources
 D:\Repositories\IKaan\WIN\IKaan.Win.View.Scrap\obj\Debug\IKaan.Win.View.Scrap.Interface.SmapsInterfaceForm.resources
-D:\Repositories\IKaan\WIN\IKaan.Win.View.Scrap\obj\Debug\IKaan.Win.View.Scrap.Mapping.SmapsMappingEditForm.resources
+D:\Repositories\IKaan\WIN\IKaan.Win.View.Scrap\obj\Debug\IKaan.Win.View.Scrap.Mapping.ScrapToSmapsEditForm.resources
+D:\Repositories\IKaan\WIN\IKaan.Win.View.Scrap\obj\Debug\IKaan.Win.View.Scrap.Common.ScrapListForm.resources

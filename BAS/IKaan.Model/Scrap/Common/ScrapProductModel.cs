@@ -57,6 +57,14 @@ namespace IKaan.Model.Scrap.Common
 		public string CategoryName { get; set; }
 
 		[DataMember]
+		[Display(Name = "카테고리ID")]
+		public int? CategoryID { get; set; }
+
+		[DataMember]
+		[Display(Name = "성별")]
+		public string Gender { get; set; }
+
+		[DataMember]
 		[Display(Name = "설명")]
 		public string Description { get; set; }
 

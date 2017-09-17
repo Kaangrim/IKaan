@@ -122,6 +122,9 @@
     <Compile Include="Live\ChannelOrderReturnModel.cs" />
     <Compile Include="Live\ChannelOrderCancelModel.cs" />
     <Compile Include="Live\ChannelOrderModel.cs" />
+    <Compile Include="Scrap\Common\ScrapOptionModel.cs" />
+    <Compile Include="Scrap\Common\ScrapSizeModel.cs" />
+    <Compile Include="Scrap\Common\ScrapColorModel.cs" />
     <Compile Include="Scrap\Common\ScrapCategoryModel.cs" />
     <Compile Include="Scrap\Common\ScrapProductImageModel.cs" />
     <Compile Include="Scrap\Common\ScrapSiteModel.cs" />
@@ -184,6 +187,8 @@
     <Compile Include="Report\SaleInvoiceTran.cs" />
     <Compile Include="Report\SaleInvoiceTranItem.cs" />
     <Compile Include="Scrap\Mapping\ScrapBrandToSmapsModel.cs" />
+    <Compile Include="Scrap\Mapping\ScrapSizeToSmapsModel.cs" />
+    <Compile Include="Scrap\Mapping\ScrapColorToSmapsModel.cs" />
     <Compile Include="Scrap\Mapping\ScrapCategoryToSmapsModel.cs" />
     <Compile Include="Scrap\Mapping\ScrapProductToSmapsModel.cs" />
     <Compile Include="Scrap\Smaps\SmapsRequestModel.cs" />

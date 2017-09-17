@@ -30,5 +30,25 @@ namespace IKaan.Model.Scrap.Common
 		[DataMember]
 		[Display(Name = "설명")]
 		public string Description { get; set; }
+
+		[DataMember]
+		[Display(Name = "스크랩상품수")]
+		public int ScrapProductCount { get; set; }
+
+		[DataMember]
+		[Display(Name = "스크랩이미지수")]
+		public int ScrapImageCount { get; set; }
+
+		[DataMember]
+		[Display(Name = "성별(남)")]
+		public int GenderMen { get; set; }
+
+		[DataMember]
+		[Display(Name = "성별(여)")]
+		public int GenderFemale { get; set; }
+
+		[DataMember]
+		[Display(Name = "성별(공용)")]
+		public int GenderUnisex { get; set; }
 	}
 }

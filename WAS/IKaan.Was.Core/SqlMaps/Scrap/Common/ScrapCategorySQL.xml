@@ -7,7 +7,7 @@
 	<statements>
 		<select id="SelectScrapCategoryList" parameterClass="DataMap" resultClass="ScrapCategoryModel" >
 			<![CDATA[
-				SELECT  ROW_NUMBER() OVER (ORDER BY AA.BrandName)	as RowNo
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.Name)	as RowNo
 					,	AA.ID
 					,	AA.CreatedOn
 					,	AA.CreatedBy

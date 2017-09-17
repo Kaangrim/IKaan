@@ -17,15 +17,16 @@
 					,	BB.UpdatedByName
 					
 					,	AA.SiteID			as SiteID					
-					,	AA.Name				as ScrapCategoryName
+					,	AA.ID				as ScrapCategoryID
 					,	BB.SmapsCategoryID	as SmapsCategoryID
 					
+					,	AA.Name				as ScrapCategoryName
 					,	CC.name				as SmapsCategoryName
 					
 				FROM	IKScrap.dbo.TScrapCategory AA WITH (NOLOCK)
 						LEFT JOIN
 							IKScrap.dbo.TScrapCategoryToSmaps BB WITH (NOLOCK)
-								ON AA.Name = BB.ScrapCategoryName
+								ON AA.ID = BB.ScrapCategoryID
 						LEFT JOIN
 							IKScrap.dbo.TSmapsCategory CC WITH (NOLOCK)
 								ON BB.SmapsCategoryID = CC.ID
@@ -66,7 +67,7 @@
 			<![CDATA[
 				SELECT  *					
 				FROM	IKScrap.dbo.TScrapCategoryToSmaps WITH (NOLOCK)
-				WHERE	ScrapCategoryName = #ScrapCategoryName#
+				WHERE	ScrapCategoryID	= #ScrapCategoryID#
 			]]>
 		</select>
 		<insert id="InsertScrapCategoryToSmaps" parameterClass="ScrapCategoryToSmapsModel" >
@@ -74,12 +75,12 @@
 				INSERT INTO dbo.TScrapCategoryToSmaps
 				( 
 					CreatedOn, CreatedBy, CreatedByName,
-					ScrapCategoryName, SmapsCategoryID
+					ScrapCategoryID, SmapsCategoryID
 				)
 				VALUES
 				(
 					GetDate(), #CreatedBy#, #CreatedByName#,
-					#ScrapCategoryName#, #SmapsCategoryID#
+					#ScrapCategoryID#, #SmapsCategoryID#
 				)
 			]]>
 			<selectKey type="post" property="ID" resultClass="Int">
@@ -95,7 +96,7 @@
 					,	UpdatedBy			= #UpdatedBy#
 					,	UpdatedByName		= #UpdatedByName#
 					
-					,	ScrapCategoryName	= #ScrapCategoryName#
+					,	ScrapCategoryID		= #ScrapCategoryID#
 					,	SmapsCategoryID		= #SmapsCategoryID#
 				WHERE	ID					= #ID#
 			]]>

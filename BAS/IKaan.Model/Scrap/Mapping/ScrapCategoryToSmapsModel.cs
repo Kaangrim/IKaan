@@ -12,12 +12,16 @@ namespace IKaan.Model.Scrap.Mapping
 		public int? SiteID { get; set; }
 
 		[DataMember]
-		[Display(Name = "스크랩카테고리명")]
-		public string ScrapCategoryName { get; set; }
+		[Display(Name = "스크랩카테고리ID")]
+		public int? ScrapCategoryID { get; set; }
 
 		[DataMember]
 		[Display(Name = "Smaps카테고리ID")]
 		public int? SmapsCategoryID { get; set; }
+
+		[DataMember]
+		[Display(Name = "스크랩카테고리명")]
+		public string ScrapCategoryName { get; set; }
 
 		[DataMember]
 		[Display(Name = "Smaps카테고리명")]

@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectScrapOptionColorList" parameterClass="DataMap" resultClass="ScrapOptionModel" >
+			<![CDATA[
+				SELECT  DISTINCT
+						AA.SiteID			as SiteID
+					,	AA.Option1Type		as Type
+					,	AA.Option1Name		as Name
+					
+				FROM	dbo.TScrapProduct AA WITH (NOLOCK)
+				WHERE	AA.SiteID = #SiteID#
+				AND		ISNULL(AA.Option1Type,'') IN ('ColorOrSize', 'Color')
+				UNION ALL
+				SELECT	DISTINCT 
+						AA.SiteID			as SiteID
+					,	AA.Option2Type		as Type
+					,	AA.Option2Name		as Name
+					
+				FROM	dbo.TScrapProduct AA WITH (NOLOCK)
+				WHERE	AA.SiteID = #SiteID#
+				AND		ISNULL(AA.Option2Type,'') IN ('ColorOrSize', 'Color')
+				ORDER BY Type, Name
+			]]>
+		</select>
+		<select id="SelectScrapOptionSizeList" parameterClass="DataMap" resultClass="ScrapOptionModel" >
+			<![CDATA[
+				SELECT  DISTINCT
+						AA.SiteID			as SiteID
+					,	AA.CategoryID		as CategoryID
+					,	AA.Gender			as Gender
+					,	AA.Option1Type		as Type
+					,	AA.Option1Name		as Name
+					
+				FROM	dbo.TScrapProduct AA WITH (NOLOCK)
+				WHERE	AA.SiteID = #SiteID#
+				AND		ISNULL(AA.Option1Type,'') IN ('ColorOrSize', 'Size')
+				AND		AA.CategoryID	IS NOT NULL
+				AND		AA.Gender		IS NOT NULL
+				UNION ALL
+				SELECT	DISTINCT 
+						AA.SiteID			as SiteID
+					,	AA.CategoryID		as CategoryID
+					,	AA.Gender			as Gender
+					,	AA.Option2Type		as Type
+					,	AA.Option2Name		as Name
+					
+				FROM	dbo.TScrapProduct AA WITH (NOLOCK)
+				WHERE	AA.SiteID = #SiteID#
+				AND		ISNULL(AA.Option2Type,'') IN ('ColorOrSize', 'Size')
+				AND		AA.CategoryID	IS NOT NULL
+				AND		AA.Gender		IS NOT NULL
+				ORDER BY CategoryID, Gender, Type, Name
+			]]>
+		</select>
+	</statements>
+</sqlMap>

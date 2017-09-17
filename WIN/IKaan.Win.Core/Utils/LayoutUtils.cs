@@ -48,7 +48,7 @@ namespace IKaan.Win.Core.Utils
 				groupItem.SetFieldName();
 			});
 		}
-		public static void SetFieldName(this LayoutControlItem item, string fieldName = null)
+		public static void SetFieldName(this LayoutControlItem item, string fieldName = null, HorzAlignment hAlignment = HorzAlignment.Far)
 		{
 			if (string.IsNullOrEmpty(fieldName))
 			{
@@ -59,9 +59,9 @@ namespace IKaan.Win.Core.Utils
 			{
 				caption = item.Name;
 			}
-			item.SetFieldCaption(caption);
+			item.SetFieldCaption(caption, hAlignment);
 		}
-		public static void SetFieldCaption(this LayoutControlItem item, string caption = null)
+		public static void SetFieldCaption(this LayoutControlItem item, string caption = null, HorzAlignment hAlignment = HorzAlignment.Far)
 		{
 			if (caption.IsNullOrEmpty() == false)
 			{
@@ -77,7 +77,7 @@ namespace IKaan.Win.Core.Utils
 					item.AppearanceItemCaption.Options.UseForeColor = false;
 				}
 
-				item.AppearanceItemCaption.TextOptions.HAlignment = HorzAlignment.Far;
+				item.AppearanceItemCaption.TextOptions.HAlignment = hAlignment;
 				item.AppearanceItemCaption.TextOptions.VAlignment = VertAlignment.Center;
 			}
 			else

@@ -23,6 +23,8 @@
 					,	AA.Name			as ScrapBrandName
 					,	CC.name			as SmapsBrandName
 					
+					,	AA.ProductCount	as ProductCount
+					
 				FROM	IKScrap.dbo.TScrapBrand AA WITH (NOLOCK)
 						LEFT JOIN
 							IKScrap.dbo.TScrapBrandToSmaps BB WITH (NOLOCK)

@@ -86,6 +86,7 @@ namespace IKaan.Was.Service.Services
 					{ "SiteID", model.SiteID },
 					{ "Name", model.CategoryName }
 				};
+				
 				var category = DaoFactory.InstanceScrap.QueryForObject<ScrapCategoryModel>("SelectScrapCategoryByName", categoryMap);
 				if (category == null)
 				{
@@ -96,7 +97,22 @@ namespace IKaan.Was.Service.Services
 						CreatedBy = req.User.UserId,
 						CreatedByName = req.User.UserName
 					};
-					DaoFactory.InstanceScrap.Insert("InsertScrapCategory", category);
+					var categoryID = DaoFactory.InstanceScrap.Insert("InsertScrapCategory", category);
+					model.CategoryID = categoryID.ToIntegerNullToNull();
+				}
+				else
+				{
+					model.CategoryID = category.ID;
+				}
+
+				if (model.Gender.IsNullOrEmpty())
+				{
+					if (model.CategoryName.StartsWith("MEN"))
+						model.Gender = "M";
+					else if (model.CategoryName.StartsWith("WOMEN"))
+						model.Gender = "F";
+					else
+						model.Gender = "U";
 				}
 
 				var exists = DaoFactory.InstanceScrap.QueryForObject<ScrapProductModel>("SelectScrapProductExists", new DataMap()
@@ -192,6 +208,185 @@ namespace IKaan.Was.Service.Services
 
 				req.Result.Count = 1;
 				req.Result.ReturnValue = model.ID;
+				req.Error.Number = 0;
+			}
+			catch
+			{
+				throw;
+			}
+		}
+
+		public static void SaveScrapColor(this WasRequest req)
+		{
+			try
+			{
+				var model = req.Data.JsonToAnyType<ScrapColorModel>();
+				if (model == null)
+					throw new System.Exception("저장할 내용이 없습니다.");
+
+				if (model.ID == null)
+				{
+					var exists = DaoFactory.InstanceScrap.QueryForObject<ScrapColorModel>("SelectScrapColorExists", new DataMap()
+					{
+						{ "SiteID", model.SiteID },
+						{ "Name", model.Name }
+					});
+
+					if (exists == null)
+					{
+						model.CreatedBy = req.User.UserId;
+						model.CreatedByName = req.User.UserName;
+						object id = DaoFactory.InstanceScrap.Insert("InsertScrapColor", model);
+						model.ID = id.ToIntegerNullToNull();
+					}
+					else
+					{
+						model.ID = exists.ID;
+						model.UpdatedBy = req.User.UserId;
+						model.UpdatedByName = req.User.UserName;
+						DaoFactory.InstanceScrap.Update("UpdateScrapColor", model);
+					}
+				}
+				else
+				{
+					model.UpdatedBy = req.User.UserId;
+					model.UpdatedByName = req.User.UserName;
+					DaoFactory.InstanceScrap.Update("UpdateScrapColor", model);
+				}
+
+				req.Result.Count = 1;
+				req.Result.ReturnValue = model.ID;
+				req.Error.Number = 0;
+			}
+			catch
+			{
+				throw;
+			}
+		}
+		public static void SaveScrapSize(this WasRequest req)
+		{
+			try
+			{
+				var model = req.Data.JsonToAnyType<ScrapSizeModel>();
+				if (model == null)
+					throw new System.Exception("저장할 내용이 없습니다.");
+
+				if (model.ID == null)
+				{
+					var exists = DaoFactory.InstanceScrap.QueryForObject<ScrapSizeModel>("SelectScrapSizeExists", new DataMap()
+					{
+						{ "SiteID", model.SiteID },
+						{ "CategoryID", model.CategoryID },
+						{ "Gender", model.Gender },
+						{ "Name", model.Name }
+					});
+
+					if (exists == null)
+					{
+						model.CreatedBy = req.User.UserId;
+						model.CreatedByName = req.User.UserName;
+						object id = DaoFactory.InstanceScrap.Insert("InsertScrapSize", model);
+						model.ID = id.ToIntegerNullToNull();
+					}
+					else
+					{
+						model.ID = exists.ID;
+						model.UpdatedBy = req.User.UserId;
+						model.UpdatedByName = req.User.UserName;
+						DaoFactory.InstanceScrap.Update("UpdateScrapSize", model);
+					}
+				}
+				else
+				{
+					model.UpdatedBy = req.User.UserId;
+					model.UpdatedByName = req.User.UserName;
+					DaoFactory.InstanceScrap.Update("UpdateScrapSize", model);
+				}
+
+				req.Result.Count = 1;
+				req.Result.ReturnValue = model.ID;
+				req.Error.Number = 0;
+			}
+			catch
+			{
+				throw;
+			}
+		}
+
+		public static void BatchScrapOption(this WasRequest req)
+		{
+			try
+			{
+				var parameter = req.Parameter.JsonToAnyType<DataMap>();
+				if (parameter == null)
+					throw new System.Exception("파라미터 내용이 정확하지 않습니다.");
+
+				//색상옵션 정리
+				var colors = DaoFactory.InstanceScrap.QueryForList<ScrapOptionModel>("SelectScrapOptionColorList", parameter);
+				if (colors != null && colors.Count > 0)
+				{
+					foreach (var color in colors)
+					{
+						string[] names = color.Name.Split(',');
+						foreach (var name in names)
+						{
+							var exists = DaoFactory.InstanceScrap.QueryForObject<ScrapColorModel>("SelectScrapColorExists", new DataMap()
+							{
+								{ "SiteID", color.SiteID },
+								{ "Name", name }
+							});
+
+							if (exists == null)
+							{
+								exists = new ScrapColorModel()
+								{
+									SiteID = color.SiteID,
+									Name = name,
+									CreatedBy = req.User.UserId,
+									CreatedByName = req.User.UserName
+								};
+								DaoFactory.InstanceScrap.Insert("InsertScrapColor", exists);
+							}
+						}
+					}
+				}
+
+				//사이즈옵션 정리
+				var sizes = DaoFactory.InstanceScrap.QueryForList<ScrapOptionModel>("SelectScrapOptionSizeList", parameter);
+				if (sizes != null && sizes.Count > 0)
+				{
+					foreach (var size in sizes)
+					{
+						string[] names = size.Name.Split(',');
+						foreach (var name in names)
+						{
+							var exists = DaoFactory.InstanceScrap.QueryForObject<ScrapSizeModel>("SelectScrapSizeExists", new DataMap()
+							{
+								{ "SiteID", size.SiteID },
+								{ "CategoryID", size.CategoryID },
+								{ "Gender", size.Gender },
+								{ "Name", name }
+							});
+
+							if (exists == null)
+							{
+								exists = new ScrapSizeModel()
+								{
+									SiteID = size.SiteID,
+									CategoryID = size.CategoryID,
+									Gender = size.Gender,
+									Name = name,
+									CreatedBy = req.User.UserId,
+									CreatedByName = req.User.UserName
+								};
+								DaoFactory.InstanceScrap.Insert("InsertScrapSize", exists);
+							}
+						}
+					}
+				}
+
+				req.Result.Count = 1;
+				req.Result.ReturnValue = null;
 				req.Error.Number = 0;
 			}
 			catch

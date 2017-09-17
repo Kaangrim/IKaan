@@ -26,5 +26,9 @@ namespace IKaan.Model.Scrap.Mapping
 		[DataMember]
 		[Display(Name = "Smaps브랜드명")]
 		public string SmapsBrandName { get; set; }
+
+		[DataMember]
+		[Display(Name = "상품수")]
+		public int ProductCount { get; set; }
 	}
 }

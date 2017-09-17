@@ -16,6 +16,10 @@ namespace IKaan.Model.Scrap.Mapping
 		public string BrandCode { get; set; }
 
 		[DataMember]
+		[Display(Name = "카테고리ID")]
+		public int? CategoryID { get; set; }
+
+		[DataMember]
 		[Display(Name = "스크랩상품ID")]
 		public int? ScrapProductID { get; set; }
 
@@ -26,6 +30,10 @@ namespace IKaan.Model.Scrap.Mapping
 		[DataMember]
 		[Display(Name = "브랜드명")]
 		public string BrandName { get; set; }
+
+		[DataMember]
+		[Display(Name = "카테고리명")]
+		public string CategoryName { get; set; }
 
 		[DataMember]
 		[Display(Name = "스크랩상품명")]

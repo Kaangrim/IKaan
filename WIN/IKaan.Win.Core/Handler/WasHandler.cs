@@ -197,7 +197,37 @@ namespace IKaan.Win.Core.Was.Handler
 				throw;
 			}
 		}
-		
+
+		public static WasRequest Batch(string serviceId, string processId, string sqlId, object parameter)
+		{
+			try
+			{
+				if (string.IsNullOrEmpty(serviceId))
+					serviceId = "Base";
+
+				using (var res = (new WasRequest()
+				{
+					ServiceId = serviceId,
+					ProcessId = processId,
+					SqlId = sqlId,
+					Parameter = parameter
+				}).Execute())
+				{
+					if (res == null)
+						throw new Exception("요청결과가 없습니다.");
+
+					if (res.Error.Number != 0)
+						throw new Exception(res.Error.Message);
+
+					return res;
+				}
+			}
+			catch
+			{
+				throw;
+			}
+		}
+
 		public static WasRequest GetData(string serviceId, string processId, string sqlId, DataMap parameter, string modelName)
 		{
 			try
