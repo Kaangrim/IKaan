@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using Newtonsoft.Json;
 
 namespace IKaan.Win.Core.Was.Handler
 {
 	public static class ApiHandler
 	{
 		private const string key = @"4c55-e3ad-7286-cfe2-68cb-116b-fbb7-6bbf";
-		private const string apiSite = @"http://dev.brand.smaps.co.kr";
+		private const string apiSiteTest = @"http://dev.brand.smaps.co.kr";
+		private const string apiSiteReal = @"http://brand.smaps.co.kr";
 
-		public static string Post<T>(T parameter)
+		public static string Post<T>(T data, bool isTest = false)
 		{
 			try
 			{
@@ -24,7 +26,7 @@ namespace IKaan.Win.Core.Was.Handler
 					http.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 					http.DefaultRequestHeaders.ExpectContinue = false;
 					http.Timeout = TimeSpan.FromMinutes(60);
-					http.BaseAddress = new Uri(apiSite);
+					http.BaseAddress = new Uri((isTest) ? apiSiteTest : apiSiteReal);
 
 					string api = string.Empty;
 					switch (requestType)
@@ -38,21 +40,19 @@ namespace IKaan.Win.Core.Was.Handler
 						case "SmapsLookbook":
 							api = @"wapi/add_lookbook";
 							break;
-						case "SmapsProduct":
+						case "SmapsProductSend":
 							api = @"wapi/add_product";
 							break;
 						case "SmapsUser":
 							api = @"wapi/add_user";
-							break;
-						case "SmapsSize":
-							api = @"wapi/list_size";
 							break;
 					}
 
 					string url = api + "?k=" + key;
 
 					//서버에 처리요청을 보낸다.
-					var response = http.PostAsJsonAsync(url, parameter).Result;
+					string temp = JsonConvert.SerializeObject(data);
+					var response = http.PostAsJsonAsync(url, data).Result;
 					if (response.IsSuccessStatusCode)
 					{
 						return response.Content.ReadAsStringAsync().Result;
@@ -82,7 +82,7 @@ namespace IKaan.Win.Core.Was.Handler
 			}
 		}
 
-		public static string Get<T>()
+		public static string Get<T>(bool isTest = false)
 		{
 			try
 			{
@@ -94,24 +94,24 @@ namespace IKaan.Win.Core.Was.Handler
 					http.DefaultRequestHeaders.ConnectionClose = false;
 					http.DefaultRequestHeaders.Connection.Add("Keep-Alive");
 					http.DefaultRequestHeaders.Accept.Clear();
-					//http.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+					http.DefaultRequestHeaders.Add("Accept", "application/json");
 					http.DefaultRequestHeaders.ExpectContinue = false;
 					http.Timeout = TimeSpan.FromMinutes(60);
-					http.BaseAddress = new Uri(apiSite);
+					http.BaseAddress = new Uri((isTest) ? apiSiteTest : apiSiteReal);
 
 					string api = string.Empty;
 					switch (requestType)
 					{
-						case "SmapsAgency":
+						case "SmapsAgencyReceive":
 							api = @"wapi/list_agency";
 							break;
-						case "SmapsUser":
+						case "SmapsUserReceive":
 							api = @"wapi/list_user";
 							break;
-						case "SmapsBrand":
+						case "SmapsBrandReceive":
 							api = @"wapi/list_brand";
 							break;
-						case "SmapsLookbook":
+						case "SmapsLookbookReceive":
 							api = @"wapi/list_lookbook";
 							break;
 						case "SmapsCategory":

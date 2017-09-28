@@ -1,13 +1,18 @@
 ﻿using System;
+using System.Linq;
 using System.Windows.Forms;
+using DevExpress.Data;
 using DevExpress.Utils;
 using DevExpress.XtraGrid.Views.Grid;
 using IKaan.Base.Map;
 using IKaan.Model.Scrap.Common;
 using IKaan.Win.Core.Controls.Grid;
 using IKaan.Win.Core.Forms;
+using IKaan.Win.Core.Handler;
 using IKaan.Win.Core.Model;
 using IKaan.Win.Core.Utils;
+using IKaan.Win.Core.Variables;
+using IKaan.Win.Core.Was.Handler;
 
 namespace IKaan.Win.View.Scrap.Common
 {
@@ -16,6 +21,15 @@ namespace IKaan.Win.View.Scrap.Common
 		public ScrapListForm()
 		{
 			InitializeComponent();
+
+			lupSite.EditValueChanged += (object sender, EventArgs e) =>
+			{
+				lupBrand.BindData("ScrapBrand", "All", false, new DataMap() { { "SiteID", lupSite.EditValue } });
+				lupCategory.BindData("ScrapCategory", "All", false, new DataMap() { { "SiteID", lupSite.EditValue } });
+			};
+
+			btnOptionDiv.Click += (object sender, EventArgs e) => { OptionDivide(); };
+			btnImageUpload.Click += (object sender, EventArgs e) => { ImageUpload(); };
 		}
 
 		protected override void OnShown(EventArgs e)
@@ -27,7 +41,7 @@ namespace IKaan.Win.View.Scrap.Common
 		protected override void InitButton()
 		{
 			base.InitButton();
-			SetToolbarButtons(new ToolbarButtons() { Refresh = true, Save = true, Delete = true });
+			SetToolbarButtons(new ToolbarButtons() { Refresh = true });
 		}
 		protected override void InitControls()
 		{
@@ -37,13 +51,12 @@ namespace IKaan.Win.View.Scrap.Common
 
 			lcGroupBrand.Text = DomainUtils.GetFieldName("Brand");
 			lcGroupCategory.Text = DomainUtils.GetFieldName("Category");
-			lcGroupColor.Text = DomainUtils.GetFieldName("Color");
-			lcGroupSize.Text = DomainUtils.GetFieldName("Size");
+			lcGroupOption.Text = DomainUtils.GetFieldName("Option");
 			lcGroupProduct.Text = DomainUtils.GetFieldName("Product");
 
 			lupSite.BindData("ScrapSite");
-			lupBrand.BindData("ScrapBrand", "All");
-			lupCategory.BindData("ScrapCategory", "All");
+			lupBrand.BindData("ScrapBrand", "All", false, new DataMap() { { "SiteID", lupSite.EditValue } });
+			lupCategory.BindData("ScrapCategory", "All", false, new DataMap() { { "SiteID", lupSite.EditValue } });
 
 			InitGrid();
 
@@ -53,19 +66,20 @@ namespace IKaan.Win.View.Scrap.Common
 		void InitGrid()
 		{
 			#region Brand
-			gridBrandList.Init();
-			gridBrandList.AddGridColumns(
+			gridBrands.Init();
+			gridBrands.ShowFooter = true;
+			gridBrands.AddGridColumns(
 				new XGridColumn() { FieldName = "RowNo" },
 				new XGridColumn() { FieldName = "ID", Visible = false },
 				new XGridColumn() { FieldName = "SiteID", Visible = false },
 				new XGridColumn() { FieldName = "Code", CaptionCode = "BrandCode", Width = 80 },
-				new XGridColumn() { FieldName = "Name", CaptionCode = "BrandName", Width = 200 },
-				new XGridColumn() { FieldName = "ProductCount", Width = 80, HorzAlignment = HorzAlignment.Far, FormatType = FormatType.Numeric, FormatString = "N0" },
-				new XGridColumn() { FieldName = "ScrapProductCount", Width = 80, HorzAlignment = HorzAlignment.Far, FormatType = FormatType.Numeric, FormatString = "N0" },
-				new XGridColumn() { FieldName = "ScrapImageCount", Width = 80, HorzAlignment = HorzAlignment.Far, FormatType = FormatType.Numeric, FormatString = "N0" },
-				new XGridColumn() { FieldName = "GenderMen", Width = 80, HorzAlignment = HorzAlignment.Far, FormatType = FormatType.Numeric, FormatString = "N0" },
-				new XGridColumn() { FieldName = "GenderFemale", Width = 80, HorzAlignment = HorzAlignment.Far, FormatType = FormatType.Numeric, FormatString = "N0" },
-				new XGridColumn() { FieldName = "GenderUnisex", Width = 80, HorzAlignment = HorzAlignment.Far, FormatType = FormatType.Numeric, FormatString = "N0" },
+				new XGridColumn() { FieldName = "Name", CaptionCode = "BrandName", Width = 200, IsSummary = true, SummaryItemType = SummaryItemType.Count, SummaryFormatString = "N0" },
+				new XGridColumn() { FieldName = "ProductCount", Width = 80, HorzAlignment = HorzAlignment.Far, FormatType = FormatType.Numeric, FormatString = "N0", IsSummary = true, SummaryItemType = SummaryItemType.Sum },
+				new XGridColumn() { FieldName = "ScrapProductCount", Width = 80, HorzAlignment = HorzAlignment.Far, FormatType = FormatType.Numeric, FormatString = "N0", IsSummary = true, SummaryItemType = SummaryItemType.Sum },
+				new XGridColumn() { FieldName = "ScrapImageCount", Width = 80, HorzAlignment = HorzAlignment.Far, FormatType = FormatType.Numeric, FormatString = "N0", IsSummary = true, SummaryItemType = SummaryItemType.Sum },
+				new XGridColumn() { FieldName = "GenderMen", Width = 80, HorzAlignment = HorzAlignment.Far, FormatType = FormatType.Numeric, FormatString = "N0", IsSummary = true, SummaryItemType = SummaryItemType.Sum },
+				new XGridColumn() { FieldName = "GenderFemale", Width = 80, HorzAlignment = HorzAlignment.Far, FormatType = FormatType.Numeric, FormatString = "N0", IsSummary = true, SummaryItemType = SummaryItemType.Sum },
+				new XGridColumn() { FieldName = "GenderUnisex", Width = 80, HorzAlignment = HorzAlignment.Far, FormatType = FormatType.Numeric, FormatString = "N0", IsSummary = true, SummaryItemType = SummaryItemType.Sum },
 				new XGridColumn() { FieldName = "Description", Width = 200 },
 				new XGridColumn() { FieldName = "Url", Width = 200 },
 				new XGridColumn() { FieldName = "CreatedOn" },
@@ -73,9 +87,9 @@ namespace IKaan.Win.View.Scrap.Common
 				new XGridColumn() { FieldName = "UpdatedOn" },
 				new XGridColumn() { FieldName = "UpdatedByName" }
 			);
-			gridBrandList.ColumnFix("RowNo");
+			gridBrands.ColumnFix("RowNo");
 
-			gridBrandList.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
+			gridBrands.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
 			{
 				if (e.RowHandle < 0)
 					return;
@@ -85,7 +99,7 @@ namespace IKaan.Win.View.Scrap.Common
 					if (e.Button == MouseButtons.Left && e.Clicks == 2)
 					{
 						GridView view = sender as GridView;
-						//ShowEdit(view.GetRowCellValue(e.RowHandle, "ID"));
+						ShowEdit(view.GetRowCellValue(e.RowHandle, "ID"));
 					}
 				}
 				catch (Exception ex)
@@ -96,8 +110,8 @@ namespace IKaan.Win.View.Scrap.Common
 			#endregion
 
 			#region Category
-			gridCategoryList.Init();
-			gridCategoryList.AddGridColumns(
+			gridCategories.Init();
+			gridCategories.AddGridColumns(
 				new XGridColumn() { FieldName = "RowNo" },
 				new XGridColumn() { FieldName = "ID", Visible = false },
 				new XGridColumn() { FieldName = "SiteID", Visible = false },
@@ -108,9 +122,9 @@ namespace IKaan.Win.View.Scrap.Common
 				new XGridColumn() { FieldName = "UpdatedOn" },
 				new XGridColumn() { FieldName = "UpdatedByName" }
 			);
-			gridCategoryList.ColumnFix("RowNo");
+			gridCategories.ColumnFix("RowNo");
 
-			gridCategoryList.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
+			gridCategories.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
 			{
 				if (e.RowHandle < 0)
 					return;
@@ -120,7 +134,7 @@ namespace IKaan.Win.View.Scrap.Common
 					if (e.Button == MouseButtons.Left && e.Clicks == 2)
 					{
 						GridView view = sender as GridView;
-						//ShowEdit(view.GetRowCellValue(e.RowHandle, "ID"));
+						ShowEdit(view.GetRowCellValue(e.RowHandle, "ID"));
 					}
 				}
 				catch (Exception ex)
@@ -130,22 +144,26 @@ namespace IKaan.Win.View.Scrap.Common
 			};
 			#endregion
 
-			#region Color
-			gridColorList.Init();
-			gridColorList.AddGridColumns(
+			#region Option
+			gridOptions.Init();
+			gridOptions.AddGridColumns(
 				new XGridColumn() { FieldName = "RowNo" },
 				new XGridColumn() { FieldName = "ID", Visible = false },
-				new XGridColumn() { FieldName = "SiteID", Visible = false },
-				new XGridColumn() { FieldName = "Name", CaptionCode = "ColorName", Width = 200 },
-				new XGridColumn() { FieldName = "Description", Width = 200 },
+				new XGridColumn() { FieldName = "Name", CaptionCode = "OptionName", Width = 200 },
+				new XGridColumn() { FieldName = "Option1Type", Width = 100 },
+				new XGridColumn() { FieldName = "Option1Name", Width = 100 },
+				new XGridColumn() { FieldName = "Option1Value", Width = 100 },
+				new XGridColumn() { FieldName = "Option2Type", Width = 100 },
+				new XGridColumn() { FieldName = "Option2Name", Width = 100 },
+				new XGridColumn() { FieldName = "Option2Value", Width = 100 },
 				new XGridColumn() { FieldName = "CreatedOn" },
 				new XGridColumn() { FieldName = "CreatedByName" },
 				new XGridColumn() { FieldName = "UpdatedOn" },
 				new XGridColumn() { FieldName = "UpdatedByName" }
 			);
-			gridColorList.ColumnFix("RowNo");
+			gridOptions.ColumnFix("RowNo");
 
-			gridColorList.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
+			gridOptions.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
 			{
 				if (e.RowHandle < 0)
 					return;
@@ -155,7 +173,7 @@ namespace IKaan.Win.View.Scrap.Common
 					if (e.Button == MouseButtons.Left && e.Clicks == 2)
 					{
 						GridView view = sender as GridView;
-						//ShowEdit(view.GetRowCellValue(e.RowHandle, "ID"));
+						ShowEdit(view.GetRowCellValue(e.RowHandle, "ID"));
 					}
 				}
 				catch (Exception ex)
@@ -166,9 +184,10 @@ namespace IKaan.Win.View.Scrap.Common
 			#endregion
 
 			#region Product
-			gridProductList.Init();
-			gridProductList.AddGridColumns(
+			gridProducts.Init();
+			gridProducts.AddGridColumns(
 				new XGridColumn() { FieldName = "RowNo" },
+				new XGridColumn() { FieldName = "Checked" },
 				new XGridColumn() { FieldName = "ID", Visible = false },
 				new XGridColumn() { FieldName = "SiteID", Visible = false },
 				new XGridColumn() { FieldName = "BrandCode", Visible = false },
@@ -182,8 +201,10 @@ namespace IKaan.Win.View.Scrap.Common
 				new XGridColumn() { FieldName = "Gender", Width = 100 },
 				new XGridColumn() { FieldName = "Option1Type", Width = 100 },
 				new XGridColumn() { FieldName = "Option1Name", Width = 200 },
+				new XGridColumn() { FieldName = "Option1Value", Width = 200 },
 				new XGridColumn() { FieldName = "Option2Type", Width = 100 },
 				new XGridColumn() { FieldName = "Option2Name", Width = 200 },
+				new XGridColumn() { FieldName = "Option2Value", Width = 200 },
 				new XGridColumn() { FieldName = "Description", Width = 200 },
 				new XGridColumn() { FieldName = "Url", Width = 200 },
 				new XGridColumn() { FieldName = "CreatedOn" },
@@ -191,9 +212,12 @@ namespace IKaan.Win.View.Scrap.Common
 				new XGridColumn() { FieldName = "UpdatedOn" },
 				new XGridColumn() { FieldName = "UpdatedByName" }
 			);
-			gridProductList.ColumnFix("RowNo");
+			gridProducts.ColumnFix("RowNo");
+			gridProducts.ColumnFix("Checked");
+			gridProducts.SetEditable("Checked");
+			gridProducts.SetRepositoryItemCheckEdit("Checked");
 
-			gridProductList.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
+			gridProducts.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
 			{
 				if (e.RowHandle < 0)
 					return;
@@ -203,45 +227,7 @@ namespace IKaan.Win.View.Scrap.Common
 					if (e.Button == MouseButtons.Left && e.Clicks == 2)
 					{
 						GridView view = sender as GridView;
-						//ShowEdit(view.GetRowCellValue(e.RowHandle, "ID"));
-					}
-				}
-				catch (Exception ex)
-				{
-					ShowErrBox(ex);
-				}
-			};
-			#endregion
-
-			#region Size
-			gridSizeList.Init();
-			gridSizeList.AddGridColumns(
-				new XGridColumn() { FieldName = "RowNo" },
-				new XGridColumn() { FieldName = "ID", Visible = false },
-				new XGridColumn() { FieldName = "SiteID", Visible = false },
-				new XGridColumn() { FieldName = "CategoryID", Visible = false },
-				new XGridColumn() { FieldName = "CategoryName", Width = 200 },
-				new XGridColumn() { FieldName = "Gender", Visible = false },
-				new XGridColumn() { FieldName = "GenderName", Width = 100 },
-				new XGridColumn() { FieldName = "Name", CaptionCode = "SizeName", Width = 150 },
-				new XGridColumn() { FieldName = "Description",Width = 200 },
-				new XGridColumn() { FieldName = "CreatedOn" },
-				new XGridColumn() { FieldName = "CreatedByName" },
-				new XGridColumn() { FieldName = "UpdatedOn" },
-				new XGridColumn() { FieldName = "UpdatedByName" }
-			);
-			gridSizeList.ColumnFix("RowNo");
-			gridSizeList.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
-			{
-				if (e.RowHandle < 0)
-					return;
-
-				try
-				{
-					if (e.Button == MouseButtons.Left && e.Clicks == 2)
-					{
-						GridView view = sender as GridView;
-						//ShowEdit(view.GetRowCellValue(e.RowHandle, "ID"));
+						ShowEdit(view.GetRowCellValue(e.RowHandle, "ID"));
 					}
 				}
 				catch (Exception ex)
@@ -260,7 +246,7 @@ namespace IKaan.Win.View.Scrap.Common
 
 				if (lcTabList.SelectedTabPage.Name == lcGroupBrand.Name)
 				{
-					gridBrandList.BindList<ScrapBrandModel>("Scrap", "GetList", "Select", new DataMap()
+					gridBrands.BindList<ScrapBrandModel>("Scrap", "GetList", "Select", new DataMap()
 					{
 						{ "SiteID", lupSite.EditValue },
 						{ "FindText", txtFindText.EditValue }
@@ -268,23 +254,22 @@ namespace IKaan.Win.View.Scrap.Common
 				}
 				else if (lcTabList.SelectedTabPage.Name == lcGroupCategory.Name)
 				{
-					gridCategoryList.BindList<ScrapCategoryModel>("Scrap", "GetList", "Select", new DataMap()
+					gridCategories.BindList<ScrapCategoryModel>("Scrap", "GetList", "Select", new DataMap()
 					{
 						{ "SiteID", lupSite.EditValue },
 						{ "FindText", txtFindText.EditValue }
 					});
 				}
-				else if (lcTabList.SelectedTabPage.Name == lcGroupColor.Name)
+				else if (lcTabList.SelectedTabPage.Name == lcGroupOption.Name)
 				{
-					gridColorList.BindList<ScrapColorModel>("Scrap", "GetList", "Select", new DataMap()
+					gridOptions.BindList<ScrapOptionModel>("Scrap", "GetList", "Select", new DataMap()
 					{
-						{ "SiteID", lupSite.EditValue },
 						{ "FindText", txtFindText.EditValue }
 					});
 				}
 				else if (lcTabList.SelectedTabPage.Name == lcGroupProduct.Name)
 				{
-					gridProductList.BindList<ScrapProductModel>("Scrap", "GetList", "Select", new DataMap()
+					gridProducts.BindList<ScrapProductModel>("Scrap", "GetList", "Select", new DataMap()
 					{
 						{ "SiteID", lupSite.EditValue },
 						{ "BrandID", lupBrand.EditValue },
@@ -292,15 +277,133 @@ namespace IKaan.Win.View.Scrap.Common
 						{ "FindText", txtFindText.EditValue }
 					});
 				}
-				else if (lcTabList.SelectedTabPage.Name == lcGroupSize.Name)
+			}
+			catch (Exception ex)
+			{
+				ShowErrBox(ex);
+			}
+			finally
+			{
+				SplashUtils.CloseWait();
+			}
+		}
+
+		protected override void ShowEdit(object data = null)
+		{
+			if (lcTabList.SelectedTabPage.Name == lcGroupBrand.Name)
+			{
+				using(var form = new ScrapBrandEditForm())
 				{
-					gridSizeList.BindList<ScrapSizeModel>("Scrap", "GetList", "Select", new DataMap()
-					{
-						{ "SiteID", lupSite.EditValue },
-						{ "CategoryID", lupCategory.EditValue },
-						{ "FindText", txtFindText.EditValue }
-					});
+					form.Text = "브랜드정보수정";
+					form.StartPosition = FormStartPosition.CenterScreen;
+					form.IsLoadingRefresh = true;
+					form.ParamsData = data;
+
+					if (form.ShowDialog() == DialogResult.OK)
+						DataLoad();
 				}
+			}
+			else if (lcTabList.SelectedTabPage.Name == lcGroupCategory.Name)
+			{
+				using (var form = new ScrapCategoryEditForm())
+				{
+					form.Text = "카테고리정보수정";
+					form.StartPosition = FormStartPosition.CenterScreen;
+					form.IsLoadingRefresh = true;
+					form.ParamsData = data;
+
+					if (form.ShowDialog() == DialogResult.OK)
+						DataLoad();
+				}
+			}
+			else if (lcTabList.SelectedTabPage.Name == lcGroupOption.Name)
+			{
+				using (var form = new ScrapOptionEditForm())
+				{
+					form.Text = "옵션정보수정";
+					form.StartPosition = FormStartPosition.CenterScreen;
+					form.IsLoadingRefresh = true;
+					form.ParamsData = data;
+
+					if (form.ShowDialog() == DialogResult.OK)
+						DataLoad();
+				}
+			}
+			else if (lcTabList.SelectedTabPage.Name == lcGroupProduct.Name)
+			{
+				using (var form = new ScrapProductEditForm())
+				{
+					form.Text = "상품정보수정";
+					form.StartPosition = FormStartPosition.CenterScreen;
+					form.IsLoadingRefresh = true;
+					form.ParamsData = data;
+
+					if (form.ShowDialog() == DialogResult.OK)
+						DataLoad();
+				}
+			}
+		}
+
+		private void OptionDivide()
+		{
+			try
+			{
+				SplashUtils.ShowWait("처리하는 중입니다... 잠시만...");
+				using (var res = WasHandler.Batch("Scrap", "Save", "BatchScrapOption", new DataMap() { { "SiteID", lupSite.EditValue } }))
+				{
+					if (res.Error.Number != 0)
+						throw new Exception(res.Error.Message);
+
+					SetMessage("처리하였습니다.");
+					DataLoad();
+				}
+			}
+			catch (Exception ex)
+			{
+				ShowErrBox(ex);
+			}
+			finally
+			{
+				SplashUtils.CloseWait();
+			}
+		}
+
+		private void ImageUpload()
+		{
+			if (lcTabList.SelectedTabPage.Name != lcGroupProduct.Name)
+				return;
+
+			try
+			{
+				var list = gridProducts.GetFilteredData<ScrapProductModel>().Where(x => x.Checked == "Y").ToList();
+				if (list == null || list.Count == 0)
+				{
+					ShowMsgBox("처리할 건이 없습니다.\r\n처리할 상품을 선택하세요!!!");
+					return;
+				}
+
+				SplashUtils.ShowWait("처리하는 중입니다... 잠시만...");
+
+				foreach(var data in list)
+				{
+					var images = WasHandler.GetList<ScrapProductImageModel>("Scrap", "GetList", "Select", new DataMap() { { "ProductID", data.ID } });
+					if (images == null || images.Count == 0)
+						continue;
+
+					foreach (var image in images)
+					{
+						var url = FTPHandler.UploadScrapProduct(lupSite.GetValue(1).ToString(), image.Name, data.BrandName);
+						image.Url = ConstsVar.IMG_URL + url;
+						using (var res = WasHandler.Execute<ScrapProductImageModel>("Scrap", "Save", "Update", image, "ID"))
+						{
+							if (res.Error.Number != 0)
+								throw new Exception(res.Error.Message);
+						}
+					}
+				}
+
+				ShowMsgBox("저장하였습니다.");
+				DataLoad();
 			}
 			catch (Exception ex)
 			{

@@ -20,7 +20,25 @@
 					,	AA.UseYn
 					,	AA.Description
 					
+					,	BB.BizName
+					,	BB.RepName
+					,	BB.BizNo
+					
 				FROM	dbo.TCompany AA WITH (NOLOCK)
+						LEFT JOIN
+						(
+							SELECT	A1.CompanyID
+								,	A1.BusinessID
+								,	B2.Name			as BizName
+								,	B2.RepName		as RepName
+								,	B2.BizNo		as BizNo
+							FROM	dbo.TCompanyBusiness B1
+									INNER JOIN
+										dbo.TBusiness B2
+											ON B1.BusinessID = B2.ID
+							WHERE	B1.StartDate < DATEADD(DAY, 1, GETDATE())
+							AND		ISNULL(B1.EndDate, GETDATE()) > DATEADD(DAY, -1, GETDATE())
+						) BB ON AA.ID = BB.CompanyID
 				WHERE	1=1				
 			]]>
 			<isNotEmpty property="UseYn">

@@ -22,6 +22,7 @@
 					,	AA.ManagerID
 					,	AA.StartDate
 					,	AA.EndDate
+					,	AA.SortOrder
 					
 					,	EE.Name			as ManagerName
 					
@@ -45,12 +46,12 @@
 				INSERT INTO dbo.TDepartmentHistory
 				( 
 					CreatedOn, CreatedBy, CreatedByName,
-					DepartmentID, Name, ParentID, ManagerID, StartDate, EndDate
+					DepartmentID, Name, ParentID, ManagerID, SortOrder, StartDate, EndDate
 				)
 				VALUES
 				(
 					GetDate(), #CreatedBy#, #CreatedByName#,
-					#DepartmentID#, #Name#, #ParentID#, #ManagerID#, #StartDate#, #EndDate#
+					#DepartmentID#, #Name#, #ParentID#, #ManagerID#, #SortOrder#, #StartDate#, #EndDate#
 				)
 			]]>
 			<selectKey type="post" property="ID" resultClass="Int">
@@ -70,6 +71,7 @@
 					,	Name			= #Name#
 					,	ParentID		= #ParentID#
 					,	ManagerID		= #ManagerID#
+					,	SortOrder		= #SortOrder#
 					,	StartDate		= #StartDate#
 					,	EndDate			= #EndDate#
 				WHERE	ID				= #ID#

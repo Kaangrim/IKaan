@@ -36,10 +36,12 @@ namespace IKaan.Win.View.Biz.Organization
 		{
 			base.InitControls();
 
-			lcItemDepartmentName.Tag = true;
+			lcItemName.Tag = true;
 			lcItemStartDate.Tag = true;
 
 			SetFieldNames();
+
+			lcItemName.SetFieldName("DepartmentName");
 
 			txtID.SetEnable(false);
 			txtCreatedOn.SetEnable(false);
@@ -52,6 +54,7 @@ namespace IKaan.Win.View.Biz.Organization
 			txtManagerID.CodeGroup = "EmployeeList";
 
 			datStartDate.Init(CalendarViewType.DayView);
+			spnSortOrder.SetFormat("N0", false, HorzAlignment.Near);
 
 			InitGrid();
 		}
@@ -63,10 +66,11 @@ namespace IKaan.Win.View.Biz.Organization
 			gridList.AddGridColumns(
 				new XGridColumn() { FieldName = "RowNo" },
 				new XGridColumn() { FieldName = "ID", Visible = false },
-				new XGridColumn() { FieldName = "DepartmentName", Visible = false },
+				new XGridColumn() { FieldName = "Name", CaptionCode = "DepartmentName", Visible = false },
 				new XGridColumn() { FieldName = "HierName", CaptionCode = "DepartmentName", Width = 200 },
 				new XGridColumn() { FieldName = "ManagerName", Width = 100, HorzAlignment = HorzAlignment.Center },
 				new XGridColumn() { FieldName = "UseYn", Width = 80, HorzAlignment = HorzAlignment.Center },
+				new XGridColumn() { FieldName = "SortOrder", Width = 80, HorzAlignment = HorzAlignment.Center },
 				new XGridColumn() { FieldName = "CreatedOn" },
 				new XGridColumn() { FieldName = "CreatedByName" },
 				new XGridColumn() { FieldName = "UpdatedOn" },
@@ -101,10 +105,11 @@ namespace IKaan.Win.View.Biz.Organization
 				new XGridColumn() { FieldName = "RowNo" },
 				new XGridColumn() { FieldName = "ID", Visible = false },
 				new XGridColumn() { FieldName = "DepartmentID", Visible = false },
-				new XGridColumn() { FieldName = "DepartmentName", Width = 150 },
+				new XGridColumn() { FieldName = "Name", CaptionCode = "DepartmentName", Width = 150 },
 				new XGridColumn() { FieldName = "ParentID", Visible = false },
 				new XGridColumn() { FieldName = "ManagerID", Visible = false },
 				new XGridColumn() { FieldName = "ManagerName", Width = 100 },
+				new XGridColumn() { FieldName = "SortOrder", Width = 80, HorzAlignment = HorzAlignment.Center },
 				new XGridColumn() { FieldName = "StartDate", Width = 80, HorzAlignment = HorzAlignment.Center },
 				new XGridColumn() { FieldName = "EndDate", Width = 80, HorzAlignment = HorzAlignment.Center },
 				new XGridColumn() { FieldName = "CreatedOn" },
@@ -150,7 +155,7 @@ namespace IKaan.Win.View.Biz.Organization
 
 			SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true });
 			EditMode = EditModeEnum.New;
-			txtDepartmentName.Focus();
+			txtName.Focus();
 		}
 
 		protected override void DataLoad(object param = null)
@@ -187,7 +192,7 @@ namespace IKaan.Win.View.Biz.Organization
 
 				SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true, Delete = true });
 				this.EditMode = EditModeEnum.Modify;
-				txtDepartmentName.Focus();
+				txtName.Focus();
 
 			}
 			catch(Exception ex)

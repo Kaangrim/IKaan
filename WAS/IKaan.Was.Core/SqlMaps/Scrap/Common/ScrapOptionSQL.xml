@@ -5,57 +5,100 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
 
 	<statements>
-		<select id="SelectScrapOptionColorList" parameterClass="DataMap" resultClass="ScrapOptionModel" >
+		<select id="SelectScrapOptionList" parameterClass="DataMap" resultClass="ScrapOptionModel" >
 			<![CDATA[
-				SELECT  DISTINCT
-						AA.SiteID			as SiteID
-					,	AA.Option1Type		as Type
-					,	AA.Option1Name		as Name
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.Name)	as RowNo
+					,	AA.ID
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
 					
-				FROM	dbo.TScrapProduct AA WITH (NOLOCK)
-				WHERE	AA.SiteID = #SiteID#
-				AND		ISNULL(AA.Option1Type,'') IN ('ColorOrSize', 'Color')
-				UNION ALL
-				SELECT	DISTINCT 
-						AA.SiteID			as SiteID
-					,	AA.Option2Type		as Type
-					,	AA.Option2Name		as Name
+					,	AA.Name
+					,	AA.Option1Type
+					,	AA.Option1Name
+					,	AA.Option1Value
+					,	AA.Option2Type
+					,	AA.Option2Name
+					,	AA.Option2Value
 					
-				FROM	dbo.TScrapProduct AA WITH (NOLOCK)
-				WHERE	AA.SiteID = #SiteID#
-				AND		ISNULL(AA.Option2Type,'') IN ('ColorOrSize', 'Color')
-				ORDER BY Type, Name
+				FROM	dbo.TScrapOption AA WITH (NOLOCK)
+				WHERE	1=1
+			]]>
+			<isNotEmpty property="Name">
+				<![CDATA[
+					AND	AA.Name = #Name#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	AA.Name LIKE '%'+#FindText#+'%'
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY RowNo
 			]]>
 		</select>
-		<select id="SelectScrapOptionSizeList" parameterClass="DataMap" resultClass="ScrapOptionModel" >
+		<select id="SelectScrapOption" parameterClass="DataMap" resultClass="ScrapOptionModel" >
 			<![CDATA[
-				SELECT  DISTINCT
-						AA.SiteID			as SiteID
-					,	AA.CategoryID		as CategoryID
-					,	AA.Gender			as Gender
-					,	AA.Option1Type		as Type
-					,	AA.Option1Name		as Name
-					
-				FROM	dbo.TScrapProduct AA WITH (NOLOCK)
-				WHERE	AA.SiteID = #SiteID#
-				AND		ISNULL(AA.Option1Type,'') IN ('ColorOrSize', 'Size')
-				AND		AA.CategoryID	IS NOT NULL
-				AND		AA.Gender		IS NOT NULL
-				UNION ALL
-				SELECT	DISTINCT 
-						AA.SiteID			as SiteID
-					,	AA.CategoryID		as CategoryID
-					,	AA.Gender			as Gender
-					,	AA.Option2Type		as Type
-					,	AA.Option2Name		as Name
-					
-				FROM	dbo.TScrapProduct AA WITH (NOLOCK)
-				WHERE	AA.SiteID = #SiteID#
-				AND		ISNULL(AA.Option2Type,'') IN ('ColorOrSize', 'Size')
-				AND		AA.CategoryID	IS NOT NULL
-				AND		AA.Gender		IS NOT NULL
-				ORDER BY CategoryID, Gender, Type, Name
+				SELECT  *					
+				FROM	dbo.TScrapOption WITH (NOLOCK)
+				WHERE	ID = #ID#
 			]]>
 		</select>
+		<select id="SelectScrapOptionExists" parameterClass="DataMap" resultClass="ScrapOptionModel" >
+			<![CDATA[
+				SELECT  *					
+				FROM	dbo.TScrapOption WITH (NOLOCK)
+				WHERE	Name		= #Name#
+			]]>
+		</select>
+		<insert id="InsertScrapOption" parameterClass="ScrapOptionModel" >
+			<![CDATA[
+				INSERT INTO dbo.TScrapOption
+				( 
+					CreatedOn, CreatedBy, CreatedByName,
+					Name, 
+					Option1Type, Option1Name, Option1Value,
+					Option2Type, Option2Name, Option2Value
+				)
+				VALUES
+				(
+					GetDate(), #CreatedBy#, #CreatedByName#,
+					#Name#, 
+					#Option1Type#, #Option1Name#, #Option1Value#,
+					#Option2Type#, #Option2Name#, #Option2Value#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateScrapOption" parameterClass="ScrapOptionModel">
+			<![CDATA[
+				UPDATE  dbo.TScrapOption
+				SET     UpdatedOn		= GetDate()
+					,	UpdatedBy		= #UpdatedBy#
+					,	UpdatedByName	= #UpdatedByName#
+					
+					,	Name			= #Name#
+					,	Option1Type		= #Option1Type#
+					,	Option1Name		= #Option1Name#
+					,	Option1Value	= #Option1Value#
+					,	Option2Type		= #Option2Type#
+					,	Option2Name		= #Option2Name#
+					,	Option2Value	= #Option2Value#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
+		<delete id="DeleteScrapOption" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM	dbo.TScrapOption WHERE ID = #ID#;
+			]]>
+		</delete>
 	</statements>
 </sqlMap>

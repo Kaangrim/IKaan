@@ -5,9 +5,9 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
 
 	<statements>
-		<select id="SelectSmapsRequestList" parameterClass="DataMap" resultClass="SmapsRequestModel" >
+		<select id="SelectApiRequestList" parameterClass="DataMap" resultClass="ApiRequestModel" >
 			<![CDATA[
-				SELECT  ROW_NUMBER() OVER (ORDER BY AA.BrandName)	as RowNo
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID)	as RowNo
 					,	AA.ID
 					,	AA.CreatedOn
 					,	AA.CreatedBy
@@ -16,18 +16,30 @@
 					,	AA.UpdatedBy
 					,	AA.UpdatedByName
 					
-					,	AA.RequestType
+					,	AA.ApiName
+					,	AA.ApiType
+					,	AA.ApiModel
 					,	AA.RequestDate
 					,	AA.Status
-					,	AA.RequestText
-					,	AA.ReturnText
+					,	AA.SendData
+					,	AA.ReceiveData
 					
-				FROM	IKScrap.dbo.TSmapsRequest AA WITH (NOLOCK)
+				FROM	IKScrap.dbo.TApiRequest AA WITH (NOLOCK)
 				WHERE	1=1
 			]]>
-			<isNotEmpty property="RequestType">
+			<isNotEmpty property="ApiName">
 				<![CDATA[
-					AND	AA.RequestType = #RequestType#
+					AND	AA.ApiName = #ApiName#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="ApiType">
+				<![CDATA[
+					AND	AA.ApiType = #ApiType#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="ApiModel">
+				<![CDATA[
+					AND	AA.ApiModel = #ApiModel#
 				]]>
 			</isNotEmpty>
 			<isNotEmpty property="StartRequestDate">
@@ -43,8 +55,8 @@
 			<isNotEmpty property="FindText">
 				<![CDATA[
 					AND	(
-							AA.RequestText	LIKE '%'+#FindText#+'%' OR
-							AA.ReturnText	LIKE '%'+#FindText#+'%'
+							AA.SendData		LIKE '%'+#FindText#+'%' OR
+							AA.ReceiveData	LIKE '%'+#FindText#+'%'
 						)
 				]]>
 			</isNotEmpty>
@@ -52,24 +64,24 @@
 				ORDER BY RowNo
 			]]>
 		</select>
-		<select id="SelectSmapsRequest" parameterClass="DataMap" resultClass="SmapsRequestModel" >
+		<select id="SelectApiRequest" parameterClass="DataMap" resultClass="ApiRequestModel" >
 			<![CDATA[
 				SELECT  *					
-				FROM	IKScrap.dbo.TSmapsRequest AA WITH (NOLOCK)
+				FROM	IKScrap.dbo.TApiRequest AA WITH (NOLOCK)
 				WHERE	AA.ID = #ID#
 			]]>
 		</select>
-		<insert id="InsertSmapsRequest" parameterClass="SmapsRequestModel" >
+		<insert id="InsertApiRequest" parameterClass="ApiRequestModel" >
 			<![CDATA[
-				INSERT INTO dbo.TSmapsRequest
+				INSERT INTO dbo.TApiRequest
 				( 
 					CreatedOn, CreatedBy, CreatedByName,
-					RequestType, RequestDate, Status, RequestText, ReturnText
+					ApiName, ApiType, ApiModel, RequestDate, Status, SendData, ReceiveData
 				)
 				VALUES
 				(
 					GetDate(), #CreatedBy#, #CreatedByName#,
-					#RequestType#, #RequestDate#, #Status#, #RequestText#, #ReturnText#
+					#ApiName#, #ApiType#, #ApiModel#, #RequestDate#, #Status#, #SendData#, #ReceiveData#
 				)
 			]]>
 			<selectKey type="post" property="ID" resultClass="Int">
@@ -78,24 +90,26 @@
 				]]>
 			</selectKey>
 		</insert>
-		<update id="UpdateSmapsRequest" parameterClass="SmapsRequestModel">
+		<update id="UpdateApiRequest" parameterClass="ApiRequestModel">
 			<![CDATA[
-				UPDATE  IKScrap.dbo.TSmapsRequest
+				UPDATE  IKScrap.dbo.TApiRequest
 				SET     UpdatedOn		= GetDate()
 					,	UpdatedBy		= #UpdatedBy#
 					,	UpdatedByName	= #UpdatedByName#
 					
-					,	RequestType		= #RequestType#
+					,	ApiName			= #ApiName#
+					,	ApiType			= #ApiType#
+					,	ApiModel		= #ApiModel#
 					,	RequestDate		= #RequestDate#
 					,	Status			= #Status#
-					,	RequestText		= #RequestText#
-					,	ReturnText		= #ReturnText#
+					,	SendData		= #SendData#
+					,	ReceiveData		= #ReceiveData#
 				WHERE	ID				= #ID#
 			]]>
 		</update>
-		<delete id="DeleteSmapsRequest" parameterClass="DataMap">
+		<delete id="DeleteApiRequest" parameterClass="DataMap">
 			<![CDATA[
-				DELETE FROM	IKScrap.dbo.TSmapsRequest WHERE ID = #ID#;
+				DELETE FROM	IKScrap.dbo.TApiRequest WHERE ID = #ID#;
 			]]>
 		</delete>
 	</statements>

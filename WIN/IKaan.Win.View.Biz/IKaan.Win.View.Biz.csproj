@@ -69,6 +69,30 @@
     <Compile Include="Master\Business\BusinessListForm.designer.cs">
       <DependentUpon>BusinessListForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Master\Company\CompanyAddressEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Master\Company\CompanyAddressEditForm.Designer.cs">
+      <DependentUpon>CompanyAddressEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Master\Company\CompanyBusinessEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Master\Company\CompanyBusinessEditForm.Designer.cs">
+      <DependentUpon>CompanyBusinessEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Master\Company\CompanyBankAccountEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Master\Company\CompanyBankAccountEditForm.Designer.cs">
+      <DependentUpon>CompanyBankAccountEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Master\Company\CompanyContactEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Master\Company\CompanyContactEditForm.Designer.cs">
+      <DependentUpon>CompanyContactEditForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Master\Store\StoreListForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -293,6 +317,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Master\Business\BusinessListForm.resx">
       <DependentUpon>BusinessListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Master\Company\CompanyAddressEditForm.resx">
+      <DependentUpon>CompanyAddressEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Master\Company\CompanyBusinessEditForm.resx">
+      <DependentUpon>CompanyBusinessEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Master\Company\CompanyBankAccountEditForm.resx">
+      <DependentUpon>CompanyBankAccountEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Master\Company\CompanyContactEditForm.resx">
+      <DependentUpon>CompanyContactEditForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Master\Store\StoreListForm.resx">
       <DependentUpon>StoreListForm.cs</DependentUpon>

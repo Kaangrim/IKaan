@@ -461,3 +461,7 @@ D:\Repositories\IKaan\WIN\IKaan.Win.View.Biz\obj\Debug\IKaan.Win.View.Biz.Master
 D:\Repositories\IKaan\WIN\IKaan.Win.View.Biz\obj\Debug\IKaan.Win.View.Biz.Master.Brand.BrandEditForm.resources
 D:\Repositories\IKaan\WIN\IKaan.Win.View.Biz\obj\Debug\IKaan.Win.View.Biz.Master.Brand.BrandImageEditForm.resources
 D:\Repositories\IKaan\WIN\IKaan.Win.View.Biz\obj\Debug\IKaan.Win.View.Biz.Master.Channel.ChannelEditForm.resources
+D:\Repositories\IKaan\WIN\IKaan.Win.View.Biz\obj\Debug\IKaan.Win.View.Biz.Master.Company.CompanyAddressEditForm.resources
+D:\Repositories\IKaan\WIN\IKaan.Win.View.Biz\obj\Debug\IKaan.Win.View.Biz.Master.Company.CompanyBusinessEditForm.resources
+D:\Repositories\IKaan\WIN\IKaan.Win.View.Biz\obj\Debug\IKaan.Win.View.Biz.Master.Company.CompanyBankAccountEditForm.resources
+D:\Repositories\IKaan\WIN\IKaan.Win.View.Biz\obj\Debug\IKaan.Win.View.Biz.Master.Company.CompanyContactEditForm.resources

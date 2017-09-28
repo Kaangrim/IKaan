@@ -146,6 +146,7 @@
 			<![CDATA[
 				SELECT	AA.ID			as MenuID
 					,	AA.MenuName		as MenuName
+					,	AA.MenuPath		as MenuPath
 					,	CC.ID			as ViewID
 					,	CC.ViewName		as ViewName
 					,	CC.ViewType		as ViewType

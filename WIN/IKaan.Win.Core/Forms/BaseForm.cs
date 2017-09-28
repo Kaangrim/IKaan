@@ -28,6 +28,7 @@ namespace IKaan.Win.Core.Forms
 
 		public object FormId { get; set; }
 		public object MenuId { get; set; }
+		public string MenuPath { get; set; }
 		public Image TabImage { get; set; }
 		public string LargeIcon { get; set; }
 		public string SmallIcon { get; set; }

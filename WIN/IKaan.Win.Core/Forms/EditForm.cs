@@ -353,8 +353,8 @@ namespace IKaan.Win.Core.Forms
 				SeButtonModelName();
 
 				SetLayout();
-				
-				barTitle.Caption = this.Text;
+
+				barTitle.Caption = (this.MenuPath.IsNullOrEmpty()) ? this.Text : this.MenuPath;
 				barTitle.ItemAppearance.Normal.ForeColor = Color.White;
 				barTitle.ItemAppearance.Normal.BackColor = Color.Black;
 				barTitle.ItemAppearance.Normal.BackColor2 = Color.Transparent;

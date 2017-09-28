@@ -43,14 +43,34 @@
 					,	AA.image_width
 					,	AA.image_height
 					
-					,	AA.RequestID
-					,	BB.Status
+					,	M1.Name			as type_name
+					,	M2.Name			as grade_name
+					
+					,	AA.ApiRequestID
+					,	M3.Name			as ApiType
+					,	M4.Name			as Status
 					,	BB.RequestDate
 					
 				FROM	IKScrap.dbo.TSmapsAgency AA WITH (NOLOCK)
 						LEFT JOIN
-							IKScrap.dbo.TSmapsRequest BB WITH (NOLOCK)
-								ON AA.RequestID = BB.ID
+							IKScrap.dbo.TApiRequest BB WITH (NOLOCK)
+								ON AA.ApiRequestID = BB.ID
+						LEFT JOIN
+							IKBase.dbo.TCode M1 WITH (NOLOCK)
+								ON AA.type = M1.Code
+									AND M1.ParentCode = 'SmapsAgencyType'
+						LEFT JOIN
+							IKBase.dbo.TCode M2 WITH (NOLOCK)
+								ON AA.grade = M2.Code
+									AND M2.ParentCode = 'SmapsAgencyGrade'
+						LEFT JOIN
+							IKBase.dbo.TCode M3 WITH (NOLOCK)
+								ON BB.ApiType = M3.Code
+									AND M3.ParentCode = 'ApiType'
+						LEFT JOIN
+							IKBase.dbo.TCode M4 WITH (NOLOCK)
+								ON BB.Status = M4.Code
+									AND M4.ParentCode = 'ApiStatus'
 				WHERE	1=1
 			]]>
 			<isNotEmpty property="RequestID">
@@ -89,7 +109,7 @@
 				INSERT INTO dbo.TSmapsAgency
 				( 
 					CreatedOn, CreatedBy, CreatedByName,
-					RequestID,
+					ApiRequestID,
 					uid, type, grade, name, recommend, sv_start_date, sv_end_date, 
 					cp_address, president_name, cp_crn, cp_email, cp_homepage, cp_intro, cp_tel,
 					ct_department, ct_email, ct_fax, ct_hphone, ct_name, ct_position, ct_tel, 
@@ -98,7 +118,7 @@
 				VALUES
 				(
 					GetDate(), #CreatedBy#, #CreatedByName#,
-					#RequestID#,
+					#ApiRequestID#,
 					#uid#, #type#, #grade#, #name#, #recommend#, #sv_start_date#, #sv_end_date#, 
 					#cp_address#, #president_name#, #cp_crn#, #cp_email#, #cp_homepage#, #cp_intro#, #cp_tel#,
 					#ct_department#, #ct_email#, #ct_fax#, #ct_hphone#, #ct_name#, #ct_position#, #ct_tel#, 
@@ -118,7 +138,7 @@
 					,	UpdatedBy		= #UpdatedBy#
 					,	UpdatedByName	= #UpdatedByName#
 					
-					,	RequestID		= #RequestID#
+					,	ApiRequestID	= #ApiRequestID#
 					,	uid				= #uid#
 					,	type			= #type#
 					,	grade			= #grade#

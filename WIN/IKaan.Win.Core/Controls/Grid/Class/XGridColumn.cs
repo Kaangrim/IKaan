@@ -69,6 +69,11 @@ namespace IKaan.Win.Core.Controls.Grid
 		public SummaryItemType SummaryItemType { get; set; }
 
 		/// <summary>
+		/// 부분합의 유형
+		/// </summary>
+		public string SummaryFormatString { get; set; }
+
+		/// <summary>
 		/// 부분합 그룹
 		/// </summary>
 		public bool IsSummaryGroup { get; set; }

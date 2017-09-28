@@ -28,8 +28,8 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions2 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
 			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions1 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions3 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ScrapEditForm));
 			this.lcGroupSearch = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.lcItemFindText = new DevExpress.XtraLayout.LayoutControlItem();
@@ -50,6 +50,10 @@
 			this.btnDiffrenctSelect = new DevExpress.XtraEditors.SimpleButton();
 			this.lcItemDifferentYn = new DevExpress.XtraLayout.LayoutControlItem();
 			this.lupDifferentYn = new IKaan.Win.Core.Controls.Common.XLookup();
+			this.lcItemErrorCount = new DevExpress.XtraLayout.LayoutControlItem();
+			this.spnErrorCount = new DevExpress.XtraEditors.SpinEdit();
+			this.lcItemSuccessCount = new DevExpress.XtraLayout.LayoutControlItem();
+			this.spnSuccessCount = new DevExpress.XtraEditors.SpinEdit();
 			this.gridSites = new IKaan.Win.Core.Controls.Grid.XGrid();
 			this.progSites = new DevExpress.XtraEditors.ProgressBarControl();
 			this.progBrands = new DevExpress.XtraEditors.ProgressBarControl();
@@ -86,10 +90,8 @@
 			this.lcTabGroupBrand = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
 			this.gridBrands = new IKaan.Win.Core.Controls.Grid.XGrid();
-			this.spnErrorCount = new DevExpress.XtraEditors.SpinEdit();
-			this.lcItemErrorCount = new DevExpress.XtraLayout.LayoutControlItem();
-			this.spnSuccessCount = new DevExpress.XtraEditors.SpinEdit();
-			this.lcItemSuccessCount = new DevExpress.XtraLayout.LayoutControlItem();
+			this.txtProductImagePath = new DevExpress.XtraEditors.ButtonEdit();
+			this.lcItemProductImagePath = new DevExpress.XtraLayout.LayoutControlItem();
 			((System.ComponentModel.ISupportInitialize)(this.lc)).BeginInit();
 			this.lc.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupBase)).BeginInit();
@@ -111,6 +113,10 @@
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemDifferentYn)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lupDifferentYn.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemErrorCount)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.spnErrorCount.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemSuccessCount)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.spnSuccessCount.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.progSites.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.progBrands.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupEditBase)).BeginInit();
@@ -143,14 +149,13 @@
 			((System.ComponentModel.ISupportInitialize)(this.lcItemProgList)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcTabGroupBrand)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.spnErrorCount.Properties)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemErrorCount)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.spnSuccessCount.Properties)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemSuccessCount)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtProductImagePath.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemProductImagePath)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// lc
 			// 
+			this.lc.Controls.Add(this.txtProductImagePath);
 			this.lc.Controls.Add(this.spnSuccessCount);
 			this.lc.Controls.Add(this.spnErrorCount);
 			this.lc.Controls.Add(this.lupDifferentYn);
@@ -206,7 +211,8 @@
             this.layoutControlItem6,
             this.lcItemDifferentYn,
             this.lcItemErrorCount,
-            this.lcItemSuccessCount});
+            this.lcItemSuccessCount,
+            this.lcItemProductImagePath});
 			this.lcGroupSearch.Location = new System.Drawing.Point(0, 0);
 			this.lcGroupSearch.Name = "lcGroupSearch";
 			this.lcGroupSearch.Padding = new DevExpress.XtraLayout.Utils.Padding(4, 4, 4, 4);
@@ -221,7 +227,7 @@
 			this.lcItemFindText.Name = "lcItemFindText";
 			this.lcItemFindText.Size = new System.Drawing.Size(216, 41);
 			this.lcItemFindText.TextLocation = DevExpress.Utils.Locations.Top;
-			this.lcItemFindText.TextSize = new System.Drawing.Size(110, 14);
+			this.lcItemFindText.TextSize = new System.Drawing.Size(136, 14);
 			// 
 			// txtFindText
 			// 
@@ -238,7 +244,7 @@
 			this.lcItemScrapSite.Name = "lcItemScrapSite";
 			this.lcItemScrapSite.Size = new System.Drawing.Size(216, 41);
 			this.lcItemScrapSite.TextLocation = DevExpress.Utils.Locations.Top;
-			this.lcItemScrapSite.TextSize = new System.Drawing.Size(110, 14);
+			this.lcItemScrapSite.TextSize = new System.Drawing.Size(136, 14);
 			// 
 			// lupScrapSite
 			// 
@@ -250,7 +256,7 @@
 			this.lupScrapSite.NullText = "[EditValue is null]";
 			this.lupScrapSite.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions2, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
 			this.lupScrapSite.SelectedIndex = -1;
 			this.lupScrapSite.Size = new System.Drawing.Size(212, 20);
 			this.lupScrapSite.StyleController = this.lc;
@@ -260,9 +266,9 @@
 			// emptySpaceItem2
 			// 
 			this.emptySpaceItem2.AllowHotTrack = false;
-			this.emptySpaceItem2.Location = new System.Drawing.Point(0, 281);
+			this.emptySpaceItem2.Location = new System.Drawing.Point(0, 323);
 			this.emptySpaceItem2.Name = "emptySpaceItem2";
-			this.emptySpaceItem2.Size = new System.Drawing.Size(216, 206);
+			this.emptySpaceItem2.Size = new System.Drawing.Size(216, 164);
 			this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
 			// 
 			// esSearchTitle
@@ -283,7 +289,7 @@
 			this.esSearchTitle.Size = new System.Drawing.Size(216, 40);
 			this.esSearchTitle.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
 			this.esSearchTitle.Text = "검색조건";
-			this.esSearchTitle.TextSize = new System.Drawing.Size(110, 0);
+			this.esSearchTitle.TextSize = new System.Drawing.Size(136, 0);
 			this.esSearchTitle.TextVisible = true;
 			// 
 			// layoutControlItem1
@@ -383,7 +389,7 @@
 			this.lcItemDifferentYn.Name = "lcItemDifferentYn";
 			this.lcItemDifferentYn.Size = new System.Drawing.Size(216, 41);
 			this.lcItemDifferentYn.TextLocation = DevExpress.Utils.Locations.Top;
-			this.lcItemDifferentYn.TextSize = new System.Drawing.Size(110, 14);
+			this.lcItemDifferentYn.TextSize = new System.Drawing.Size(136, 14);
 			// 
 			// lupDifferentYn
 			// 
@@ -395,12 +401,58 @@
 			this.lupDifferentYn.NullText = "[EditValue is null]";
 			this.lupDifferentYn.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions3, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
 			this.lupDifferentYn.SelectedIndex = -1;
 			this.lupDifferentYn.Size = new System.Drawing.Size(212, 20);
 			this.lupDifferentYn.StyleController = this.lc;
 			this.lupDifferentYn.TabIndex = 64;
 			this.lupDifferentYn.ValueMember = "";
+			// 
+			// lcItemErrorCount
+			// 
+			this.lcItemErrorCount.Control = this.spnErrorCount;
+			this.lcItemErrorCount.Location = new System.Drawing.Point(0, 511);
+			this.lcItemErrorCount.Name = "lcItemErrorCount";
+			this.lcItemErrorCount.Size = new System.Drawing.Size(216, 24);
+			this.lcItemErrorCount.TextSize = new System.Drawing.Size(136, 14);
+			// 
+			// spnErrorCount
+			// 
+			this.spnErrorCount.EditValue = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+			this.spnErrorCount.Location = new System.Drawing.Point(171, 521);
+			this.spnErrorCount.Name = "spnErrorCount";
+			this.spnErrorCount.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+			this.spnErrorCount.Size = new System.Drawing.Size(72, 20);
+			this.spnErrorCount.StyleController = this.lc;
+			this.spnErrorCount.TabIndex = 65;
+			// 
+			// lcItemSuccessCount
+			// 
+			this.lcItemSuccessCount.Control = this.spnSuccessCount;
+			this.lcItemSuccessCount.Location = new System.Drawing.Point(0, 487);
+			this.lcItemSuccessCount.Name = "lcItemSuccessCount";
+			this.lcItemSuccessCount.Size = new System.Drawing.Size(216, 24);
+			this.lcItemSuccessCount.TextSize = new System.Drawing.Size(136, 14);
+			// 
+			// spnSuccessCount
+			// 
+			this.spnSuccessCount.EditValue = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+			this.spnSuccessCount.Location = new System.Drawing.Point(171, 497);
+			this.spnSuccessCount.Name = "spnSuccessCount";
+			this.spnSuccessCount.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+			this.spnSuccessCount.Size = new System.Drawing.Size(72, 20);
+			this.spnSuccessCount.StyleController = this.lc;
+			this.spnSuccessCount.TabIndex = 66;
 			// 
 			// gridSites
 			// 
@@ -803,51 +855,25 @@
 			this.gridBrands.Size = new System.Drawing.Size(330, 510);
 			this.gridBrands.TabIndex = 61;
 			// 
-			// spnErrorCount
+			// txtProductImagePath
 			// 
-			this.spnErrorCount.EditValue = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-			this.spnErrorCount.Location = new System.Drawing.Point(145, 521);
-			this.spnErrorCount.Name = "spnErrorCount";
-			this.spnErrorCount.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-			this.spnErrorCount.Size = new System.Drawing.Size(98, 20);
-			this.spnErrorCount.StyleController = this.lc;
-			this.spnErrorCount.TabIndex = 65;
+			this.txtProductImagePath.Location = new System.Drawing.Point(31, 309);
+			this.txtProductImagePath.Name = "txtProductImagePath";
+			this.txtProductImagePath.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton()});
+			this.txtProductImagePath.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
+			this.txtProductImagePath.Size = new System.Drawing.Size(212, 20);
+			this.txtProductImagePath.StyleController = this.lc;
+			this.txtProductImagePath.TabIndex = 67;
 			// 
-			// lcItemErrorCount
+			// lcItemProductImagePath
 			// 
-			this.lcItemErrorCount.Control = this.spnErrorCount;
-			this.lcItemErrorCount.Location = new System.Drawing.Point(0, 511);
-			this.lcItemErrorCount.Name = "lcItemErrorCount";
-			this.lcItemErrorCount.Size = new System.Drawing.Size(216, 24);
-			this.lcItemErrorCount.TextSize = new System.Drawing.Size(110, 14);
-			// 
-			// spnSuccessCount
-			// 
-			this.spnSuccessCount.EditValue = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-			this.spnSuccessCount.Location = new System.Drawing.Point(145, 497);
-			this.spnSuccessCount.Name = "spnSuccessCount";
-			this.spnSuccessCount.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-			this.spnSuccessCount.Size = new System.Drawing.Size(98, 20);
-			this.spnSuccessCount.StyleController = this.lc;
-			this.spnSuccessCount.TabIndex = 66;
-			// 
-			// lcItemSuccessCount
-			// 
-			this.lcItemSuccessCount.Control = this.spnSuccessCount;
-			this.lcItemSuccessCount.Location = new System.Drawing.Point(0, 487);
-			this.lcItemSuccessCount.Name = "lcItemSuccessCount";
-			this.lcItemSuccessCount.Size = new System.Drawing.Size(216, 24);
-			this.lcItemSuccessCount.TextSize = new System.Drawing.Size(110, 14);
+			this.lcItemProductImagePath.Control = this.txtProductImagePath;
+			this.lcItemProductImagePath.Location = new System.Drawing.Point(0, 281);
+			this.lcItemProductImagePath.Name = "lcItemProductImagePath";
+			this.lcItemProductImagePath.Size = new System.Drawing.Size(216, 42);
+			this.lcItemProductImagePath.TextLocation = DevExpress.Utils.Locations.Top;
+			this.lcItemProductImagePath.TextSize = new System.Drawing.Size(136, 14);
 			// 
 			// ScrapEditForm
 			// 
@@ -880,6 +906,10 @@
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemDifferentYn)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lupDifferentYn.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemErrorCount)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.spnErrorCount.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemSuccessCount)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.spnSuccessCount.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.progSites.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.progBrands.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupEditBase)).EndInit();
@@ -912,10 +942,8 @@
 			((System.ComponentModel.ISupportInitialize)(this.lcItemProgList)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcTabGroupBrand)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.spnErrorCount.Properties)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemErrorCount)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.spnSuccessCount.Properties)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemSuccessCount)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtProductImagePath.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemProductImagePath)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -981,5 +1009,7 @@
 		private DevExpress.XtraEditors.SpinEdit spnErrorCount;
 		private DevExpress.XtraLayout.LayoutControlItem lcItemErrorCount;
 		private DevExpress.XtraLayout.LayoutControlItem lcItemSuccessCount;
+		private DevExpress.XtraEditors.ButtonEdit txtProductImagePath;
+		private DevExpress.XtraLayout.LayoutControlItem lcItemProductImagePath;
 	}
 }

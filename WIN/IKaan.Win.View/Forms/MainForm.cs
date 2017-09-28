@@ -1036,6 +1036,7 @@ namespace IKaan.Win.View.Forms
 
 				form.Name = formName;
 				form.Text = data.MenuName;
+				form.MenuPath = (data.MenuPath.IsNullOrEmpty()) ? data.MenuName : data.MenuPath;
 				form.Padding = new Padding(2);
 				form.MenuId = data.MenuID;
 				form.TabImage = MenuResource.Window_16x16;

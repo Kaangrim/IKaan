@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using DevExpress.Utils;
+using DevExpress.XtraEditors.Controls;
 using DevExpress.XtraLayout;
 using HtmlAgilityPack;
 using IKaan.Base.Map;
@@ -16,6 +17,7 @@ using IKaan.Win.Core.Controls.Grid;
 using IKaan.Win.Core.Forms;
 using IKaan.Win.Core.Model;
 using IKaan.Win.Core.Utils;
+using IKaan.Win.Core.Variables;
 using IKaan.Win.Core.Was.Handler;
 
 namespace IKaan.Win.View.Scrap.Common
@@ -55,6 +57,24 @@ namespace IKaan.Win.View.Scrap.Common
 			};
 			btnStop.Click += (object sender, EventArgs e) => { StopScrap(); };
 			btnDiffrenctSelect.Click += (object sender, EventArgs e) => { DifferentSelect(); };
+
+			txtProductImagePath.ButtonClick += (object sender, ButtonPressedEventArgs e) =>
+			{
+				string path = string.Empty;
+				using (var browser = new FolderBrowserDialog())
+				{
+					if (browser.ShowDialog() == DialogResult.OK)
+					{
+						path = browser.SelectedPath;
+					}
+				}
+				if (path.IsNullOrEmpty() == false)
+				{
+					txtProductImagePath.EditValue = path;
+					RegistryUtils.SetValue(ConstsVar.REGISTRY_FILE_PATH, "ProductImage", path);
+					GlobalVar.ScrapInfo.ProductFilePath = path;
+				}
+			};
 		}
 
 		protected override void OnShown(EventArgs e)
@@ -95,6 +115,8 @@ namespace IKaan.Win.View.Scrap.Common
 
 				chkErrorHide.Checked = true;
 				chkImageView.Checked = false;
+
+				txtProductImagePath.EditValue = GlobalVar.ScrapInfo.ProductFilePath;
 
 				InitGrid();
 

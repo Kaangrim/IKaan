@@ -1056,7 +1056,7 @@
 		<select id="SelectCodeHelpSmapsAgency" parameterClass="DataMap" resultClass="UCodeHelp" >
 			<![CDATA[
 				SELECT	aa.ID								as ID
-					,	CONVERT(VARCHAR, aa.uid)			as Code
+					,	CONVERT(VARCHAR, aa.ID)				as Code
 					,	aa.name								as Name
 					,	aa.name								as ListName
 					,	aa.name								as DispName
@@ -1089,7 +1089,7 @@
 		<select id="SelectCodeHelpSmapsBrand" parameterClass="DataMap" resultClass="UCodeHelp" >
 			<![CDATA[
 				SELECT	aa.ID								as ID
-					,	CONVERT(VARCHAR, aa.uid)			as Code
+					,	CONVERT(VARCHAR, aa.ID)				as Code
 					,	aa.name								as Name
 					,	aa.name								as ListName
 					,	aa.name								as DispName
@@ -1129,7 +1129,7 @@
 		<select id="SelectCodeHelpSmapsLookbook" parameterClass="DataMap" resultClass="UCodeHelp" >
 			<![CDATA[
 				SELECT	aa.ID								as ID
-					,	CONVERT(VARCHAR, aa.uid)			as Code
+					,	CONVERT(VARCHAR, aa.ID)				as Code
 					,	aa.title							as Name
 					,	aa.title							as ListName
 					,	aa.title							as DispName
@@ -1176,7 +1176,7 @@
 		<select id="SelectCodeHelpSmapsCategory" parameterClass="DataMap" resultClass="UCodeHelp" >
 			<![CDATA[
 				SELECT	aa.ID								as ID
-					,	CONVERT(VARCHAR, aa.uid)			as Code
+					,	CONVERT(VARCHAR, aa.ID)				as Code
 					,	aa.name								as Name
 					,	aa.name								as ListName
 					,	aa.name								as DispName
@@ -1209,7 +1209,7 @@
 		<select id="SelectCodeHelpSmapsColor" parameterClass="DataMap" resultClass="UCodeHelp" >
 			<![CDATA[
 				SELECT	aa.ID								as ID
-					,	aa.value							as Code
+					,	CONVERT(VARCHAR, aa.ID)				as Code
 					,	aa.text								as Name
 					,	aa.text								as ListName
 					,	aa.text								as DispName
@@ -1242,7 +1242,7 @@
 		<select id="SelectCodeHelpSmapsSize" parameterClass="DataMap" resultClass="UCodeHelp" >
 			<![CDATA[
 				SELECT	aa.ID								as ID
-					,	CONVERT(VARCHAR, aa.uid)			as Code
+					,	CONVERT(VARCHAR, aa.ID)				as Code
 					,	aa.text								as Name
 					,	aa.text								as ListName
 					,	aa.text								as DispName
@@ -1283,7 +1283,7 @@
 		<select id="SelectCodeHelpSmapsUser" parameterClass="DataMap" resultClass="UCodeHelp" >
 			<![CDATA[
 				SELECT	aa.ID								as ID
-					,	CONVERT(VARCHAR, aa.uid)			as Code
+					,	CONVERT(VARCHAR, aa.ID)				as Code
 					,	aa.name								as Name
 					,	aa.name								as ListName
 					,	aa.name								as DispName

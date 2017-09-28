@@ -6,6 +6,7 @@ using IKaan.Model.Biz.Catalog;
 using IKaan.Model.Biz.Master.Brand;
 using IKaan.Model.Biz.Master.Channel;
 using IKaan.Model.Biz.Master.Common;
+using IKaan.Model.Biz.Master.Company;
 using IKaan.Model.Biz.Master.Customer;
 using IKaan.Model.Biz.Master.InfoNotice;
 using IKaan.Model.Biz.Master.Partner;
@@ -96,6 +97,24 @@ namespace IKaan.Was.Service.Services
 							break;
 						case "Store":
 							req.SetList<StoreModel>();
+							break;
+						case "Company":
+							req.SetList<CompanyModel>();
+							break;
+						case "CompanyAddress":
+							req.SetList<CompanyAddressModel>();
+							break;
+						case "CompanyBankAccount":
+							req.SetList<CompanyBankAccountModel>();
+							break;
+						case "CompanyBusiness":
+							req.SetList<CompanyBusinessModel>();
+							break;
+						case "CompanyContact":
+							req.SetList<CompanyContactModel>();
+							break;
+						case "CompanyStore":
+							req.SetList<CompanyStoreModel>();
 							break;
 					}
 				}
@@ -227,6 +246,24 @@ namespace IKaan.Was.Service.Services
 							break;
 						case "Store":
 							req.GetStore();
+							break;
+						case "Company":
+							req.GetCompany();
+							break;
+						case "CompanyAddress":
+							req.SetData<CompanyAddressModel>();
+							break;
+						case "CompanyBankAccount":
+							req.SetData<CompanyBankAccountModel>();
+							break;
+						case "CompanyBusiness":
+							req.GetCompanyBusiness();
+							break;
+						case "CompanyContact":
+							req.SetData<CompanyContactModel>();
+							break;
+						case "CompanyStore":
+							req.SetData<CompanyStoreModel>();
 							break;
 					}
 				}
@@ -365,6 +402,24 @@ namespace IKaan.Was.Service.Services
 									break;
 								case "Store":
 									req.SaveStore();
+									break;
+								case "Company":
+									req.SaveCompany();
+									break;
+								case "CompanyAddress":
+									req.SaveCompanyAddress();
+									break;
+								case "CompanyBankAccount":
+									req.SaveCompanyBankAccount();
+									break;
+								case "CompanyBusiness":
+									req.SaveCompanyBusiness();
+									break;
+								case "CompanyContact":
+									req.SaveCompanyContact();
+									break;
+								case "CompanyStore":
+									req.SaveCompanyStore();
 									break;
 							}
 						}

@@ -18,6 +18,14 @@ namespace IKaan.Was.Service.Services
 			try
 			{
 				var model = req.Data.JsonToAnyType<MenuModel>();
+
+				var path = GetParentMenuPath(model.ParentID);
+				if (path.IsNullOrEmpty() == false)
+					path = path + ">" + model.MenuName;
+				else
+					path = model.MenuName;
+				model.MenuPath = path;
+
 				if (model.ID == null)
 				{
 					model.CreatedBy = req.User.UserId;
@@ -798,6 +806,25 @@ namespace IKaan.Was.Service.Services
 			{
 				throw;
 			}
+		}
+
+		public static string GetParentMenuPath(int? parentID)
+		{
+			string path = string.Empty;
+
+			while (parentID.IsNullOrDefault() == false)
+			{
+				var menu = DaoFactory.Instance.QueryForObject<MenuModel>("SelectMenu", new DataMap() { { "ID", parentID } });
+				if (menu != null)
+				{
+					if (path.IsNullOrEmpty())
+						path = menu.MenuName;
+					else
+						path = menu.MenuName + ">" + path;
+					parentID = menu.ParentID;
+				}
+			}
+			return path;
 		}
 	}
 }

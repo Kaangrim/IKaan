@@ -7,7 +7,7 @@
 	<statements>
 		<select id="SelectSmapsUserList" parameterClass="DataMap" resultClass="SmapsUserModel" >
 			<![CDATA[
-				SELECT  ROW_NUMBER() OVER (ORDER BY AA.BrandName)	as RowNo
+				SELECT  ROW_NUMBER() OVER (ORDER BY SA.name, AA.name)	as RowNo
 					,	AA.ID
 					,	AA.CreatedOn
 					,	AA.CreatedBy
@@ -19,6 +19,7 @@
 					,	AA.uid
 					,	AA.email
 					,	AA.name
+					,	AA.utype
 					,	AA.agency_uid
 					,	AA.passwd
 					,	AA.phone1
@@ -30,14 +31,28 @@
 					,	AA.image_width
 					,	AA.image_height
 					
-					,	AA.RequestID
-					,	BB.Status
+					,	SA.name			as agency_name
+					
+					,	AA.ApiRequestID
+					,	M3.Name			as ApiType
+					,	M4.Name			as Status
 					,	BB.RequestDate
 					
 				FROM	IKScrap.dbo.TSmapsUser AA WITH (NOLOCK)
 						LEFT JOIN
-							IKScrap.dbo.TSmapsRequest BB WITH (NOLOCK)
-								ON AA.RequestID = BB.ID
+							IKScrap.dbo.TApiRequest BB WITH (NOLOCK)
+								ON AA.ApiRequestID = BB.ID
+						LEFT JOIN
+							IKScrap.dbo.TSmapsAgency SA WITH (NOLOCK)
+								ON AA.agency_uid = SA.uid
+						LEFT JOIN
+							IKBase.dbo.TCode M3 WITH (NOLOCK)
+								ON BB.ApiType = M3.Code
+									AND M3.ParentCode = 'ApiType'
+						LEFT JOIN
+							IKBase.dbo.TCode M4 WITH (NOLOCK)
+								ON BB.Status = M4.Code
+									AND M4.ParentCode = 'ApiStatus'
 				WHERE	1=1
 			]]>
 			<isNotEmpty property="AgencyUid">
@@ -76,16 +91,16 @@
 				INSERT INTO dbo.TSmapsUser
 				( 
 					CreatedOn, CreatedBy, CreatedByName,
-					RequestID,
-					uid, email, name, agency_uid, passwd, 
+					ApiRequestID,
+					uid, email, name, utype, agency_uid, passwd, 
 					phone1, phone2, phone3, introduce, rank, 
 					image, image_width, image_height
 				)
 				VALUES
 				(
 					GetDate(), #CreatedBy#, #CreatedByName#,
-					#RequestID#,
-					#uid#, #email#, #name#, #agency_uid#, #passwd#, 
+					#ApiRequestID#,
+					#uid#, #email#, #name#, #utype#, #agency_uid#, #passwd#, 
 					#phone1#, #phone2#, #phone3#, #introduce#, #rank#, 
 					#image#, #image_width#, #image_height#
 				)
@@ -103,10 +118,11 @@
 					,	UpdatedBy		= #UpdatedBy#
 					,	UpdatedByName	= #UpdatedByName#
 					
-					,	RequestID		= #RequestID#
+					,	ApiRequestID	= #ApiRequestID#
 					,	uid				= #uid#
 					,	email			= #email#
 					,	name			= #name#
+					,	utype			= #utype#
 					,	agency_uid		= #agency_uid#
 					,	passwd			= #passwd#
 					,	phone1			= #phone1#

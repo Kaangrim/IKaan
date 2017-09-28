@@ -184,6 +184,7 @@
     <Compile Include="Model\MainInfo.cs" />
     <Compile Include="Model\NavBarItem.cs" />
     <Compile Include="Model\PostalCodeModel.cs" />
+    <Compile Include="Model\ScrapInfo.cs" />
     <Compile Include="Model\SkinInfo.cs" />
     <Compile Include="Model\UserMenu.cs" />
     <Compile Include="PostalCode\SearchPostalCode.cs" />

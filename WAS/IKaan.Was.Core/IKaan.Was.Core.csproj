@@ -70,15 +70,11 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="SqlMaps\Scrap\Common\ScrapOptionSQL.xml" />
-    <EmbeddedResource Include="SqlMaps\Scrap\Mapping\ScrapSizeToSmapsSQL.xml" />
-    <EmbeddedResource Include="SqlMaps\Scrap\Mapping\ScrapColorToSmapsSQL.xml" />
-    <EmbeddedResource Include="SqlMaps\Scrap\Common\ScrapSizeSQL.xml" />
-    <EmbeddedResource Include="SqlMaps\Scrap\Common\ScrapColorSQL.xml" />
     <EmbeddedResource Include="SqlMaps\Scrap\Common\ScrapCategorySQL.xml" />
     <EmbeddedResource Include="SqlMaps\Scrap\Mapping\ScrapBrandToSmapsSQL.xml" />
     <EmbeddedResource Include="SqlMaps\Scrap\Mapping\ScrapCategoryToSmapsSQL.xml" />
     <EmbeddedResource Include="SqlMaps\Scrap\Mapping\ScrapProductToSmapsSQL.xml" />
-    <EmbeddedResource Include="SqlMaps\Scrap\Smaps\SmapsRequestSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\Scrap\Api\ApiRequestSQL.xml" />
     <EmbeddedResource Include="SqlMaps\Scrap\Smaps\SmapsUserSQL.xml" />
     <EmbeddedResource Include="SqlMaps\Scrap\Smaps\SmapsSizeSQL.xml" />
     <EmbeddedResource Include="SqlMaps\Scrap\Smaps\SmapsProductSQL.xml" />

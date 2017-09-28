@@ -7,7 +7,7 @@
 	<statements>
 		<select id="SelectSmapsBrandList" parameterClass="DataMap" resultClass="SmapsBrandModel" >
 			<![CDATA[
-				SELECT  ROW_NUMBER() OVER (ORDER BY AA.name)	as RowNo
+				SELECT  ROW_NUMBER() OVER (ORDER BY CC.name, AA.name)	as RowNo
 					,	AA.ID
 					,	AA.CreatedOn
 					,	AA.CreatedBy
@@ -26,14 +26,36 @@
 					,	AA.image_width
 					,	AA.image_height
 					
-					,	AA.RequestID
-					,	BB.Status
+					,	CC.name			as agency_name
+					,	U1.name			as manager_name
+					,	U2.name			as showroom_name
+					
+					,	AA.ApiRequestID
+					,	M3.Name			as ApiType
+					,	M4.Name			as Status
 					,	BB.RequestDate
 					
 				FROM	IKScrap.dbo.TSmapsBrand AA WITH (NOLOCK)
 						LEFT JOIN
-							IKScrap.dbo.TSmapsRequest BB WITH (NOLOCK)
-								ON AA.RequestID = BB.ID
+							IKScrap.dbo.TApiRequest BB WITH (NOLOCK)
+								ON AA.ApiRequestID = BB.ID
+						LEFT JOIN
+							IKScrap.dbo.TSmapsAgency CC WITH (NOLOCK)
+								ON AA.agency_uid = CC.uid
+						LEFT JOIN
+							IKScrap.dbo.TSmapsUser U1 WITH (NOLOCK)
+								ON AA.manager = U1.uid
+						LEFT JOIN
+							IKScrap.dbo.TSmapsUser U2 WITH (NOLOCK)
+								ON AA.showroom = U2.uid
+						LEFT JOIN
+							IKBase.dbo.TCode M3 WITH (NOLOCK)
+								ON BB.ApiType = M3.Code
+									AND M3.ParentCode = 'ApiType'
+						LEFT JOIN
+							IKBase.dbo.TCode M4 WITH (NOLOCK)
+								ON BB.Status = M4.Code
+									AND M4.ParentCode = 'ApiStatus'
 				WHERE	1=1
 			]]>
 			<isNotEmpty property="RequestID">
@@ -76,13 +98,13 @@
 				INSERT INTO dbo.TSmapsBrand
 				( 
 					CreatedOn, CreatedBy, CreatedByName,
-					RequestID,
+					ApiRequestID,
 					uid, name, manager, showroom, agency_uid, caption, image, image_width, image_height
 				)
 				VALUES
 				(
 					GetDate(), #CreatedBy#, #CreatedByName#,
-					#RequestID#,
+					#ApiRequestID#,
 					#uid#, #name#, #manager#, #showroom#, #agency_uid#, #caption#, #image#, #image_width#, #image_height#
 				)
 			]]>
@@ -99,7 +121,7 @@
 					,	UpdatedBy		= #UpdatedBy#
 					,	UpdatedByName	= #UpdatedByName#
 					
-					,	RequestID		= #RequestID#
+					,	ApiRequestID	= #ApiRequestID#
 					,	uid				= #uid#
 					,	name			= #name#
 					,	manager			= #manager#

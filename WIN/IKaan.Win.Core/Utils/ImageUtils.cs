@@ -11,7 +11,7 @@ namespace IKaan.Win.Core.Utils
 {
 	public static class ImageUtils
 	{
-		private static string localImagePath = ConstsVar.APP_PATH_GOODS;
+		private static string localImagePath = GlobalVar.ScrapInfo.ProductFilePath;
 
 		public static void Download(string url, string localpath, string filename = null)
 		{
@@ -49,7 +49,7 @@ namespace IKaan.Win.Core.Utils
 			if (localpath.IsNullOrEmpty())
 				localpath = localImagePath;
 			else
-				localpath = localImagePath + localpath + @"\";
+				localpath = localImagePath + @"\" + localpath + @"\";
 
 			string ext = url.Substring(url.LastIndexOf(".") + 1);
 

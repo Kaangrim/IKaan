@@ -45,12 +45,20 @@ namespace IKaan.Model.Scrap.Common
 		public string Option1Name { get; set; }
 
 		[DataMember]
+		[Display(Name = "옵션1값")]
+		public string Option1Value { get; set; }
+
+		[DataMember]
 		[Display(Name = "옵션2유형")]
 		public string Option2Type { get; set; }
 		
 		[DataMember]
 		[Display(Name = "옵션2명")]
 		public string Option2Name { get; set; }
+
+		[DataMember]
+		[Display(Name = "옵션2값")]
+		public string Option2Value { get; set; }
 
 		[DataMember]
 		[Display(Name = "카테고리명")]

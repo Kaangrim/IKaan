@@ -25,6 +25,7 @@
 				<isNotEmpty property="ParentCode">
 					<![CDATA[
 						AND		AA.Code = #ParentCode#
+						AND		AA.ParentCode IS NULL
 					]]>
 				</isNotEmpty>
 			</isEmpty>

@@ -33,13 +33,10 @@ namespace IKaan.Win.View.Utils
 				GlobalVar.SkinInfo.IsGridEvenAndOdd = ConstsVar.USER_GRID_EVEN_AND_ODD;
 
 				if (FontFamily.Families.Where(x => x.Name == ConstsVar.USER_FONT_NAME).Any())
-				{
 					GlobalVar.SkinInfo.UserFontName = ConstsVar.USER_FONT_NAME;
-				}
 				else
-				{
 					GlobalVar.SkinInfo.UserFontName = SystemFonts.DefaultFont.Name;
-				}
+
 				GlobalVar.SkinInfo.UserFontSize = ConstsVar.USER_FONT_SIZE;
 				AppearanceObject.DefaultFont = new Font(GlobalVar.SkinInfo.UserFontName.ToStringNullToEmpty(), (float)GlobalVar.SkinInfo.UserFontSize);
 
@@ -49,6 +46,13 @@ namespace IKaan.Win.View.Utils
 				GlobalVar.SkinInfo.IsVisibleToolbarName = true;
 				GlobalVar.SkinInfo.MainFormState = FormWindowState.Maximized;
 
+				//상품이미지 로컬 저장위치 설정
+				GlobalVar.ScrapInfo.ProductFilePath = ConstsVar.APP_PATH_PRODUCT;
+				var product_image_file_path = RegistryUtils.GetValue(ConstsVar.REGISTRY_FILE_PATH, "ProductImage");
+				if (product_image_file_path.IsNullOrEmpty())
+					RegistryUtils.SetValue(ConstsVar.REGISTRY_FILE_PATH, "ProductImage", ConstsVar.APP_PATH_PRODUCT);
+				else
+					GlobalVar.ScrapInfo.ProductFilePath = product_image_file_path;
 
 				//try
 				//{

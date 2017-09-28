@@ -357,9 +357,7 @@ namespace IKaan.Win.Core.Controls.Grid
 			}
 
 			if (column.RepositoryItem != null)
-			{
 				gridColumn.ColumnEdit = column.RepositoryItem;
-			}
 
 			if ((column.IsSummary) &&
 				(
@@ -368,13 +366,14 @@ namespace IKaan.Win.Core.Controls.Grid
 					MainView.GetType() == typeof(AdvBandedGridView)
 				))
 			{
-				gridColumn.SummaryItem.SummaryType = column.SummaryItemType;
 				gridColumn.SummaryItem.FieldName = column.FieldName;
+				gridColumn.SummaryItem.SummaryType = column.SummaryItemType;				
 
-				if (!string.IsNullOrEmpty(column.FormatString))
-				{
-					gridColumn.SummaryItem.DisplayFormat = string.Format("{{0:{0}}}", column.FormatString);
-				}
+				if (column.SummaryFormatString.IsNullOrEmpty())
+					column.SummaryFormatString = column.FormatString;
+
+				if (column.SummaryFormatString.IsNullOrEmpty() == false)
+					gridColumn.SummaryItem.DisplayFormat = string.Format("{{0:{0}}}", column.SummaryFormatString);
 
 				if (column.IsSummaryGroup)
 				{
@@ -386,12 +385,10 @@ namespace IKaan.Win.Core.Controls.Grid
 						SummaryType = column.SummaryItemType
 					};
 
-					if (!string.IsNullOrEmpty(column.FormatString))
-					{
-						item.DisplayFormat = string.Format("{{0:{0}}}", column.FormatString);
-					}
-					GroupSummaryAdd(item);
+					if (column.SummaryFormatString.IsNullOrEmpty() == false)
+						item.DisplayFormat = string.Format("{{0:{0}}}", column.SummaryFormatString);
 
+					GroupSummaryAdd(item);
 					gridColumn.OptionsColumn.AllowGroup = DefaultBoolean.True;
 				}
 			}

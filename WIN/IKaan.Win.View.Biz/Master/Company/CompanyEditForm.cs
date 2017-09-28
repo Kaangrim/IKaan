@@ -26,10 +26,10 @@ namespace IKaan.Win.View.Biz.Master.Company
 			{
 				if (lcTab.SelectedTabPage.Name == lcGroupAddress.Name)
 					ShowAddressEditForm(null);
-				else if (lcTab.SelectedTabPage.Name == lcGroupBank.Name)
+				else if (lcTab.SelectedTabPage.Name == lcGroupBankAccount.Name)
 					ShowBankEditForm(null);
 				else if (lcTab.SelectedTabPage.Name == lcGroupContact.Name)
-					ShowBrandEditForm(null);
+					ShowContactEditForm(null);
 				else if (lcTab.SelectedTabPage.Name == lcGroupStore.Name)
 					ShowChannelEditForm(null);
 				else if (lcTab.SelectedTabPage.Name == lcGroupBusiness.Name)
@@ -72,7 +72,7 @@ namespace IKaan.Win.View.Biz.Master.Company
 					ShowErrBox(ex);
 				}
 			};
-			gridBank.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
+			gridBankAccount.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
 			{
 				if (e.RowHandle < 0)
 					return;
@@ -100,7 +100,7 @@ namespace IKaan.Win.View.Biz.Master.Company
 					if (e.Button == MouseButtons.Left && e.Clicks == 2)
 					{
 						GridView view = sender as GridView;
-						ShowBrandEditForm(view.GetRowCellValue(e.RowHandle, "ID"));
+						ShowContactEditForm(view.GetRowCellValue(e.RowHandle, "ID"));
 					}
 				}
 				catch (Exception ex)
@@ -148,6 +148,12 @@ namespace IKaan.Win.View.Biz.Master.Company
 			SetFieldNames();
 
 			lcItemName.SetFieldName("CompanyName");
+
+			lcGroupAddress.Text = DomainUtils.GetFieldName("Address");
+			lcGroupBankAccount.Text = DomainUtils.GetFieldName("BankAccount");
+			lcGroupBusiness.Text = DomainUtils.GetFieldName("Business");
+			lcGroupContact.Text = DomainUtils.GetFieldName("Contact");
+			lcGroupStore.Text = DomainUtils.GetFieldName("Store");
 
 			txtID.SetEnable(false);
 			txtCreatedOn.SetEnable(false);
@@ -237,8 +243,8 @@ namespace IKaan.Win.View.Biz.Master.Company
 			#endregion
 
 			#region Bank List
-			gridBank.Init();
-			gridBank.AddGridColumns(
+			gridBankAccount.Init();
+			gridBankAccount.AddGridColumns(
 				new XGridColumn() { FieldName = "RowNo" },
 				new XGridColumn() { FieldName = "Modified", Visible = false },
 				new XGridColumn() { FieldName = "ID", Visible = false },
@@ -251,7 +257,7 @@ namespace IKaan.Win.View.Biz.Master.Company
 				new XGridColumn() { FieldName = "UpdatedOn" },
 				new XGridColumn() { FieldName = "UpdatedByName" }
 			);
-			gridBank.ColumnFix("RowNo");
+			gridBankAccount.ColumnFix("RowNo");
 			#endregion
 
 			#region Contact List
@@ -313,7 +319,7 @@ namespace IKaan.Win.View.Biz.Master.Company
 					model.Stores = new List<CompanyStoreModel>();
 
 				gridAddress.DataSource = model.Addresses;
-				gridBank.DataSource = model.BankAccounts;
+				gridBankAccount.DataSource = model.BankAccounts;
 				gridContact.DataSource = model.Contacts;
 				gridBusiness.DataSource = model.Businesses;
 				gridStore.DataSource = model.Stores;
@@ -377,24 +383,22 @@ namespace IKaan.Win.View.Biz.Master.Company
 				if (txtID.EditValue.IsNullOrEmpty())
 					return;
 
-				//using (CompanyAddressEditForm form = new CompanyAddressEditForm()
-				//{
-				//	Text = "주소등록",
-				//	StartPosition = FormStartPosition.CenterScreen,
-				//	IsLoadingRefresh = true,
-				//	ParamsData = new DataMap()
-				//	{
-				//		{ "CompanyID", txtID.EditValue },
-				//		{ "CompanyName", txtName.EditValue },
-				//		{ "ID", id }
-				//	}
-				//})
-				//{
-				//	if (form.ShowDialog() == DialogResult.OK)
-				//	{
-				//		DetailDataLoad(txtID.EditValue);
-				//	}
-				//}
+				using (var form = new CompanyAddressEditForm()
+				{
+					Text = "주소등록",
+					StartPosition = FormStartPosition.CenterScreen,
+					IsLoadingRefresh = true,
+					ParamsData = new DataMap()
+					{
+						{ "CompanyID", txtID.EditValue },
+						{ "CompanyName", txtName.EditValue },
+						{ "ID", id }
+					}
+				})
+				{
+					if (form.ShowDialog() == DialogResult.OK)
+						DataLoad(txtID.EditValue);
+				}
 			}
 			catch (Exception ex)
 			{
@@ -408,24 +412,22 @@ namespace IKaan.Win.View.Biz.Master.Company
 				if (txtID.EditValue.IsNullOrEmpty())
 					return;
 
-				//using (CompanyBusinessEditForm form = new CompanyBusinessEditForm()
-				//{
-				//	Text = "사업자정보등록",
-				//	StartPosition = FormStartPosition.CenterScreen,
-				//	IsLoadingRefresh = true,
-				//	ParamsData = new DataMap()
-				//{
-				//	{ "CompanyID", txtID.EditValue },
-				//	{ "CompanyName", txtName.EditValue },
-				//	{ "ID", id }
-				//}
-				//})
-				//{
-				//	if (form.ShowDialog() == DialogResult.OK)
-				//	{
-				//		DetailDataLoad(txtID.EditValue);
-				//	}
-				//}
+				using (var form = new CompanyBusinessEditForm()
+				{
+					Text = "사업자정보등록",
+					StartPosition = FormStartPosition.CenterScreen,
+					IsLoadingRefresh = true,
+					ParamsData = new DataMap()
+				{
+					{ "CompanyID", txtID.EditValue },
+					{ "CompanyName", txtName.EditValue },
+					{ "ID", id }
+				}
+				})
+				{
+					if (form.ShowDialog() == DialogResult.OK)
+						DataLoad(txtID.EditValue);
+				}
 			}
 			catch (Exception ex)
 			{
@@ -436,58 +438,54 @@ namespace IKaan.Win.View.Biz.Master.Company
 		{
 			try
 			{
-				//if (txtID.EditValue.IsNullOrEmpty())
-				//	return;
+				if (txtID.EditValue.IsNullOrEmpty())
+					return;
 
-				//using (CompanyBankEditForm form = new CompanyBankEditForm()
-				//{
-				//	Text = "계좌정보등록",
-				//	StartPosition = FormStartPosition.CenterScreen,
-				//	IsLoadingRefresh = true,
-				//	ParamsData = new DataMap()
-				//	{
-				//		{ "CompanyID", txtID.EditValue },
-				//		{ "CompanyName", txtName.EditValue },
-				//		{ "ID", id }
-				//	}
-				//})
-				//{
-				//	if (form.ShowDialog() == DialogResult.OK)
-				//	{
-				//		DetailDataLoad(txtID.EditValue);
-				//	}
-				//}
+				using (var form = new CompanyBankAccountEditForm()
+				{
+					Text = "계좌정보등록",
+					StartPosition = FormStartPosition.CenterScreen,
+					IsLoadingRefresh = true,
+					ParamsData = new DataMap()
+					{
+						{ "CompanyID", txtID.EditValue },
+						{ "CompanyName", txtName.EditValue },
+						{ "ID", id }
+					}
+				})
+				{
+					if (form.ShowDialog() == DialogResult.OK)
+						DataLoad(txtID.EditValue);
+				}
 			}
 			catch (Exception ex)
 			{
 				ShowErrBox(ex);
 			}
 		}
-		void ShowBrandEditForm(object id)
+		void ShowContactEditForm(object id)
 		{
 			try
 			{
 				if (txtID.EditValue.IsNullOrEmpty())
 					return;
 
-				//using (CompanyBrandEditForm form = new CompanyBrandEditForm()
-				//{
-				//	Text = "브랜드등록",
-				//	StartPosition = FormStartPosition.CenterScreen,
-				//	IsLoadingRefresh = true,
-				//	ParamsData = new DataMap()
-				//	{
-				//		{ "CompanyID", txtID.EditValue },
-				//		{ "CompanyName", txtName.EditValue },
-				//		{ "ID", id }
-				//	}
-				//})
-				//{
-				//	if (form.ShowDialog() == DialogResult.OK)
-				//	{
-				//		DetailDataLoad(txtID.EditValue);
-				//	}
-				//}
+				using (var form = new CompanyContactEditForm()
+				{
+					Text = "담당자등록",
+					StartPosition = FormStartPosition.CenterScreen,
+					IsLoadingRefresh = true,
+					ParamsData = new DataMap()
+					{
+						{ "CompanyID", txtID.EditValue },
+						{ "CompanyName", txtName.EditValue },
+						{ "ID", id }
+					}
+				})
+				{
+					if (form.ShowDialog() == DialogResult.OK)
+						DataLoad(txtID.EditValue);
+				}
 			}
 			catch (Exception ex)
 			{
