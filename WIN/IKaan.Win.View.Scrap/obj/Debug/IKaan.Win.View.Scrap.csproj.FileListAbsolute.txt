@@ -195,3 +195,4 @@ D:\Repositories\IKaan\WIN\IKaan.Win.View.Scrap\obj\Debug\IKaan.Win.View.Scrap.Co
 D:\Repositories\IKaan\WIN\IKaan.Win.View.Scrap\obj\Debug\IKaan.Win.View.Scrap.Common.ScrapBrandEditForm.resources
 D:\Repositories\IKaan\WIN\IKaan.Win.View.Scrap\obj\Debug\IKaan.Win.View.Scrap.Common.ScrapProductEditForm.resources
 D:\Repositories\IKaan\WIN\IKaan.Win.View.Scrap\obj\Debug\IKaan.Win.View.Scrap.Common.ScrapOptionEditForm.resources
+D:\Repositories\IKaan\WIN\IKaan.Win.View.Scrap\obj\Debug\IKaan.Win.View.Scrap.Common.ScrapProductViewForm.resources

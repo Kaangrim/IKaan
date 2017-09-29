@@ -609,6 +609,7 @@ namespace IKaan.Win.View.Scrap.Smaps
 				new XGridColumn() { FieldName = "UpdatedByName" }
 			);
 			gridInterfaceProduct.ColumnFix("RowNo");
+			gridInterfaceProduct.ColumnFix("Checked");
 			gridInterfaceProduct.SetRepositoryItemCheckEdit("product_unset_price");
 			gridInterfaceProduct.SetRepositoryItemCheckEdit("Checked");
 			gridInterfaceProduct.SetEditable("Checked");

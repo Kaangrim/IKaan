@@ -64,6 +64,7 @@ namespace IKaan.Win.View.Scrap.Common
 			spnSalePrice.SetFormat("N0", false, HorzAlignment.Far);
 
 			InitGrid();
+
 		}
 
 		private void InitGrid()
@@ -100,7 +101,7 @@ namespace IKaan.Win.View.Scrap.Common
 					if (e.Button == MouseButtons.Left && e.Clicks == 1)
 					{
 						GridView view = sender as GridView;
-						picImage.EditValue = ConstsVar.IMG_URL + view.GetRowCellValue(e.RowHandle, "Url").ToStringNullToEmpty();
+						picImage.LoadAsync(view.GetRowCellValue(e.RowHandle, "Url").ToStringNullToEmpty());
 					}
 				}
 				catch (Exception ex)
@@ -137,6 +138,19 @@ namespace IKaan.Win.View.Scrap.Common
 					if (model.Images != null && model.Images.Count > 0)
 						picImage.LoadAsync(model.Images[0].Url);
 				}
+
+				//var web = new ScrapProductViewForm
+				//{
+				//	Text = lupSiteID.Text + " 상세페이지 보기",
+				//	IsLoadingRefresh = true,
+				//	ParamsData = lupSiteID.GetValue(1).ToStringNullToEmpty() + model.Url
+				//};				
+				//web.Show();
+				//web.Location = new System.Drawing.Point()
+				//{
+				//	X = this.Left + this.Width,
+				//	Y = this.Top
+				//};
 
 				SetToolbarButtons(new ToolbarButtons() { New = true, Save = true, SaveAndClose = true, SaveAndNew = true, Delete = true });
 				this.EditMode = EditModeEnum.Modify;

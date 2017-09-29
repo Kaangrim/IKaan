@@ -54,6 +54,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\ScrapProductViewForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Common\ScrapProductViewForm.designer.cs">
+      <DependentUpon>ScrapProductViewForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Common\ScrapProductEditForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -111,6 +117,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Common\ScrapProductViewForm.resx">
+      <DependentUpon>ScrapProductViewForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Common\ScrapProductEditForm.resx">
       <DependentUpon>ScrapProductEditForm.cs</DependentUpon>
     </EmbeddedResource>
