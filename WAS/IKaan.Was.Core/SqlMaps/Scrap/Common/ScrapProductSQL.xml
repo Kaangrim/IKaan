@@ -25,10 +25,8 @@
 					,	AA.SalePrice
 					,	AA.Option1Type
 					,	AA.Option1Name
-					,	AA.Option1Value
 					,	AA.Option2Type
 					,	AA.Option2Name
-					,	AA.Option2Value
 					,	AA.CategoryName
 					,	AA.CategoryID
 					,	AA.Gender
@@ -78,8 +76,8 @@
 					CreatedOn, CreatedBy, CreatedByName,
 					SiteID, BrandCode, 
 					Code, Name, Url, ListPrice, SalePrice, 
-					Option1Type, Option1Name, Option1Value,
-					Option2Type, Option2Name, Option2Value,
+					Option1Type, Option1Name,
+					Option2Type, Option2Name,
 					CategoryName, CategoryID, Gender,
 					Description
 				)
@@ -88,8 +86,8 @@
 					GetDate(), #CreatedBy#, #CreatedByName#,
 					#SiteID#, #BrandCode#, 
 					#Code#, #Name#, #Url#, #ListPrice#, #SalePrice#, 
-					#Option1Type#, #Option1Name#, #Option1Value#,
-					#Option2Type#, #Option2Name#, #Option2Value#,
+					#Option1Type#, #Option1Name#,
+					#Option2Type#, #Option2Name#,
 					#CategoryName#, #CategoryID#, #Gender#,
 					#Description#
 				)
@@ -116,10 +114,8 @@
 					,	SalePrice		= #SalePrice#
 					,	Option1Type		= #Option1Type#
 					,	Option1Name		= #Option1Name#
-					,	Option1Value	= #Option1Value#
 					,	Option2Type		= #Option2Type#
 					,	Option2Name		= #Option2Name#
-					,	Option2Value	= #Option2Value#
 					,	CategoryName	= #CategoryName#
 					,	CategoryID		= #CategoryID#
 					,	Gender			= #Gender#

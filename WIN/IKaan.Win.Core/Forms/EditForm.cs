@@ -997,84 +997,99 @@ namespace IKaan.Win.Core.Forms
 
 		public void SetControlData<T>(T data)
 		{
-			var entityType = typeof(T);
-			var properties = TypeDescriptor.GetProperties(entityType);
-
-			foreach (PropertyDescriptor prop in properties)
+			try
 			{
-				var value = prop.GetValue(data);
-				var item = lc.Items.OfType<LayoutControlItem>().Where
-					(x =>
-						x.Name.StartsWith("lcItem") &&
-						x.Control != null &&
-						x.Control.Name.Remove(0, 3).Equals(prop.Name) &&
-						(
-							x.Parent == null ||
-							(
-								x.Parent != null && x.Parent.Name != "lcGroupSearch"
-							)
-						)
-					).FirstOrDefault();
+				var entityType = typeof(T);
+				var properties = TypeDescriptor.GetProperties(entityType);
 
-				if (item != null)
+				foreach (PropertyDescriptor prop in properties)
 				{
-					if (item.Control.GetType() == typeof(TextEdit))
+					var value = prop.GetValue(data);
+
+					try
 					{
-						(item.Control as TextEdit).EditValue = value;
-					}
-					else if (item.Control.GetType() == typeof(MemoEdit))
-					{
-						(item.Control as MemoEdit).EditValue = value;
-					}
-					else if (item.Control.GetType() == typeof(XLookup))
-					{
-						(item.Control as XLookup).EditValue = (value.ToStringNullToEmpty().IsNullOrEmpty()) ? null : value.ToStringNullToEmpty();
-					}
-					else if (item.Control.GetType() == typeof(SpinEdit))
-					{
-						(item.Control as SpinEdit).EditValue = value;
-					}
-					else if (item.Control.GetType() == typeof(XSearch))
-					{
-						(item.Control as XSearch).EditValue = value;
-						PropertyInfo nameProp = data.GetType().GetProperty(string.Concat(prop.Name, "Name"));
-						if (nameProp != null)
+						var item = lc.Items.OfType<LayoutControlItem>().Where
+							(x =>
+								x.Name.StartsWith("lcItem") &&
+								x.Control != null &&
+								x.Control.Name.Remove(0, 3).Equals(prop.Name) &&
+								(
+									x.Parent == null ||
+									(
+										x.Parent != null && x.Parent.Name != "lcGroupSearch"
+									)
+								)
+							).FirstOrDefault();
+
+						if (item != null)
 						{
-							object nameValue = nameProp.GetValue(data, null);
-							(item.Control as XSearch).EditText = nameValue.ToStringNullToEmpty();
-						}
-					}
-					else if (item.Control.GetType() == typeof(DateEdit))
-					{
-						if (prop.PropertyType == typeof(DateTime) ||
-							prop.PropertyType == typeof(DateTime?))
-						{
-							(item.Control as DateEdit).EditValue = value;
-						}
-						else if (prop.PropertyType == typeof(string))
-						{
-							if (value.ToStringNullToEmpty().Length == 6)
+							if (item.Control.GetType() == typeof(TextEdit))
 							{
-								(item.Control as DateEdit).SetDateChar6(value);
+								(item.Control as TextEdit).EditValue = value;
 							}
-							else
+							else if (item.Control.GetType() == typeof(MemoEdit))
 							{
-								(item.Control as DateEdit).SetDateChar8(value);
+								(item.Control as MemoEdit).EditValue = value;
+							}
+							else if (item.Control.GetType() == typeof(XLookup))
+							{
+								(item.Control as XLookup).EditValue = (value.ToStringNullToEmpty().IsNullOrEmpty()) ? null : value.ToStringNullToEmpty();
+							}
+							else if (item.Control.GetType() == typeof(SpinEdit))
+							{
+								(item.Control as SpinEdit).EditValue = value;
+							}
+							else if (item.Control.GetType() == typeof(XSearch))
+							{
+								(item.Control as XSearch).EditValue = value;
+								PropertyInfo nameProp = data.GetType().GetProperty(string.Concat(prop.Name, "Name"));
+								if (nameProp != null)
+								{
+									object nameValue = nameProp.GetValue(data, null);
+									(item.Control as XSearch).EditText = nameValue.ToStringNullToEmpty();
+								}
+							}
+							else if (item.Control.GetType() == typeof(DateEdit))
+							{
+								if (prop.PropertyType == typeof(DateTime) ||
+									prop.PropertyType == typeof(DateTime?))
+								{
+									(item.Control as DateEdit).EditValue = value;
+								}
+								else if (prop.PropertyType == typeof(string))
+								{
+									if (value.ToStringNullToEmpty().Length == 6)
+									{
+										(item.Control as DateEdit).SetDateChar6(value);
+									}
+									else
+									{
+										(item.Control as DateEdit).SetDateChar8(value);
+									}
+								}
+							}
+							else if (item.Control.GetType() == typeof(ButtonEdit))
+							{
+								(item.Control as ButtonEdit).EditValue = value;
+							}
+							else if (item.Control.GetType() == typeof(CheckEdit))
+							{
+								if (value.ToStringNullToEmpty() == "Y")
+									(item.Control as CheckEdit).Checked = true;
+								else
+									(item.Control as CheckEdit).Checked = false;
 							}
 						}
 					}
-					else if (item.Control.GetType() == typeof(ButtonEdit))
+					catch
 					{
-						(item.Control as ButtonEdit).EditValue = value;
-					}
-					else if (item.Control.GetType() == typeof(CheckEdit))
-					{
-						if (value.ToStringNullToEmpty() == "Y")
-							(item.Control as CheckEdit).Checked = true;
-						else
-							(item.Control as CheckEdit).Checked = false;
+						continue;
 					}
 				}
+			}
+			catch
+			{
+				throw;
 			}
 		}
 
@@ -1086,98 +1101,105 @@ namespace IKaan.Win.Core.Forms
 
 			foreach (PropertyDescriptor prop in properties)
 			{
-				var item = lc.Items.OfType<LayoutControlItem>().Where
-					(x =>
-						x.Name.StartsWith("lcItem") &&
-						x.Control != null &&
-						x.Control.Name.Remove(0, 3).Equals(prop.Name) &&
-						(
-							x.Parent == null ||
-							(
-								x.Parent != null && x.Parent.Name != "lcGroupSearch"
-							)
-						)
-					).FirstOrDefault();
-
-				if (item != null)
+				try
 				{
-					if (item.Control.GetType() == typeof(TextEdit))
+					var item = lc.Items.OfType<LayoutControlItem>().Where
+						(x =>
+							x.Name.StartsWith("lcItem") &&
+							x.Control != null &&
+							x.Control.Name.Remove(0, 3).Equals(prop.Name) &&
+							(
+								x.Parent == null ||
+								(
+									x.Parent != null && x.Parent.Name != "lcGroupSearch"
+								)
+							)
+						).FirstOrDefault();
+
+					if (item != null)
 					{
-						if ((item.Control as TextEdit).EditValue.IsNullOrEmpty() && prop.PropertyType != typeof(string))
-							prop.SetValue(data, null);
-						else
-							prop.SetValue(data, (item.Control as TextEdit).EditValue);
-					}
-					else if (item.Control.GetType() == typeof(MemoEdit))
-					{
-						prop.SetValue(data, (item.Control as MemoEdit).EditValue);
-					}
-					else if (item.Control.GetType() == typeof(XLookup))
-					{
-						if((item.Control as XLookup).EditValue == null)
+						if (item.Control.GetType() == typeof(TextEdit))
 						{
-							prop.SetValue(data, null);
-						}
-						else
-						{
-							if (prop.PropertyType == typeof(int?) || 
-								prop.PropertyType == typeof(int))
-								prop.SetValue(data, (item.Control as XLookup).EditValue.ToIntegerNullToNull());
+							if ((item.Control as TextEdit).EditValue.IsNullOrEmpty() && prop.PropertyType != typeof(string))
+								prop.SetValue(data, null);
 							else
-								prop.SetValue(data, (item.Control as XLookup).EditValue.ToString());
+								prop.SetValue(data, (item.Control as TextEdit).EditValue);
 						}
-					}
-					else if (item.Control.GetType() == typeof(SpinEdit))
-					{
-						if (prop.PropertyType == typeof(int?) || prop.PropertyType == typeof(int))
-							prop.SetValue(data, (item.Control as SpinEdit).EditValue.ToIntegerNullToNull());
-						else
-							prop.SetValue(data, (item.Control as SpinEdit).EditValue);
-					}
-					else if (item.Control.GetType() == typeof(XSearch))
-					{
-						if ((item.Control as XSearch).EditValue.IsNullOrEmpty())
-							prop.SetValue(data, null);
-						else
+						else if (item.Control.GetType() == typeof(MemoEdit))
 						{
-							if (prop.PropertyType == typeof(int) ||
-								prop.PropertyType == typeof(int?))
-								prop.SetValue(data, (item.Control as XSearch).EditValue.ToIntegerNullToNull());
+							prop.SetValue(data, (item.Control as MemoEdit).EditValue);
+						}
+						else if (item.Control.GetType() == typeof(XLookup))
+						{
+							if ((item.Control as XLookup).EditValue == null)
+							{
+								prop.SetValue(data, null);
+							}
 							else
-								prop.SetValue(data, (item.Control as XSearch).EditValue);
+							{
+								if (prop.PropertyType == typeof(int?) ||
+									prop.PropertyType == typeof(int))
+									prop.SetValue(data, (item.Control as XLookup).EditValue.ToIntegerNullToNull());
+								else
+									prop.SetValue(data, (item.Control as XLookup).EditValue.ToString());
+							}
+						}
+						else if (item.Control.GetType() == typeof(SpinEdit))
+						{
+							if (prop.PropertyType == typeof(int?) || prop.PropertyType == typeof(int))
+								prop.SetValue(data, (item.Control as SpinEdit).EditValue.ToIntegerNullToNull());
+							else
+								prop.SetValue(data, (item.Control as SpinEdit).EditValue);
+						}
+						else if (item.Control.GetType() == typeof(XSearch))
+						{
+							if ((item.Control as XSearch).EditValue.IsNullOrEmpty())
+								prop.SetValue(data, null);
+							else
+							{
+								if (prop.PropertyType == typeof(int) ||
+									prop.PropertyType == typeof(int?))
+									prop.SetValue(data, (item.Control as XSearch).EditValue.ToIntegerNullToNull());
+								else
+									prop.SetValue(data, (item.Control as XSearch).EditValue);
+							}
+						}
+						else if (item.Control.GetType() == typeof(DateEdit))
+						{
+							if ((item.Control as DateEdit).EditValue == null)
+							{
+								prop.SetValue(data, null);
+							}
+							else if (prop.Name.EndsWith("Year"))
+							{
+								prop.SetValue(data, (item.Control as DateEdit).GetDateChar4());
+							}
+							else if (prop.Name.EndsWith("Ym") || prop.Name.EndsWith("Mon") || prop.Name.EndsWith("Month"))
+							{
+								prop.SetValue(data, (item.Control as DateEdit).GetDateChar6());
+							}
+							else
+							{
+								if (prop.PropertyType == typeof(DateTime?) ||
+									prop.PropertyType == typeof(DateTime))
+									prop.SetValue(data, (item.Control as DateEdit).EditValue);
+								else if (prop.PropertyType == typeof(string))
+									prop.SetValue(data, (item.Control as DateEdit).GetDateChar8());
+							}
+						}
+						else if (item.Control.GetType() == typeof(ButtonEdit))
+						{
+							prop.SetValue(data, (item.Control as ButtonEdit).EditValue);
+						}
+						else if (item.Control.GetType() == typeof(CheckEdit))
+						{
+							prop.SetValue(data, ((item.Control as CheckEdit).Checked) ? "Y" : "N");
 						}
 					}
-					else if (item.Control.GetType() == typeof(DateEdit))
-					{
-						if((item.Control as DateEdit).EditValue == null)
-						{
-							prop.SetValue(data, null);
-						}
-						else if (prop.Name.EndsWith("Year"))
-						{
-							prop.SetValue(data, (item.Control as DateEdit).GetDateChar4());
-						}
-						else if (prop.Name.EndsWith("Ym") || prop.Name.EndsWith("Mon") || prop.Name.EndsWith("Month"))
-						{
-							prop.SetValue(data, (item.Control as DateEdit).GetDateChar6());
-						}
-						else
-						{
-							if (prop.PropertyType == typeof(DateTime?) || 
-								prop.PropertyType == typeof(DateTime))
-								prop.SetValue(data, (item.Control as DateEdit).EditValue);
-							else if (prop.PropertyType == typeof(string))
-								prop.SetValue(data, (item.Control as DateEdit).GetDateChar8());
-						}
-					}
-					else if (item.Control.GetType() == typeof(ButtonEdit))
-					{
-						prop.SetValue(data, (item.Control as ButtonEdit).EditValue);
-					}
-					else if (item.Control.GetType() == typeof(CheckEdit))
-					{
-						prop.SetValue(data, ((item.Control as CheckEdit).Checked) ? "Y" : "N");
-					}
+				}
+				catch
+				{
+					continue;
 				}
 			}
 			return data;

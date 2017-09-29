@@ -631,6 +631,7 @@ namespace IKaan.Win.View.Scrap.Common
 										string itemCd = string.Empty;
 										string imageUrl = string.Empty;
 										string category = string.Empty;
+										string saleprice = string.Empty;
 
 										#region 카테고리
 										var catLinks = doc.DocumentNode.SelectNodes("//div[@class='pdt']//ul[@class='location']//li");
@@ -656,8 +657,9 @@ namespace IKaan.Win.View.Scrap.Common
 										#endregion
 
 										#region 상품 이미지 경로 및 이미지 저장
-										IList<ScrapProductImageModel> images1 = GetProductImages(doc, siteUrl, product, "M", "//div[@class='img_goods']", ".//img[@id='img_01']");
-										IList<ScrapProductImageModel> images2 = GetProductImages(doc, siteUrl, product, "D", "//div[@class='marketing']", ".//img[@class='txc-image']");
+										var images1 = GetProductImages(doc, siteUrl, product, "M", "//div[@class='img_goods']", ".//img[@id='img_01']");
+										var images2 = GetProductImages(doc, siteUrl, product, "D", "//div[@class='marketing']", ".//img[@class='txc-image']");
+										
 										if (images1 != null && images1.Count > 0)
 										{
 											foreach (var image in images1)
@@ -667,6 +669,15 @@ namespace IKaan.Win.View.Scrap.Common
 										{
 											foreach (var image in images2)
 												images.Add(image);
+										}
+										else
+										{
+											var images3 = GetProductImages(doc, siteUrl, product, "D", "//div[@class='marketing']", ".//img");
+											if (images3 != null && images3.Count > 0)
+											{
+												foreach (var image in images2)
+													images.Add(image);
+											}
 										}
 										if (images != null && images.Count > 0)
 											product.Images = images;
@@ -688,8 +699,14 @@ namespace IKaan.Win.View.Scrap.Common
 													ca = valueAttribute.Value;
 												else if (node.Name == "itemcd")
 													itemCd = valueAttribute.Value;
+												else if (node.Name == "saleprice")
+													saleprice = valueAttribute.Value;
 											}
 										}
+
+										if (saleprice.IsNullOrEmpty() == false)
+											product.SalePrice = saleprice.ToDecimalNullToZero();
+
 										#endregion
 
 										#region 옵션 가져오기
@@ -724,6 +741,7 @@ namespace IKaan.Win.View.Scrap.Common
 										#endregion
 									}
 
+									#region Save
 									try
 									{
 										using (var res = WasHandler.Execute<ScrapProductModel>("Scrap", "Save", "SaveScrapProduct", product, "ID"))
@@ -750,6 +768,7 @@ namespace IKaan.Win.View.Scrap.Common
 										else
 											memProductInfo.EditValue = ex.Message;
 									}
+									#endregion
 
 									Application.DoEvents();
 								}

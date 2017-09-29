@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
 using DevExpress.Data;
 using DevExpress.Utils;
 using DevExpress.XtraGrid.Views.Grid;
 using IKaan.Base.Map;
+using IKaan.Base.Utils;
 using IKaan.Model.Scrap.Common;
 using IKaan.Win.Core.Controls.Grid;
 using IKaan.Win.Core.Forms;
@@ -201,10 +203,8 @@ namespace IKaan.Win.View.Scrap.Common
 				new XGridColumn() { FieldName = "Gender", Width = 100 },
 				new XGridColumn() { FieldName = "Option1Type", Width = 100 },
 				new XGridColumn() { FieldName = "Option1Name", Width = 200 },
-				new XGridColumn() { FieldName = "Option1Value", Width = 200 },
 				new XGridColumn() { FieldName = "Option2Type", Width = 100 },
 				new XGridColumn() { FieldName = "Option2Name", Width = 200 },
-				new XGridColumn() { FieldName = "Option2Value", Width = 200 },
 				new XGridColumn() { FieldName = "Description", Width = 200 },
 				new XGridColumn() { FieldName = "Url", Width = 200 },
 				new XGridColumn() { FieldName = "CreatedOn" },
@@ -227,7 +227,16 @@ namespace IKaan.Win.View.Scrap.Common
 					if (e.Button == MouseButtons.Left && e.Clicks == 2)
 					{
 						GridView view = sender as GridView;
-						ShowEdit(view.GetRowCellValue(e.RowHandle, "ID"));
+						if (e.Column.FieldName == "Url")
+						{
+							var url = lupSite.GetValue(1).ToStringNullToEmpty();
+							url = url + view.GetRowCellValue(e.RowHandle, "Url").ToStringNullToEmpty();
+							Process.Start(url);
+						}
+						else
+						{
+							ShowEdit(view.GetRowCellValue(e.RowHandle, "ID"));
+						}
 					}
 				}
 				catch (Exception ex)
@@ -272,7 +281,7 @@ namespace IKaan.Win.View.Scrap.Common
 					gridProducts.BindList<ScrapProductModel>("Scrap", "GetList", "Select", new DataMap()
 					{
 						{ "SiteID", lupSite.EditValue },
-						{ "BrandID", lupBrand.EditValue },
+						{ "BrandCode", lupBrand.EditValue },
 						{ "CategoryID", lupCategory.EditValue },
 						{ "FindText", txtFindText.EditValue }
 					});

@@ -4,12 +4,14 @@ using System.Windows.Forms;
 using DevExpress.Utils;
 using DevExpress.XtraGrid.Views.Grid;
 using IKaan.Base.Map;
+using IKaan.Base.Utils;
 using IKaan.Model.Scrap.Common;
 using IKaan.Win.Core.Controls.Grid;
 using IKaan.Win.Core.Enum;
 using IKaan.Win.Core.Forms;
 using IKaan.Win.Core.Model;
 using IKaan.Win.Core.Utils;
+using IKaan.Win.Core.Variables;
 using IKaan.Win.Core.Was.Handler;
 
 namespace IKaan.Win.View.Scrap.Common
@@ -95,10 +97,10 @@ namespace IKaan.Win.View.Scrap.Common
 
 				try
 				{
-					if (e.Button == MouseButtons.Left && e.Clicks == 2)
+					if (e.Button == MouseButtons.Left && e.Clicks == 1)
 					{
 						GridView view = sender as GridView;
-						ShowEdit(view.GetRowCellValue(e.RowHandle, "ID"));
+						picImage.EditValue = ConstsVar.IMG_URL + view.GetRowCellValue(e.RowHandle, "Url").ToStringNullToEmpty();
 					}
 				}
 				catch (Exception ex)
@@ -113,6 +115,7 @@ namespace IKaan.Win.View.Scrap.Common
 		{
 			ClearControlData<ScrapProductModel>();
 			gridImages.Clear<ScrapProductImageModel>();
+			picImage.EditValue = null;
 
 			SetToolbarButtons(new ToolbarButtons() { New = true, Save = true, SaveAndClose = true, SaveAndNew = true });
 			EditMode = EditModeEnum.New;
@@ -131,7 +134,10 @@ namespace IKaan.Win.View.Scrap.Common
 				if (model.Images != null)
 				{
 					gridImages.DataSource = model.Images;
+					if (model.Images != null && model.Images.Count > 0)
+						picImage.LoadAsync(model.Images[0].Url);
 				}
+
 				SetToolbarButtons(new ToolbarButtons() { New = true, Save = true, SaveAndClose = true, SaveAndNew = true, Delete = true });
 				this.EditMode = EditModeEnum.Modify;
 				txtCode.Focus();

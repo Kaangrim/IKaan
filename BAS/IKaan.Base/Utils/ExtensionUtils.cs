@@ -39,6 +39,16 @@ namespace IKaan.Base.Utils
 			}
 			return obj.ToString().ToDateTime(format);
 		}
+
+		public static string ToDateTimeString(this DateTime? dt, string format = "yyyy-MM-dd")
+		{
+			if (dt == null)
+				return null;
+			else if (dt.GetType() != typeof(DateTime) && dt.GetType() != typeof(DateTime?))
+				return null;
+			else
+				return Convert.ToDateTime(dt).ToString(format);
+		}
 		#endregion
 
 		#region String to Lower

@@ -78,7 +78,7 @@ namespace IKaan.Model.Scrap.Smaps
 
 		[DataMember]
 		[Display(Name = "입고일")]
-		public List<DateTime> option_add_date { get; set; }
+		public List<DateTime?> option_add_date { get; set; }
 
 		[DataMember]
 		[Display(Name = "이미지경로")]

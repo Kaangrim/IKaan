@@ -839,6 +839,8 @@ namespace IKaan.Win.View.Scrap.Smaps
 		{
 			try
 			{
+				SplashUtils.ShowWait();
+
 				if (lcTab.SelectedTabPage.Name == lcTabGroupInterface.Name)
 				{
 					if (lcTabInterface.SelectedTabPage.Name == lcGroupInterfaceAgency.Name)
@@ -946,9 +948,11 @@ namespace IKaan.Win.View.Scrap.Smaps
 						SetRecords(gridMappingCategory.RowCount);
 					}
 				}
+				SplashUtils.CloseWait();
 			}
 			catch (Exception ex)
 			{
+				SplashUtils.CloseWait();
 				ShowErrBox(ex);
 			}
 		}
@@ -989,6 +993,10 @@ namespace IKaan.Win.View.Scrap.Smaps
 						ShowMsgBox("처리할 수 있는 요청유형이 아닙니다.");
 						return;
 				}
+
+				SplashUtils.ShowWait("처리하는 중입니다... 잠시만...");
+				SetMessage("처리하는 중입니다... 잠시만...");
+				Application.DoEvents();
 
 				foreach (var data in datalist)
 				{
@@ -1062,12 +1070,13 @@ namespace IKaan.Win.View.Scrap.Smaps
 						foreach (var str in smapsProduct.is_main.Split(','))
 							product.is_main.Add(str);
 
-						resultText = ApiHandler.Post(product, chkIsTest.Checked);
+						resultText = ApiHandler.PostForm(product, chkIsTest.Checked);
 					}
 					else
 					{
-						resultText = ApiHandler.Post(data, chkIsTest.Checked);
+						resultText = ApiHandler.PostForm(data, chkIsTest.Checked);
 					}
+					
 					var result = resultText.JsonToAnyType<ApiResultModel>();
 
 					if (result.success.ToUpper() == "TRUE")
@@ -1115,10 +1124,12 @@ namespace IKaan.Win.View.Scrap.Smaps
 				}
 
 				SetMessage("연동되었습니다.");
+				SplashUtils.CloseWait();
 				DataLoad();
 			}
 			catch(Exception ex)
 			{
+				SplashUtils.CloseWait();
 				ShowErrBox(ex);
 			}
 		}
@@ -1127,6 +1138,8 @@ namespace IKaan.Win.View.Scrap.Smaps
 		{
 			try
 			{
+				SplashUtils.ShowWait("데이터를 수신하는 중입니다... 잠시만...");
+
 				var apiModel = typeof(T).Name.Replace("Model", "");
 				var result = ApiHandler.Get<T>(chkIsTest.Checked);
 
@@ -1149,14 +1162,16 @@ namespace IKaan.Win.View.Scrap.Smaps
 					{
 						if (res.Error.Number != 0)
 							throw new Exception(res.Error.Message);
-
-						SetMessage("연동되었습니다.");
-						DataLoad();
 					}
+
+					SetMessage("연동되었습니다.");
+					SplashUtils.CloseWait();
+					DataLoad();
 				}
 			}
 			catch (Exception ex)
 			{
+				SplashUtils.CloseWait();
 				ShowErrBox(ex);
 			}
 		}
@@ -1231,17 +1246,14 @@ namespace IKaan.Win.View.Scrap.Smaps
 				{
 					if (res.Error.Number != 0)
 						throw new Exception(res.Error.Message);
-
-					SetMessage("처리하였습니다.");
 				}
+				SetMessage("처리하였습니다.");
+				SplashUtils.CloseWait();
 			}
 			catch (Exception ex)
 			{
-				ShowErrBox(ex);
-			}
-			finally
-			{
 				SplashUtils.CloseWait();
+				ShowErrBox(ex);
 			}
 		}
 
@@ -1256,6 +1268,7 @@ namespace IKaan.Win.View.Scrap.Smaps
 				}
 
 				SplashUtils.ShowWait("처리하는 중입니다... 잠시만...");
+
 				var parameter = new DataMap()
 				{
 					{ "SiteID", lupScrapSite.EditValue },
@@ -1268,16 +1281,17 @@ namespace IKaan.Win.View.Scrap.Smaps
 					if (res.Error.Number != 0)
 						throw new Exception(res.Error.Message);
 
-					SetMessage("처리하였습니다.");
+					
 				}
+
+				SplashUtils.CloseWait();
+				SetMessage("처리하였습니다.");
+				DataLoad();
 			}
 			catch (Exception ex)
 			{
-				ShowErrBox(ex);
-			}
-			finally
-			{
 				SplashUtils.CloseWait();
+				ShowErrBox(ex);
 			}
 		}
 	}

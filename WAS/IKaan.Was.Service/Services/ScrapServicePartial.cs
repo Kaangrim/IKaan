@@ -145,12 +145,11 @@ namespace IKaan.Was.Service.Services
 						exists.SalePrice != model.SalePrice ||
 						exists.CategoryName != model.CategoryName ||
 						exists.CategoryID != model.CategoryID ||
+						exists.Gender != model.Gender ||
 						exists.Option1Type != model.Option1Type ||
 						exists.Option1Name != model.Option1Name ||
-						exists.Option1Value != model.Option1Value ||
 						exists.Option2Type != model.Option2Type ||
-						exists.Option2Name != model.Option2Name ||
-						exists.Option2Value != model.Option2Value)
+						exists.Option2Name != model.Option2Name)
 					{	
 						model.UpdatedBy = req.User.UserId;
 						model.UpdatedByName = req.User.UserName;
