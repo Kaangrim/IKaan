@@ -52,7 +52,9 @@
 			this.txtUpdatedByName = new DevExpress.XtraEditors.TextEdit();
 			this.lcGroupEditBase = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.lcTab = new DevExpress.XtraLayout.TabbedControlGroup();
-			this.gridStore = new IKaan.Win.Core.Controls.Grid.XGrid();
+			this.lcGroupBankAccount = new DevExpress.XtraLayout.LayoutControlGroup();
+			this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
+			this.gridBankAccount = new IKaan.Win.Core.Controls.Grid.XGrid();
 			this.lcGroupBusiness = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
 			this.gridBusiness = new IKaan.Win.Core.Controls.Grid.XGrid();
@@ -62,9 +64,9 @@
 			this.lcGroupAddress = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
 			this.gridAddress = new IKaan.Win.Core.Controls.Grid.XGrid();
-			this.lcGroupBankAccount = new DevExpress.XtraLayout.LayoutControlGroup();
-			this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
-			this.gridBankAccount = new IKaan.Win.Core.Controls.Grid.XGrid();
+			this.lcGroupStore = new DevExpress.XtraLayout.LayoutControlGroup();
+			this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
+			this.gridStore = new IKaan.Win.Core.Controls.Grid.XGrid();
 			this.lcGroupEdit2 = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.lcItemBizNo = new DevExpress.XtraLayout.LayoutControlItem();
 			this.txtBizNo = new DevExpress.XtraEditors.TextEdit();
@@ -82,8 +84,6 @@
 			this.txtAddressLine2 = new DevExpress.XtraEditors.TextEdit();
 			this.lcItemRepName = new DevExpress.XtraLayout.LayoutControlItem();
 			this.txtRepName = new DevExpress.XtraEditors.TextEdit();
-			this.lcGroupStore = new DevExpress.XtraLayout.LayoutControlGroup();
-			this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
 			((System.ComponentModel.ISupportInitialize)(this.lc)).BeginInit();
 			this.lc.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupBase)).BeginInit();
@@ -107,14 +107,16 @@
 			((System.ComponentModel.ISupportInitialize)(this.txtUpdatedByName.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupEditBase)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcTab)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcGroupBankAccount)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupBusiness)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupContact)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupAddress)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcGroupBankAccount)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcGroupStore)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupEdit2)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemBizNo)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.txtBizNo.Properties)).BeginInit();
@@ -132,8 +134,6 @@
 			((System.ComponentModel.ISupportInitialize)(this.txtAddressLine2.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemRepName)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.txtRepName.Properties)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcGroupStore)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// lc
@@ -357,8 +357,8 @@
 			this.lcTab.Location = new System.Drawing.Point(0, 268);
 			this.lcTab.Name = "lcTab";
 			this.lcTab.Padding = new DevExpress.XtraLayout.Utils.Padding(2, 2, 2, 2);
-			this.lcTab.SelectedTabPage = this.lcGroupBankAccount;
-			this.lcTab.SelectedTabPageIndex = 3;
+			this.lcTab.SelectedTabPage = this.lcGroupBusiness;
+			this.lcTab.SelectedTabPageIndex = 0;
 			this.lcTab.Size = new System.Drawing.Size(994, 280);
 			this.lcTab.TabPages.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.lcGroupBusiness,
@@ -367,29 +367,47 @@
             this.lcGroupBankAccount,
             this.lcGroupStore});
 			// 
-			// gridStore
+			// lcGroupBankAccount
 			// 
-			this.gridStore.Compress = false;
-			this.gridStore.DataSource = null;
-			this.gridStore.Editable = true;
-			this.gridStore.FocusedRowHandle = -2147483648;
-			this.gridStore.GridViewType = IKaan.Win.Core.Controls.Grid.GridViewType.GridView;
-			this.gridStore.Location = new System.Drawing.Point(9, 301);
-			this.gridStore.Name = "gridStore";
-			this.gridStore.PageFooterCenter = null;
-			this.gridStore.PageFooterLeft = null;
-			this.gridStore.PageFooterRight = null;
-			this.gridStore.PageHeaderCenter = null;
-			this.gridStore.PageHeaderLeft = null;
-			this.gridStore.PageHeaderRight = null;
-			this.gridStore.Pager = null;
-			this.gridStore.PrintFooter = null;
-			this.gridStore.PrintHeader = null;
-			this.gridStore.ReadOnly = false;
-			this.gridStore.ShowFooter = false;
-			this.gridStore.ShowGroupPanel = false;
-			this.gridStore.Size = new System.Drawing.Size(980, 242);
-			this.gridStore.TabIndex = 27;
+			this.lcGroupBankAccount.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.layoutControlItem5});
+			this.lcGroupBankAccount.Location = new System.Drawing.Point(0, 0);
+			this.lcGroupBankAccount.Name = "lcGroupBankAccount";
+			this.lcGroupBankAccount.Size = new System.Drawing.Size(984, 246);
+			this.lcGroupBankAccount.Text = "Bank";
+			// 
+			// layoutControlItem5
+			// 
+			this.layoutControlItem5.Control = this.gridBankAccount;
+			this.layoutControlItem5.Location = new System.Drawing.Point(0, 0);
+			this.layoutControlItem5.Name = "layoutControlItem5";
+			this.layoutControlItem5.Size = new System.Drawing.Size(984, 246);
+			this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
+			this.layoutControlItem5.TextVisible = false;
+			// 
+			// gridBankAccount
+			// 
+			this.gridBankAccount.Compress = false;
+			this.gridBankAccount.DataSource = null;
+			this.gridBankAccount.Editable = true;
+			this.gridBankAccount.FocusedRowHandle = -2147483648;
+			this.gridBankAccount.GridViewType = IKaan.Win.Core.Controls.Grid.GridViewType.GridView;
+			this.gridBankAccount.Location = new System.Drawing.Point(9, 301);
+			this.gridBankAccount.Name = "gridBankAccount";
+			this.gridBankAccount.PageFooterCenter = null;
+			this.gridBankAccount.PageFooterLeft = null;
+			this.gridBankAccount.PageFooterRight = null;
+			this.gridBankAccount.PageHeaderCenter = null;
+			this.gridBankAccount.PageHeaderLeft = null;
+			this.gridBankAccount.PageHeaderRight = null;
+			this.gridBankAccount.Pager = null;
+			this.gridBankAccount.PrintFooter = null;
+			this.gridBankAccount.PrintHeader = null;
+			this.gridBankAccount.ReadOnly = false;
+			this.gridBankAccount.ShowFooter = false;
+			this.gridBankAccount.ShowGroupPanel = false;
+			this.gridBankAccount.Size = new System.Drawing.Size(980, 242);
+			this.gridBankAccount.TabIndex = 38;
 			// 
 			// lcGroupBusiness
 			// 
@@ -518,47 +536,47 @@
 			this.gridAddress.Size = new System.Drawing.Size(980, 242);
 			this.gridAddress.TabIndex = 26;
 			// 
-			// lcGroupBankAccount
+			// lcGroupStore
 			// 
-			this.lcGroupBankAccount.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
-            this.layoutControlItem5});
-			this.lcGroupBankAccount.Location = new System.Drawing.Point(0, 0);
-			this.lcGroupBankAccount.Name = "lcGroupBankAccount";
-			this.lcGroupBankAccount.Size = new System.Drawing.Size(984, 246);
-			this.lcGroupBankAccount.Text = "Bank";
+			this.lcGroupStore.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.layoutControlItem2});
+			this.lcGroupStore.Location = new System.Drawing.Point(0, 0);
+			this.lcGroupStore.Name = "lcGroupStore";
+			this.lcGroupStore.Size = new System.Drawing.Size(984, 246);
+			this.lcGroupStore.Text = "Store";
 			// 
-			// layoutControlItem5
+			// layoutControlItem2
 			// 
-			this.layoutControlItem5.Control = this.gridBankAccount;
-			this.layoutControlItem5.Location = new System.Drawing.Point(0, 0);
-			this.layoutControlItem5.Name = "layoutControlItem5";
-			this.layoutControlItem5.Size = new System.Drawing.Size(984, 246);
-			this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
-			this.layoutControlItem5.TextVisible = false;
+			this.layoutControlItem2.Control = this.gridStore;
+			this.layoutControlItem2.Location = new System.Drawing.Point(0, 0);
+			this.layoutControlItem2.Name = "layoutControlItem2";
+			this.layoutControlItem2.Size = new System.Drawing.Size(984, 246);
+			this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
+			this.layoutControlItem2.TextVisible = false;
 			// 
-			// gridBankAccount
+			// gridStore
 			// 
-			this.gridBankAccount.Compress = false;
-			this.gridBankAccount.DataSource = null;
-			this.gridBankAccount.Editable = true;
-			this.gridBankAccount.FocusedRowHandle = -2147483648;
-			this.gridBankAccount.GridViewType = IKaan.Win.Core.Controls.Grid.GridViewType.GridView;
-			this.gridBankAccount.Location = new System.Drawing.Point(9, 301);
-			this.gridBankAccount.Name = "gridBankAccount";
-			this.gridBankAccount.PageFooterCenter = null;
-			this.gridBankAccount.PageFooterLeft = null;
-			this.gridBankAccount.PageFooterRight = null;
-			this.gridBankAccount.PageHeaderCenter = null;
-			this.gridBankAccount.PageHeaderLeft = null;
-			this.gridBankAccount.PageHeaderRight = null;
-			this.gridBankAccount.Pager = null;
-			this.gridBankAccount.PrintFooter = null;
-			this.gridBankAccount.PrintHeader = null;
-			this.gridBankAccount.ReadOnly = false;
-			this.gridBankAccount.ShowFooter = false;
-			this.gridBankAccount.ShowGroupPanel = false;
-			this.gridBankAccount.Size = new System.Drawing.Size(980, 242);
-			this.gridBankAccount.TabIndex = 38;
+			this.gridStore.Compress = false;
+			this.gridStore.DataSource = null;
+			this.gridStore.Editable = true;
+			this.gridStore.FocusedRowHandle = -2147483648;
+			this.gridStore.GridViewType = IKaan.Win.Core.Controls.Grid.GridViewType.GridView;
+			this.gridStore.Location = new System.Drawing.Point(9, 301);
+			this.gridStore.Name = "gridStore";
+			this.gridStore.PageFooterCenter = null;
+			this.gridStore.PageFooterLeft = null;
+			this.gridStore.PageFooterRight = null;
+			this.gridStore.PageHeaderCenter = null;
+			this.gridStore.PageHeaderLeft = null;
+			this.gridStore.PageHeaderRight = null;
+			this.gridStore.Pager = null;
+			this.gridStore.PrintFooter = null;
+			this.gridStore.PrintHeader = null;
+			this.gridStore.ReadOnly = false;
+			this.gridStore.ShowFooter = false;
+			this.gridStore.ShowGroupPanel = false;
+			this.gridStore.Size = new System.Drawing.Size(980, 242);
+			this.gridStore.TabIndex = 27;
 			// 
 			// lcGroupEdit2
 			// 
@@ -714,24 +732,6 @@
 			this.txtRepName.StyleController = this.lc;
 			this.txtRepName.TabIndex = 54;
 			// 
-			// lcGroupStore
-			// 
-			this.lcGroupStore.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
-            this.layoutControlItem2});
-			this.lcGroupStore.Location = new System.Drawing.Point(0, 0);
-			this.lcGroupStore.Name = "lcGroupStore";
-			this.lcGroupStore.Size = new System.Drawing.Size(984, 246);
-			this.lcGroupStore.Text = "Store";
-			// 
-			// layoutControlItem2
-			// 
-			this.layoutControlItem2.Control = this.gridStore;
-			this.layoutControlItem2.Location = new System.Drawing.Point(0, 0);
-			this.layoutControlItem2.Name = "layoutControlItem2";
-			this.layoutControlItem2.Size = new System.Drawing.Size(984, 246);
-			this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
-			this.layoutControlItem2.TextVisible = false;
-			// 
 			// CompanyEditForm
 			// 
 			this.Appearance.BackColor = System.Drawing.Color.White;
@@ -765,14 +765,16 @@
 			((System.ComponentModel.ISupportInitialize)(this.txtUpdatedByName.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupEditBase)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcTab)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcGroupBankAccount)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupBusiness)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupContact)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupAddress)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcGroupBankAccount)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcGroupStore)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupEdit2)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemBizNo)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.txtBizNo.Properties)).EndInit();
@@ -790,8 +792,6 @@
 			((System.ComponentModel.ISupportInitialize)(this.txtAddressLine2.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemRepName)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.txtRepName.Properties)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcGroupStore)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 

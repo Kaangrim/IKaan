@@ -27,8 +27,8 @@
 				FROM	dbo.TCompany AA WITH (NOLOCK)
 						LEFT JOIN
 						(
-							SELECT	A1.CompanyID
-								,	A1.BusinessID
+							SELECT	B1.CompanyID
+								,	B1.BusinessID
 								,	B2.Name			as BizName
 								,	B2.RepName		as RepName
 								,	B2.BizNo		as BizNo
@@ -59,7 +59,7 @@
 		</select>
 		<select id="SelectCompany" parameterClass="DataMap" resultClass="CompanyModel" >
 			<![CDATA[
-				SELECT  *					
+				SELECT  *
 				FROM	dbo.TCompany AA WITH (NOLOCK)
 				WHERE	AA.ID = #ID#
 			]]>
@@ -101,5 +101,18 @@
 				DELETE FROM dbo.TCompany WHERE ID = #ID#;
 			]]>
 		</delete>
+
+		<select id="SelectCompanyBusinessCurrent" parameterClass="DataMap" resultClass="BusinessModel" >
+			<![CDATA[
+				SELECT  BB.*
+				FROM	dbo.TCompanyBusiness AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.TBusiness BB WITH (NOLOCK)
+								ON AA.BusinessID = BB.ID									
+				WHERE	AA.CompanyID = #CompanyID#
+				AND		AA.StartDate < DATEADD(DAY, 1, GETDATE())
+				AND		ISNULL(AA.EndDate, GETDATE()) > DATEADD(DAY, -1, GETDATE())
+			]]>
+		</select>
 	</statements>
 </sqlMap>

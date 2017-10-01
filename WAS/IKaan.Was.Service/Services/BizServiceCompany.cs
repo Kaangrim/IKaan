@@ -20,6 +20,18 @@ namespace IKaan.Was.Service.Services
 				{
 					parameter = new DataMap() { { "CompanyID", model.ID } };
 
+					//현재 사업자 정보
+					model.CurrentBusiness = DaoFactory.InstanceBiz.QueryForObject<BusinessModel>("SelectCompanyBusinessCurrent", parameter);
+					if (model.CurrentBusiness == null)
+						model.CurrentBusiness = new BusinessModel();
+
+					if (model.CurrentBusiness.AddressID != null)
+					{
+						model.CurrentBusiness.Address = DaoFactory.InstanceBiz.QueryForObject<AddressModel>("SelectAddress", new DataMap() { { "ID", model.CurrentBusiness.AddressID } });
+						if (model.CurrentBusiness.Address == null)
+							model.CurrentBusiness.Address = new AddressModel();
+					}
+
 					//주소
 					model.Addresses = DaoFactory.InstanceBiz.QueryForList<CompanyAddressModel>("SelectCompanyAddressList", parameter);
 					if (model.Addresses == null)
@@ -89,6 +101,70 @@ namespace IKaan.Was.Service.Services
 			}
 		}
 
+		public static CompanyContactModel GetCompanyContact(this WasRequest req)
+		{
+			try
+			{
+				var parameter = req.Parameter.JsonToAnyType<DataMap>();
+				var model = DaoFactory.InstanceBiz.QueryForObject<CompanyContactModel>("SelectCompanyContact", parameter);
+				if (model != null)
+				{
+					//담당자
+					model.Contact = DaoFactory.InstanceBiz.QueryForObject<ContactModel>("SelectContact", new DataMap() { { "ID", model.ContactID } });
+					if (model.Contact == null)
+						model.Contact = new ContactModel();
+
+				}
+				req.Data = model;
+				req.Result.Count = 1;
+				return model;
+			}
+			catch
+			{
+				throw;
+			}
+		}
+
+		public static CompanyAddressModel GetCompanyAddress(this WasRequest req)
+		{
+			try
+			{
+				var parameter = req.Parameter.JsonToAnyType<DataMap>();
+				var model = DaoFactory.InstanceBiz.QueryForObject<CompanyAddressModel>("SelectCompanyAddress", parameter);
+				req.Data = model;
+				req.Result.Count = 1;
+				return model;
+			}
+			catch
+			{
+				throw;
+			}
+		}
+
+		public static CompanyBankAccountModel GetCompanyBankAccount(this WasRequest req)
+		{
+			try
+			{
+				var parameter = req.Parameter.JsonToAnyType<DataMap>();
+				var model = DaoFactory.InstanceBiz.QueryForObject<CompanyBankAccountModel>("SelectCompanyBankAccount", parameter);
+				if (model != null)
+				{
+					//계좌정보
+					model.Image = DaoFactory.InstanceBiz.QueryForObject<ImageModel>("SelectImage", new DataMap() { { "ID", model.ImageID } });
+					if (model.Image == null)
+						model.Image = new ImageModel();
+
+				}
+				req.Data = model;
+				req.Result.Count = 1;
+				return model;
+			}
+			catch
+			{
+				throw;
+			}
+		}
+
 		public static void SaveCompany(this WasRequest req)
 		{
 			try
@@ -124,24 +200,31 @@ namespace IKaan.Was.Service.Services
 			try
 			{
 				var model = req.Data.JsonToAnyType<CompanyAddressModel>();
-
-				if (model.Address != null)
+				var address = new AddressModel()
 				{
-					if (model.AddressID == null)
-					{
-						model.Address.CreatedBy = req.User.UserId;
-						model.Address.CreatedByName = req.User.UserName;
-						var id = DaoFactory.InstanceBiz.Insert("InsertAddress", model.Address);
-						model.Address.ID = id.ToIntegerNullToNull();
-					}
-					else
-					{
-						model.Address.UpdatedBy = req.User.UserId;
-						model.Address.UpdatedByName = req.User.UserName;
-						DaoFactory.InstanceBiz.Update("UpdateAddress", model.Address);
-					}
-					model.AddressID = model.Address.ID;
+					ID = model.AddressID,
+					PostalCode = model.PostalCode,
+					Country = model.Country,
+					City = model.City,
+					StateProvince = model.StateProvince,
+					AddressLine1 = model.AddressLine1,
+					AddressLine2 = model.AddressLine2
+				};
+
+				if (model.AddressID == null)
+				{
+					address.CreatedBy = req.User.UserId;
+					address.CreatedByName = req.User.UserName;
+					var id = DaoFactory.InstanceBiz.Insert("InsertAddress", address);
+					address.ID = id.ToIntegerNullToNull();
 				}
+				else
+				{
+					address.UpdatedBy = req.User.UserId;
+					address.UpdatedByName = req.User.UserName;
+					DaoFactory.InstanceBiz.Update("UpdateAddress", address);
+				}
+				model.AddressID = address.ID;
 				
 				if (model.ID == null)
 				{
@@ -172,23 +255,62 @@ namespace IKaan.Was.Service.Services
 			try
 			{
 				var model = req.Data.JsonToAnyType<CompanyBankAccountModel>();
-
-				if (model.BankAccount != null)
+				var bankaccount = new BankAccountModel()
 				{
-					if (model.BankAccountID == null)
+					Name = model.BankAccountName,
+					BankName = model.BankName,
+					AccountNo = model.AccountNo,
+					Depositor = model.Depositor,
+					ImageID = model.ImageID
+				};
+
+				if (model.Image != null)
+				{
+					if (model.ImageID == null)
 					{
-						model.BankAccount.CreatedBy = req.User.UserId;
-						model.BankAccount.CreatedByName = req.User.UserName;
-						var id = DaoFactory.InstanceBiz.Insert("InsertBankAccount", model.BankAccount);
-						model.BankAccount.ID = id.ToIntegerNullToNull();
+						if (model.Image.Url.IsNullOrEmpty() == false)
+						{
+							model.Image.CreatedBy = req.User.UserId;
+							model.Image.CreatedByName = req.User.UserName;
+							var id = DaoFactory.InstanceBiz.Insert("InsertImage", model.Image);
+							model.Image.ID = id.ToIntegerNullToNull();
+						}
 					}
 					else
 					{
-						model.BankAccount.UpdatedBy = req.User.UserId;
-						model.BankAccount.UpdatedByName = req.User.UserName;
-						DaoFactory.InstanceBiz.Update("UpdateBankAccount", model.BankAccount);
+						if (model.Image.Url.IsNullOrEmpty() == false)
+						{
+							model.Image.UpdatedBy = req.User.UserId;
+							model.Image.UpdatedByName = req.User.UserName;
+							DaoFactory.InstanceBiz.Update("UpdateImage", model.Image);
+						}
+						else
+						{
+							DaoFactory.InstanceBiz.Delete("DeleteImage", model.ImageID);
+							model.Image.ID = null;
+							model.ImageID = null;
+						}
 					}
-					model.BankAccountID = model.BankAccount.ID;
+					model.ImageID = model.Image.ID;
+					bankaccount.ImageID = model.ImageID;
+				}
+
+				if (bankaccount != null)
+				{
+					if (model.BankAccountID == null)
+					{
+						bankaccount.CreatedBy = req.User.UserId;
+						bankaccount.CreatedByName = req.User.UserName;
+						var id = DaoFactory.InstanceBiz.Insert("InsertBankAccount", bankaccount);
+						bankaccount.ID = id.ToIntegerNullToNull();
+					}
+					else
+					{
+						bankaccount.UpdatedBy = req.User.UserId;
+						bankaccount.UpdatedByName = req.User.UserName;
+						DaoFactory.InstanceBiz.Update("UpdateBankAccount", bankaccount);
+					}
+					model.BankAccountID = bankaccount.ID;
 				}
 
 				if (model.ID == null)
@@ -248,20 +370,29 @@ namespace IKaan.Was.Service.Services
 
 					if (model.Business.Image != null)
 					{
-						model.Business.Image.ImageType = "44";	//사업자등록증
-
 						if (model.Business.ImageID == null)
 						{
-							model.Business.Image.CreatedBy = req.User.UserId;
-							model.Business.Image.CreatedByName = req.User.UserName;
-							var id = DaoFactory.InstanceBiz.Insert("InsertImage", model.Business.Image);
-							model.Business.Image.ID = id.ToIntegerNullToNull();
+							if (model.Business.Image.Url.IsNullOrEmpty() == false)
+							{
+								model.Business.Image.CreatedBy = req.User.UserId;
+								model.Business.Image.CreatedByName = req.User.UserName;
+								var id = DaoFactory.InstanceBiz.Insert("InsertImage", model.Business.Image);
+								model.Business.Image.ID = id.ToIntegerNullToNull();
+							}
 						}
 						else
 						{
-							model.Business.Image.UpdatedBy = req.User.UserId;
-							model.Business.Image.UpdatedByName = req.User.UserName;
-							DaoFactory.InstanceBiz.Update("UpdateImage", model.Business.Image);
+							if (model.Business.Image.Url.IsNullOrEmpty() == false)
+							{
+								model.Business.Image.UpdatedBy = req.User.UserId;
+								model.Business.Image.UpdatedByName = req.User.UserName;
+								DaoFactory.InstanceBiz.Update("UpdateImage", model.Business.Image);
+							}
+							else
+							{
+								DaoFactory.InstanceBiz.Delete("DeleteImage", new DataMap() { { "ID", model.Business.ImageID } });
+								model.Business.Image.ID = null;
+							}
 						}
 						model.Business.ImageID = model.Business.Image.ID;
 					}

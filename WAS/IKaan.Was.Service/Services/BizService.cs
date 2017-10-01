@@ -251,16 +251,16 @@ namespace IKaan.Was.Service.Services
 							req.GetCompany();
 							break;
 						case "CompanyAddress":
-							req.SetData<CompanyAddressModel>();
+							req.GetCompanyAddress();
 							break;
 						case "CompanyBankAccount":
-							req.SetData<CompanyBankAccountModel>();
+							req.GetCompanyBankAccount();
 							break;
 						case "CompanyBusiness":
 							req.GetCompanyBusiness();
 							break;
 						case "CompanyContact":
-							req.SetData<CompanyContactModel>();
+							req.GetCompanyContact();
 							break;
 						case "CompanyStore":
 							req.SetData<CompanyStoreModel>();

@@ -51,7 +51,7 @@
 				FROM	dbo.TCompanyBusiness AA WITH (NOLOCK)
 				WHERE	AA.ID = #ID#
 			]]>
-		</select>
+		</select>		
 		<insert id="InsertCompanyBusiness" parameterClass="CompanyBusinessModel" >
 			<![CDATA[
 				INSERT INTO dbo.TCompanyBusiness

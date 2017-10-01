@@ -16,8 +16,6 @@ namespace IKaan.Win.View.Biz.Master.Company
 {
 	public partial class CompanyBusinessEditForm : EditForm
 	{
-		private string loadUrl = string.Empty;
-
 		public CompanyBusinessEditForm()
 		{
 			InitializeComponent();
@@ -36,6 +34,16 @@ namespace IKaan.Win.View.Biz.Master.Company
 						txtPostalCode.EditValue = data.ZoneCode + "(" + data.PostalNo + ")";
 						txtAddressLine1.EditValue = data.Address1;
 						txtAddressLine2.EditValue = data.Address2;
+
+						if (data.Address1.IsNullOrEmpty() == false)
+						{
+							var address = data.Address1.Split(' ');
+							if (address != null && address.Length > 0)
+							{
+								txtCity.EditValue = address[0].ToStringNullToEmpty();
+								txtStateProvince.EditValue = address[1].ToStringNullToEmpty();
+							}
+						}
 					}
 				}
 			};
@@ -62,7 +70,7 @@ namespace IKaan.Win.View.Biz.Master.Company
 			SetFieldNames();
 
 			txtID.SetEnable(false);
-			txtCompanyID.SetEnable(false);
+			lupCompanyID.SetEnable(false);
 			txtBusinessID.SetEnable(false);
 			txtAddressID.SetEnable(false);
 
@@ -71,9 +79,36 @@ namespace IKaan.Win.View.Biz.Master.Company
 			lupBizType.BindData("BizType");
 			lupCountry.BindData("Country");
 			lupStatus.BindData("BizStatus");
+			lupCompanyID.BindData("CompanyList");
 
-			txtCompanyID.EditValue = (this.ParamsData as DataMap).GetValue("CompanyID");
-			txtCompanyID.EditText = (this.ParamsData as DataMap).GetValue("CompanyName");
+			lupCompanyID.EditValue = (this.ParamsData as DataMap).GetValue("CompanyID").ToStringNullToEmpty();
+		}
+
+		protected override void DataInit()
+		{
+			ClearControlData<CompanyBusinessModel>();
+
+			lupCompanyID.EditValue = (this.ParamsData as DataMap).GetValue("CompanyID").ToStringNullToEmpty();
+
+			txtBizNo.Clear();
+			txtBizName.Clear();
+			txtRepName.Clear();
+			memBizKind.Clear();
+			memBizItem.Clear();
+			txtEmail.Clear();
+			txtAddressID.Clear();
+
+			txtPostalCode.Clear();
+			txtAddressLine1.Clear();
+			txtAddressLine2.Clear();
+			lupCountry.Clear();
+			txtCity.Clear();
+			txtStateProvince.Clear();
+			picImage.Clear();
+
+			SetToolbarButtons(new ToolbarButtons() { Save = true, SaveAndClose = true });
+			EditMode = EditModeEnum.New;
+			txtBizName.Focus();
 		}
 		protected override void DataLoad(object param = null)
 		{
@@ -111,14 +146,14 @@ namespace IKaan.Win.View.Biz.Master.Company
 					txtStateProvince.EditValue = model.Business.Address.StateProvince;
 				}
 
-				loadUrl = model.Business.Image.Url;
-				if (loadUrl.IsNullOrEmpty())
+				if (model.Business.Image.Url.IsNullOrEmpty())
 				{
-					picImage.EditValue = null;
+					picImage.Clear();
 				}
 				else
 				{
-					picImage.LoadAsync(ConstsVar.IMG_URL + loadUrl);
+					picImage.ImageID = model.Business.ImageID;
+					picImage.LoadImage(ConstsVar.IMG_URL + model.Business.Image.Url);
 				}
 
 				SetToolbarButtons(new ToolbarButtons() { Save = true, SaveAndClose = true, Delete = true });
@@ -130,34 +165,7 @@ namespace IKaan.Win.View.Biz.Master.Company
 				ShowErrBox(ex);
 			}
 		}
-		protected override void DataInit()
-		{
-			ClearControlData<CompanyBusinessModel>();
-			txtCompanyID.EditValue = (this.ParamsData as DataMap).GetValue("CompanyID");
-			txtCompanyID.EditText = (this.ParamsData as DataMap).GetValue("CompanyName");
-
-			txtBizNo.Clear();
-			txtBizName.Clear();
-			txtRepName.Clear();
-			memBizKind.Clear();
-			memBizItem.Clear();
-			txtEmail.Clear();
-			txtAddressID.Clear();
-
-			txtPostalCode.Clear();
-			txtAddressLine1.Clear();
-			txtAddressLine2.Clear();
-			lupCountry.Clear();
-			txtCity.Clear();
-			txtStateProvince.Clear();
-
-			loadUrl = string.Empty;
-			picImage.EditValue = null;
-
-			SetToolbarButtons(new ToolbarButtons() { Save = true, SaveAndClose = true });
-			EditMode = EditModeEnum.New;
-			txtBizName.Focus();
-		}
+		
 		protected override void DataSave(object arg, SaveCallback callback)
 		{
 			try
@@ -184,33 +192,38 @@ namespace IKaan.Win.View.Biz.Master.Company
 						Country = lupCountry.EditValue.ToStringNullToNull(),
 						City = txtCity.EditValue.ToStringNullToNull(),
 						StateProvince = txtStateProvince.EditValue.ToStringNullToNull()
-					}
+					},
+					ImageID = picImage.ImageID.ToIntegerNullToNull()
 				};
 
 				//이미지 업로드
 				if (picImage.EditValue != null)
 				{
-					string path = picImage.GetLoadedImageLocation();
-					if (path.IsNullOrEmpty() == false)
+					if (picImage.ImagePath.IsNullOrEmpty() == false)
 					{
-						string url = FTPHandler.UploadBusiness(path, txtBizNo.EditValue.ToString().Replace("-", ""));
+						string url = FTPHandler.UploadBusiness(picImage.ImagePath, txtBizNo.EditValue.ToString().Replace("-", ""));
 						model.Business.Image = new ImageModel()
-						{							
+						{
+							ID = picImage.ImageID.ToIntegerNullToNull(),
 							Url = url,
-							Name = ImageUtils.GetFileName(path),
-							Width = ImageUtils.GetSizePixel(path).Width,
-							Height = ImageUtils.GetSizePixel(path).Height
+							Name = picImage.GetFileName(),
+							Width = picImage.ImageWidth,
+							Height = picImage.ImageHeight,
+							ImageType = "44"
 						};
+					}
+					else
+					{
+						model.Business.Image = null;
 					}
 				}
 				else
 				{
-					if (loadUrl.IsNullOrEmpty() == false)
+					if (picImage.ImageUrl.IsNullOrEmpty() == false && picImage.EditValue != null)
 					{
-						FTPHandler.DeleteFile(loadUrl);
-						loadUrl = string.Empty;
-						model.Business.Image = null;
-						model.Business.ImageID = null;
+						FTPHandler.DeleteFile(picImage.ImageUrl);
+						model.Business.Image.Url = null;
+						model.Business.Image.ID = picImage.ImageID.ToIntegerNullToNull();
 					}
 				}
 
@@ -218,11 +231,11 @@ namespace IKaan.Win.View.Biz.Master.Company
 				{
 					if (res.Error.Number != 0)
 						throw new Exception(res.Error.Message);
-
-					ShowMsgBox("저장하였습니다.");
+					
 					(this.ParamsData as DataMap).SetValue("ID", res.Result.ReturnValue);
-					callback(arg, this.ParamsData);
 				}
+				ShowMsgBox("저장하였습니다.");
+				callback(arg, this.ParamsData);
 			}
 			catch (Exception ex)
 			{
@@ -237,11 +250,11 @@ namespace IKaan.Win.View.Biz.Master.Company
 				{
 					if (res.Error.Number != 0)
 						throw new Exception(res.Error.Message);
-
-					ShowMsgBox("삭제하였습니다.");
+					
 					(this.ParamsData as DataMap).SetValue("ID", null);
-					callback(arg, this.ParamsData);
 				}
+				ShowMsgBox("삭제하였습니다.");
+				callback(arg, this.ParamsData);
 			}
 			catch (Exception ex)
 			{

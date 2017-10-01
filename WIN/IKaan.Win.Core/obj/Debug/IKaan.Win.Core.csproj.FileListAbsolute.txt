@@ -435,3 +435,4 @@ D:\Repositories\IKaan\WIN\IKaan.Win.Core\bin\Debug\ja\DevExpress.Diagram.v17.1.C
 D:\Repositories\IKaan\WIN\IKaan.Win.Core\bin\Debug\ru\DevExpress.Diagram.v17.1.Core.resources.dll
 D:\Repositories\IKaan\WIN\IKaan.Win.Core\obj\Debug\IKaan.Win.Core.csproj.CoreCompileInputs.cache
 D:\Repositories\IKaan\WIN\IKaan.Win.Core\obj\Debug\IKaan.Win.Core.PostalCode.SearchPostalCodeForm.resources
+D:\Repositories\IKaan\WIN\IKaan.Win.Core\obj\Debug\IKaan.Win.Core.Controls.Common.XPicture.resources

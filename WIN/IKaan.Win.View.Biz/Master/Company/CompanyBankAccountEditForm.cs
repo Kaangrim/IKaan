@@ -14,29 +14,15 @@ namespace IKaan.Win.View.Biz.Master.Company
 {
 	public partial class CompanyBankAccountEditForm : EditForm
 	{
-		private string loadUrl = string.Empty;
-
 		public CompanyBankAccountEditForm()
 		{
 			InitializeComponent();
-
-			picImage.EditValueChanged += delegate (object sender, EventArgs e)
-			{
-				if (this.IsLoaded)
-				{
-					txtImageUrl.EditValue = picImage.GetLoadedImageLocation();
-				}
-			};
-			picImage.LoadCompleted += delegate (object sender, EventArgs e)
-			{
-				txtImageUrl.EditValue = loadUrl;
-			};
 		}
 
 		protected override void OnShown(EventArgs e)
 		{
 			base.OnShown(e);
-			txtBankName.Focus();
+			txtBankAccountName.Focus();
 		}
 		protected override void InitButton()
 		{
@@ -47,6 +33,8 @@ namespace IKaan.Win.View.Biz.Master.Company
 		{
 			base.InitControls();
 
+			lcItemBankAccountType.Tag = true;
+			lcItemBankAccountName.Tag = true;
 			lcItemBankName.Tag = true;
 			lcItemAccountNo.Tag = true;
 			lcItemDepositor.Tag = true;
@@ -54,11 +42,11 @@ namespace IKaan.Win.View.Biz.Master.Company
 			SetFieldNames();
 
 			txtID.SetEnable(false);
-			txtCompanyID.SetEnable(false);
-			txtImageUrl.SetEnable(false);
+			lupCompanyID.SetEnable(false);
 
-			txtCompanyID.EditValue = (this.ParamsData as DataMap).GetValue("CompanyID");
-			txtCompanyID.EditText = (this.ParamsData as DataMap).GetValue("CompanyName");
+			lupBankAccountType.BindData("BankAccountType");
+			lupCompanyID.BindData("CompanyList");
+			lupCompanyID.EditValue = (this.ParamsData as DataMap).GetValue("CompanyID").ToStringNullToNull();
 		}
 		protected override void DataLoad(object param = null)
 		{
@@ -76,16 +64,14 @@ namespace IKaan.Win.View.Biz.Master.Company
 					throw new Exception("조회할 데이터가 없습니다.");
 
 				SetControlData(model);
-				loadUrl = model.BankAccount.Image.Url;
-				if (model.BankAccount.Image.Url.IsNullOrEmpty())
+				picImage.ImageID = model.ImageID;
+				if (model.Image.Url.IsNullOrEmpty())
 				{
-					picImage.EditValue = null;
-					txtImageUrl.EditValue = null;
+					picImage.Clear();
 				}
 				else
 				{
-					picImage.LoadAsync(ConstsVar.IMG_URL + model.BankAccount.Image.Url);
-					txtImageUrl.EditValue = loadUrl;
+					picImage.LoadImage(ConstsVar.IMG_URL + model.Image.Url);
 				}
 
 				SetToolbarButtons(new ToolbarButtons() { Save = true, SaveAndClose = true, Delete = true });
@@ -100,14 +86,9 @@ namespace IKaan.Win.View.Biz.Master.Company
 		protected override void DataInit()
 		{
 			ClearControlData<CompanyBankAccountModel>();
-			txtCompanyID.EditValue = (this.ParamsData as DataMap).GetValue("CompanyID");
-			txtCompanyID.EditText = (this.ParamsData as DataMap).GetValue("CompanyName");
+			lupCompanyID.EditValue = (this.ParamsData as DataMap).GetValue("CompanyID").ToStringNullToNull();
 
-			txtBankName.Clear();
-			txtAccountNo.Clear();
-			txtDepositor.Clear();
-			picImage.EditValue = null;
-			loadUrl = string.Empty;
+			picImage.Clear();
 
 			SetToolbarButtons(new ToolbarButtons() { Save = true, SaveAndClose = true });
 			EditMode = EditModeEnum.New;
@@ -118,22 +99,31 @@ namespace IKaan.Win.View.Biz.Master.Company
 			try
 			{
 				var model = this.GetControlData<CompanyBankAccountModel>();
+				model.ImageID = picImage.ImageID.ToIntegerNullToNull();
 
 				if (picImage.EditValue != null)
 				{
-					string path = picImage.GetLoadedImageLocation();
-					if (path.IsNullOrEmpty() == false)
+					if (picImage.ImagePath.IsNullOrEmpty() == false)
 					{
-						string url = FTPHandler.UploadBank(txtImageUrl.EditValue.ToString(), txtBankName.EditValue.ToString(), txtAccountNo.EditValue.ToString().Replace("-", ""));
-						model.BankAccount.Image.Url = url;
+						string url = FTPHandler.UploadBank(picImage.ImagePath, txtBankName.EditValue.ToString(), txtAccountNo.EditValue.ToString().Replace("-", ""));
+						model.Image.Url = url;
+						model.Image.Width = picImage.ImageWidth;
+						model.Image.Height = picImage.ImageHeight;
+						model.Image.Name = picImage.GetFileName();
+						model.Image.ImageType = "45";
+					}
+					else
+					{
+						//이미지 모델을 null로 하면 처리하지 않는다.
+						model.Image = null;
 					}
 				}
 				else
 				{
-					if (loadUrl.IsNullOrEmpty() == false)
+					if (picImage.ImageUrl.IsNullOrEmpty() == false)
 					{
-						FTPHandler.DeleteFile(loadUrl);
-						loadUrl = string.Empty;
+						FTPHandler.DeleteFile(picImage.ImageUrl);
+						model.Image.Url = null;
 					}
 				}
 
@@ -141,11 +131,11 @@ namespace IKaan.Win.View.Biz.Master.Company
 				{
 					if (res.Error.Number != 0)
 						throw new Exception(res.Error.Message);
-
-					ShowMsgBox("저장하였습니다.");
+					
 					(this.ParamsData as DataMap).SetValue("ID", res.Result.ReturnValue);
-					callback(arg, this.ParamsData);
 				}
+				ShowMsgBox("저장하였습니다.");
+				callback(arg, this.ParamsData);
 			}
 			catch (Exception ex)
 			{
@@ -156,21 +146,20 @@ namespace IKaan.Win.View.Biz.Master.Company
 		{
 			try
 			{
-				if (txtImageUrl.EditValue.IsNullOrEmpty() == false)
+				if (picImage.ImageUrl.IsNullOrEmpty() == false)
 				{
-					FTPHandler.DeleteFile(txtImageUrl.EditValue.ToString());
-					loadUrl = string.Empty;
+					FTPHandler.DeleteFile(picImage.ImageUrl);
 				}
 
 				using (var res = WasHandler.Execute<DataMap>("Biz", "Delete", "DeleteCompanyBank", new DataMap() { { "ID", txtID.EditValue } }, "ID"))
 				{
 					if (res.Error.Number != 0)
 						throw new Exception(res.Error.Message);
-
-					ShowMsgBox("삭제하였습니다.");
+					
 					(this.ParamsData as DataMap).SetValue("ID", null);
-					callback(arg, this.ParamsData);
 				}
+				ShowMsgBox("삭제하였습니다.");
+				callback(arg, this.ParamsData);
 			}
 			catch (Exception ex)
 			{

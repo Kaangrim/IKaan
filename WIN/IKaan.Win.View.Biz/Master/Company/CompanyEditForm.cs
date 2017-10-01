@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using DevExpress.Utils;
 using DevExpress.XtraGrid.Views.Grid;
@@ -24,107 +25,7 @@ namespace IKaan.Win.View.Biz.Master.Company
 
 			lcTab.CustomHeaderButtonClick += delegate (object sender, CustomHeaderButtonEventArgs e)
 			{
-				if (lcTab.SelectedTabPage.Name == lcGroupAddress.Name)
-					ShowAddressEditForm(null);
-				else if (lcTab.SelectedTabPage.Name == lcGroupBankAccount.Name)
-					ShowBankEditForm(null);
-				else if (lcTab.SelectedTabPage.Name == lcGroupContact.Name)
-					ShowContactEditForm(null);
-				else if (lcTab.SelectedTabPage.Name == lcGroupStore.Name)
-					ShowChannelEditForm(null);
-				else if (lcTab.SelectedTabPage.Name == lcGroupBusiness.Name)
-					ShowBusinessEditForm(null);
-			};
-
-			gridBusiness.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
-			{
-				if (e.RowHandle < 0)
-					return;
-
-				try
-				{
-					if (e.Button == MouseButtons.Left && e.Clicks == 2)
-					{
-						GridView view = sender as GridView;
-						ShowBusinessEditForm(view.GetRowCellValue(e.RowHandle, "ID"));
-					}
-				}
-				catch(Exception ex)
-				{
-					ShowErrBox(ex);
-				}
-			};
-			gridAddress.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
-			{
-				if (e.RowHandle < 0)
-					return;
-
-				try
-				{
-					if (e.Button == MouseButtons.Left && e.Clicks == 2)
-					{
-						GridView view = sender as GridView;
-						ShowAddressEditForm(view.GetRowCellValue(e.RowHandle, "ID"));
-					}
-				}
-				catch (Exception ex)
-				{
-					ShowErrBox(ex);
-				}
-			};
-			gridBankAccount.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
-			{
-				if (e.RowHandle < 0)
-					return;
-
-				try
-				{
-					if (e.Button == MouseButtons.Left && e.Clicks == 2)
-					{
-						GridView view = sender as GridView;
-						ShowBankEditForm(view.GetRowCellValue(e.RowHandle, "ID"));
-					}
-				}
-				catch (Exception ex)
-				{
-					ShowErrBox(ex);
-				}
-			};
-			gridContact.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
-			{
-				if (e.RowHandle < 0)
-					return;
-
-				try
-				{
-					if (e.Button == MouseButtons.Left && e.Clicks == 2)
-					{
-						GridView view = sender as GridView;
-						ShowContactEditForm(view.GetRowCellValue(e.RowHandle, "ID"));
-					}
-				}
-				catch (Exception ex)
-				{
-					ShowErrBox(ex);
-				}
-			};
-			gridStore.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
-			{
-				if (e.RowHandle < 0)
-					return;
-
-				try
-				{
-					if (e.Button == MouseButtons.Left && e.Clicks == 2)
-					{
-						GridView view = sender as GridView;
-						ShowChannelEditForm(view.GetRowCellValue(e.RowHandle, "ID"));
-					}
-				}
-				catch (Exception ex)
-				{
-					ShowErrBox(ex);
-				}
+				ShowEdit(null);
 			};
 		}
 
@@ -189,20 +90,38 @@ namespace IKaan.Win.View.Biz.Master.Company
 				new XGridColumn() { FieldName = "AddressID", Visible = false },
 				new XGridColumn() { FieldName = "AddressTypeName", Width = 100, HorzAlignment = HorzAlignment.Center },
 				new XGridColumn() { FieldName = "PostalCode", Width = 100, HorzAlignment = HorzAlignment.Center },
-				new XGridColumn() { FieldName = "AddressLine1", Width = 200 },
-				new XGridColumn() { FieldName = "AddressLine2", Width = 200 },
 				new XGridColumn() { FieldName = "Country", Width = 100 },
 				new XGridColumn() { FieldName = "City", Width = 100 },
 				new XGridColumn() { FieldName = "StateProvince", Width = 100 },
+				new XGridColumn() { FieldName = "AddressLine1", Width = 200 },
+				new XGridColumn() { FieldName = "AddressLine2", Width = 200 },
 				new XGridColumn() { FieldName = "CreatedOn" },
 				new XGridColumn() { FieldName = "CreatedByName" },
 				new XGridColumn() { FieldName = "UpdatedOn" },
 				new XGridColumn() { FieldName = "UpdatedByName" }
 			);			
 			gridAddress.ColumnFix("RowNo");
+			gridAddress.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
+			{
+				if (e.RowHandle < 0)
+					return;
+
+				try
+				{
+					if (e.Button == MouseButtons.Left && e.Clicks == 2)
+					{
+						GridView view = sender as GridView;
+						ShowEdit(view.GetRowCellValue(e.RowHandle, "ID"));
+					}
+				}
+				catch (Exception ex)
+				{
+					ShowErrBox(ex);
+				}
+			};
 			#endregion
 
-			#region Channel List
+			#region Store List
 			gridStore.Init();
 			gridStore.AddGridColumns(
 				new XGridColumn() { FieldName = "RowNo" },
@@ -219,7 +138,24 @@ namespace IKaan.Win.View.Biz.Master.Company
 				new XGridColumn() { FieldName = "UpdatedByName" }
 			);
 			gridStore.ColumnFix("RowNo");
+			gridStore.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
+			{
+				if (e.RowHandle < 0)
+					return;
 
+				try
+				{
+					if (e.Button == MouseButtons.Left && e.Clicks == 2)
+					{
+						GridView view = sender as GridView;
+						ShowEdit(view.GetRowCellValue(e.RowHandle, "ID"));
+					}
+				}
+				catch (Exception ex)
+				{
+					ShowErrBox(ex);
+				}
+			};
 			#endregion
 
 			#region Business List
@@ -240,15 +176,34 @@ namespace IKaan.Win.View.Biz.Master.Company
 				new XGridColumn() { FieldName = "UpdatedByName" }
 			);
 			gridBusiness.ColumnFix("RowNo");
+			gridBusiness.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
+			{
+				if (e.RowHandle < 0)
+					return;
+
+				try
+				{
+					if (e.Button == MouseButtons.Left && e.Clicks == 2)
+					{
+						GridView view = sender as GridView;
+						ShowEdit(view.GetRowCellValue(e.RowHandle, "ID"));
+					}
+				}
+				catch (Exception ex)
+				{
+					ShowErrBox(ex);
+				}
+			};
 			#endregion
 
-			#region Bank List
+			#region Bank Account List
 			gridBankAccount.Init();
 			gridBankAccount.AddGridColumns(
 				new XGridColumn() { FieldName = "RowNo" },
 				new XGridColumn() { FieldName = "Modified", Visible = false },
 				new XGridColumn() { FieldName = "ID", Visible = false },
 				new XGridColumn() { FieldName = "CompanyID", Visible = false },
+				new XGridColumn() { FieldName = "BankAccountName", Width = 150 },
 				new XGridColumn() { FieldName = "BankName", Width = 150 },
 				new XGridColumn() { FieldName = "AccountNo", Width = 150 },
 				new XGridColumn() { FieldName = "Depositor", Width = 100 },
@@ -258,27 +213,68 @@ namespace IKaan.Win.View.Biz.Master.Company
 				new XGridColumn() { FieldName = "UpdatedByName" }
 			);
 			gridBankAccount.ColumnFix("RowNo");
+			gridBankAccount.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
+			{
+				if (e.RowHandle < 0)
+					return;
+
+				try
+				{
+					if (e.Button == MouseButtons.Left && e.Clicks == 2)
+					{
+						GridView view = sender as GridView;
+						ShowEdit(view.GetRowCellValue(e.RowHandle, "ID"));
+					}
+				}
+				catch (Exception ex)
+				{
+					ShowErrBox(ex);
+				}
+			};
 			#endregion
 
 			#region Contact List
 			gridContact.Init();
 			gridContact.AddGridColumns(
 				new XGridColumn() { FieldName = "RowNo" },
-				new XGridColumn() { FieldName = "Modified", Visible = false },
 				new XGridColumn() { FieldName = "ID", Visible = false },
 				new XGridColumn() { FieldName = "CompanyID", Visible = false },
 				new XGridColumn() { FieldName = "ContactID", Visible = false },
-				new XGridColumn() { FieldName = "StartDate", Width = 100, HorzAlignment = HorzAlignment.Center },
-				new XGridColumn() { FieldName = "EndDate", Width = 100, HorzAlignment = HorzAlignment.Center },
-				new XGridColumn() { FieldName = "Name", CaptionCode = "ContactName", Width = 100, HorzAlignment = HorzAlignment.Center },
+				new XGridColumn() { FieldName = "ContactName", Width = 100, HorzAlignment = HorzAlignment.Center },
+				new XGridColumn() { FieldName = "Position", Width = 100, HorzAlignment = HorzAlignment.Center },
+				new XGridColumn() { FieldName = "AssignedTask", Width = 150 },
+				new XGridColumn() { FieldName = "PhoneNo", Width = 100 },
+				new XGridColumn() { FieldName = "MobileNo", Width = 100 },
+				new XGridColumn() { FieldName = "FaxNo", Width = 100 },
+				new XGridColumn() { FieldName = "Email", Width = 150 },
 				new XGridColumn() { FieldName = "CreatedOn" },
 				new XGridColumn() { FieldName = "CreatedByName" },
 				new XGridColumn() { FieldName = "UpdatedOn" },
 				new XGridColumn() { FieldName = "UpdatedByName" }
 			);
 			gridContact.ColumnFix("RowNo");
+			gridContact.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
+			{
+				if (e.RowHandle < 0)
+					return;
+
+				try
+				{
+					if (e.Button == MouseButtons.Left && e.Clicks == 2)
+					{
+						GridView view = sender as GridView;
+						ShowEdit(view.GetRowCellValue(e.RowHandle, "ID"));
+					}
+				}
+				catch (Exception ex)
+				{
+					ShowErrBox(ex);
+				}
+			};
 			#endregion
 		}
+
+		#region Data Access
 
 		protected override void DataInit()
 		{
@@ -323,6 +319,18 @@ namespace IKaan.Win.View.Biz.Master.Company
 				gridContact.DataSource = model.Contacts;
 				gridBusiness.DataSource = model.Businesses;
 				gridStore.DataSource = model.Stores;
+
+				if (model.Businesses.Count > 0)
+				{
+					lupBizType.EditValue = model.CurrentBusiness.BizType;
+					txtBizName.EditValue = model.CurrentBusiness.Name;
+					txtBizNo.EditValue = model.CurrentBusiness.BizNo;
+					txtRepName.EditValue = model.CurrentBusiness.RepName;
+					txtBizKind.EditValue = model.CurrentBusiness.BizKind;
+					txtBizItem.EditValue = model.CurrentBusiness.BizItem;
+					txtAddressLine1.EditValue = model.CurrentBusiness.Address.AddressLine1;
+					txtAddressLine2.EditValue = model.CurrentBusiness.Address.AddressLine2;
+				}
 
 				lcTab.CustomHeaderButtons[0].Enabled = true;
 
@@ -376,149 +384,93 @@ namespace IKaan.Win.View.Biz.Master.Company
 			}
 		}
 
-		void ShowAddressEditForm(object id)
+		#endregion
+
+		protected override void ShowEdit(object data = null)
 		{
+			if (txtID.EditValue.IsNullOrEmpty())
+				return;
+
 			try
 			{
-				if (txtID.EditValue.IsNullOrEmpty())
-					return;
-
-				using (var form = new CompanyAddressEditForm()
+				if (lcTab.SelectedTabPage.Name == lcGroupAddress.Name)
 				{
-					Text = "주소등록",
-					StartPosition = FormStartPosition.CenterScreen,
-					IsLoadingRefresh = true,
-					ParamsData = new DataMap()
+					using (var form = new CompanyAddressEditForm()
 					{
-						{ "CompanyID", txtID.EditValue },
-						{ "CompanyName", txtName.EditValue },
-						{ "ID", id }
-					}
-				})
-				{
-					if (form.ShowDialog() == DialogResult.OK)
-						DataLoad(txtID.EditValue);
-				}
-			}
-			catch (Exception ex)
-			{
-				ShowErrBox(ex);
-			}
-		}
-		void ShowBusinessEditForm(object id)
-		{
-			try
-			{
-				if (txtID.EditValue.IsNullOrEmpty())
-					return;
-
-				using (var form = new CompanyBusinessEditForm()
-				{
-					Text = "사업자정보등록",
-					StartPosition = FormStartPosition.CenterScreen,
-					IsLoadingRefresh = true,
-					ParamsData = new DataMap()
-				{
-					{ "CompanyID", txtID.EditValue },
-					{ "CompanyName", txtName.EditValue },
-					{ "ID", id }
-				}
-				})
-				{
-					if (form.ShowDialog() == DialogResult.OK)
-						DataLoad(txtID.EditValue);
-				}
-			}
-			catch (Exception ex)
-			{
-				ShowErrBox(ex);
-			}
-		}
-		void ShowBankEditForm(object id)
-		{
-			try
-			{
-				if (txtID.EditValue.IsNullOrEmpty())
-					return;
-
-				using (var form = new CompanyBankAccountEditForm()
-				{
-					Text = "계좌정보등록",
-					StartPosition = FormStartPosition.CenterScreen,
-					IsLoadingRefresh = true,
-					ParamsData = new DataMap()
+						Text = "주소등록",
+						StartPosition = FormStartPosition.CenterScreen,
+						IsLoadingRefresh = true,
+						ParamsData = new DataMap()
+						{
+							{ "CompanyID", txtID.EditValue },
+							{ "CompanyName", txtName.EditValue },
+							{ "ID", data }
+						}
+					})
 					{
-						{ "CompanyID", txtID.EditValue },
-						{ "CompanyName", txtName.EditValue },
-						{ "ID", id }
+						if (form.ShowDialog() == DialogResult.OK)
+							DataLoad(txtID.EditValue);
 					}
-				})
-				{
-					if (form.ShowDialog() == DialogResult.OK)
-						DataLoad(txtID.EditValue);
 				}
-			}
-			catch (Exception ex)
-			{
-				ShowErrBox(ex);
-			}
-		}
-		void ShowContactEditForm(object id)
-		{
-			try
-			{
-				if (txtID.EditValue.IsNullOrEmpty())
-					return;
-
-				using (var form = new CompanyContactEditForm()
+				else if (lcTab.SelectedTabPage.Name == lcGroupBankAccount.Name)
 				{
-					Text = "담당자등록",
-					StartPosition = FormStartPosition.CenterScreen,
-					IsLoadingRefresh = true,
-					ParamsData = new DataMap()
+					using (var form = new CompanyBankAccountEditForm()
 					{
-						{ "CompanyID", txtID.EditValue },
-						{ "CompanyName", txtName.EditValue },
-						{ "ID", id }
+						Text = "계좌정보등록",
+						StartPosition = FormStartPosition.CenterScreen,
+						IsLoadingRefresh = true,
+						ParamsData = new DataMap()
+						{
+							{ "CompanyID", txtID.EditValue },
+							{ "CompanyName", txtName.EditValue },
+							{ "ID", data }
+						}
+					})
+					{
+						if (form.ShowDialog() == DialogResult.OK)
+							DataLoad(txtID.EditValue);
 					}
-				})
+				}
+				else if (lcTab.SelectedTabPage.Name == lcGroupBusiness.Name)
 				{
-					if (form.ShowDialog() == DialogResult.OK)
-						DataLoad(txtID.EditValue);
+					using (var form = new CompanyBusinessEditForm()
+					{
+						Text = "사업자정보등록",
+						StartPosition = FormStartPosition.CenterScreen,
+						IsLoadingRefresh = true,
+						ParamsData = new DataMap()
+						{
+							{ "CompanyID", txtID.EditValue },
+							{ "CompanyName", txtName.EditValue },
+							{ "ID", data }
+						}
+					})
+					{
+						if (form.ShowDialog() == DialogResult.OK)
+							DataLoad(txtID.EditValue);
+					}
+				}
+				else if (lcTab.SelectedTabPage.Name == lcGroupContact.Name)
+				{
+					using (var form = new CompanyContactEditForm()
+					{
+						Text = "담당자등록",
+						StartPosition = FormStartPosition.CenterScreen,
+						IsLoadingRefresh = true,
+						ParamsData = new DataMap()
+						{
+							{ "CompanyID", txtID.EditValue },
+							{ "CompanyName", txtName.EditValue },
+							{ "ID", data }
+						}
+					})
+					{
+						if (form.ShowDialog() == DialogResult.OK)
+							DataLoad(txtID.EditValue);
+					}
 				}
 			}
-			catch (Exception ex)
-			{
-				ShowErrBox(ex);
-			}
-		}
-		void ShowChannelEditForm(object id)
-		{
-			try
-			{
-				if (txtID.EditValue.IsNullOrEmpty())
-					return;
-
-				//using (CompanyChannelEditForm form = new CompanyChannelEditForm()
-				//{
-				//	Text = "채널등록",
-				//	StartPosition = FormStartPosition.CenterScreen,
-				//	IsLoadingRefresh = true,
-				//	ParamsData = new DataMap()
-				//	{
-				//		{ "CompanyID", txtID.EditValue },
-				//		{ "CompanyName", txtName.EditValue },
-				//		{ "ID", id }
-				//	}
-				//})
-				//{
-				//	if (form.ShowDialog() == DialogResult.OK)
-				//	{
-				//		DetailDataLoad(txtID.EditValue);
-				//	}
-				//}
-			}
-			catch (Exception ex)
+			catch(Exception ex)
 			{
 				ShowErrBox(ex);
 			}

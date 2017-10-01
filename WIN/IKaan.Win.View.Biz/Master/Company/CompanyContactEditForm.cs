@@ -1,6 +1,7 @@
 ﻿using System;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
+using IKaan.Model.Biz.Master.Common;
 using IKaan.Model.Biz.Master.Company;
 using IKaan.Win.Core.Enum;
 using IKaan.Win.Core.Forms;
@@ -60,6 +61,14 @@ namespace IKaan.Win.View.Biz.Master.Company
 					throw new Exception("조회할 데이터가 없습니다.");
 
 				SetControlData(model);
+				if (model.Contact != null)
+				{
+					txtName.EditValue = model.Contact.Name;
+					txtEmail.EditValue = model.Contact.Email;
+					txtPhoneNo.EditValue = model.Contact.PhoneNo;
+					txtMobileNo.EditValue = model.Contact.MobileNo;
+					txtFaxNo.EditValue = model.Contact.FaxNo;
+				}
 
 				SetToolbarButtons(new ToolbarButtons() { New = true, Save = true, SaveAndNew = true, SaveAndClose = true, Delete = true });
 				this.EditMode = EditModeEnum.Modify;
@@ -73,6 +82,8 @@ namespace IKaan.Win.View.Biz.Master.Company
 		protected override void DataInit()
 		{
 			ClearControlData<CompanyContactModel>();
+			ClearControlData<ContactModel>();
+
 			txtCompanyID.EditValue = (this.ParamsData as DataMap).GetValue("CompanyID");
 			txtCompanyID.EditText = (this.ParamsData as DataMap).GetValue("CompanyName");
 
@@ -85,15 +96,26 @@ namespace IKaan.Win.View.Biz.Master.Company
 			try
 			{
 				var model = this.GetControlData<CompanyContactModel>();
+				model.Contact = new ContactModel()
+				{
+					ID = txtContactID.EditValue.ToIntegerNullToNull(),
+					Name = txtName.EditValue.ToStringNullToEmpty(),
+					ContactType = "0",
+					Email = txtEmail.EditValue.ToStringNullToEmpty(),
+					PhoneNo = txtPhoneNo.EditValue.ToStringNullToEmpty(),
+					MobileNo = txtMobileNo.EditValue.ToStringNullToEmpty(),
+					FaxNo = txtFaxNo.EditValue.ToStringNullToEmpty()
+				};
+
 				using (var res = WasHandler.Execute<CompanyContactModel>("Biz", "Save", (this.EditMode == EditModeEnum.New) ? "Insert" : "Update", model, "ID"))
 				{
 					if (res.Error.Number != 0)
 						throw new Exception(res.Error.Message);
 
-					ShowMsgBox("저장하였습니다.");
 					(this.ParamsData as DataMap).SetValue("ID", res.Result.ReturnValue);
-					callback(arg, this.ParamsData);
 				}
+				ShowMsgBox("저장하였습니다.");
+				callback(arg, this.ParamsData);
 			}
 			catch (Exception ex)
 			{
@@ -108,11 +130,11 @@ namespace IKaan.Win.View.Biz.Master.Company
 				{
 					if (res.Error.Number != 0)
 						throw new Exception(res.Error.Message);
-
-					ShowMsgBox("삭제하였습니다.");
+					
 					(this.ParamsData as DataMap).SetValue("ID", null);
-					callback(arg, this.ParamsData);
 				}
+				ShowMsgBox("삭제하였습니다.");
+				callback(arg, this.ParamsData);
 			}
 			catch (Exception ex)
 			{
