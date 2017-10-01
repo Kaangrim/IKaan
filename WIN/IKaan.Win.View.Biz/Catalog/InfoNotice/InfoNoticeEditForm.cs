@@ -14,7 +14,7 @@ using IKaan.Win.Core.Model;
 using IKaan.Win.Core.Utils;
 using IKaan.Win.Core.Was.Handler;
 
-namespace IKaan.Win.View.Biz.Catalog
+namespace IKaan.Win.View.Biz.Catalog.InfoNotice
 {
 	public partial class InfoNoticeEditForm : EditForm
 	{

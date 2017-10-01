@@ -19,8 +19,6 @@ namespace IKaan.Win.View.Biz.Master.Business
 {
 	public partial class BusinessEditForm : EditForm
 	{
-		private string loadUrl = string.Empty;
-
 		public BusinessEditForm()
 		{
 			InitializeComponent();
@@ -38,6 +36,16 @@ namespace IKaan.Win.View.Biz.Master.Business
 							txtPostalCode.EditValue = data.ZoneCode + "(" + data.PostalNo + ")";
 						txtAddressLine1.EditValue = data.Address1;
 						txtAddressLine2.EditValue = data.Address2;
+
+						if (data.Address1.IsNullOrEmpty() == false)
+						{
+							var address = data.Address1.Split(' ');
+							if (address != null && address.Length > 0)
+							{
+								txtCity.EditValue = address[0].ToStringNullToEmpty();
+								txtStateProvince.EditValue = address[1].ToStringNullToEmpty();
+							}
+						}
 					}
 				}
 			};
@@ -114,8 +122,7 @@ namespace IKaan.Win.View.Biz.Master.Business
 			txtAddressLine1.Clear();
 			txtAddressLine2.Clear();
 
-			loadUrl = string.Empty;
-			picImage.EditValue = null;
+			picImage.Clear();
 
 			SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true });
 			EditMode = EditModeEnum.New;
@@ -145,14 +152,14 @@ namespace IKaan.Win.View.Biz.Master.Business
 					model.Links = new List<BusinessLinksModel>();
 				gridLinks.DataSource = model.Links;
 
-				loadUrl = model.Image.Url;
-				if (loadUrl.IsNullOrEmpty())
+				picImage.ImageID = model.ImageID;
+				if (model.Image.Url.IsNullOrEmpty())
 				{
-					picImage.EditValue = null;
+					picImage.Clear();
 				}
 				else
 				{
-					picImage.LoadAsync(ConstsVar.IMG_URL + loadUrl);
+					picImage.LoadImage(ConstsVar.IMG_URL + model.Image.Url);
 				}
 
 				SetToolbarButtons(new ToolbarButtons() { New = true, Save = true, SaveAndClose = true, SaveAndNew = true, Delete = true });
@@ -185,19 +192,19 @@ namespace IKaan.Win.View.Biz.Master.Business
 				//이미지 업로드
 				if (picImage.EditValue != null)
 				{
-					string path = picImage.GetLoadedImageLocation();
+					string path = picImage.ImagePath;
 					if (path.IsNullOrEmpty() == false)
 					{
-						string url = FTPHandler.UploadBusiness(picImage.GetLoadedImageLocation(), txtBizNo.EditValue.ToString().Replace("-", ""));
+						string url = FTPHandler.UploadBusiness(path, txtBizNo.EditValue.ToString().Replace("-", ""));
 						model.Image.Url = url;
 					}
 				}
 				else
 				{
-					if (loadUrl.IsNullOrEmpty() == false)
+					if (picImage.ImageUrl.IsNullOrEmpty() == false)
 					{
-						FTPHandler.DeleteFile(loadUrl);
-						loadUrl = string.Empty;
+						FTPHandler.DeleteFile(picImage.ImageUrl);
+						model.Image.Url = null;
 					}
 				}
 
@@ -220,10 +227,9 @@ namespace IKaan.Win.View.Biz.Master.Business
 		{
 			try
 			{
-				if (loadUrl.IsNullOrEmpty() == false)
+				if (picImage.ImageUrl.IsNullOrEmpty() == false)
 				{
-					FTPHandler.DeleteFile(loadUrl);
-					loadUrl = string.Empty;
+					FTPHandler.DeleteFile(picImage.ImageUrl);
 				}
 
 				using (var res = WasHandler.Execute<DataMap>("Biz", "Delete", "DeleteBusiness", new DataMap() { { "ID", txtID.EditValue } }, "ID"))

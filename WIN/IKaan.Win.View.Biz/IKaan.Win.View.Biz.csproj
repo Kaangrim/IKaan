@@ -159,10 +159,10 @@
     <Compile Include="Catalog\Category\CategoryEditForm.designer.cs">
       <DependentUpon>CategoryEditForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Catalog\InfoNoticeEditForm.cs">
+    <Compile Include="Catalog\InfoNotice\InfoNoticeEditForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Catalog\InfoNoticeEditForm.designer.cs">
+    <Compile Include="Catalog\InfoNotice\InfoNoticeEditForm.designer.cs">
       <DependentUpon>InfoNoticeEditForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Master\Address\AddressEditForm.cs">
@@ -363,7 +363,7 @@
     <EmbeddedResource Include="Catalog\Category\CategoryEditForm.resx">
       <DependentUpon>CategoryEditForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Catalog\InfoNoticeEditForm.resx">
+    <EmbeddedResource Include="Catalog\InfoNotice\InfoNoticeEditForm.resx">
       <DependentUpon>InfoNoticeEditForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Master\Address\AddressEditForm.resx">

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.12
+VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WAS", "WAS", "{D6A4C222-C13B-4109-8ABB-32A17FBDD138}"
 EndProject
@@ -36,8 +36,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IKaan.Win.View.Base", "WIN\IKaan.Win.View.Base\IKaan.Win.View.Base.csproj", "{7A92D420-B503-450B-97AA-1EFC46A8603F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IKaan.Win.View.Live", "WIN\IKaan.Win.View.Live\IKaan.Win.View.Live.csproj", "{B6BCF752-D03F-4A69-80A1-E4827CAE2BCF}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IKaan.Win.View.B2B", "WIN\IKaan.Win.View.B2B\IKaan.Win.View.B2B.csproj", "{4239DC42-4989-473F-94DA-8039E9416AF9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -143,14 +141,6 @@ Global
 		{B6BCF752-D03F-4A69-80A1-E4827CAE2BCF}.PluginDev|Any CPU.Build.0 = Release|Any CPU
 		{B6BCF752-D03F-4A69-80A1-E4827CAE2BCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B6BCF752-D03F-4A69-80A1-E4827CAE2BCF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4239DC42-4989-473F-94DA-8039E9416AF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4239DC42-4989-473F-94DA-8039E9416AF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4239DC42-4989-473F-94DA-8039E9416AF9}.EFMigrations|Any CPU.ActiveCfg = Release|Any CPU
-		{4239DC42-4989-473F-94DA-8039E9416AF9}.EFMigrations|Any CPU.Build.0 = Release|Any CPU
-		{4239DC42-4989-473F-94DA-8039E9416AF9}.PluginDev|Any CPU.ActiveCfg = Release|Any CPU
-		{4239DC42-4989-473F-94DA-8039E9416AF9}.PluginDev|Any CPU.Build.0 = Release|Any CPU
-		{4239DC42-4989-473F-94DA-8039E9416AF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4239DC42-4989-473F-94DA-8039E9416AF9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -168,10 +158,9 @@ Global
 		{6AF024E0-3D47-4127-887B-5EDC9DB036AE} = {B3CD85A0-6ADA-42E7-A8CD-27288327B28F}
 		{7A92D420-B503-450B-97AA-1EFC46A8603F} = {B3CD85A0-6ADA-42E7-A8CD-27288327B28F}
 		{B6BCF752-D03F-4A69-80A1-E4827CAE2BCF} = {B3CD85A0-6ADA-42E7-A8CD-27288327B28F}
-		{4239DC42-4989-473F-94DA-8039E9416AF9} = {B3CD85A0-6ADA-42E7-A8CD-27288327B28F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		VisualSVNWorkingCopyRoot = .
 		SolutionGuid = {965BBB8E-F6BB-4031-8BD6-B57B54BE58F1}
+		VisualSVNWorkingCopyRoot = .
 	EndGlobalSection
 EndGlobal

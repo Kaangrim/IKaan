@@ -1,4 +1,4 @@
-﻿namespace IKaan.Win.View.Biz.Catalog
+﻿namespace IKaan.Win.View.Biz.Catalog.InfoNotice
 {
 	partial class InfoNoticeEditForm
 	{

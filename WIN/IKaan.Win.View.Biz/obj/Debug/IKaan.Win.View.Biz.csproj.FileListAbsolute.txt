@@ -428,7 +428,6 @@ D:\Repositories\IKaan\WIN\IKaan.Win.View.Biz\obj\Debug\IKaan.Win.View.Biz.Organi
 D:\Repositories\IKaan\WIN\IKaan.Win.View.Biz\obj\Debug\IKaan.Win.View.Biz.Organization.DepartmentEditForm.resources
 D:\Repositories\IKaan\WIN\IKaan.Win.View.Biz\obj\Debug\IKaan.Win.View.Biz.Catalog.TGoodsChannelEditForm.resources
 D:\Repositories\IKaan\WIN\IKaan.Win.View.Biz\obj\Debug\IKaan.Win.View.Biz.Catalog.CategoryEditForm.resources
-D:\Repositories\IKaan\WIN\IKaan.Win.View.Biz\obj\Debug\IKaan.Win.View.Biz.Catalog.InfoNoticeEditForm.resources
 D:\Repositories\IKaan\WIN\IKaan.Win.View.Biz\obj\Debug\IKaan.Win.View.Biz.Activity.SearchBrandActivityEditForm.resources
 D:\Repositories\IKaan\WIN\IKaan.Win.View.Biz\obj\Debug\IKaan.Win.View.Biz.Activity.SearchBrandEditForm.resources
 D:\Repositories\IKaan\WIN\IKaan.Win.View.Biz\obj\Debug\IKaan.Win.View.Biz.Sales.OrderSumBrandEditForm.resources
@@ -465,3 +464,4 @@ D:\Repositories\IKaan\WIN\IKaan.Win.View.Biz\obj\Debug\IKaan.Win.View.Biz.Master
 D:\Repositories\IKaan\WIN\IKaan.Win.View.Biz\obj\Debug\IKaan.Win.View.Biz.Master.Company.CompanyBusinessEditForm.resources
 D:\Repositories\IKaan\WIN\IKaan.Win.View.Biz\obj\Debug\IKaan.Win.View.Biz.Master.Company.CompanyBankAccountEditForm.resources
 D:\Repositories\IKaan\WIN\IKaan.Win.View.Biz\obj\Debug\IKaan.Win.View.Biz.Master.Company.CompanyContactEditForm.resources
+D:\Repositories\IKaan\WIN\IKaan.Win.View.Biz\obj\Debug\IKaan.Win.View.Biz.Catalog.InfoNotice.InfoNoticeEditForm.resources

@@ -117,10 +117,6 @@
       <Project>{942b6393-9be6-415c-bfa6-ca3eb166735f}</Project>
       <Name>IKaan.Win.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\IKaan.Win.View.B2B\IKaan.Win.View.B2B.csproj">
-      <Project>{4239dc42-4989-473f-94da-8039e9416af9}</Project>
-      <Name>IKaan.Win.View.B2B</Name>
-    </ProjectReference>
     <ProjectReference Include="..\IKaan.Win.View.Base\IKaan.Win.View.Base.csproj">
       <Project>{7a92d420-b503-450b-97aa-1efc46a8603f}</Project>
       <Name>IKaan.Win.View.Base</Name>
