@@ -14,6 +14,8 @@ namespace IKaan.Win.View.Biz.Master.Address
 {
 	public partial class AddressEditForm : EditForm
 	{
+		private object id = null;
+
 		public AddressEditForm()
 		{
 			InitializeComponent();
@@ -31,6 +33,17 @@ namespace IKaan.Win.View.Biz.Master.Address
 							txtPostalCode.EditValue = data.ZoneCode + "(" + data.PostalNo + ")";
 						txtAddressLine1.EditValue = data.Address1;
 						txtAddressLine2.EditValue = data.Address2;
+
+						lupCountry.EditValue = "KOR";
+						if (data.Address1.IsNullOrEmpty() == false)
+						{
+							var address = data.Address1.Split(' ');
+							if (address != null && address.Length > 0)
+							{
+								txtCity.EditValue = address[0].ToStringNullToEmpty();
+								txtStateProvince.EditValue = address[1].ToStringNullToEmpty();
+							}
+						}
 					}
 				}
 			};
@@ -53,7 +66,6 @@ namespace IKaan.Win.View.Biz.Master.Address
 
 			SetFieldNames();
 
-			txtID.SetEnable(false);
 			txtCreatedOn.SetEnable(false);
 			txtCreatedByName.SetEnable(false);
 			txtUpdatedOn.SetEnable(false);
@@ -65,6 +77,7 @@ namespace IKaan.Win.View.Biz.Master.Address
 		protected override void DataInit()
 		{
 			ClearControlData<AddressModel>();
+			id = null;
 
 			SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true });
 			EditMode = EditModeEnum.New;
@@ -80,6 +93,7 @@ namespace IKaan.Win.View.Biz.Master.Address
 					throw new Exception("조회할 데이터가 없습니다.");
 
 				SetControlData(model);
+				id = model.ID;
 
 				SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true, Delete = true });
 				this.EditMode = EditModeEnum.Modify;
@@ -97,6 +111,7 @@ namespace IKaan.Win.View.Biz.Master.Address
 			try
 			{
 				var model = this.GetControlData<AddressModel>();
+				model.ID = id.ToIntegerNullToNull();
 				using (var res = WasHandler.Execute<AddressModel>("Biz", "Save", (this.EditMode == EditModeEnum.New) ? "Insert" : "Update", model, "ID"))
 				{
 					if (res.Error.Number != 0)
@@ -116,7 +131,7 @@ namespace IKaan.Win.View.Biz.Master.Address
 		{
 			try
 			{
-				using (var res = WasHandler.Execute<DataMap>("Biz", "Delete", "DeleteAddress", new DataMap() { { "ID", txtID.EditValue } }, "ID"))
+				using (var res = WasHandler.Execute<DataMap>("Biz", "Delete", "DeleteAddress", new DataMap() { { "ID", id } }))
 				{
 					if (res.Error.Number != 0)
 						throw new Exception(res.Error.Message);

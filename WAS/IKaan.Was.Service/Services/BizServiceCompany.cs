@@ -255,6 +255,7 @@ namespace IKaan.Was.Service.Services
 			try
 			{
 				var model = req.Data.JsonToAnyType<CompanyBankAccountModel>();
+			
 				var bankaccount = new BankAccountModel()
 				{
 					Name = model.BankAccountName,
@@ -264,35 +265,32 @@ namespace IKaan.Was.Service.Services
 					ImageID = model.ImageID
 				};
 
-				if (model.Image != null)
+				var imageID = model.ImageID;
+				if (imageID == null)
 				{
-					if (model.ImageID == null)
+					if (model.Image != null)
 					{
-						if (model.Image.Url.IsNullOrEmpty() == false)
-						{
-							model.Image.CreatedBy = req.User.UserId;
-							model.Image.CreatedByName = req.User.UserName;
-							var id = DaoFactory.InstanceBiz.Insert("InsertImage", model.Image);
-							model.Image.ID = id.ToIntegerNullToNull();
-						}
+						model.Image.CreatedBy = req.User.UserId;
+						model.Image.CreatedByName = req.User.UserName;
+						var id = DaoFactory.InstanceBiz.Insert("InsertImage", model.Image);
+						bankaccount.ImageID = id.ToIntegerNullToNull();
+						model.Image.ID = id.ToIntegerNullToNull();
+					}
+				}
+				else
+				{
+					if (model.Image != null)
+					{
+						model.Image.ID = imageID;
+						model.Image.UpdatedBy = req.User.UserId;
+						model.Image.UpdatedByName = req.User.UserName;
+						DaoFactory.InstanceBiz.Update("UpdateImage", model.Image);
 					}
 					else
 					{
-						if (model.Image.Url.IsNullOrEmpty() == false)
-						{
-							model.Image.UpdatedBy = req.User.UserId;
-							model.Image.UpdatedByName = req.User.UserName;
-							DaoFactory.InstanceBiz.Update("UpdateImage", model.Image);
-						}
-						else
-						{
-							DaoFactory.InstanceBiz.Delete("DeleteImage", model.ImageID);
-							model.Image.ID = null;
-							model.ImageID = null;
-						}
+						model.ImageID = null;
+						bankaccount.ImageID = null;
 					}
-					model.ImageID = model.Image.ID;
-					bankaccount.ImageID = model.ImageID;
 				}
 
 				if (bankaccount != null)
@@ -309,6 +307,11 @@ namespace IKaan.Was.Service.Services
 						bankaccount.UpdatedBy = req.User.UserId;
 						bankaccount.UpdatedByName = req.User.UserName;
 						DaoFactory.InstanceBiz.Update("UpdateBankAccount", bankaccount);
+
+						if (imageID != null && model.Image == null)
+						{
+							DaoFactory.InstanceBiz.Delete("DeleteImage", new DataMap() { { "ID", imageID } });
+						}
 					}
 					model.BankAccountID = bankaccount.ID;
 				}
@@ -368,33 +371,31 @@ namespace IKaan.Was.Service.Services
 						model.Business.AddressID = null;
 					}
 
-					if (model.Business.Image != null)
+					var imageID = model.Business.ImageID;
+					if (imageID == null)
 					{
-						if (model.Business.ImageID == null)
+						if (model.Business.Image != null)
 						{
-							if (model.Business.Image.Url.IsNullOrEmpty() == false)
-							{
-								model.Business.Image.CreatedBy = req.User.UserId;
-								model.Business.Image.CreatedByName = req.User.UserName;
-								var id = DaoFactory.InstanceBiz.Insert("InsertImage", model.Business.Image);
-								model.Business.Image.ID = id.ToIntegerNullToNull();
-							}
+							model.Business.Image.CreatedBy = req.User.UserId;
+							model.Business.Image.CreatedByName = req.User.UserName;
+							var id = DaoFactory.InstanceBiz.Insert("InsertImage", model.Business.Image);
+							model.Business.Image.ID = id.ToIntegerNullToNull();
+							model.Business.ImageID = id.ToIntegerNullToNull();
+						}
+					}
+					else
+					{
+						if (model.Business.Image != null)
+						{
+							model.Business.Image.ID = model.Business.ImageID;
+							model.Business.Image.UpdatedBy = req.User.UserId;
+							model.Business.Image.UpdatedByName = req.User.UserName;
+							DaoFactory.InstanceBiz.Update("UpdateImage", model.Business.Image);
 						}
 						else
 						{
-							if (model.Business.Image.Url.IsNullOrEmpty() == false)
-							{
-								model.Business.Image.UpdatedBy = req.User.UserId;
-								model.Business.Image.UpdatedByName = req.User.UserName;
-								DaoFactory.InstanceBiz.Update("UpdateImage", model.Business.Image);
-							}
-							else
-							{
-								DaoFactory.InstanceBiz.Delete("DeleteImage", new DataMap() { { "ID", model.Business.ImageID } });
-								model.Business.Image.ID = null;
-							}
+							model.Business.ImageID = null;
 						}
-						model.Business.ImageID = model.Business.Image.ID;
 					}
 
 					if (model.BusinessID == null)
@@ -409,6 +410,11 @@ namespace IKaan.Was.Service.Services
 						model.Business.UpdatedBy = req.User.UserId;
 						model.Business.UpdatedByName = req.User.UserName;
 						DaoFactory.InstanceBiz.Update("UpdateBusiness", model.Business);
+
+						if (imageID != null && model.Business.Image == null)
+						{
+							DaoFactory.InstanceBiz.Delete("DeleteImage", new DataMap() { { "ID", imageID } });
+						}
 					}
 					model.BusinessID = model.Business.ID;
 				}

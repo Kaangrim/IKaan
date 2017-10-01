@@ -1,6 +1,8 @@
 ﻿using System;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
+using IKaan.Base.Variables;
+using IKaan.Model.Biz.Master.Common;
 using IKaan.Model.Biz.Master.Company;
 using IKaan.Win.Core.Enum;
 using IKaan.Win.Core.Forms;
@@ -103,30 +105,29 @@ namespace IKaan.Win.View.Biz.Master.Company
 				var model = this.GetControlData<CompanyBankAccountModel>();
 				model.ID = id.ToIntegerNullToNull();
 				model.ImageID = picImage.ImageID.ToIntegerNullToNull();
+				model.Image = null;
 
 				if (picImage.EditValue != null)
 				{
 					if (picImage.ImagePath.IsNullOrEmpty() == false)
 					{
 						string url = FTPHandler.UploadBank(picImage.ImagePath, txtBankName.EditValue.ToString(), txtAccountNo.EditValue.ToString().Replace("-", ""));
-						model.Image.Url = url;
-						model.Image.Width = picImage.ImageWidth;
-						model.Image.Height = picImage.ImageHeight;
-						model.Image.Name = picImage.GetFileName();
-						model.Image.ImageType = "45";
-					}
-					else
-					{
-						//이미지 모델을 null로 하면 처리하지 않는다.
-						model.Image = null;
+						model.Image = new ImageModel()
+						{
+							ID = picImage.ImageID.ToIntegerNullToNull(),
+							Url = url,
+							Name = picImage.GetFileName(),
+							Width = picImage.ImageWidth,
+							Height = picImage.ImageHeight,
+							ImageType = BaseConstsImageType.BANK_ACCOUNT
+						};
 					}
 				}
 				else
 				{
-					if (picImage.ImageUrl.IsNullOrEmpty() == false)
+					if (picImage.ImageUrl.IsNullOrEmpty() == false && picImage.EditValue == null)
 					{
 						FTPHandler.DeleteFile(picImage.ImageUrl);
-						model.Image.Url = null;
 					}
 				}
 

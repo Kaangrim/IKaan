@@ -152,14 +152,17 @@ namespace IKaan.Was.Service.Services
 				if (business != null)
 				{
 					//주소
-					parameter = new DataMap() { { "ID", business.AddressID } };
-					business.Address = DaoFactory.InstanceBiz.QueryForObject<AddressModel>("SelectAddress", parameter);
+					business.Address = DaoFactory.InstanceBiz.QueryForObject<AddressModel>("SelectAddress", new DataMap() { { "ID", business.AddressID } });
 					if (business.Address == null)
 						business.Address = new AddressModel();
 
+					//이미지
+					business.Image = DaoFactory.InstanceBiz.QueryForObject<ImageModel>("SelectImage", new DataMap() { { "ID", business.ImageID } });
+					if (business.Image == null)
+						business.Image = new ImageModel();
+
 					//거래처목록
-					parameter = new DataMap() { { "BusinessID", business.ID } };
-					business.Links = DaoFactory.InstanceBiz.QueryForList<BusinessLinksModel>("SelectBusinessLinks", parameter);
+					business.Links = DaoFactory.InstanceBiz.QueryForList<BusinessLinksModel>("SelectBusinessLinks", new DataMap() { { "BusinessID", business.ID } });
 					if (business.Links == null)
 						business.Links = new List<BusinessLinksModel>();
 				}
@@ -332,6 +335,33 @@ namespace IKaan.Was.Service.Services
 							model.Address.UpdatedByName = req.User.UserName;
 
 							DaoFactory.InstanceBiz.Update("UpdateAddress", model.Address);
+						}
+					}
+
+					if (model.Image != null)
+					{
+						if (model.Image.ID == null)
+						{
+							model.Image.CreatedBy = req.User.UserId;
+							model.Image.CreatedByName = req.User.UserName;
+							var id = DaoFactory.InstanceBiz.Insert("InsertImage", model.Image);
+							model.Image.ID = id.ToIntegerNullToNull();
+							model.ImageID = id.ToIntegerNullToNull();
+						}
+						else
+						{
+							if (model.Image.Url.IsNullOrEmpty() == false)
+							{
+								model.Image.UpdatedBy = req.User.UserId;
+								model.Image.UpdatedByName = req.User.UserName;
+								DaoFactory.InstanceBiz.Update("UpdateImage", model.Image);
+								model.ImageID = model.Image.ID;
+							}
+							else
+							{
+								DaoFactory.InstanceBiz.Delete("DeleteImage", new DataMap() { { "ID", model.Image.ID } });
+								model.ImageID = null;
+							}
 						}
 					}
 

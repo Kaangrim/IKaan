@@ -349,6 +349,9 @@ namespace IKaan.Was.Service.Services
 								case "ProductImage":
 									req.SaveProductImage();
 									break;
+								case "Address":
+									req.SaveData<AddressModel>();
+									break;
 								case "Business":
 									req.SaveBusiness();
 									break;

@@ -1,6 +1,7 @@
 ﻿using System;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
+using IKaan.Base.Variables;
 using IKaan.Model.Biz.Master.Common;
 using IKaan.Model.Biz.Master.Company;
 using IKaan.Win.Core.Enum;
@@ -39,6 +40,7 @@ namespace IKaan.Win.View.Biz.Master.Company
 						txtAddressLine1.EditValue = data.Address1;
 						txtAddressLine2.EditValue = data.Address2;
 
+						lupCountry.EditValue = "KOR";
 						if (data.Address1.IsNullOrEmpty() == false)
 						{
 							var address = data.Address1.Split(' ');
@@ -219,21 +221,15 @@ namespace IKaan.Win.View.Biz.Master.Company
 							Name = picImage.GetFileName(),
 							Width = picImage.ImageWidth,
 							Height = picImage.ImageHeight,
-							ImageType = "44"
+							ImageType = BaseConstsImageType.BUSINESS
 						};
-					}
-					else
-					{
-						model.Business.Image = null;
 					}
 				}
 				else
 				{
-					if (picImage.ImageUrl.IsNullOrEmpty() == false && picImage.EditValue != null)
+					if (picImage.ImageUrl.IsNullOrEmpty() == false && picImage.EditValue == null)
 					{
 						FTPHandler.DeleteFile(picImage.ImageUrl);
-						model.Business.Image.Url = null;
-						model.Business.Image.ID = picImage.ImageID.ToIntegerNullToNull();
 					}
 				}
 

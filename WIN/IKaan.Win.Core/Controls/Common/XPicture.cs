@@ -1,6 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing.Imaging;
 using System.IO;
+using System.Text;
+using System.Windows.Forms;
 using DevExpress.Utils.Menu;
 using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Controls;
@@ -135,16 +139,27 @@ namespace IKaan.Win.Core.Controls.Common
 
 		public void SelectImage()
 		{
-			var path = picture.GetLoadedImageLocation();
-			picture.LoadImage();
-			if (picture.EditValue != null)
+			try
 			{
-				if (path != picture.GetLoadedImageLocation())
+				using (var dialog = new OpenFileDialog()
 				{
-					ImagePath = picture.GetLoadedImageLocation();
-					ImageUrl = null;
-					edit.EditValue = ImagePath;
+					Filter = GetImageFilter(),
+					FilterIndex = 1,
+					RestoreDirectory = true
+				})
+				{
+					if (dialog.ShowDialog() == DialogResult.OK)
+					{
+						ImagePath = dialog.FileName;
+						ImageUrl = null;
+						edit.EditValue = ImagePath;
+						picture.LoadAsync(ImagePath);
+					}
 				}
+			}
+			catch
+			{
+				throw;
 			}
 		}
 
@@ -160,6 +175,32 @@ namespace IKaan.Win.Core.Controls.Common
 				return null;
 			else
 				return Path.GetFileName(ImagePath);
+		}
+
+		private string GetImageFilter()
+		{
+			StringBuilder allImageExtensions = new StringBuilder();
+			string separator = "";
+			ImageCodecInfo[] codecs = ImageCodecInfo.GetImageEncoders();
+			Dictionary<string, string> images = new Dictionary<string, string>();
+			foreach (var codec in codecs)
+			{
+				allImageExtensions.Append(separator);
+				allImageExtensions.Append(codec.FilenameExtension);
+				separator = ";";
+				images.Add(string.Format("{0} Files: ({1})", codec.FormatDescription, codec.FilenameExtension), codec.FilenameExtension);
+			}
+			StringBuilder sb = new StringBuilder();
+			if (allImageExtensions.Length > 0)
+			{
+				sb.AppendFormat("{0}|{1}", "All Images", allImageExtensions.ToString());
+			}
+			images.Add("All Files", "*.*");
+			foreach(KeyValuePair<string, string> image in images)
+			{
+				sb.AppendFormat("|{0}|{1}", image.Key, image.Value);
+			}
+			return sb.ToString();
 		}
 	}
 }

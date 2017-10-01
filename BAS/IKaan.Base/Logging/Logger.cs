@@ -25,7 +25,7 @@ namespace IKaan.Base.Logging
 
 			var rollingAppender = new log4net.Appender.RollingFileAppender()
 			{
-				File = ConstsVar.APP_PATH + @"\Log\log.log",
+				File = BaseConstsVar.APP_PATH + @"\Log\log.log",
 				AppendToFile = true,
 				RollingStyle = log4net.Appender.RollingFileAppender.RollingMode.Date,
 				LockingModel = new log4net.Appender.FileAppender.MinimalLock(),

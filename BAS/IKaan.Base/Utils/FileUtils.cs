@@ -10,7 +10,7 @@ namespace IKaan.Base.Utils
 	{
 		public static string GetExportFilePath()
 		{
-			return string.Format("C:\\{0}\\ExportXls", ConstsVar.APP_PATH);
+			return string.Format("C:\\{0}\\ExportXls", BaseConstsVar.APP_PATH);
 		}
 		public static string GetUniqueFileName(string fileName)
 		{

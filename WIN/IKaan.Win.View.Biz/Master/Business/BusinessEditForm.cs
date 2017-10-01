@@ -4,6 +4,7 @@ using DevExpress.Utils;
 using DevExpress.XtraEditors.Controls;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
+using IKaan.Base.Variables;
 using IKaan.Model.Biz.Master.Common;
 using IKaan.Win.Core.Controls.Grid;
 using IKaan.Win.Core.Enum;
@@ -181,6 +182,7 @@ namespace IKaan.Win.View.Biz.Master.Business
 				var model = this.GetControlData<BusinessModel>();
 				model.ID = id.ToIntegerNullToNull();
 				model.AddressID = addressID.ToIntegerNullToNull();
+				model.ImageID = picImage.ImageID.ToIntegerNullToNull();
 
 				model.Address = new AddressModel()
 				{
@@ -193,6 +195,12 @@ namespace IKaan.Win.View.Biz.Master.Business
 					AddressLine2 = txtAddressLine2.EditValue.ToStringNullToNull()
 				};
 
+				model.Image = new ImageModel
+				{
+					ID = picImage.ImageID.ToIntegerNullToNull(),
+					ImageType = BaseConstsImageType.BUSINESS
+				};
+
 				//이미지 업로드
 				if (picImage.EditValue != null)
 				{
@@ -201,6 +209,13 @@ namespace IKaan.Win.View.Biz.Master.Business
 					{
 						string url = FTPHandler.UploadBusiness(path, txtBizNo.EditValue.ToString().Replace("-", ""));
 						model.Image.Url = url;
+						model.Image.Name = picImage.GetFileName();
+						model.Image.Width = picImage.ImageWidth;
+						model.Image.Height = picImage.ImageHeight;
+					}
+					else
+					{
+						model.Image = null;
 					}
 				}
 				else
