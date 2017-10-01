@@ -135,18 +135,16 @@ namespace IKaan.Win.Core.Controls.Common
 
 		public void SelectImage()
 		{
+			var path = picture.GetLoadedImageLocation();
 			picture.LoadImage();
 			if (picture.EditValue != null)
 			{
-				ImagePath = picture.GetLoadedImageLocation();
-				ImageUrl = null;
-				edit.EditValue = ImagePath;
-			}
-			else
-			{
-				edit.EditValue = null;
-				ImagePath = null;
-				ImageUrl = null;
+				if (path != picture.GetLoadedImageLocation())
+				{
+					ImagePath = picture.GetLoadedImageLocation();
+					ImageUrl = null;
+					edit.EditValue = ImagePath;
+				}
 			}
 		}
 

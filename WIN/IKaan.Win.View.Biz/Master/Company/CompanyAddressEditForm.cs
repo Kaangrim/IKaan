@@ -7,13 +7,15 @@ using IKaan.Win.Core.Enum;
 using IKaan.Win.Core.Forms;
 using IKaan.Win.Core.Model;
 using IKaan.Win.Core.PostalCode;
-using IKaan.Win.Core.Utils;
 using IKaan.Win.Core.Was.Handler;
 
 namespace IKaan.Win.View.Biz.Master.Company
 {
 	public partial class CompanyAddressEditForm : EditForm
 	{
+		private object id = null;
+		private object addressID = null;
+
 		public CompanyAddressEditForm()
 		{
 			InitializeComponent();
@@ -22,30 +24,21 @@ namespace IKaan.Win.View.Biz.Master.Company
 			{
 				if (e.Button.Kind == DevExpress.XtraEditors.Controls.ButtonPredefines.Ellipsis)
 				{
-					if (lupCountry.EditValue.IsNullOrEmpty())
+					var data = SearchPostalCode.Find();
+					if (data != null)
 					{
-						ShowMsgBox("국가를 선택하세요!!!");
-						lupCountry.Focus();
-						return;
-					}
+						lupCountry.EditValue = "KOR";
+						txtPostalCode.EditValue = data.ZoneCode + "(" + data.PostalNo + ")";
+						txtAddressLine1.EditValue = data.Address1;
+						txtAddressLine2.EditValue = data.Address2;
 
-					if (lupCountry.EditValue.ToString() == "KOR")
-					{
-						var data = SearchPostalCode.Find();
-						if (data != null)
+						if (data.Address1.IsNullOrEmpty() == false)
 						{
-							txtPostalCode.EditValue = data.ZoneCode + "(" + data.PostalNo + ")";
-							txtAddressLine1.EditValue = data.Address1;
-							txtAddressLine2.EditValue = data.Address2;
-
-							if (data.Address1.IsNullOrEmpty() == false)
+							var address = data.Address1.Split(' ');
+							if (address != null && address.Length > 0)
 							{
-								var address = data.Address1.Split(' ');
-								if (address != null && address.Length > 0)
-								{
-									txtCity.EditValue = address[0].ToStringNullToEmpty();
-									txtStateProvince.EditValue = address[1].ToStringNullToEmpty();
-								}
+								txtCity.EditValue = address[0].ToStringNullToEmpty();
+								txtStateProvince.EditValue = address[1].ToStringNullToEmpty();
 							}
 						}
 					}
@@ -72,15 +65,13 @@ namespace IKaan.Win.View.Biz.Master.Company
 
 			SetFieldNames();
 
-			txtID.SetEnable(false);
-			txtCompanyID.SetEnable(false);
-			txtAddressID.SetEnable(false);
+			lupCompanyID.SetEnable(false);
 
 			lupAddressType.BindData("AddressType");
 			lupCountry.BindData("Country");
+			lupCompanyID.BindData("CompanyList");
 
-			txtCompanyID.EditValue = (this.ParamsData as DataMap).GetValue("CompanyID");
-			txtCompanyID.EditText = (this.ParamsData as DataMap).GetValue("CompanyName");
+			lupCompanyID.EditValue = (this.ParamsData as DataMap).GetValue("CompanyID").ToStringNullToEmpty();
 		}
 
 		#region Data Access
@@ -101,6 +92,9 @@ namespace IKaan.Win.View.Biz.Master.Company
 					throw new Exception("조회할 데이터가 없습니다.");
 
 				SetControlData(model);
+				id = model.ID;
+				addressID = model.AddressID;
+
 				SetToolbarButtons(new ToolbarButtons() { Save = true, SaveAndClose = true, Delete = true });
 				this.EditMode = EditModeEnum.Modify;
 				txtPostalCode.Focus();
@@ -115,16 +109,10 @@ namespace IKaan.Win.View.Biz.Master.Company
 			ClearControlData<CompanyAddressModel>();
 			ClearControlData<AddressModel>();
 
-			txtCompanyID.EditValue = (this.ParamsData as DataMap).GetValue("CompanyID");
-			txtCompanyID.EditText = (this.ParamsData as DataMap).GetValue("CompanyName");
+			lupCompanyID.EditValue = (this.ParamsData as DataMap).GetValue("CompanyID").ToStringNullToEmpty();
 
-			txtAddressID.Clear();
-			txtPostalCode.Clear();
-			txtAddressLine1.Clear();
-			txtAddressLine2.Clear();
-			lupCountry.Clear();
-			txtCity.Clear();
-			txtStateProvince.Clear();
+			id = null;
+			addressID = null;
 
 			SetToolbarButtons(new ToolbarButtons() { Save = true, SaveAndClose = true });
 			EditMode = EditModeEnum.New;
@@ -135,6 +123,9 @@ namespace IKaan.Win.View.Biz.Master.Company
 			try
 			{
 				var model = this.GetControlData<CompanyAddressModel>();
+				model.ID = id.ToIntegerNullToNull();
+				model.AddressID = addressID.ToIntegerNullToNull();
+
 				using (var res = WasHandler.Execute<CompanyAddressModel>("Biz", "Save", (this.EditMode == EditModeEnum.New) ? "Insert" : "Update", model, "ID"))
 				{
 					if (res.Error.Number != 0)
@@ -154,7 +145,7 @@ namespace IKaan.Win.View.Biz.Master.Company
 		{
 			try
 			{
-				using (var res = WasHandler.Execute<DataMap>("Biz", "Delete", "DeleteCompanyAddress", new DataMap() { { "ID", txtID.EditValue } }, "ID"))
+				using (var res = WasHandler.Execute<DataMap>("Biz", "Delete", "DeleteCompanyAddress", new DataMap() { { "ID", id } }, "ID"))
 				{
 					if (res.Error.Number != 0)
 						throw new Exception(res.Error.Message);

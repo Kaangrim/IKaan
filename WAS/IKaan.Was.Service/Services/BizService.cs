@@ -487,7 +487,14 @@ namespace IKaan.Was.Service.Services
 					foreach (WasRequest req in list)
 					{
 						DataMap map = req.Data.JsonToAnyType<DataMap>();
-						DaoFactory.InstanceBiz.Delete(req.SqlId, map);
+						if (req.SqlId == "DeleteCompanyAddress")
+						{
+							req.DeleteCompanyAddress();
+						}
+						else
+						{
+							DaoFactory.InstanceBiz.Delete(req.SqlId, map);
+						}
 					}
 
 					if (isTran)

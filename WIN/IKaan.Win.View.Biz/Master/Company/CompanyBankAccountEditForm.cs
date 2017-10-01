@@ -6,7 +6,6 @@ using IKaan.Win.Core.Enum;
 using IKaan.Win.Core.Forms;
 using IKaan.Win.Core.Handler;
 using IKaan.Win.Core.Model;
-using IKaan.Win.Core.Utils;
 using IKaan.Win.Core.Variables;
 using IKaan.Win.Core.Was.Handler;
 
@@ -14,6 +13,8 @@ namespace IKaan.Win.View.Biz.Master.Company
 {
 	public partial class CompanyBankAccountEditForm : EditForm
 	{
+		private object id = null;
+
 		public CompanyBankAccountEditForm()
 		{
 			InitializeComponent();
@@ -40,8 +41,7 @@ namespace IKaan.Win.View.Biz.Master.Company
 			lcItemDepositor.Tag = true;
 
 			SetFieldNames();
-
-			txtID.SetEnable(false);
+			
 			lupCompanyID.SetEnable(false);
 
 			lupBankAccountType.BindData("BankAccountType");
@@ -64,6 +64,7 @@ namespace IKaan.Win.View.Biz.Master.Company
 					throw new Exception("조회할 데이터가 없습니다.");
 
 				SetControlData(model);
+				id = model.ID;
 				picImage.ImageID = model.ImageID;
 				if (model.Image.Url.IsNullOrEmpty())
 				{
@@ -88,6 +89,7 @@ namespace IKaan.Win.View.Biz.Master.Company
 			ClearControlData<CompanyBankAccountModel>();
 			lupCompanyID.EditValue = (this.ParamsData as DataMap).GetValue("CompanyID").ToStringNullToNull();
 
+			id = null;
 			picImage.Clear();
 
 			SetToolbarButtons(new ToolbarButtons() { Save = true, SaveAndClose = true });
@@ -99,6 +101,7 @@ namespace IKaan.Win.View.Biz.Master.Company
 			try
 			{
 				var model = this.GetControlData<CompanyBankAccountModel>();
+				model.ID = id.ToIntegerNullToNull();
 				model.ImageID = picImage.ImageID.ToIntegerNullToNull();
 
 				if (picImage.EditValue != null)
@@ -151,7 +154,7 @@ namespace IKaan.Win.View.Biz.Master.Company
 					FTPHandler.DeleteFile(picImage.ImageUrl);
 				}
 
-				using (var res = WasHandler.Execute<DataMap>("Biz", "Delete", "DeleteCompanyBank", new DataMap() { { "ID", txtID.EditValue } }, "ID"))
+				using (var res = WasHandler.Execute<DataMap>("Biz", "Delete", "DeleteCompanyBank", new DataMap() { { "ID", id } }, "ID"))
 				{
 					if (res.Error.Number != 0)
 						throw new Exception(res.Error.Message);

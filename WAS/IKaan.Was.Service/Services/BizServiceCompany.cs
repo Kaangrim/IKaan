@@ -521,5 +521,27 @@ namespace IKaan.Was.Service.Services
 				throw;
 			}
 		}
+
+		public static void DeleteCompanyAddress(this WasRequest req)
+		{
+			try
+			{
+				var map = req.Data.JsonToAnyType<DataMap>();
+				var model = DaoFactory.InstanceBiz.QueryForObject<CompanyAddressModel>("SelectCompanyAddress", map);
+				if (model != null)
+				{
+					DaoFactory.InstanceBiz.Delete("DeleteCompanyAddress", map);
+					DaoFactory.InstanceBiz.Delete("DeleteAddress", new DataMap() { { "ID", model.AddressID } });
+				}
+
+				req.Result.Count = 1;
+				req.Result.ReturnValue = null;
+				req.Error.Number = 0;
+			}
+			catch
+			{
+				throw;
+			}
+		}
 	}
 }

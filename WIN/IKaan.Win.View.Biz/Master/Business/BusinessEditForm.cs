@@ -19,6 +19,9 @@ namespace IKaan.Win.View.Biz.Master.Business
 {
 	public partial class BusinessEditForm : EditForm
 	{
+		private object id = null;
+		private object addressID = null;
+
 		public BusinessEditForm()
 		{
 			InitializeComponent();
@@ -36,6 +39,7 @@ namespace IKaan.Win.View.Biz.Master.Business
 							txtPostalCode.EditValue = data.ZoneCode + "(" + data.PostalNo + ")";
 						txtAddressLine1.EditValue = data.Address1;
 						txtAddressLine2.EditValue = data.Address2;
+						lupCountry.EditValue = "KOR";
 
 						if (data.Address1.IsNullOrEmpty() == false)
 						{
@@ -70,12 +74,10 @@ namespace IKaan.Win.View.Biz.Master.Business
 
 			lcItemName.SetFieldName("BizName");
 
-			txtID.SetEnable(false);
 			txtCreatedOn.SetEnable(false);
 			txtCreatedByName.SetEnable(false);
 			txtUpdatedOn.SetEnable(false);
 			txtUpdatedByName.SetEnable(false);
-			txtAddressID.SetEnable(false);
 
 			InitCombo();
 			InitGrid();
@@ -113,15 +115,11 @@ namespace IKaan.Win.View.Biz.Master.Business
 		protected override void DataInit()
 		{
 			ClearControlData<BusinessModel>();
+			ClearControlData<AddressModel>();
 			gridLinks.Clear<BusinessLinksModel>();
 
-			txtAddressID.Clear();
-			txtPostalCode.Clear();
-			txtCity.Clear();
-			txtStateProvince.Clear();
-			txtAddressLine1.Clear();
-			txtAddressLine2.Clear();
-
+			id = null;
+			addressID = null;
 			picImage.Clear();
 
 			SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true });
@@ -138,6 +136,9 @@ namespace IKaan.Win.View.Biz.Master.Business
 					throw new Exception("조회할 데이터가 없습니다.");
 
 				SetControlData(model);
+				id = model.ID;
+				addressID = model.AddressID;
+
 				if (model.Address != null)
 				{
 					txtPostalCode.EditValue = model.Address.PostalCode;
@@ -178,6 +179,9 @@ namespace IKaan.Win.View.Biz.Master.Business
 			try
 			{
 				var model = this.GetControlData<BusinessModel>();
+				model.ID = id.ToIntegerNullToNull();
+				model.AddressID = addressID.ToIntegerNullToNull();
+
 				model.Address = new AddressModel()
 				{
 					ID = model.AddressID,
@@ -232,7 +236,7 @@ namespace IKaan.Win.View.Biz.Master.Business
 					FTPHandler.DeleteFile(picImage.ImageUrl);
 				}
 
-				using (var res = WasHandler.Execute<DataMap>("Biz", "Delete", "DeleteBusiness", new DataMap() { { "ID", txtID.EditValue } }, "ID"))
+				using (var res = WasHandler.Execute<DataMap>("Biz", "Delete", "DeleteBusiness", new DataMap() { { "ID", id } }))
 				{
 					if (res.Error.Number != 0)
 						throw new Exception(res.Error.Message);

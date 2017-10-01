@@ -16,6 +16,10 @@ namespace IKaan.Win.View.Biz.Master.Company
 {
 	public partial class CompanyBusinessEditForm : EditForm
 	{
+		private object id = null;
+		private object businessID = null;
+		private object addressID = null;
+
 		public CompanyBusinessEditForm()
 		{
 			InitializeComponent();
@@ -69,12 +73,12 @@ namespace IKaan.Win.View.Biz.Master.Company
 
 			SetFieldNames();
 
-			txtID.SetEnable(false);
 			lupCompanyID.SetEnable(false);
-			txtBusinessID.SetEnable(false);
-			txtAddressID.SetEnable(false);
+			datEndDate.SetEnable(false);
 
 			datStartDate.Init(CalendarViewType.DayView);
+			datEndDate.Init(CalendarViewType.DayView);
+			datEndDate.EditValue = null;
 
 			lupBizType.BindData("BizType");
 			lupCountry.BindData("Country");
@@ -87,24 +91,16 @@ namespace IKaan.Win.View.Biz.Master.Company
 		protected override void DataInit()
 		{
 			ClearControlData<CompanyBusinessModel>();
+			ClearControlData<BusinessModel>();
+			ClearControlData<AddressModel>();
 
 			lupCompanyID.EditValue = (this.ParamsData as DataMap).GetValue("CompanyID").ToStringNullToEmpty();
 
-			txtBizNo.Clear();
-			txtBizName.Clear();
-			txtRepName.Clear();
-			memBizKind.Clear();
-			memBizItem.Clear();
-			txtEmail.Clear();
-			txtAddressID.Clear();
-
-			txtPostalCode.Clear();
-			txtAddressLine1.Clear();
-			txtAddressLine2.Clear();
-			lupCountry.Clear();
-			txtCity.Clear();
-			txtStateProvince.Clear();
 			picImage.Clear();
+
+			id = null;
+			businessID = null;
+			addressID = null;
 
 			SetToolbarButtons(new ToolbarButtons() { Save = true, SaveAndClose = true });
 			EditMode = EditModeEnum.New;
@@ -127,6 +123,9 @@ namespace IKaan.Win.View.Biz.Master.Company
 
 				SetControlData(model);
 
+				id = model.ID;
+				businessID = model.BusinessID;
+
 				if (model.Business != null)
 				{
 					txtBizNo.EditValue = model.Business.BizNo;
@@ -135,7 +134,6 @@ namespace IKaan.Win.View.Biz.Master.Company
 					memBizKind.EditValue = model.Business.BizKind;
 					memBizItem.EditValue = model.Business.BizItem;
 					txtEmail.EditValue = model.Business.Email;
-					txtAddressID.EditValue = model.Business.AddressID;
 					lupStatus.EditValue = model.Business.Status;
 
 					txtPostalCode.EditValue = model.Business.Address.PostalCode;
@@ -144,16 +142,25 @@ namespace IKaan.Win.View.Biz.Master.Company
 					lupCountry.EditValue = model.Business.Address.Country;
 					txtCity.EditValue = model.Business.Address.City;
 					txtStateProvince.EditValue = model.Business.Address.StateProvince;
-				}
 
-				if (model.Business.Image.Url.IsNullOrEmpty())
-				{
-					picImage.Clear();
+					if (model.Business.Image != null)
+					{
+						if (model.Business.Image.Url.IsNullOrEmpty())
+						{
+							picImage.Clear();
+						}
+						else
+						{
+							picImage.ImageID = model.Business.ImageID;
+							picImage.LoadImage(ConstsVar.IMG_URL + model.Business.Image.Url);
+						}
+					}
+
+					addressID = model.Business.AddressID;
 				}
 				else
 				{
-					picImage.ImageID = model.Business.ImageID;
-					picImage.LoadImage(ConstsVar.IMG_URL + model.Business.Image.Url);
+					addressID = null;
 				}
 
 				SetToolbarButtons(new ToolbarButtons() { Save = true, SaveAndClose = true, Delete = true });
@@ -171,9 +178,12 @@ namespace IKaan.Win.View.Biz.Master.Company
 			try
 			{
 				var model = this.GetControlData<CompanyBusinessModel>();
+
+				model.ID = id.ToIntegerNullToNull();
+				model.BusinessID = businessID.ToIntegerNullToNull();
 				model.Business = new BusinessModel()
 				{
-					ID = txtBusinessID.EditValue.ToIntegerNullToNull(),
+					ID = businessID.ToIntegerNullToNull(),
 					BizType = lupBizType.EditValue.ToStringNullToNull(),
 					BizNo = txtBizNo.EditValue.ToStringNullToNull(),
 					Name = txtBizName.EditValue.ToStringNullToNull(),
@@ -182,10 +192,10 @@ namespace IKaan.Win.View.Biz.Master.Company
 					BizItem = memBizItem.EditValue.ToStringNullToNull(),
 					Email = txtEmail.EditValue.ToStringNullToNull(),
 					Status = lupStatus.EditValue.ToStringNullToNull(),
-					AddressID = txtAddressID.EditValue.ToIntegerNullToNull(),
+					AddressID = addressID.ToIntegerNullToNull(),
 					Address = new AddressModel()
 					{
-						ID = txtAddressID.EditValue.ToIntegerNullToNull(),
+						ID = addressID.ToIntegerNullToNull(),
 						PostalCode = txtPostalCode.EditValue.ToStringNullToNull(),
 						AddressLine1 = txtAddressLine1.EditValue.ToStringNullToNull(),
 						AddressLine2 = txtAddressLine2.EditValue.ToStringNullToNull(),
@@ -246,7 +256,7 @@ namespace IKaan.Win.View.Biz.Master.Company
 		{
 			try
 			{
-				using (var res = WasHandler.Execute<DataMap>("Biz", "Delete", "DeleteCompanyBusiness", new DataMap() { { "ID", txtID.EditValue } }, "ID"))
+				using (var res = WasHandler.Execute<DataMap>("Biz", "Delete", "DeleteCompanyBusiness", new DataMap() { { "ID", id } }))
 				{
 					if (res.Error.Number != 0)
 						throw new Exception(res.Error.Message);
