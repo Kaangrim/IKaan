@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 using DevExpress.Utils;
 using DevExpress.XtraGrid.Views.Grid;
-using DevExpress.XtraTab.Buttons;
 using DevExpress.XtraTab.ViewInfo;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
@@ -16,6 +13,7 @@ using IKaan.Win.Core.Forms;
 using IKaan.Win.Core.Model;
 using IKaan.Win.Core.Utils;
 using IKaan.Win.Core.Was.Handler;
+using IKaan.Win.View.Biz.Master.Mapping;
 
 namespace IKaan.Win.View.Biz.Master.Channel
 {
@@ -27,20 +25,14 @@ namespace IKaan.Win.View.Biz.Master.Channel
 
 			lcTab.CustomHeaderButtonClick += delegate (object sender, CustomHeaderButtonEventArgs e)
 			{
-				if (e.Button.Tag.ToStringNullToEmpty() == "ADD")
-				{
-					if (lcTab.SelectedTabPage.Name == lcGroupBrand.Name)
-						ShowChannelBrandForm(null);
-					else if (lcTab.SelectedTabPage.Name == lcGroupCustomer.Name)
-						ShowChannelCustomerForm(null);
-				}
+				ShowEdit(null);
 			};
 		}
 
 		protected override void OnShown(EventArgs e)
 		{
 			base.OnShown(e);
-			txtFindText.Focus();
+			txtName.Focus();
 		}
 
 		protected override void InitButton()
@@ -59,6 +51,9 @@ namespace IKaan.Win.View.Biz.Master.Channel
 			SetFieldNames();
 
 			lcItemName.SetFieldName("ChannelName");
+			lcGroupCustomer.Text = DomainUtils.GetFieldName("Customer");
+			lcGroupBrand.Text = DomainUtils.GetFieldName("Brand");
+			lcGroupSetting.Text = DomainUtils.GetFieldName("Setting");
 
 			txtID.SetEnable(false);
 			txtCreatedOn.SetEnable(false);
@@ -66,8 +61,6 @@ namespace IKaan.Win.View.Biz.Master.Channel
 			txtUpdatedOn.SetEnable(false);
 			txtUpdatedByName.SetEnable(false);
 
-			lupFindChannelType.BindData("ChannelType", "All");
-			lupFindUseYn.BindData("Yn", "All");
 			lupChannelType.BindData("ChannelType");
 
 			spnOrderNoDigit.SetFormat("N0", false, HorzAlignment.Near);
@@ -76,52 +69,11 @@ namespace IKaan.Win.View.Biz.Master.Channel
 
 			InitGrid();
 
-			lcTab.CustomHeaderButtons.OfType<CustomHeaderButton>().Where(x => x.Tag.ToStringNullToEmpty() == "DEL").ToList().ForEach(button =>
-			{
-				button.Visible = false;
-			});
-
 			lcTab.SelectedTabPageIndex = 0;
 		}
 
 		void InitGrid()
 		{
-			#region Channel List
-			gridList.Init();
-			gridList.AddGridColumns(
-				new XGridColumn() { FieldName = "RowNo" },
-				new XGridColumn() { FieldName = "ID", Visible = false },
-				new XGridColumn() { FieldName = "Name", CaptionCode = "ChannelName", Width = 150 },
-				new XGridColumn() { FieldName = "Code", CaptionCode = "ChannelCode", Width = 80 },				
-				new XGridColumn() { FieldName = "ChannelTypeName", Width = 100, HorzAlignment = HorzAlignment.Center },
-				new XGridColumn() { FieldName = "UseYn", Width = 80, HorzAlignment = HorzAlignment.Center },
-				new XGridColumn() { FieldName = "CreatedOn" },
-				new XGridColumn() { FieldName = "CreatedByName" },
-				new XGridColumn() { FieldName = "UpdatedOn" },
-				new XGridColumn() { FieldName = "UpdatedByName" }
-			);
-			gridList.SetRepositoryItemCheckEdit("UseYn");
-			gridList.ColumnFix("RowNo");
-			gridList.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
-			{
-				if (e.RowHandle < 0)
-					return;
-
-				try
-				{
-					if (e.Button == MouseButtons.Left && e.Clicks == 1)
-					{
-						GridView view = sender as GridView;
-						DetailDataLoad(view.GetRowCellValue(e.RowHandle, "ID"));
-					}
-				}
-				catch(Exception ex)
-				{
-					ShowErrBox(ex);
-				}
-			};
-			#endregion
-
 			#region Channel Brand List
 			gridBrands.Init();
 			gridBrands.AddGridColumns(
@@ -148,7 +100,7 @@ namespace IKaan.Win.View.Biz.Master.Channel
 				if (e.Button == MouseButtons.Left && e.Clicks == 2)
 				{
 					GridView view = sender as GridView;
-					ShowChannelBrandForm(view.GetRowCellValue(e.RowHandle, "ID"));
+					ShowEdit(view.GetRowCellValue(e.RowHandle, "ID"));
 				}
 			};
 			#endregion
@@ -177,17 +129,10 @@ namespace IKaan.Win.View.Biz.Master.Channel
 				if (e.Button == MouseButtons.Left && e.Clicks == 2)
 				{
 					GridView view = sender as GridView;
-					ShowChannelCustomerForm(view.GetRowCellValue(e.RowHandle, "ID"));
+					ShowEdit(view.GetRowCellValue(e.RowHandle, "ID"));
 				}
 			};
 			#endregion
-			
-		}
-
-		protected override void LoadForm()
-		{
-			base.LoadForm();
-			DataLoad();
 		}
 
 		protected override void DataInit()
@@ -204,11 +149,6 @@ namespace IKaan.Win.View.Biz.Master.Channel
 			spnOrderLine.EditValue = 2;
 			spnAccountLine.EditValue = 2;
 
-			lcTab.CustomHeaderButtons.OfType<CustomHeaderButton>().Where(x => x.Tag.ToStringNullToEmpty() == "ADD").ToList().ForEach(button =>
-			{
-				button.Enabled = false;
-			});
-
 			SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true });
 			EditMode = EditModeEnum.New;
 			txtName.Focus();
@@ -216,58 +156,31 @@ namespace IKaan.Win.View.Biz.Master.Channel
 
 		protected override void DataLoad(object param = null)
 		{
-			gridList.BindList<ChannelModel>("Biz", "GetList", "Select", new DataMap() { { "FindText", txtFindText.EditValue } });
-
-			if (param != null)
-				DetailDataLoad(param);
-			else
-				DataInit();
-		}
-
-		void DetailDataLoad(object id)
-		{
 			try
 			{
-				DataMap parameter = new DataMap()
+				var model = WasHandler.GetData<ChannelModel>("Biz", "GetData", "Select", new DataMap() { { "ID", param } });
+				if (model != null)
 				{
-					{ "ID", id },
-					{ "ChannelID", id }
-				};
-				var model = WasHandler.GetData<ChannelModel>("Biz", "GetData", "Select", parameter);
-				if (model == null)
-					throw new Exception("조회할 데이터가 없습니다.");
+					SetControlData(model);
 
-				if (model.Brands == null)
-					model.Brands = new List<ChannelBrandModel>();
-				if (model.Customers == null)
-					model.Customers = new List<CustomerChannelModel>();
-				if (model.Setting == null)
-					model.Setting = new ChannelSettingModel();
+					chkOrderDateYn.Checked = (model.Setting.OrderDateYn == "Y") ? true : false;
+					chkOrderAddYearYn.Checked = (model.Setting.OrderAddYearYn == "Y") ? true : false;
+					spnOrderNoDigit.EditValue = model.Setting.OrderNoDigit;
+					chkOptionYn.Checked = (model.Setting.OptionYn == "Y") ? true : false;
+					txtOptionFormat.EditValue = model.Setting.OptionFormat;
+					spnOrderLine.EditValue = model.Setting.OrderLine;
+					spnAccountLine.EditValue = model.Setting.AccountLine;
 
-				SetControlData(model);
-
-				chkOrderDateYn.Checked = (model.Setting.OrderDateYn == "Y") ? true : false;
-				chkOrderAddYearYn.Checked = (model.Setting.OrderAddYearYn == "Y") ? true : false;
-				spnOrderNoDigit.EditValue = model.Setting.OrderNoDigit;
-				chkOptionYn.Checked = (model.Setting.OptionYn == "Y") ? true : false;
-				txtOptionFormat.EditValue = model.Setting.OptionFormat;
-				spnOrderLine.EditValue = model.Setting.OrderLine;
-				spnAccountLine.EditValue = model.Setting.AccountLine;
-
-				gridBrands.DataSource = model.Brands;
-				gridCustomers.DataSource = model.Customers;
-
-				lcTab.CustomHeaderButtons.OfType<CustomHeaderButton>().Where(x => x.Tag.ToStringNullToEmpty() == "ADD").ToList().ForEach(button =>
-				{
-					button.Enabled = true;
-				});
+					gridBrands.DataSource = model.Brands;
+					gridCustomers.DataSource = model.Customers;
+				}
 
 				SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true, Delete = true });
 				this.EditMode = EditModeEnum.Modify;
 				txtName.Focus();
 
 			}
-			catch(Exception ex)
+			catch (Exception ex)
 			{
 				ShowErrBox(ex);
 			}
@@ -277,6 +190,7 @@ namespace IKaan.Win.View.Biz.Master.Channel
 		{
 			try
 			{
+				object id = null;
 				var model = this.GetControlData<ChannelModel>();
 				model.Setting = new ChannelSettingModel()
 				{
@@ -294,10 +208,10 @@ namespace IKaan.Win.View.Biz.Master.Channel
 				{
 					if (res.Error.Number != 0)
 						throw new Exception(res.Error.Message);
-
-					ShowMsgBox("저장하였습니다.");
-					callback(arg, res.Result.ReturnValue);
+					id = res.Result.ReturnValue;
 				}
+				ShowMsgBox("저장하였습니다.");
+				callback(arg, id);
 			}
 			catch(Exception ex)
 			{
@@ -309,14 +223,13 @@ namespace IKaan.Win.View.Biz.Master.Channel
 		{
 			try
 			{
-				using (var res = WasHandler.Execute<DataMap>("Biz", "Delete", "DeleteChannel", new DataMap() { { "ID", txtID.EditValue } }, "ID"))
+				using (var res = WasHandler.Execute<DataMap>("Biz", "Delete", "DeleteChannel", new DataMap() { { "ID", txtID.EditValue } }))
 				{
 					if (res.Error.Number != 0)
 						throw new Exception(res.Error.Message);
-
-					ShowMsgBox("삭제하였습니다.");
-					callback(arg, null);
 				}
+				ShowMsgBox("삭제하였습니다.");
+				callback(arg, null);
 			}
 			catch (Exception ex)
 			{
@@ -324,65 +237,43 @@ namespace IKaan.Win.View.Biz.Master.Channel
 			}
 		}
 
-		private void ShowChannelBrandForm(object id)
+		protected override void ShowEdit(object data = null)
 		{
-			try
+			if (lcTab.SelectedTabPage.Name == lcGroupBrand.Name)
 			{
-				if (txtID.EditValue.IsNullOrEmpty())
-					return;
-
-				using (ChannelBrandEditForm form = new ChannelBrandEditForm())
+				using (var form = new _ChannelBrandEditForm())
 				{
-					form.Text = "브랜드 입점 등록";
+					form.Text = "브랜드입점등록";
 					form.StartPosition = FormStartPosition.CenterScreen;
 					form.IsLoadingRefresh = true;
 					form.ParamsData = new DataMap()
 					{
+						{ "MappingType", "Channel" },
 						{ "ChannelID", txtID.EditValue },
-						{ "ChannelName", txtName.EditValue },
-						{ "ID", id }
+						{ "ID", data }
 					};
 
 					if (form.ShowDialog() == DialogResult.OK)
-					{
-						DetailDataLoad(txtID.EditValue);
-					}
+						DataLoad(txtID.EditValue);
 				}
 			}
-			catch (Exception ex)
+			else if (lcTab.SelectedTabPage.Name == lcGroupCustomer.Name)
 			{
-				ShowErrBox(ex);
-			}
-		}
-
-		private void ShowChannelCustomerForm(object id)
-		{
-			try
-			{
-				if (txtID.EditValue.IsNullOrEmpty())
-					return;
-
-				using (ChannelCustomerEditForm form = new ChannelCustomerEditForm())
+				using (var form = new _ChannelEditForm())
 				{
-					form.Text = "거래처 등록";
+					form.Text = "채널/거래처등록";
 					form.StartPosition = FormStartPosition.CenterScreen;
 					form.IsLoadingRefresh = true;
 					form.ParamsData = new DataMap()
 					{
+						{ "MappingType", "Channel" },
 						{ "ChannelID", txtID.EditValue },
-						{ "ChannelName", txtName.EditValue },
-						{ "ID", id }
+						{ "ID", data }
 					};
 
 					if (form.ShowDialog() == DialogResult.OK)
-					{
-						DetailDataLoad(txtID.EditValue);
-					}
+						DataLoad(txtID.EditValue);
 				}
-			}
-			catch (Exception ex)
-			{
-				ShowErrBox(ex);
 			}
 		}
 	}

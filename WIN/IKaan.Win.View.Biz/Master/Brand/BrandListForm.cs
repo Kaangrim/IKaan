@@ -63,6 +63,7 @@ namespace IKaan.Win.View.Biz.Master.Brand
 				new XGridColumn() { FieldName = "UpdatedByName" }
 			);
 			gridList.ColumnFix("RowNo");
+			gridList.SetRepositoryItemCheckEdit("UseYn");
 
 			gridList.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
 			{
@@ -82,12 +83,6 @@ namespace IKaan.Win.View.Biz.Master.Brand
 					ShowErrBox(ex);
 				}
 			};
-		}
-
-		protected override void LoadForm()
-		{
-			base.LoadForm();
-			DataLoad();
 		}
 
 		protected override void DataLoad(object param = null)

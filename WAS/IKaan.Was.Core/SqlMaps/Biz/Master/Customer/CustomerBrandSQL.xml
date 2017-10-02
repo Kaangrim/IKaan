@@ -22,13 +22,9 @@
 					,	AA.EndDate
 					,	AA.Description
 					
-					,	BB.CustomerName
-					,	CC.BrandName
+					,	CC.Name				as BrandName
 					
 				FROM	dbo.TCustomerBrand AA WITH (NOLOCK)
-						LEFT JOIN
-							dbo.TCustomer BB WITH (NOLOCK)
-								ON AA.CustomerID = BB.ID
 						LEFT JOIN
 							dbo.TBrand CC WITH (NOLOCK)
 								ON AA.BrandID = CC.ID
@@ -50,18 +46,8 @@
 		</select>
 		<select id="SelectCustomerBrand" parameterClass="DataMap" resultClass="CustomerBrandModel" >
 			<![CDATA[
-				SELECT  AA.*
-					
-					,	BB.CustomerName
-					,	CC.BrandName
-					
+				SELECT  AA.*					
 				FROM	dbo.TCustomerBrand AA WITH (NOLOCK)
-						LEFT JOIN
-							dbo.TCustomer BB WITH (NOLOCK)
-								ON AA.CustomerID = BB.ID
-						LEFT JOIN
-							dbo.TBrand CC WITH (NOLOCK)
-								ON AA.BrandID = CC.ID
 				WHERE	AA.ID = #ID#
 			]]>
 		</select>

@@ -1,6 +1,7 @@
 ﻿using System;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
+using IKaan.Base.Variables;
 using IKaan.Model.Biz.Master.Common;
 using IKaan.Win.Core.Enum;
 using IKaan.Win.Core.Forms;
@@ -14,8 +15,6 @@ namespace IKaan.Win.View.Biz.Master.Store
 {
 	public partial class StoreEditForm : EditForm
 	{
-		private string loadImageUrl = string.Empty;
-
 		public StoreEditForm()
 		{
 			InitializeComponent();
@@ -71,14 +70,17 @@ namespace IKaan.Win.View.Biz.Master.Store
 
 				SetControlData(model);
 
-				if (model.Image != null && model.Image.Url.IsNullOrEmpty() == false)
+				if (model.Image != null)
 				{
-					loadImageUrl = model.Image.Url;
-					picImage.LoadAsync(ConstsVar.IMG_URL + model.Image.Url);
-				}
-				else
-				{
-					loadImageUrl = string.Empty;
+					if (model.Image.Url.IsNullOrEmpty())
+					{
+						picImage.Clear();
+					}
+					else
+					{
+						picImage.ImageID = model.ImageID;
+						picImage.LoadImage(ConstsVar.IMG_URL + model.Image.Url);
+					}
 				}
 
 				SetToolbarButtons(new ToolbarButtons() { New = true, Save = true, SaveAndClose = true, SaveAndNew = true, Delete = true });
@@ -97,33 +99,32 @@ namespace IKaan.Win.View.Biz.Master.Store
 			try
 			{
 				var model = this.GetControlData<StoreModel>();
-				if (model.Image == null)
-					model.Image = new ImageModel();
 
 				//이미지 업로드
 				if (picImage.EditValue != null)
 				{
-					string path = picImage.GetLoadedImageLocation();
-					if (path.IsNullOrEmpty() == false)
+					if (picImage.ImagePath.IsNullOrEmpty() == false)
 					{
-						string url = FTPHandler.UploadStore(path, txtName.EditValue.ToString());
-						model.Image.Url = url;
-						model.Image.Name = ImageUtils.GetFileName(path);
-						model.Image.Width = ImageUtils.GetSizePixel(path).Width;
-						model.Image.Height = ImageUtils.GetSizePixel(path).Height;
-						model.Image.ImageType = "40";
+						string url = FTPHandler.UploadStore(picImage.ImagePath, txtName.EditValue.ToString().Replace("-", ""));
+						model.Image = new ImageModel()
+						{
+							ID = picImage.ImageID.ToIntegerNullToNull(),
+							Url = url,
+							Name = picImage.GetFileName(),
+							Width = picImage.ImageWidth,
+							Height = picImage.ImageHeight,
+							ImageType = BaseConstsImageType.STORE
+						};
 					}
 				}
 				else
 				{
-					if (loadImageUrl.IsNullOrEmpty() == false)
+					if (picImage.ImageUrl.IsNullOrEmpty() == false && picImage.EditValue == null)
 					{
-						FTPHandler.DeleteFile(loadImageUrl);
-						loadImageUrl = string.Empty;
+						FTPHandler.DeleteFile(picImage.ImageUrl);
 					}
 				}
 
-				
 				using (var res = WasHandler.Execute<StoreModel>("Biz", "Save", (this.EditMode == EditModeEnum.New) ? "Insert" : "Update", model, "ID"))
 				{
 					if (res.Error.Number != 0)

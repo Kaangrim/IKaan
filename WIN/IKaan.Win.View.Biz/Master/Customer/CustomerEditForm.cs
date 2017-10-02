@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
 using DevExpress.Utils;
 using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraTab.ViewInfo;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
+using IKaan.Model.Biz.Master.Common;
 using IKaan.Model.Biz.Master.Customer;
 using IKaan.Win.Core.Controls.Grid;
 using IKaan.Win.Core.Enum;
@@ -13,8 +13,9 @@ using IKaan.Win.Core.Forms;
 using IKaan.Win.Core.Model;
 using IKaan.Win.Core.Utils;
 using IKaan.Win.Core.Was.Handler;
+using IKaan.Win.View.Biz.Master.Mapping;
 
-namespace IKaan.Win.View.Biz.Customer
+namespace IKaan.Win.View.Biz.Master.Customer
 {
 	public partial class CustomerEditForm : EditForm
 	{
@@ -24,120 +25,20 @@ namespace IKaan.Win.View.Biz.Customer
 
 			lcTab.CustomHeaderButtonClick += delegate (object sender, CustomHeaderButtonEventArgs e)
 			{
-				if (lcTab.SelectedTabPage.Name == lcGroupAddress.Name)
-					ShowAddressEditForm(null);
-				else if (lcTab.SelectedTabPage.Name == lcGroupBankAccount.Name)
-					ShowBankEditForm(null);
-				else if (lcTab.SelectedTabPage.Name == lcGroupBrand.Name)
-					ShowBrandEditForm(null);
-				else if (lcTab.SelectedTabPage.Name == lcGroupChannel.Name)
-					ShowChannelEditForm(null);
-				else if (lcTab.SelectedTabPage.Name == lcGroupBusiness.Name)
-					ShowBusinessEditForm(null);
-			};
-
-			gridBusiness.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
-			{
-				if (e.RowHandle < 0)
-					return;
-
-				try
-				{
-					if (e.Button == MouseButtons.Left && e.Clicks == 2)
-					{
-						GridView view = sender as GridView;
-						ShowBusinessEditForm(view.GetRowCellValue(e.RowHandle, "ID"));
-					}
-				}
-				catch(Exception ex)
-				{
-					ShowErrBox(ex);
-				}
-			};
-			gridAddress.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
-			{
-				if (e.RowHandle < 0)
-					return;
-
-				try
-				{
-					if (e.Button == MouseButtons.Left && e.Clicks == 2)
-					{
-						GridView view = sender as GridView;
-						ShowAddressEditForm(view.GetRowCellValue(e.RowHandle, "ID"));
-					}
-				}
-				catch (Exception ex)
-				{
-					ShowErrBox(ex);
-				}
-			};
-			gridBank.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
-			{
-				if (e.RowHandle < 0)
-					return;
-
-				try
-				{
-					if (e.Button == MouseButtons.Left && e.Clicks == 2)
-					{
-						GridView view = sender as GridView;
-						ShowBankEditForm(view.GetRowCellValue(e.RowHandle, "ID"));
-					}
-				}
-				catch (Exception ex)
-				{
-					ShowErrBox(ex);
-				}
-			};
-			gridBrand.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
-			{
-				if (e.RowHandle < 0)
-					return;
-
-				try
-				{
-					if (e.Button == MouseButtons.Left && e.Clicks == 2)
-					{
-						GridView view = sender as GridView;
-						ShowBrandEditForm(view.GetRowCellValue(e.RowHandle, "ID"));
-					}
-				}
-				catch (Exception ex)
-				{
-					ShowErrBox(ex);
-				}
-			};
-			gridChannel.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
-			{
-				if (e.RowHandle < 0)
-					return;
-
-				try
-				{
-					if (e.Button == MouseButtons.Left && e.Clicks == 2)
-					{
-						GridView view = sender as GridView;
-						ShowChannelEditForm(view.GetRowCellValue(e.RowHandle, "ID"));
-					}
-				}
-				catch (Exception ex)
-				{
-					ShowErrBox(ex);
-				}
+				ShowEdit(null);
 			};
 		}
 
 		protected override void OnShown(EventArgs e)
 		{
 			base.OnShown(e);
-			txtFindText.Focus();
+			txtName.Focus();
 		}
 
 		protected override void InitButton()
 		{
 			base.InitButton();
-			SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true });
+			SetToolbarButtons(new ToolbarButtons() { New = true, Save = true, SaveAndNew = true, SaveAndClose = true });
 		}
 		protected override void InitControls()
 		{
@@ -149,6 +50,13 @@ namespace IKaan.Win.View.Biz.Customer
 			SetFieldNames();
 
 			lcItemName.SetFieldName("CustomerName");
+			lcGroupAddress.Text = DomainUtils.GetFieldName("Address");
+			lcGroupBankAccount.Text = DomainUtils.GetFieldName("BankAccount");
+			lcGroupBrand.Text = DomainUtils.GetFieldName("Brand");
+			lcGroupBusiness.Text = DomainUtils.GetFieldName("Business");
+			lcGroupChannel.Text = DomainUtils.GetFieldName("Channel");
+			lcGroupContact.Text = DomainUtils.GetFieldName("Contact");
+			lcGroupManager.Text = DomainUtils.GetFieldName("Manager");
 
 			txtID.SetEnable(false);
 			txtCreatedOn.SetEnable(false);
@@ -168,10 +76,6 @@ namespace IKaan.Win.View.Biz.Customer
 			lupBizType.BindData("BizType");
 			lupCustomerType.BindData("CustomerType");
 
-			lupFindCustomerType.BindData("CustomerType", "All");
-			lupFindUseYn.BindData("Yn", "All");
-			lupFindUseYn.EditValue = "Y";
-
 			InitGrid();
 
 			lcTab.SelectedTabPageIndex = 0;
@@ -179,49 +83,10 @@ namespace IKaan.Win.View.Biz.Customer
 
 		void InitGrid()
 		{
-			#region List
-			gridList.Init();
-			gridList.AddGridColumns(
-				new XGridColumn() { FieldName = "RowNo" },
-				new XGridColumn() { FieldName = "ID", Visible = false },
-				new XGridColumn() { FieldName = "CustomerName", Width = 200 },
-				new XGridColumn() { FieldName = "CustomerTypeName", Width = 100, HorzAlignment = HorzAlignment.Center },
-				new XGridColumn() { FieldName = "BizNo", Width = 100, HorzAlignment = HorzAlignment.Center },
-				new XGridColumn() { FieldName = "RepName", Width = 100, HorzAlignment = HorzAlignment.Center },
-				new XGridColumn() { FieldName = "UseYn", Width = 80, HorzAlignment = HorzAlignment.Center },
-				new XGridColumn() { FieldName = "CreatedOn" },
-				new XGridColumn() { FieldName = "CreatedByName" },
-				new XGridColumn() { FieldName = "UpdatedOn" },
-				new XGridColumn() { FieldName = "UpdatedByName" }
-			);
-			gridList.SetRepositoryItemCheckEdit("UseYn");
-			gridList.ColumnFix("RowNo");
-
-			gridList.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
-			{
-				if (e.RowHandle < 0)
-					return;
-
-				try
-				{
-					if (e.Button == MouseButtons.Left && e.Clicks == 1)
-					{
-						GridView view = sender as GridView;
-						DetailDataLoad(view.GetRowCellValue(e.RowHandle, "ID"));
-					}
-				}
-				catch(Exception ex)
-				{
-					ShowErrBox(ex);
-				}
-			};
-			#endregion
-
 			#region Address List
-			gridAddress.Init();
-			gridAddress.AddGridColumns(
+			gridAddresses.Init();
+			gridAddresses.AddGridColumns(
 				new XGridColumn() { FieldName = "RowNo" },
-				new XGridColumn() { FieldName = "Modified", Visible = false },
 				new XGridColumn() { FieldName = "ID", Visible = false },
 				new XGridColumn() { FieldName = "CustomerID", Visible = false },
 				new XGridColumn() { FieldName = "AddressID", Visible = false },
@@ -237,14 +102,31 @@ namespace IKaan.Win.View.Biz.Customer
 				new XGridColumn() { FieldName = "UpdatedOn" },
 				new XGridColumn() { FieldName = "UpdatedByName" }
 			);			
-			gridAddress.ColumnFix("RowNo");
+			gridAddresses.ColumnFix("RowNo");
+			gridAddresses.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
+			{
+				if (e.RowHandle < 0)
+					return;
+
+				try
+				{
+					if (e.Button == MouseButtons.Left && e.Clicks == 2)
+					{
+						GridView view = sender as GridView;
+						ShowEdit(view.GetRowCellValue(e.RowHandle, "ID"));
+					}
+				}
+				catch (Exception ex)
+				{
+					ShowErrBox(ex);
+				}
+			};
 			#endregion
 
 			#region Channel List
-			gridChannel.Init();
-			gridChannel.AddGridColumns(
+			gridChannels.Init();
+			gridChannels.AddGridColumns(
 				new XGridColumn() { FieldName = "RowNo" },
-				new XGridColumn() { FieldName = "Modified", Visible = false },
 				new XGridColumn() { FieldName = "ID", Visible = false },
 				new XGridColumn() { FieldName = "CustomerID", Visible = false },
 				new XGridColumn() { FieldName = "ChannelID", Visible = false },
@@ -256,13 +138,30 @@ namespace IKaan.Win.View.Biz.Customer
 				new XGridColumn() { FieldName = "UpdatedOn" },
 				new XGridColumn() { FieldName = "UpdatedByName" }
 			);
-			gridChannel.ColumnFix("RowNo");
+			gridChannels.ColumnFix("RowNo");
+			gridChannels.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
+			{
+				if (e.RowHandle < 0)
+					return;
 
+				try
+				{
+					if (e.Button == MouseButtons.Left && e.Clicks == 2)
+					{
+						GridView view = sender as GridView;
+						ShowEdit(view.GetRowCellValue(e.RowHandle, "ID"));
+					}
+				}
+				catch (Exception ex)
+				{
+					ShowErrBox(ex);
+				}
+			};
 			#endregion
 
 			#region Business List
-			gridBusiness.Init();
-			gridBusiness.AddGridColumns(
+			gridBusinesses.Init();
+			gridBusinesses.AddGridColumns(
 				new XGridColumn() { FieldName = "RowNo" },
 				new XGridColumn() { FieldName = "ID", Visible = false },
 				new XGridColumn() { FieldName = "CustomerID", Visible = false },
@@ -277,14 +176,31 @@ namespace IKaan.Win.View.Biz.Customer
 				new XGridColumn() { FieldName = "UpdatedOn" },
 				new XGridColumn() { FieldName = "UpdatedByName" }
 			);
-			gridBusiness.ColumnFix("RowNo");
+			gridBusinesses.ColumnFix("RowNo");
+			gridBusinesses.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
+			{
+				if (e.RowHandle < 0)
+					return;
+
+				try
+				{
+					if (e.Button == MouseButtons.Left && e.Clicks == 2)
+					{
+						GridView view = sender as GridView;
+						ShowEdit(view.GetRowCellValue(e.RowHandle, "ID"));
+					}
+				}
+				catch (Exception ex)
+				{
+					ShowErrBox(ex);
+				}
+			};
 			#endregion
 
 			#region Bank List
-			gridBank.Init();
-			gridBank.AddGridColumns(
+			gridBankAccounts.Init();
+			gridBankAccounts.AddGridColumns(
 				new XGridColumn() { FieldName = "RowNo" },
-				new XGridColumn() { FieldName = "Modified", Visible = false },
 				new XGridColumn() { FieldName = "ID", Visible = false },
 				new XGridColumn() { FieldName = "CustomerID", Visible = false },
 				new XGridColumn() { FieldName = "BankName", Width = 150 },
@@ -295,14 +211,31 @@ namespace IKaan.Win.View.Biz.Customer
 				new XGridColumn() { FieldName = "UpdatedOn" },
 				new XGridColumn() { FieldName = "UpdatedByName" }
 			);
-			gridBank.ColumnFix("RowNo");
+			gridBankAccounts.ColumnFix("RowNo");
+			gridBankAccounts.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
+			{
+				if (e.RowHandle < 0)
+					return;
+
+				try
+				{
+					if (e.Button == MouseButtons.Left && e.Clicks == 2)
+					{
+						GridView view = sender as GridView;
+						ShowEdit(view.GetRowCellValue(e.RowHandle, "ID"));
+					}
+				}
+				catch (Exception ex)
+				{
+					ShowErrBox(ex);
+				}
+			};
 			#endregion
 
 			#region Brand List
-			gridBrand.Init();
-			gridBrand.AddGridColumns(
+			gridBrands.Init();
+			gridBrands.AddGridColumns(
 				new XGridColumn() { FieldName = "RowNo" },
-				new XGridColumn() { FieldName = "Modified", Visible = false },
 				new XGridColumn() { FieldName = "ID", Visible = false },
 				new XGridColumn() { FieldName = "CustomerID", Visible = false },
 				new XGridColumn() { FieldName = "BrandID", Visible = false },
@@ -316,7 +249,106 @@ namespace IKaan.Win.View.Biz.Customer
 				new XGridColumn() { FieldName = "UpdatedOn" },
 				new XGridColumn() { FieldName = "UpdatedByName" }
 			);
-			gridBrand.ColumnFix("RowNo");
+			gridBrands.ColumnFix("RowNo");
+			gridBrands.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
+			{
+				if (e.RowHandle < 0)
+					return;
+
+				try
+				{
+					if (e.Button == MouseButtons.Left && e.Clicks == 2)
+					{
+						GridView view = sender as GridView;
+						ShowEdit(view.GetRowCellValue(e.RowHandle, "ID"));
+					}
+				}
+				catch (Exception ex)
+				{
+					ShowErrBox(ex);
+				}
+			};
+			#endregion
+
+			#region Contact List
+			gridContacts.Init();
+			gridContacts.AddGridColumns(
+				new XGridColumn() { FieldName = "RowNo" },
+				new XGridColumn() { FieldName = "ID", Visible = false },
+				new XGridColumn() { FieldName = "CustomerID", Visible = false },
+				new XGridColumn() { FieldName = "ContactID", Visible = false },
+				new XGridColumn() { FieldName = "StartDate", Width = 100, HorzAlignment = HorzAlignment.Center },
+				new XGridColumn() { FieldName = "EndDate", Width = 100, HorzAlignment = HorzAlignment.Center },
+				new XGridColumn() { FieldName = "ContactName", Width = 100, HorzAlignment = HorzAlignment.Center },
+				new XGridColumn() { FieldName = "PhoneNo", Width = 100 },
+				new XGridColumn() { FieldName = "MobileNo", Width = 100 },
+				new XGridColumn() { FieldName = "FaxNo", Width = 100 },
+				new XGridColumn() { FieldName = "Email", Width = 150 },
+				new XGridColumn() { FieldName = "CreatedOn" },
+				new XGridColumn() { FieldName = "CreatedByName" },
+				new XGridColumn() { FieldName = "UpdatedOn" },
+				new XGridColumn() { FieldName = "UpdatedByName" }
+			);
+			gridContacts.ColumnFix("RowNo");
+			gridContacts.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
+			{
+				if (e.RowHandle < 0)
+					return;
+
+				try
+				{
+					if (e.Button == MouseButtons.Left && e.Clicks == 2)
+					{
+						GridView view = sender as GridView;
+						ShowEdit(view.GetRowCellValue(e.RowHandle, "ID"));
+					}
+				}
+				catch (Exception ex)
+				{
+					ShowErrBox(ex);
+				}
+			};
+			#endregion
+
+			#region Manager List
+			gridManagers.Init();
+			gridManagers.AddGridColumns(
+				new XGridColumn() { FieldName = "RowNo" },
+				new XGridColumn() { FieldName = "ID", Visible = false },
+				new XGridColumn() { FieldName = "CustomerID", Visible = false },
+				new XGridColumn() { FieldName = "EmployeeID", Visible = false },
+				new XGridColumn() { FieldName = "StartDate", Width = 100, HorzAlignment = HorzAlignment.Center },
+				new XGridColumn() { FieldName = "EndDate", Width = 100, HorzAlignment = HorzAlignment.Center },
+				new XGridColumn() { FieldName = "DepartmentName", Width = 100 },
+				new XGridColumn() { FieldName = "EmployeeName", Width = 100, HorzAlignment = HorzAlignment.Center },				
+				new XGridColumn() { FieldName = "PhoneNo", Width = 100 },
+				new XGridColumn() { FieldName = "MobileNo", Width = 100 },
+				new XGridColumn() { FieldName = "FaxNo", Width = 100 },
+				new XGridColumn() { FieldName = "Email", Width = 150 },
+				new XGridColumn() { FieldName = "CreatedOn" },
+				new XGridColumn() { FieldName = "CreatedByName" },
+				new XGridColumn() { FieldName = "UpdatedOn" },
+				new XGridColumn() { FieldName = "UpdatedByName" }
+			);
+			gridManagers.ColumnFix("RowNo");
+			gridManagers.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
+			{
+				if (e.RowHandle < 0)
+					return;
+
+				try
+				{
+					if (e.Button == MouseButtons.Left && e.Clicks == 2)
+					{
+						GridView view = sender as GridView;
+						ShowEdit(view.GetRowCellValue(e.RowHandle, "ID"));
+					}
+				}
+				catch (Exception ex)
+				{
+					ShowErrBox(ex);
+				}
+			};
 			#endregion
 		}
 
@@ -329,12 +361,15 @@ namespace IKaan.Win.View.Biz.Customer
 		protected override void DataInit()
 		{
 			ClearControlData<CustomerModel>();
+			ClearControlData<BusinessModel>();
 
-			gridAddress.Clear<CustomerAddressModel>();
-			gridBrand.Clear<CustomerBrandModel>();
-			gridBusiness.Clear<CustomerBusinessModel>();
-			gridBrand.Clear<CustomerBrandModel>();
-			gridChannel.Clear<CustomerChannelModel>();
+			gridAddresses.Clear<CustomerAddressModel>();
+			gridBrands.Clear<CustomerBrandModel>();
+			gridBusinesses.Clear<CustomerBusinessModel>();
+			gridBrands.Clear<CustomerBrandModel>();
+			gridChannels.Clear<CustomerChannelModel>();
+			gridContacts.Clear<CustomerContactModel>();
+			gridManagers.Clear<CustomerManagerModel>();
 
 			lcTab.CustomHeaderButtons[0].Enabled = false;
 
@@ -345,49 +380,23 @@ namespace IKaan.Win.View.Biz.Customer
 
 		protected override void DataLoad(object param = null)
 		{
-			gridList.BindList<CustomerModel>("Biz", "GetList", "Select", new DataMap()
-			{
-				{ "FindText", txtFindText.EditValue },
-				{ "UseYn", lupFindUseYn.EditValue },
-				{ "CustomerType", lupFindCustomerType.EditValue }
-			});
+			if (param == null)
+				return;
 
-			if (param != null)
-				DetailDataLoad(param);
-			else
-				DataInit();
-		}
-
-		void DetailDataLoad(object id)
-		{
 			try
 			{
-				DataMap parameter = new DataMap()
+				var model = WasHandler.GetData<CustomerModel>("Biz", "GetData", "Select", new DataMap() { { "ID", param } });
+				if (model != null)
 				{
-					{ "ID", id }
-				};
-				var model = WasHandler.GetData<CustomerModel>("Biz", "GetData", "Select", parameter);
-				if (model == null)
-					throw new Exception("조회할 데이터가 없습니다.");
-
-				SetControlData(model);
-
-				if (model.Addresses == null)
-					model.Addresses = new List<CustomerAddressModel>();
-				if (model.BankAccounts == null)
-					model.BankAccounts = new List<CustomerBankAccountModel>();
-				if (model.Brands == null)
-					model.Brands = new List<CustomerBrandModel>();
-				if (model.Businesses == null)
-					model.Businesses = new List<CustomerBusinessModel>();
-				if (model.Channels == null)
-					model.Channels = new List<CustomerChannelModel>();
-
-				gridAddress.DataSource = model.Addresses;
-				gridBank.DataSource = model.BankAccounts;
-				gridBrand.DataSource = model.Brands;
-				gridBusiness.DataSource = model.Businesses;
-				gridChannel.DataSource = model.Channels;
+					SetControlData(model);
+					gridAddresses.DataSource = model.Addresses;
+					gridBankAccounts.DataSource = model.BankAccounts;
+					gridBrands.DataSource = model.Brands;
+					gridBusinesses.DataSource = model.Businesses;
+					gridChannels.DataSource = model.Channels;
+					gridContacts.DataSource = model.Contacts;
+					gridManagers.DataSource = model.Managers;
+				}
 
 				lcTab.CustomHeaderButtons[0].Enabled = true;
 
@@ -396,7 +405,7 @@ namespace IKaan.Win.View.Biz.Customer
 				txtName.Focus();
 
 			}
-			catch(Exception ex)
+			catch (Exception ex)
 			{
 				ShowErrBox(ex);
 			}
@@ -406,15 +415,16 @@ namespace IKaan.Win.View.Biz.Customer
 		{
 			try
 			{
+				object id = null;
 				var model = this.GetControlData<CustomerModel>();
 				using (var res = WasHandler.Execute<CustomerModel>("Biz", "Save", (this.EditMode == EditModeEnum.New) ? "Insert" : "Update", model, "ID"))
 				{
 					if (res.Error.Number != 0)
 						throw new Exception(res.Error.Message);
-
-					ShowMsgBox("저장하였습니다.");
-					callback(arg, res.Result.ReturnValue);
+					id = res.Result.ReturnValue;
 				}
+				ShowMsgBox("저장하였습니다.");
+				callback(arg, id);
 			}
 			catch(Exception ex)
 			{
@@ -430,10 +440,9 @@ namespace IKaan.Win.View.Biz.Customer
 				{
 					if (res.Error.Number != 0)
 						throw new Exception(res.Error.Message);
-
-					ShowMsgBox("삭제하였습니다.");
-					callback(arg, null);
 				}
+				ShowMsgBox("삭제하였습니다.");
+				callback(arg, null);
 			}
 			catch (Exception ex)
 			{
@@ -441,157 +450,158 @@ namespace IKaan.Win.View.Biz.Customer
 			}
 		}
 
-		void ShowAddressEditForm(object id)
+		protected override void ShowEdit(object data = null)
 		{
 			try
 			{
 				if (txtID.EditValue.IsNullOrEmpty())
 					return;
 
-				using (var form = new CustomerAddressEditForm()
+				if (lcTab.SelectedTabPage.Name == lcGroupAddress.Name)
 				{
-					Text = "주소등록",
-					StartPosition = FormStartPosition.CenterScreen,
-					IsLoadingRefresh = true,
-					ParamsData = new DataMap()
+					using (var form = new _AddressEditForm()
 					{
-						{ "CustomerID", txtID.EditValue },
-						{ "CustomerName", txtName.EditValue },
-						{ "ID", id }
+						Text = "주소등록",
+						StartPosition = FormStartPosition.CenterScreen,
+						IsLoadingRefresh = true,
+						ParamsData = new DataMap()
+						{
+							{ "MappingType", "Customer" },
+							{ "CustomerID", txtID.EditValue },
+							{ "ID", data }
+						}
+					})
+					{
+						if (form.ShowDialog() == DialogResult.OK)
+						{
+							DataLoad(txtID.EditValue);
+						}
 					}
-				})
+				}
+				else if (lcTab.SelectedTabPage.Name == lcGroupBankAccount.Name)
 				{
-					if (form.ShowDialog() == DialogResult.OK)
+					using (var form = new _BankAccountEditForm()
 					{
-						DetailDataLoad(txtID.EditValue);
+						Text = "은행계좌등록",
+						StartPosition = FormStartPosition.CenterScreen,
+						IsLoadingRefresh = true,
+						ParamsData = new DataMap()
+						{
+							{ "MappingType", "Customer" },
+							{ "CustomerID", txtID.EditValue },
+							{ "ID", data }
+						}
+					})
+					{
+						if (form.ShowDialog() == DialogResult.OK)
+						{
+							DataLoad(txtID.EditValue);
+						}
+					}
+				}
+				else if (lcTab.SelectedTabPage.Name == lcGroupBrand.Name)
+				{
+					using (var form = new _BrandEditForm()
+					{
+						Text = "브랜드등록",
+						StartPosition = FormStartPosition.CenterScreen,
+						IsLoadingRefresh = true,
+						ParamsData = new DataMap()
+						{
+							{ "MappingType", "Customer" },
+							{ "CustomerID", txtID.EditValue },
+							{ "ID", data }
+						}
+					})
+					{
+						if (form.ShowDialog() == DialogResult.OK)
+						{
+							DataLoad(txtID.EditValue);
+						}
+					}
+				}
+				else if (lcTab.SelectedTabPage.Name == lcGroupBusiness.Name)
+				{
+					using (var form = new _BusinessEditForm()
+					{
+						Text = "사업자정보등록",
+						StartPosition = FormStartPosition.CenterScreen,
+						IsLoadingRefresh = true,
+						ParamsData = new DataMap()
+						{
+							{ "MappingType", "Customer" },
+							{ "CustomerID", txtID.EditValue },
+							{ "ID", data }
+						}
+					})
+					{
+						if (form.ShowDialog() == DialogResult.OK)
+						{
+							DataLoad(txtID.EditValue);
+						}
+					}
+				}
+				else if (lcTab.SelectedTabPage.Name == lcGroupChannel.Name)
+				{
+					using (var form = new _ChannelEditForm()
+					{
+						Text = "채널등록",
+						StartPosition = FormStartPosition.CenterScreen,
+						IsLoadingRefresh = true,
+						ParamsData = new DataMap()
+						{
+							{ "MappingType", "Customer" },
+							{ "CustomerID", txtID.EditValue },
+							{ "ID", data }
+						}
+					})
+					{
+						if (form.ShowDialog() == DialogResult.OK)
+						{
+							DataLoad(txtID.EditValue);
+						}
+					}
+				}
+				else if (lcTab.SelectedTabPage.Name == lcGroupContact.Name)
+				{
+					using (var form = new _ContactEditForm()
+					{
+						Text = "담당자등록",
+						StartPosition = FormStartPosition.CenterScreen,
+						IsLoadingRefresh = true,
+						ParamsData = new DataMap()
+						{
+							{ "MappingType", "Customer" },
+							{ "CustomerID", txtID.EditValue },
+							{ "ID", data }
+						}
+					})
+					{
+						if (form.ShowDialog() == DialogResult.OK)
+							DataLoad(txtID.EditValue);
+					}
+				}
+				else if (lcTab.SelectedTabPage.Name == lcGroupManager.Name)
+				{
+					using (var form = new _ContactEditForm()
+					{
+						Text = "매니저등록",
+						StartPosition = FormStartPosition.CenterScreen,
+						IsLoadingRefresh = true,
+						ParamsData = new DataMap()
+						{
+							{ "MappingType", "Customer" },
+							{ "CustomerID", txtID.EditValue },
+							{ "ID", data }
+						}
+					})
+					{
+						if (form.ShowDialog() == DialogResult.OK)
+							DataLoad(txtID.EditValue);
 					}
 				}
 			}
-			catch (Exception ex)
-			{
-				ShowErrBox(ex);
-			}
-		}
-		void ShowBusinessEditForm(object id)
-		{
-			try
-			{
-				if (txtID.EditValue.IsNullOrEmpty())
-					return;
-
-				using (var form = new CustomerBusinessEditForm()
-				{
-					Text = "사업자정보등록",
-					StartPosition = FormStartPosition.CenterScreen,
-					IsLoadingRefresh = true,
-					ParamsData = new DataMap()
-				{
-					{ "CustomerID", txtID.EditValue },
-					{ "CustomerName", txtName.EditValue },
-					{ "ID", id }
-				}
-				})
-				{
-					if (form.ShowDialog() == DialogResult.OK)
-					{
-						DetailDataLoad(txtID.EditValue);
-					}
-				}
-			}
-			catch (Exception ex)
-			{
-				ShowErrBox(ex);
-			}
-		}
-		void ShowBankEditForm(object id)
-		{
-			try
-			{
-				if (txtID.EditValue.IsNullOrEmpty())
-					return;
-
-				using (var form = new CustomerBankEditForm()
-				{
-					Text = "계좌정보등록",
-					StartPosition = FormStartPosition.CenterScreen,
-					IsLoadingRefresh = true,
-					ParamsData = new DataMap()
-					{
-						{ "CustomerID", txtID.EditValue },
-						{ "CustomerName", txtName.EditValue },
-						{ "ID", id }
-					}
-				})
-				{
-					if (form.ShowDialog() == DialogResult.OK)
-					{
-						DetailDataLoad(txtID.EditValue);
-					}
-				}
-			}
-			catch (Exception ex)
-			{
-				ShowErrBox(ex);
-			}
-		}
-		void ShowBrandEditForm(object id)
-		{
-			try
-			{
-				if (txtID.EditValue.IsNullOrEmpty())
-					return;
-
-				using (var form = new CustomerBrandEditForm()
-				{
-					Text = "브랜드등록",
-					StartPosition = FormStartPosition.CenterScreen,
-					IsLoadingRefresh = true,
-					ParamsData = new DataMap()
-					{
-						{ "CustomerID", txtID.EditValue },
-						{ "CustomerName", txtName.EditValue },
-						{ "ID", id }
-					}
-				})
-				{
-					if (form.ShowDialog() == DialogResult.OK)
-					{
-						DetailDataLoad(txtID.EditValue);
-					}
-				}
-			}
-			catch (Exception ex)
-			{
-				ShowErrBox(ex);
-			}
-		}
-		void ShowChannelEditForm(object id)
-		{
-			try
-			{
-				if (txtID.EditValue.IsNullOrEmpty())
-					return;
-
-				using (var form = new CustomerChannelEditForm()
-				{
-					Text = "채널등록",
-					StartPosition = FormStartPosition.CenterScreen,
-					IsLoadingRefresh = true,
-					ParamsData = new DataMap()
-					{
-						{ "CustomerID", txtID.EditValue },
-						{ "CustomerName", txtName.EditValue },
-						{ "ID", id }
-					}
-				})
-				{
-					if (form.ShowDialog() == DialogResult.OK)
-					{
-						DetailDataLoad(txtID.EditValue);
-					}
-				}
-			}
-			catch (Exception ex)
+			catch(Exception ex)
 			{
 				ShowErrBox(ex);
 			}

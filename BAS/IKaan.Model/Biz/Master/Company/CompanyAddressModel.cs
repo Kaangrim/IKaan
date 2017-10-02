@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
-using IKaan.Model.Biz.Master.Common;
 using IKaan.Model.Common.Base;
 
 namespace IKaan.Model.Biz.Master.Company

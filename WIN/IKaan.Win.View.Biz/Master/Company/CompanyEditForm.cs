@@ -14,6 +14,7 @@ using IKaan.Win.Core.Forms;
 using IKaan.Win.Core.Model;
 using IKaan.Win.Core.Utils;
 using IKaan.Win.Core.Was.Handler;
+using IKaan.Win.View.Biz.Master.Mapping;
 
 namespace IKaan.Win.View.Biz.Master.Company
 {
@@ -125,13 +126,12 @@ namespace IKaan.Win.View.Biz.Master.Company
 			gridStore.Init();
 			gridStore.AddGridColumns(
 				new XGridColumn() { FieldName = "RowNo" },
-				new XGridColumn() { FieldName = "Modified", Visible = false },
 				new XGridColumn() { FieldName = "ID", Visible = false },
 				new XGridColumn() { FieldName = "CompanyID", Visible = false },
 				new XGridColumn() { FieldName = "StoreID", Visible = false },
-				new XGridColumn() { FieldName = "StartDate", Width = 80 },
-				new XGridColumn() { FieldName = "EndDate", Width = 80 },
 				new XGridColumn() { FieldName = "StoreName", Width = 200 },
+				new XGridColumn() { FieldName = "StartDate", Width = 80, HorzAlignment = HorzAlignment.Center },
+				new XGridColumn() { FieldName = "EndDate", Width = 80, HorzAlignment = HorzAlignment.Center },
 				new XGridColumn() { FieldName = "CreatedOn" },
 				new XGridColumn() { FieldName = "CreatedByName" },
 				new XGridColumn() { FieldName = "UpdatedOn" },
@@ -395,15 +395,15 @@ namespace IKaan.Win.View.Biz.Master.Company
 			{
 				if (lcTab.SelectedTabPage.Name == lcGroupAddress.Name)
 				{
-					using (var form = new CompanyAddressEditForm()
+					using (var form = new _AddressEditForm()
 					{
 						Text = "주소등록",
 						StartPosition = FormStartPosition.CenterScreen,
 						IsLoadingRefresh = true,
 						ParamsData = new DataMap()
 						{
+							{ "MappingType", "Company" },
 							{ "CompanyID", txtID.EditValue },
-							{ "CompanyName", txtName.EditValue },
 							{ "ID", data }
 						}
 					})
@@ -414,15 +414,15 @@ namespace IKaan.Win.View.Biz.Master.Company
 				}
 				else if (lcTab.SelectedTabPage.Name == lcGroupBankAccount.Name)
 				{
-					using (var form = new CompanyBankAccountEditForm()
+					using (var form = new _BankAccountEditForm()
 					{
-						Text = "계좌정보등록",
+						Text = "은행계좌등록",
 						StartPosition = FormStartPosition.CenterScreen,
 						IsLoadingRefresh = true,
 						ParamsData = new DataMap()
 						{
+							{ "MappingType", "Company" },
 							{ "CompanyID", txtID.EditValue },
-							{ "CompanyName", txtName.EditValue },
 							{ "ID", data }
 						}
 					})
@@ -433,15 +433,15 @@ namespace IKaan.Win.View.Biz.Master.Company
 				}
 				else if (lcTab.SelectedTabPage.Name == lcGroupBusiness.Name)
 				{
-					using (var form = new CompanyBusinessEditForm()
+					using (var form = new _BusinessEditForm()
 					{
 						Text = "사업자정보등록",
 						StartPosition = FormStartPosition.CenterScreen,
 						IsLoadingRefresh = true,
 						ParamsData = new DataMap()
 						{
+							{ "MappingType", "Company" },
 							{ "CompanyID", txtID.EditValue },
-							{ "CompanyName", txtName.EditValue },
 							{ "ID", data }
 						}
 					})
@@ -452,15 +452,34 @@ namespace IKaan.Win.View.Biz.Master.Company
 				}
 				else if (lcTab.SelectedTabPage.Name == lcGroupContact.Name)
 				{
-					using (var form = new CompanyContactEditForm()
+					using (var form = new _ContactEditForm()
 					{
 						Text = "담당자등록",
 						StartPosition = FormStartPosition.CenterScreen,
 						IsLoadingRefresh = true,
 						ParamsData = new DataMap()
 						{
+							{ "MappingType", "Company" },
 							{ "CompanyID", txtID.EditValue },
-							{ "CompanyName", txtName.EditValue },
+							{ "ID", data }
+						}
+					})
+					{
+						if (form.ShowDialog() == DialogResult.OK)
+							DataLoad(txtID.EditValue);
+					}
+				}
+				else if (lcTab.SelectedTabPage.Name == lcGroupStore.Name)
+				{
+					using (var form = new _StoreEditForm()
+					{
+						Text = "상점등록",
+						StartPosition = FormStartPosition.CenterScreen,
+						IsLoadingRefresh = true,
+						ParamsData = new DataMap()
+						{
+							{ "MappingType", "Company" },
+							{ "CompanyID", txtID.EditValue },
 							{ "ID", data }
 						}
 					})

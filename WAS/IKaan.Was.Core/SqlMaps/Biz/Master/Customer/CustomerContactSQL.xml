@@ -23,7 +23,7 @@
 					,	AA.Description
 					
 					,	BB.Name			as ContactName
-					,	BB.PersonType
+					,	BB.ContactType
 					,	BB.Email
 					,	BB.PhoneNo
 					,	BB.MobileNo

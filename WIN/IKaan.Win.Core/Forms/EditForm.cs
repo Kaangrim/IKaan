@@ -997,6 +997,9 @@ namespace IKaan.Win.Core.Forms
 
 		public void SetControlData<T>(T data)
 		{
+			if (data == null)
+				return;
+
 			try
 			{
 				var entityType = typeof(T);

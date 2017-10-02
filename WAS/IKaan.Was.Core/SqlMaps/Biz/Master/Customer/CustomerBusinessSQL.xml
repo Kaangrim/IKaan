@@ -26,15 +26,10 @@
 					,	BB.BizNo
 					,	BB.RepName
 					
-					,	CC.CustomerName
-					
 				FROM	dbo.TCustomerBusiness AA WITH (NOLOCK)
 						LEFT JOIN
 							dbo.TBusiness BB WITH (NOLOCK)
 								ON AA.BusinessID = BB.ID
-						LEFT JOIN
-							dbo.TCustomer CC WITH (NOLOCK)
-								ON AA.CustomerID = CC.ID
 				WHERE	1=1
 			]]>
 			<isNotEmpty property="CustomerID">

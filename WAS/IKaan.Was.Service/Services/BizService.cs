@@ -89,6 +89,9 @@ namespace IKaan.Was.Service.Services
 						case "Customer":
 							req.SetList<CustomerModel>();
 							break;
+						case "Partner":
+							req.SetList<PartnerModel>();
+							break;
 						case "OrderSum":
 							req.SetList<OrderSumModel>();
 							break;
@@ -106,6 +109,9 @@ namespace IKaan.Was.Service.Services
 							break;
 						case "CompanyBankAccount":
 							req.SetList<CompanyBankAccountModel>();
+							break;
+						case "CustomerBankAccount":
+							req.SetList<CustomerBankAccountModel>();
 							break;
 						case "CompanyBusiness":
 							req.SetList<CompanyBusinessModel>();
@@ -217,33 +223,6 @@ namespace IKaan.Was.Service.Services
 						case "ChannelSetting":
 							req.SetData<ChannelSettingModel>();
 							break;
-						case "SearchBrand":
-							req.GetSearchBrand();
-							break;
-						case "SearchBrandActivity":
-							req.SetData<SearchBrandActivityModel>();
-							break;
-						case "Customer":
-							req.GetCustomer();
-							break;
-						case "CustomerBusiness":
-							req.GetCustomerBusiness();
-							break;
-						case "CustomerAddress":
-							req.GetCustomerAddress();
-							break;
-						case "CustomerBank":
-							req.SetData<CustomerBankAccountModel>();
-							break;
-						case "CustomerBrand":
-							req.SetData<CustomerBrandModel>();
-							break;
-						case "CustomerChannel":
-							req.SetData<CustomerChannelModel>();
-							break;
-						case "OrderSum":
-							req.SetData<OrderSumModel>();
-							break;
 						case "Store":
 							req.GetStore();
 							break;
@@ -264,6 +243,69 @@ namespace IKaan.Was.Service.Services
 							break;
 						case "CompanyStore":
 							req.SetData<CompanyStoreModel>();
+							break;
+						case "Customer":
+							req.GetCustomer();
+							break;
+						case "CustomerBusiness":
+							req.GetCustomerBusiness();
+							break;
+						case "CustomerAddress":
+							req.GetCustomerAddress();
+							break;						
+						case "CustomerBrand":
+							req.SetData<CustomerBrandModel>();
+							break;
+						case "CustomerChannel":
+							req.SetData<CustomerChannelModel>();
+							break;
+						case "CustomerContact":
+							req.SetData<CustomerContactModel>();
+							break;
+						case "CustomerStore":
+							req.SetData<CustomerStoreModel>();
+							break;
+						case "CustomerManager":
+							req.SetData<CustomerManagerModel>();
+							break;
+						case "CustomerBankAccount":
+							req.GetCustomerBankAccount();
+							break;
+						case "Partner":
+							req.GetPartner();
+							break;
+						case "PartnerBusiness":
+							req.GetPartnerBusiness();
+							break;
+						case "PartnerAddress":
+							req.GetPartnerAddress();
+							break;
+						case "PartnerBrand":
+							req.SetData<PartnerBrandModel>();
+							break;
+						case "PartnerChannel":
+							req.SetData<PartnerChannelModel>();
+							break;
+						case "PartnerContact":
+							req.SetData<PartnerContactModel>();
+							break;
+						case "PartnerStore":
+							req.SetData<PartnerStoreModel>();
+							break;
+						case "PartnerManager":
+							req.SetData<PartnerManagerModel>();
+							break;
+						case "PartnerBankAccount":
+							req.GetPartnerBankAccount();
+							break;
+						case "OrderSum":
+							req.SetData<OrderSumModel>();
+							break;
+						case "SearchBrand":
+							req.GetSearchBrand();
+							break;
+						case "SearchBrandActivity":
+							req.SetData<SearchBrandActivityModel>();
 							break;
 					}
 				}
@@ -367,12 +409,6 @@ namespace IKaan.Was.Service.Services
 								case "ChannelBrand":
 									req.SaveChannelBrand();
 									break;
-								case "CustomerContact":
-									req.SaveCustomerContact();
-									break;
-								case "CustomerManager":
-									req.SaveCustomerManager();
-									break;
 								case "SearchBrand":
 									req.SaveData<SearchBrandModel>();
 									break;
@@ -396,6 +432,42 @@ namespace IKaan.Was.Service.Services
 									break;
 								case "CustomerChannel":
 									req.SaveCustomerChannel();
+									break;
+								case "CustomerContact":
+									req.SaveCustomerContact();
+									break;
+								case "CustomerManager":
+									req.SaveCustomerManager();
+									break;
+								case "CustomerStore":
+									req.SaveCustomerStore();
+									break;
+								case "Partner":
+									req.SavePartner();
+									break;
+								case "vBusiness":
+									req.SavePartnerBusiness();
+									break;
+								case "PartnerAddress":
+									req.SavePartnerAddress();
+									break;
+								case "PartnerBankAccount":
+									req.SavePartnerBankAccount();
+									break;
+								case "PartnerBrand":
+									req.SavePartnerBrand();
+									break;
+								case "PartnerChannel":
+									req.SavePartnerChannel();
+									break;
+								case "PartnerContact":
+									req.SavePartnerContact();
+									break;
+								case "PartnerManager":
+									req.SavePartnerManager();
+									break;
+								case "PartnerStore":
+									req.SavePartnerStore();
 									break;
 								case "OrderSumByChannel":
 									req.SaveOrderSumByChannel();

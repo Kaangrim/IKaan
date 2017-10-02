@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
 using IKaan.Model.Biz.Master.Common;
@@ -17,40 +18,57 @@ namespace IKaan.Was.Service.Services
 		{
 			try
 			{
-				DataMap parameter = req.Parameter.JsonToAnyType<DataMap>();
-				CustomerModel customer = DaoFactory.InstanceBiz.QueryForObject<CustomerModel>("SelectCustomer", parameter);
-				if (customer != null)
+				var parameter = req.Parameter.JsonToAnyType<DataMap>();
+				var model = DaoFactory.InstanceBiz.QueryForObject<CustomerModel>("SelectCustomer", parameter);
+				if (model != null)
 				{
-					parameter = new DataMap() { { "CustomerID", customer.ID } };
+					parameter = new DataMap() { { "CustomerID", model.ID } };
+
+					//현재 사업자 정보
+					model.CurrentBusiness = DaoFactory.InstanceBiz.QueryForObject<BusinessModel>("SelectCustomerBusinessCurrent", parameter);
+					if (model.CurrentBusiness == null)
+						model.CurrentBusiness = new BusinessModel();
+
+					if (model.CurrentBusiness.AddressID != null)
+					{
+						model.CurrentBusiness.Address = DaoFactory.InstanceBiz.QueryForObject<AddressModel>("SelectAddress", new DataMap() { { "ID", model.CurrentBusiness.AddressID } });
+						if (model.CurrentBusiness.Address == null)
+							model.CurrentBusiness.Address = new AddressModel();
+					}
 
 					//주소
-					customer.Addresses = DaoFactory.InstanceBiz.QueryForList<CustomerAddressModel>("SelectCustomerAddressList", parameter);
-					if (customer.Addresses == null)
-						customer.Addresses = new List<CustomerAddressModel>();
+					model.Addresses = DaoFactory.InstanceBiz.QueryForList<CustomerAddressModel>("SelectCustomerAddressList", parameter);
+					if (model.Addresses == null)
+						model.Addresses = new List<CustomerAddressModel>();
 
 					//계좌
-					customer.BankAccounts = DaoFactory.InstanceBiz.QueryForList<CustomerBankAccountModel>("SelectCustomerBankList", parameter);
-					if (customer.BankAccounts == null)
-						customer.BankAccounts = new List<CustomerBankAccountModel>();
+					model.BankAccounts = DaoFactory.InstanceBiz.QueryForList<CustomerBankAccountModel>("SelectCustomerBankAccountList", parameter);
+					if (model.BankAccounts == null)
+						model.BankAccounts = new List<CustomerBankAccountModel>();
 
 					//사업자
-					customer.Businesses = DaoFactory.InstanceBiz.QueryForList<CustomerBusinessModel>("SelectCustomerBusinessList", parameter);
-					if (customer.Businesses == null)
-						customer.Businesses = new List<CustomerBusinessModel>();
+					model.Businesses = DaoFactory.InstanceBiz.QueryForList<CustomerBusinessModel>("SelectCustomerBusinessList", parameter);
+					if (model.Businesses == null)
+						model.Businesses = new List<CustomerBusinessModel>();
 
 					//브랜드
-					customer.Brands = DaoFactory.InstanceBiz.QueryForList<CustomerBrandModel>("SelectCustomerBrandList", parameter);
-					if (customer.Brands == null)
-						customer.Brands = new List<CustomerBrandModel>();
+					model.Brands = DaoFactory.InstanceBiz.QueryForList<CustomerBrandModel>("SelectCustomerBrandList", parameter);
+					if (model.Brands == null)
+						model.Brands = new List<CustomerBrandModel>();
 
 					//채널
-					customer.Channels = DaoFactory.InstanceBiz.QueryForList<CustomerChannelModel>("SelectCustomerChannelList", parameter);
-					if (customer.Channels == null)
-						customer.Channels = new List<CustomerChannelModel>();
+					model.Channels = DaoFactory.InstanceBiz.QueryForList<CustomerChannelModel>("SelectCustomerChannelList", parameter);
+					if (model.Channels == null)
+						model.Channels = new List<CustomerChannelModel>();
+
+					//매니저
+					model.Managers = DaoFactory.InstanceBiz.QueryForList<CustomerManagerModel>("SelectCustomerManagerList", parameter);
+					if (model.Managers == null)
+						model.Managers = new List<CustomerManagerModel>();
 				}
-				req.Data = customer;
+				req.Data = model;
 				req.Result.Count = 1;
-				return customer;
+				return model;
 			}
 			catch
 			{
@@ -63,23 +81,28 @@ namespace IKaan.Was.Service.Services
 			try
 			{
 				var parameter = req.Parameter.JsonToAnyType<DataMap>();
-				var customer = DaoFactory.InstanceBiz.QueryForObject<CustomerBusinessModel>("SelectCustomerBusiness", parameter);
-				if (customer != null)
+				var model = DaoFactory.InstanceBiz.QueryForObject<CustomerBusinessModel>("SelectCustomerBusiness", parameter);
+				if (model != null)
 				{
 					//사업자
-					parameter = new DataMap() { { "ID", customer.BusinessID } };
-					customer.Business = DaoFactory.InstanceBiz.QueryForObject<BusinessModel>("SelectBusiness", parameter);
+					model.Business = DaoFactory.InstanceBiz.QueryForObject<BusinessModel>("SelectBusiness", new DataMap() { { "ID", model.BusinessID } });
+					if (model.Business == null)
+						model.Business = new BusinessModel();
 
 					//주소
-					if (customer.Business != null)
-					{
-						parameter = new DataMap() { { "ID", customer.Business.AddressID } };
-						customer.Business.Address = DaoFactory.InstanceBiz.QueryForObject<AddressModel>("SelectAddress", parameter);
-					}
+					model.Business.Address = DaoFactory.InstanceBiz.QueryForObject<AddressModel>("SelectAddress", new DataMap() { { "ID", model.Business.AddressID } });
+					if (model.Business.Address == null)
+						model.Business.Address = new AddressModel();
+
+					//이미지
+					model.Business.Image = DaoFactory.InstanceBiz.QueryForObject<ImageModel>("SelectImage", new DataMap() { { "ID", model.Business.ImageID } });
+					if (model.Business.Image == null)
+						model.Business.Image = new ImageModel();
+
 				}
-				req.Data = customer;
+				req.Data = model;
 				req.Result.Count = 1;
-				return customer;
+				return model;
 			}
 			catch
 			{
@@ -102,65 +125,24 @@ namespace IKaan.Was.Service.Services
 				throw;
 			}
 		}
-		
-		public static void SaveCustomerContact(this WasRequest req)
+
+		public static CustomerContactModel GetCustomerContact(this WasRequest req)
 		{
 			try
 			{
-				var model = req.Data.JsonToAnyType<CustomerContactModel>();
+				var parameter = req.Parameter.JsonToAnyType<DataMap>();
+				var model = DaoFactory.InstanceBiz.QueryForObject<CustomerContactModel>("SelectCustomerContact", parameter);
 				if (model != null)
 				{
-					var contact = new ContactModel()
-					{
-						ID = model.ContactID,
-						Name = model.ContactName,
-						ContactType = "C",
-						Email = model.Email,
-						PhoneNo = model.PhoneNo,
-						MobileNo = model.MobileNo,
-						FaxNo = model.FaxNo
-					};
+					//담당자
+					model.Contact = DaoFactory.InstanceBiz.QueryForObject<ContactModel>("SelectContact", new DataMap() { { "ID", model.ContactID } });
+					if (model.Contact == null)
+						model.Contact = new ContactModel();
 
-					object contactID = null;
-
-					if (contact.ID == null)
-					{
-						contact.CreatedBy = req.User.UserId;
-						contact.CreatedByName = req.User.UserName;
-
-						contactID = DaoFactory.InstanceBiz.Insert("InsertContact", contact);
-					}
-					else
-					{
-						contact.UpdatedBy = req.User.UserId;
-						contact.UpdatedByName = req.User.UserName;
-
-						DaoFactory.InstanceBiz.Update("UpdateContact", contact);
-						contactID = contact.ID;
-					}
-
-					model.ContactID = contactID.ToIntegerNullToNull();
-
-					if (model.ID == null)
-					{
-						model.CreatedBy = req.User.UserId;
-						model.CreatedByName = req.User.UserName;
-
-						contactID = DaoFactory.InstanceBiz.Insert("InsertCustomerContact", model);
-					}
-					else
-					{
-						model.UpdatedBy = req.User.UserId;
-						model.UpdatedByName = req.User.UserName;
-
-						DaoFactory.InstanceBiz.Update("UpdateCustomerContact", model);
-						contactID = model.ID;
-					}
-
-					req.Result.Count = 1;
-					req.Result.ReturnValue = contactID;
-					req.Error.Number = 0;
 				}
+				req.Data = model;
+				req.Result.Count = 1;
+				return model;
 			}
 			catch
 			{
@@ -168,88 +150,31 @@ namespace IKaan.Was.Service.Services
 			}
 		}
 
-		public static void SaveCustomerManager(this WasRequest req)
+		public static CustomerBankAccountModel GetCustomerBankAccount(this WasRequest req)
 		{
 			try
 			{
-				object id = null;
-				var manager = req.Data.JsonToAnyType<CustomerManagerModel>();
-				if (manager != null)
+				var parameter = req.Parameter.JsonToAnyType<DataMap>();
+				var model = DaoFactory.InstanceBiz.QueryForObject<CustomerBankAccountModel>("SelectCustomerBankAccount", parameter);
+				if (model != null)
 				{
-					DataMap map = new DataMap()
-					{
-						{ "CustomerID", manager.CustomerID },
-						{ "StartDate", manager.StartDate }
-					};
+					//계좌정보
+					model.Image = DaoFactory.InstanceBiz.QueryForObject<ImageModel>("SelectImage", new DataMap() { { "ID", model.ImageID } });
+					if (model.Image == null)
+						model.Image = new ImageModel();
 
-					var dup = DaoFactory.InstanceBiz.QueryForObject<PartnerManagerModel>("SelectCustomerManagerDuplicate", map);
-					if (dup != null)
-					{
-						if (manager.ID == null)
-						{
-							throw new Exception("동일 시작일로 등록된 데이터가 존재합니다.");
-						}
-						else
-						{
-							if (manager.ID != dup.ID)
-								throw new Exception("동일 시작일로 등록된 데이터가 존재합니다.");
-
-							manager.UpdatedBy = req.User.UserId;
-							manager.UpdatedByName = req.User.UserName;
-
-							DaoFactory.InstanceBiz.Update("UpdateCustomerManager", manager);
-							id = manager.ID;
-						}
-					}
-					else
-					{
-						var before = DaoFactory.InstanceBiz.QueryForObject<PartnerManagerModel>("SelectCustomerManagerBefore", map);
-						if (before != null)
-						{
-							before.EndDate = manager.StartDate.Value.AddDays(-1);
-							before.UpdatedBy = req.User.UserId;
-							before.UpdatedByName = req.User.UserName;
-
-							DaoFactory.InstanceBiz.Update("UpdateCustomerManagerEndDate", before);
-						}
-
-						var after = DaoFactory.InstanceBiz.QueryForObject<PartnerManagerModel>("SelectCustomerManagerAfter", map);
-						if (after != null)
-						{
-							manager.EndDate = after.StartDate.Value.AddDays(-1);
-						}
-						else
-						{
-							manager.EndDate = null;
-						}
-
-						if (manager.ID != null)
-						{
-							manager.UpdatedBy = req.User.UserId;
-							manager.UpdatedByName = req.User.UserName;
-
-							DaoFactory.InstanceBiz.Update("UpdateCustomerManager", manager);
-							id = manager.ID;
-						}
-						else
-						{
-							manager.CreatedBy = req.User.UserId;
-							manager.CreatedByName = req.User.UserName;
-
-							id = DaoFactory.InstanceBiz.Insert("InsertChannelManager", manager);
-						}
-					}
-
-					req.Result.Count = 1;
-					req.Result.ReturnValue = id;
-					req.Error.Number = 0;
 				}
+				req.Data = model;
+				req.Result.Count = 1;
+				return model;
 			}
 			catch
 			{
 				throw;
 			}
 		}
+
+		
 		
 		public static void SaveCustomer(this WasRequest req)
 		{
@@ -409,11 +334,34 @@ namespace IKaan.Was.Service.Services
 							}
 						}
 
+						var imageID = customer.Business.ImageID;
+						if (Regex.IsMatch(customer.Business.Image.RowState.ToStringNullToEmpty().ToUpper(), "INSERT|UPDATE"))
+						{
+							if (imageID == null)
+							{
+								customer.Business.Image.CreatedBy = req.User.UserId;
+								customer.Business.Image.CreatedByName = req.User.UserName;
+								var id = DaoFactory.InstanceBiz.Insert("InsertImage", customer.Business.Image);
+								customer.Business.Image.ID = id.ToIntegerNullToNull();
+								customer.Business.ImageID = id.ToIntegerNullToNull();
+							}
+							else
+							{
+								customer.Business.Image.ID = customer.Business.ImageID;
+								customer.Business.Image.UpdatedBy = req.User.UserId;
+								customer.Business.Image.UpdatedByName = req.User.UserName;
+								DaoFactory.InstanceBiz.Update("UpdateImage", customer.Business.Image);
+							}
+						}
+						else if (customer.Business.Image.RowState.ToStringNullToEmpty().ToUpper() == "DELETE")
+						{
+							customer.Business.ImageID = null;
+						}
+
 						if (customer.BusinessID.IsNullOrDefault())
 						{
 							customer.Business.CreatedBy = req.User.UserId;
 							customer.Business.CreatedByName = req.User.UserName;
-
 							businessId = DaoFactory.InstanceBiz.Insert("InsertBusiness", customer.Business);
 							customer.Business.ID = businessId.ToIntegerNullToNull();
 							customer.BusinessID = customer.Business.ID;
@@ -422,8 +370,12 @@ namespace IKaan.Was.Service.Services
 						{
 							customer.Business.UpdatedBy = req.User.UserId;
 							customer.Business.UpdatedByName = req.User.UserName;
-
 							DaoFactory.InstanceBiz.Update("UpdateBusiness", customer.Business);
+
+							if (imageID != null && customer.Business.Image.RowState.ToStringNullToEmpty().ToUpper() == "DELETE")
+							{
+								DaoFactory.InstanceBiz.Delete("DeleteImage", new DataMap() { { "ID", imageID } });
+							}
 						}
 					}
 
@@ -579,31 +531,82 @@ namespace IKaan.Was.Service.Services
 		{
 			try
 			{
-				object id = null;
-
-				var customer = req.Data.JsonToAnyType<CustomerBankAccountModel>();
-				if (customer != null)
+				var model = req.Data.JsonToAnyType<CustomerBankAccountModel>();
+				var bankaccount = new BankAccountModel()
 				{
-					if (customer.ID.IsNullOrDefault())
-					{
-						customer.CreatedBy = req.User.UserId;
-						customer.CreatedByName = req.User.UserName;
+					Name = model.BankAccountName,
+					BankName = model.BankName,
+					AccountNo = model.AccountNo,
+					Depositor = model.Depositor,
+					ImageID = model.ImageID
+				};
 
-						id = DaoFactory.InstanceBiz.Insert("InsertCustomerBankAccount", customer);
-						customer.ID = id.ToIntegerNullToNull();
+				var imageID = model.ImageID;
+				if (Regex.IsMatch(model.Image.RowState.ToStringNullToEmpty().ToUpper(), "INSERT|UPDATE"))
+				{
+					if (imageID == null)
+					{
+						model.Image.CreatedBy = req.User.UserId;
+						model.Image.CreatedByName = req.User.UserName;
+						var id = DaoFactory.InstanceBiz.Insert("InsertImage", model.Image);
+						model.Image.ID = id.ToIntegerNullToNull();
+						model.ImageID = id.ToIntegerNullToNull();
+						bankaccount.ImageID = id.ToIntegerNullToNull();
 					}
 					else
 					{
-						customer.UpdatedBy = req.User.UserId;
-						customer.UpdatedByName = req.User.UserName;
-
-						DaoFactory.InstanceBiz.Update("UpdateCustomerBankAccount", customer);
+						model.Image.ID = model.ImageID;
+						model.Image.UpdatedBy = req.User.UserId;
+						model.Image.UpdatedByName = req.User.UserName;
+						DaoFactory.InstanceBiz.Update("UpdateImage", model.Image);
 					}
-
-					req.Result.Count = 1;
-					req.Result.ReturnValue = customer.ID;
-					req.Error.Number = 0;
 				}
+				else if (model.Image.RowState.ToStringNullToEmpty().ToUpper() == "DELETE")
+				{
+					model.ImageID = null;
+					bankaccount.ImageID = null;
+				}
+
+				if (bankaccount != null)
+				{
+					if (model.BankAccountID == null)
+					{
+						bankaccount.CreatedBy = req.User.UserId;
+						bankaccount.CreatedByName = req.User.UserName;
+						var id = DaoFactory.InstanceBiz.Insert("InsertBankAccount", bankaccount);
+						bankaccount.ID = id.ToIntegerNullToNull();
+					}
+					else
+					{
+						bankaccount.UpdatedBy = req.User.UserId;
+						bankaccount.UpdatedByName = req.User.UserName;
+						DaoFactory.InstanceBiz.Update("UpdateBankAccount", bankaccount);
+
+						if (imageID != null && model.Image.RowState.ToStringNullToEmpty().ToUpper() == "DELETE")
+						{
+							DaoFactory.InstanceBiz.Delete("DeleteImage", new DataMap() { { "ID", imageID } });
+						}
+					}
+					model.BankAccountID = bankaccount.ID;
+				}
+
+				if (model.ID == null)
+				{
+					model.CreatedBy = req.User.UserId;
+					model.CreatedByName = req.User.UserName;
+					var id = DaoFactory.InstanceBiz.Insert("InsertCustomerBankAccount", model);
+					model.ID = id.ToIntegerNullToNull();
+				}
+				else
+				{
+					model.UpdatedBy = req.User.UserId;
+					model.UpdatedByName = req.User.UserName;
+					DaoFactory.InstanceBiz.Update("UpdateCustomerBankAccount", model);
+				}
+
+				req.Result.Count = 1;
+				req.Result.ReturnValue = model.ID;
+				req.Error.Number = 0;
 			}
 			catch
 			{
@@ -682,6 +685,190 @@ namespace IKaan.Was.Service.Services
 				throw;
 			}
 		}
-				
+
+		public static void SaveCustomerStore(this WasRequest req)
+		{
+			try
+			{
+				var model = req.Data.JsonToAnyType<CustomerStoreModel>();
+
+				var parameter = new DataMap()
+				{
+					{ "CustomerID", model.CustomerID },
+					{ "StoreID", model.StoreID }
+				};
+				var exists = DaoFactory.InstanceBiz.QueryForObject<CustomerStoreModel>("SelectCustomerStoreExists", parameter);
+				if (exists == null)
+				{
+					model.CreatedBy = req.User.UserId;
+					model.CreatedByName = req.User.UserName;
+					var id = DaoFactory.InstanceBiz.Insert("InsertCustomerStore", model);
+					model.ID = id.ToIntegerNullToNull();
+				}
+				else
+				{
+					model.ID = exists.ID;
+					model.UpdatedBy = req.User.UserId;
+					model.UpdatedByName = req.User.UserName;
+					DaoFactory.InstanceBiz.Update("UpdateCustomerStore", model);
+				}
+
+				req.Result.Count = 1;
+				req.Result.ReturnValue = model.ID;
+				req.Error.Number = 0;
+			}
+			catch
+			{
+				throw;
+			}
+		}
+
+		public static void SaveCustomerContact(this WasRequest req)
+		{
+			try
+			{
+				var model = req.Data.JsonToAnyType<CustomerContactModel>();
+				if (model != null)
+				{
+					var contact = new ContactModel()
+					{
+						ID = model.ContactID,
+						Name = model.ContactName,
+						ContactType = "C",
+						Email = model.Email,
+						PhoneNo = model.PhoneNo,
+						MobileNo = model.MobileNo,
+						FaxNo = model.FaxNo
+					};
+
+					object contactID = null;
+
+					if (contact.ID == null)
+					{
+						contact.CreatedBy = req.User.UserId;
+						contact.CreatedByName = req.User.UserName;
+
+						contactID = DaoFactory.InstanceBiz.Insert("InsertContact", contact);
+					}
+					else
+					{
+						contact.UpdatedBy = req.User.UserId;
+						contact.UpdatedByName = req.User.UserName;
+
+						DaoFactory.InstanceBiz.Update("UpdateContact", contact);
+						contactID = contact.ID;
+					}
+
+					model.ContactID = contactID.ToIntegerNullToNull();
+
+					if (model.ID == null)
+					{
+						model.CreatedBy = req.User.UserId;
+						model.CreatedByName = req.User.UserName;
+
+						contactID = DaoFactory.InstanceBiz.Insert("InsertCustomerContact", model);
+					}
+					else
+					{
+						model.UpdatedBy = req.User.UserId;
+						model.UpdatedByName = req.User.UserName;
+
+						DaoFactory.InstanceBiz.Update("UpdateCustomerContact", model);
+						contactID = model.ID;
+					}
+
+					req.Result.Count = 1;
+					req.Result.ReturnValue = contactID;
+					req.Error.Number = 0;
+				}
+			}
+			catch
+			{
+				throw;
+			}
+		}
+
+		public static void SaveCustomerManager(this WasRequest req)
+		{
+			try
+			{
+				object id = null;
+				var manager = req.Data.JsonToAnyType<CustomerManagerModel>();
+				if (manager != null)
+				{
+					DataMap map = new DataMap()
+					{
+						{ "CustomerID", manager.CustomerID },
+						{ "StartDate", manager.StartDate }
+					};
+
+					var dup = DaoFactory.InstanceBiz.QueryForObject<PartnerManagerModel>("SelectCustomerManagerDuplicate", map);
+					if (dup != null)
+					{
+						if (manager.ID == null)
+						{
+							throw new Exception("동일 시작일로 등록된 데이터가 존재합니다.");
+						}
+						else
+						{
+							if (manager.ID != dup.ID)
+								throw new Exception("동일 시작일로 등록된 데이터가 존재합니다.");
+
+							manager.UpdatedBy = req.User.UserId;
+							manager.UpdatedByName = req.User.UserName;
+
+							DaoFactory.InstanceBiz.Update("UpdateCustomerManager", manager);
+							id = manager.ID;
+						}
+					}
+					else
+					{
+						var before = DaoFactory.InstanceBiz.QueryForObject<PartnerManagerModel>("SelectCustomerManagerBefore", map);
+						if (before != null)
+						{
+							before.EndDate = manager.StartDate.Value.AddDays(-1);
+							before.UpdatedBy = req.User.UserId;
+							before.UpdatedByName = req.User.UserName;
+
+							DaoFactory.InstanceBiz.Update("UpdateCustomerManagerEndDate", before);
+						}
+
+						var after = DaoFactory.InstanceBiz.QueryForObject<PartnerManagerModel>("SelectCustomerManagerAfter", map);
+						if (after != null)
+						{
+							manager.EndDate = after.StartDate.Value.AddDays(-1);
+						}
+						else
+						{
+							manager.EndDate = null;
+						}
+
+						if (manager.ID != null)
+						{
+							manager.UpdatedBy = req.User.UserId;
+							manager.UpdatedByName = req.User.UserName;
+
+							DaoFactory.InstanceBiz.Update("UpdateCustomerManager", manager);
+							id = manager.ID;
+						}
+						else
+						{
+							manager.CreatedBy = req.User.UserId;
+							manager.CreatedByName = req.User.UserName;
+
+							id = DaoFactory.InstanceBiz.Insert("InsertChannelManager", manager);
+						}
+					}
+
+					req.Result.Count = 1;
+					req.Result.ReturnValue = id;
+					req.Error.Number = 0;
+				}
+			}
+			catch
+			{
+				throw;
+			}
+		}
 	}
 }

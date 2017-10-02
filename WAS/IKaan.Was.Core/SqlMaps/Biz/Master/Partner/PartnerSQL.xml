@@ -22,10 +22,27 @@
 					,	AA.Description
 					
 					,	M1.Name			as PartnerTypeName
+					,	BB.BizName
+					,	BB.RepName
+					,	BB.BizNo
 					
 				FROM	dbo.TPartner AA WITH (NOLOCK)
 						LEFT JOIN
-							dbo.TCode M1 WITH (NOLOCK)
+						(
+							SELECT	B1.PartnerID
+								,	B1.BusinessID
+								,	B2.Name			as BizName
+								,	B2.RepName		as RepName
+								,	B2.BizNo		as BizNo
+							FROM	dbo.TPartnerBusiness B1
+									INNER JOIN
+										dbo.TBusiness B2
+											ON B1.BusinessID = B2.ID
+							WHERE	B1.StartDate < DATEADD(DAY, 1, GETDATE())
+							AND		ISNULL(B1.EndDate, GETDATE()) > DATEADD(DAY, -1, GETDATE())
+						) BB ON AA.ID = BB.PartnerID
+						LEFT JOIN
+							IKBase.dbo.TCode M1 WITH (NOLOCK)
 								ON AA.PartnerType = M1.Code
 									AND M1.ParentCode = 'PartnerType'
 				WHERE	1=1				
@@ -35,6 +52,16 @@
 					AND	(
 							AA.Name	LIKE '%' + #FindText# + '%'
 						)
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="PartnerType">
+				<![CDATA[
+					AND	AA.PartnerType	= #PatnerType#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="UseYn">
+				<![CDATA[
+					AND	AA.UseYn = #UseYn#
 				]]>
 			</isNotEmpty>
 			<![CDATA[
@@ -87,5 +114,17 @@
 				DELETE FROM dbo.TPartner WHERE ID = #ID#;
 			]]>
 		</delete>
+		<select id="SelectPartnerBusinessCurrent" parameterClass="DataMap" resultClass="BusinessModel" >
+			<![CDATA[
+				SELECT  BB.*
+				FROM	dbo.TPartnerBusiness AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.TBusiness BB WITH (NOLOCK)
+								ON AA.BusinessID = BB.ID									
+				WHERE	AA.PartnerID = #PartnerID#
+				AND		AA.StartDate < DATEADD(DAY, 1, GETDATE())
+				AND		ISNULL(AA.EndDate, GETDATE()) > DATEADD(DAY, -1, GETDATE())
+			]]>
+		</select>
 	</statements>
 </sqlMap>
