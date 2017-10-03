@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
-using IKaan.Model.Biz.Master.Customer;
 using IKaan.Model.Common.Base;
 
 namespace IKaan.Model.Biz.Master.Channel
@@ -46,23 +45,18 @@ namespace IKaan.Model.Biz.Master.Channel
 		public IList<ChannelAttributeModel> Attributes { get; set; }
 
 		[DataMember]
-		[Display(Name = "채널, 브랜드")]
+		[Display(Name = "채널브랜드")]
 		public IList<ChannelBrandModel> Brands { get; set; }
 
 		[DataMember]
-		[Display(Name = "채널, 거래처")]
-		public IList<CustomerChannelModel> Customers { get; set; }
-
-		[DataMember]
-		[Display(Name = "채널, 설정")]
-		public ChannelSettingModel Setting { get; set; }
+		[Display(Name = "채널설정")]
+		public IList<ChannelSettingModel> Settings { get; set; }
 
 		public ChannelModel()
 		{
 			Attributes = new List<ChannelAttributeModel>();
 			Brands = new List<ChannelBrandModel>();
-			Customers = new List<CustomerChannelModel>();
-			Setting = new ChannelSettingModel();
+			Settings = new List<ChannelSettingModel>();
 		}
 	}
 }

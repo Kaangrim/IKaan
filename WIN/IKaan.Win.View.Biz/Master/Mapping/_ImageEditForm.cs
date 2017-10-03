@@ -32,7 +32,7 @@ namespace IKaan.Win.View.Biz.Master.Mapping
 		protected override void InitButton()
 		{
 			base.InitButton();
-			SetToolbarButtons(new ToolbarButtons() { });
+			SetToolbarButtons(new ToolbarButtons() { New = true, Save = true, SaveAndNew = true, SaveAndClose = true });
 		}
 
 		protected override void InitControls()
@@ -76,6 +76,7 @@ namespace IKaan.Win.View.Biz.Master.Mapping
 			picImage.Clear();
 
 			EditMode = EditModeEnum.New;
+			SetToolbarButtons(new ToolbarButtons() { New = true, Save = true, SaveAndNew = true, SaveAndClose = true });
 		}
 		protected override void DataLoad(object param = null)
 		{
@@ -97,17 +98,13 @@ namespace IKaan.Win.View.Biz.Master.Mapping
 						txtBrandID.EditValue = model.BrandID.ToStringNullToEmpty();
 						picImage.ImageID = model.ImageID;
 						if (model.Image.Url.IsNullOrEmpty())
-						{
 							picImage.Clear();
-						}
 						else
-						{
 							picImage.LoadImage(ConstsVar.IMG_URL + model.Image.Url);
-						}
 					}
 				}
 
-				SetToolbarButtons(new ToolbarButtons() { Save = true, SaveAndClose = true, Delete = true });
+				SetToolbarButtons(new ToolbarButtons() { New = true, Save = true, SaveAndNew = true, SaveAndClose = true, Delete = true });
 				this.EditMode = EditModeEnum.Modify;
 				lupImageType.Focus();
 			}

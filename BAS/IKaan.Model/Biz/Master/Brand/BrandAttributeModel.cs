@@ -20,6 +20,14 @@ namespace IKaan.Model.Biz.Master.Brand
 		public int AttributeID { get; set; }
 
 		[DataMember]
+		[Display(Name = "속성값")]
+		public string AttributeValue { get; set; }
+
+		[DataMember]
+		[Display(Name = "속성유형명")]
+		public string AttributeTypeName { get; set; }
+
+		[DataMember]
 		[Display(Name = "속성명")]
 		public string AttributeName { get; set; }
 	}

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using DevExpress.Utils;
 using DevExpress.XtraGrid.Views.Grid;
@@ -51,7 +52,6 @@ namespace IKaan.Win.View.Biz.Master.Channel
 			SetFieldNames();
 
 			lcItemName.SetFieldName("ChannelName");
-			lcGroupCustomer.Text = DomainUtils.GetFieldName("Customer");
 			lcGroupBrand.Text = DomainUtils.GetFieldName("Brand");
 			lcGroupSetting.Text = DomainUtils.GetFieldName("Setting");
 
@@ -62,10 +62,6 @@ namespace IKaan.Win.View.Biz.Master.Channel
 			txtUpdatedByName.SetEnable(false);
 
 			lupChannelType.BindData("ChannelType");
-
-			spnOrderNoDigit.SetFormat("N0", false, HorzAlignment.Near);
-			spnOrderLine.SetFormat("N0", false, HorzAlignment.Near);
-			spnAccountLine.SetFormat("N0", false, HorzAlignment.Near);
 
 			InitGrid();
 
@@ -105,33 +101,23 @@ namespace IKaan.Win.View.Biz.Master.Channel
 			};
 			#endregion
 
-			#region Channel Customer List
-			gridCustomers.Init();
-			gridCustomers.AddGridColumns(
+			#region Channel Setting List
+			gridSettings.Init();
+			gridSettings.AddGridColumns(
 				new XGridColumn() { FieldName = "RowNo" },
 				new XGridColumn() { FieldName = "ID", Visible = false },
 				new XGridColumn() { FieldName = "ChannelID", Visible = false },
-				new XGridColumn() { FieldName = "StartDate", Width = 100, HorzAlignment = HorzAlignment.Center },
-				new XGridColumn() { FieldName = "EndDate", Width = 100, HorzAlignment = HorzAlignment.Center },
-				new XGridColumn() { FieldName = "CustomerID", Visible = false },
-				new XGridColumn() { FieldName = "CustomerName", Width = 200 },
+				new XGridColumn() { FieldName = "SettingCode", Visible = false },
+				new XGridColumn() { FieldName = "SettingName", Width = 200 },
+				new XGridColumn() { FieldName = "SettingValue", Width = 200 },
 				new XGridColumn() { FieldName = "CreatedOn" },
 				new XGridColumn() { FieldName = "CreatedByName" },
 				new XGridColumn() { FieldName = "UpdatedOn" },
 				new XGridColumn() { FieldName = "UpdatedByName" }
 			);
-			gridCustomers.ColumnFix("RowNo");
-			gridCustomers.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
-			{
-				if (e.RowHandle < 0)
-					return;
-
-				if (e.Button == MouseButtons.Left && e.Clicks == 2)
-				{
-					GridView view = sender as GridView;
-					ShowEdit(view.GetRowCellValue(e.RowHandle, "ID"));
-				}
-			};
+			gridSettings.ColumnFix("RowNo");
+			gridSettings.SetRespositoryItemTextEdit("SettingValue");
+			gridSettings.SetEditable("SettingValue");
 			#endregion
 		}
 
@@ -139,16 +125,7 @@ namespace IKaan.Win.View.Biz.Master.Channel
 		{
 			ClearControlData<ChannelModel>();
 			gridBrands.Clear<ChannelBrandModel>();
-			gridCustomers.Clear<CustomerChannelModel>();
-
-			chkOrderDateYn.Checked = true;
-			chkOrderAddYearYn.Checked = false;
-			spnOrderNoDigit.EditValue = 0;
-			chkOptionYn.Checked = true;
-			txtOptionFormat.EditValue = null;
-			spnOrderLine.EditValue = 2;
-			spnAccountLine.EditValue = 2;
-
+			gridSettings.Clear<ChannelSettingModel>();
 			SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true });
 			EditMode = EditModeEnum.New;
 			txtName.Focus();
@@ -162,17 +139,8 @@ namespace IKaan.Win.View.Biz.Master.Channel
 				if (model != null)
 				{
 					SetControlData(model);
-
-					chkOrderDateYn.Checked = (model.Setting.OrderDateYn == "Y") ? true : false;
-					chkOrderAddYearYn.Checked = (model.Setting.OrderAddYearYn == "Y") ? true : false;
-					spnOrderNoDigit.EditValue = model.Setting.OrderNoDigit;
-					chkOptionYn.Checked = (model.Setting.OptionYn == "Y") ? true : false;
-					txtOptionFormat.EditValue = model.Setting.OptionFormat;
-					spnOrderLine.EditValue = model.Setting.OrderLine;
-					spnAccountLine.EditValue = model.Setting.AccountLine;
-
 					gridBrands.DataSource = model.Brands;
-					gridCustomers.DataSource = model.Customers;
+					gridSettings.DataSource = model.Settings;
 				}
 
 				SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true, Delete = true });
@@ -192,18 +160,7 @@ namespace IKaan.Win.View.Biz.Master.Channel
 			{
 				object id = null;
 				var model = this.GetControlData<ChannelModel>();
-				model.Setting = new ChannelSettingModel()
-				{
-					ChannelID = txtID.EditValue.ToIntegerNullToNull(),
-					OrderDateYn = chkOrderDateYn.Checked ? "Y" : "N",
-					OrderAddYearYn = chkOrderAddYearYn.Checked ? "Y" : "N",
-					OrderNoDigit = spnOrderNoDigit.EditValue.ToIntegerNullToZero(),
-					OptionYn = chkOptionYn.Checked ? "Y" : "N",
-					OptionFormat = txtOptionFormat.EditValue.ToStringNullToNull(),
-					OrderLine = spnOrderLine.EditValue.ToIntegerNullToZero(),
-					AccountLine = spnOrderLine.EditValue.ToIntegerNullToZero()
-				};
-
+				model.Settings = gridSettings.DataSource as List<ChannelSettingModel>;
 				using (var res = WasHandler.Execute<ChannelModel>("Biz", "Save", (this.EditMode == EditModeEnum.New) ? "Insert" : "Update", model, "ID"))
 				{
 					if (res.Error.Number != 0)
@@ -244,24 +201,6 @@ namespace IKaan.Win.View.Biz.Master.Channel
 				using (var form = new _ChannelBrandEditForm())
 				{
 					form.Text = "브랜드입점등록";
-					form.StartPosition = FormStartPosition.CenterScreen;
-					form.IsLoadingRefresh = true;
-					form.ParamsData = new DataMap()
-					{
-						{ "MappingType", "Channel" },
-						{ "ChannelID", txtID.EditValue },
-						{ "ID", data }
-					};
-
-					if (form.ShowDialog() == DialogResult.OK)
-						DataLoad(txtID.EditValue);
-				}
-			}
-			else if (lcTab.SelectedTabPage.Name == lcGroupCustomer.Name)
-			{
-				using (var form = new _ChannelEditForm())
-				{
-					form.Text = "채널/거래처등록";
 					form.StartPosition = FormStartPosition.CenterScreen;
 					form.IsLoadingRefresh = true;
 					form.ParamsData = new DataMap()

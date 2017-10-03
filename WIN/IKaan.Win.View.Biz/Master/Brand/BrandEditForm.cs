@@ -5,6 +5,7 @@ using DevExpress.Utils;
 using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraTab.ViewInfo;
 using IKaan.Base.Map;
+using IKaan.Base.Utils;
 using IKaan.Model.Biz.Master.Brand;
 using IKaan.Model.Biz.Master.Channel;
 using IKaan.Win.Core.Controls.Grid;
@@ -53,14 +54,18 @@ namespace IKaan.Win.View.Biz.Master.Brand
 			lcItemCategory.SetFieldName("BrandCategory");
 			lcItemStyle.SetFieldName("BrandStyle");
 
+			lcGroupAttribute.Text = DomainUtils.GetFieldName("Attribute");
+			lcGroupChannel.Text = DomainUtils.GetFieldName("Channel");
+			lcGroupImage.Text = DomainUtils.GetFieldName("Image");
+
 			txtID.SetEnable(false);
 			txtCreatedOn.SetEnable(false);
 			txtCreatedByName.SetEnable(false);
 			txtUpdatedOn.SetEnable(false);
 			txtUpdatedByName.SetEnable(false);
 
-			lupCategory.BindData("BrandCategory");
-			lupStyle.BindData("BrandStyle");
+			lupCategory.BindData("BrandCategory", "None");
+			lupStyle.BindData("BrandStyle", "None");
 
 			InitGrid();
 
@@ -75,15 +80,14 @@ namespace IKaan.Win.View.Biz.Master.Brand
 				new XGridColumn() { FieldName = "RowNo" },
 				new XGridColumn() { FieldName = "ID", Visible = false },
 				new XGridColumn() { FieldName = "BrandID", Visible = false },
-				new XGridColumn() { FieldName = "ImageType", Width = 100 },
+				new XGridColumn() { FieldName = "ImageType", Visible = false },
+				new XGridColumn() { FieldName = "ImageTypeName", Width = 100, HorzAlignment = HorzAlignment.Center },
 				new XGridColumn() { FieldName = "ImageUrl", Width = 300 },
 				new XGridColumn() { FieldName = "CreatedOn" },
 				new XGridColumn() { FieldName = "CreatedByName" },
 				new XGridColumn() { FieldName = "UpdatedOn" },
 				new XGridColumn() { FieldName = "UpdatedByName" }
 			);
-			gridImages.SetRepositoryItemLookUpEdit("ImageType");
-			gridImages.SetRepositoryItemButtonEdit("ImageUrl");
 			gridImages.ColumnFix("RowNo");
 
 			gridImages.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
@@ -112,12 +116,11 @@ namespace IKaan.Win.View.Biz.Master.Brand
 				new XGridColumn() { FieldName = "RowNo" },
 				new XGridColumn() { FieldName = "ID", Visible = false },
 				new XGridColumn() { FieldName = "BrandID", Visible = false },
-				new XGridColumn() { FieldName = "CustomerID", Visible = false },
-				new XGridColumn() { FieldName = "PersonID", Visible = false },
-				new XGridColumn() { FieldName = "StartDate", Width = 80 },
-				new XGridColumn() { FieldName = "EndDate", Width = 80 },
-				new XGridColumn() { FieldName = "CustomerName", Width = 200 },
-				new XGridColumn() { FieldName = "PersonName", Width = 100 },
+				new XGridColumn() { FieldName = "AttributeTypeID", Visible = false },
+				new XGridColumn() { FieldName = "AttributeID", Visible = false },
+				new XGridColumn() { FieldName = "AttributeTypeName", Width = 100 },
+				new XGridColumn() { FieldName = "AttributeName", Width = 100 },
+				new XGridColumn() { FieldName = "AttributeValue", Width = 100 },
 				new XGridColumn() { FieldName = "CreatedOn" },
 				new XGridColumn() { FieldName = "CreatedByName" },
 				new XGridColumn() { FieldName = "UpdatedOn" },
@@ -184,18 +187,9 @@ namespace IKaan.Win.View.Biz.Master.Brand
 			try
 			{
 				var model = WasHandler.GetData<BrandModel>("Biz", "GetData", "Select", new DataMap() { { "ID", param } });
-				if (model == null)
-					throw new Exception("조회할 데이터가 없습니다.");
-
-				if (model.Images == null)
-					model.Images = new List<BrandImageModel>();
-				if (model.Channels == null)
-					model.Channels = new List<ChannelBrandModel>();
-				if (model.Attributes == null)
-					model.Attributes = new List<BrandAttributeModel>();
-
 				SetControlData(model);
-				picLogo.LoadAsync(ConstsVar.IMG_URL + model.ImageUrl);
+				if (model.ImageUrl.IsNullOrEmpty() == false)
+					picLogo.LoadAsync(ConstsVar.IMG_URL + model.ImageUrl);
 
 				gridImages.DataSource = model.Images;
 				gridAttributes.DataSource = model.Attributes;
@@ -216,15 +210,16 @@ namespace IKaan.Win.View.Biz.Master.Brand
 		{
 			try
 			{
+				object id = null;
 				var model = this.GetControlData<BrandModel>();
 				using (var res = WasHandler.Execute<BrandModel>("Biz", "Save", (this.EditMode == EditModeEnum.New) ? "Insert" : "Update", model, "ID"))
 				{
 					if (res.Error.Number != 0)
 						throw new Exception(res.Error.Message);
-
-					ShowMsgBox("저장하였습니다.");
-					callback(arg, res.Result.ReturnValue);
+					id = res.Result.ReturnValue;
 				}
+				ShowMsgBox("저장하였습니다.");
+				callback(arg, id);
 			}
 			catch(Exception ex)
 			{
@@ -240,10 +235,9 @@ namespace IKaan.Win.View.Biz.Master.Brand
 				{
 					if (res.Error.Number != 0)
 						throw new Exception(res.Error.Message);
-
-					ShowMsgBox("삭제하였습니다.");
-					callback(arg, null);
 				}
+				ShowMsgBox("삭제하였습니다.");
+				callback(arg, null);
 			}
 			catch (Exception ex)
 			{

@@ -17,7 +17,7 @@ namespace IKaan.Win.View.Live.ChannelOrder
 {
 	public partial class ChannelOrderListForm : EditForm
 	{
-		private ChannelSettingModel channelSetting = null;
+		private DataMap _ChannelSetting = new DataMap();
 
 		public ChannelOrderListForm()
 		{
@@ -182,10 +182,8 @@ namespace IKaan.Win.View.Live.ChannelOrder
 				}
 
 				int startLine = 2;
-				if (channelSetting != null)
-				{
-					startLine = channelSetting.OrderLine;
-				}
+				if (_ChannelSetting.GetValue("OrderLine") != null)
+					startLine = _ChannelSetting.GetValue("OrderLine").ToIntegerNullToZero();
 
 				var fileName = FileUtils.OpenExcelFile();
 				IList<ChannelOrderModel> data = UploadHandler.GetExcelData<ChannelOrderModel>(fileName, startLine);
@@ -220,19 +218,18 @@ namespace IKaan.Win.View.Live.ChannelOrder
 				txtStartLine.Clear();
 				txtFileRows.Clear();
 
-				if (lupChannelID.EditValue == null)
-				{
-					channelSetting = null;
-				}
-				else
+				_ChannelSetting = new DataMap();
+				if (lupChannelID.EditValue != null)
 				{
 					var list = WasHandler.GetList<ChannelSettingModel>("Biz", "GetList", "Select", new DataMap() { { "ChannelID", lupChannelID.EditValue } });
-					if (list == null)
-						throw new Exception("조회할 데이터가 없습니다.");
+					if (list != null && list.Count > 0)
+					{
+						foreach (var data in list)
+							_ChannelSetting.SetValue(data.SettingCode, data.SettingValue);
+					}
 
-					channelSetting = list[0];
-					if (channelSetting != null)
-						txtStartLine.EditValue = channelSetting.OrderLine;
+					if (_ChannelSetting.GetValue("OrderLine") != null)
+						txtStartLine.EditValue = _ChannelSetting.GetValue("OrderLine").ToIntegerNullToZero();
 				}
 			}
 			catch(Exception ex)

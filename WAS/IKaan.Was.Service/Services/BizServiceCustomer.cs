@@ -459,70 +459,50 @@ namespace IKaan.Was.Service.Services
 		{
 			try
 			{
-				object customerId = null;
-				object addressId = null;
-
-				var customer = req.Data.JsonToAnyType<CustomerAddressModel>();
-				if (customer != null)
+				var model = req.Data.JsonToAnyType<CustomerAddressModel>();
+				var address = new AddressModel()
 				{
-					if (customer.AddressID.IsNullOrDefault())
-					{
-						if (customer.Address.PostalCode.IsNullOrEmpty() == false)
-						{
-							var address = new AddressModel()
-							{
-								PostalCode = customer.Address.PostalCode,
-								Country = customer.Address.Country,
-								City = customer.Address.City,
-								StateProvince = customer.Address.StateProvince,
-								AddressLine1 = customer.Address.AddressLine1,
-								AddressLine2 = customer.Address.AddressLine2,
-								CreatedBy = req.User.UserId,
-								CreatedByName = req.User.UserName
-							};
+					ID = model.AddressID,
+					PostalCode = model.PostalCode,
+					Country = model.Country,
+					City = model.City,
+					StateProvince = model.StateProvince,
+					AddressLine1 = model.AddressLine1,
+					AddressLine2 = model.AddressLine2
+				};
 
-							addressId = DaoFactory.InstanceBiz.Insert("InsertAddress", address);
-							customer.AddressID = addressId.ToIntegerNullToNull();
-						}
-					}
-					else
-					{
-						var address = new AddressModel()
-						{
-							ID = customer.AddressID,
-							PostalCode = customer.Address.PostalCode,
-							Country = customer.Address.Country,
-							City = customer.Address.City,
-							StateProvince = customer.Address.StateProvince,
-							AddressLine1 = customer.Address.AddressLine1,
-							AddressLine2 = customer.Address.AddressLine2,
-							UpdatedBy = req.User.UserId,
-							UpdatedByName = req.User.UserName
-						};
-
-						DaoFactory.InstanceBiz.Update("UpdateAddress", address);
-					}
-
-					if (customer.ID.IsNullOrDefault())
-					{
-						customer.CreatedBy = req.User.UserId;
-						customer.CreatedByName = req.User.UserName;
-
-						customerId = DaoFactory.InstanceBiz.Insert("InsertCustomerAddress", customer);
-						customer.ID = customerId.ToIntegerNullToNull();
-					}
-					else
-					{
-						customer.UpdatedBy = req.User.UserId;
-						customer.UpdatedByName = req.User.UserName;
-
-						DaoFactory.InstanceBiz.Update("UpdateCustomerAddress", customer);
-					}
-
-					req.Result.Count = 1;
-					req.Result.ReturnValue = customer.ID;
-					req.Error.Number = 0;
+				if (model.AddressID == null)
+				{
+					address.CreatedBy = req.User.UserId;
+					address.CreatedByName = req.User.UserName;
+					var id = DaoFactory.InstanceBiz.Insert("InsertAddress", address);
+					address.ID = id.ToIntegerNullToNull();
 				}
+				else
+				{
+					address.UpdatedBy = req.User.UserId;
+					address.UpdatedByName = req.User.UserName;
+					DaoFactory.InstanceBiz.Update("UpdateAddress", address);
+				}
+				model.AddressID = address.ID;
+
+				if (model.ID == null)
+				{
+					model.CreatedBy = req.User.UserId;
+					model.CreatedByName = req.User.UserName;
+					var id = DaoFactory.InstanceBiz.Insert("InsertCustomerAddress", model);
+					model.ID = id.ToIntegerNullToNull();
+				}
+				else
+				{
+					model.UpdatedBy = req.User.UserId;
+					model.UpdatedByName = req.User.UserName;
+					DaoFactory.InstanceBiz.Update("UpdateCustomerAddress", model);
+				}
+
+				req.Result.Count = 1;
+				req.Result.ReturnValue = model.ID;
+				req.Error.Number = 0;
 			}
 			catch
 			{

@@ -24,8 +24,8 @@
 					,	AA.BrandMargin
 					,	AA.Description
 					
-					,	BB.ChannelName
-					,	CC.BrandName
+					,	BB.Name				as ChannelName
+					,	CC.Name				as BrandName
 					
 				FROM	dbo.TChannelBrand AA WITH (NOLOCK)
 						LEFT JOIN
@@ -52,17 +52,8 @@
 		</select>
 		<select id="SelectChannelBrand" parameterClass="DataMap" resultClass="ChannelBrandModel" >
 			<![CDATA[
-				SELECT  AA.*					
-					,	BB.ChannelName
-					,	CC.BrandName
-					
+				SELECT  AA.*
 				FROM	dbo.TChannelBrand AA WITH (NOLOCK)
-						LEFT JOIN
-							dbo.TChannel BB WITH (NOLOCK)
-								ON AA.ChannelID = BB.ID
-						LEFT JOIN
-							dbo.TBrand CC WITH (NOLOCK)
-								ON AA.BrandID = CC.ID
 				WHERE	AA.ID = #ID#
 			]]>
 		</select>
@@ -112,22 +103,7 @@
 
 		<select id="SelectChannelBrandDuplicate" parameterClass="DataMap" resultClass="ChannelBrandModel" >
 			<![CDATA[
-				SELECT  AA.ID
-					,	AA.CreatedOn
-					,	AA.CreatedBy
-					,	AA.CreatedByName
-					,	AA.UpdatedOn
-					,	AA.UpdatedBy
-					,	AA.UpdatedByName
-					
-					,	AA.ChannelID
-					,	AA.BrandID
-					,	AA.StartDate
-					,	AA.EndDate
-					,	AA.ChannelMargin
-					,	AA.BrandMargin
-					,	AA.Description
-					
+				SELECT  AA.*
 				FROM	dbo.TChannelBrand AA WITH (NOLOCK)
 				WHERE	AA.ChannelID	= #ChannelID#
 				AND		AA.BrandID		= #BrandID#
@@ -136,22 +112,7 @@
 		</select>
 		<select id="SelectChannelBrandBefore" parameterClass="DataMap" resultClass="ChannelBrandModel" >
 			<![CDATA[
-				SELECT  AA.ID
-					,	AA.CreatedOn
-					,	AA.CreatedBy
-					,	AA.CreatedByName
-					,	AA.UpdatedOn
-					,	AA.UpdatedBy
-					,	AA.UpdatedByName
-					
-					,	AA.ChannelID
-					,	AA.BrandID
-					,	AA.StartDate
-					,	AA.EndDate
-					,	AA.ChannelMargin
-					,	AA.BrandMargin
-					,	AA.Description
-					
+				SELECT  AA.*
 				FROM	dbo.TChannelBrand AA WITH (NOLOCK)
 				WHERE	AA.ChannelID	= #ChannelID#
 				AND		AA.BrandID		= #BrandID#
@@ -167,22 +128,7 @@
 		</select>
 		<select id="SelectChannelBrandAfter" parameterClass="DataMap" resultClass="ChannelBrandModel" >
 			<![CDATA[
-				SELECT  AA.ID
-					,	AA.CreatedOn
-					,	AA.CreatedBy
-					,	AA.CreatedByName
-					,	AA.UpdatedOn
-					,	AA.UpdatedBy
-					,	AA.UpdatedByName
-					
-					,	AA.ChannelID
-					,	AA.BrandID
-					,	AA.StartDate
-					,	AA.EndDate
-					,	AA.ChannelMargin
-					,	AA.BrandMargin
-					,	AA.Description
-					
+				SELECT  AA.*
 				FROM	dbo.TChannelBrand AA WITH (NOLOCK)
 				WHERE	AA.ChannelID	= #ChannelID#
 				AND		AA.BrandID		= #BrandID#

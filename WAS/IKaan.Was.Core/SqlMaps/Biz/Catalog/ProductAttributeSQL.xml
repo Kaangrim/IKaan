@@ -19,9 +19,18 @@
 					,	AA.ProductID
 					,	AA.AttributeTypeID
 					,	AA.AttributeID
-					,	AA.AttributeName
+					,	AA.AttributeValue
+					
+					,	BB.Name				as AttributeTypeName
+					,	CC.Name				as AttributeName
 					
 				FROM	dbo.TProductAttribute AA WITH (NOLOCK)
+						INNER JOIN
+							dbo.TAttributeType BB WITH (NOLOCK)
+								ON AA.AttributeTypeID = BB.ID
+						INNER JOIN
+							dbo.TAttribute CC WITH (NOLOCK)
+								ON AA.AttributeID = CC.ID
 				WHERE	AA.ProductID = #ProductID#
 				ORDER BY RowNo
 			]]>
@@ -38,12 +47,12 @@
 				INSERT INTO dbo.TProductAttribute
 				( 
 					CreatedOn, CreatedBy, CreatedByName,
-					ProductID, AttributeTypeID, AttributeID, AttributeName
+					ProductID, AttributeTypeID, AttributeID, AttributeValue
 				)
 				VALUES
 				(
 					GetDate(), #CreatedBy#, #CreatedByName#,
-					#ProductID#, #AttributeTypeID#, #AttributeID#, #AttributeName#
+					#ProductID#, #AttributeTypeID#, #AttributeID#, #AttributeValue#
 				)
 			]]>
 			<selectKey type="post" property="ID" resultClass="Int">
@@ -62,7 +71,7 @@
 					,	ProductID		= #ProductID#
 					,	AttributeTypeID	= #AttributeTypeID#
 					,	AttributeID		= #AttributeID#
-					,	AttributeName	= #AttributeName#
+					,	AttributeValue	= #AttributeValue#
 				WHERE	ID				= #ID#
 			]]>
 		</update>

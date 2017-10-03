@@ -203,28 +203,16 @@ namespace IKaan.Was.Service.Services
 							req.SetData<ContactModel>();
 							break;
 						case "Brand":
-							req.SetData<BrandModel>();
-							(req.Data as BrandModel).Images = req.GetList<BrandImageModel>();
-							(req.Data as BrandModel).Attributes = req.GetList<BrandAttributeModel>();
-							(req.Data as BrandModel).Channels = req.GetList<ChannelBrandModel>();
+							req.GetBrand();
 							break;
-						case "BrandContact":
-							req.SetData<PartnerContactModel>();
-							break;
-						case "BrandManager":
-							req.SetData<PartnerManagerModel>();
+						case "BrandImage":
+							req.GetBrandImage();
 							break;
 						case "Channel":
-							req.GetChannelData();
+							req.GetChannel();
 							break;
 						case "ChannelBrand":
 							req.SetData<ChannelBrandModel>();
-							break;
-						case "ChannelContact":
-							req.SetData<CustomerContactModel>();
-							break;
-						case "ChannelManager":
-							req.SetData<CustomerManagerModel>();
 							break;
 						case "ChannelSetting":
 							req.SetData<ChannelSettingModel>();
@@ -410,7 +398,7 @@ namespace IKaan.Was.Service.Services
 									req.SaveBrand();
 									break;
 								case "BrandImage":
-									req.SaveData<BrandImageModel>();
+									req.SaveBrandImage();
 									break;
 								case "Channel":
 									req.SaveChannel();
