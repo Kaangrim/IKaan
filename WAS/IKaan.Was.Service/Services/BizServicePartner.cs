@@ -60,6 +60,11 @@ namespace IKaan.Was.Service.Services
 					if (model.Channels == null)
 						model.Channels = new List<PartnerChannelModel>();
 
+					//담당자
+					model.Contacts = DaoFactory.InstanceBiz.QueryForList<PartnerContactModel>("SelectPartnerContactList", parameter);
+					if (model.Contacts == null)
+						model.Contacts = new List<PartnerContactModel>();
+
 					//매니저
 					model.Managers = DaoFactory.InstanceBiz.QueryForList<PartnerManagerModel>("SelectPartnerManagerList", parameter);
 					if (model.Managers == null)
@@ -172,8 +177,6 @@ namespace IKaan.Was.Service.Services
 				throw;
 			}
 		}
-
-		
 		
 		public static void SavePartner(this WasRequest req)
 		{
@@ -729,55 +732,41 @@ namespace IKaan.Was.Service.Services
 				var model = req.Data.JsonToAnyType<PartnerContactModel>();
 				if (model != null)
 				{
-					var contact = new ContactModel()
+					if (model.Contact == null)
+						throw new Exception("담당자정보를 알 수 없습니다.");
+
+					if (model.ContactID == null)
 					{
-						ID = model.ContactID,
-						Name = model.ContactName,
-						ContactType = "C",
-						Email = model.Email,
-						PhoneNo = model.PhoneNo,
-						MobileNo = model.MobileNo,
-						FaxNo = model.FaxNo
-					};
+						model.Contact.CreatedBy = req.User.UserId;
+						model.Contact.CreatedByName = req.User.UserName;
 
-					object contactID = null;
-
-					if (contact.ID == null)
-					{
-						contact.CreatedBy = req.User.UserId;
-						contact.CreatedByName = req.User.UserName;
-
-						contactID = DaoFactory.InstanceBiz.Insert("InsertContact", contact);
+						var id = DaoFactory.InstanceBiz.Insert("InsertContact", model.Contact);
+						model.Contact.ID = id.ToIntegerNullToNull();
+						model.ContactID = id.ToIntegerNullToNull();
 					}
 					else
 					{
-						contact.UpdatedBy = req.User.UserId;
-						contact.UpdatedByName = req.User.UserName;
-
-						DaoFactory.InstanceBiz.Update("UpdateContact", contact);
-						contactID = contact.ID;
+						model.Contact.ID = model.ContactID;
+						model.Contact.UpdatedBy = req.User.UserId;
+						model.Contact.UpdatedByName = req.User.UserName;
+						DaoFactory.InstanceBiz.Update("UpdateContact", model.Contact);
 					}
-
-					model.ContactID = contactID.ToIntegerNullToNull();
 
 					if (model.ID == null)
 					{
 						model.CreatedBy = req.User.UserId;
 						model.CreatedByName = req.User.UserName;
-
-						contactID = DaoFactory.InstanceBiz.Insert("InsertPartnerContact", model);
+						var id = DaoFactory.InstanceBiz.Insert("InsertPartnerContact", model);
 					}
 					else
 					{
 						model.UpdatedBy = req.User.UserId;
 						model.UpdatedByName = req.User.UserName;
-
 						DaoFactory.InstanceBiz.Update("UpdatePartnerContact", model);
-						contactID = model.ID;
 					}
 
 					req.Result.Count = 1;
-					req.Result.ReturnValue = contactID;
+					req.Result.ReturnValue = model.ID;
 					req.Error.Number = 0;
 				}
 			}
@@ -855,7 +844,7 @@ namespace IKaan.Was.Service.Services
 							manager.CreatedBy = req.User.UserId;
 							manager.CreatedByName = req.User.UserName;
 
-							id = DaoFactory.InstanceBiz.Insert("InsertChannelManager", manager);
+							id = DaoFactory.InstanceBiz.Insert("InsertPartnerManager", manager);
 						}
 					}
 

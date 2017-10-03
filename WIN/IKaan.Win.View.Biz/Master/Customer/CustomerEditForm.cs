@@ -277,8 +277,6 @@ namespace IKaan.Win.View.Biz.Master.Customer
 				new XGridColumn() { FieldName = "ID", Visible = false },
 				new XGridColumn() { FieldName = "CustomerID", Visible = false },
 				new XGridColumn() { FieldName = "ContactID", Visible = false },
-				new XGridColumn() { FieldName = "StartDate", Width = 100, HorzAlignment = HorzAlignment.Center },
-				new XGridColumn() { FieldName = "EndDate", Width = 100, HorzAlignment = HorzAlignment.Center },
 				new XGridColumn() { FieldName = "ContactName", Width = 100, HorzAlignment = HorzAlignment.Center },
 				new XGridColumn() { FieldName = "PhoneNo", Width = 100 },
 				new XGridColumn() { FieldName = "MobileNo", Width = 100 },
@@ -583,7 +581,7 @@ namespace IKaan.Win.View.Biz.Master.Customer
 				}
 				else if (lcTab.SelectedTabPage.Name == lcGroupManager.Name)
 				{
-					using (var form = new _ContactEditForm()
+					using (var form = new _ManagerEditForm()
 					{
 						Text = "매니저등록",
 						StartPosition = FormStartPosition.CenterScreen,

@@ -29,11 +29,11 @@ namespace IKaan.Model.Biz.Master.Customer
 		public string Description { get; set; }
 
 		[DataMember]
-		[Display(Name = "거래처명")]
-		public string CustomerName { get; set; }
-
-		[DataMember]
 		[Display(Name = "사원명")]
 		public string EmployeeName { get; set; }
+
+		[DataMember]
+		[Display(Name = "부서명")]
+		public string DepartmentName { get; set; }
 	}
 }

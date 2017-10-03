@@ -74,6 +74,9 @@ namespace IKaan.Was.Service.Services
 						case "Business":
 							req.SetList<BusinessModel>();
 							break;
+						case "Contact":
+							req.SetList<ContactModel>();
+							break;
 						case "Brand":
 							req.SetList<BrandModel>();
 							break;
@@ -195,6 +198,9 @@ namespace IKaan.Was.Service.Services
 							break;
 						case "Business":
 							req.GetBusiness();
+							break;
+						case "Contact":
+							req.SetData<ContactModel>();
 							break;
 						case "Brand":
 							req.SetData<BrandModel>();
@@ -396,6 +402,9 @@ namespace IKaan.Was.Service.Services
 									break;
 								case "Business":
 									req.SaveBusiness();
+									break;
+								case "Contact":
+									req.SaveData<ContactModel>();
 									break;
 								case "Brand":
 									req.SaveBrand();

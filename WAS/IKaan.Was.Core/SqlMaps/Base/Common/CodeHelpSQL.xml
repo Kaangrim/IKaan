@@ -815,6 +815,50 @@
 				ORDER BY SortOrder, Name
 			]]>
 		</select>
+		<select id="SelectCodeHelpPartnerList" parameterClass="DataMap" resultClass="UCodeHelp" >
+			<![CDATA[
+				SELECT	aa.ID								as ID
+					,	CONVERT(VARCHAR, aa.ID)				as Code
+					,	aa.Name								as Name
+					,	aa.Name								as ListName
+					,	aa.Name								as DispName
+					,	CONVERT(VARCHAR, aa.ID)				as Value
+					,	ROW_NUMBER() OVER (ORDER BY aa.ID)	as SortOrder
+					,	0									as MaxLength
+					,	null								as Option1
+					,	null								as Option2
+					,	null								as Option3
+					,	null								as Option4
+					,	null								as Option5
+					,	null								as Option6
+					,	null								as Option7
+					,	null								as Option8
+					,	null								as Option9
+				FROM	IKBiz.dbo.TPartner aa WITH (NOLOCK)
+				WHERE	1=1
+			]]>
+			<isNotEmpty property="UseYn">
+				<![CDATA[
+					AND	aa.UseYn = #UseYn#
+				]]>
+			</isNotEmpty>
+			<isEmpty property="UseYn">
+				<![CDATA[
+					AND	aa.UseYn = 'Y'
+				]]>
+			</isEmpty>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(
+							CONVERT(VARCHAR, aa.ID) = #FindText#	OR
+							aa.Name	Like '%'+#FindText#+'%'
+						)
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY SortOrder, Name
+			]]>
+		</select>
 		<select id="SelectCodeHelpCategoryList" parameterClass="DataMap" resultClass="UCodeHelp" >
 			<![CDATA[
 				WITH CTE (ID, Name, Path, ParentID, HierID, Level)

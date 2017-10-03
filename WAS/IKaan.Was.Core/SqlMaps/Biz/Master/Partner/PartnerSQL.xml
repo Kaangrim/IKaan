@@ -26,6 +26,9 @@
 					,	BB.RepName
 					,	BB.BizNo
 					
+					,	EE.Name			as EmployeeName
+					,	DD.Name			as DepartmentName
+					
 				FROM	dbo.TPartner AA WITH (NOLOCK)
 						LEFT JOIN
 						(
@@ -41,6 +44,23 @@
 							WHERE	B1.StartDate < DATEADD(DAY, 1, GETDATE())
 							AND		ISNULL(B1.EndDate, GETDATE()) > DATEADD(DAY, -1, GETDATE())
 						) BB ON AA.ID = BB.PartnerID
+						LEFT JOIN
+							dbo.TCustomerManager CM WITH (NOLOCK)
+								ON AA.ID = CM.CustomerID
+									AND CM.StartDate < DATEADD(DAY, 1, GETDATE())
+									AND ISNULL(CM.EndDate, GETDATE()) > DATEADD(DAY, -1, GETDATE())
+						LEFT JOIN
+							dbo.TEmployee EE WITH (NOLOCK)
+								ON CM.EmployeeID = EE.ID
+						LEFT JOIN
+							dbo.TAppointment FF WITH (NOLOCK)
+								ON CM.EmployeeID = FF.EmployeeID
+									AND FF.StartDate < DATEADD(DAY, 1, GETDATE())
+									AND ISNULL(FF.EndDate, GETDATE()) > DATEADD(DAY, -1, GETDATE())
+									AND FF.MainYn = 'Y'
+						LEFT JOIN
+							dbo.TDepartment DD WITH (NOLOCK)
+								ON FF.DepartmentID = DD.ID
 						LEFT JOIN
 							IKBase.dbo.TCode M1 WITH (NOLOCK)
 								ON AA.PartnerType = M1.Code

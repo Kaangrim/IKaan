@@ -44,6 +44,16 @@
 						)
 				]]>
 			</isNotEmpty>
+			<isNotEmpty property="UseYn">
+				<![CDATA[
+					AND	AA.UseYn = #UseYn#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="ContactType">
+				<![CDATA[
+					AND	AA.ContactType = #ContactType#
+				]]>
+			</isNotEmpty>
 			<![CDATA[
 				ORDER BY RowNo
 			]]>
@@ -65,7 +75,7 @@
 				VALUES
 				(
 					GetDate(), #CreatedBy#, #CreatedByName#,
-					#Name#, #ContactType#, #Email#, #PhoneNo#, #MobileNo#, #FaxNo#, #UseYn#, #Description#
+					#Name#, #ContactType#, #Email#, #PhoneNo#, #MobileNo#, #FaxNo#, 'Y', #Description#
 				)
 			]]>
 			<selectKey type="post" property="ID" resultClass="Int">

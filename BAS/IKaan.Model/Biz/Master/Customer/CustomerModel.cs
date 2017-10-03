@@ -38,6 +38,14 @@ namespace IKaan.Model.Biz.Master.Customer
 		public string RepName { get; set; }
 
 		[DataMember]
+		[Display(Name = "사원명")]
+		public string EmployeeName { get; set; }
+
+		[DataMember]
+		[Display(Name = "부서명")]
+		public string DepartmentName { get; set; }
+
+		[DataMember]
 		[Display(Name = "현재사업자정보")]
 		public BusinessModel CurrentBusiness { get; set; }
 

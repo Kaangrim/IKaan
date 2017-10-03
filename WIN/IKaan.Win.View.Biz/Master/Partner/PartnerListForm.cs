@@ -53,6 +53,8 @@ namespace IKaan.Win.View.Biz.Master.Partner
 				new XGridColumn() { FieldName = "BizNo", Width = 100, HorzAlignment = HorzAlignment.Center },
 				new XGridColumn() { FieldName = "RepName", Width = 100, HorzAlignment = HorzAlignment.Center },
 				new XGridColumn() { FieldName = "UseYn", Width = 80, HorzAlignment = HorzAlignment.Center },
+				new XGridColumn() { FieldName = "DepartmentName", Width = 150 },
+				new XGridColumn() { FieldName = "EmployeeName", Width = 100, HorzAlignment = HorzAlignment.Center },
 				new XGridColumn() { FieldName = "CreatedOn" },
 				new XGridColumn() { FieldName = "CreatedByName" },
 				new XGridColumn() { FieldName = "UpdatedOn" },
