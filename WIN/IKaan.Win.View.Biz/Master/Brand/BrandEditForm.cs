@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
 using DevExpress.Utils;
 using DevExpress.XtraGrid.Views.Grid;
@@ -51,6 +50,7 @@ namespace IKaan.Win.View.Biz.Master.Brand
 			SetFieldNames();
 
 			lcItemName.SetFieldName("BrandName");
+			lcItemCode.SetFieldName("BrandCode");
 			lcItemCategory.SetFieldName("BrandCategory");
 			lcItemStyle.SetFieldName("BrandStyle");
 

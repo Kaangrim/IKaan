@@ -11,7 +11,7 @@ using IKaan.Win.Core.Model;
 using IKaan.Win.Core.Utils;
 using IKaan.Win.Core.Was.Handler;
 
-namespace IKaan.Win.View.Biz.Sales
+namespace IKaan.Win.View.Biz.Sales.Analysis
 {
 	public partial class OrderSumListForm : EditForm
 	{

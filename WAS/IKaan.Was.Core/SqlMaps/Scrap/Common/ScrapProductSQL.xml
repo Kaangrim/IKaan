@@ -30,6 +30,7 @@
 					,	AA.CategoryName
 					,	AA.CategoryID
 					,	AA.Gender
+					,	AA.Season
 					
 					,	BB.Name				as BrandName
 					
@@ -78,7 +79,7 @@
 					Code, Name, Url, ListPrice, SalePrice, 
 					Option1Type, Option1Name,
 					Option2Type, Option2Name,
-					CategoryName, CategoryID, Gender,
+					CategoryName, CategoryID, Gender, Season,
 					Description
 				)
 				VALUES
@@ -88,7 +89,7 @@
 					#Code#, #Name#, #Url#, #ListPrice#, #SalePrice#, 
 					#Option1Type#, #Option1Name#,
 					#Option2Type#, #Option2Name#,
-					#CategoryName#, #CategoryID#, #Gender#,
+					#CategoryName#, #CategoryID#, #Gender#, #Season#,
 					#Description#
 				)
 			]]>
@@ -119,6 +120,7 @@
 					,	CategoryName	= #CategoryName#
 					,	CategoryID		= #CategoryID#
 					,	Gender			= #Gender#
+					,	Season			= #Season#
 					,	Description		= #Description#
 				WHERE	ID				= #ID#
 			]]>

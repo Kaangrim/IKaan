@@ -1,6 +1,6 @@
-﻿namespace IKaan.Win.View.Biz.Sales
+﻿namespace IKaan.Win.View.Biz.Sales.Analysis
 {
-	partial class OrderSumBrandEditForm
+	partial class OrderSumChannelEditForm
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -32,8 +32,8 @@
 			this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
 			this.lcItemOrderDate = new DevExpress.XtraLayout.LayoutControlItem();
 			this.datOrderDate = new DevExpress.XtraEditors.DateEdit();
-			this.lcItemBrand = new DevExpress.XtraLayout.LayoutControlItem();
-			this.txtBrandID = new IKaan.Win.Core.Controls.Common.XSearch();
+			this.lcItemChannel = new DevExpress.XtraLayout.LayoutControlItem();
+			this.txtChannelID = new IKaan.Win.Core.Controls.Common.XSearch();
 			this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
 			this.lcGroupEdit2 = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
@@ -46,7 +46,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.lcItemOrderDate)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.datOrderDate.Properties.CalendarTimeProperties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.datOrderDate.Properties)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemBrand)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemChannel)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupEdit2)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
@@ -56,7 +56,7 @@
 			// 
 			this.lc.Controls.Add(this.gridList);
 			this.lc.Controls.Add(this.datOrderDate);
-			this.lc.Controls.Add(this.txtBrandID);
+			this.lc.Controls.Add(this.txtChannelID);
 			this.lc.Location = new System.Drawing.Point(0, 44);
 			this.lc.Margin = new System.Windows.Forms.Padding(0);
 			this.lc.OptionsCustomizationForm.DesignTimeCustomizationFormPositionAndSize = new System.Drawing.Rectangle(1074, 289, 450, 400);
@@ -77,7 +77,7 @@
 			this.lcGroupEdit1.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.emptySpaceItem2,
             this.lcItemOrderDate,
-            this.lcItemBrand,
+            this.lcItemChannel,
             this.emptySpaceItem1});
 			this.lcGroupEdit1.Location = new System.Drawing.Point(0, 0);
 			this.lcGroupEdit1.Name = "lcGroupEdit1";
@@ -114,32 +114,32 @@
 			this.datOrderDate.StyleController = this.lc;
 			this.datOrderDate.TabIndex = 31;
 			// 
-			// lcItemBrand
+			// lcItemChannel
 			// 
-			this.lcItemBrand.Control = this.txtBrandID;
-			this.lcItemBrand.Location = new System.Drawing.Point(0, 24);
-			this.lcItemBrand.Name = "lcItemBrand";
-			this.lcItemBrand.Size = new System.Drawing.Size(498, 24);
-			this.lcItemBrand.TextSize = new System.Drawing.Size(91, 14);
+			this.lcItemChannel.Control = this.txtChannelID;
+			this.lcItemChannel.Location = new System.Drawing.Point(0, 24);
+			this.lcItemChannel.Name = "lcItemChannel";
+			this.lcItemChannel.Size = new System.Drawing.Size(498, 24);
+			this.lcItemChannel.TextSize = new System.Drawing.Size(91, 14);
 			// 
-			// txtBrandID
+			// txtChannelID
 			// 
-			this.txtBrandID.CodeField = "Code";
-			this.txtBrandID.CodeGroup = "Codes";
-			this.txtBrandID.CodeWidth = 100;
-			this.txtBrandID.DisplayFields = new string[] {
+			this.txtChannelID.CodeField = "Code";
+			this.txtChannelID.CodeGroup = "Codes";
+			this.txtChannelID.CodeWidth = 100;
+			this.txtChannelID.DisplayFields = new string[] {
         "Code",
         "Name"};
-			this.txtBrandID.EditText = null;
-			this.txtBrandID.EditValue = null;
-			this.txtBrandID.Location = new System.Drawing.Point(106, 35);
-			this.txtBrandID.MaximumSize = new System.Drawing.Size(0, 20);
-			this.txtBrandID.MinimumSize = new System.Drawing.Size(0, 20);
-			this.txtBrandID.Name = "txtBrandID";
-			this.txtBrandID.NameField = "Name";
-			this.txtBrandID.Parameters = null;
-			this.txtBrandID.Size = new System.Drawing.Size(399, 20);
-			this.txtBrandID.TabIndex = 9;
+			this.txtChannelID.EditText = null;
+			this.txtChannelID.EditValue = null;
+			this.txtChannelID.Location = new System.Drawing.Point(106, 35);
+			this.txtChannelID.MaximumSize = new System.Drawing.Size(0, 20);
+			this.txtChannelID.MinimumSize = new System.Drawing.Size(0, 20);
+			this.txtChannelID.Name = "txtChannelID";
+			this.txtChannelID.NameField = "Name";
+			this.txtChannelID.Parameters = null;
+			this.txtChannelID.Size = new System.Drawing.Size(399, 20);
+			this.txtChannelID.TabIndex = 9;
 			// 
 			// emptySpaceItem1
 			// 
@@ -192,7 +192,7 @@
 			this.gridList.Size = new System.Drawing.Size(780, 422);
 			this.gridList.TabIndex = 32;
 			// 
-			// OrderSumBrandEditForm
+			// OrderSumChannelEditForm
 			// 
 			this.Appearance.BackColor = System.Drawing.Color.White;
 			this.Appearance.Options.UseBackColor = true;
@@ -200,8 +200,8 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(798, 568);
 			this.LookAndFeel.SkinName = "Office 2016 Dark";
-			this.Name = "OrderSumBrandEditForm";
-			this.Text = "OrderSumBrandEditForm";
+			this.Name = "OrderSumChannelEditForm";
+			this.Text = "OrderSumChannelEditForm";
 			((System.ComponentModel.ISupportInitialize)(this.lc)).EndInit();
 			this.lc.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupBase)).EndInit();
@@ -210,7 +210,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.lcItemOrderDate)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.datOrderDate.Properties.CalendarTimeProperties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.datOrderDate.Properties)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemBrand)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemChannel)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupEdit2)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
@@ -222,8 +222,8 @@
 		#endregion
 
 		private DevExpress.XtraLayout.LayoutControlGroup lcGroupEdit1;
-		private Core.Controls.Common.XSearch txtBrandID;
-		private DevExpress.XtraLayout.LayoutControlItem lcItemBrand;
+		private Core.Controls.Common.XSearch txtChannelID;
+		private DevExpress.XtraLayout.LayoutControlItem lcItemChannel;
 		private DevExpress.XtraLayout.LayoutControlGroup lcGroupEdit2;
 		private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem2;
 		private DevExpress.XtraEditors.DateEdit datOrderDate;

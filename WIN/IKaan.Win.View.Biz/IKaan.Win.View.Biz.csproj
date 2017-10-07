@@ -57,6 +57,12 @@
     <Compile Include="Master\Address\AddressListForm.designer.cs">
       <DependentUpon>AddressListForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Master\Brand\BrandFromScrapForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Master\Brand\BrandFromScrapForm.designer.cs">
+      <DependentUpon>BrandFromScrapForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Master\Brand\BrandListForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -213,6 +219,18 @@
     <Compile Include="Master\Address\AddressEditForm.designer.cs">
       <DependentUpon>AddressEditForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Sales\Order\OrderEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Sales\Order\OrderEditForm.designer.cs">
+      <DependentUpon>OrderEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Sales\Order\OrderListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Sales\Order\OrderListForm.designer.cs">
+      <DependentUpon>OrderListForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Search\SearchBrandActivityEditForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -279,32 +297,37 @@
     <Compile Include="Master\Channel\ChannelEditForm.designer.cs">
       <DependentUpon>ChannelEditForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Sales\OrderSumBrandEditForm.cs">
+    <Compile Include="Sales\Analysis\OrderSumBrandEditForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Sales\OrderSumBrandEditForm.Designer.cs">
+    <Compile Include="Sales\Analysis\OrderSumBrandEditForm.Designer.cs">
       <DependentUpon>OrderSumBrandEditForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Sales\OrderSumChannelEditForm.cs">
+    <Compile Include="Sales\Analysis\OrderSumChannelEditForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Sales\OrderSumChannelEditForm.Designer.cs">
+    <Compile Include="Sales\Analysis\OrderSumChannelEditForm.Designer.cs">
       <DependentUpon>OrderSumChannelEditForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Sales\OrderSumListForm.cs">
+    <Compile Include="Sales\Analysis\OrderSumListForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Sales\OrderSumListForm.designer.cs">
+    <Compile Include="Sales\Analysis\OrderSumListForm.designer.cs">
       <DependentUpon>OrderSumListForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Master\Manufacturer\" />
+    <Folder Include="Sales\Account\" />
+    <Folder Include="Sales\Shipment\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Master\Address\AddressListForm.resx">
       <DependentUpon>AddressListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Master\Brand\BrandFromScrapForm.resx">
+      <DependentUpon>BrandFromScrapForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Master\Brand\BrandListForm.resx">
       <DependentUpon>BrandListForm.cs</DependentUpon>
@@ -384,6 +407,12 @@
     <EmbeddedResource Include="Master\Address\AddressEditForm.resx">
       <DependentUpon>AddressEditForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Sales\Order\OrderEditForm.resx">
+      <DependentUpon>OrderEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Sales\Order\OrderListForm.resx">
+      <DependentUpon>OrderListForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Search\SearchBrandActivityEditForm.resx">
       <DependentUpon>SearchBrandActivityEditForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -417,13 +446,13 @@
     <EmbeddedResource Include="Master\Channel\ChannelEditForm.resx">
       <DependentUpon>ChannelEditForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Sales\OrderSumBrandEditForm.resx">
+    <EmbeddedResource Include="Sales\Analysis\OrderSumBrandEditForm.resx">
       <DependentUpon>OrderSumBrandEditForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Sales\OrderSumChannelEditForm.resx">
+    <EmbeddedResource Include="Sales\Analysis\OrderSumChannelEditForm.resx">
       <DependentUpon>OrderSumChannelEditForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Sales\OrderSumListForm.resx">
+    <EmbeddedResource Include="Sales\Analysis\OrderSumListForm.resx">
       <DependentUpon>OrderSumListForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />

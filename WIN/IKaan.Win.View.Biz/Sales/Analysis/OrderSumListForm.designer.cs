@@ -1,4 +1,4 @@
-﻿namespace IKaan.Win.View.Biz.Sales
+﻿namespace IKaan.Win.View.Biz.Sales.Analysis
 {
 	partial class OrderSumListForm
 	{

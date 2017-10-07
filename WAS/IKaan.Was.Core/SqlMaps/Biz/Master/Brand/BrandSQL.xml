@@ -17,6 +17,7 @@
 					,	AA.UpdatedByName
 					
 					,	AA.Name
+					,	AA.Code
 					,	AA.Url
 					,	AA.Category
 					,	AA.Style
@@ -79,17 +80,24 @@
 				WHERE	AA.ID = #ID#
 			]]>
 		</select>
+		<select id="SelectBrandByName" parameterClass="DataMap" resultClass="BrandModel" >
+			<![CDATA[
+				SELECT  AA.*	
+				FROM	dbo.TBrand AA WITH (NOLOCK)
+				WHERE	AA.Name = #Name#
+			]]>
+		</select>
 		<insert id="InsertBrand" parameterClass="BrandModel" >
 			<![CDATA[
 				INSERT INTO dbo.TBrand
 				( 
 					CreatedOn, CreatedBy, CreatedByName,
-					Name, Url, Category, Style, UseYn, Description, DescriptionRTF
+					Name, Code, Url, Category, Style, UseYn, Description, DescriptionRTF
 				)
 				VALUES
 				(
 					GetDate(), #CreatedBy#, #CreatedByName#,
-					#Name#, #Url#, #Category#, #Style#, #UseYn#, #Description#, #DescriptionRTF#
+					#Name#, #Code#, #Url#, #Category#, #Style#, #UseYn#, #Description#, #DescriptionRTF#
 				)
 			]]>
 			<selectKey type="post" property="ID" resultClass="Int">
@@ -106,6 +114,7 @@
 					,	UpdatedByName	= #UpdatedByName#
 					
 					,	Name			= #Name#
+					,	Code			= #Code#
 					,	Url				= #Url#
 					,	Category		= #Category#
 					,	Style			= #Style#

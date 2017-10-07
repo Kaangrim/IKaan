@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
@@ -7,7 +8,6 @@ using IKaan.Model.Biz.Master.Channel;
 using IKaan.Model.Biz.Master.Common;
 using IKaan.Model.Common.Was;
 using IKaan.Was.Core.Mappers;
-using IKaan.Was.Service.Utils;
 
 namespace IKaan.Was.Service.Services
 {
@@ -74,15 +74,38 @@ namespace IKaan.Was.Service.Services
 		{
 			try
 			{
-				var brand = req.Data.JsonToAnyType<BrandModel>();
-				brand = req.SaveData<BrandModel>(brand);
-
-				if (brand != null)
+				var model = req.Data.JsonToAnyType<BrandModel>();
+				if (model.ID == null)
 				{
-					req.Result.Count = 1;
-					req.Result.ReturnValue = brand.ID;
-					req.Error.Number = 0;
+					var exists = DaoFactory.InstanceBiz.QueryForObject<BrandModel>("SelectBrandByName", new DataMap() { { "Name", model.Name.Trim() } });
+					if (exists == null)
+					{
+						model.CreatedBy = req.User.UserId;
+						model.CreatedByName = req.User.UserName;
+						var id = DaoFactory.InstanceBiz.Insert("InsertBrand", model);
+						model.ID = id.ToIntegerNullToNull();
+					}
+					else
+					{
+						model.ID = exists.ID;
+						model.Category = exists.Category;
+						model.Style = exists.Style;
+						model.Url = exists.Url;
+						model.UseYn = "Y";
+						model.UpdatedBy = req.User.UserId;
+						model.UpdatedByName = req.User.UserName;
+						DaoFactory.InstanceBiz.Update("UpdateBrand", model);
+					}
 				}
+				else
+				{
+					model.UpdatedBy = req.User.UserId;
+					model.UpdatedByName = req.User.UserName;
+					DaoFactory.InstanceBiz.Update("UpdateBrand", model);
+				}
+				req.Result.Count = 1;
+				req.Result.ReturnValue = model.ID;
+				req.Error.Number = 0;
 			}
 			catch
 			{

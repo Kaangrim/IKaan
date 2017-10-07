@@ -32,41 +32,45 @@
 			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions2 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
 			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions1 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
 			this.lcGroupSearch = new DevExpress.XtraLayout.LayoutControlGroup();
-			this.lcItemFindText = new DevExpress.XtraLayout.LayoutControlItem();
-			this.txtFindText = new DevExpress.XtraEditors.TextEdit();
 			this.lcItemCategory = new DevExpress.XtraLayout.LayoutControlItem();
 			this.lupCategory = new IKaan.Win.Core.Controls.Common.XLookup();
 			this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
 			this.esSearchTitle = new DevExpress.XtraLayout.EmptySpaceItem();
+			this.lcItemFindText = new DevExpress.XtraLayout.LayoutControlItem();
+			this.txtFindText = new DevExpress.XtraEditors.TextEdit();
+			this.lcItemStyle = new DevExpress.XtraLayout.LayoutControlItem();
+			this.lupStyle = new IKaan.Win.Core.Controls.Common.XLookup();
+			this.lcItemUseYn = new DevExpress.XtraLayout.LayoutControlItem();
+			this.lupUseYn = new IKaan.Win.Core.Controls.Common.XLookup();
+			this.lcButtonFromScrap = new DevExpress.XtraLayout.LayoutControlItem();
+			this.btnFromScrap = new DevExpress.XtraEditors.SimpleButton();
 			this.gridList = new IKaan.Win.Core.Controls.Grid.XGrid();
 			this.lcTabList = new DevExpress.XtraLayout.TabbedControlGroup();
 			this.lcGroupList = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
-			this.lupStyle = new IKaan.Win.Core.Controls.Common.XLookup();
-			this.lcItemStyle = new DevExpress.XtraLayout.LayoutControlItem();
-			this.lupUseYn = new IKaan.Win.Core.Controls.Common.XLookup();
-			this.lcItemUseYn = new DevExpress.XtraLayout.LayoutControlItem();
 			((System.ComponentModel.ISupportInitialize)(this.lc)).BeginInit();
 			this.lc.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupBase)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupSearch)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemFindText)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.txtFindText.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemCategory)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lupCategory.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.esSearchTitle)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemFindText)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtFindText.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemStyle)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lupStyle.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemUseYn)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lupUseYn.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcButtonFromScrap)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcTabList)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupList)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lupStyle.Properties)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemStyle)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lupUseYn.Properties)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemUseYn)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// lc
 			// 
+			this.lc.Controls.Add(this.btnFromScrap);
 			this.lc.Controls.Add(this.lupUseYn);
 			this.lc.Controls.Add(this.lupStyle);
 			this.lc.Controls.Add(this.lupCategory);
@@ -97,30 +101,14 @@
             this.esSearchTitle,
             this.lcItemFindText,
             this.lcItemStyle,
-            this.lcItemUseYn});
+            this.lcItemUseYn,
+            this.lcButtonFromScrap});
 			this.lcGroupSearch.Location = new System.Drawing.Point(0, 0);
 			this.lcGroupSearch.Name = "lcGroupSearch";
 			this.lcGroupSearch.Padding = new DevExpress.XtraLayout.Utils.Padding(4, 4, 4, 4);
 			this.lcGroupSearch.Size = new System.Drawing.Size(250, 495);
 			this.lcGroupSearch.TextLocation = DevExpress.Utils.Locations.Left;
 			this.lcGroupSearch.TextVisible = false;
-			// 
-			// lcItemFindText
-			// 
-			this.lcItemFindText.Control = this.txtFindText;
-			this.lcItemFindText.Location = new System.Drawing.Point(0, 40);
-			this.lcItemFindText.Name = "lcItemFindText";
-			this.lcItemFindText.Size = new System.Drawing.Size(216, 41);
-			this.lcItemFindText.TextLocation = DevExpress.Utils.Locations.Top;
-			this.lcItemFindText.TextSize = new System.Drawing.Size(83, 14);
-			// 
-			// txtFindText
-			// 
-			this.txtFindText.Location = new System.Drawing.Point(31, 67);
-			this.txtFindText.Name = "txtFindText";
-			this.txtFindText.Size = new System.Drawing.Size(212, 20);
-			this.txtFindText.StyleController = this.lc;
-			this.txtFindText.TabIndex = 4;
 			// 
 			// lcItemCategory
 			// 
@@ -151,9 +139,9 @@
 			// emptySpaceItem1
 			// 
 			this.emptySpaceItem1.AllowHotTrack = false;
-			this.emptySpaceItem1.Location = new System.Drawing.Point(0, 206);
+			this.emptySpaceItem1.Location = new System.Drawing.Point(0, 204);
 			this.emptySpaceItem1.Name = "emptySpaceItem1";
-			this.emptySpaceItem1.Size = new System.Drawing.Size(216, 276);
+			this.emptySpaceItem1.Size = new System.Drawing.Size(216, 252);
 			this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
 			// 
 			// esSearchTitle
@@ -176,6 +164,93 @@
 			this.esSearchTitle.Text = "검색조건";
 			this.esSearchTitle.TextSize = new System.Drawing.Size(83, 0);
 			this.esSearchTitle.TextVisible = true;
+			// 
+			// lcItemFindText
+			// 
+			this.lcItemFindText.Control = this.txtFindText;
+			this.lcItemFindText.Location = new System.Drawing.Point(0, 40);
+			this.lcItemFindText.Name = "lcItemFindText";
+			this.lcItemFindText.Size = new System.Drawing.Size(216, 41);
+			this.lcItemFindText.TextLocation = DevExpress.Utils.Locations.Top;
+			this.lcItemFindText.TextSize = new System.Drawing.Size(83, 14);
+			// 
+			// txtFindText
+			// 
+			this.txtFindText.Location = new System.Drawing.Point(31, 67);
+			this.txtFindText.Name = "txtFindText";
+			this.txtFindText.Size = new System.Drawing.Size(212, 20);
+			this.txtFindText.StyleController = this.lc;
+			this.txtFindText.TabIndex = 4;
+			// 
+			// lcItemStyle
+			// 
+			this.lcItemStyle.Control = this.lupStyle;
+			this.lcItemStyle.Location = new System.Drawing.Point(0, 122);
+			this.lcItemStyle.Name = "lcItemStyle";
+			this.lcItemStyle.Size = new System.Drawing.Size(216, 41);
+			this.lcItemStyle.TextLocation = DevExpress.Utils.Locations.Top;
+			this.lcItemStyle.TextSize = new System.Drawing.Size(83, 14);
+			// 
+			// lupStyle
+			// 
+			this.lupStyle.DisplayMember = "";
+			this.lupStyle.GroupCode = null;
+			this.lupStyle.ListMember = "ListName";
+			this.lupStyle.Location = new System.Drawing.Point(31, 149);
+			this.lupStyle.Name = "lupStyle";
+			this.lupStyle.NullText = "[EditValue is null]";
+			this.lupStyle.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo),
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions2, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
+			this.lupStyle.SelectedIndex = -1;
+			this.lupStyle.Size = new System.Drawing.Size(212, 20);
+			this.lupStyle.StyleController = this.lc;
+			this.lupStyle.TabIndex = 44;
+			this.lupStyle.ValueMember = "";
+			// 
+			// lcItemUseYn
+			// 
+			this.lcItemUseYn.Control = this.lupUseYn;
+			this.lcItemUseYn.Location = new System.Drawing.Point(0, 163);
+			this.lcItemUseYn.Name = "lcItemUseYn";
+			this.lcItemUseYn.Size = new System.Drawing.Size(216, 41);
+			this.lcItemUseYn.TextLocation = DevExpress.Utils.Locations.Top;
+			this.lcItemUseYn.TextSize = new System.Drawing.Size(83, 14);
+			// 
+			// lupUseYn
+			// 
+			this.lupUseYn.DisplayMember = "";
+			this.lupUseYn.GroupCode = null;
+			this.lupUseYn.ListMember = "ListName";
+			this.lupUseYn.Location = new System.Drawing.Point(31, 190);
+			this.lupUseYn.Name = "lupUseYn";
+			this.lupUseYn.NullText = "[EditValue is null]";
+			this.lupUseYn.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo),
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
+			this.lupUseYn.SelectedIndex = -1;
+			this.lupUseYn.Size = new System.Drawing.Size(212, 20);
+			this.lupUseYn.StyleController = this.lc;
+			this.lupUseYn.TabIndex = 45;
+			this.lupUseYn.ValueMember = "";
+			// 
+			// lcButtonFromScrap
+			// 
+			this.lcButtonFromScrap.Control = this.btnFromScrap;
+			this.lcButtonFromScrap.Location = new System.Drawing.Point(0, 456);
+			this.lcButtonFromScrap.Name = "lcButtonFromScrap";
+			this.lcButtonFromScrap.Size = new System.Drawing.Size(216, 26);
+			this.lcButtonFromScrap.TextSize = new System.Drawing.Size(0, 0);
+			this.lcButtonFromScrap.TextVisible = false;
+			// 
+			// btnFromScrap
+			// 
+			this.btnFromScrap.Location = new System.Drawing.Point(31, 466);
+			this.btnFromScrap.Name = "btnFromScrap";
+			this.btnFromScrap.Size = new System.Drawing.Size(212, 22);
+			this.btnFromScrap.StyleController = this.lc;
+			this.btnFromScrap.TabIndex = 46;
+			this.btnFromScrap.Text = "스크랩에서 가져오기";
 			// 
 			// gridList
 			// 
@@ -231,58 +306,6 @@
 			this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
 			this.layoutControlItem3.TextVisible = false;
 			// 
-			// lupStyle
-			// 
-			this.lupStyle.DisplayMember = "";
-			this.lupStyle.GroupCode = null;
-			this.lupStyle.ListMember = "ListName";
-			this.lupStyle.Location = new System.Drawing.Point(31, 150);
-			this.lupStyle.Name = "lupStyle";
-			this.lupStyle.NullText = "[EditValue is null]";
-			this.lupStyle.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions2, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
-			this.lupStyle.SelectedIndex = -1;
-			this.lupStyle.Size = new System.Drawing.Size(212, 20);
-			this.lupStyle.StyleController = this.lc;
-			this.lupStyle.TabIndex = 44;
-			this.lupStyle.ValueMember = "";
-			// 
-			// lcItemStyle
-			// 
-			this.lcItemStyle.Control = this.lupStyle;
-			this.lcItemStyle.Location = new System.Drawing.Point(0, 122);
-			this.lcItemStyle.Name = "lcItemStyle";
-			this.lcItemStyle.Size = new System.Drawing.Size(216, 42);
-			this.lcItemStyle.TextLocation = DevExpress.Utils.Locations.Top;
-			this.lcItemStyle.TextSize = new System.Drawing.Size(83, 14);
-			// 
-			// lupUseYn
-			// 
-			this.lupUseYn.DisplayMember = "";
-			this.lupUseYn.GroupCode = null;
-			this.lupUseYn.ListMember = "ListName";
-			this.lupUseYn.Location = new System.Drawing.Point(31, 192);
-			this.lupUseYn.Name = "lupUseYn";
-			this.lupUseYn.NullText = "[EditValue is null]";
-			this.lupUseYn.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
-			this.lupUseYn.SelectedIndex = -1;
-			this.lupUseYn.Size = new System.Drawing.Size(212, 20);
-			this.lupUseYn.StyleController = this.lc;
-			this.lupUseYn.TabIndex = 45;
-			this.lupUseYn.ValueMember = "";
-			// 
-			// lcItemUseYn
-			// 
-			this.lcItemUseYn.Control = this.lupUseYn;
-			this.lcItemUseYn.Location = new System.Drawing.Point(0, 164);
-			this.lcItemUseYn.Name = "lcItemUseYn";
-			this.lcItemUseYn.Size = new System.Drawing.Size(216, 42);
-			this.lcItemUseYn.TextLocation = DevExpress.Utils.Locations.Top;
-			this.lcItemUseYn.TextSize = new System.Drawing.Size(83, 14);
-			// 
 			// BrandListForm
 			// 
 			this.Appearance.BackColor = System.Drawing.Color.White;
@@ -297,19 +320,20 @@
 			this.lc.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupBase)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupSearch)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemFindText)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.txtFindText.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemCategory)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lupCategory.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.esSearchTitle)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemFindText)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtFindText.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemStyle)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lupStyle.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemUseYn)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lupUseYn.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcButtonFromScrap)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcTabList)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupList)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lupStyle.Properties)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemStyle)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lupUseYn.Properties)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemUseYn)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -331,5 +355,7 @@
 		private Core.Controls.Common.XLookup lupStyle;
 		private DevExpress.XtraLayout.LayoutControlItem lcItemStyle;
 		private DevExpress.XtraLayout.LayoutControlItem lcItemUseYn;
+		private DevExpress.XtraEditors.SimpleButton btnFromScrap;
+		private DevExpress.XtraLayout.LayoutControlItem lcButtonFromScrap;
 	}
 }
