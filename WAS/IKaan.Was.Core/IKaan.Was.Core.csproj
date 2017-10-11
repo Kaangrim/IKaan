@@ -112,7 +112,7 @@
     <EmbeddedResource Include="SqlMaps\Biz\Organization\DepartmentSQL.xml" />
     <EmbeddedResource Include="SqlMaps\Biz\Organization\AppointmentSQL.xml" />
     <EmbeddedResource Include="SqlMaps\Biz\Organization\DepartmentHistorySQL.xml" />
-    <EmbeddedResource Include="SqlMaps\Biz\Sales\OrderSumSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\Biz\Sales\Analysis\OrderSumSQL.xml" />
     <EmbeddedResource Include="SqlMaps\Scrap\Common\ScrapBrandSQL.xml" />
     <EmbeddedResource Include="SqlMaps\Scrap\Common\ScrapProductSQL.xml" />
     <EmbeddedResource Include="SqlMaps\Biz\Search\SearchBrandActivitySQL.xml" />
@@ -159,7 +159,7 @@
     <EmbeddedResource Include="SqlMaps\Biz\Master\Attribute\AttributeSQL.xml" />
     <EmbeddedResource Include="SqlMaps\Biz\Master\Attribute\AttributeTypeSQL.xml" />
     <EmbeddedResource Include="SqlMaps\Biz\Master\Common\BankAccountSQL.xml" />
-    <EmbeddedResource Include="SqlMaps\Biz\Sales\BillingAddressSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\Biz\Sales\Address\BillingAddressSQL.xml" />
     <EmbeddedResource Include="SqlMaps\Biz\Master\Brand\BrandAttributeSQL.xml" />
     <EmbeddedResource Include="SqlMaps\Biz\Master\Channel\ChannelAttributeSQL.xml" />
     <EmbeddedResource Include="SqlMaps\Biz\Master\Company\CompanySQL.xml" />
@@ -179,11 +179,31 @@
     <EmbeddedResource Include="SqlMaps\Biz\Master\Partner\PartnerContactSQL.xml" />
     <EmbeddedResource Include="SqlMaps\Biz\Master\Partner\PartnerManagerSQL.xml" />
     <EmbeddedResource Include="SqlMaps\Biz\Master\Partner\PartnerStoreSQL.xml" />
-    <EmbeddedResource Include="SqlMaps\Biz\Sales\ShippingAddressSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\Biz\Sales\Address\ShippingAddressSQL.xml" />
     <EmbeddedResource Include="SqlMaps\Biz\Catalog\ProductChannelGoodsSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\Biz\Sales\Order\OrderSQL.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SqlMaps\Biz\Sales\Order\OrderItemSQL.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SqlMaps\Biz\Sales\Order\OrderNoteSQL.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SqlMaps\Biz\Sales\Shipment\ShipmentSQL.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SqlMaps\Biz\Sales\Shipment\ShipmentItemSQL.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SqlMaps\Biz\Sales\Shipment\ShipmentInvoiceSQL.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <Content Include="SqlMaps\Report\ReportSQL.xml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="SqlMaps\Biz\Sales\Return\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\BAS\IKaan.Base\IKaan.Base.csproj">
       <Project>{949db77a-078c-4ae7-ba66-a7109848b8c4}</Project>

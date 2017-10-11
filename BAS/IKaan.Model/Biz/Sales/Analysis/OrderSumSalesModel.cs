@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 
-namespace IKaan.Model.Biz.Sales
+namespace IKaan.Model.Biz.Sales.Analysis
 {
 	[DataContract]
 	public class OrderSumSalesModel

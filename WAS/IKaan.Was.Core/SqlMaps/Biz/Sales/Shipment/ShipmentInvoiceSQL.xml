@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectShipmentInvoiceList" parameterClass="DataMap" resultClass="ShipmentInvoiceModel" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID)	as RowNo
+					,	AA.ID
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
+					
+					,	AA.ShipmentID
+					,	AA.OrderItemID
+					,	AA.ShippedQty
+					
+				FROM	dbo.TShipmentInvoice AA WITH (NOLOCK)
+				WHERE	AA.ShipmentID = #ShipmentID#
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectShipmentInvoice" parameterClass="DataMap" resultClass="ShipmentInvoiceModel" >
+			<![CDATA[
+				SELECT  AA.*
+				FROM	dbo.TShipmentInvoice AA WITH (NOLOCK)
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<insert id="InsertShipmentInvoice" parameterClass="ShipmentInvoiceModel" >
+			<![CDATA[
+				INSERT INTO dbo.TOrder
+				( 
+					CreatedOn, CreatedBy, CreatedByName,
+					ShipmentID, OrderItemID, ShippedQty
+				)
+				VALUES
+				(
+					GetDate(), #CreatedBy#, #CreatedByName#,
+					#ShipmentID#, #OrderItemID#, #ShippedQty#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateShipmentInvoice" parameterClass="ShipmentInvoiceModel">
+			<![CDATA[
+				UPDATE  dbo.TShipmentInvoice
+				SET     UpdatedOn		= GetDate()
+					,	UpdatedBy		= #UpdatedBy#
+					,	UpdatedByName	= #UpdatedByName#
+					
+					,	ShipmentID		= #ShipmentID#
+					,	OrderItemID		= #OrderItemID#
+					,	ShippedQty		= #ShippedQty#
+				WHERE	ID = #ID#
+			]]>
+		</update>
+		<delete id="DeleteShipmentInvoice" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM	dbo.TShipmentInvoice WHERE ID = #ID#;
+			]]>
+		</delete>
+		<delete id="DeleteShipmentInvoiceByShipmentID" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM	dbo.TShipmentInvoice WHERE ShipmentID = #ShipmentID#;
+			]]>
+		</delete>
+		<select id="SelectShipmentInvoiceExists" parameterClass="DataMap" resultClass="ShipmentInvoiceModel" >
+			<![CDATA[
+				SELECT  AA.*					
+				FROM	dbo.TShipmentInvoice AA WITH (NOLOCK)
+				WHERE	AA.ShipmentID	= #ShipmentID#
+				AND		AA.OrderItemID	= #OrderItemID#
+			]]>
+		</select>
+	</statements>
+</sqlMap>

@@ -61,6 +61,7 @@
     <Compile Include="Services\BizServiceCompany.cs" />
     <Compile Include="Services\BizServiceCustomer.cs" />
     <Compile Include="Services\BizServiceCatalog.cs" />
+    <Compile Include="Services\BizServiceOrder.cs" />
     <Compile Include="Services\BizServiceSearching.cs" />
     <Compile Include="Services\BizServiceSales.cs" />
     <Compile Include="Services\BizServiceStore.cs" />

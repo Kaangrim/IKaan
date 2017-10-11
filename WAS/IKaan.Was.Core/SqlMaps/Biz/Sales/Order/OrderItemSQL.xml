@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectOrderItemList" parameterClass="DataMap" resultClass="OrderItemModel" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID)	as RowNo
+					,	AA.ID
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
+					
+					,	AA.OrderID
+					,	AA.ProductID
+					,	AA.ProductName
+					,	AA.ProductCode
+					,	AA.Option1
+					,	AA.Option2
+					,	AA.Bundle
+					,	AA.OrderQty
+					,	AA.SalePrice
+					,	AA.OrderAmt
+					,	AA.DiscountAmt
+					,	AA.CouponAmt
+					,	AA.DeliveryFee
+					,	AA.SupplyPrice
+					,	AA.SupplyAmt
+					,	AA.CancelYn
+					,	AA.CancelDate
+					,	AA.Currency
+					,	AA.LocalSalePrice
+					
+					,	PP.BrandID
+					,	BB.Name		as BrandName
+					
+					,	ISNULL(SD.ShippedQty, 0)	as ShippedQty
+					
+				FROM	dbo.TOrderItem AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.TProduct PP WITH  (NOLOCK)
+								ON AA.ProductID = PP.ID
+						LEFT JOIN
+							DBO.TBrand BB WITH (NOLOCK)
+								ON PP.BrandID = BB.ID
+						LEFT JOIN
+						(
+							SELECT	AA.OrderID
+								,	BB.OrderItemID
+								,	SUM(BB.ShippedQty)	as ShippedQty
+							FROM	dbo.TShipment AA WITH (NOLOCK)
+									INNER JOIN
+										dbo.TShipmentItem BB WITH (NOLOCK)
+											ON AA.ID = BB.ShipmentID
+							WHERE	AA.OrderID = #OrderID#
+							GROUP BY
+								AA.OrderID, BB.OrderItemID
+						) SD ON AA.OrderID = SD.OrderID
+				WHERE	AA.OrderID = #OrderID#
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectOrderItem" parameterClass="DataMap" resultClass="OrderItemModel" >
+			<![CDATA[
+				SELECT  AA.*					
+				FROM	dbo.TOrderItem AA WITH (NOLOCK)
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<insert id="InsertOrderItem" parameterClass="OrderItemModel" >
+			<![CDATA[
+				INSERT INTO dbo.TOrderItem
+				( 
+					CreatedOn, CreatedBy, CreatedByName,
+					OrderID, 
+					ProductID, ProductName, ProductCode,
+					Option1, Option2, Bundle, 
+					OrderQty, SalePrice, OrderAmt, DiscountAmt, CouponAmt, DeliveryFee, SupplyPrice, SupplyAmt,
+					CancelYn, CancelDate, ChannelOrderSeq, Currency, LocalSalePrice
+				)
+				VALUES
+				(
+					GetDate(), #CreatedBy#, #CreatedByName#,
+					#OrderID#, 
+					#ProductID#, #ProductName#, #ProductCode#,
+					#Option1#, #Option2#, #Bundle#, 
+					#OrderQty#, #SalePrice#, #OrderAmt#, #DiscountAmt#, #CouponAmt#, #DeliveryFee#, #SupplyPrice#, #SupplyAmt#,
+					'N', null, #ChannelOrderSeq#, #Currency#, #LocalSalePrice#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateTOrderItem" parameterClass="OrderItemModel">
+			<![CDATA[
+				UPDATE  dbo.TOrderItem
+				SET     UpdatedOn			= GetDate()
+					,	UpdatedBy			= #UpdatedBy#
+					,	UpdatedByName		= #UpdatedByName#
+					
+					,	OrderID				= #OrderID#
+					,	ProductID			= #ProductID#
+					,	ProductName			= #ProductName#
+					,	ProductCode			= #ProductCode#
+					,	Option1				= #Option1#
+					,	Option2				= #Option2#
+					,	Bundle				= #Bundle#
+					,	OrderQty			= #OrderQty#
+					,	SalePrice			= #SalePrice#
+					,	OrderAmt			= #OrderAmt#
+					,	DiscountAmt			= #DiscountAmt#
+					,	CouponAmt			= #CouponAmt#
+					,	DeliveryFee			= #DeliveryFee#
+					,	SupplyPrice			= #SupplyPrice#
+					,	SupplyAmt			= #SupplyAmt#
+					,	CancelYn			= #CancelYn#
+					,	CancelDate			= #CancelDate#
+					,	ChannelOrderSeq		= #ChannelOrderSeq#
+					,	Currency			= #Currency#
+					,	LocalSalePrice		= #LocalSalePrice#
+				WHERE	ID = #ID#
+			]]>
+		</update>
+		<delete id="DeleteOrderItem" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM	dbo.TOrderItem WHERE ID = #ID#;
+			]]>
+		</delete>
+		<delete id="DeleteOrderItemByOrderID" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM	dbo.TOrderItem WHERE OrderID = #OrderID#;
+			]]>
+		</delete>
+	</statements>
+</sqlMap>

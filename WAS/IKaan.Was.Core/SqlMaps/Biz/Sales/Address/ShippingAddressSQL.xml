@@ -16,9 +16,7 @@
 					,	AA.UpdatedBy
 					,	AA.UpdatedByName
 					
-					,	AA.CustomerID
-					,	AA.FirstName
-					,	AA.LastName
+					,	AA.Name
 					,	AA.Email
 					,	AA.PhoneNo
 					,	AA.MobileNo
@@ -36,8 +34,7 @@
 			<isNotEmpty property="FindText">
 				<![CDATA[
 					AND	(
-							AA.FirstName LIKE '%'+#FindText#+'%'	OR
-							AA.LastName  LIKE '%'+#FindText#+'%'
+							AA.Name  LIKE '%'+#FindText#+'%'
 						)
 				]]>
 			</isNotEmpty>
@@ -57,12 +54,12 @@
 				INSERT INTO dbo.TShippingAddress
 				( 
 					CreatedOn, CreatedBy, CreatedByName,
-					CustomerID, FirstName, LastName, Email, PhoneNo, MobileNo, FaxNo, AddressID
+					Name, Email, PhoneNo, MobileNo, FaxNo, AddressID
 				)
 				VALUES
 				(
 					GetDate(), #CreatedBy#, #CreatedByName#,					
-					#CustomerID#, #FirstName#, #LastName#, #Email#, #PhoneNo#, #MobileNo#, #FaxNo#, #AddressID#
+					#Name#, #Email#, #PhoneNo#, #MobileNo#, #FaxNo#, #AddressID#
 				)
 			]]>
 			<selectKey type="post" property="ID" resultClass="Int">
@@ -78,9 +75,7 @@
 					,	UpdatedBy		= #UpdatedBy#
 					,	UpdatedByName	= #UpdatedByName#
 					
-					,	CustomerID		= #CustomerID#
-					,	FirstName		= #FirstName#
-					,	LastName		= #LastName#
+					,	Name			= #Name#
 					,	Email			= #Email#
 					,	PhoneNo			= #PhoneNo#
 					,	MobileNo		= #MobileNo#

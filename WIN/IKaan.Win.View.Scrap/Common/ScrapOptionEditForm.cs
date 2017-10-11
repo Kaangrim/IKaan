@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using IKaan.Base.Map;
+using IKaan.Base.Utils;
 using IKaan.Model.Scrap.Common;
 using IKaan.Win.Core.Enum;
 using IKaan.Win.Core.Forms;
@@ -25,13 +27,14 @@ namespace IKaan.Win.View.Scrap.Common
 		protected override void InitButton()
 		{
 			base.InitButton();
-			SetToolbarButtons(new ToolbarButtons() { New = true, Save = true, SaveAndClose = true, SaveAndNew = true });
+			SetToolbarButtons(new ToolbarButtons() { Save = true, SaveAndClose = true });
 		}
 		protected override void InitControls()
 		{
 			base.InitControls();
 
-			lcItemName.Tag = true;
+			if (this.ParamsData.GetType() != typeof(List<ScrapOptionModel>))
+				lcItemName.Tag = true;
 
 			SetFieldNames();
 
@@ -43,32 +46,28 @@ namespace IKaan.Win.View.Scrap.Common
 			txtUpdatedOn.SetEnable(false);
 			txtUpdatedByName.SetEnable(false);
 
-			lupOption1Type.BindData("OptionType");
-			lupOption2Type.BindData("OptionType");
-		}
+			lupOption1Type.BindData("OptionType", "옵션없음");
+			lupOption2Type.BindData("OptionType", "옵션없음");
 
-		protected override void DataInit()
-		{
-			ClearControlData<ScrapOptionModel>();
-
-			SetToolbarButtons(new ToolbarButtons() { New = true, Save = true, SaveAndClose = true, SaveAndNew = true });
-			EditMode = EditModeEnum.New;
-			txtName.Focus();
+			if (this.ParamsData.GetType() == typeof(List<ScrapOptionModel>))
+				txtName.SetEnable(false);
 		}
 
 		protected override void DataLoad(object param = null)
 		{
 			try
 			{
-				var model = WasHandler.GetData<ScrapOptionModel>("Scrap", "GetData", "Select", new DataMap() { { "ID", param } });
-				if (model == null)
-					throw new Exception("조회할 데이터가 없습니다.");
+				if (param.GetType() != typeof(List<ScrapOptionModel>))
+				{
+					var model = WasHandler.GetData<ScrapOptionModel>("Scrap", "GetData", "Select", new DataMap() { { "ID", param } });
+					if (model == null)
+						throw new Exception("조회할 데이터가 없습니다.");
 
-				SetControlData(model);
-				SetToolbarButtons(new ToolbarButtons() { New = true, Save = true, SaveAndClose = true, SaveAndNew = true, Delete = true });
-				this.EditMode = EditModeEnum.Modify;
-				txtName.Focus();
-
+					SetControlData(model);
+					SetToolbarButtons(new ToolbarButtons() { Save = true, SaveAndClose = true, Delete = true });
+					this.EditMode = EditModeEnum.Modify;
+					txtName.Focus();
+				}
 			}
 			catch (Exception ex)
 			{
@@ -80,14 +79,41 @@ namespace IKaan.Win.View.Scrap.Common
 		{
 			try
 			{
-				var model = this.GetControlData<ScrapOptionModel>();
-				using (var res = WasHandler.Execute<ScrapOptionModel>("Scrap", "Save", (this.EditMode == EditModeEnum.New) ? "Insert" : "Update", model, "ID"))
+				if (txtID.EditValue != null)
 				{
-					if (res.Error.Number != 0)
-						throw new Exception(res.Error.Message);
+					var model = this.GetControlData<ScrapOptionModel>();
+					using (var res = WasHandler.Execute<ScrapOptionModel>("Scrap", "Save", "Insert", model, "ID"))
+					{
+						if (res.Error.Number != 0)
+							throw new Exception(res.Error.Message);
 
-					ShowMsgBox("저장하였습니다.");
-					callback(arg, res.Result.ReturnValue);
+						ShowMsgBox("저장하였습니다.");
+						callback(arg, res.Result.ReturnValue);
+					}
+				}
+				else
+				{
+					if (this.ParamsData.GetType() == typeof(List<ScrapOptionModel>))
+					{
+						foreach(var option in this.ParamsData as List<ScrapOptionModel>)
+						{
+							option.Option1Type = lupOption1Type.EditValue.ToStringNullToNull();
+							option.Option1Name = txtOption1Name.EditValue.ToStringNullToNull();
+							option.Option1Value = txtOption1Value.EditValue.ToStringNullToNull();
+							option.Option2Type = lupOption2Type.EditValue.ToStringNullToNull();
+							option.Option2Name = txtOption2Name.EditValue.ToStringNullToNull();
+							option.Option2Value = txtOption2Value.EditValue.ToStringNullToNull();
+
+							using (var res = WasHandler.Execute<ScrapOptionModel>("Scrap", "Save", "Insert", option, "ID"))
+							{
+								if (res.Error.Number != 0)
+									throw new Exception(res.Error.Message);
+							}
+						}
+						ShowMsgBox("저장하였습니다.");
+						this.SetModifiedCount();
+						Close();
+					}
 				}
 			}
 			catch(Exception ex)
@@ -100,13 +126,15 @@ namespace IKaan.Win.View.Scrap.Common
 		{
 			try
 			{
-				using (var res = WasHandler.Execute<DataMap>("Scrap", "Delete", "DeleteScrapOption", new DataMap() { { "ID", txtID.EditValue } }))
+				if (txtID.EditValue != null)
 				{
-					if (res.Error.Number != 0)
-						throw new Exception(res.Error.Message);
-
+					using (var res = WasHandler.Execute<DataMap>("Scrap", "Delete", "DeleteScrapOption", new DataMap() { { "ID", txtID.EditValue } }))
+					{
+						if (res.Error.Number != 0)
+							throw new Exception(res.Error.Message);
+					}
 					ShowMsgBox("삭제하였습니다.");
-					callback(arg, null);
+					Close();
 				}
 			}
 			catch (Exception ex)

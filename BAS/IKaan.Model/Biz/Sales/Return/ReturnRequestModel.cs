@@ -2,7 +2,7 @@
 using System.Runtime.Serialization;
 using IKaan.Model.Common.Base;
 
-namespace IKaan.Model.Biz.Sales
+namespace IKaan.Model.Biz.Sales.Return
 {
 	[DataContract]
 	public class ReturnRequestModel : ModelBase

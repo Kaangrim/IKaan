@@ -11,7 +11,8 @@ using IKaan.Model.Biz.Master.Customer;
 using IKaan.Model.Biz.Master.InfoNotice;
 using IKaan.Model.Biz.Master.Partner;
 using IKaan.Model.Biz.Organization;
-using IKaan.Model.Biz.Sales;
+using IKaan.Model.Biz.Sales.Analysis;
+using IKaan.Model.Biz.Sales.Order;
 using IKaan.Model.Biz.Search;
 using IKaan.Model.Common.Was;
 using IKaan.Was.Core.Mappers;
@@ -94,6 +95,15 @@ namespace IKaan.Was.Service.Services
 							break;
 						case "Partner":
 							req.SetList<PartnerModel>();
+							break;
+						case "Order":
+							req.SetList<OrderModel>();
+							break;
+						case "OrderItem":
+							req.SetList<OrderItemModel>();
+							break;
+						case "OrderNote":
+							req.SetList<OrderNoteModel>();
 							break;
 						case "OrderSum":
 							req.SetList<OrderSumModel>();
@@ -292,6 +302,15 @@ namespace IKaan.Was.Service.Services
 						case "PartnerBankAccount":
 							req.GetPartnerBankAccount();
 							break;
+						case "Order":
+							req.GetOrder();
+							break;
+						case "OrderItem":
+							req.SetData<OrderItemModel>();
+							break;
+						case "OrderNote":
+							req.SetData<OrderNoteModel>();
+							break;
 						case "OrderSum":
 							req.SetData<OrderSumModel>();
 							break;
@@ -466,6 +485,15 @@ namespace IKaan.Was.Service.Services
 								case "PartnerStore":
 									req.SavePartnerStore();
 									break;
+								case "Order":
+									req.SaveOrder();
+									break;
+								case "OrderItem":
+									req.SaveData<OrderItemModel>();
+									break;
+								case "OrderNote":
+									req.SaveData<OrderNoteModel>();
+									break;
 								case "OrderSumByChannel":
 									req.SaveOrderSumByChannel();
 									break;
@@ -562,6 +590,10 @@ namespace IKaan.Was.Service.Services
 						if (req.SqlId == "DeleteCompanyAddress")
 						{
 							req.DeleteCompanyAddress();
+						}
+						else if (req.SqlId == "DeleteOrder")
+						{
+							req.DeleteOrder();
 						}
 						else
 						{

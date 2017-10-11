@@ -28,50 +28,68 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions5 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions4 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions3 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
 			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions2 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
 			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions1 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
 			this.gridList = new IKaan.Win.Core.Controls.Grid.XGrid();
 			this.lcGroupSearch = new DevExpress.XtraLayout.LayoutControlGroup();
-			this.lcItemChannel = new DevExpress.XtraLayout.LayoutControlItem();
-			this.lupChannelID = new IKaan.Win.Core.Controls.Common.XLookup();
 			this.esSearchTitle = new DevExpress.XtraLayout.EmptySpaceItem();
 			this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
 			this.lcItemFindText = new DevExpress.XtraLayout.LayoutControlItem();
 			this.txtFindText = new DevExpress.XtraEditors.TextEdit();
+			this.lcItemStartDate = new DevExpress.XtraLayout.LayoutControlItem();
+			this.datStartDate = new DevExpress.XtraEditors.DateEdit();
+			this.lcItemEndDate = new DevExpress.XtraLayout.LayoutControlItem();
+			this.datEndDate = new DevExpress.XtraEditors.DateEdit();
+			this.lcItemChannel = new DevExpress.XtraLayout.LayoutControlItem();
+			this.lupChannelID = new IKaan.Win.Core.Controls.Common.XLookup();
 			this.lcItemBrand = new DevExpress.XtraLayout.LayoutControlItem();
 			this.lupBrandID = new IKaan.Win.Core.Controls.Common.XLookup();
 			this.lcTabList = new DevExpress.XtraLayout.TabbedControlGroup();
 			this.lcGroupLists = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
-			this.datStartDate = new DevExpress.XtraEditors.DateEdit();
-			this.lcItemStartDate = new DevExpress.XtraLayout.LayoutControlItem();
-			this.datEndDate = new DevExpress.XtraEditors.DateEdit();
-			this.lcItemEndDate = new DevExpress.XtraLayout.LayoutControlItem();
+			this.lupStoreID = new IKaan.Win.Core.Controls.Common.XLookup();
+			this.lcItemStore = new DevExpress.XtraLayout.LayoutControlItem();
+			this.lupMemberID = new IKaan.Win.Core.Controls.Common.XLookup();
+			this.lcItemMember = new DevExpress.XtraLayout.LayoutControlItem();
+			this.lupStatus = new IKaan.Win.Core.Controls.Common.XLookup();
+			this.lcItemStatus = new DevExpress.XtraLayout.LayoutControlItem();
 			((System.ComponentModel.ISupportInitialize)(this.lc)).BeginInit();
 			this.lc.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupBase)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupSearch)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemChannel)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lupChannelID.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.esSearchTitle)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemFindText)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.txtFindText.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemStartDate)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.datStartDate.Properties.CalendarTimeProperties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.datStartDate.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemEndDate)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.datEndDate.Properties.CalendarTimeProperties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.datEndDate.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemChannel)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lupChannelID.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemBrand)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lupBrandID.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcTabList)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupLists)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.datStartDate.Properties.CalendarTimeProperties)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.datStartDate.Properties)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemStartDate)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.datEndDate.Properties.CalendarTimeProperties)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.datEndDate.Properties)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemEndDate)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lupStoreID.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemStore)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lupMemberID.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemMember)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lupStatus.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemStatus)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// lc
 			// 
+			this.lc.Controls.Add(this.lupStatus);
+			this.lc.Controls.Add(this.lupMemberID);
+			this.lc.Controls.Add(this.lupStoreID);
 			this.lc.Controls.Add(this.datEndDate);
 			this.lc.Controls.Add(this.datStartDate);
 			this.lc.Controls.Add(this.lupBrandID);
@@ -127,40 +145,17 @@
             this.lcItemFindText,
             this.lcItemStartDate,
             this.lcItemEndDate,
+            this.lcItemStore,
             this.lcItemChannel,
-            this.lcItemBrand});
+            this.lcItemBrand,
+            this.lcItemMember,
+            this.lcItemStatus});
 			this.lcGroupSearch.Location = new System.Drawing.Point(0, 0);
 			this.lcGroupSearch.Name = "lcGroupSearch";
 			this.lcGroupSearch.Padding = new DevExpress.XtraLayout.Utils.Padding(4, 4, 4, 4);
 			this.lcGroupSearch.Size = new System.Drawing.Size(250, 548);
 			this.lcGroupSearch.TextLocation = DevExpress.Utils.Locations.Left;
 			this.lcGroupSearch.TextVisible = false;
-			// 
-			// lcItemChannel
-			// 
-			this.lcItemChannel.Control = this.lupChannelID;
-			this.lcItemChannel.Location = new System.Drawing.Point(0, 122);
-			this.lcItemChannel.Name = "lcItemChannel";
-			this.lcItemChannel.Size = new System.Drawing.Size(216, 41);
-			this.lcItemChannel.TextLocation = DevExpress.Utils.Locations.Top;
-			this.lcItemChannel.TextSize = new System.Drawing.Size(87, 14);
-			// 
-			// lupChannelID
-			// 
-			this.lupChannelID.DisplayMember = "";
-			this.lupChannelID.GroupCode = null;
-			this.lupChannelID.ListMember = "ListName";
-			this.lupChannelID.Location = new System.Drawing.Point(31, 149);
-			this.lupChannelID.Name = "lupChannelID";
-			this.lupChannelID.NullText = "[EditValue is null]";
-			this.lupChannelID.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions2, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
-			this.lupChannelID.SelectedIndex = -1;
-			this.lupChannelID.Size = new System.Drawing.Size(212, 20);
-			this.lupChannelID.StyleController = this.lc;
-			this.lupChannelID.TabIndex = 31;
-			this.lupChannelID.ValueMember = "";
 			// 
 			// esSearchTitle
 			// 
@@ -186,15 +181,15 @@
 			// emptySpaceItem2
 			// 
 			this.emptySpaceItem2.AllowHotTrack = false;
-			this.emptySpaceItem2.Location = new System.Drawing.Point(0, 245);
+			this.emptySpaceItem2.Location = new System.Drawing.Point(0, 368);
 			this.emptySpaceItem2.Name = "emptySpaceItem2";
-			this.emptySpaceItem2.Size = new System.Drawing.Size(216, 290);
+			this.emptySpaceItem2.Size = new System.Drawing.Size(216, 167);
 			this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
 			// 
 			// lcItemFindText
 			// 
 			this.lcItemFindText.Control = this.txtFindText;
-			this.lcItemFindText.Location = new System.Drawing.Point(0, 204);
+			this.lcItemFindText.Location = new System.Drawing.Point(0, 327);
 			this.lcItemFindText.Name = "lcItemFindText";
 			this.lcItemFindText.Size = new System.Drawing.Size(216, 41);
 			this.lcItemFindText.TextLocation = DevExpress.Utils.Locations.Top;
@@ -202,11 +197,81 @@
 			// 
 			// txtFindText
 			// 
-			this.txtFindText.Location = new System.Drawing.Point(31, 231);
+			this.txtFindText.Location = new System.Drawing.Point(31, 354);
 			this.txtFindText.Name = "txtFindText";
 			this.txtFindText.Size = new System.Drawing.Size(212, 20);
 			this.txtFindText.StyleController = this.lc;
 			this.txtFindText.TabIndex = 4;
+			// 
+			// lcItemStartDate
+			// 
+			this.lcItemStartDate.Control = this.datStartDate;
+			this.lcItemStartDate.Location = new System.Drawing.Point(0, 204);
+			this.lcItemStartDate.Name = "lcItemStartDate";
+			this.lcItemStartDate.Size = new System.Drawing.Size(216, 41);
+			this.lcItemStartDate.TextLocation = DevExpress.Utils.Locations.Top;
+			this.lcItemStartDate.TextSize = new System.Drawing.Size(87, 14);
+			// 
+			// datStartDate
+			// 
+			this.datStartDate.EditValue = null;
+			this.datStartDate.Location = new System.Drawing.Point(31, 231);
+			this.datStartDate.Name = "datStartDate";
+			this.datStartDate.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+			this.datStartDate.Properties.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+			this.datStartDate.Size = new System.Drawing.Size(212, 20);
+			this.datStartDate.StyleController = this.lc;
+			this.datStartDate.TabIndex = 33;
+			// 
+			// lcItemEndDate
+			// 
+			this.lcItemEndDate.Control = this.datEndDate;
+			this.lcItemEndDate.Location = new System.Drawing.Point(0, 245);
+			this.lcItemEndDate.Name = "lcItemEndDate";
+			this.lcItemEndDate.Size = new System.Drawing.Size(216, 41);
+			this.lcItemEndDate.TextLocation = DevExpress.Utils.Locations.Top;
+			this.lcItemEndDate.TextSize = new System.Drawing.Size(87, 14);
+			// 
+			// datEndDate
+			// 
+			this.datEndDate.EditValue = null;
+			this.datEndDate.Location = new System.Drawing.Point(31, 272);
+			this.datEndDate.Name = "datEndDate";
+			this.datEndDate.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+			this.datEndDate.Properties.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+			this.datEndDate.Size = new System.Drawing.Size(212, 20);
+			this.datEndDate.StyleController = this.lc;
+			this.datEndDate.TabIndex = 34;
+			// 
+			// lcItemChannel
+			// 
+			this.lcItemChannel.Control = this.lupChannelID;
+			this.lcItemChannel.Location = new System.Drawing.Point(0, 81);
+			this.lcItemChannel.Name = "lcItemChannel";
+			this.lcItemChannel.Size = new System.Drawing.Size(216, 41);
+			this.lcItemChannel.TextLocation = DevExpress.Utils.Locations.Top;
+			this.lcItemChannel.TextSize = new System.Drawing.Size(87, 14);
+			// 
+			// lupChannelID
+			// 
+			this.lupChannelID.DisplayMember = "";
+			this.lupChannelID.GroupCode = null;
+			this.lupChannelID.ListMember = "ListName";
+			this.lupChannelID.Location = new System.Drawing.Point(31, 108);
+			this.lupChannelID.Name = "lupChannelID";
+			this.lupChannelID.NullText = "[EditValue is null]";
+			this.lupChannelID.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo),
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions5, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
+			this.lupChannelID.SelectedIndex = -1;
+			this.lupChannelID.Size = new System.Drawing.Size(212, 20);
+			this.lupChannelID.StyleController = this.lc;
+			this.lupChannelID.TabIndex = 31;
+			this.lupChannelID.ValueMember = "";
 			// 
 			// lcItemBrand
 			// 
@@ -227,7 +292,7 @@
 			this.lupBrandID.NullText = "[EditValue is null]";
 			this.lupBrandID.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions4, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
 			this.lupBrandID.SelectedIndex = -1;
 			this.lupBrandID.Size = new System.Drawing.Size(212, 20);
 			this.lupBrandID.StyleController = this.lc;
@@ -264,49 +329,83 @@
 			this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
 			this.layoutControlItem3.TextVisible = false;
 			// 
-			// datStartDate
+			// lupStoreID
 			// 
-			this.datStartDate.EditValue = null;
-			this.datStartDate.Location = new System.Drawing.Point(31, 67);
-			this.datStartDate.Name = "datStartDate";
-			this.datStartDate.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-			this.datStartDate.Properties.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-			this.datStartDate.Size = new System.Drawing.Size(212, 20);
-			this.datStartDate.StyleController = this.lc;
-			this.datStartDate.TabIndex = 33;
+			this.lupStoreID.DisplayMember = "";
+			this.lupStoreID.GroupCode = null;
+			this.lupStoreID.ListMember = "ListName";
+			this.lupStoreID.Location = new System.Drawing.Point(31, 67);
+			this.lupStoreID.Name = "lupStoreID";
+			this.lupStoreID.NullText = "[EditValue is null]";
+			this.lupStoreID.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo),
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions3, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
+			this.lupStoreID.SelectedIndex = -1;
+			this.lupStoreID.Size = new System.Drawing.Size(212, 20);
+			this.lupStoreID.StyleController = this.lc;
+			this.lupStoreID.TabIndex = 35;
+			this.lupStoreID.ValueMember = "";
 			// 
-			// lcItemStartDate
+			// lcItemStore
 			// 
-			this.lcItemStartDate.Control = this.datStartDate;
-			this.lcItemStartDate.Location = new System.Drawing.Point(0, 40);
-			this.lcItemStartDate.Name = "lcItemStartDate";
-			this.lcItemStartDate.Size = new System.Drawing.Size(216, 41);
-			this.lcItemStartDate.TextLocation = DevExpress.Utils.Locations.Top;
-			this.lcItemStartDate.TextSize = new System.Drawing.Size(87, 14);
+			this.lcItemStore.Control = this.lupStoreID;
+			this.lcItemStore.Location = new System.Drawing.Point(0, 40);
+			this.lcItemStore.Name = "lcItemStore";
+			this.lcItemStore.Size = new System.Drawing.Size(216, 41);
+			this.lcItemStore.TextLocation = DevExpress.Utils.Locations.Top;
+			this.lcItemStore.TextSize = new System.Drawing.Size(87, 14);
 			// 
-			// datEndDate
+			// lupMemberID
 			// 
-			this.datEndDate.EditValue = null;
-			this.datEndDate.Location = new System.Drawing.Point(31, 108);
-			this.datEndDate.Name = "datEndDate";
-			this.datEndDate.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-			this.datEndDate.Properties.CalendarTimeProperties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-			this.datEndDate.Size = new System.Drawing.Size(212, 20);
-			this.datEndDate.StyleController = this.lc;
-			this.datEndDate.TabIndex = 34;
+			this.lupMemberID.DisplayMember = "";
+			this.lupMemberID.GroupCode = null;
+			this.lupMemberID.ListMember = "ListName";
+			this.lupMemberID.Location = new System.Drawing.Point(31, 149);
+			this.lupMemberID.Name = "lupMemberID";
+			this.lupMemberID.NullText = "[EditValue is null]";
+			this.lupMemberID.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo),
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions2, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
+			this.lupMemberID.SelectedIndex = -1;
+			this.lupMemberID.Size = new System.Drawing.Size(212, 20);
+			this.lupMemberID.StyleController = this.lc;
+			this.lupMemberID.TabIndex = 36;
+			this.lupMemberID.ValueMember = "";
 			// 
-			// lcItemEndDate
+			// lcItemMember
 			// 
-			this.lcItemEndDate.Control = this.datEndDate;
-			this.lcItemEndDate.Location = new System.Drawing.Point(0, 81);
-			this.lcItemEndDate.Name = "lcItemEndDate";
-			this.lcItemEndDate.Size = new System.Drawing.Size(216, 41);
-			this.lcItemEndDate.TextLocation = DevExpress.Utils.Locations.Top;
-			this.lcItemEndDate.TextSize = new System.Drawing.Size(87, 14);
+			this.lcItemMember.Control = this.lupMemberID;
+			this.lcItemMember.Location = new System.Drawing.Point(0, 122);
+			this.lcItemMember.Name = "lcItemMember";
+			this.lcItemMember.Size = new System.Drawing.Size(216, 41);
+			this.lcItemMember.TextLocation = DevExpress.Utils.Locations.Top;
+			this.lcItemMember.TextSize = new System.Drawing.Size(87, 14);
+			// 
+			// lupStatus
+			// 
+			this.lupStatus.DisplayMember = "";
+			this.lupStatus.GroupCode = null;
+			this.lupStatus.ListMember = "ListName";
+			this.lupStatus.Location = new System.Drawing.Point(31, 313);
+			this.lupStatus.Name = "lupStatus";
+			this.lupStatus.NullText = "[EditValue is null]";
+			this.lupStatus.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo),
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
+			this.lupStatus.SelectedIndex = -1;
+			this.lupStatus.Size = new System.Drawing.Size(212, 20);
+			this.lupStatus.StyleController = this.lc;
+			this.lupStatus.TabIndex = 37;
+			this.lupStatus.ValueMember = "";
+			// 
+			// lcItemStatus
+			// 
+			this.lcItemStatus.Control = this.lupStatus;
+			this.lcItemStatus.Location = new System.Drawing.Point(0, 286);
+			this.lcItemStatus.Name = "lcItemStatus";
+			this.lcItemStatus.Size = new System.Drawing.Size(216, 41);
+			this.lcItemStatus.TextLocation = DevExpress.Utils.Locations.Top;
+			this.lcItemStatus.TextSize = new System.Drawing.Size(87, 14);
 			// 
 			// OrderListForm
 			// 
@@ -322,23 +421,29 @@
 			this.lc.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupBase)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupSearch)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemChannel)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lupChannelID.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.esSearchTitle)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemFindText)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.txtFindText.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemStartDate)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.datStartDate.Properties.CalendarTimeProperties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.datStartDate.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemEndDate)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.datEndDate.Properties.CalendarTimeProperties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.datEndDate.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemChannel)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lupChannelID.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemBrand)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lupBrandID.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcTabList)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupLists)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.datStartDate.Properties.CalendarTimeProperties)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.datStartDate.Properties)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemStartDate)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.datEndDate.Properties.CalendarTimeProperties)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.datEndDate.Properties)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemEndDate)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lupStoreID.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemStore)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lupMemberID.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemMember)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lupStatus.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemStatus)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -362,5 +467,11 @@
 		private DevExpress.XtraEditors.DateEdit datStartDate;
 		private DevExpress.XtraLayout.LayoutControlItem lcItemStartDate;
 		private DevExpress.XtraLayout.LayoutControlItem lcItemEndDate;
+		private Core.Controls.Common.XLookup lupStoreID;
+		private DevExpress.XtraLayout.LayoutControlItem lcItemStore;
+		private Core.Controls.Common.XLookup lupMemberID;
+		private DevExpress.XtraLayout.LayoutControlItem lcItemMember;
+		private Core.Controls.Common.XLookup lupStatus;
+		private DevExpress.XtraLayout.LayoutControlItem lcItemStatus;
 	}
 }

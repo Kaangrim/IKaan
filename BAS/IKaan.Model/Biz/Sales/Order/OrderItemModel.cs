@@ -3,14 +3,14 @@ using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using IKaan.Model.Common.Base;
 
-namespace IKaan.Model.Biz.Sales
+namespace IKaan.Model.Biz.Sales.Order
 {
 	[DataContract]
 	public class OrderItemModel : ModelBase
 	{
 		[DataMember]
 		[Display(Name = "주문ID")]
-		public int OrderID { get; set; }
+		public int? OrderID { get; set; }
 
 		[DataMember]
 		[Display(Name = "상품ID")]
@@ -79,5 +79,17 @@ namespace IKaan.Model.Biz.Sales
 		[DataMember]
 		[Display(Name = "채널주문순번")]
 		public string ChannelOrderSeq { get; set; }
+
+		[DataMember]
+		[Display(Name = "통화구분")]
+		public string Currency { get; set; }
+
+		[DataMember]
+		[Display(Name = "로컬판매가")]
+		public decimal LocalSalePrice { get; set; }
+
+		[DataMember]
+		[Display(Name = "출고수량")]
+		public int ShippedQty { get; set; }
 	}
 }

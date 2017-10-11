@@ -150,6 +150,7 @@ namespace IKaan.Win.View.Scrap.Common
 			gridOptions.Init();
 			gridOptions.AddGridColumns(
 				new XGridColumn() { FieldName = "RowNo" },
+				new XGridColumn() { FieldName = "Checked" },
 				new XGridColumn() { FieldName = "ID", Visible = false },
 				new XGridColumn() { FieldName = "Name", CaptionCode = "OptionName", Width = 200 },
 				new XGridColumn() { FieldName = "Option1Type", Width = 100 },
@@ -164,6 +165,9 @@ namespace IKaan.Win.View.Scrap.Common
 				new XGridColumn() { FieldName = "UpdatedByName" }
 			);
 			gridOptions.ColumnFix("RowNo");
+			gridOptions.ColumnFix("Checked");
+			gridOptions.SetRepositoryItemCheckEdit("Checked");
+			gridOptions.SetEditable("Checked");
 
 			gridOptions.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
 			{
@@ -327,12 +331,19 @@ namespace IKaan.Win.View.Scrap.Common
 			}
 			else if (lcTabList.SelectedTabPage.Name == lcGroupOption.Name)
 			{
+				object param = null;
+				var list = gridOptions.GetFilteredData<ScrapOptionModel>().Where(x => x.Checked == "Y").ToList();
+				if (list != null && list.Count > 0)
+					param = list;
+				else
+					param = data;
+
 				using (var form = new ScrapOptionEditForm())
 				{
 					form.Text = "옵션정보수정";
 					form.StartPosition = FormStartPosition.CenterScreen;
 					form.IsLoadingRefresh = true;
-					form.ParamsData = data;
+					form.ParamsData = param;
 
 					if (form.ShowDialog() == DialogResult.OK)
 						DataLoad();

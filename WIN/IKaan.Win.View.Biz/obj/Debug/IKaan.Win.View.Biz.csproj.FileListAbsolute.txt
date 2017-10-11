@@ -467,3 +467,5 @@ D:\Repositories\IKaan\WIN\IKaan.Win.View.Biz\obj\Debug\IKaan.Win.View.Biz.Sales.
 D:\Repositories\IKaan\WIN\IKaan.Win.View.Biz\obj\Debug\IKaan.Win.View.Biz.Sales.Analysis.OrderSumBrandEditForm.resources
 D:\Repositories\IKaan\WIN\IKaan.Win.View.Biz\obj\Debug\IKaan.Win.View.Biz.Sales.Analysis.OrderSumChannelEditForm.resources
 D:\Repositories\IKaan\WIN\IKaan.Win.View.Biz\obj\Debug\IKaan.Win.View.Biz.Sales.Analysis.OrderSumListForm.resources
+D:\Repositories\IKaan\WIN\IKaan.Win.View.Biz\obj\Debug\IKaan.Win.View.Biz.Sales.Order.OrderNoteEditForm.resources
+D:\Repositories\IKaan\WIN\IKaan.Win.View.Biz\obj\Debug\IKaan.Win.View.Biz.Sales.Shipment.ShipmentListForm.resources

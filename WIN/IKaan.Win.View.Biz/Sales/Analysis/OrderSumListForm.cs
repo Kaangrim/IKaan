@@ -4,7 +4,7 @@ using DevExpress.Data;
 using DevExpress.Utils;
 using DevExpress.XtraPivotGrid;
 using IKaan.Base.Map;
-using IKaan.Model.Biz.Sales;
+using IKaan.Model.Biz.Sales.Analysis;
 using IKaan.Win.Core.Controls.Grid;
 using IKaan.Win.Core.Forms;
 using IKaan.Win.Core.Model;

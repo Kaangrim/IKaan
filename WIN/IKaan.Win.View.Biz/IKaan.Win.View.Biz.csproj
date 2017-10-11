@@ -219,6 +219,12 @@
     <Compile Include="Master\Address\AddressEditForm.designer.cs">
       <DependentUpon>AddressEditForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Sales\Order\OrderNoteEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Sales\Order\OrderNoteEditForm.designer.cs">
+      <DependentUpon>OrderNoteEditForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Sales\Order\OrderEditForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -230,6 +236,12 @@
     </Compile>
     <Compile Include="Sales\Order\OrderListForm.designer.cs">
       <DependentUpon>OrderListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Sales\Shipment\ShipmentListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Sales\Shipment\ShipmentListForm.designer.cs">
+      <DependentUpon>ShipmentListForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Search\SearchBrandActivityEditForm.cs">
       <SubType>Form</SubType>
@@ -320,7 +332,6 @@
   <ItemGroup>
     <Folder Include="Master\Manufacturer\" />
     <Folder Include="Sales\Account\" />
-    <Folder Include="Sales\Shipment\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Master\Address\AddressListForm.resx">
@@ -407,11 +418,17 @@
     <EmbeddedResource Include="Master\Address\AddressEditForm.resx">
       <DependentUpon>AddressEditForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Sales\Order\OrderNoteEditForm.resx">
+      <DependentUpon>OrderNoteEditForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Sales\Order\OrderEditForm.resx">
       <DependentUpon>OrderEditForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Sales\Order\OrderListForm.resx">
       <DependentUpon>OrderListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Sales\Shipment\ShipmentListForm.resx">
+      <DependentUpon>ShipmentListForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Search\SearchBrandActivityEditForm.resx">
       <DependentUpon>SearchBrandActivityEditForm.cs</DependentUpon>

@@ -1,0 +1,191 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectShipmentList" parameterClass="DataMap" resultClass="ShipmentModel" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY SS.Name, CC.Name, AA.OrderDate, AA.OrderNo)	as RowNo
+					,	AA.ID
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
+					
+					,	AA.StoreID
+					,	SS.Name			as StoreName
+					,	AA.ChannelID
+					,	CC.Name			as ChannelName
+					,	AA.MemberID
+					,	MM.Name			as MemberName
+					,	AA.TotalOrderQty
+					,	AA.TotalOrderAmt
+					,	AA.TotalDiscountAmt
+					,	AA.TotalCouponAmt
+					,	AA.TotalDeliveryFee
+					,	AA.TotalSupplyAmt
+					,	AA.Status
+					,	M1.Name				as StatusName
+					,	AA.Description
+					
+					,	BB.ID				as OrderItemID
+					,	BB.ProductID
+					,	BB.ProductName
+					,	BB.ProductCode
+					,	BB.Option1
+					,	BB.Option2
+					,	BB.Bundle
+					,	BB.OrderQty
+					,	BB.SalePrice
+					,	BB.OrderAmt
+					,	BB.DiscountAmt
+					,	BB.CouponAmt
+					,	BB.DeliveryFee
+					,	BB.SupplyPrice
+					,	BB.SupplyAmt
+					,	BB.CancelYn
+					,	BB.CancelDate
+					,	BB.Currency
+					,	BB.LocalSalePrice
+					
+					,	PP.BrandID
+					,	BR.Name		as BrandName
+					
+				FROM	dbo.TOrder AA WITH (NOLOCK)
+						INNER JOIN
+							dbo.TOrderItem BB WITH (NOLOCK)
+								ON AA.ID = BB.OrderID
+						LEFT JOIN
+							dbo.TStore SS WITH (NOLOCK)
+								ON AA.StoreID = SS.ID
+						LEFT JOIN
+							dbo.TChannel CC WITH (NOLOCK)
+								ON AA.ChannelID = CC.ID
+						LEFT JOIN
+							dbo.TMember MM WITH  (NOLOCK)
+								ON AA.MemberID = MM.ID
+						LEFT JOIN
+							dbo.TProduct PP WITH (NOLOCK)
+								ON BB.ProductID = PP.ID
+						LEFT JOIN
+							dbo.TBrand BR WITH (NOLOCK)
+								ON PP.BrandID = BR.ID
+						LEFT JOIN
+							IKBase.dbo.TCode M1 WITH (NOLOCK)
+								ON AA.Status = M1.Code
+									AND M1.ParentCode = 'OrderStatus'
+				WHERE	AA.OrderDate >= #StartDate#
+				AND		AA.OrderDate <= #EndDate#
+			]]>
+			<isNotEmpty property="StoreID">
+				<![CDATA[
+					AND	AA.StoreID = #StoreID#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="ChannelID">
+				<![CDATA[
+					AND	AA.ChannelID = #ChannelID#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="MemberID">
+				<![CDATA[
+					AND	AA.MemberID = #MemberID#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="Status">
+				<![CDATA[
+					AND	AA.Status = #Status#
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectOrder" parameterClass="DataMap" resultClass="ShipmentModel" >
+			<![CDATA[
+				SELECT  AA.*					
+					,	MM.Name				as MemberName
+					,	CC.Name				as ChannelName
+					
+				FROM	dbo.TOrder AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.TChannel CC WITH (NOLOCK)
+								ON AA.ChannelID = CC.ID
+						LEFT JOIN
+							dbo.TMember MM WITH (NOLOCK)
+								ON AA.MemberID = MM.ID
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<insert id="InsertOrder" parameterClass="ShipmentModel" >
+			<![CDATA[
+				INSERT INTO dbo.TOrder
+				( 
+					CreatedOn, CreatedBy, CreatedByName,
+					OrderDate, OrderNo,
+					StoreID, ChannelID, MemberID,
+					BillingAddressID, ShippingAddressID,
+					TotalOrderQty, TotalOrderAmt, TotalDiscountAmt, TotalCouponAmt, TotalDeliveryFee, TotalSupplyAmt,
+					Description, Status
+				)
+				VALUES
+				(
+					GetDate(), #CreatedBy#, #CreatedByName#,
+					#OrderDate#, #OrderNo#,
+					#StoreID#, #ChannelID#, #MemberID#,
+					#BillingAddressID#, #ShippingAddressID#,
+					#TotalOrderQty#, #TotalOrderAmt#, #TotalDiscountAmt#, #TotalCouponAmt#, #TotalDeliveryFee#, #TotalSupplyAmt#,
+					#Description#, #Status#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateTOrder" parameterClass="ShipmentModel">
+			<![CDATA[
+				UPDATE  dbo.TOrder
+				SET     UpdatedOn			= GetDate()
+					,	UpdatedBy			= #UpdatedBy#
+					,	UpdatedByName		= #UpdatedByName#
+					
+					,	OrderDate			= #OrderDate#
+					,	OrderNo				= #OrderNo#
+					,	StoreId				= #StoreId#
+					,	ChannelID			= #ChannelID#
+					,	MemberID			= #MemberID#
+					,	BillingAddressID	= #BillingAddressID#
+					,	ShippingAddressID	= #ShippingAddressID#
+					,	TotalOrderQty		= #TotalOrderQty#
+					,	TotalOrderAmt		= #TotalOrderAmt#
+					,	TotalDiscountAmt	= #TotalDiscountAmt#
+					,	TotalCouponAmt		= #TotalCouponAmt#
+					,	TotalDeliveryFee	= #TotalDeliveryFee#
+					,	TotalSupplyAmt		= #TotalSupplyAmt#
+					,	Description			= #Description#
+					,	Status				= #Status#
+				WHERE	ID = #ID#
+			]]>
+		</update>
+		<delete id="DeleteOrder" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM	dbo.TOrder WHERE ID = #ID#;
+			]]>
+		</delete>
+		<select id="SelectOrderExists" parameterClass="DataMap" resultClass="ShipmentModel" >
+			<![CDATA[
+				SELECT  AA.*					
+				FROM	dbo.TOrder AA WITH (NOLOCK)
+				WHERE	AA.StoreID	= #StoreID#
+				AND		AA.ChannelID= #ChannelID#
+				AND		AA.OrderNo	= #OrderNo#
+			]]>
+		</select>
+	</statements>
+</sqlMap>

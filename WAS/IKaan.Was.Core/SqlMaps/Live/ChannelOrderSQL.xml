@@ -47,8 +47,8 @@
 					,	AA.GiftName
 					,	AA.FileUploadID
 					
-					,	CC.ChannelName
-					,	BB.BrandName
+					,	CC.Name				as ChannelName
+					,	BB.Name				as BrandName
 										
 				FROM	dbo.TChannelOrder AA WITH (NOLOCK)
 						LEFT JOIN

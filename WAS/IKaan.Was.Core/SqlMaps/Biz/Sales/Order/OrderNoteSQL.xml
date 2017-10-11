@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectOrderNoteList" parameterClass="DataMap" resultClass="OrderNoteModel" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID)	as RowNo
+					,	AA.ID
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
+					
+					,	AA.OrderID
+					,	AA.Note
+					,	AA.DisplayToCustomerYn
+					
+				FROM	dbo.TOrderNote AA WITH (NOLOCK)
+				WHERE	AA.OrderID = #OrderID#
+				OrderNote BY RowNo
+			]]>
+		</select>
+		<select id="SelectOrderNote" parameterClass="DataMap" resultClass="OrderNoteModel" >
+			<![CDATA[
+				SELECT  AA.*					
+				FROM	dbo.TOrderNote AA WITH (NOLOCK)
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<insert id="InsertOrderNote" parameterClass="OrderNoteModel" >
+			<![CDATA[
+				INSERT INTO dbo.TOrderNote
+				( 
+					CreatedOn, CreatedBy, CreatedByName,
+					OrderID, Note, DisplayToCustomerYn
+				)
+				VALUES
+				(
+					GetDate(), #CreatedBy#, #CreatedByName#,
+					#OrderID#, #Note#, #DisplayToCustomerYn#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateTOrderNote" parameterClass="OrderNoteModel">
+			<![CDATA[
+				UPDATE  dbo.TOrderNote
+				SET     UpdatedOn			= GetDate()
+					,	UpdatedBy			= #UpdatedBy#
+					,	UpdatedByName		= #UpdatedByName#
+					
+					,	OrderID				= #OrderID#
+					,	Note				= #Note#
+					,	DisplayToCustomerYn	= #DisplayToCustomerYn#
+				WHERE	ID = #ID#
+			]]>
+		</update>
+		<delete id="DeleteOrderNote" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM	dbo.TOrderNote WHERE ID = #ID#;
+			]]>
+		</delete>
+		<delete id="DeleteOrderNoteByOrderID" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM	dbo.TOrderNote WHERE OrderID = #OrderID#;
+			]]>
+		</delete>
+	</statements>
+</sqlMap>

@@ -3,7 +3,7 @@ using System.Windows.Forms;
 using DevExpress.Utils;
 using DevExpress.XtraGrid.Views.Grid;
 using IKaan.Base.Map;
-using IKaan.Model.Biz.Master.Common;
+using IKaan.Model.Biz.Sales.Order;
 using IKaan.Win.Core.Controls.Grid;
 using IKaan.Win.Core.Forms;
 using IKaan.Win.Core.Model;
@@ -37,8 +37,12 @@ namespace IKaan.Win.View.Biz.Sales.Order
 
 			datStartDate.Init(Core.Enum.CalendarViewType.DayView);
 			datEndDate.Init(Core.Enum.CalendarViewType.DayView);
+
+			lupStoreID.BindData("StoreList", "All");
 			lupBrandID.BindData("BrandList", "All");
 			lupChannelID.BindData("ChannelList", "All");
+			lupMemberID.BindData("MemberList", "All");
+			lupStatus.BindData("OrderStatus", "All");
 
 			InitGrid();
 		}
@@ -48,18 +52,51 @@ namespace IKaan.Win.View.Biz.Sales.Order
 			gridList.Init();
 			gridList.AddGridColumns(
 				new XGridColumn() { FieldName = "RowNo" },
+				new XGridColumn() { FieldName = "Checked" },
 				new XGridColumn() { FieldName = "ID", Visible = false },
-				new XGridColumn() { FieldName = "Name", CaptionCode = "StoreName", Width = 200 },
-				new XGridColumn() { FieldName = "StoreTypeName", Width = 150 },
-				new XGridColumn() { FieldName = "UseYn", Width = 80, HorzAlignment = HorzAlignment.Center },
+				new XGridColumn() { FieldName = "OrderDate", Width = 100, HorzAlignment = HorzAlignment.Center },
+				new XGridColumn() { FieldName = "OrderNo", Width = 100 },
+				new XGridColumn() { FieldName = "StoreID", Visible = false },
+				new XGridColumn() { FieldName = "StoreName", Width = 150 },
+				new XGridColumn() { FieldName = "ChannelID", Visible = false },
+				new XGridColumn() { FieldName = "ChannelName", Width = 150 },
+				new XGridColumn() { FieldName = "MemberID", Visible = false },
+				new XGridColumn() { FieldName = "MemberName", Width = 150 },
+				new XGridColumn() { FieldName = "Status", Visible = false },
+				new XGridColumn() { FieldName = "StatusName", Width = 80, HorzAlignment = HorzAlignment.Center },
 				new XGridColumn() { FieldName = "Description", Width = 300 },
+				new XGridColumn() { FieldName = "OrderItemID", Visible = false },
+				new XGridColumn() { FieldName = "OrderID", Visible = false },
+				new XGridColumn() { FieldName = "ProductID", Visible = false },
+				new XGridColumn() { FieldName = "ProductName", Width = 300 },
+				new XGridColumn() { FieldName = "ProductCode", Width = 100 },
+				new XGridColumn() { FieldName = "Option1", Width = 100 },
+				new XGridColumn() { FieldName = "Option2", Width = 100 },
+				new XGridColumn() { FieldName = "Bundle", Width = 200 },
+				new XGridColumn() { FieldName = "SalePrice", Width = 80, HorzAlignment = HorzAlignment.Far, FormatType = FormatType.Numeric, FormatString = "N0" },
+				new XGridColumn() { FieldName = "OrderQty", Width = 80, HorzAlignment = HorzAlignment.Far, FormatType = FormatType.Numeric, FormatString = "N0", SummaryItemType = DevExpress.Data.SummaryItemType.Sum, IsSummary = true },	
+				new XGridColumn() { FieldName = "OrderAmt", Width = 100, HorzAlignment = HorzAlignment.Far, FormatType = FormatType.Numeric, FormatString = "N0", SummaryItemType = DevExpress.Data.SummaryItemType.Sum, IsSummary = true },
+				new XGridColumn() { FieldName = "DiscountAmt", Width = 100, HorzAlignment = HorzAlignment.Far, FormatType = FormatType.Numeric, FormatString = "N0", SummaryItemType = DevExpress.Data.SummaryItemType.Sum, IsSummary = true },
+				new XGridColumn() { FieldName = "CouponAmt", Width = 100, HorzAlignment = HorzAlignment.Far, FormatType = FormatType.Numeric, FormatString = "N0", SummaryItemType = DevExpress.Data.SummaryItemType.Sum, IsSummary = true },
+				new XGridColumn() { FieldName = "DeliveryFee", Width = 100, HorzAlignment = HorzAlignment.Far, FormatType = FormatType.Numeric, FormatString = "N0", SummaryItemType = DevExpress.Data.SummaryItemType.Sum, IsSummary = true },
+				new XGridColumn() { FieldName = "SupplyPrice", Width = 80, HorzAlignment = HorzAlignment.Far, FormatType = FormatType.Numeric, FormatString = "N0" },
+				new XGridColumn() { FieldName = "SupplyAmt", Width = 100, HorzAlignment = HorzAlignment.Far, FormatType = FormatType.Numeric, FormatString = "N0", SummaryItemType = DevExpress.Data.SummaryItemType.Sum, IsSummary = true },
+				new XGridColumn() { FieldName = "ShippedQty", Width = 80, HorzAlignment = HorzAlignment.Far, FormatType = FormatType.Numeric, FormatString = "N0", SummaryItemType = DevExpress.Data.SummaryItemType.Sum, IsSummary = true },
+				new XGridColumn() { FieldName = "CancelYn", Width = 60, HorzAlignment = HorzAlignment.Center },
+				new XGridColumn() { FieldName = "CancelDate", Width = 100, HorzAlignment = HorzAlignment.Center },
+				new XGridColumn() { FieldName = "ChannelOrderSeq", Width = 80 },
+				new XGridColumn() { FieldName = "Currency", Width = 80, HorzAlignment = HorzAlignment.Center },
+				new XGridColumn() { FieldName = "LocalSalePrice", Width = 80, HorzAlignment = HorzAlignment.Far, FormatType = FormatType.Numeric, FormatString = "N0" },
 				new XGridColumn() { FieldName = "CreatedOn" },
 				new XGridColumn() { FieldName = "CreatedByName" },
 				new XGridColumn() { FieldName = "UpdatedOn" },
 				new XGridColumn() { FieldName = "UpdatedByName" }
 			);
-			gridList.SetRepositoryItemCheckEdit("UseYn");
 			gridList.ColumnFix("RowNo");
+			gridList.ColumnFix("Checked");
+			gridList.SetRepositoryItemCheckEdit("Checked");
+			gridList.SetVisible(false, "TotalOrderQty", "TotalOrderAmt", "TotalDiscountAmt", "TotalCouponAmt", "TotalDeliveryFee", "TotalSupplyAmt");
+			gridList.SetMerge("OrderDate", "OrderNo", "StoreID", "StoreName", "ChannelID", "ChannelName", "MemberID", "MemberName", "Descriptoiin");
 
 			gridList.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
 			{
@@ -83,11 +120,16 @@ namespace IKaan.Win.View.Biz.Sales.Order
 
 		protected override void DataLoad(object param = null)
 		{
-			gridList.BindList<StoreModel>("Biz", "GetList", "Select", new DataMap()
+			gridList.BindList<OrderModel>("Biz", "GetList", "Select", new DataMap()
 			{
-				{ "StoreType", lupBrandID.EditValue },
+				{ "StoreID", lupStoreID.EditValue },
+				{ "BrandID", lupBrandID.EditValue },
+				{ "ChannelID", lupChannelID.EditValue },
+				{ "MemberID", lupMemberID.EditValue },
+				{ "StartDate", datStartDate.EditValue },
+				{ "EndDate", datEndDate.EditValue },
 				{ "FindText", txtFindText.EditValue },
-				{ "UseYn", lupChannelID.EditValue }
+				{ "Status", lupStatus.EditValue }
 			});
 		}
 
@@ -100,7 +142,7 @@ namespace IKaan.Win.View.Biz.Sales.Order
 		{
 			using(var form = new OrderEditForm())
 			{
-				form.Text = "주문수정";
+				form.Text = "주문조회 및 수정";
 				form.StartPosition = FormStartPosition.CenterScreen;
 				form.IsLoadingRefresh = true;
 				form.ParamsData = data;

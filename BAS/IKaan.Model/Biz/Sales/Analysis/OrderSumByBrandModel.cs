@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using IKaan.Model.Common.Base;
 
-namespace IKaan.Model.Biz.Sales
+namespace IKaan.Model.Biz.Sales.Analysis
 {
 	[DataContract]
 	public class OrderSumByBrandModel : ModelBase

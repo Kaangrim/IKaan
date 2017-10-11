@@ -31,7 +31,6 @@
 			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions3 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
 			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions2 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
 			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions1 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChannelOrderListForm));
 			this.lcGroupSearch = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.lcItemOrderDate = new DevExpress.XtraLayout.LayoutControlItem();
 			this.datOrderDate = new DevExpress.XtraEditors.DateEdit();
@@ -70,8 +69,8 @@
 			this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
 			this.gridReturn = new IKaan.Win.Core.Controls.Grid.XGrid();
 			this.lcGroupAccount = new DevExpress.XtraLayout.LayoutControlGroup();
-			this.gridAccount = new IKaan.Win.Core.Controls.Grid.XGrid();
 			this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
+			this.gridAccount = new IKaan.Win.Core.Controls.Grid.XGrid();
 			((System.ComponentModel.ISupportInitialize)(this.lc)).BeginInit();
 			this.lc.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupBase)).BeginInit();
@@ -147,13 +146,13 @@
 			// 
 			this.lcGroupSearch.ExpandButtonVisible = true;
 			this.lcGroupSearch.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
-            this.lcItemOrderDate,
             this.lcItemChannel,
             this.esSearchTitle,
             this.emptySpaceItem1,
             this.lcItemStartLine,
             this.lcItemFileRows,
-            this.lcItemBrand});
+            this.lcItemBrand,
+            this.lcItemOrderDate});
 			this.lcGroupSearch.Location = new System.Drawing.Point(0, 0);
 			this.lcGroupSearch.Name = "lcGroupSearch";
 			this.lcGroupSearch.Padding = new DevExpress.XtraLayout.Utils.Padding(4, 4, 4, 4);
@@ -164,7 +163,7 @@
 			// lcItemOrderDate
 			// 
 			this.lcItemOrderDate.Control = this.datOrderDate;
-			this.lcItemOrderDate.Location = new System.Drawing.Point(0, 81);
+			this.lcItemOrderDate.Location = new System.Drawing.Point(0, 40);
 			this.lcItemOrderDate.Name = "lcItemOrderDate";
 			this.lcItemOrderDate.Size = new System.Drawing.Size(236, 41);
 			this.lcItemOrderDate.TextLocation = DevExpress.Utils.Locations.Top;
@@ -173,7 +172,7 @@
 			// datOrderDate
 			// 
 			this.datOrderDate.EditValue = null;
-			this.datOrderDate.Location = new System.Drawing.Point(31, 108);
+			this.datOrderDate.Location = new System.Drawing.Point(31, 67);
 			this.datOrderDate.Name = "datOrderDate";
 			this.datOrderDate.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -186,7 +185,7 @@
 			// lcItemChannel
 			// 
 			this.lcItemChannel.Control = this.lupChannelID;
-			this.lcItemChannel.Location = new System.Drawing.Point(0, 40);
+			this.lcItemChannel.Location = new System.Drawing.Point(0, 81);
 			this.lcItemChannel.Name = "lcItemChannel";
 			this.lcItemChannel.Size = new System.Drawing.Size(236, 41);
 			this.lcItemChannel.TextLocation = DevExpress.Utils.Locations.Top;
@@ -197,7 +196,7 @@
 			this.lupChannelID.DisplayMember = "";
 			this.lupChannelID.GroupCode = null;
 			this.lupChannelID.ListMember = "ListName";
-			this.lupChannelID.Location = new System.Drawing.Point(31, 67);
+			this.lupChannelID.Location = new System.Drawing.Point(31, 108);
 			this.lupChannelID.Name = "lupChannelID";
 			this.lupChannelID.NullText = "[EditValue is null]";
 			this.lupChannelID.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
@@ -346,7 +345,7 @@
 			this.gridOrders.Editable = true;
 			this.gridOrders.FocusedRowHandle = -2147483648;
 			this.gridOrders.GridViewType = IKaan.Win.Core.Controls.Grid.GridViewType.GridView;
-			this.gridOrders.Location = new System.Drawing.Point(279, 75);
+			this.gridOrders.Location = new System.Drawing.Point(279, 73);
 			this.gridOrders.Name = "gridOrders";
 			this.gridOrders.PageFooterCenter = null;
 			this.gridOrders.PageFooterLeft = null;
@@ -360,7 +359,7 @@
 			this.gridOrders.ReadOnly = false;
 			this.gridOrders.ShowFooter = false;
 			this.gridOrders.ShowGroupPanel = false;
-			this.gridOrders.Size = new System.Drawing.Size(810, 468);
+			this.gridOrders.Size = new System.Drawing.Size(810, 470);
 			this.gridOrders.TabIndex = 20;
 			// 
 			// emptySpaceItem2
@@ -494,13 +493,12 @@
 			// 
 			// lcGroupOrder
 			// 
-			this.lcGroupOrder.CaptionImage = ((System.Drawing.Image)(resources.GetObject("lcGroupOrder.CaptionImage")));
 			this.lcGroupOrder.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.lcGridList});
 			this.lcGroupOrder.Location = new System.Drawing.Point(0, 0);
 			this.lcGroupOrder.Name = "lcGroupOrder";
 			this.lcGroupOrder.Padding = new DevExpress.XtraLayout.Utils.Padding(4, 4, 4, 4);
-			this.lcGroupOrder.Size = new System.Drawing.Size(814, 472);
+			this.lcGroupOrder.Size = new System.Drawing.Size(814, 474);
 			this.lcGroupOrder.Text = "주문";
 			// 
 			// lcGridList
@@ -508,18 +506,17 @@
 			this.lcGridList.Control = this.gridOrders;
 			this.lcGridList.Location = new System.Drawing.Point(0, 0);
 			this.lcGridList.Name = "lcGridList";
-			this.lcGridList.Size = new System.Drawing.Size(814, 472);
+			this.lcGridList.Size = new System.Drawing.Size(814, 474);
 			this.lcGridList.TextSize = new System.Drawing.Size(0, 0);
 			this.lcGridList.TextVisible = false;
 			// 
 			// lcGroupCancel
 			// 
-			this.lcGroupCancel.CaptionImage = ((System.Drawing.Image)(resources.GetObject("lcGroupCancel.CaptionImage")));
 			this.lcGroupCancel.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem2});
 			this.lcGroupCancel.Location = new System.Drawing.Point(0, 0);
 			this.lcGroupCancel.Name = "lcGroupCancel";
-			this.lcGroupCancel.Size = new System.Drawing.Size(814, 472);
+			this.lcGroupCancel.Size = new System.Drawing.Size(814, 474);
 			this.lcGroupCancel.Text = "취소";
 			// 
 			// layoutControlItem2
@@ -527,7 +524,7 @@
 			this.layoutControlItem2.Control = this.gridCancel;
 			this.layoutControlItem2.Location = new System.Drawing.Point(0, 0);
 			this.layoutControlItem2.Name = "layoutControlItem2";
-			this.layoutControlItem2.Size = new System.Drawing.Size(814, 472);
+			this.layoutControlItem2.Size = new System.Drawing.Size(814, 474);
 			this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
 			this.layoutControlItem2.TextVisible = false;
 			// 
@@ -538,7 +535,7 @@
 			this.gridCancel.Editable = true;
 			this.gridCancel.FocusedRowHandle = -2147483648;
 			this.gridCancel.GridViewType = IKaan.Win.Core.Controls.Grid.GridViewType.GridView;
-			this.gridCancel.Location = new System.Drawing.Point(279, 75);
+			this.gridCancel.Location = new System.Drawing.Point(279, 73);
 			this.gridCancel.Name = "gridCancel";
 			this.gridCancel.PageFooterCenter = null;
 			this.gridCancel.PageFooterLeft = null;
@@ -552,17 +549,16 @@
 			this.gridCancel.ReadOnly = false;
 			this.gridCancel.ShowFooter = false;
 			this.gridCancel.ShowGroupPanel = false;
-			this.gridCancel.Size = new System.Drawing.Size(810, 468);
+			this.gridCancel.Size = new System.Drawing.Size(810, 470);
 			this.gridCancel.TabIndex = 27;
 			// 
 			// lcGroupReturn
 			// 
-			this.lcGroupReturn.CaptionImage = ((System.Drawing.Image)(resources.GetObject("lcGroupReturn.CaptionImage")));
 			this.lcGroupReturn.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem3});
 			this.lcGroupReturn.Location = new System.Drawing.Point(0, 0);
 			this.lcGroupReturn.Name = "lcGroupReturn";
-			this.lcGroupReturn.Size = new System.Drawing.Size(814, 472);
+			this.lcGroupReturn.Size = new System.Drawing.Size(814, 474);
 			this.lcGroupReturn.Text = "반품";
 			// 
 			// layoutControlItem3
@@ -570,7 +566,7 @@
 			this.layoutControlItem3.Control = this.gridReturn;
 			this.layoutControlItem3.Location = new System.Drawing.Point(0, 0);
 			this.layoutControlItem3.Name = "layoutControlItem3";
-			this.layoutControlItem3.Size = new System.Drawing.Size(814, 472);
+			this.layoutControlItem3.Size = new System.Drawing.Size(814, 474);
 			this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
 			this.layoutControlItem3.TextVisible = false;
 			// 
@@ -581,7 +577,7 @@
 			this.gridReturn.Editable = true;
 			this.gridReturn.FocusedRowHandle = -2147483648;
 			this.gridReturn.GridViewType = IKaan.Win.Core.Controls.Grid.GridViewType.GridView;
-			this.gridReturn.Location = new System.Drawing.Point(279, 75);
+			this.gridReturn.Location = new System.Drawing.Point(279, 73);
 			this.gridReturn.Name = "gridReturn";
 			this.gridReturn.PageFooterCenter = null;
 			this.gridReturn.PageFooterLeft = null;
@@ -595,18 +591,26 @@
 			this.gridReturn.ReadOnly = false;
 			this.gridReturn.ShowFooter = false;
 			this.gridReturn.ShowGroupPanel = false;
-			this.gridReturn.Size = new System.Drawing.Size(810, 468);
+			this.gridReturn.Size = new System.Drawing.Size(810, 470);
 			this.gridReturn.TabIndex = 28;
 			// 
 			// lcGroupAccount
 			// 
-			this.lcGroupAccount.CaptionImage = ((System.Drawing.Image)(resources.GetObject("lcGroupAccount.CaptionImage")));
 			this.lcGroupAccount.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem1});
 			this.lcGroupAccount.Location = new System.Drawing.Point(0, 0);
 			this.lcGroupAccount.Name = "lcGroupAccount";
-			this.lcGroupAccount.Size = new System.Drawing.Size(814, 472);
+			this.lcGroupAccount.Size = new System.Drawing.Size(814, 474);
 			this.lcGroupAccount.Text = "정산";
+			// 
+			// layoutControlItem1
+			// 
+			this.layoutControlItem1.Control = this.gridAccount;
+			this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
+			this.layoutControlItem1.Name = "layoutControlItem1";
+			this.layoutControlItem1.Size = new System.Drawing.Size(814, 474);
+			this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
+			this.layoutControlItem1.TextVisible = false;
 			// 
 			// gridAccount
 			// 
@@ -615,7 +619,7 @@
 			this.gridAccount.Editable = true;
 			this.gridAccount.FocusedRowHandle = -2147483648;
 			this.gridAccount.GridViewType = IKaan.Win.Core.Controls.Grid.GridViewType.GridView;
-			this.gridAccount.Location = new System.Drawing.Point(279, 75);
+			this.gridAccount.Location = new System.Drawing.Point(279, 73);
 			this.gridAccount.Name = "gridAccount";
 			this.gridAccount.PageFooterCenter = null;
 			this.gridAccount.PageFooterLeft = null;
@@ -629,17 +633,8 @@
 			this.gridAccount.ReadOnly = false;
 			this.gridAccount.ShowFooter = false;
 			this.gridAccount.ShowGroupPanel = false;
-			this.gridAccount.Size = new System.Drawing.Size(810, 468);
+			this.gridAccount.Size = new System.Drawing.Size(810, 470);
 			this.gridAccount.TabIndex = 33;
-			// 
-			// layoutControlItem1
-			// 
-			this.layoutControlItem1.Control = this.gridAccount;
-			this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
-			this.layoutControlItem1.Name = "layoutControlItem1";
-			this.layoutControlItem1.Size = new System.Drawing.Size(814, 472);
-			this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
-			this.layoutControlItem1.TextVisible = false;
 			// 
 			// ChannelOrderListForm
 			// 

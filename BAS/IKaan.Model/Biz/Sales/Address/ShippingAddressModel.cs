@@ -3,22 +3,14 @@ using System.Runtime.Serialization;
 using IKaan.Model.Biz.Master.Common;
 using IKaan.Model.Common.Base;
 
-namespace IKaan.Model.Biz.Sales
+namespace IKaan.Model.Biz.Sales.Address
 {
 	[DataContract]
 	public class ShippingAddressModel : ModelBase
 	{
 		[DataMember]
-		[Display(Name = "거래처ID")]
-		public int? CustomerID { get; set; }
-
-		[DataMember]
-		[Display(Name = "First Name")]
-		public string FirstName { get; set; }
-
-		[DataMember]
-		[Display(Name = "Last Name")]
-		public string LastName { get; set; }
+		[Display(Name = "Name")]
+		public string Name { get; set; }
 
 		[DataMember]
 		[Display(Name = "이메일")]

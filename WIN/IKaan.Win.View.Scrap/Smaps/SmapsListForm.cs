@@ -42,10 +42,6 @@ namespace IKaan.Win.View.Scrap.Smaps
 						lcItemSmapsStatus.Visibility = LayoutVisibility.Always;
 					lcItemScrapSite.Visibility =
 						lcItemMappingYn.Visibility = LayoutVisibility.Never;
-					btnSend.Enabled =
-						btnReceive.Enabled = true;
-					btnOptionMatching.Enabled = false;
-					btnProductReady.Enabled = false;
 				}
 				else
 				{
@@ -57,10 +53,6 @@ namespace IKaan.Win.View.Scrap.Smaps
 						lcItemSmapsStatus.Visibility = LayoutVisibility.Never;
 					lcItemScrapSite.Visibility =
 						lcItemMappingYn.Visibility = LayoutVisibility.Always;
-					btnSend.Enabled =
-						btnReceive.Enabled = false;
-					btnOptionMatching.Enabled = true;
-					btnProductReady.Enabled = false;
 				}
 				lcGroupSearch.EndUpdate();
 			};
@@ -78,7 +70,6 @@ namespace IKaan.Win.View.Scrap.Smaps
 						lcItemSmapsCategory.Visibility =
 						lcItemSmapsLookbook.Visibility =
 						lcItemSmapsSex.Visibility = LayoutVisibility.Never;
-					btnProductReady.Enabled = false;
 					SetRecords(gridInterfaceAgency.RowCount);
 				}
 				else if (e.Page.Name == lcGroupInterfaceBrand.Name)
@@ -88,7 +79,6 @@ namespace IKaan.Win.View.Scrap.Smaps
 						lcItemSmapsCategory.Visibility =
 						lcItemSmapsLookbook.Visibility =
 						lcItemSmapsSex.Visibility = LayoutVisibility.Never;
-					btnProductReady.Enabled = false;
 					SetRecords(gridInterfaceBrand.RowCount);
 				}
 				else if (e.Page.Name == lcGroupInterfaceCategory.Name)
@@ -98,7 +88,6 @@ namespace IKaan.Win.View.Scrap.Smaps
 						lcItemSmapsCategory.Visibility =
 						lcItemSmapsLookbook.Visibility =
 						lcItemSmapsSex.Visibility = LayoutVisibility.Never;
-					btnProductReady.Enabled = false;
 					SetRecords(gridInterfaceCategory.RowCount);
 				}
 				else if (e.Page.Name == lcGroupInterfaceColor.Name)
@@ -108,7 +97,6 @@ namespace IKaan.Win.View.Scrap.Smaps
 						lcItemSmapsCategory.Visibility =
 						lcItemSmapsLookbook.Visibility =
 						lcItemSmapsSex.Visibility = LayoutVisibility.Never;
-					btnProductReady.Enabled = false;
 					SetRecords(gridInterfaceColor.RowCount);
 				}
 				else if (e.Page.Name == lcGroupInterfaceLookbook.Name)
@@ -118,7 +106,6 @@ namespace IKaan.Win.View.Scrap.Smaps
 					lcItemSmapsCategory.Visibility =
 						lcItemSmapsLookbook.Visibility =
 						lcItemSmapsSex.Visibility = LayoutVisibility.Never;
-					btnProductReady.Enabled = false;
 					SetRecords(gridInterfaceLookbook.RowCount);
 				}
 				else if (e.Page.Name == lcGroupInterfaceProduct.Name)
@@ -129,7 +116,6 @@ namespace IKaan.Win.View.Scrap.Smaps
 						lcItemSmapsLookbook.Visibility =
 						lcItemSmapsSex.Visibility = LayoutVisibility.Always;
 					lcItemScrapSite.Visibility = LayoutVisibility.Always;
-					btnProductReady.Enabled = true;
 					SetRecords(gridInterfaceProduct.RowCount);
 				}
 				else if (e.Page.Name == lcGroupInterfaceSize.Name)
@@ -139,7 +125,6 @@ namespace IKaan.Win.View.Scrap.Smaps
 					lcItemSmapsAgency.Visibility =
 						lcItemSmapsBrand.Visibility =
 						lcItemSmapsLookbook.Visibility = LayoutVisibility.Never;
-					btnProductReady.Enabled = false;
 					SetRecords(gridInterfaceSize.RowCount);
 				}
 				else if (e.Page.Name == lcGroupInterfaceUser.Name)
@@ -149,7 +134,6 @@ namespace IKaan.Win.View.Scrap.Smaps
 						lcItemSmapsLookbook.Visibility =
 						lcItemSmapsCategory.Visibility =
 						lcItemSmapsSex.Visibility = LayoutVisibility.Never;
-					btnProductReady.Enabled = false;
 					SetRecords(gridInterfaceUser.RowCount);
 				}
 				lcGroupSearch.EndUpdate();
@@ -251,6 +235,33 @@ namespace IKaan.Win.View.Scrap.Smaps
 			};
 			btnOptionMatching.Click += (object sender, EventArgs e) => { OptionMatching(); };
 			btnProductReady.Click += (object sender, EventArgs e) => { ProductReady(); };
+			btnCopy.Click += (object sender, EventArgs e) =>
+			{
+				try
+				{
+					if (lcTab.SelectedTabPage.Name != lcTabGroupMapping.Name)
+						return;
+					if (lcTabMapping.SelectedTabPage.Name != lcGroupMappingCategory.Name)
+						return;
+
+					int rowIndex = gridMappingCategory.FocusedRowHandle;
+					if (rowIndex < 0)
+						return;
+
+					var smapsCategoryID = gridMappingCategory.GetValue(rowIndex, "SmapsCategoryID");
+					var smapsCategoryName = gridMappingCategory.GetValue(rowIndex, "SmapsCategoryName");
+
+					for (int i = rowIndex + 1; i < gridMappingCategory.RowCount; i++)
+					{
+						gridMappingCategory.SetValue(i, "SmapsCategoryID", smapsCategoryID);
+						gridMappingCategory.SetValue(i, "SmapsCategoryName", smapsCategoryName);
+					}
+				}
+				catch (Exception ex)
+				{
+					ShowErrBox(ex);
+				}
+			};
 
 			lcTabInterface.CustomHeaderButtonClick += (object sender, CustomHeaderButtonEventArgs e) =>
 			{
@@ -314,10 +325,6 @@ namespace IKaan.Win.View.Scrap.Smaps
 			lcItemSmapsStatus.Visibility = LayoutVisibility.Always;
 			lcItemScrapSite.Visibility =
 				lcItemMappingYn.Visibility = LayoutVisibility.Never;
-			btnSend.Enabled =
-				btnReceive.Enabled = true;
-			btnOptionMatching.Enabled = false;
-			btnProductReady.Enabled = false;
 		}
 
 		void InitGrid()

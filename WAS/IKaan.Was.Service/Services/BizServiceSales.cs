@@ -1,6 +1,6 @@
 ﻿using IKaan.Base.Map;
 using IKaan.Base.Utils;
-using IKaan.Model.Biz.Sales;
+using IKaan.Model.Biz.Sales.Analysis;
 using IKaan.Model.Common.Was;
 using IKaan.Was.Core.Mappers;
 
