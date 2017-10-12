@@ -56,6 +56,8 @@
 			this.spnSuccessCount = new DevExpress.XtraEditors.SpinEdit();
 			this.lcItemProductImagePath = new DevExpress.XtraLayout.LayoutControlItem();
 			this.txtProductImagePath = new DevExpress.XtraEditors.ButtonEdit();
+			this.layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
+			this.chkHideHtml = new DevExpress.XtraEditors.CheckEdit();
 			this.gridSites = new IKaan.Win.Core.Controls.Grid.XGrid();
 			this.progSites = new DevExpress.XtraEditors.ProgressBarControl();
 			this.progBrands = new DevExpress.XtraEditors.ProgressBarControl();
@@ -86,14 +88,12 @@
 			this.lcItemImageProgress = new DevExpress.XtraLayout.LayoutControlItem();
 			this.progImages = new DevExpress.XtraEditors.ProgressBarControl();
 			this.lcTab = new DevExpress.XtraLayout.TabbedControlGroup();
-			this.lcTabGroupSiteUrl = new DevExpress.XtraLayout.LayoutControlGroup();
-			this.lcGridList = new DevExpress.XtraLayout.LayoutControlItem();
-			this.lcItemProgList = new DevExpress.XtraLayout.LayoutControlItem();
 			this.lcTabGroupBrand = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
 			this.gridBrands = new IKaan.Win.Core.Controls.Grid.XGrid();
-			this.chkHideHtml = new DevExpress.XtraEditors.CheckEdit();
-			this.layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
+			this.lcTabGroupSiteUrl = new DevExpress.XtraLayout.LayoutControlGroup();
+			this.lcGridList = new DevExpress.XtraLayout.LayoutControlItem();
+			this.lcItemProgList = new DevExpress.XtraLayout.LayoutControlItem();
 			((System.ComponentModel.ISupportInitialize)(this.lc)).BeginInit();
 			this.lc.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupBase)).BeginInit();
@@ -121,6 +121,8 @@
 			((System.ComponentModel.ISupportInitialize)(this.spnSuccessCount.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemProductImagePath)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.txtProductImagePath.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.chkHideHtml.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.progSites.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.progBrands.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupEditBase)).BeginInit();
@@ -148,13 +150,11 @@
 			((System.ComponentModel.ISupportInitialize)(this.lcItemImageProgress)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.progImages.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcTab)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcTabGroupBrand)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcTabGroupSiteUrl)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGridList)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemProgList)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcTabGroupBrand)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.chkHideHtml.Properties)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// lc
@@ -480,6 +480,24 @@
 			this.txtProductImagePath.StyleController = this.lc;
 			this.txtProductImagePath.TabIndex = 67;
 			// 
+			// layoutControlItem7
+			// 
+			this.layoutControlItem7.Control = this.chkHideHtml;
+			this.layoutControlItem7.Location = new System.Drawing.Point(0, 209);
+			this.layoutControlItem7.Name = "layoutControlItem7";
+			this.layoutControlItem7.Size = new System.Drawing.Size(216, 23);
+			this.layoutControlItem7.TextSize = new System.Drawing.Size(0, 0);
+			this.layoutControlItem7.TextVisible = false;
+			// 
+			// chkHideHtml
+			// 
+			this.chkHideHtml.Location = new System.Drawing.Point(31, 219);
+			this.chkHideHtml.Name = "chkHideHtml";
+			this.chkHideHtml.Properties.Caption = "HTML 숨기기";
+			this.chkHideHtml.Size = new System.Drawing.Size(212, 19);
+			this.chkHideHtml.StyleController = this.lc;
+			this.chkHideHtml.TabIndex = 68;
+			// 
 			// gridSites
 			// 
 			this.gridSites.Compress = false;
@@ -487,7 +505,7 @@
 			this.gridSites.Editable = true;
 			this.gridSites.FocusedRowHandle = -2147483648;
 			this.gridSites.GridViewType = IKaan.Win.Core.Controls.Grid.GridViewType.GridView;
-			this.gridSites.Location = new System.Drawing.Point(259, 33);
+			this.gridSites.Location = new System.Drawing.Point(259, 35);
 			this.gridSites.Name = "gridSites";
 			this.gridSites.PageFooterCenter = null;
 			this.gridSites.PageFooterLeft = null;
@@ -501,7 +519,7 @@
 			this.gridSites.ReadOnly = false;
 			this.gridSites.ShowFooter = false;
 			this.gridSites.ShowGroupPanel = false;
-			this.gridSites.Size = new System.Drawing.Size(330, 488);
+			this.gridSites.Size = new System.Drawing.Size(330, 486);
 			this.gridSites.TabIndex = 7;
 			// 
 			// progSites
@@ -810,42 +828,14 @@
             this.lcTabGroupSiteUrl,
             this.lcTabGroupBrand});
 			// 
-			// lcTabGroupSiteUrl
-			// 
-			this.lcTabGroupSiteUrl.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
-            this.lcGridList,
-            this.lcItemProgList});
-			this.lcTabGroupSiteUrl.Location = new System.Drawing.Point(0, 0);
-			this.lcTabGroupSiteUrl.Name = "lcTabGroupSiteUrl";
-			this.lcTabGroupSiteUrl.Padding = new DevExpress.XtraLayout.Utils.Padding(4, 4, 4, 4);
-			this.lcTabGroupSiteUrl.Size = new System.Drawing.Size(334, 514);
-			this.lcTabGroupSiteUrl.Text = "스크랩사이트URL";
-			// 
-			// lcGridList
-			// 
-			this.lcGridList.Control = this.gridSites;
-			this.lcGridList.Location = new System.Drawing.Point(0, 0);
-			this.lcGridList.Name = "lcGridList";
-			this.lcGridList.Size = new System.Drawing.Size(334, 492);
-			this.lcGridList.TextSize = new System.Drawing.Size(0, 0);
-			this.lcGridList.TextVisible = false;
-			// 
-			// lcItemProgList
-			// 
-			this.lcItemProgList.Control = this.progSites;
-			this.lcItemProgList.Location = new System.Drawing.Point(0, 492);
-			this.lcItemProgList.Name = "lcItemProgList";
-			this.lcItemProgList.Size = new System.Drawing.Size(334, 22);
-			this.lcItemProgList.TextSize = new System.Drawing.Size(0, 0);
-			this.lcItemProgList.TextVisible = false;
-			// 
 			// lcTabGroupBrand
 			// 
+			this.lcTabGroupBrand.CaptionImage = ((System.Drawing.Image)(resources.GetObject("lcTabGroupBrand.CaptionImage")));
 			this.lcTabGroupBrand.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem4});
 			this.lcTabGroupBrand.Location = new System.Drawing.Point(0, 0);
 			this.lcTabGroupBrand.Name = "lcTabGroupBrand";
-			this.lcTabGroupBrand.Size = new System.Drawing.Size(334, 514);
+			this.lcTabGroupBrand.Size = new System.Drawing.Size(334, 512);
 			this.lcTabGroupBrand.Text = "브랜드리스트";
 			// 
 			// layoutControlItem4
@@ -853,7 +843,7 @@
 			this.layoutControlItem4.Control = this.gridBrands;
 			this.layoutControlItem4.Location = new System.Drawing.Point(0, 0);
 			this.layoutControlItem4.Name = "layoutControlItem4";
-			this.layoutControlItem4.Size = new System.Drawing.Size(334, 514);
+			this.layoutControlItem4.Size = new System.Drawing.Size(334, 512);
 			this.layoutControlItem4.TextSize = new System.Drawing.Size(0, 0);
 			this.layoutControlItem4.TextVisible = false;
 			// 
@@ -864,7 +854,7 @@
 			this.gridBrands.Editable = true;
 			this.gridBrands.FocusedRowHandle = -2147483648;
 			this.gridBrands.GridViewType = IKaan.Win.Core.Controls.Grid.GridViewType.GridView;
-			this.gridBrands.Location = new System.Drawing.Point(259, 33);
+			this.gridBrands.Location = new System.Drawing.Point(259, 35);
 			this.gridBrands.Name = "gridBrands";
 			this.gridBrands.PageFooterCenter = null;
 			this.gridBrands.PageFooterLeft = null;
@@ -878,26 +868,38 @@
 			this.gridBrands.ReadOnly = false;
 			this.gridBrands.ShowFooter = false;
 			this.gridBrands.ShowGroupPanel = false;
-			this.gridBrands.Size = new System.Drawing.Size(330, 510);
+			this.gridBrands.Size = new System.Drawing.Size(330, 508);
 			this.gridBrands.TabIndex = 61;
 			// 
-			// chkHideHtml
+			// lcTabGroupSiteUrl
 			// 
-			this.chkHideHtml.Location = new System.Drawing.Point(31, 219);
-			this.chkHideHtml.Name = "chkHideHtml";
-			this.chkHideHtml.Properties.Caption = "HTML 숨기기";
-			this.chkHideHtml.Size = new System.Drawing.Size(212, 19);
-			this.chkHideHtml.StyleController = this.lc;
-			this.chkHideHtml.TabIndex = 68;
+			this.lcTabGroupSiteUrl.CaptionImage = ((System.Drawing.Image)(resources.GetObject("lcTabGroupSiteUrl.CaptionImage")));
+			this.lcTabGroupSiteUrl.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.lcGridList,
+            this.lcItemProgList});
+			this.lcTabGroupSiteUrl.Location = new System.Drawing.Point(0, 0);
+			this.lcTabGroupSiteUrl.Name = "lcTabGroupSiteUrl";
+			this.lcTabGroupSiteUrl.Padding = new DevExpress.XtraLayout.Utils.Padding(4, 4, 4, 4);
+			this.lcTabGroupSiteUrl.Size = new System.Drawing.Size(334, 512);
+			this.lcTabGroupSiteUrl.Text = "스크랩사이트URL";
 			// 
-			// layoutControlItem7
+			// lcGridList
 			// 
-			this.layoutControlItem7.Control = this.chkHideHtml;
-			this.layoutControlItem7.Location = new System.Drawing.Point(0, 209);
-			this.layoutControlItem7.Name = "layoutControlItem7";
-			this.layoutControlItem7.Size = new System.Drawing.Size(216, 23);
-			this.layoutControlItem7.TextSize = new System.Drawing.Size(0, 0);
-			this.layoutControlItem7.TextVisible = false;
+			this.lcGridList.Control = this.gridSites;
+			this.lcGridList.Location = new System.Drawing.Point(0, 0);
+			this.lcGridList.Name = "lcGridList";
+			this.lcGridList.Size = new System.Drawing.Size(334, 490);
+			this.lcGridList.TextSize = new System.Drawing.Size(0, 0);
+			this.lcGridList.TextVisible = false;
+			// 
+			// lcItemProgList
+			// 
+			this.lcItemProgList.Control = this.progSites;
+			this.lcItemProgList.Location = new System.Drawing.Point(0, 490);
+			this.lcItemProgList.Name = "lcItemProgList";
+			this.lcItemProgList.Size = new System.Drawing.Size(334, 22);
+			this.lcItemProgList.TextSize = new System.Drawing.Size(0, 0);
+			this.lcItemProgList.TextVisible = false;
 			// 
 			// ScrapEditForm
 			// 
@@ -936,6 +938,8 @@
 			((System.ComponentModel.ISupportInitialize)(this.spnSuccessCount.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemProductImagePath)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.txtProductImagePath.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.chkHideHtml.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.progSites.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.progBrands.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupEditBase)).EndInit();
@@ -963,13 +967,11 @@
 			((System.ComponentModel.ISupportInitialize)(this.lcItemImageProgress)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.progImages.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcTab)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcTabGroupBrand)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcTabGroupSiteUrl)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGridList)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemProgList)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcTabGroupBrand)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.chkHideHtml.Properties)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 

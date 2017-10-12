@@ -514,7 +514,7 @@
 			this.wbList.Size = new System.Drawing.Size(722, 508);
 			this.wbList.TabIndex = 19;
 			// 
-			// GoodsListForm
+			// ProductListForm
 			// 
 			this.Appearance.BackColor = System.Drawing.Color.White;
 			this.Appearance.Options.UseBackColor = true;
@@ -522,7 +522,7 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(990, 618);
 			this.LookAndFeel.SkinName = "Office 2016 Dark";
-			this.Name = "GoodsListForm";
+			this.Name = "ProductListForm";
 			this.Text = "GoodsListForm";
 			((System.ComponentModel.ISupportInitialize)(this.lc)).EndInit();
 			this.lc.ResumeLayout(false);

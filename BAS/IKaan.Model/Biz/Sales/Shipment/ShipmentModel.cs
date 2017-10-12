@@ -10,11 +10,11 @@ namespace IKaan.Model.Biz.Sales.Shipment
 	public class ShipmentModel: ModelBase
 	{
 		[DataMember]
-		[Display(Name = "상점ID")]
+		[Display(Name = "주문ID")]
 		public int OrderID { get; set; }
 
 		[DataMember]
-		[Display(Name = "주문번호")]
+		[Display(Name = "트래킹번호")]
 		public string TrackingNo { get; set; }
 
 		[DataMember]
@@ -31,7 +31,7 @@ namespace IKaan.Model.Biz.Sales.Shipment
 
 		[DataMember]
 		[Display(Name = "상태")]
-		public string Stauts { get; set; }
+		public string Status { get; set; }
 
 		[DataMember]
 		[Display(Name = "설명")]

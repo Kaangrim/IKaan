@@ -95,7 +95,6 @@ namespace IKaan.Win.View.Biz.Sales.Order
 			gridList.ColumnFix("RowNo");
 			gridList.ColumnFix("Checked");
 			gridList.SetRepositoryItemCheckEdit("Checked");
-			gridList.SetVisible(false, "TotalOrderQty", "TotalOrderAmt", "TotalDiscountAmt", "TotalCouponAmt", "TotalDeliveryFee", "TotalSupplyAmt");
 			gridList.SetMerge("OrderDate", "OrderNo", "StoreID", "StoreName", "ChannelID", "ChannelName", "MemberID", "MemberName", "Descriptoiin");
 
 			gridList.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
@@ -120,7 +119,7 @@ namespace IKaan.Win.View.Biz.Sales.Order
 
 		protected override void DataLoad(object param = null)
 		{
-			gridList.BindList<OrderModel>("Biz", "GetList", "Select", new DataMap()
+			gridList.BindList<OrderListModel>("Biz", "GetList", "Select", new DataMap()
 			{
 				{ "StoreID", lupStoreID.EditValue },
 				{ "BrandID", lupBrandID.EditValue },

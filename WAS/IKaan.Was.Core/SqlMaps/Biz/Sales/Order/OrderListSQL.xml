@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectOrderListList" parameterClass="DataMap" resultClass="OrderListModel" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY SS.Name, CC.Name, AA.OrderDate, AA.OrderNo)	as RowNo
+					,	AA.ID
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
+					
+					,	AA.StoreID
+					,	SS.Name			as StoreName
+					,	AA.ChannelID
+					,	CC.Name			as ChannelName
+					,	AA.MemberID
+					,	MM.Name			as MemberName
+					,	AA.TotalOrderQty
+					,	AA.TotalOrderAmt
+					,	AA.TotalDiscountAmt
+					,	AA.TotalCouponAmt
+					,	AA.TotalDeliveryFee
+					,	AA.TotalSupplyAmt
+					,	AA.Status
+					,	M1.Name				as StatusName
+					,	AA.Description
+					
+					,	BB.ID				as OrderItemID
+					,	BB.ProductID
+					,	BB.ProductName
+					,	BB.ProductCode
+					,	BB.Option1
+					,	BB.Option2
+					,	BB.Bundle
+					,	BB.OrderQty
+					,	BB.SalePrice
+					,	BB.OrderAmt
+					,	BB.DiscountAmt
+					,	BB.CouponAmt
+					,	BB.DeliveryFee
+					,	BB.SupplyPrice
+					,	BB.SupplyAmt
+					,	BB.CancelYn
+					,	BB.CancelDate
+					,	BB.Currency
+					,	BB.LocalSalePrice
+					
+					,	PP.BrandID
+					,	BR.Name		as BrandName
+					
+					,	ISNULL(SD.ShippedQty, 0)	as ShippedQty
+					
+				FROM	dbo.TOrder AA WITH (NOLOCK)
+						INNER JOIN
+							dbo.TOrderItem BB WITH (NOLOCK)
+								ON AA.ID = BB.OrderID
+						LEFT JOIN
+							dbo.TStore SS WITH (NOLOCK)
+								ON AA.StoreID = SS.ID
+						LEFT JOIN
+							dbo.TChannel CC WITH (NOLOCK)
+								ON AA.ChannelID = CC.ID
+						LEFT JOIN
+							dbo.TMember MM WITH  (NOLOCK)
+								ON AA.MemberID = MM.ID
+						LEFT JOIN
+							dbo.TProduct PP WITH (NOLOCK)
+								ON BB.ProductID = PP.ID
+						LEFT JOIN
+							dbo.TBrand BR WITH (NOLOCK)
+								ON PP.BrandID = BR.ID
+						LEFT JOIN
+							IKBase.dbo.TCode M1 WITH (NOLOCK)
+								ON AA.Status = M1.Code
+									AND M1.ParentCode = 'OrderStatus'
+						LEFT JOIN
+						(
+							SELECT	AA.OrderID
+								,	BB.OrderItemID
+								,	count(BB.ID)		as ShipItemCount
+								,	sum(BB.ShippedQty)	as ShippedQty
+							FROM	dbo.TShipment AA WITH (NOLOCK)
+									INNER JOIN
+										dbo.TShipmentItem BB WITH (NOLOCK)
+											ON AA.ID = BB.ShipmentID
+							GROUP BY
+								AA.OrderID, BB.OrderItemID
+						) SD ON AA.ID = SD.OrderID
+				WHERE	AA.OrderDate >= #StartDate#
+				AND		AA.OrderDate <= #EndDate#
+			]]>
+			<isNotEmpty property="StoreID">
+				<![CDATA[
+					AND	AA.StoreID = #StoreID#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="ChannelID">
+				<![CDATA[
+					AND	AA.ChannelID = #ChannelID#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="MemberID">
+				<![CDATA[
+					AND	AA.MemberID = #MemberID#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="Status">
+				<![CDATA[
+					AND	AA.Status = #Status#
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY RowNo
+			]]>
+		</select>
+	</statements>
+</sqlMap>

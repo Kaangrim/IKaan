@@ -7,7 +7,7 @@
 	<statements>
 		<select id="SelectShipmentList" parameterClass="DataMap" resultClass="ShipmentModel" >
 			<![CDATA[
-				SELECT  ROW_NUMBER() OVER (ORDER BY SS.Name, CC.Name, AA.OrderDate, AA.OrderNo)	as RowNo
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID, BB.ID)	as RowNo
 					,	AA.ID
 					,	AA.CreatedOn
 					,	AA.CreatedBy
@@ -16,130 +16,45 @@
 					,	AA.UpdatedBy
 					,	AA.UpdatedByName
 					
-					,	AA.StoreID
-					,	SS.Name			as StoreName
-					,	AA.ChannelID
-					,	CC.Name			as ChannelName
-					,	AA.MemberID
-					,	MM.Name			as MemberName
-					,	AA.TotalOrderQty
-					,	AA.TotalOrderAmt
-					,	AA.TotalDiscountAmt
-					,	AA.TotalCouponAmt
-					,	AA.TotalDeliveryFee
-					,	AA.TotalSupplyAmt
+					,	AA.OrderID
+					,	AA.TrackingNo
+					,	AA.TotalWeight
+					,	AA.ShippedDate
+					,	AA.DeliveryDate
 					,	AA.Status
-					,	M1.Name				as StatusName
 					,	AA.Description
 					
-					,	BB.ID				as OrderItemID
-					,	BB.ProductID
-					,	BB.ProductName
-					,	BB.ProductCode
-					,	BB.Option1
-					,	BB.Option2
-					,	BB.Bundle
-					,	BB.OrderQty
-					,	BB.SalePrice
-					,	BB.OrderAmt
-					,	BB.DiscountAmt
-					,	BB.CouponAmt
-					,	BB.DeliveryFee
-					,	BB.SupplyPrice
-					,	BB.SupplyAmt
-					,	BB.CancelYn
-					,	BB.CancelDate
-					,	BB.Currency
-					,	BB.LocalSalePrice
+					,	BB.ID		as ShipmentItemID
+					,	BB.ShipmentID
+					,	BB.OrderItemID
+					,	BB.ShippedQty
 					
-					,	PP.BrandID
-					,	BR.Name		as BrandName
-					
-				FROM	dbo.TOrder AA WITH (NOLOCK)
+				FROM	dbo.TShipment AA WITH (NOLOCK)
 						INNER JOIN
-							dbo.TOrderItem BB WITH (NOLOCK)
-								ON AA.ID = BB.OrderID
-						LEFT JOIN
-							dbo.TStore SS WITH (NOLOCK)
-								ON AA.StoreID = SS.ID
-						LEFT JOIN
-							dbo.TChannel CC WITH (NOLOCK)
-								ON AA.ChannelID = CC.ID
-						LEFT JOIN
-							dbo.TMember MM WITH  (NOLOCK)
-								ON AA.MemberID = MM.ID
-						LEFT JOIN
-							dbo.TProduct PP WITH (NOLOCK)
-								ON BB.ProductID = PP.ID
-						LEFT JOIN
-							dbo.TBrand BR WITH (NOLOCK)
-								ON PP.BrandID = BR.ID
-						LEFT JOIN
-							IKBase.dbo.TCode M1 WITH (NOLOCK)
-								ON AA.Status = M1.Code
-									AND M1.ParentCode = 'OrderStatus'
-				WHERE	AA.OrderDate >= #StartDate#
-				AND		AA.OrderDate <= #EndDate#
-			]]>
-			<isNotEmpty property="StoreID">
-				<![CDATA[
-					AND	AA.StoreID = #StoreID#
-				]]>
-			</isNotEmpty>
-			<isNotEmpty property="ChannelID">
-				<![CDATA[
-					AND	AA.ChannelID = #ChannelID#
-				]]>
-			</isNotEmpty>
-			<isNotEmpty property="MemberID">
-				<![CDATA[
-					AND	AA.MemberID = #MemberID#
-				]]>
-			</isNotEmpty>
-			<isNotEmpty property="Status">
-				<![CDATA[
-					AND	AA.Status = #Status#
-				]]>
-			</isNotEmpty>
-			<![CDATA[
+							dbo.TShipmentItem BB WITH (NOLOCK)
+								ON AA.ID = BB.ShipmentID
+				WHERE	AA.OrderID = #OrderID#
 				ORDER BY RowNo
 			]]>
 		</select>
-		<select id="SelectOrder" parameterClass="DataMap" resultClass="ShipmentModel" >
+		<select id="SelectShipment" parameterClass="DataMap" resultClass="ShipmentModel" >
 			<![CDATA[
 				SELECT  AA.*					
-					,	MM.Name				as MemberName
-					,	CC.Name				as ChannelName
-					
-				FROM	dbo.TOrder AA WITH (NOLOCK)
-						LEFT JOIN
-							dbo.TChannel CC WITH (NOLOCK)
-								ON AA.ChannelID = CC.ID
-						LEFT JOIN
-							dbo.TMember MM WITH (NOLOCK)
-								ON AA.MemberID = MM.ID
+				FROM	dbo.TShipment AA WITH (NOLOCK)
 				WHERE	AA.ID = #ID#
 			]]>
 		</select>
-		<insert id="InsertOrder" parameterClass="ShipmentModel" >
+		<insert id="InsertShipment" parameterClass="ShipmentModel" >
 			<![CDATA[
-				INSERT INTO dbo.TOrder
+				INSERT INTO dbo.TShipment
 				( 
 					CreatedOn, CreatedBy, CreatedByName,
-					OrderDate, OrderNo,
-					StoreID, ChannelID, MemberID,
-					BillingAddressID, ShippingAddressID,
-					TotalOrderQty, TotalOrderAmt, TotalDiscountAmt, TotalCouponAmt, TotalDeliveryFee, TotalSupplyAmt,
-					Description, Status
+					OrderID, TrackingNo, TotalWeight, ShippedDate, DeliveryDate, Status, Description
 				)
 				VALUES
 				(
 					GetDate(), #CreatedBy#, #CreatedByName#,
-					#OrderDate#, #OrderNo#,
-					#StoreID#, #ChannelID#, #MemberID#,
-					#BillingAddressID#, #ShippingAddressID#,
-					#TotalOrderQty#, #TotalOrderAmt#, #TotalDiscountAmt#, #TotalCouponAmt#, #TotalDeliveryFee#, #TotalSupplyAmt#,
-					#Description#, #Status#
+					#OrderID#, #TrackingNo#, #TotalWeight#, #ShippedDate#, #DeliveryDate#, #Status#, #Description#
 				)
 			]]>
 			<selectKey type="post" property="ID" resultClass="Int">
@@ -148,44 +63,26 @@
 				]]>
 			</selectKey>
 		</insert>
-		<update id="UpdateTOrder" parameterClass="ShipmentModel">
+		<update id="UpdateShipment" parameterClass="ShipmentModel">
 			<![CDATA[
-				UPDATE  dbo.TOrder
-				SET     UpdatedOn			= GetDate()
-					,	UpdatedBy			= #UpdatedBy#
-					,	UpdatedByName		= #UpdatedByName#
+				UPDATE  dbo.TShipment
+				SET     UpdatedOn		= GetDate()
+					,	UpdatedBy		= #UpdatedBy#
+					,	UpdatedByName	= #UpdatedByName#
 					
-					,	OrderDate			= #OrderDate#
-					,	OrderNo				= #OrderNo#
-					,	StoreId				= #StoreId#
-					,	ChannelID			= #ChannelID#
-					,	MemberID			= #MemberID#
-					,	BillingAddressID	= #BillingAddressID#
-					,	ShippingAddressID	= #ShippingAddressID#
-					,	TotalOrderQty		= #TotalOrderQty#
-					,	TotalOrderAmt		= #TotalOrderAmt#
-					,	TotalDiscountAmt	= #TotalDiscountAmt#
-					,	TotalCouponAmt		= #TotalCouponAmt#
-					,	TotalDeliveryFee	= #TotalDeliveryFee#
-					,	TotalSupplyAmt		= #TotalSupplyAmt#
-					,	Description			= #Description#
-					,	Status				= #Status#
+					,	TrackingNo		= #TrackingNo#
+					,	TotalWeight		= #TotalWeight#
+					,	ShippedDate		= #ShippedDate#
+					,	DeliveryDate	= #DeliveryDate#
+					,	Status			= #Status#
+					,	Description		= #Description#
 				WHERE	ID = #ID#
 			]]>
 		</update>
-		<delete id="DeleteOrder" parameterClass="DataMap">
+		<delete id="DeleteShipment" parameterClass="DataMap">
 			<![CDATA[
-				DELETE FROM	dbo.TOrder WHERE ID = #ID#;
+				DELETE FROM	dbo.TShipment WHERE ID = #ID#;
 			]]>
 		</delete>
-		<select id="SelectOrderExists" parameterClass="DataMap" resultClass="ShipmentModel" >
-			<![CDATA[
-				SELECT  AA.*					
-				FROM	dbo.TOrder AA WITH (NOLOCK)
-				WHERE	AA.StoreID	= #StoreID#
-				AND		AA.ChannelID= #ChannelID#
-				AND		AA.OrderNo	= #OrderNo#
-			]]>
-		</select>
 	</statements>
 </sqlMap>

@@ -93,7 +93,6 @@ namespace IKaan.Was.Service.Services
 							}
 						}
 
-
 						foreach (var item in model.Items)
 						{
 							var exists = DaoFactory.InstanceBiz.QueryForObject<OrderItemModel>("SelectOrderItem", new DataMap() { { "ID", item.ID } });
@@ -111,7 +110,17 @@ namespace IKaan.Was.Service.Services
 								item.UpdatedByName = req.User.UserName;
 								DaoFactory.InstanceBiz.Update("UpdateOrderItem", item);
 							}
+
+							model.TotalOrderQty += item.OrderQty;
+							model.TotalOrderAmt += item.OrderAmt;
+							model.TotalDiscountAmt += item.DiscountAmt;
+							model.TotalCouponAmt += item.CouponAmt;
+							model.TotalDeliveryFee += item.DeliveryFee;
+							model.TotalSupplyAmt += item.SupplyAmt;
 						}
+
+						//금액수정
+						DaoFactory.InstanceBiz.Update("UpdateOrder", model);
 					}
 				}
 

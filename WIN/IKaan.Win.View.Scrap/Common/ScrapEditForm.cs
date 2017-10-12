@@ -1438,7 +1438,7 @@ namespace IKaan.Win.View.Scrap.Common
 								picImage.EditValue = null;
 								picImage.LoadAsync(imgUrl);
 							}
-							string imagePath = siteUrl.Replace(".", "").Replace("/", "").Replace(":", "") + "\\" + product.BrandName;
+							string imagePath = siteUrl.Replace(".", "").Replace("/", "").Replace(":", "").Replace("+","") + "\\" + product.BrandName.Replace(".", "").Replace("/", "").Replace(":", "").Replace("+", "");
 							string filePath = ImageUtils.DownloadByStream(imgUrl, imagePath, product.Code + "_" + gubun + "_" + index.ToString());
 
 							memImageInfo.EditValue =

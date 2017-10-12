@@ -99,6 +99,9 @@ namespace IKaan.Was.Service.Services
 						case "Order":
 							req.SetList<OrderModel>();
 							break;
+						case "OrderList":
+							req.SetList<OrderListModel>();
+							break;
 						case "OrderItem":
 							req.SetList<OrderItemModel>();
 							break;

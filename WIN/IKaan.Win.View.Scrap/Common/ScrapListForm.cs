@@ -412,7 +412,7 @@ namespace IKaan.Win.View.Scrap.Common
 
 					foreach (var image in images)
 					{
-						var url = FTPHandler.UploadScrapProduct(lupSite.GetValue(1).ToString(), image.Name, data.BrandName);
+						var url = FTPHandler.UploadScrapProduct(lupSite.GetValue(1).ToString(), image.Name, data.BrandName.Replace(".", "").Replace("/", "").Replace(":", "").Replace("+", ""));
 						image.Url = ConstsVar.IMG_URL + url;
 						using (var res = WasHandler.Execute<ScrapProductImageModel>("Scrap", "Save", "Update", image, "ID"))
 						{

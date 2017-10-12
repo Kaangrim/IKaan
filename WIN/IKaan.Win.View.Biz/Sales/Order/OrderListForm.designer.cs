@@ -28,11 +28,11 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions5 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
-			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions4 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
-			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions3 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions6 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
 			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions2 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
 			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions1 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions5 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions4 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
 			this.gridList = new IKaan.Win.Core.Controls.Grid.XGrid();
 			this.lcGroupSearch = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.esSearchTitle = new DevExpress.XtraLayout.EmptySpaceItem();
@@ -43,19 +43,23 @@
 			this.datStartDate = new DevExpress.XtraEditors.DateEdit();
 			this.lcItemEndDate = new DevExpress.XtraLayout.LayoutControlItem();
 			this.datEndDate = new DevExpress.XtraEditors.DateEdit();
+			this.lcItemStore = new DevExpress.XtraLayout.LayoutControlItem();
+			this.lupStoreID = new IKaan.Win.Core.Controls.Common.XLookup();
 			this.lcItemChannel = new DevExpress.XtraLayout.LayoutControlItem();
 			this.lupChannelID = new IKaan.Win.Core.Controls.Common.XLookup();
 			this.lcItemBrand = new DevExpress.XtraLayout.LayoutControlItem();
 			this.lupBrandID = new IKaan.Win.Core.Controls.Common.XLookup();
+			this.lcItemMember = new DevExpress.XtraLayout.LayoutControlItem();
+			this.lupMemberID = new IKaan.Win.Core.Controls.Common.XLookup();
+			this.lcItemStatus = new DevExpress.XtraLayout.LayoutControlItem();
+			this.lupStatus = new IKaan.Win.Core.Controls.Common.XLookup();
 			this.lcTabList = new DevExpress.XtraLayout.TabbedControlGroup();
 			this.lcGroupLists = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
-			this.lupStoreID = new IKaan.Win.Core.Controls.Common.XLookup();
-			this.lcItemStore = new DevExpress.XtraLayout.LayoutControlItem();
-			this.lupMemberID = new IKaan.Win.Core.Controls.Common.XLookup();
-			this.lcItemMember = new DevExpress.XtraLayout.LayoutControlItem();
-			this.lupStatus = new IKaan.Win.Core.Controls.Common.XLookup();
-			this.lcItemStatus = new DevExpress.XtraLayout.LayoutControlItem();
+			this.btnDeliveryOrder = new DevExpress.XtraEditors.SimpleButton();
+			this.lcButtonDeliveryOrder = new DevExpress.XtraLayout.LayoutControlItem();
+			this.btnOrderCancel = new DevExpress.XtraEditors.SimpleButton();
+			this.lcButtonOrderCancel = new DevExpress.XtraLayout.LayoutControlItem();
 			((System.ComponentModel.ISupportInitialize)(this.lc)).BeginInit();
 			this.lc.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupBase)).BeginInit();
@@ -70,23 +74,27 @@
 			((System.ComponentModel.ISupportInitialize)(this.lcItemEndDate)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.datEndDate.Properties.CalendarTimeProperties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.datEndDate.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemStore)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lupStoreID.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemChannel)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lupChannelID.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemBrand)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lupBrandID.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemMember)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lupMemberID.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemStatus)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lupStatus.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcTabList)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupLists)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lupStoreID.Properties)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemStore)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lupMemberID.Properties)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemMember)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lupStatus.Properties)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemStatus)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcButtonDeliveryOrder)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcButtonOrderCancel)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// lc
 			// 
+			this.lc.Controls.Add(this.btnOrderCancel);
+			this.lc.Controls.Add(this.btnDeliveryOrder);
 			this.lc.Controls.Add(this.lupStatus);
 			this.lc.Controls.Add(this.lupMemberID);
 			this.lc.Controls.Add(this.lupStoreID);
@@ -149,7 +157,9 @@
             this.lcItemChannel,
             this.lcItemBrand,
             this.lcItemMember,
-            this.lcItemStatus});
+            this.lcItemStatus,
+            this.lcButtonDeliveryOrder,
+            this.lcButtonOrderCancel});
 			this.lcGroupSearch.Location = new System.Drawing.Point(0, 0);
 			this.lcGroupSearch.Name = "lcGroupSearch";
 			this.lcGroupSearch.Padding = new DevExpress.XtraLayout.Utils.Padding(4, 4, 4, 4);
@@ -183,7 +193,7 @@
 			this.emptySpaceItem2.AllowHotTrack = false;
 			this.emptySpaceItem2.Location = new System.Drawing.Point(0, 368);
 			this.emptySpaceItem2.Name = "emptySpaceItem2";
-			this.emptySpaceItem2.Size = new System.Drawing.Size(216, 167);
+			this.emptySpaceItem2.Size = new System.Drawing.Size(216, 115);
 			this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
 			// 
 			// lcItemFindText
@@ -247,6 +257,32 @@
 			this.datEndDate.StyleController = this.lc;
 			this.datEndDate.TabIndex = 34;
 			// 
+			// lcItemStore
+			// 
+			this.lcItemStore.Control = this.lupStoreID;
+			this.lcItemStore.Location = new System.Drawing.Point(0, 40);
+			this.lcItemStore.Name = "lcItemStore";
+			this.lcItemStore.Size = new System.Drawing.Size(216, 41);
+			this.lcItemStore.TextLocation = DevExpress.Utils.Locations.Top;
+			this.lcItemStore.TextSize = new System.Drawing.Size(87, 14);
+			// 
+			// lupStoreID
+			// 
+			this.lupStoreID.DisplayMember = "";
+			this.lupStoreID.GroupCode = null;
+			this.lupStoreID.ListMember = "ListName";
+			this.lupStoreID.Location = new System.Drawing.Point(31, 67);
+			this.lupStoreID.Name = "lupStoreID";
+			this.lupStoreID.NullText = "[EditValue is null]";
+			this.lupStoreID.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo),
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions6, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
+			this.lupStoreID.SelectedIndex = -1;
+			this.lupStoreID.Size = new System.Drawing.Size(212, 20);
+			this.lupStoreID.StyleController = this.lc;
+			this.lupStoreID.TabIndex = 35;
+			this.lupStoreID.ValueMember = "";
+			// 
 			// lcItemChannel
 			// 
 			this.lcItemChannel.Control = this.lupChannelID;
@@ -266,7 +302,7 @@
 			this.lupChannelID.NullText = "[EditValue is null]";
 			this.lupChannelID.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions5, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions2, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
 			this.lupChannelID.SelectedIndex = -1;
 			this.lupChannelID.Size = new System.Drawing.Size(212, 20);
 			this.lupChannelID.StyleController = this.lc;
@@ -292,12 +328,64 @@
 			this.lupBrandID.NullText = "[EditValue is null]";
 			this.lupBrandID.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions4, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
 			this.lupBrandID.SelectedIndex = -1;
 			this.lupBrandID.Size = new System.Drawing.Size(212, 20);
 			this.lupBrandID.StyleController = this.lc;
 			this.lupBrandID.TabIndex = 32;
 			this.lupBrandID.ValueMember = "";
+			// 
+			// lcItemMember
+			// 
+			this.lcItemMember.Control = this.lupMemberID;
+			this.lcItemMember.Location = new System.Drawing.Point(0, 122);
+			this.lcItemMember.Name = "lcItemMember";
+			this.lcItemMember.Size = new System.Drawing.Size(216, 41);
+			this.lcItemMember.TextLocation = DevExpress.Utils.Locations.Top;
+			this.lcItemMember.TextSize = new System.Drawing.Size(87, 14);
+			// 
+			// lupMemberID
+			// 
+			this.lupMemberID.DisplayMember = "";
+			this.lupMemberID.GroupCode = null;
+			this.lupMemberID.ListMember = "ListName";
+			this.lupMemberID.Location = new System.Drawing.Point(31, 149);
+			this.lupMemberID.Name = "lupMemberID";
+			this.lupMemberID.NullText = "[EditValue is null]";
+			this.lupMemberID.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo),
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions5, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
+			this.lupMemberID.SelectedIndex = -1;
+			this.lupMemberID.Size = new System.Drawing.Size(212, 20);
+			this.lupMemberID.StyleController = this.lc;
+			this.lupMemberID.TabIndex = 36;
+			this.lupMemberID.ValueMember = "";
+			// 
+			// lcItemStatus
+			// 
+			this.lcItemStatus.Control = this.lupStatus;
+			this.lcItemStatus.Location = new System.Drawing.Point(0, 286);
+			this.lcItemStatus.Name = "lcItemStatus";
+			this.lcItemStatus.Size = new System.Drawing.Size(216, 41);
+			this.lcItemStatus.TextLocation = DevExpress.Utils.Locations.Top;
+			this.lcItemStatus.TextSize = new System.Drawing.Size(87, 14);
+			// 
+			// lupStatus
+			// 
+			this.lupStatus.DisplayMember = "";
+			this.lupStatus.GroupCode = null;
+			this.lupStatus.ListMember = "ListName";
+			this.lupStatus.Location = new System.Drawing.Point(31, 313);
+			this.lupStatus.Name = "lupStatus";
+			this.lupStatus.NullText = "[EditValue is null]";
+			this.lupStatus.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo),
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions4, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
+			this.lupStatus.SelectedIndex = -1;
+			this.lupStatus.Size = new System.Drawing.Size(212, 20);
+			this.lupStatus.StyleController = this.lc;
+			this.lupStatus.TabIndex = 37;
+			this.lupStatus.ValueMember = "";
 			// 
 			// lcTabList
 			// 
@@ -329,83 +417,45 @@
 			this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
 			this.layoutControlItem3.TextVisible = false;
 			// 
-			// lupStoreID
+			// btnDeliveryOrder
 			// 
-			this.lupStoreID.DisplayMember = "";
-			this.lupStoreID.GroupCode = null;
-			this.lupStoreID.ListMember = "ListName";
-			this.lupStoreID.Location = new System.Drawing.Point(31, 67);
-			this.lupStoreID.Name = "lupStoreID";
-			this.lupStoreID.NullText = "[EditValue is null]";
-			this.lupStoreID.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions3, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
-			this.lupStoreID.SelectedIndex = -1;
-			this.lupStoreID.Size = new System.Drawing.Size(212, 20);
-			this.lupStoreID.StyleController = this.lc;
-			this.lupStoreID.TabIndex = 35;
-			this.lupStoreID.ValueMember = "";
+			this.btnDeliveryOrder.Location = new System.Drawing.Point(31, 493);
+			this.btnDeliveryOrder.Name = "btnDeliveryOrder";
+			this.btnDeliveryOrder.Size = new System.Drawing.Size(212, 22);
+			this.btnDeliveryOrder.StyleController = this.lc;
+			this.btnDeliveryOrder.TabIndex = 38;
+			this.btnDeliveryOrder.Text = "배송요청";
 			// 
-			// lcItemStore
+			// lcButtonDeliveryOrder
 			// 
-			this.lcItemStore.Control = this.lupStoreID;
-			this.lcItemStore.Location = new System.Drawing.Point(0, 40);
-			this.lcItemStore.Name = "lcItemStore";
-			this.lcItemStore.Size = new System.Drawing.Size(216, 41);
-			this.lcItemStore.TextLocation = DevExpress.Utils.Locations.Top;
-			this.lcItemStore.TextSize = new System.Drawing.Size(87, 14);
+			this.lcButtonDeliveryOrder.Control = this.btnDeliveryOrder;
+			this.lcButtonDeliveryOrder.Location = new System.Drawing.Point(0, 483);
+			this.lcButtonDeliveryOrder.Name = "lcButtonDeliveryOrder";
+			this.lcButtonDeliveryOrder.Size = new System.Drawing.Size(216, 26);
+			this.lcButtonDeliveryOrder.TextSize = new System.Drawing.Size(0, 0);
+			this.lcButtonDeliveryOrder.TextVisible = false;
 			// 
-			// lupMemberID
+			// btnOrderCancel
 			// 
-			this.lupMemberID.DisplayMember = "";
-			this.lupMemberID.GroupCode = null;
-			this.lupMemberID.ListMember = "ListName";
-			this.lupMemberID.Location = new System.Drawing.Point(31, 149);
-			this.lupMemberID.Name = "lupMemberID";
-			this.lupMemberID.NullText = "[EditValue is null]";
-			this.lupMemberID.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions2, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
-			this.lupMemberID.SelectedIndex = -1;
-			this.lupMemberID.Size = new System.Drawing.Size(212, 20);
-			this.lupMemberID.StyleController = this.lc;
-			this.lupMemberID.TabIndex = 36;
-			this.lupMemberID.ValueMember = "";
+			this.btnOrderCancel.Appearance.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold);
+			this.btnOrderCancel.Appearance.ForeColor = System.Drawing.Color.Red;
+			this.btnOrderCancel.Appearance.Options.UseFont = true;
+			this.btnOrderCancel.Appearance.Options.UseForeColor = true;
+			this.btnOrderCancel.Location = new System.Drawing.Point(31, 519);
+			this.btnOrderCancel.Name = "btnOrderCancel";
+			this.btnOrderCancel.Size = new System.Drawing.Size(212, 22);
+			this.btnOrderCancel.StyleController = this.lc;
+			this.btnOrderCancel.TabIndex = 39;
+			this.btnOrderCancel.Text = "주문취소";
 			// 
-			// lcItemMember
+			// lcButtonOrderCancel
 			// 
-			this.lcItemMember.Control = this.lupMemberID;
-			this.lcItemMember.Location = new System.Drawing.Point(0, 122);
-			this.lcItemMember.Name = "lcItemMember";
-			this.lcItemMember.Size = new System.Drawing.Size(216, 41);
-			this.lcItemMember.TextLocation = DevExpress.Utils.Locations.Top;
-			this.lcItemMember.TextSize = new System.Drawing.Size(87, 14);
-			// 
-			// lupStatus
-			// 
-			this.lupStatus.DisplayMember = "";
-			this.lupStatus.GroupCode = null;
-			this.lupStatus.ListMember = "ListName";
-			this.lupStatus.Location = new System.Drawing.Point(31, 313);
-			this.lupStatus.Name = "lupStatus";
-			this.lupStatus.NullText = "[EditValue is null]";
-			this.lupStatus.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
-			this.lupStatus.SelectedIndex = -1;
-			this.lupStatus.Size = new System.Drawing.Size(212, 20);
-			this.lupStatus.StyleController = this.lc;
-			this.lupStatus.TabIndex = 37;
-			this.lupStatus.ValueMember = "";
-			// 
-			// lcItemStatus
-			// 
-			this.lcItemStatus.Control = this.lupStatus;
-			this.lcItemStatus.Location = new System.Drawing.Point(0, 286);
-			this.lcItemStatus.Name = "lcItemStatus";
-			this.lcItemStatus.Size = new System.Drawing.Size(216, 41);
-			this.lcItemStatus.TextLocation = DevExpress.Utils.Locations.Top;
-			this.lcItemStatus.TextSize = new System.Drawing.Size(87, 14);
+			this.lcButtonOrderCancel.Control = this.btnOrderCancel;
+			this.lcButtonOrderCancel.Location = new System.Drawing.Point(0, 509);
+			this.lcButtonOrderCancel.Name = "lcButtonOrderCancel";
+			this.lcButtonOrderCancel.Size = new System.Drawing.Size(216, 26);
+			this.lcButtonOrderCancel.TextSize = new System.Drawing.Size(0, 0);
+			this.lcButtonOrderCancel.TextVisible = false;
 			// 
 			// OrderListForm
 			// 
@@ -431,19 +481,21 @@
 			((System.ComponentModel.ISupportInitialize)(this.lcItemEndDate)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.datEndDate.Properties.CalendarTimeProperties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.datEndDate.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemStore)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lupStoreID.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemChannel)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lupChannelID.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemBrand)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lupBrandID.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemMember)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lupMemberID.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemStatus)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lupStatus.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcTabList)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupLists)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lupStoreID.Properties)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemStore)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lupMemberID.Properties)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemMember)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lupStatus.Properties)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemStatus)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcButtonDeliveryOrder)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcButtonOrderCancel)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -473,5 +525,9 @@
 		private DevExpress.XtraLayout.LayoutControlItem lcItemMember;
 		private Core.Controls.Common.XLookup lupStatus;
 		private DevExpress.XtraLayout.LayoutControlItem lcItemStatus;
+		private DevExpress.XtraEditors.SimpleButton btnDeliveryOrder;
+		private DevExpress.XtraLayout.LayoutControlItem lcButtonDeliveryOrder;
+		private DevExpress.XtraEditors.SimpleButton btnOrderCancel;
+		private DevExpress.XtraLayout.LayoutControlItem lcButtonOrderCancel;
 	}
 }

@@ -30,6 +30,7 @@
 		{
 			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions2 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
 			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions1 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ContactListForm));
 			this.lcGroupSearch = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.lcItemContactType = new DevExpress.XtraLayout.LayoutControlItem();
 			this.lupContactType = new IKaan.Win.Core.Controls.Common.XLookup();
@@ -37,12 +38,12 @@
 			this.esSearchTitle = new DevExpress.XtraLayout.EmptySpaceItem();
 			this.lcItemFindText = new DevExpress.XtraLayout.LayoutControlItem();
 			this.txtFindText = new DevExpress.XtraEditors.TextEdit();
+			this.lcItemUseYn = new DevExpress.XtraLayout.LayoutControlItem();
+			this.lupUseYn = new IKaan.Win.Core.Controls.Common.XLookup();
 			this.gridList = new IKaan.Win.Core.Controls.Grid.XGrid();
 			this.lcTabList = new DevExpress.XtraLayout.TabbedControlGroup();
 			this.lcGroupList = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
-			this.lupUseYn = new IKaan.Win.Core.Controls.Common.XLookup();
-			this.lcItemUseYn = new DevExpress.XtraLayout.LayoutControlItem();
 			((System.ComponentModel.ISupportInitialize)(this.lc)).BeginInit();
 			this.lc.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupBase)).BeginInit();
@@ -53,11 +54,11 @@
 			((System.ComponentModel.ISupportInitialize)(this.esSearchTitle)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemFindText)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.txtFindText.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemUseYn)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lupUseYn.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcTabList)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupList)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lupUseYn.Properties)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemUseYn)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// lc
@@ -170,59 +171,14 @@
 			this.txtFindText.StyleController = this.lc;
 			this.txtFindText.TabIndex = 4;
 			// 
-			// gridList
+			// lcItemUseYn
 			// 
-			this.gridList.Compress = false;
-			this.gridList.DataSource = null;
-			this.gridList.Editable = true;
-			this.gridList.FocusedRowHandle = -2147483648;
-			this.gridList.GridViewType = IKaan.Win.Core.Controls.Grid.GridViewType.GridView;
-			this.gridList.Location = new System.Drawing.Point(259, 33);
-			this.gridList.Name = "gridList";
-			this.gridList.PageFooterCenter = null;
-			this.gridList.PageFooterLeft = null;
-			this.gridList.PageFooterRight = null;
-			this.gridList.PageHeaderCenter = null;
-			this.gridList.PageHeaderLeft = null;
-			this.gridList.PageHeaderRight = null;
-			this.gridList.Pager = null;
-			this.gridList.PrintFooter = null;
-			this.gridList.PrintHeader = null;
-			this.gridList.ReadOnly = false;
-			this.gridList.ShowFooter = false;
-			this.gridList.ShowGroupPanel = false;
-			this.gridList.Size = new System.Drawing.Size(722, 457);
-			this.gridList.TabIndex = 7;
-			// 
-			// lcTabList
-			// 
-			this.lcTabList.Location = new System.Drawing.Point(250, 0);
-			this.lcTabList.Name = "lcTabList";
-			this.lcTabList.Padding = new DevExpress.XtraLayout.Utils.Padding(2, 2, 2, 2);
-			this.lcTabList.SelectedTabPage = this.lcGroupList;
-			this.lcTabList.SelectedTabPageIndex = 0;
-			this.lcTabList.Size = new System.Drawing.Size(736, 495);
-			this.lcTabList.TabPages.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
-            this.lcGroupList});
-			// 
-			// lcGroupList
-			// 
-			this.lcGroupList.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
-            this.layoutControlItem3});
-			this.lcGroupList.Location = new System.Drawing.Point(0, 0);
-			this.lcGroupList.Name = "lcGroupList";
-			this.lcGroupList.Padding = new DevExpress.XtraLayout.Utils.Padding(4, 4, 4, 4);
-			this.lcGroupList.Size = new System.Drawing.Size(726, 461);
-			this.lcGroupList.Text = "조회결과";
-			// 
-			// layoutControlItem3
-			// 
-			this.layoutControlItem3.Control = this.gridList;
-			this.layoutControlItem3.Location = new System.Drawing.Point(0, 0);
-			this.layoutControlItem3.Name = "layoutControlItem3";
-			this.layoutControlItem3.Size = new System.Drawing.Size(726, 461);
-			this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
-			this.layoutControlItem3.TextVisible = false;
+			this.lcItemUseYn.Control = this.lupUseYn;
+			this.lcItemUseYn.Location = new System.Drawing.Point(0, 122);
+			this.lcItemUseYn.Name = "lcItemUseYn";
+			this.lcItemUseYn.Size = new System.Drawing.Size(216, 41);
+			this.lcItemUseYn.TextLocation = DevExpress.Utils.Locations.Top;
+			this.lcItemUseYn.TextSize = new System.Drawing.Size(105, 14);
 			// 
 			// lupUseYn
 			// 
@@ -241,14 +197,60 @@
 			this.lupUseYn.TabIndex = 44;
 			this.lupUseYn.ValueMember = "";
 			// 
-			// lcItemUseYn
+			// gridList
 			// 
-			this.lcItemUseYn.Control = this.lupUseYn;
-			this.lcItemUseYn.Location = new System.Drawing.Point(0, 122);
-			this.lcItemUseYn.Name = "lcItemUseYn";
-			this.lcItemUseYn.Size = new System.Drawing.Size(216, 41);
-			this.lcItemUseYn.TextLocation = DevExpress.Utils.Locations.Top;
-			this.lcItemUseYn.TextSize = new System.Drawing.Size(105, 14);
+			this.gridList.Compress = false;
+			this.gridList.DataSource = null;
+			this.gridList.Editable = true;
+			this.gridList.FocusedRowHandle = -2147483648;
+			this.gridList.GridViewType = IKaan.Win.Core.Controls.Grid.GridViewType.GridView;
+			this.gridList.Location = new System.Drawing.Point(259, 35);
+			this.gridList.Name = "gridList";
+			this.gridList.PageFooterCenter = null;
+			this.gridList.PageFooterLeft = null;
+			this.gridList.PageFooterRight = null;
+			this.gridList.PageHeaderCenter = null;
+			this.gridList.PageHeaderLeft = null;
+			this.gridList.PageHeaderRight = null;
+			this.gridList.Pager = null;
+			this.gridList.PrintFooter = null;
+			this.gridList.PrintHeader = null;
+			this.gridList.ReadOnly = false;
+			this.gridList.ShowFooter = false;
+			this.gridList.ShowGroupPanel = false;
+			this.gridList.Size = new System.Drawing.Size(722, 455);
+			this.gridList.TabIndex = 7;
+			// 
+			// lcTabList
+			// 
+			this.lcTabList.Location = new System.Drawing.Point(250, 0);
+			this.lcTabList.Name = "lcTabList";
+			this.lcTabList.Padding = new DevExpress.XtraLayout.Utils.Padding(2, 2, 2, 2);
+			this.lcTabList.SelectedTabPage = this.lcGroupList;
+			this.lcTabList.SelectedTabPageIndex = 0;
+			this.lcTabList.Size = new System.Drawing.Size(736, 495);
+			this.lcTabList.TabPages.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.lcGroupList});
+			// 
+			// lcGroupList
+			// 
+			this.lcGroupList.CaptionImage = ((System.Drawing.Image)(resources.GetObject("lcGroupList.CaptionImage")));
+			this.lcGroupList.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.layoutControlItem3});
+			this.lcGroupList.Location = new System.Drawing.Point(0, 0);
+			this.lcGroupList.Name = "lcGroupList";
+			this.lcGroupList.Padding = new DevExpress.XtraLayout.Utils.Padding(4, 4, 4, 4);
+			this.lcGroupList.Size = new System.Drawing.Size(726, 459);
+			this.lcGroupList.Text = "조회결과";
+			// 
+			// layoutControlItem3
+			// 
+			this.layoutControlItem3.Control = this.gridList;
+			this.layoutControlItem3.Location = new System.Drawing.Point(0, 0);
+			this.layoutControlItem3.Name = "layoutControlItem3";
+			this.layoutControlItem3.Size = new System.Drawing.Size(726, 459);
+			this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
+			this.layoutControlItem3.TextVisible = false;
 			// 
 			// ContactListForm
 			// 
@@ -270,11 +272,11 @@
 			((System.ComponentModel.ISupportInitialize)(this.esSearchTitle)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemFindText)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.txtFindText.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemUseYn)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lupUseYn.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcTabList)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupList)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lupUseYn.Properties)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemUseYn)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 

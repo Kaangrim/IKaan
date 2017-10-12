@@ -34,15 +34,15 @@
 		</select>
 		<insert id="InsertShipmentInvoice" parameterClass="ShipmentInvoiceModel" >
 			<![CDATA[
-				INSERT INTO dbo.TOrder
+				INSERT INTO dbo.TShipmentInvoice
 				( 
 					CreatedOn, CreatedBy, CreatedByName,
-					ShipmentID, OrderItemID, ShippedQty
+					ShipmentID, InvoiceNo, DeliveryCode, Description
 				)
 				VALUES
 				(
 					GetDate(), #CreatedBy#, #CreatedByName#,
-					#ShipmentID#, #OrderItemID#, #ShippedQty#
+					#ShipmentID#, #InvoiceNo#, #DeliveryCode#, #Description#
 				)
 			]]>
 			<selectKey type="post" property="ID" resultClass="Int">
@@ -59,8 +59,9 @@
 					,	UpdatedByName	= #UpdatedByName#
 					
 					,	ShipmentID		= #ShipmentID#
-					,	OrderItemID		= #OrderItemID#
-					,	ShippedQty		= #ShippedQty#
+					,	InvoiceNo		= #InvoiceNo#
+					,	DeliveryCode	= #DeliveryCode#
+					,	Description		= #Description#
 				WHERE	ID = #ID#
 			]]>
 		</update>
@@ -74,13 +75,5 @@
 				DELETE FROM	dbo.TShipmentInvoice WHERE ShipmentID = #ShipmentID#;
 			]]>
 		</delete>
-		<select id="SelectShipmentInvoiceExists" parameterClass="DataMap" resultClass="ShipmentInvoiceModel" >
-			<![CDATA[
-				SELECT  AA.*					
-				FROM	dbo.TShipmentInvoice AA WITH (NOLOCK)
-				WHERE	AA.ShipmentID	= #ShipmentID#
-				AND		AA.OrderItemID	= #OrderItemID#
-			]]>
-		</select>
 	</statements>
 </sqlMap>

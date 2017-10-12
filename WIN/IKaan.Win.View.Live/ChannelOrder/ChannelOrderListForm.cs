@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using DevExpress.Data;
 using DevExpress.Utils;
 using IKaan.Base.Map;
@@ -326,7 +327,7 @@ namespace IKaan.Win.View.Live.ChannelOrder
 					ShowMsgBox("처리할 건이 없습니다.");
 					return;
 				}
-				IList<ChannelOrderModel> list = gridOrders.DataSource as IList<ChannelOrderModel>;
+				var list = gridOrders.DataSource as IList<ChannelOrderModel>;
 				if (list == null || list.Count == 0)
 				{
 					ShowMsgBox("처리할 건이 없습니다.");
@@ -430,7 +431,17 @@ namespace IKaan.Win.View.Live.ChannelOrder
 		{
 			try
 			{
+				var list = gridOrders.GetFilteredData<ChannelOrderModel>().Where(x => x.Checked == "Y").ToList();
+				if (list == null || list.Count == 0)
+					throw new Exception("처리할 건이 없습니다.");
 
+				using (var res = WasHandler.Execute<ChannelOrderModel>("Live", "Save", "InsertChannelOrderToBizOrder", list, "ID"))
+				{
+					if (res.Error.Number != 0)
+						throw new Exception(res.Error.Message);
+				}
+				ShowMsgBox("처리하였습니다.");
+				DataLoad(null);
 			}
 			catch (Exception ex)
 			{

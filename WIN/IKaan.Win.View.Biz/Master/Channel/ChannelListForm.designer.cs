@@ -30,6 +30,7 @@
 		{
 			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions2 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
 			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions1 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChannelListForm));
 			this.lcGroupSearch = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.lcItemChannelType = new DevExpress.XtraLayout.LayoutControlItem();
 			this.lupChannelType = new IKaan.Win.Core.Controls.Common.XLookup();
@@ -203,7 +204,7 @@
 			this.gridList.Editable = true;
 			this.gridList.FocusedRowHandle = -2147483648;
 			this.gridList.GridViewType = IKaan.Win.Core.Controls.Grid.GridViewType.GridView;
-			this.gridList.Location = new System.Drawing.Point(259, 33);
+			this.gridList.Location = new System.Drawing.Point(259, 35);
 			this.gridList.Name = "gridList";
 			this.gridList.PageFooterCenter = null;
 			this.gridList.PageFooterLeft = null;
@@ -217,7 +218,7 @@
 			this.gridList.ReadOnly = false;
 			this.gridList.ShowFooter = false;
 			this.gridList.ShowGroupPanel = false;
-			this.gridList.Size = new System.Drawing.Size(722, 457);
+			this.gridList.Size = new System.Drawing.Size(722, 455);
 			this.gridList.TabIndex = 7;
 			// 
 			// lcTabList
@@ -233,12 +234,13 @@
 			// 
 			// lcGroupList
 			// 
+			this.lcGroupList.CaptionImage = ((System.Drawing.Image)(resources.GetObject("lcGroupList.CaptionImage")));
 			this.lcGroupList.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem3});
 			this.lcGroupList.Location = new System.Drawing.Point(0, 0);
 			this.lcGroupList.Name = "lcGroupList";
 			this.lcGroupList.Padding = new DevExpress.XtraLayout.Utils.Padding(4, 4, 4, 4);
-			this.lcGroupList.Size = new System.Drawing.Size(726, 461);
+			this.lcGroupList.Size = new System.Drawing.Size(726, 459);
 			this.lcGroupList.Text = "조회결과";
 			// 
 			// layoutControlItem3
@@ -246,7 +248,7 @@
 			this.layoutControlItem3.Control = this.gridList;
 			this.layoutControlItem3.Location = new System.Drawing.Point(0, 0);
 			this.layoutControlItem3.Name = "layoutControlItem3";
-			this.layoutControlItem3.Size = new System.Drawing.Size(726, 461);
+			this.layoutControlItem3.Size = new System.Drawing.Size(726, 459);
 			this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
 			this.layoutControlItem3.TextVisible = false;
 			// 

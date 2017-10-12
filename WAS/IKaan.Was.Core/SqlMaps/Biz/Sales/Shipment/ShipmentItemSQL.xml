@@ -34,7 +34,7 @@
 		</select>
 		<insert id="InsertShipmentItem" parameterClass="ShipmentItemModel" >
 			<![CDATA[
-				INSERT INTO dbo.TOrder
+				INSERT INTO dbo.TShipmentItem
 				( 
 					CreatedOn, CreatedBy, CreatedByName,
 					ShipmentID, OrderItemID, ShippedQty

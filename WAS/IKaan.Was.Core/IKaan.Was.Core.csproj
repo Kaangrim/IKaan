@@ -199,9 +199,13 @@
     <EmbeddedResource Include="SqlMaps\Biz\Sales\Shipment\ShipmentInvoiceSQL.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="SqlMaps\Biz\Sales\Order\OrderListSQL.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <Content Include="SqlMaps\Report\ReportSQL.xml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="SqlMaps\Biz\Sales\DeliveryOrder\" />
     <Folder Include="SqlMaps\Biz\Sales\Return\" />
   </ItemGroup>
   <ItemGroup>

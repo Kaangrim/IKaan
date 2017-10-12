@@ -28,9 +28,10 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions4 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
-			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions1 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions2 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
 			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions3 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions1 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BusinessEditForm));
 			this.lcGroupEdit1 = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.lcItemBizNo = new DevExpress.XtraLayout.LayoutControlItem();
 			this.txtBizNo = new DevExpress.XtraEditors.TextEdit();
@@ -38,9 +39,6 @@
 			this.txtRepName = new DevExpress.XtraEditors.TextEdit();
 			this.lcItemStatus = new DevExpress.XtraLayout.LayoutControlItem();
 			this.lupStatus = new IKaan.Win.Core.Controls.Common.XLookup();
-			this.lcGroupEdit4 = new DevExpress.XtraLayout.LayoutControlGroup();
-			this.lcItemPicture = new DevExpress.XtraLayout.LayoutControlItem();
-			this.picImage = new IKaan.Win.Core.Controls.Common.XPicture();
 			this.lcItemBizKind = new DevExpress.XtraLayout.LayoutControlItem();
 			this.memBizKind = new DevExpress.XtraEditors.MemoEdit();
 			this.lcItemBizItem = new DevExpress.XtraLayout.LayoutControlItem();
@@ -49,6 +47,9 @@
 			this.lupBizType = new IKaan.Win.Core.Controls.Common.XLookup();
 			this.lcItemName = new DevExpress.XtraLayout.LayoutControlItem();
 			this.txtName = new DevExpress.XtraEditors.TextEdit();
+			this.lcGroupEdit4 = new DevExpress.XtraLayout.LayoutControlGroup();
+			this.lcItemPicture = new DevExpress.XtraLayout.LayoutControlItem();
+			this.picImage = new IKaan.Win.Core.Controls.Common.XPicture();
 			this.lcItemStateProvince = new DevExpress.XtraLayout.LayoutControlItem();
 			this.txtStateProvince = new DevExpress.XtraEditors.TextEdit();
 			this.lcItemAddressLine1 = new DevExpress.XtraLayout.LayoutControlItem();
@@ -86,8 +87,6 @@
 			((System.ComponentModel.ISupportInitialize)(this.txtRepName.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemStatus)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lupStatus.Properties)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcGroupEdit4)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemPicture)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemBizKind)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.memBizKind.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemBizItem)).BeginInit();
@@ -96,6 +95,8 @@
 			((System.ComponentModel.ISupportInitialize)(this.lupBizType.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemName)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.txtName.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcGroupEdit4)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemPicture)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemStateProvince)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.txtStateProvince.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemAddressLine1)).BeginInit();
@@ -226,45 +227,12 @@
 			this.lupStatus.NullText = "[EditValue is null]";
 			this.lupStatus.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions4, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions2, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
 			this.lupStatus.SelectedIndex = -1;
 			this.lupStatus.Size = new System.Drawing.Size(447, 20);
 			this.lupStatus.StyleController = this.lc;
 			this.lupStatus.TabIndex = 34;
 			this.lupStatus.ValueMember = "";
-			// 
-			// lcGroupEdit4
-			// 
-			this.lcGroupEdit4.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
-            this.lcItemPicture});
-			this.lcGroupEdit4.Location = new System.Drawing.Point(594, 0);
-			this.lcGroupEdit4.Name = "lcGroupEdit4";
-			this.lcGroupEdit4.Padding = new DevExpress.XtraLayout.Utils.Padding(2, 2, 2, 2);
-			this.lcGroupEdit4.Size = new System.Drawing.Size(300, 386);
-			this.lcGroupEdit4.TextVisible = false;
-			// 
-			// lcItemPicture
-			// 
-			this.lcItemPicture.Control = this.picImage;
-			this.lcItemPicture.Location = new System.Drawing.Point(0, 0);
-			this.lcItemPicture.MaxSize = new System.Drawing.Size(290, 0);
-			this.lcItemPicture.MinSize = new System.Drawing.Size(290, 5);
-			this.lcItemPicture.Name = "lcItemPicture";
-			this.lcItemPicture.Size = new System.Drawing.Size(290, 376);
-			this.lcItemPicture.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
-			this.lcItemPicture.TextSize = new System.Drawing.Size(0, 0);
-			this.lcItemPicture.TextVisible = false;
-			// 
-			// picImage
-			// 
-			this.picImage.ImageID = null;
-			this.picImage.Location = new System.Drawing.Point(603, 9);
-			this.picImage.Name = "picImage";
-			this.picImage.ShowEdit = true;
-			this.picImage.ShowMenu = true;
-			this.picImage.Size = new System.Drawing.Size(286, 372);
-			this.picImage.SizeMode = DevExpress.XtraEditors.Controls.PictureSizeMode.Squeeze;
-			this.picImage.TabIndex = 49;
 			// 
 			// lcItemBizKind
 			// 
@@ -322,7 +290,7 @@
 			this.lupBizType.NullText = "[EditValue is null]";
 			this.lupBizType.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions3, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
 			this.lupBizType.SelectedIndex = -1;
 			this.lupBizType.Size = new System.Drawing.Size(447, 20);
 			this.lupBizType.StyleController = this.lc;
@@ -344,6 +312,39 @@
 			this.txtName.Size = new System.Drawing.Size(447, 20);
 			this.txtName.StyleController = this.lc;
 			this.txtName.TabIndex = 48;
+			// 
+			// lcGroupEdit4
+			// 
+			this.lcGroupEdit4.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.lcItemPicture});
+			this.lcGroupEdit4.Location = new System.Drawing.Point(594, 0);
+			this.lcGroupEdit4.Name = "lcGroupEdit4";
+			this.lcGroupEdit4.Padding = new DevExpress.XtraLayout.Utils.Padding(2, 2, 2, 2);
+			this.lcGroupEdit4.Size = new System.Drawing.Size(300, 386);
+			this.lcGroupEdit4.TextVisible = false;
+			// 
+			// lcItemPicture
+			// 
+			this.lcItemPicture.Control = this.picImage;
+			this.lcItemPicture.Location = new System.Drawing.Point(0, 0);
+			this.lcItemPicture.MaxSize = new System.Drawing.Size(290, 0);
+			this.lcItemPicture.MinSize = new System.Drawing.Size(290, 5);
+			this.lcItemPicture.Name = "lcItemPicture";
+			this.lcItemPicture.Size = new System.Drawing.Size(290, 376);
+			this.lcItemPicture.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
+			this.lcItemPicture.TextSize = new System.Drawing.Size(0, 0);
+			this.lcItemPicture.TextVisible = false;
+			// 
+			// picImage
+			// 
+			this.picImage.ImageID = null;
+			this.picImage.Location = new System.Drawing.Point(603, 9);
+			this.picImage.Name = "picImage";
+			this.picImage.ShowEdit = true;
+			this.picImage.ShowMenu = true;
+			this.picImage.Size = new System.Drawing.Size(286, 372);
+			this.picImage.SizeMode = DevExpress.XtraEditors.Controls.PictureSizeMode.Squeeze;
+			this.picImage.TabIndex = 49;
 			// 
 			// lcItemStateProvince
 			// 
@@ -411,7 +412,7 @@
 			this.lupCountry.NullText = "[EditValue is null]";
 			this.lupCountry.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions3, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
 			this.lupCountry.SelectedIndex = -1;
 			this.lupCountry.Size = new System.Drawing.Size(157, 20);
 			this.lupCountry.StyleController = this.lc;
@@ -556,11 +557,12 @@
 			// 
 			// lcGroupLinks
 			// 
+			this.lcGroupLinks.CaptionImage = ((System.Drawing.Image)(resources.GetObject("lcGroupLinks.CaptionImage")));
 			this.lcGroupLinks.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem2});
 			this.lcGroupLinks.Location = new System.Drawing.Point(0, 0);
 			this.lcGroupLinks.Name = "lcGroupLinks";
-			this.lcGroupLinks.Size = new System.Drawing.Size(884, 178);
+			this.lcGroupLinks.Size = new System.Drawing.Size(884, 176);
 			this.lcGroupLinks.Text = "Links";
 			// 
 			// layoutControlItem2
@@ -568,7 +570,7 @@
 			this.layoutControlItem2.Control = this.gridLinks;
 			this.layoutControlItem2.Location = new System.Drawing.Point(0, 0);
 			this.layoutControlItem2.Name = "layoutControlItem2";
-			this.layoutControlItem2.Size = new System.Drawing.Size(884, 178);
+			this.layoutControlItem2.Size = new System.Drawing.Size(884, 176);
 			this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
 			this.layoutControlItem2.TextVisible = false;
 			// 
@@ -579,7 +581,7 @@
 			this.gridLinks.Editable = true;
 			this.gridLinks.FocusedRowHandle = -2147483648;
 			this.gridLinks.GridViewType = IKaan.Win.Core.Controls.Grid.GridViewType.GridView;
-			this.gridLinks.Location = new System.Drawing.Point(9, 419);
+			this.gridLinks.Location = new System.Drawing.Point(9, 421);
 			this.gridLinks.Name = "gridLinks";
 			this.gridLinks.PageFooterCenter = null;
 			this.gridLinks.PageFooterLeft = null;
@@ -593,7 +595,7 @@
 			this.gridLinks.ReadOnly = false;
 			this.gridLinks.ShowFooter = false;
 			this.gridLinks.ShowGroupPanel = false;
-			this.gridLinks.Size = new System.Drawing.Size(880, 174);
+			this.gridLinks.Size = new System.Drawing.Size(880, 172);
 			this.gridLinks.TabIndex = 30;
 			// 
 			// lcGroupEdit3
@@ -631,8 +633,6 @@
 			((System.ComponentModel.ISupportInitialize)(this.txtRepName.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemStatus)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lupStatus.Properties)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcGroupEdit4)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemPicture)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemBizKind)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.memBizKind.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemBizItem)).EndInit();
@@ -641,6 +641,8 @@
 			((System.ComponentModel.ISupportInitialize)(this.lupBizType.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemName)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.txtName.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcGroupEdit4)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemPicture)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemStateProvince)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.txtStateProvince.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemAddressLine1)).EndInit();

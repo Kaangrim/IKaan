@@ -48,6 +48,8 @@
 			this.lupCategory = new IKaan.Win.Core.Controls.Common.XLookup();
 			this.lcItemStyle = new DevExpress.XtraLayout.LayoutControlItem();
 			this.lupStyle = new IKaan.Win.Core.Controls.Common.XLookup();
+			this.lcItemCode = new DevExpress.XtraLayout.LayoutControlItem();
+			this.txtCode = new DevExpress.XtraEditors.TextEdit();
 			this.lcItemBrandLogo = new DevExpress.XtraLayout.LayoutControlItem();
 			this.picLogo = new DevExpress.XtraEditors.PictureEdit();
 			this.lcGroupRegInfo = new DevExpress.XtraLayout.LayoutControlGroup();
@@ -71,8 +73,6 @@
 			this.layoutControlItem2 = new DevExpress.XtraLayout.LayoutControlItem();
 			this.gridAttributes = new IKaan.Win.Core.Controls.Grid.XGrid();
 			this.lcGroupPicture = new DevExpress.XtraLayout.LayoutControlGroup();
-			this.txtCode = new DevExpress.XtraEditors.TextEdit();
-			this.lcItemCode = new DevExpress.XtraLayout.LayoutControlItem();
 			((System.ComponentModel.ISupportInitialize)(this.lc)).BeginInit();
 			this.lc.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupBase)).BeginInit();
@@ -91,6 +91,8 @@
 			((System.ComponentModel.ISupportInitialize)(this.lupCategory.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemStyle)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lupStyle.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemCode)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtCode.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemBrandLogo)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.picLogo.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupRegInfo)).BeginInit();
@@ -111,8 +113,6 @@
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupAttribute)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupPicture)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.txtCode.Properties)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemCode)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// lc
@@ -308,6 +308,22 @@
 			this.lupStyle.TabIndex = 35;
 			this.lupStyle.ValueMember = "";
 			// 
+			// lcItemCode
+			// 
+			this.lcItemCode.Control = this.txtCode;
+			this.lcItemCode.Location = new System.Drawing.Point(0, 48);
+			this.lcItemCode.Name = "lcItemCode";
+			this.lcItemCode.Size = new System.Drawing.Size(547, 24);
+			this.lcItemCode.TextSize = new System.Drawing.Size(125, 14);
+			// 
+			// txtCode
+			// 
+			this.txtCode.Location = new System.Drawing.Point(140, 59);
+			this.txtCode.Name = "txtCode";
+			this.txtCode.Size = new System.Drawing.Size(414, 20);
+			this.txtCode.StyleController = this.lc;
+			this.txtCode.TabIndex = 36;
+			// 
 			// lcItemBrandLogo
 			// 
 			this.lcItemBrandLogo.Control = this.picLogo;
@@ -439,12 +455,13 @@
 			// 
 			// lcGroupImage
 			// 
+			this.lcGroupImage.CaptionImage = ((System.Drawing.Image)(resources.GetObject("lcGroupImage.CaptionImage")));
 			this.lcGroupImage.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem1});
 			this.lcGroupImage.Location = new System.Drawing.Point(0, 0);
 			this.lcGroupImage.Name = "lcGroupImage";
 			this.lcGroupImage.Padding = new DevExpress.XtraLayout.Utils.Padding(4, 4, 4, 4);
-			this.lcGroupImage.Size = new System.Drawing.Size(784, 201);
+			this.lcGroupImage.Size = new System.Drawing.Size(784, 199);
 			this.lcGroupImage.Text = "Image";
 			// 
 			// layoutControlItem1
@@ -452,7 +469,7 @@
 			this.layoutControlItem1.Control = this.gridImages;
 			this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
 			this.layoutControlItem1.Name = "layoutControlItem1";
-			this.layoutControlItem1.Size = new System.Drawing.Size(784, 201);
+			this.layoutControlItem1.Size = new System.Drawing.Size(784, 199);
 			this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
 			this.layoutControlItem1.TextVisible = false;
 			// 
@@ -463,7 +480,7 @@
 			this.gridImages.Editable = true;
 			this.gridImages.FocusedRowHandle = -2147483648;
 			this.gridImages.GridViewType = IKaan.Win.Core.Controls.Grid.GridViewType.GridView;
-			this.gridImages.Location = new System.Drawing.Point(9, 346);
+			this.gridImages.Location = new System.Drawing.Point(9, 348);
 			this.gridImages.Name = "gridImages";
 			this.gridImages.PageFooterCenter = null;
 			this.gridImages.PageFooterLeft = null;
@@ -477,16 +494,17 @@
 			this.gridImages.ReadOnly = false;
 			this.gridImages.ShowFooter = false;
 			this.gridImages.ShowGroupPanel = false;
-			this.gridImages.Size = new System.Drawing.Size(780, 197);
+			this.gridImages.Size = new System.Drawing.Size(780, 195);
 			this.gridImages.TabIndex = 26;
 			// 
 			// lcGroupChannel
 			// 
+			this.lcGroupChannel.CaptionImage = ((System.Drawing.Image)(resources.GetObject("lcGroupChannel.CaptionImage")));
 			this.lcGroupChannel.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem4});
 			this.lcGroupChannel.Location = new System.Drawing.Point(0, 0);
 			this.lcGroupChannel.Name = "lcGroupChannel";
-			this.lcGroupChannel.Size = new System.Drawing.Size(784, 201);
+			this.lcGroupChannel.Size = new System.Drawing.Size(784, 199);
 			this.lcGroupChannel.Text = "Channel";
 			// 
 			// layoutControlItem4
@@ -494,7 +512,7 @@
 			this.layoutControlItem4.Control = this.gridChannels;
 			this.layoutControlItem4.Location = new System.Drawing.Point(0, 0);
 			this.layoutControlItem4.Name = "layoutControlItem4";
-			this.layoutControlItem4.Size = new System.Drawing.Size(784, 201);
+			this.layoutControlItem4.Size = new System.Drawing.Size(784, 199);
 			this.layoutControlItem4.TextSize = new System.Drawing.Size(0, 0);
 			this.layoutControlItem4.TextVisible = false;
 			// 
@@ -505,7 +523,7 @@
 			this.gridChannels.Editable = true;
 			this.gridChannels.FocusedRowHandle = -2147483648;
 			this.gridChannels.GridViewType = IKaan.Win.Core.Controls.Grid.GridViewType.GridView;
-			this.gridChannels.Location = new System.Drawing.Point(9, 346);
+			this.gridChannels.Location = new System.Drawing.Point(9, 348);
 			this.gridChannels.Name = "gridChannels";
 			this.gridChannels.PageFooterCenter = null;
 			this.gridChannels.PageFooterLeft = null;
@@ -519,16 +537,17 @@
 			this.gridChannels.ReadOnly = false;
 			this.gridChannels.ShowFooter = false;
 			this.gridChannels.ShowGroupPanel = false;
-			this.gridChannels.Size = new System.Drawing.Size(780, 197);
+			this.gridChannels.Size = new System.Drawing.Size(780, 195);
 			this.gridChannels.TabIndex = 28;
 			// 
 			// lcGroupAttribute
 			// 
+			this.lcGroupAttribute.CaptionImage = ((System.Drawing.Image)(resources.GetObject("lcGroupAttribute.CaptionImage")));
 			this.lcGroupAttribute.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem2});
 			this.lcGroupAttribute.Location = new System.Drawing.Point(0, 0);
 			this.lcGroupAttribute.Name = "lcGroupAttribute";
-			this.lcGroupAttribute.Size = new System.Drawing.Size(784, 201);
+			this.lcGroupAttribute.Size = new System.Drawing.Size(784, 199);
 			this.lcGroupAttribute.Text = "Attribute";
 			// 
 			// layoutControlItem2
@@ -536,7 +555,7 @@
 			this.layoutControlItem2.Control = this.gridAttributes;
 			this.layoutControlItem2.Location = new System.Drawing.Point(0, 0);
 			this.layoutControlItem2.Name = "layoutControlItem2";
-			this.layoutControlItem2.Size = new System.Drawing.Size(784, 201);
+			this.layoutControlItem2.Size = new System.Drawing.Size(784, 199);
 			this.layoutControlItem2.TextSize = new System.Drawing.Size(0, 0);
 			this.layoutControlItem2.TextVisible = false;
 			// 
@@ -547,7 +566,7 @@
 			this.gridAttributes.Editable = true;
 			this.gridAttributes.FocusedRowHandle = -2147483648;
 			this.gridAttributes.GridViewType = IKaan.Win.Core.Controls.Grid.GridViewType.GridView;
-			this.gridAttributes.Location = new System.Drawing.Point(9, 346);
+			this.gridAttributes.Location = new System.Drawing.Point(9, 348);
 			this.gridAttributes.Name = "gridAttributes";
 			this.gridAttributes.PageFooterCenter = null;
 			this.gridAttributes.PageFooterLeft = null;
@@ -561,7 +580,7 @@
 			this.gridAttributes.ReadOnly = false;
 			this.gridAttributes.ShowFooter = false;
 			this.gridAttributes.ShowGroupPanel = false;
-			this.gridAttributes.Size = new System.Drawing.Size(780, 197);
+			this.gridAttributes.Size = new System.Drawing.Size(780, 195);
 			this.gridAttributes.TabIndex = 27;
 			// 
 			// lcGroupPicture
@@ -573,22 +592,6 @@
 			this.lcGroupPicture.Padding = new DevExpress.XtraLayout.Utils.Padding(4, 4, 4, 4);
 			this.lcGroupPicture.Size = new System.Drawing.Size(233, 313);
 			this.lcGroupPicture.TextVisible = false;
-			// 
-			// txtCode
-			// 
-			this.txtCode.Location = new System.Drawing.Point(140, 59);
-			this.txtCode.Name = "txtCode";
-			this.txtCode.Size = new System.Drawing.Size(414, 20);
-			this.txtCode.StyleController = this.lc;
-			this.txtCode.TabIndex = 36;
-			// 
-			// lcItemCode
-			// 
-			this.lcItemCode.Control = this.txtCode;
-			this.lcItemCode.Location = new System.Drawing.Point(0, 48);
-			this.lcItemCode.Name = "lcItemCode";
-			this.lcItemCode.Size = new System.Drawing.Size(547, 24);
-			this.lcItemCode.TextSize = new System.Drawing.Size(125, 14);
 			// 
 			// BrandEditForm
 			// 
@@ -618,6 +621,8 @@
 			((System.ComponentModel.ISupportInitialize)(this.lupCategory.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemStyle)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lupStyle.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemCode)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtCode.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemBrandLogo)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.picLogo.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupRegInfo)).EndInit();
@@ -638,8 +643,6 @@
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupAttribute)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem2)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupPicture)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.txtCode.Properties)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemCode)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
