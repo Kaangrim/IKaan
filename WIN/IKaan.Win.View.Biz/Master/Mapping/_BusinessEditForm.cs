@@ -203,7 +203,7 @@ namespace IKaan.Win.View.Biz.Master.Mapping
 						else
 						{
 							picImage.ImageID = business.ImageID;
-							picImage.LoadImage(ConstsVar.IMG_URL + business.Image.Url);
+							picImage.LoadImage(GlobalVar.ImageServerInfo.CdnUrl + business.Image.Url);
 						}
 					}
 
@@ -284,7 +284,7 @@ namespace IKaan.Win.View.Biz.Master.Mapping
 				{
 					if (picImage.ImagePath.IsNullOrEmpty() == false)
 					{
-						string url = FTPHandler.UploadBusiness(picImage.ImagePath, txtBizNo.EditValue.ToString().Replace("-", ""));
+						string url = FTPHandler.UploadBusiness(GlobalVar.ImageServerInfo, picImage.ImagePath, txtBizNo.EditValue.ToString().Replace("-", ""));
 						model.Business.Image = new ImageModel()
 						{
 							ID = picImage.ImageID.ToIntegerNullToNull(),
@@ -300,7 +300,7 @@ namespace IKaan.Win.View.Biz.Master.Mapping
 				{
 					if (picImage.ImageUrl.IsNullOrEmpty() == false && picImage.EditValue == null)
 					{
-						FTPHandler.DeleteFile(picImage.ImageUrl);
+						FTPHandler.DeleteFile(GlobalVar.ImageServerInfo, picImage.ImageUrl);
 					}
 				}
 
@@ -360,7 +360,7 @@ namespace IKaan.Win.View.Biz.Master.Mapping
 				{
 					if (picImage.ImagePath.IsNullOrEmpty() == false)
 					{
-						string url = FTPHandler.UploadBusiness(picImage.ImagePath, txtBizNo.EditValue.ToString().Replace("-", ""));
+						string url = FTPHandler.UploadBusiness(null, picImage.ImagePath, txtBizNo.EditValue.ToString().Replace("-", ""));
 						model.Business.Image.ID = picImage.ImageID.ToIntegerNullToNull();
 						model.Business.Image.Url = url;
 						model.Business.Image.Name = picImage.GetFileName();
@@ -374,7 +374,7 @@ namespace IKaan.Win.View.Biz.Master.Mapping
 				{
 					if (picImage.ImageUrl.IsNullOrEmpty() == false && picImage.EditValue == null)
 					{
-						FTPHandler.DeleteFile(picImage.ImageUrl);
+						FTPHandler.DeleteFile(null, picImage.ImageUrl);
 						model.Business.Image.RowState = "DELETE";
 					}
 				}
@@ -431,7 +431,7 @@ namespace IKaan.Win.View.Biz.Master.Mapping
 				{
 					if (picImage.ImagePath.IsNullOrEmpty() == false)
 					{
-						string url = FTPHandler.UploadBusiness(picImage.ImagePath, txtBizNo.EditValue.ToString().Replace("-", ""));
+						string url = FTPHandler.UploadBusiness(null, picImage.ImagePath, txtBizNo.EditValue.ToString().Replace("-", ""));
 						model.Business.Image = new ImageModel()
 						{
 							ID = picImage.ImageID.ToIntegerNullToNull(),
@@ -447,7 +447,7 @@ namespace IKaan.Win.View.Biz.Master.Mapping
 				{
 					if (picImage.ImageUrl.IsNullOrEmpty() == false && picImage.EditValue == null)
 					{
-						FTPHandler.DeleteFile(picImage.ImageUrl);
+						FTPHandler.DeleteFile(null, picImage.ImageUrl);
 					}
 				}
 

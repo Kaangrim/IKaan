@@ -18,15 +18,29 @@
 					
 					,	AA.Name
 					,	AA.Code
+					,	AA.ProductType
 					,	AA.BrandID
 					,	AA.CategoryID
 					,	AA.ListPrice
 					,	AA.SalePrice
 					,	AA.UseYn
 					
-					,	CC.BrandName
-					,	BB.CategoryName
+					,	CC.Name				as BrandName
+					,	BB.Name				as CategoryName
 					,	II.Url				as ImageUrl
+					,	M1.Name				as ProductTypeName
+					
+					,	BB.Category1
+					,	BB.Category2
+					,	BB.Category3
+					,	BB.Category4
+					,	BB.Category5
+					
+					,	C1.Name				as Category1Name
+					,	C2.Name				as Category2Name
+					,	C3.Name				as Category3Name
+					,	C4.Name				as Category4Name
+					,	C5.Name				as Category5Name
 					
 				FROM	dbo.TProduct AA WITH (NOLOCK)
 						LEFT JOIN
@@ -43,24 +57,34 @@
 						LEFT JOIN
 							dbo.TImage II WITH (NOLOCK)
 								ON GI.ImageID = II.ID
+						LEFT JOIN
+							IKBase.dbo.TCode M1 WITH (NOLOCK)
+								ON AA.ProductType = M1.Code
+									AND M1.ParentCode = 'ProductType'
+						LEFT JOIN
+							dbo.TCategoryItem C1 WITH (NOLOCK)
+								ON BB.Category1 = C1.ID
+						LEFT JOIN
+							dbo.TCategoryItem C2 WITH (NOLOCK)
+								ON BB.Category2 = C2.ID
+						LEFT JOIN
+							dbo.TCategoryItem C3 WITH (NOLOCK)
+								ON BB.Category3 = C3.ID
+						LEFT JOIN
+							dbo.TCategoryItem C4 WITH (NOLOCK)
+								ON BB.Category4 = C4.ID
+						LEFT JOIN
+							dbo.TCategoryItem C5 WITH (NOLOCK)
+								ON BB.Category5 = C5.ID
 				WHERE	1=1				
 			]]>
 			<isNotEmpty property="FindText">
 				<![CDATA[
 					AND	(
-							AA.Code	LIKE '%' + #FindText# + '%' OR
-							AA.Name	LIKE '%' + #FindText# + '%'
+							AA.Code			LIKE '%' + #FindText# + '%' OR
+							AA.Name			LIKE '%' + #FindText# + '%' OR
+							AA.Description	LIKE '%' + #FindText# + '%'
 						)
-				]]>
-			</isNotEmpty>
-			<isNotEmpty property="Code">
-				<![CDATA[
-					AND		AA.Code	= #Code#
-				]]>
-			</isNotEmpty>
-			<isNotEmpty property="Name">
-				<![CDATA[
-					AND		AA.Name	LIKE '%'+#Name#+'%'
 				]]>
 			</isNotEmpty>
 			<isNotEmpty property="BrandID">
@@ -75,34 +99,46 @@
 			</isNotEmpty>
 			<isNotEmpty property="Age">
 				<![CDATA[
-					AND		AA.ProductID IN (	SELECT	ProductID
-											FROM	dbo.TProductAttribute
-											WHERE	AttributeType = 'Age'
-											AND		AttributeCode = #Age# )
+					AND		AA.ProductID IN 
+									(	
+										SELECT	ProductID
+										FROM	dbo.TProductAttribute
+										WHERE	AttributeType = 'Age'
+										AND		AttributeCode = #Age# 
+									)
 				]]>
 			</isNotEmpty>
 			<isNotEmpty property="Gender">
 				<![CDATA[
-					AND		AA.ProductID IN (	SELECT	ProductID
-											FROM	dbo.TProductAttribute
-											WHERE	AttrType = 'Gender'
-											AND		AttrCode = #Gender# )
+					AND		AA.ProductID IN 
+									(	
+										SELECT	ProductID
+										FROM	dbo.TProductAttribute
+										WHERE	AttrType = 'Gender'
+										AND		AttrCode = #Gender# 
+									)
 				]]>
 			</isNotEmpty>
 			<isNotEmpty property="Season">
 				<![CDATA[
-					AND		AA.ProductID IN (	SELECT	ProductID
-											FROM	dbo.TProductAttribute
-											WHERE	AttrType = 'Season'
-											AND		AttrCode = #Season# )
+					AND		AA.ProductID IN 
+									(	
+										SELECT	ProductID
+										FROM	dbo.TProductAttribute
+										WHERE	AttrType = 'Season'
+										AND		AttrCode = #Season# 
+									)
 				]]>
 			</isNotEmpty>
 			<isNotEmpty property="Origin">
 				<![CDATA[
-					AND		AA.ProductID IN (	SELECT	ProductID
-											FROM	dbo.TProductAttribute
-											WHERE	AttrType = 'Origin'
-											AND		AttrCode = #Origin# )
+					AND		AA.ProductID IN 
+									(	
+										SELECT	ProductID
+										FROM	dbo.TProductAttribute
+										WHERE	AttrType = 'Origin'
+										AND		AttrCode = #Origin# 
+									)
 				]]>
 			</isNotEmpty>
 			<isNotEmpty property="UseYn">
@@ -126,12 +162,12 @@
 				INSERT INTO dbo.TProduct
 				( 
 					CreatedOn, CreatedBy, CreatedByName,
-					Name, Code, BrandID, CategoryID, UseYn, ListPrice, SalePrice
+					Name, Code, ProductType, BrandID, CategoryID, UseYn, ListPrice, SalePrice, ImageDownloadYn
 				)
 				VALUES
 				(
 					GetDate(), #CreatedBy#, #CreatedByName#,
-					#Name#, #Code#, #BrandID#, #CategoryID#, #UseYn#, #ListPrice#, #SalePrice#
+					#Name#, #Code#, #ProductType#, #BrandID#, #CategoryID#, #UseYn#, #ListPrice#, #SalePrice#, 'N'
 				)
 			]]>
 			<selectKey type="post" property="ID" resultClass="Int">
@@ -148,7 +184,8 @@
 					,	UpdatedByName	= #UpdatedByName#
 					
 					,	Name			= #Name#
-					,	Code			= #Code#					
+					,	Code			= #Code#
+					,	ProductType		= #ProductType#
 					,	BrandID			= #BrandID#
 					,	CategoryID		= #CategoryID#
 					,	UseYn			= #UseYn#

@@ -51,6 +51,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Catalog\Category\CategoryItemEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Catalog\Category\CategoryItemEditForm.designer.cs">
+      <DependentUpon>CategoryItemEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Catalog\Category\CategoryItemListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Catalog\Category\CategoryItemListForm.designer.cs">
+      <DependentUpon>CategoryItemListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Catalog\Category\CategoryListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Catalog\Category\CategoryListForm.designer.cs">
+      <DependentUpon>CategoryListForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Master\Address\AddressListForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -334,6 +352,15 @@
     <Folder Include="Sales\Account\" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Catalog\Category\CategoryItemEditForm.resx">
+      <DependentUpon>CategoryItemEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Catalog\Category\CategoryItemListForm.resx">
+      <DependentUpon>CategoryItemListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Catalog\Category\CategoryListForm.resx">
+      <DependentUpon>CategoryListForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Master\Address\AddressListForm.resx">
       <DependentUpon>AddressListForm.cs</DependentUpon>
     </EmbeddedResource>

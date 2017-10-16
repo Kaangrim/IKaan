@@ -79,7 +79,7 @@ namespace IKaan.Win.View.Biz.Master.Store
 					else
 					{
 						picImage.ImageID = model.ImageID;
-						picImage.LoadImage(ConstsVar.IMG_URL + model.Image.Url);
+						picImage.LoadImage(GlobalVar.ImageServerInfo.CdnUrl + model.Image.Url);
 					}
 				}
 
@@ -105,7 +105,7 @@ namespace IKaan.Win.View.Biz.Master.Store
 				{
 					if (picImage.ImagePath.IsNullOrEmpty() == false)
 					{
-						string url = FTPHandler.UploadStore(picImage.ImagePath, txtName.EditValue.ToString().Replace("-", ""));
+						string url = FTPHandler.UploadStore(null, picImage.ImagePath, txtName.EditValue.ToString().Replace("-", ""));
 						model.Image = new ImageModel()
 						{
 							ID = picImage.ImageID.ToIntegerNullToNull(),
@@ -121,7 +121,7 @@ namespace IKaan.Win.View.Biz.Master.Store
 				{
 					if (picImage.ImageUrl.IsNullOrEmpty() == false && picImage.EditValue == null)
 					{
-						FTPHandler.DeleteFile(picImage.ImageUrl);
+						FTPHandler.DeleteFile(null, picImage.ImageUrl);
 					}
 				}
 

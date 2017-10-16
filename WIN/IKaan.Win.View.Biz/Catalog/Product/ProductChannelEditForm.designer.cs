@@ -1,4 +1,4 @@
-﻿namespace IKaan.Win.View.Biz.Catalog
+﻿namespace IKaan.Win.View.Biz.Catalog.Product
 {
 	partial class TGoodsChannelEditForm
 	{

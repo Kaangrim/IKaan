@@ -97,14 +97,28 @@
 			<![CDATA[
 				SELECT  AA.*
 				FROM	IKScrap.dbo.TSmapsLookbook AA WITH (NOLOCK)
-				WHERE	AA.agency_uid = #agency_uid#
+				WHERE	1=1
 				AND		AA.brand_uid = #brand_uid#
+			]]>
+			<isNotEmpty property="agency_uid">
+			<![CDATA[
+				AND	AA.agency_uid = #agency_uid#
+			]]>
+			</isNotEmpty>
+			<![CDATA[
 				AND		AA.ID	= 
 								(	
 									SELECT	MAX(ID)
 									FROM	IKScrap.dbo.TSmapsLookbook WITH (NOLOCK)
-									WHERE	agency_uid = #agency_uid#
+									WHERE	1=1
 									AND		brand_uid = #brand_uid#
+			]]>
+			<isNotEmpty property="agency_uid">
+			<![CDATA[
+									AND		agency_uid = #agency_uid#
+			]]>
+			</isNotEmpty>
+			<![CDATA[
 								)
 			]]>
 		</select>

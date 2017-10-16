@@ -2,6 +2,8 @@
 using System.Linq;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
+using IKaan.Model.Biz.Master.Common;
+using IKaan.Model.Biz.Sales.Address;
 using IKaan.Model.Biz.Sales.Order;
 using IKaan.Model.Common.Was;
 using IKaan.Was.Core.Mappers;
@@ -18,6 +20,36 @@ namespace IKaan.Was.Service.Services
 				var model = DaoFactory.InstanceBiz.QueryForObject<OrderModel>("SelectOrder", parameter);
 				if (model != null)
 				{
+					//Billing Address
+					if (model.BillingAddressID != null) { 
+						model.BillingAddress = DaoFactory.InstanceBiz.QueryForObject<BillingAddressModel>("SelectBillingAddress", new DataMap() { { "ID", model.BillingAddressID } });
+					}
+					if (model.BillingAddress == null)
+						model.BillingAddress = new BillingAddressModel();
+
+					if (model.BillingAddress.AddressID != null)
+					{
+						model.BillingAddress.Address = DaoFactory.InstanceBiz.QueryForObject<AddressModel>("SelectAddress", new DataMap() { { "ID", model.BillingAddress.AddressID } });
+					}
+					if (model.BillingAddress.Address == null)
+						model.BillingAddress.Address = new AddressModel();
+
+
+					//Shipping Address
+					if (model.ShippingAddressID != null)
+					{
+						model.ShippingAddress = DaoFactory.InstanceBiz.QueryForObject<ShippingAddressModel>("SelectShippingAddress", new DataMap() { { "ID", model.ShippingAddressID } });
+					}
+					if (model.ShippingAddress.Address == null)
+						model.ShippingAddress.Address = new AddressModel();
+
+					if (model.ShippingAddress.AddressID != null)
+					{
+						model.ShippingAddress.Address = DaoFactory.InstanceBiz.QueryForObject<AddressModel>("SelectAddress", new DataMap() { { "ID", model.ShippingAddress.AddressID } });
+					}
+					if (model.ShippingAddress.Address == null)
+						model.ShippingAddress.Address = new AddressModel();
+
 					//상품상세
 					model.Items = DaoFactory.InstanceBiz.QueryForList<OrderItemModel>("SelectOrderItemList", new DataMap() { { "OrderID", model.ID } });
 					if (model.Items == null)

@@ -83,7 +83,10 @@ namespace IKaan.Win.View.Base.Common
 				}
 				else
 				{
-					layout.SetFieldCaption(value);
+					if (layout.TextLocation == Locations.Top)
+						layout.SetFieldCaption(value, HorzAlignment.Near);
+					else
+						layout.SetFieldCaption(value);
 					if (layout.Control != null)
 						(layout.Control as TextEdit).SetEnable(true);
 				}

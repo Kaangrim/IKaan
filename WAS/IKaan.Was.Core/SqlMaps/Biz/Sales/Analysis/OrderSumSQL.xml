@@ -7,7 +7,7 @@
 	<statements>
 		<select id="SelectOrderSumList" parameterClass="DataMap" resultClass="OrderSumModel" >
 			<![CDATA[
-				SELECT  ROW_NUMBER() OVER (ORDER BY BB.BrandName, CC.ChannelName)	as RowNo
+				SELECT  ROW_NUMBER() OVER (ORDER BY BB.Name, CC.Name)	as RowNo
 					,	AA.ID
 					,	AA.CreatedOn
 					,	AA.CreatedBy
@@ -22,8 +22,8 @@
 					,	AA.OrderQty
 					,	AA.OrderAmt
 					
-					,	BB.BrandName
-					,	CC.ChannelName
+					,	BB.Name			as BrandName
+					,	CC.Name			as ChannelName
 					
 				FROM	dbo.TOrderSum AA WITH (NOLOCK)
 						LEFT JOIN
@@ -65,8 +65,8 @@
 					,	AA.OrderQty
 					,	AA.OrderAmt
 					
-					,	BB.BrandName
-					,	CC.ChannelName
+					,	BB.Name				as BrandName
+					,	CC.Name				as ChannelName
 					
 				FROM	dbo.TOrderSum AA WITH (NOLOCK)
 						LEFT JOIN
@@ -120,7 +120,7 @@
 		
 		<select id="SelectOrderSumListByChannel" parameterClass="DataMap" resultClass="OrderSumModel" >
 			<![CDATA[
-				SELECT	ROW_NUMBER() OVER (ORDER BY CC.BrandName)	as  RowNo
+				SELECT	ROW_NUMBER() OVER (ORDER BY CC.Name)	as  RowNo
 					,	BB.ID
 					,	BB.CreatedOn
 					,	BB.CreatedBy
@@ -131,7 +131,7 @@
 					
 					,	AA.ChannelID
 					,	AA.BrandID
-					,	CC.BrandName
+					,	CC.Name				as BrandName
 					,	AA.ChannelMargin
 					,	AA.BrandMargin
 					,	BB.OrderDate
@@ -176,7 +176,7 @@
 		</select>
 		<select id="SelectOrderSumListByBrand" parameterClass="DataMap" resultClass="OrderSumModel" >
 			<![CDATA[
-				SELECT	ROW_NUMBER() OVER (ORDER BY CC.ChannelName)	as  RowNo
+				SELECT	ROW_NUMBER() OVER (ORDER BY CC.Name)	as  RowNo
 					,	BB.ID
 					,	BB.CreatedOn
 					,	BB.CreatedBy
@@ -187,7 +187,7 @@
 					
 					,	AA.ChannelID
 					,	AA.BrandID
-					,	CC.ChannelName
+					,	CC.Name				as ChannelName
 					,	AA.ChannelMargin
 					,	AA.BrandMargin
 					,	BB.OrderDate
@@ -232,20 +232,7 @@
 		</select>
 		<select id="SelectOrderSumDuplicate" parameterClass="DataMap" resultClass="OrderSumModel" >
 			<![CDATA[
-				SELECT  AA.ID
-					,	AA.CreatedOn
-					,	AA.CreatedBy
-					,	AA.CreatedByName
-					,	AA.UpdatedOn
-					,	AA.UpdatedBy
-					,	AA.UpdatedByName
-					
-					,	AA.BrandID
-					,	AA.ChannelID
-					,	AA.OrderDate
-					,	AA.OrderQty
-					,	AA.OrderAmt
-					
+				SELECT  AA.*					
 				FROM	dbo.TOrderSum AA WITH (NOLOCK)
 				WHERE	AA.ChannelID	= #ChannelID#
 				AND		AA.BrandID		= #BrandID#
@@ -279,15 +266,15 @@
 
 		<select id="SelectOrderSumSalesList" parameterClass="DataMap" resultClass="OrderSumSalesModel" >
 			<![CDATA[
-				SELECT  ROW_NUMBER() OVER (ORDER BY CC.ChannelName, BB.BrandName, AA.ChannelMargin, AA.BrandMargin)	as RowNo
+				SELECT  ROW_NUMBER() OVER (ORDER BY CC.Name, BB.Name, AA.ChannelMargin, AA.BrandMargin)	as RowNo
 					
 					,	AA.ChannelID
-					,	CC.ChannelName
-					,	E2.EmployeeName	as ChannelManager
+					,	CC.Name			as ChannelName
+					,	E2.Name			as ChannelManager
 					
 					,	AA.BrandID
-					,	BB.BrandName
-					,	E1.EmployeeName	as BrandManager
+					,	BB.Name			as BrandName
+					,	E1.Name			as BrandManager
 					
 					,	AA.OrderQty
 					,	AA.OrderAmt

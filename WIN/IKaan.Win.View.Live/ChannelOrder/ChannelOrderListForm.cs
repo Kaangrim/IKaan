@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using DevExpress.Data;
 using DevExpress.Utils;
+using DevExpress.XtraGrid.Views.Grid;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
 using IKaan.Model.Biz.Master.Channel;
@@ -63,6 +65,8 @@ namespace IKaan.Win.View.Live.ChannelOrder
 
 				InitLookup();
 				InitGrid();
+
+				lcTab.SelectedTabPageIndex = 0;
 			}
 			catch(Exception ex)
 			{
@@ -83,14 +87,16 @@ namespace IKaan.Win.View.Live.ChannelOrder
 			{
 				gridOrders.Init();
 				gridOrders.AddGridColumns(
-					new XGridColumn() { FieldName = "Checked" },
 					new XGridColumn() { FieldName = "RowNo" },
+					new XGridColumn() { FieldName = "Checked" },
+					new XGridColumn() { FieldName = "Status", Visible = false },
+					new XGridColumn() { FieldName = "StatusName", Width = 80, HorzAlignment = HorzAlignment.Center },
 					new XGridColumn() { FieldName = "ChannelID", Visible = false },
 					new XGridColumn() { FieldName = "ChannelName", Width = 120 },
 					new XGridColumn() { FieldName = "OrderDate", Width = 80, HorzAlignment = HorzAlignment.Center },
 					new XGridColumn() { FieldName = "OrderNo", Width = 120 },
 					new XGridColumn() { FieldName = "OrderSeq", Width = 100 },
-					new XGridColumn() { FieldName = "BrandID", Width = 100 },
+					new XGridColumn() { FieldName = "BrandID", Visible = false },
 					new XGridColumn() { FieldName = "BrandName", Width = 150 },
 					new XGridColumn() { FieldName = "GoodsCode", Width = 100 },
 					new XGridColumn() { FieldName = "GoodsName", Width = 200 },
@@ -117,16 +123,53 @@ namespace IKaan.Win.View.Live.ChannelOrder
 					new XGridColumn() { FieldName = "DealNo", Width = 100 },
 					new XGridColumn() { FieldName = "DueDate", Width = 100 },
 					new XGridColumn() { FieldName = "GiftName", Width = 200 },
-					new XGridColumn() { FieldName = "FileUploadID", Width = 80 },
+					new XGridColumn() { FieldName = "FileUploadID", Width = 80, HorzAlignment = HorzAlignment.Center },
+					new XGridColumn() { FieldName = "OrderID", Width = 80, HorzAlignment = HorzAlignment.Center },
+					new XGridColumn() { FieldName = "OrderItemID", Width = 80, HorzAlignment = HorzAlignment.Center },
 					new XGridColumn() { FieldName = "CreatedOn" },
 					new XGridColumn() { FieldName = "CreatedByName" },
 					new XGridColumn() { FieldName = "UpdatedOn" },
 					new XGridColumn() { FieldName = "UpdatedByName" }
 				);
-				gridOrders.ColumnFix("Checked");
 				gridOrders.ColumnFix("RowNo");
+				gridOrders.ColumnFix("Checked");
 				gridOrders.SetRepositoryItemCheckEdit("Checked");
 				gridOrders.SetEditable("Checked");
+				gridOrders.RowCellStyle += (object sender, RowCellStyleEventArgs e) =>
+				{
+					if (e.RowHandle < 0)
+						return;
+
+					try
+					{
+						GridView view = sender as GridView;
+						if (e.Column.FieldName == "StatusName")
+						{
+							switch (view.GetRowCellValue(e.RowHandle, "Status").ToStringNullToEmpty())
+							{
+								case "0":
+									break;
+								case "7":
+									e.Appearance.ForeColor = Color.Blue;
+									break;
+								case "8":
+									e.Appearance.ForeColor = Color.Gray;
+									break;
+							}
+						}
+						else if (e.Column.FieldName.StartsWith("Cancel"))
+						{
+							if(view.GetRowCellValue(e.RowHandle, "CancelYn").ToStringNullToEmpty() == "Y")
+							{
+								e.Appearance.BackColor = Color.LightPink;
+							}
+						}
+					}
+					catch (Exception ex)
+					{
+						ShowErrBox(ex);
+					}
+				};
 			}
 			catch(Exception ex)
 			{
@@ -327,7 +370,7 @@ namespace IKaan.Win.View.Live.ChannelOrder
 					ShowMsgBox("처리할 건이 없습니다.");
 					return;
 				}
-				var list = gridOrders.DataSource as IList<ChannelOrderModel>;
+				var list = gridOrders.GetFilteredData<ChannelOrderModel>().Where(x => x.Checked == "Y" && x.Status == "0").ToList();
 				if (list == null || list.Count == 0)
 				{
 					ShowMsgBox("처리할 건이 없습니다.");
@@ -431,7 +474,7 @@ namespace IKaan.Win.View.Live.ChannelOrder
 		{
 			try
 			{
-				var list = gridOrders.GetFilteredData<ChannelOrderModel>().Where(x => x.Checked == "Y").ToList();
+				var list = gridOrders.GetFilteredData<ChannelOrderModel>().Where(x => x.Checked == "Y" && x.Status == "0").ToList();
 				if (list == null || list.Count == 0)
 					throw new Exception("처리할 건이 없습니다.");
 

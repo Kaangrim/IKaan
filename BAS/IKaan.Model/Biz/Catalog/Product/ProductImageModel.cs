@@ -2,7 +2,7 @@
 using System.Runtime.Serialization;
 using IKaan.Model.Common.Base;
 
-namespace IKaan.Model.Biz.Catalog
+namespace IKaan.Model.Biz.Catalog.Product
 {
 	[DataContract]
 	public class ProductImageModel : ModelBase

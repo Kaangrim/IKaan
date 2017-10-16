@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
-using IKaan.Model.Biz.Catalog;
+using IKaan.Model.Biz.Catalog.Category;
+using IKaan.Model.Biz.Catalog.Product;
 using IKaan.Model.Biz.Master.Brand;
 using IKaan.Model.Biz.Master.Channel;
 using IKaan.Model.Biz.Master.Common;
@@ -60,13 +61,16 @@ namespace IKaan.Was.Service.Services
 						case "Category":
 							req.SetList<CategoryModel>();
 							break;
+						case "CategoryItem":
+							req.SetList<CategoryItemModel>();
+							break;
 						case "InfoNotice":
 							req.SetList<InfoNoticeModel>();
 							break;
-						case "Goods":
+						case "Product":
 							req.SetList<ProductModel>();
 							break;
-						case "GoodsInfoNotice":
+						case "ProductInfoNotice":
 							req.SetList<ProductInfoNoticeModel>();
 							break;
 						case "Address":
@@ -198,6 +202,9 @@ namespace IKaan.Was.Service.Services
 							break;
 						case "Category":
 							req.SetData<CategoryModel>();
+							break;
+						case "CategoryItem":
+							req.SetData<CategoryItemModel>();
 							break;
 						case "InfoNotice":
 							req.SetData<InfoNoticeModel>();
@@ -395,6 +402,9 @@ namespace IKaan.Was.Service.Services
 									break;
 								case "Category":
 									req.SaveCategory();
+									break;
+								case "CategoryItem":
+									req.SaveCategoryItem();
 									break;
 								case "InfoNotice":
 									var infoNotice = req.SaveData<InfoNoticeModel>();

@@ -129,11 +129,27 @@ namespace IKaan.Model.Live
 		public int? FileUploadID { get; set; }
 
 		[DataMember]
+		[Display(Name = "처리상태")]
+		public string Status { get; set; }
+
+		[DataMember]
+		[Display(Name = "주문ID")]
+		public int? OrderID { get; set; }
+
+		[DataMember]
+		[Display(Name = "주문상세ID")]
+		public int? OrderItemID { get; set; }
+
+		[DataMember]
 		[Display(Name = "채널명")]
 		public string ChannelName { get; set; }
 
 		[DataMember]
 		[Display(Name = "브랜드명")]
 		public string BrandName { get; set; }
+
+		[DataMember]
+		[Display(Name = "처리상태")]
+		public string StatusName { get; set; }
 	}
 }

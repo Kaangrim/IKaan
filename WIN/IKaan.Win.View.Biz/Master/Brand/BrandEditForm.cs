@@ -189,7 +189,7 @@ namespace IKaan.Win.View.Biz.Master.Brand
 				var model = WasHandler.GetData<BrandModel>("Biz", "GetData", "Select", new DataMap() { { "ID", param } });
 				SetControlData(model);
 				if (model.ImageUrl.IsNullOrEmpty() == false)
-					picLogo.LoadAsync(ConstsVar.IMG_URL + model.ImageUrl);
+					picLogo.LoadAsync(GlobalVar.ImageServerInfo.CdnUrl + model.ImageUrl);
 
 				gridImages.DataSource = model.Images;
 				gridAttributes.DataSource = model.Attributes;

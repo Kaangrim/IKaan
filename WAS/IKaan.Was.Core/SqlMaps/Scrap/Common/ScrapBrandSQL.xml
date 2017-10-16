@@ -19,6 +19,7 @@
 					,	AA.SiteID
 					,	AA.Code
 					,	AA.Name
+					,	AA.EngName
 					,	AA.Url
 					,	AA.ProductCount
 					,	AA.Description
@@ -92,12 +93,12 @@
 				INSERT INTO dbo.TScrapBrand
 				( 
 					CreatedOn, CreatedBy, CreatedByName,
-					SiteID, Code, Name, Url, ProductCount, Description
+					SiteID, Code, Name, EngName, Url, ProductCount, Description
 				)
 				VALUES
 				(
 					GetDate(), #CreatedBy#, #CreatedByName#,
-					#SiteID#, #Code#, #Name#, #Url#, #ProductCount#, #Description#
+					#SiteID#, #Code#, #Name#, #EngName#, #Url#, #ProductCount#, #Description#
 				)
 			]]>
 			<selectKey type="post" property="ID" resultClass="Int">
@@ -116,6 +117,7 @@
 					,	SiteID			= #SiteID#
 					,	Code			= #Code#
 					,	Name			= #Name#
+					,	EngName			= #EngName#
 					,	Url				= #Url#
 					,	ProductCount	= #ProductCount#
 					,	Description		= #Description#

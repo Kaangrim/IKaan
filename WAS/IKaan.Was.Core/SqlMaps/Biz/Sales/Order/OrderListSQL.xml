@@ -16,6 +16,8 @@
 					,	AA.UpdatedBy
 					,	AA.UpdatedByName
 					
+					,	AA.OrderDate
+					,	AA.OrderNo
 					,	AA.StoreID
 					,	SS.Name			as StoreName
 					,	AA.ChannelID
@@ -33,6 +35,7 @@
 					,	AA.Description
 					
 					,	BB.ID				as OrderItemID
+					,	ROW_NUMBER() OVER (PARTITION BY BB.OrderID ORDER BY BB.ID)	as OrderItemNo
 					,	BB.ProductID
 					,	BB.ProductName
 					,	BB.ProductCode
@@ -93,8 +96,8 @@
 							GROUP BY
 								AA.OrderID, BB.OrderItemID
 						) SD ON AA.ID = SD.OrderID
-				WHERE	AA.OrderDate >= #StartDate#
-				AND		AA.OrderDate <= #EndDate#
+				WHERE	AA.OrderDate > DATEADD(DAY, -1, #StartDate#)
+				AND		AA.OrderDate < DATEADD(DAY, 1, #EndDate#)
 			]]>
 			<isNotEmpty property="StoreID">
 				<![CDATA[

@@ -9,7 +9,7 @@ using DevExpress.XtraTab.Buttons;
 using DevExpress.XtraTab.ViewInfo;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
-using IKaan.Model.Biz.Catalog;
+using IKaan.Model.Biz.Catalog.Product;
 using IKaan.Win.Core.Controls.Grid;
 using IKaan.Win.Core.Enum;
 using IKaan.Win.Core.Forms;
@@ -19,7 +19,7 @@ using IKaan.Win.Core.Utils;
 using IKaan.Win.Core.Variables;
 using IKaan.Win.Core.Was.Handler;
 
-namespace IKaan.Win.View.Biz.Catalog
+namespace IKaan.Win.View.Biz.Catalog.Product
 {
 	public partial class ProductEditForm : EditForm
 	{
@@ -180,17 +180,17 @@ namespace IKaan.Win.View.Biz.Catalog
 			picSub1Image.Click += (object sender, EventArgs e) =>
 			{
 				if (picSub1Image.Tag.IsNullOrEmpty() == false)
-					picMainImage.LoadAsync(string.Format("{0}/{1}", ConstsVar.IMG_URL, picSub1Image.Tag));
+					picMainImage.LoadAsync(string.Format("{0}/{1}", GlobalVar.ImageServerInfo.CdnUrl, picSub1Image.Tag));
 			};
 			picSub2Image.Click += (object sender, EventArgs e) =>
 			{
 				if (picSub2Image.Tag.IsNullOrEmpty() == false)
-					picMainImage.LoadAsync(string.Format("{0}/{1}", ConstsVar.IMG_URL, picSub2Image.Tag));
+					picMainImage.LoadAsync(string.Format("{0}/{1}", GlobalVar.ImageServerInfo.CdnUrl, picSub2Image.Tag));
 			};
 			picSub3Image.Click += (object sender, EventArgs e) =>
 			{
 				if (picSub3Image.Tag.IsNullOrEmpty() == false)
-					picMainImage.LoadAsync(string.Format("{0}/{1}", ConstsVar.IMG_URL, picSub3Image.Tag));
+					picMainImage.LoadAsync(string.Format("{0}/{1}", GlobalVar.ImageServerInfo.CdnUrl, picSub3Image.Tag));
 			};
 		}
 
@@ -415,18 +415,18 @@ namespace IKaan.Win.View.Biz.Catalog
 
 						if (i == 1)
 						{
-							picMainImage.LoadAsync(string.Format("{0}/{1}", ConstsVar.IMG_URL, image.ImageUrl));
-							picSub1Image.LoadAsync(string.Format("{0}/{1}", ConstsVar.IMG_URL, image.ImageUrl));
+							picMainImage.LoadAsync(string.Format("{0}/{1}", GlobalVar.ImageServerInfo.CdnUrl, image.ImageUrl));
+							picSub1Image.LoadAsync(string.Format("{0}/{1}", GlobalVar.ImageServerInfo.CdnUrl, image.ImageUrl));
 							picSub1Image.Tag = image.ImageUrl;
 						}
 						else if (i == 2)
 						{
-							picSub2Image.LoadAsync(string.Format("{0}/{1}", ConstsVar.IMG_URL, image.ImageUrl));
+							picSub2Image.LoadAsync(string.Format("{0}/{1}", GlobalVar.ImageServerInfo.CdnUrl, image.ImageUrl));
 							picSub2Image.Tag = image.ImageUrl;
 						}
 						else if (i == 3)
 						{
-							picSub3Image.LoadAsync(string.Format("{0}/{1}", ConstsVar.IMG_URL, image.ImageUrl));
+							picSub3Image.LoadAsync(string.Format("{0}/{1}", GlobalVar.ImageServerInfo.CdnUrl, image.ImageUrl));
 							picSub3Image.Tag = image.ImageUrl;
 						}
 					}
@@ -482,7 +482,7 @@ namespace IKaan.Win.View.Biz.Catalog
 					//FTP저장
 					foreach (var image in model.Images.Where(x => x.RowState == "INSERT"))
 					{
-						var url = FTPHandler.UploadGoods(image.ImageUrl, model.BrandID.ToString(), model.ID.ToString(), image.ImageType, image.ImageGroup);
+						var url = FTPHandler.UploadGoods(GlobalVar.ImageServerInfo, image.ImageUrl, model.BrandID.ToString(), model.ID.ToString(), image.ImageType, image.ImageGroup);
 						image.ImageUrl = url;
 						image.ProductID = model.ID;
 					}

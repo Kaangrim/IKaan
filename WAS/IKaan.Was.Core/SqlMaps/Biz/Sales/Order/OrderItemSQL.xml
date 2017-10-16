@@ -139,5 +139,17 @@
 				DELETE FROM	dbo.TOrderItem WHERE OrderID = #OrderID#;
 			]]>
 		</delete>
+		<select id="SelectOrderItemByProductCode" parameterClass="DataMap" resultClass="OrderItemModel" >
+			<![CDATA[
+				SELECT  AA.*					
+				FROM	dbo.TOrderItem AA WITH (NOLOCK)
+						INNER JOIN
+							dbo.TOrder BB WITH (NOLOCK)
+								ON AA.OrderID = BB.ID
+				WHERE	BB.StoreID = #StoreID#
+				AND		BB.ChannelID = #ChannelID#
+				AND		AA.ProductCode = #ProductCode#
+			]]>
+		</select>
 	</statements>
 </sqlMap>

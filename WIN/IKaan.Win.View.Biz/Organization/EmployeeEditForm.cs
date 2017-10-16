@@ -191,7 +191,7 @@ namespace IKaan.Win.View.Biz.Organization
 				if (model.Image != null && model.Image.Url.IsNullOrEmpty() == false)
 				{
 					loadUrl = model.Image.Url;
-					picImage.LoadAsync(ConstsVar.IMG_URL + loadUrl);
+					picImage.LoadAsync(GlobalVar.ImageServerInfo.CdnUrl + loadUrl);
 				}
 
 				txtEmail.EditValue = model.Email;
@@ -308,7 +308,7 @@ namespace IKaan.Win.View.Biz.Organization
 		{
 			try
 			{
-				string url = FTPHandler.UploadEmployee(picImage.GetLoadedImageLocation(), txtEmployeeNo.EditValue.ToString());
+				string url = FTPHandler.UploadEmployee(null, picImage.GetLoadedImageLocation(), txtEmployeeNo.EditValue.ToString());
 				var map = new DataMap()
 				{
 					{ "ID", txtID.EditValue },
@@ -333,7 +333,7 @@ namespace IKaan.Win.View.Biz.Organization
 		{
 			try
 			{
-				FTPHandler.DeleteFile(loadUrl);
+				FTPHandler.DeleteFile(null, loadUrl);
 
 				var map = new DataMap()
 				{

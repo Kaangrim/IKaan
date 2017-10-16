@@ -161,7 +161,7 @@ namespace IKaan.Win.View.Biz.Master.Business
 				}
 				else
 				{
-					picImage.LoadImage(ConstsVar.IMG_URL + model.Image.Url);
+					picImage.LoadImage(GlobalVar.ImageServerInfo.CdnUrl + model.Image.Url);
 				}
 
 				SetToolbarButtons(new ToolbarButtons() { New = true, Save = true, SaveAndClose = true, SaveAndNew = true, Delete = true });
@@ -207,7 +207,7 @@ namespace IKaan.Win.View.Biz.Master.Business
 					string path = picImage.ImagePath;
 					if (path.IsNullOrEmpty() == false)
 					{
-						string url = FTPHandler.UploadBusiness(path, txtBizNo.EditValue.ToString().Replace("-", ""));
+						string url = FTPHandler.UploadBusiness(GlobalVar.ImageServerInfo, path, txtBizNo.EditValue.ToString().Replace("-", ""));
 						model.Image.Url = url;
 						model.Image.Name = picImage.GetFileName();
 						model.Image.Width = picImage.ImageWidth;
@@ -222,7 +222,7 @@ namespace IKaan.Win.View.Biz.Master.Business
 				{
 					if (picImage.ImageUrl.IsNullOrEmpty() == false)
 					{
-						FTPHandler.DeleteFile(picImage.ImageUrl);
+						FTPHandler.DeleteFile(null, picImage.ImageUrl);
 						model.Image.Url = null;
 					}
 				}
@@ -248,7 +248,7 @@ namespace IKaan.Win.View.Biz.Master.Business
 			{
 				if (picImage.ImageUrl.IsNullOrEmpty() == false)
 				{
-					FTPHandler.DeleteFile(picImage.ImageUrl);
+					FTPHandler.DeleteFile(null, picImage.ImageUrl);
 				}
 
 				using (var res = WasHandler.Execute<DataMap>("Biz", "Delete", "DeleteBusiness", new DataMap() { { "ID", id } }))

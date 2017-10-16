@@ -2,7 +2,7 @@
 using System.Runtime.Serialization;
 using IKaan.Model.Common.Base;
 
-namespace IKaan.Model.Biz.Catalog
+namespace IKaan.Model.Biz.Catalog.Category
 {
 	[DataContract]
 	public class CategoryModel : ModelBase
@@ -10,10 +10,6 @@ namespace IKaan.Model.Biz.Catalog
 		[DataMember]
 		[Display(Name = "카테고리명")]
 		public string Name { get; set; }
-
-		[DataMember]
-		[Display(Name = "상위카테고리ID")]
-		public int? ParentID { get; set; }
 		
 		[DataMember]
 		[Display(Name = "카테고리1")]
@@ -48,16 +44,8 @@ namespace IKaan.Model.Biz.Catalog
 		public int SortOrder { get; set; }
 
 		[DataMember]
-		[Display(Name = "계층ID")]
-		public string HierID { get; set; }
-
-		[DataMember]
-		[Display(Name = "계층명")]
-		public string HierName { get; set; }
-
-		[DataMember]
-		[Display(Name = "단계")]
-		public int Level { get; set; }
+		[Display(Name = "설명")]
+		public string Description { get; set; }
 
 		[DataMember]
 		[Display(Name = "카테고리1명")]

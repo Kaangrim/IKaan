@@ -16,6 +16,8 @@
 					,	AA.UpdatedBy
 					,	AA.UpdatedByName
 					
+					,	AA.OrderDate
+					,	AA.OrderNo
 					,	AA.StoreID
 					,	AA.ChannelID
 					,	CC.Name			as ChannelName
@@ -44,8 +46,8 @@
 							IKBase.dbo.TCode M1 WITH (NOLOCK)
 								ON AA.Status = M1.Code
 									AND M1.ParentCode = 'OrderStatus'
-				WHERE	AA.OrderDate >= #StartDate#
-				AND		AA.OrderDate <= #EndDate#
+				WHERE	AA.OrderDate > DATEADD(DAY, -1, #StartDate#)
+				AND		AA.OrderDate < DATEADD(DAY, 1, #EndDate#)
 			]]>
 			<isNotEmpty property="StoreID">
 				<![CDATA[

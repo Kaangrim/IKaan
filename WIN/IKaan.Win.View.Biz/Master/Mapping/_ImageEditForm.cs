@@ -100,7 +100,7 @@ namespace IKaan.Win.View.Biz.Master.Mapping
 						if (model.Image.Url.IsNullOrEmpty())
 							picImage.Clear();
 						else
-							picImage.LoadImage(ConstsVar.IMG_URL + model.Image.Url);
+							picImage.LoadImage(GlobalVar.ImageServerInfo.CdnUrl + model.Image.Url);
 					}
 				}
 
@@ -125,7 +125,7 @@ namespace IKaan.Win.View.Biz.Master.Mapping
 					{
 						if (picImage.ImagePath.IsNullOrEmpty() == false)
 						{
-							string url = FTPHandler.UploadBrand(picImage.ImagePath, txtBrandID.EditValue.ToString().Replace("-", ""), lupImageType.EditValue.ToStringNullToEmpty());
+							string url = FTPHandler.UploadBrand(null, picImage.ImagePath, txtBrandID.EditValue.ToString().Replace("-", ""), lupImageType.EditValue.ToStringNullToEmpty());
 							image.ID = picImage.ImageID.ToIntegerNullToNull();
 							image.Url = url;
 							image.Name = picImage.GetFileName();
@@ -139,7 +139,7 @@ namespace IKaan.Win.View.Biz.Master.Mapping
 					{
 						if (picImage.ImageUrl.IsNullOrEmpty() == false && picImage.EditValue == null)
 						{
-							FTPHandler.DeleteFile(picImage.ImageUrl);
+							FTPHandler.DeleteFile(null, picImage.ImageUrl);
 							image.RowState = "DELETE";
 						}
 					}
@@ -171,7 +171,7 @@ namespace IKaan.Win.View.Biz.Master.Mapping
 			{
 				if (picImage.ImageUrl.IsNullOrEmpty() == false)
 				{
-					FTPHandler.DeleteFile(picImage.ImageUrl);
+					FTPHandler.DeleteFile(null, picImage.ImageUrl);
 				}
 
 				using (var res = WasHandler.Execute<DataMap>("Biz", "Delete", string.Format("Delete{0}Image", _type), new DataMap() { { "ID", txtID.EditValue } }))

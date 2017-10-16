@@ -156,9 +156,10 @@ namespace IKaan.Win.View.Scrap.Common
 				new XGridColumn() { FieldName = "ID", Visible = false },
 				new XGridColumn() { FieldName = "SiteID", Visible = false },
 				new XGridColumn() { FieldName = "Code", CaptionCode = "BrandCode", Width = 100 },
-				new XGridColumn() { FieldName = "ProductCount", Width = 80, HorzAlignment = HorzAlignment.Far, FormatType = FormatType.Numeric, FormatString = "N0", IsSummary = true, SummaryItemType = DevExpress.Data.SummaryItemType.Sum },
-				new XGridColumn() { FieldName = "ScrapProductCount", Width = 80, HorzAlignment = HorzAlignment.Far, FormatType = FormatType.Numeric, FormatString = "N0", IsSummary = true, SummaryItemType = DevExpress.Data.SummaryItemType.Sum },
 				new XGridColumn() { FieldName = "Name", CaptionCode = "BrandName", Width = 200 },
+				new XGridColumn() { FieldName = "EngName", Width = 150 },
+				new XGridColumn() { FieldName = "ProductCount", Width = 80, HorzAlignment = HorzAlignment.Far, FormatType = FormatType.Numeric, FormatString = "N0", IsSummary = true, SummaryItemType = DevExpress.Data.SummaryItemType.Sum },
+				new XGridColumn() { FieldName = "ScrapProductCount", Width = 80, HorzAlignment = HorzAlignment.Far, FormatType = FormatType.Numeric, FormatString = "N0", IsSummary = true, SummaryItemType = DevExpress.Data.SummaryItemType.Sum },				
 				new XGridColumn() { FieldName = "Url", Caption = "URL", Width = 200 },
 				new XGridColumn() { FieldName = "Description", Width = 300 },
 				new XGridColumn() { FieldName = "CreatedOn" },
@@ -383,13 +384,11 @@ namespace IKaan.Win.View.Scrap.Common
 					if (doc != null)
 					{
 						SetMessage("브랜드목록을 추출하는 중입니다.. 잠시만..");
-						if (chkHideHtml.Checked == false)
-							memHtml.Text = doc.DocumentNode.SelectSingleNode("//body").OuterHtml;
 						Application.DoEvents();
 
 						//브랜드 추출
 						int i = 0;
-						var nodes = doc.DocumentNode.SelectNodes("//a[@href]");
+						var nodes = doc.DocumentNode.SelectNodes("//div[@class='brand_lst brand-list-card']//ul//li");
 						if (nodes != null)
 						{
 							progBrands.Properties.Maximum = nodes.Count;
@@ -403,29 +402,44 @@ namespace IKaan.Win.View.Scrap.Common
 								i++;
 								progBrands.EditValue = i;
 								SetMessage(string.Format("브랜드검색=> {0}/{1}", i, nodes.Count));
+								if (chkHideHtml.Checked == false)
+									memHtml.Text = link.OuterHtml;
 								Application.DoEvents();
 
-								var att = link.Attributes["href"];
-								if (att.Value.IsNullOrEmpty() == false && att.Value.StartsWith("/ShopMain/BrandShop"))
+								var atag = link.SelectSingleNode(".//a[@href]");
+								var dtag = link.SelectSingleNode(".//div[@class='brand_card brand-card-popup']");
+
+								//브랜드명
+								var brand = new ScrapBrandModel() { SiteID = siteId };
+
+								if (atag != null)
 								{
-									var brand = new ScrapBrandModel() { SiteID = siteId };
-									brand.Code = att.Value.Replace(@"/ShopMain/BrandShop.cshtml?brandcd=", "").Replace("#paginganchor", "");
-									brand.Name = att.OwnerNode.InnerText;
-									brand.Url = att.Value;
-
-									if (brand.Code.IsNullOrEmpty() || brand.Name.IsNullOrEmpty() || brand.Url.IsNullOrEmpty())
-										continue;
-
-									if (brands.Where(x => x.Code == brand.Code).Any())
-										continue;
-
-									memBrandInfo.EditValue =
-										brand.Code + Environment.NewLine +
-										brand.Name + Environment.NewLine +
-										brand.Url;
-									brands.Add(brand);
-									Application.DoEvents();
+									brand.EngName = atag.SelectSingleNode(".//em").InnerText.ToStringNullToNull();
+									brand.Name = atag.InnerText.ToStringNullToNull().Replace(brand.EngName, ""); 
 								}
+
+								if (dtag != null)
+								{
+									var brand_id = dtag.Attributes["id"].Value;
+									if (brand_id.IsNullOrEmpty() == false)
+									{
+										brand_id = brand_id.Replace("divCard_", "");
+										brand.Code = brand_id;
+										brand.Url = @"/ShopMain/BrandShop.cshtml?brandcd=" + brand_id;
+									}
+								}
+
+								if (brand.Code.IsNullOrEmpty() || brand.Name.IsNullOrEmpty() || brand.Url.IsNullOrEmpty())
+									continue;
+
+								if (brands.Where(x => x.Code == brand.Code).Any())
+									continue;
+
+								memBrandInfo.EditValue = 
+									brand.Code + "/ " + brand.Name + "/ " + brand.EngName + Environment.NewLine +
+									brand.Url;
+								brands.Add(brand);
+								Application.DoEvents();
 							}
 						}
 						SetMessage("브랜드목록을 추출하였습니다.");
@@ -460,9 +474,8 @@ namespace IKaan.Win.View.Scrap.Common
 						brandIndex++;
 						progBrands.EditValue = brandIndex;
 						memBrandInfo.EditValue =
-							brand.Code + Environment.NewLine +
-							brand.Name + Environment.NewLine +
-							brand.Url;
+							brand.Code + "/ " + brand.Name + "/ " + brand.EngName + Environment.NewLine +
+							"검색중...";
 						products = new List<ScrapProductModel>();
 						images = new List<ScrapProductImageModel>();
 						Application.DoEvents();
@@ -475,7 +488,7 @@ namespace IKaan.Win.View.Scrap.Common
 							continue;
 
 						#region  브랜드정보
-						doc = web.Load(siteUrl + @"/ShopMain/BrandShop.cshtml?brandcd=" + brand.Code);
+						doc = web.Load(siteUrl + brand.Url);
 						if (doc != null)
 						{
 							var brandPageNodes = doc.DocumentNode.SelectNodes("//div[@class='brand_info']");
@@ -519,6 +532,10 @@ namespace IKaan.Win.View.Scrap.Common
 
 						#region 브랜드 저장
 						SetMessage("브랜드 정보 저장하는 중입니다... 잠시만...");
+						memBrandInfo.EditValue =
+							brand.Code + "/ " + brand.Name + "/ " + brand.EngName + "/ " + 
+							brand.ProductCount.ToStringNullToEmpty() + "건" + Environment.NewLine +
+							postUrl;
 						Application.DoEvents();
 
 						try

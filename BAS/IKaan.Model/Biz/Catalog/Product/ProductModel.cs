@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
 using IKaan.Model.Common.Base;
 
-namespace IKaan.Model.Biz.Catalog
+namespace IKaan.Model.Biz.Catalog.Product
 {
 	[DataContract]
 	public class ProductModel : ModelBase
@@ -51,6 +51,50 @@ namespace IKaan.Model.Biz.Catalog
 		[DataMember]
 		[Display(Name = "대표이미지URL")]
 		public string ImageUrl { get; set; }
+
+		[DataMember]
+		[Display(Name = "상품유형명")]
+		public string ProductTypeName { get; set; }
+
+		[DataMember]
+		[Display(Name = "카테고리(1)")]
+		public int Category1 { get; set; }
+
+		[DataMember]
+		[Display(Name = "카테고리(1)명")]
+		public string Category1Name { get; set; }
+
+		[DataMember]
+		[Display(Name = "카테고리(2)")]
+		public int Category2 { get; set; }
+
+		[DataMember]
+		[Display(Name = "카테고리(2)명")]
+		public string Category2Name { get; set; }
+
+		[DataMember]
+		[Display(Name = "카테고리(3)")]
+		public int Category3 { get; set; }
+
+		[DataMember]
+		[Display(Name = "카테고리(3)명")]
+		public string Category3Name { get; set; }
+
+		[DataMember]
+		[Display(Name = "카테고리(4)")]
+		public int Category4 { get; set; }
+
+		[DataMember]
+		[Display(Name = "카테고리(4)명")]
+		public string Category4Name { get; set; }
+
+		[DataMember]
+		[Display(Name = "카테고리(5)")]
+		public int Category5 { get; set; }
+
+		[DataMember]
+		[Display(Name = "카테고리(5)명")]
+		public string Category5Name { get; set; }
 
 		[DataMember]
 		[Display(Name = "상품상세")]

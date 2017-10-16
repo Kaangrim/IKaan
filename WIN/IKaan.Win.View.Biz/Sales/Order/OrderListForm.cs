@@ -66,7 +66,7 @@ namespace IKaan.Win.View.Biz.Sales.Order
 				new XGridColumn() { FieldName = "StatusName", Width = 80, HorzAlignment = HorzAlignment.Center },
 				new XGridColumn() { FieldName = "Description", Width = 300 },
 				new XGridColumn() { FieldName = "OrderItemID", Visible = false },
-				new XGridColumn() { FieldName = "OrderID", Visible = false },
+				new XGridColumn() { FieldName = "OrderItemNo", Width = 50, HorzAlignment = HorzAlignment.Center },
 				new XGridColumn() { FieldName = "ProductID", Visible = false },
 				new XGridColumn() { FieldName = "ProductName", Width = 300 },
 				new XGridColumn() { FieldName = "ProductCode", Width = 100 },
@@ -95,7 +95,8 @@ namespace IKaan.Win.View.Biz.Sales.Order
 			gridList.ColumnFix("RowNo");
 			gridList.ColumnFix("Checked");
 			gridList.SetRepositoryItemCheckEdit("Checked");
-			gridList.SetMerge("OrderDate", "OrderNo", "StoreID", "StoreName", "ChannelID", "ChannelName", "MemberID", "MemberName", "Descriptoiin");
+			gridList.SetRepositoryItemCheckEdit("CancelYn");
+			gridList.SetMerge("OrderNo", "OrderDate", "StoreID", "StoreName", "ChannelID", "ChannelName", "MemberID", "MemberName", "Descriptoiin");
 
 			gridList.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
 			{

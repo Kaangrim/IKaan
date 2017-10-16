@@ -54,6 +54,9 @@ namespace IKaan.Win.View.Utils
 				else
 					GlobalVar.ScrapInfo.ProductFilePath = product_image_file_path;
 
+				//이미지서버정보 가져오기
+
+
 				//try
 				//{
 				//	DataTable data = (DataTable)DBTranHelper.GetData("Auth", "GetSettings", "Setting", new DataMap()).TranList[0].Data;

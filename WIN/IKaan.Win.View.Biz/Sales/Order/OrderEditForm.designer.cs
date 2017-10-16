@@ -28,6 +28,9 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions4 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions3 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OrderEditForm));
 			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions2 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
 			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions1 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
 			this.lcGroupEdit1 = new DevExpress.XtraLayout.LayoutControlGroup();
@@ -84,6 +87,56 @@
 			this.emptySpaceItem3 = new DevExpress.XtraLayout.EmptySpaceItem();
 			this.lcGroupShippingAddress = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.lcGroupShippingAddressEdit = new DevExpress.XtraLayout.LayoutControlGroup();
+			this.emptySpaceItem1 = new DevExpress.XtraLayout.EmptySpaceItem();
+			this.emptySpaceItem5 = new DevExpress.XtraLayout.EmptySpaceItem();
+			this.txtBAName = new DevExpress.XtraEditors.TextEdit();
+			this.lcItemBAName = new DevExpress.XtraLayout.LayoutControlItem();
+			this.txtBAEmail = new DevExpress.XtraEditors.TextEdit();
+			this.lcItemBAEmail = new DevExpress.XtraLayout.LayoutControlItem();
+			this.txtBAPhoneNo = new DevExpress.XtraEditors.TextEdit();
+			this.lcItemBAPhoneNo = new DevExpress.XtraLayout.LayoutControlItem();
+			this.txtBAMobileNo = new DevExpress.XtraEditors.TextEdit();
+			this.lcItemBAMobileNo = new DevExpress.XtraLayout.LayoutControlItem();
+			this.txtBAFaxNo = new DevExpress.XtraEditors.TextEdit();
+			this.lcItemBAFaxNo = new DevExpress.XtraLayout.LayoutControlItem();
+			this.txtBAPostalCode = new DevExpress.XtraEditors.ButtonEdit();
+			this.lcItemBAPostalCode = new DevExpress.XtraLayout.LayoutControlItem();
+			this.txtBACity = new DevExpress.XtraEditors.TextEdit();
+			this.lcItemBACity = new DevExpress.XtraLayout.LayoutControlItem();
+			this.lupBACountry = new IKaan.Win.Core.Controls.Common.XLookup();
+			this.lcItemBACountry = new DevExpress.XtraLayout.LayoutControlItem();
+			this.lcGroupBillingAddressEdit1 = new DevExpress.XtraLayout.LayoutControlGroup();
+			this.lcGroupBillingAddressEdit2 = new DevExpress.XtraLayout.LayoutControlGroup();
+			this.txtBAStateProvince = new DevExpress.XtraEditors.TextEdit();
+			this.lcItemBAStateProvince = new DevExpress.XtraLayout.LayoutControlItem();
+			this.txtBAAddressLine1 = new DevExpress.XtraEditors.TextEdit();
+			this.lcItemBAAddressLine1 = new DevExpress.XtraLayout.LayoutControlItem();
+			this.txtBAAddressLine2 = new DevExpress.XtraEditors.TextEdit();
+			this.lcItemBAAddressLine2 = new DevExpress.XtraLayout.LayoutControlItem();
+			this.lcGroupShippingAddressEdit1 = new DevExpress.XtraLayout.LayoutControlGroup();
+			this.lcGroupShippingAddressEdit2 = new DevExpress.XtraLayout.LayoutControlGroup();
+			this.txtSAName = new DevExpress.XtraEditors.TextEdit();
+			this.lcItemSAName = new DevExpress.XtraLayout.LayoutControlItem();
+			this.txtSAEmail = new DevExpress.XtraEditors.TextEdit();
+			this.lcItemSAEmail = new DevExpress.XtraLayout.LayoutControlItem();
+			this.txtSAPhoneNo = new DevExpress.XtraEditors.TextEdit();
+			this.lcItemSAPhoneNo = new DevExpress.XtraLayout.LayoutControlItem();
+			this.txtSAMobileNo = new DevExpress.XtraEditors.TextEdit();
+			this.lcItemSAMobileNo = new DevExpress.XtraLayout.LayoutControlItem();
+			this.txtSAFaxNo = new DevExpress.XtraEditors.TextEdit();
+			this.lcItemSAFaxNo = new DevExpress.XtraLayout.LayoutControlItem();
+			this.txtSAPostalCode = new DevExpress.XtraEditors.ButtonEdit();
+			this.lcItemSAPostalCode = new DevExpress.XtraLayout.LayoutControlItem();
+			this.txtSACity = new DevExpress.XtraEditors.TextEdit();
+			this.lcItemSACity = new DevExpress.XtraLayout.LayoutControlItem();
+			this.lupSACountry = new IKaan.Win.Core.Controls.Common.XLookup();
+			this.lcItemSACountry = new DevExpress.XtraLayout.LayoutControlItem();
+			this.txtSAStateProvince = new DevExpress.XtraEditors.TextEdit();
+			this.lcItemSAStateProvince = new DevExpress.XtraLayout.LayoutControlItem();
+			this.txtSAAddressLine1 = new DevExpress.XtraEditors.TextEdit();
+			this.lcItemSAAddressLine1 = new DevExpress.XtraLayout.LayoutControlItem();
+			this.txtSAAddressLine2 = new DevExpress.XtraEditors.TextEdit();
+			this.lcItemSAAddressLine2 = new DevExpress.XtraLayout.LayoutControlItem();
 			this.emptySpaceItem4 = new DevExpress.XtraLayout.EmptySpaceItem();
 			((System.ComponentModel.ISupportInitialize)(this.lc)).BeginInit();
 			this.lc.SuspendLayout();
@@ -139,11 +192,83 @@
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupShippingAddress)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupShippingAddressEdit)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem5)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtBAName.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemBAName)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtBAEmail.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemBAEmail)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtBAPhoneNo.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemBAPhoneNo)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtBAMobileNo.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemBAMobileNo)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtBAFaxNo.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemBAFaxNo)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtBAPostalCode.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemBAPostalCode)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtBACity.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemBACity)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lupBACountry.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemBACountry)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcGroupBillingAddressEdit1)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcGroupBillingAddressEdit2)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtBAStateProvince.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemBAStateProvince)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtBAAddressLine1.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemBAAddressLine1)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtBAAddressLine2.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemBAAddressLine2)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcGroupShippingAddressEdit1)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcGroupShippingAddressEdit2)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtSAName.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemSAName)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtSAEmail.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemSAEmail)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtSAPhoneNo.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemSAPhoneNo)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtSAMobileNo.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemSAMobileNo)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtSAFaxNo.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemSAFaxNo)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtSAPostalCode.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemSAPostalCode)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtSACity.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemSACity)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lupSACountry.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemSACountry)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtSAStateProvince.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemSAStateProvince)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtSAAddressLine1.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemSAAddressLine1)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtSAAddressLine2.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemSAAddressLine2)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem4)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// lc
 			// 
+			this.lc.Controls.Add(this.txtSAAddressLine2);
+			this.lc.Controls.Add(this.txtSAAddressLine1);
+			this.lc.Controls.Add(this.txtSAStateProvince);
+			this.lc.Controls.Add(this.lupSACountry);
+			this.lc.Controls.Add(this.txtSACity);
+			this.lc.Controls.Add(this.txtSAPostalCode);
+			this.lc.Controls.Add(this.txtSAFaxNo);
+			this.lc.Controls.Add(this.txtSAMobileNo);
+			this.lc.Controls.Add(this.txtSAPhoneNo);
+			this.lc.Controls.Add(this.txtSAEmail);
+			this.lc.Controls.Add(this.txtSAName);
+			this.lc.Controls.Add(this.txtBAAddressLine2);
+			this.lc.Controls.Add(this.txtBAAddressLine1);
+			this.lc.Controls.Add(this.txtBAStateProvince);
+			this.lc.Controls.Add(this.lupBACountry);
+			this.lc.Controls.Add(this.txtBACity);
+			this.lc.Controls.Add(this.txtBAPostalCode);
+			this.lc.Controls.Add(this.txtBAFaxNo);
+			this.lc.Controls.Add(this.txtBAMobileNo);
+			this.lc.Controls.Add(this.txtBAPhoneNo);
+			this.lc.Controls.Add(this.txtBAEmail);
+			this.lc.Controls.Add(this.txtBAName);
 			this.lc.Controls.Add(this.txtMember);
 			this.lc.Controls.Add(this.txtChannel);
 			this.lc.Controls.Add(this.lupStatus);
@@ -326,7 +451,7 @@
 			this.lupStoreID.NullText = "[EditValue is null]";
 			this.lupStoreID.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions2, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions4, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
 			this.lupStoreID.SelectedIndex = -1;
 			this.lupStoreID.Size = new System.Drawing.Size(147, 20);
 			this.lupStoreID.StyleController = this.lc;
@@ -630,7 +755,7 @@
 			this.lupStatus.NullText = "[EditValue is null]";
 			this.lupStatus.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions3, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
 			this.lupStatus.SelectedIndex = -1;
 			this.lupStatus.Size = new System.Drawing.Size(151, 20);
 			this.lupStatus.StyleController = this.lc;
@@ -642,8 +767,8 @@
 			this.lcTab.Location = new System.Drawing.Point(0, 232);
 			this.lcTab.Name = "lcTab";
 			this.lcTab.Padding = new DevExpress.XtraLayout.Utils.Padding(2, 2, 2, 2);
-			this.lcTab.SelectedTabPage = this.lcGroupItems;
-			this.lcTab.SelectedTabPageIndex = 0;
+			this.lcTab.SelectedTabPage = this.lcGroupShippingAddress;
+			this.lcTab.SelectedTabPageIndex = 3;
 			this.lcTab.Size = new System.Drawing.Size(894, 316);
 			this.lcTab.TabPages.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.lcGroupItems,
@@ -653,18 +778,19 @@
 			// 
 			// lcGroupItems
 			// 
+			this.lcGroupItems.CaptionImage = ((System.Drawing.Image)(resources.GetObject("lcGroupItems.CaptionImage")));
 			this.lcGroupItems.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem7});
 			this.lcGroupItems.Location = new System.Drawing.Point(0, 0);
 			this.lcGroupItems.Name = "lcGroupItems";
-			this.lcGroupItems.Size = new System.Drawing.Size(884, 282);
+			this.lcGroupItems.Size = new System.Drawing.Size(884, 280);
 			// 
 			// layoutControlItem7
 			// 
 			this.layoutControlItem7.Control = this.gridItems;
 			this.layoutControlItem7.Location = new System.Drawing.Point(0, 0);
 			this.layoutControlItem7.Name = "layoutControlItem7";
-			this.layoutControlItem7.Size = new System.Drawing.Size(884, 282);
+			this.layoutControlItem7.Size = new System.Drawing.Size(884, 280);
 			this.layoutControlItem7.TextSize = new System.Drawing.Size(0, 0);
 			this.layoutControlItem7.TextVisible = false;
 			// 
@@ -675,7 +801,7 @@
 			this.gridItems.Editable = true;
 			this.gridItems.FocusedRowHandle = -2147483648;
 			this.gridItems.GridViewType = IKaan.Win.Core.Controls.Grid.GridViewType.GridView;
-			this.gridItems.Location = new System.Drawing.Point(9, 265);
+			this.gridItems.Location = new System.Drawing.Point(9, 267);
 			this.gridItems.Name = "gridItems";
 			this.gridItems.PageFooterCenter = null;
 			this.gridItems.PageFooterLeft = null;
@@ -689,23 +815,24 @@
 			this.gridItems.ReadOnly = false;
 			this.gridItems.ShowFooter = false;
 			this.gridItems.ShowGroupPanel = false;
-			this.gridItems.Size = new System.Drawing.Size(880, 278);
+			this.gridItems.Size = new System.Drawing.Size(880, 276);
 			this.gridItems.TabIndex = 54;
 			// 
 			// lcGroupNotes
 			// 
+			this.lcGroupNotes.CaptionImage = ((System.Drawing.Image)(resources.GetObject("lcGroupNotes.CaptionImage")));
 			this.lcGroupNotes.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem8});
 			this.lcGroupNotes.Location = new System.Drawing.Point(0, 0);
 			this.lcGroupNotes.Name = "lcGroupNotes";
-			this.lcGroupNotes.Size = new System.Drawing.Size(884, 282);
+			this.lcGroupNotes.Size = new System.Drawing.Size(884, 280);
 			// 
 			// layoutControlItem8
 			// 
 			this.layoutControlItem8.Control = this.gridNotes;
 			this.layoutControlItem8.Location = new System.Drawing.Point(0, 0);
 			this.layoutControlItem8.Name = "layoutControlItem8";
-			this.layoutControlItem8.Size = new System.Drawing.Size(884, 282);
+			this.layoutControlItem8.Size = new System.Drawing.Size(884, 280);
 			this.layoutControlItem8.TextSize = new System.Drawing.Size(0, 0);
 			this.layoutControlItem8.TextVisible = false;
 			// 
@@ -716,7 +843,7 @@
 			this.gridNotes.Editable = true;
 			this.gridNotes.FocusedRowHandle = -2147483648;
 			this.gridNotes.GridViewType = IKaan.Win.Core.Controls.Grid.GridViewType.GridView;
-			this.gridNotes.Location = new System.Drawing.Point(9, 265);
+			this.gridNotes.Location = new System.Drawing.Point(9, 267);
 			this.gridNotes.Name = "gridNotes";
 			this.gridNotes.PageFooterCenter = null;
 			this.gridNotes.PageFooterLeft = null;
@@ -730,59 +857,511 @@
 			this.gridNotes.ReadOnly = false;
 			this.gridNotes.ShowFooter = false;
 			this.gridNotes.ShowGroupPanel = false;
-			this.gridNotes.Size = new System.Drawing.Size(880, 278);
+			this.gridNotes.Size = new System.Drawing.Size(880, 276);
 			this.gridNotes.TabIndex = 55;
 			// 
 			// lcGroupBillingAddress
 			// 
+			this.lcGroupBillingAddress.CaptionImage = ((System.Drawing.Image)(resources.GetObject("lcGroupBillingAddress.CaptionImage")));
 			this.lcGroupBillingAddress.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.lcGroupBillingAddressEdit});
 			this.lcGroupBillingAddress.Location = new System.Drawing.Point(0, 0);
 			this.lcGroupBillingAddress.Name = "lcGroupBillingAddress";
-			this.lcGroupBillingAddress.Size = new System.Drawing.Size(884, 282);
+			this.lcGroupBillingAddress.Size = new System.Drawing.Size(884, 280);
 			// 
 			// lcGroupBillingAddressEdit
 			// 
 			this.lcGroupBillingAddressEdit.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
-            this.emptySpaceItem3});
+            this.lcGroupBillingAddressEdit1,
+            this.lcGroupBillingAddressEdit2});
 			this.lcGroupBillingAddressEdit.Location = new System.Drawing.Point(0, 0);
 			this.lcGroupBillingAddressEdit.Name = "lcGroupBillingAddressEdit";
 			this.lcGroupBillingAddressEdit.Padding = new DevExpress.XtraLayout.Utils.Padding(4, 4, 4, 4);
-			this.lcGroupBillingAddressEdit.Size = new System.Drawing.Size(884, 282);
+			this.lcGroupBillingAddressEdit.Size = new System.Drawing.Size(884, 280);
 			this.lcGroupBillingAddressEdit.TextVisible = false;
 			// 
 			// emptySpaceItem3
 			// 
 			this.emptySpaceItem3.AllowHotTrack = false;
-			this.emptySpaceItem3.Location = new System.Drawing.Point(0, 0);
+			this.emptySpaceItem3.Location = new System.Drawing.Point(0, 144);
 			this.emptySpaceItem3.Name = "emptySpaceItem3";
-			this.emptySpaceItem3.Size = new System.Drawing.Size(870, 268);
+			this.emptySpaceItem3.Size = new System.Drawing.Size(435, 122);
 			this.emptySpaceItem3.TextSize = new System.Drawing.Size(0, 0);
 			// 
 			// lcGroupShippingAddress
 			// 
+			this.lcGroupShippingAddress.CaptionImage = ((System.Drawing.Image)(resources.GetObject("lcGroupShippingAddress.CaptionImage")));
 			this.lcGroupShippingAddress.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.lcGroupShippingAddressEdit});
 			this.lcGroupShippingAddress.Location = new System.Drawing.Point(0, 0);
 			this.lcGroupShippingAddress.Name = "lcGroupShippingAddress";
-			this.lcGroupShippingAddress.Size = new System.Drawing.Size(884, 282);
+			this.lcGroupShippingAddress.Size = new System.Drawing.Size(884, 280);
 			// 
 			// lcGroupShippingAddressEdit
 			// 
 			this.lcGroupShippingAddressEdit.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
-            this.emptySpaceItem4});
+            this.lcGroupShippingAddressEdit1,
+            this.lcGroupShippingAddressEdit2});
 			this.lcGroupShippingAddressEdit.Location = new System.Drawing.Point(0, 0);
 			this.lcGroupShippingAddressEdit.Name = "lcGroupShippingAddressEdit";
 			this.lcGroupShippingAddressEdit.Padding = new DevExpress.XtraLayout.Utils.Padding(4, 4, 4, 4);
-			this.lcGroupShippingAddressEdit.Size = new System.Drawing.Size(884, 282);
+			this.lcGroupShippingAddressEdit.Size = new System.Drawing.Size(884, 280);
 			this.lcGroupShippingAddressEdit.TextVisible = false;
+			// 
+			// emptySpaceItem1
+			// 
+			this.emptySpaceItem1.AllowHotTrack = false;
+			this.emptySpaceItem1.Location = new System.Drawing.Point(0, 120);
+			this.emptySpaceItem1.Name = "emptySpaceItem1";
+			this.emptySpaceItem1.Size = new System.Drawing.Size(435, 146);
+			this.emptySpaceItem1.TextSize = new System.Drawing.Size(0, 0);
+			// 
+			// emptySpaceItem5
+			// 
+			this.emptySpaceItem5.AllowHotTrack = false;
+			this.emptySpaceItem5.Location = new System.Drawing.Point(0, 120);
+			this.emptySpaceItem5.Name = "emptySpaceItem5";
+			this.emptySpaceItem5.Size = new System.Drawing.Size(435, 146);
+			this.emptySpaceItem5.TextSize = new System.Drawing.Size(0, 0);
+			// 
+			// txtBAName
+			// 
+			this.txtBAName.Location = new System.Drawing.Point(152, 274);
+			this.txtBAName.Name = "txtBAName";
+			this.txtBAName.Size = new System.Drawing.Size(295, 20);
+			this.txtBAName.StyleController = this.lc;
+			this.txtBAName.TabIndex = 59;
+			// 
+			// lcItemBAName
+			// 
+			this.lcItemBAName.Control = this.txtBAName;
+			this.lcItemBAName.Location = new System.Drawing.Point(0, 0);
+			this.lcItemBAName.Name = "lcItemBAName";
+			this.lcItemBAName.Size = new System.Drawing.Size(435, 24);
+			this.lcItemBAName.TextSize = new System.Drawing.Size(132, 14);
+			// 
+			// txtBAEmail
+			// 
+			this.txtBAEmail.Location = new System.Drawing.Point(152, 298);
+			this.txtBAEmail.Name = "txtBAEmail";
+			this.txtBAEmail.Size = new System.Drawing.Size(295, 20);
+			this.txtBAEmail.StyleController = this.lc;
+			this.txtBAEmail.TabIndex = 60;
+			// 
+			// lcItemBAEmail
+			// 
+			this.lcItemBAEmail.Control = this.txtBAEmail;
+			this.lcItemBAEmail.Location = new System.Drawing.Point(0, 24);
+			this.lcItemBAEmail.Name = "lcItemBAEmail";
+			this.lcItemBAEmail.Size = new System.Drawing.Size(435, 24);
+			this.lcItemBAEmail.TextSize = new System.Drawing.Size(132, 14);
+			// 
+			// txtBAPhoneNo
+			// 
+			this.txtBAPhoneNo.Location = new System.Drawing.Point(152, 322);
+			this.txtBAPhoneNo.Name = "txtBAPhoneNo";
+			this.txtBAPhoneNo.Size = new System.Drawing.Size(295, 20);
+			this.txtBAPhoneNo.StyleController = this.lc;
+			this.txtBAPhoneNo.TabIndex = 61;
+			// 
+			// lcItemBAPhoneNo
+			// 
+			this.lcItemBAPhoneNo.Control = this.txtBAPhoneNo;
+			this.lcItemBAPhoneNo.Location = new System.Drawing.Point(0, 48);
+			this.lcItemBAPhoneNo.Name = "lcItemBAPhoneNo";
+			this.lcItemBAPhoneNo.Size = new System.Drawing.Size(435, 24);
+			this.lcItemBAPhoneNo.TextSize = new System.Drawing.Size(132, 14);
+			// 
+			// txtBAMobileNo
+			// 
+			this.txtBAMobileNo.Location = new System.Drawing.Point(152, 346);
+			this.txtBAMobileNo.Name = "txtBAMobileNo";
+			this.txtBAMobileNo.Size = new System.Drawing.Size(295, 20);
+			this.txtBAMobileNo.StyleController = this.lc;
+			this.txtBAMobileNo.TabIndex = 62;
+			// 
+			// lcItemBAMobileNo
+			// 
+			this.lcItemBAMobileNo.Control = this.txtBAMobileNo;
+			this.lcItemBAMobileNo.Location = new System.Drawing.Point(0, 72);
+			this.lcItemBAMobileNo.Name = "lcItemBAMobileNo";
+			this.lcItemBAMobileNo.Size = new System.Drawing.Size(435, 24);
+			this.lcItemBAMobileNo.TextSize = new System.Drawing.Size(132, 14);
+			// 
+			// txtBAFaxNo
+			// 
+			this.txtBAFaxNo.Location = new System.Drawing.Point(152, 370);
+			this.txtBAFaxNo.Name = "txtBAFaxNo";
+			this.txtBAFaxNo.Size = new System.Drawing.Size(295, 20);
+			this.txtBAFaxNo.StyleController = this.lc;
+			this.txtBAFaxNo.TabIndex = 63;
+			// 
+			// lcItemBAFaxNo
+			// 
+			this.lcItemBAFaxNo.Control = this.txtBAFaxNo;
+			this.lcItemBAFaxNo.Location = new System.Drawing.Point(0, 96);
+			this.lcItemBAFaxNo.Name = "lcItemBAFaxNo";
+			this.lcItemBAFaxNo.Size = new System.Drawing.Size(435, 24);
+			this.lcItemBAFaxNo.TextSize = new System.Drawing.Size(132, 14);
+			// 
+			// txtBAPostalCode
+			// 
+			this.txtBAPostalCode.Location = new System.Drawing.Point(587, 274);
+			this.txtBAPostalCode.Name = "txtBAPostalCode";
+			this.txtBAPostalCode.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton()});
+			this.txtBAPostalCode.Size = new System.Drawing.Size(295, 20);
+			this.txtBAPostalCode.StyleController = this.lc;
+			this.txtBAPostalCode.TabIndex = 64;
+			// 
+			// lcItemBAPostalCode
+			// 
+			this.lcItemBAPostalCode.Control = this.txtBAPostalCode;
+			this.lcItemBAPostalCode.Location = new System.Drawing.Point(0, 0);
+			this.lcItemBAPostalCode.Name = "lcItemBAPostalCode";
+			this.lcItemBAPostalCode.Size = new System.Drawing.Size(435, 24);
+			this.lcItemBAPostalCode.TextSize = new System.Drawing.Size(132, 14);
+			// 
+			// txtBACity
+			// 
+			this.txtBACity.Location = new System.Drawing.Point(587, 322);
+			this.txtBACity.Name = "txtBACity";
+			this.txtBACity.Size = new System.Drawing.Size(295, 20);
+			this.txtBACity.StyleController = this.lc;
+			this.txtBACity.TabIndex = 66;
+			// 
+			// lcItemBACity
+			// 
+			this.lcItemBACity.Control = this.txtBACity;
+			this.lcItemBACity.Location = new System.Drawing.Point(0, 48);
+			this.lcItemBACity.Name = "lcItemBACity";
+			this.lcItemBACity.Size = new System.Drawing.Size(435, 24);
+			this.lcItemBACity.TextSize = new System.Drawing.Size(132, 14);
+			// 
+			// lupBACountry
+			// 
+			this.lupBACountry.DisplayMember = "";
+			this.lupBACountry.GroupCode = null;
+			this.lupBACountry.ListMember = "ListName";
+			this.lupBACountry.Location = new System.Drawing.Point(587, 298);
+			this.lupBACountry.Name = "lupBACountry";
+			this.lupBACountry.NullText = "[EditValue is null]";
+			this.lupBACountry.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo),
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions2, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
+			this.lupBACountry.SelectedIndex = -1;
+			this.lupBACountry.Size = new System.Drawing.Size(295, 20);
+			this.lupBACountry.StyleController = this.lc;
+			this.lupBACountry.TabIndex = 67;
+			this.lupBACountry.ValueMember = "";
+			// 
+			// lcItemBACountry
+			// 
+			this.lcItemBACountry.Control = this.lupBACountry;
+			this.lcItemBACountry.Location = new System.Drawing.Point(0, 24);
+			this.lcItemBACountry.Name = "lcItemBACountry";
+			this.lcItemBACountry.Size = new System.Drawing.Size(435, 24);
+			this.lcItemBACountry.TextSize = new System.Drawing.Size(132, 14);
+			// 
+			// lcGroupBillingAddressEdit1
+			// 
+			this.lcGroupBillingAddressEdit1.GroupBordersVisible = false;
+			this.lcGroupBillingAddressEdit1.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.lcItemBAName,
+            this.lcItemBAEmail,
+            this.lcItemBAPhoneNo,
+            this.lcItemBAMobileNo,
+            this.lcItemBAFaxNo,
+            this.emptySpaceItem1});
+			this.lcGroupBillingAddressEdit1.Location = new System.Drawing.Point(0, 0);
+			this.lcGroupBillingAddressEdit1.Name = "lcGroupBillingAddressEdit1";
+			this.lcGroupBillingAddressEdit1.Size = new System.Drawing.Size(435, 266);
+			// 
+			// lcGroupBillingAddressEdit2
+			// 
+			this.lcGroupBillingAddressEdit2.GroupBordersVisible = false;
+			this.lcGroupBillingAddressEdit2.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.lcItemBAPostalCode,
+            this.lcItemBACountry,
+            this.lcItemBACity,
+            this.emptySpaceItem3,
+            this.lcItemBAStateProvince,
+            this.lcItemBAAddressLine1,
+            this.lcItemBAAddressLine2});
+			this.lcGroupBillingAddressEdit2.Location = new System.Drawing.Point(435, 0);
+			this.lcGroupBillingAddressEdit2.Name = "lcGroupBillingAddressEdit2";
+			this.lcGroupBillingAddressEdit2.Size = new System.Drawing.Size(435, 266);
+			// 
+			// txtBAStateProvince
+			// 
+			this.txtBAStateProvince.Location = new System.Drawing.Point(587, 346);
+			this.txtBAStateProvince.Name = "txtBAStateProvince";
+			this.txtBAStateProvince.Size = new System.Drawing.Size(295, 20);
+			this.txtBAStateProvince.StyleController = this.lc;
+			this.txtBAStateProvince.TabIndex = 68;
+			// 
+			// lcItemBAStateProvince
+			// 
+			this.lcItemBAStateProvince.Control = this.txtBAStateProvince;
+			this.lcItemBAStateProvince.Location = new System.Drawing.Point(0, 72);
+			this.lcItemBAStateProvince.Name = "lcItemBAStateProvince";
+			this.lcItemBAStateProvince.Size = new System.Drawing.Size(435, 24);
+			this.lcItemBAStateProvince.TextSize = new System.Drawing.Size(132, 14);
+			// 
+			// txtBAAddressLine1
+			// 
+			this.txtBAAddressLine1.Location = new System.Drawing.Point(587, 370);
+			this.txtBAAddressLine1.Name = "txtBAAddressLine1";
+			this.txtBAAddressLine1.Size = new System.Drawing.Size(295, 20);
+			this.txtBAAddressLine1.StyleController = this.lc;
+			this.txtBAAddressLine1.TabIndex = 69;
+			// 
+			// lcItemBAAddressLine1
+			// 
+			this.lcItemBAAddressLine1.Control = this.txtBAAddressLine1;
+			this.lcItemBAAddressLine1.Location = new System.Drawing.Point(0, 96);
+			this.lcItemBAAddressLine1.Name = "lcItemBAAddressLine1";
+			this.lcItemBAAddressLine1.Size = new System.Drawing.Size(435, 24);
+			this.lcItemBAAddressLine1.TextSize = new System.Drawing.Size(132, 14);
+			// 
+			// txtBAAddressLine2
+			// 
+			this.txtBAAddressLine2.Location = new System.Drawing.Point(587, 394);
+			this.txtBAAddressLine2.Name = "txtBAAddressLine2";
+			this.txtBAAddressLine2.Size = new System.Drawing.Size(295, 20);
+			this.txtBAAddressLine2.StyleController = this.lc;
+			this.txtBAAddressLine2.TabIndex = 70;
+			// 
+			// lcItemBAAddressLine2
+			// 
+			this.lcItemBAAddressLine2.Control = this.txtBAAddressLine2;
+			this.lcItemBAAddressLine2.Location = new System.Drawing.Point(0, 120);
+			this.lcItemBAAddressLine2.Name = "lcItemBAAddressLine2";
+			this.lcItemBAAddressLine2.Size = new System.Drawing.Size(435, 24);
+			this.lcItemBAAddressLine2.TextSize = new System.Drawing.Size(132, 14);
+			// 
+			// lcGroupShippingAddressEdit1
+			// 
+			this.lcGroupShippingAddressEdit1.GroupBordersVisible = false;
+			this.lcGroupShippingAddressEdit1.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.emptySpaceItem5,
+            this.lcItemSAName,
+            this.lcItemSAEmail,
+            this.lcItemSAPhoneNo,
+            this.lcItemSAMobileNo,
+            this.lcItemSAFaxNo});
+			this.lcGroupShippingAddressEdit1.Location = new System.Drawing.Point(0, 0);
+			this.lcGroupShippingAddressEdit1.Name = "lcGroupShippingAddressEdit1";
+			this.lcGroupShippingAddressEdit1.Size = new System.Drawing.Size(435, 266);
+			// 
+			// lcGroupShippingAddressEdit2
+			// 
+			this.lcGroupShippingAddressEdit2.GroupBordersVisible = false;
+			this.lcGroupShippingAddressEdit2.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.lcItemSAPostalCode,
+            this.lcItemSACity,
+            this.lcItemSACountry,
+            this.lcItemSAStateProvince,
+            this.lcItemSAAddressLine1,
+            this.lcItemSAAddressLine2,
+            this.emptySpaceItem4});
+			this.lcGroupShippingAddressEdit2.Location = new System.Drawing.Point(435, 0);
+			this.lcGroupShippingAddressEdit2.Name = "lcGroupShippingAddressEdit2";
+			this.lcGroupShippingAddressEdit2.Size = new System.Drawing.Size(435, 266);
+			// 
+			// txtSAName
+			// 
+			this.txtSAName.Location = new System.Drawing.Point(152, 274);
+			this.txtSAName.Name = "txtSAName";
+			this.txtSAName.Size = new System.Drawing.Size(295, 20);
+			this.txtSAName.StyleController = this.lc;
+			this.txtSAName.TabIndex = 71;
+			// 
+			// lcItemSAName
+			// 
+			this.lcItemSAName.Control = this.txtSAName;
+			this.lcItemSAName.Location = new System.Drawing.Point(0, 0);
+			this.lcItemSAName.Name = "lcItemSAName";
+			this.lcItemSAName.Size = new System.Drawing.Size(435, 24);
+			this.lcItemSAName.TextSize = new System.Drawing.Size(132, 14);
+			// 
+			// txtSAEmail
+			// 
+			this.txtSAEmail.Location = new System.Drawing.Point(152, 298);
+			this.txtSAEmail.Name = "txtSAEmail";
+			this.txtSAEmail.Size = new System.Drawing.Size(295, 20);
+			this.txtSAEmail.StyleController = this.lc;
+			this.txtSAEmail.TabIndex = 72;
+			// 
+			// lcItemSAEmail
+			// 
+			this.lcItemSAEmail.Control = this.txtSAEmail;
+			this.lcItemSAEmail.Location = new System.Drawing.Point(0, 24);
+			this.lcItemSAEmail.Name = "lcItemSAEmail";
+			this.lcItemSAEmail.Size = new System.Drawing.Size(435, 24);
+			this.lcItemSAEmail.TextSize = new System.Drawing.Size(132, 14);
+			// 
+			// txtSAPhoneNo
+			// 
+			this.txtSAPhoneNo.Location = new System.Drawing.Point(152, 322);
+			this.txtSAPhoneNo.Name = "txtSAPhoneNo";
+			this.txtSAPhoneNo.Size = new System.Drawing.Size(295, 20);
+			this.txtSAPhoneNo.StyleController = this.lc;
+			this.txtSAPhoneNo.TabIndex = 73;
+			// 
+			// lcItemSAPhoneNo
+			// 
+			this.lcItemSAPhoneNo.Control = this.txtSAPhoneNo;
+			this.lcItemSAPhoneNo.Location = new System.Drawing.Point(0, 48);
+			this.lcItemSAPhoneNo.Name = "lcItemSAPhoneNo";
+			this.lcItemSAPhoneNo.Size = new System.Drawing.Size(435, 24);
+			this.lcItemSAPhoneNo.TextSize = new System.Drawing.Size(132, 14);
+			// 
+			// txtSAMobileNo
+			// 
+			this.txtSAMobileNo.Location = new System.Drawing.Point(152, 346);
+			this.txtSAMobileNo.Name = "txtSAMobileNo";
+			this.txtSAMobileNo.Size = new System.Drawing.Size(295, 20);
+			this.txtSAMobileNo.StyleController = this.lc;
+			this.txtSAMobileNo.TabIndex = 74;
+			// 
+			// lcItemSAMobileNo
+			// 
+			this.lcItemSAMobileNo.Control = this.txtSAMobileNo;
+			this.lcItemSAMobileNo.Location = new System.Drawing.Point(0, 72);
+			this.lcItemSAMobileNo.Name = "lcItemSAMobileNo";
+			this.lcItemSAMobileNo.Size = new System.Drawing.Size(435, 24);
+			this.lcItemSAMobileNo.TextSize = new System.Drawing.Size(132, 14);
+			// 
+			// txtSAFaxNo
+			// 
+			this.txtSAFaxNo.Location = new System.Drawing.Point(152, 370);
+			this.txtSAFaxNo.Name = "txtSAFaxNo";
+			this.txtSAFaxNo.Size = new System.Drawing.Size(295, 20);
+			this.txtSAFaxNo.StyleController = this.lc;
+			this.txtSAFaxNo.TabIndex = 75;
+			// 
+			// lcItemSAFaxNo
+			// 
+			this.lcItemSAFaxNo.Control = this.txtSAFaxNo;
+			this.lcItemSAFaxNo.Location = new System.Drawing.Point(0, 96);
+			this.lcItemSAFaxNo.Name = "lcItemSAFaxNo";
+			this.lcItemSAFaxNo.Size = new System.Drawing.Size(435, 24);
+			this.lcItemSAFaxNo.TextSize = new System.Drawing.Size(132, 14);
+			// 
+			// txtSAPostalCode
+			// 
+			this.txtSAPostalCode.Location = new System.Drawing.Point(587, 274);
+			this.txtSAPostalCode.Name = "txtSAPostalCode";
+			this.txtSAPostalCode.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton()});
+			this.txtSAPostalCode.Size = new System.Drawing.Size(295, 20);
+			this.txtSAPostalCode.StyleController = this.lc;
+			this.txtSAPostalCode.TabIndex = 77;
+			// 
+			// lcItemSAPostalCode
+			// 
+			this.lcItemSAPostalCode.Control = this.txtSAPostalCode;
+			this.lcItemSAPostalCode.Location = new System.Drawing.Point(0, 0);
+			this.lcItemSAPostalCode.Name = "lcItemSAPostalCode";
+			this.lcItemSAPostalCode.Size = new System.Drawing.Size(435, 24);
+			this.lcItemSAPostalCode.TextSize = new System.Drawing.Size(132, 14);
+			// 
+			// txtSACity
+			// 
+			this.txtSACity.Location = new System.Drawing.Point(587, 322);
+			this.txtSACity.Name = "txtSACity";
+			this.txtSACity.Size = new System.Drawing.Size(295, 20);
+			this.txtSACity.StyleController = this.lc;
+			this.txtSACity.TabIndex = 78;
+			// 
+			// lcItemSACity
+			// 
+			this.lcItemSACity.Control = this.txtSACity;
+			this.lcItemSACity.Location = new System.Drawing.Point(0, 48);
+			this.lcItemSACity.Name = "lcItemSACity";
+			this.lcItemSACity.Size = new System.Drawing.Size(435, 24);
+			this.lcItemSACity.TextSize = new System.Drawing.Size(132, 14);
+			// 
+			// lupSACountry
+			// 
+			this.lupSACountry.DisplayMember = "";
+			this.lupSACountry.GroupCode = null;
+			this.lupSACountry.ListMember = "ListName";
+			this.lupSACountry.Location = new System.Drawing.Point(587, 298);
+			this.lupSACountry.Name = "lupSACountry";
+			this.lupSACountry.NullText = "[EditValue is null]";
+			this.lupSACountry.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo),
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
+			this.lupSACountry.SelectedIndex = -1;
+			this.lupSACountry.Size = new System.Drawing.Size(295, 20);
+			this.lupSACountry.StyleController = this.lc;
+			this.lupSACountry.TabIndex = 79;
+			this.lupSACountry.ValueMember = "";
+			// 
+			// lcItemSACountry
+			// 
+			this.lcItemSACountry.Control = this.lupSACountry;
+			this.lcItemSACountry.Location = new System.Drawing.Point(0, 24);
+			this.lcItemSACountry.Name = "lcItemSACountry";
+			this.lcItemSACountry.Size = new System.Drawing.Size(435, 24);
+			this.lcItemSACountry.TextSize = new System.Drawing.Size(132, 14);
+			// 
+			// txtSAStateProvince
+			// 
+			this.txtSAStateProvince.Location = new System.Drawing.Point(587, 346);
+			this.txtSAStateProvince.Name = "txtSAStateProvince";
+			this.txtSAStateProvince.Size = new System.Drawing.Size(295, 20);
+			this.txtSAStateProvince.StyleController = this.lc;
+			this.txtSAStateProvince.TabIndex = 80;
+			// 
+			// lcItemSAStateProvince
+			// 
+			this.lcItemSAStateProvince.Control = this.txtSAStateProvince;
+			this.lcItemSAStateProvince.Location = new System.Drawing.Point(0, 72);
+			this.lcItemSAStateProvince.Name = "lcItemSAStateProvince";
+			this.lcItemSAStateProvince.Size = new System.Drawing.Size(435, 24);
+			this.lcItemSAStateProvince.TextSize = new System.Drawing.Size(132, 14);
+			// 
+			// txtSAAddressLine1
+			// 
+			this.txtSAAddressLine1.Location = new System.Drawing.Point(587, 370);
+			this.txtSAAddressLine1.Name = "txtSAAddressLine1";
+			this.txtSAAddressLine1.Size = new System.Drawing.Size(295, 20);
+			this.txtSAAddressLine1.StyleController = this.lc;
+			this.txtSAAddressLine1.TabIndex = 81;
+			// 
+			// lcItemSAAddressLine1
+			// 
+			this.lcItemSAAddressLine1.Control = this.txtSAAddressLine1;
+			this.lcItemSAAddressLine1.Location = new System.Drawing.Point(0, 96);
+			this.lcItemSAAddressLine1.Name = "lcItemSAAddressLine1";
+			this.lcItemSAAddressLine1.Size = new System.Drawing.Size(435, 24);
+			this.lcItemSAAddressLine1.TextSize = new System.Drawing.Size(132, 14);
+			// 
+			// txtSAAddressLine2
+			// 
+			this.txtSAAddressLine2.Location = new System.Drawing.Point(587, 394);
+			this.txtSAAddressLine2.Name = "txtSAAddressLine2";
+			this.txtSAAddressLine2.Size = new System.Drawing.Size(295, 20);
+			this.txtSAAddressLine2.StyleController = this.lc;
+			this.txtSAAddressLine2.TabIndex = 82;
+			// 
+			// lcItemSAAddressLine2
+			// 
+			this.lcItemSAAddressLine2.Control = this.txtSAAddressLine2;
+			this.lcItemSAAddressLine2.Location = new System.Drawing.Point(0, 120);
+			this.lcItemSAAddressLine2.Name = "lcItemSAAddressLine2";
+			this.lcItemSAAddressLine2.Size = new System.Drawing.Size(435, 24);
+			this.lcItemSAAddressLine2.TextSize = new System.Drawing.Size(132, 14);
 			// 
 			// emptySpaceItem4
 			// 
 			this.emptySpaceItem4.AllowHotTrack = false;
-			this.emptySpaceItem4.Location = new System.Drawing.Point(0, 0);
+			this.emptySpaceItem4.Location = new System.Drawing.Point(0, 144);
 			this.emptySpaceItem4.Name = "emptySpaceItem4";
-			this.emptySpaceItem4.Size = new System.Drawing.Size(870, 268);
+			this.emptySpaceItem4.Size = new System.Drawing.Size(435, 122);
 			this.emptySpaceItem4.TextSize = new System.Drawing.Size(0, 0);
 			// 
 			// OrderEditForm
@@ -849,6 +1428,56 @@
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem3)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupShippingAddress)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupShippingAddressEdit)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem1)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem5)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtBAName.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemBAName)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtBAEmail.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemBAEmail)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtBAPhoneNo.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemBAPhoneNo)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtBAMobileNo.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemBAMobileNo)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtBAFaxNo.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemBAFaxNo)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtBAPostalCode.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemBAPostalCode)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtBACity.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemBACity)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lupBACountry.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemBACountry)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcGroupBillingAddressEdit1)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcGroupBillingAddressEdit2)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtBAStateProvince.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemBAStateProvince)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtBAAddressLine1.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemBAAddressLine1)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtBAAddressLine2.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemBAAddressLine2)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcGroupShippingAddressEdit1)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcGroupShippingAddressEdit2)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtSAName.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemSAName)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtSAEmail.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemSAEmail)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtSAPhoneNo.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemSAPhoneNo)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtSAMobileNo.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemSAMobileNo)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtSAFaxNo.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemSAFaxNo)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtSAPostalCode.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemSAPostalCode)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtSACity.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemSACity)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lupSACountry.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemSACountry)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtSAStateProvince.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemSAStateProvince)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtSAAddressLine1.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemSAAddressLine1)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtSAAddressLine2.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemSAAddressLine2)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem4)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
@@ -899,7 +1528,6 @@
 		private DevExpress.XtraLayout.LayoutControlGroup lcGroupBillingAddressEdit;
 		private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem3;
 		private DevExpress.XtraLayout.LayoutControlGroup lcGroupShippingAddressEdit;
-		private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem4;
 		private Core.Controls.Grid.XGrid gridNotes;
 		private Core.Controls.Grid.XGrid gridItems;
 		private DevExpress.XtraLayout.LayoutControlItem layoutControlItem8;
@@ -911,5 +1539,56 @@
 		private Core.Controls.Common.XSearch txtChannel;
 		private DevExpress.XtraLayout.LayoutControlItem lcItemChannel;
 		private DevExpress.XtraLayout.LayoutControlItem lcItemMember;
+		private DevExpress.XtraEditors.TextEdit txtBAAddressLine2;
+		private DevExpress.XtraEditors.TextEdit txtBAAddressLine1;
+		private DevExpress.XtraEditors.TextEdit txtBAStateProvince;
+		private Core.Controls.Common.XLookup lupBACountry;
+		private DevExpress.XtraEditors.TextEdit txtBACity;
+		private DevExpress.XtraEditors.ButtonEdit txtBAPostalCode;
+		private DevExpress.XtraEditors.TextEdit txtBAFaxNo;
+		private DevExpress.XtraEditors.TextEdit txtBAMobileNo;
+		private DevExpress.XtraEditors.TextEdit txtBAPhoneNo;
+		private DevExpress.XtraEditors.TextEdit txtBAEmail;
+		private DevExpress.XtraEditors.TextEdit txtBAName;
+		private DevExpress.XtraLayout.LayoutControlGroup lcGroupBillingAddressEdit1;
+		private DevExpress.XtraLayout.LayoutControlItem lcItemBAName;
+		private DevExpress.XtraLayout.LayoutControlItem lcItemBAEmail;
+		private DevExpress.XtraLayout.LayoutControlItem lcItemBAPhoneNo;
+		private DevExpress.XtraLayout.LayoutControlItem lcItemBAMobileNo;
+		private DevExpress.XtraLayout.LayoutControlItem lcItemBAFaxNo;
+		private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem1;
+		private DevExpress.XtraLayout.LayoutControlGroup lcGroupBillingAddressEdit2;
+		private DevExpress.XtraLayout.LayoutControlItem lcItemBAPostalCode;
+		private DevExpress.XtraLayout.LayoutControlItem lcItemBACountry;
+		private DevExpress.XtraLayout.LayoutControlItem lcItemBACity;
+		private DevExpress.XtraLayout.LayoutControlItem lcItemBAStateProvince;
+		private DevExpress.XtraLayout.LayoutControlItem lcItemBAAddressLine1;
+		private DevExpress.XtraLayout.LayoutControlItem lcItemBAAddressLine2;
+		private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem5;
+		private DevExpress.XtraLayout.LayoutControlGroup lcGroupShippingAddressEdit1;
+		private DevExpress.XtraLayout.LayoutControlGroup lcGroupShippingAddressEdit2;
+		private DevExpress.XtraEditors.TextEdit txtSAAddressLine2;
+		private DevExpress.XtraEditors.TextEdit txtSAAddressLine1;
+		private DevExpress.XtraEditors.TextEdit txtSAStateProvince;
+		private Core.Controls.Common.XLookup lupSACountry;
+		private DevExpress.XtraEditors.TextEdit txtSACity;
+		private DevExpress.XtraEditors.ButtonEdit txtSAPostalCode;
+		private DevExpress.XtraEditors.TextEdit txtSAFaxNo;
+		private DevExpress.XtraEditors.TextEdit txtSAMobileNo;
+		private DevExpress.XtraEditors.TextEdit txtSAPhoneNo;
+		private DevExpress.XtraEditors.TextEdit txtSAEmail;
+		private DevExpress.XtraEditors.TextEdit txtSAName;
+		private DevExpress.XtraLayout.LayoutControlItem lcItemSAName;
+		private DevExpress.XtraLayout.LayoutControlItem lcItemSAEmail;
+		private DevExpress.XtraLayout.LayoutControlItem lcItemSAPhoneNo;
+		private DevExpress.XtraLayout.LayoutControlItem lcItemSAMobileNo;
+		private DevExpress.XtraLayout.LayoutControlItem lcItemSAFaxNo;
+		private DevExpress.XtraLayout.LayoutControlItem lcItemSAPostalCode;
+		private DevExpress.XtraLayout.LayoutControlItem lcItemSACity;
+		private DevExpress.XtraLayout.LayoutControlItem lcItemSACountry;
+		private DevExpress.XtraLayout.LayoutControlItem lcItemSAStateProvince;
+		private DevExpress.XtraLayout.LayoutControlItem lcItemSAAddressLine1;
+		private DevExpress.XtraLayout.LayoutControlItem lcItemSAAddressLine2;
+		private DevExpress.XtraLayout.EmptySpaceItem emptySpaceItem4;
 	}
 }

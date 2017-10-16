@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
-using IKaan.Model.Biz.Catalog;
+using IKaan.Model.Biz.Catalog.Category;
+using IKaan.Model.Biz.Catalog.Product;
 using IKaan.Model.Common.Was;
 using IKaan.Was.Core.Mappers;
-using IKaan.Was.Service.Utils;
 
 namespace IKaan.Was.Service.Services
 {
@@ -12,31 +12,145 @@ namespace IKaan.Was.Service.Services
 	{
 		public static void SaveCategory(this WasRequest req)
 		{
-			var model = req.SaveData<CategoryModel>();
-			int? parentID = null;
-			List<int?> catlist = new List<int?>();
-
-			catlist.Add(model.ID);
-			parentID = model.ParentID;
-			while (parentID != null)
+			try
 			{
-				catlist.Add(parentID);
-				var model2 = DaoFactory.InstanceBiz.QueryForObject<CategoryModel>("SelectCategory", new DataMap() { { "ID", parentID } });
-				if (model2 != null && model2.ParentID != null)
-					parentID = model2.ParentID;
+				var model = req.Data.JsonToAnyType<CategoryModel>();
+
+				//카테고리명 설정
+				if (model.Category1 != null)
+				{
+					var cat = DaoFactory.InstanceBiz.QueryForObject<CategoryItemModel>("SelectCategoryItem", new DataMap() { { "ID", model.Category1 } });
+					if (cat != null)
+					{
+						model.Category1Name = cat.Name;
+						if (model.Name.IsNullOrEmpty())
+							model.Name = cat.Name;
+					}
+				}
+
+				if (model.Category2 != null)
+				{
+					var cat = DaoFactory.InstanceBiz.QueryForObject<CategoryItemModel>("SelectCategoryItem", new DataMap() { { "ID", model.Category2 } });
+					if (cat != null)
+					{
+						model.Category2Name = cat.Name;
+						if (model.Name.IsNullOrEmpty())
+							model.Name = model.Name + ">" + cat.Name;
+						if (model.InfoNoticeID == null)
+							model.InfoNoticeID = cat.InfoNoticeID;
+					}
+				}
+
+				if (model.Category3 != null)
+				{
+					var cat = DaoFactory.InstanceBiz.QueryForObject<CategoryItemModel>("SelectCategoryItem", new DataMap() { { "ID", model.Category3 } });
+					if (cat != null)
+					{
+						model.Category3Name = cat.Name;
+						if (model.Name.IsNullOrEmpty())
+							model.Name = model.Name + ">" + cat.Name;
+					}
+				}
+
+				if (model.Category4 != null)
+				{
+					var cat = DaoFactory.InstanceBiz.QueryForObject<CategoryItemModel>("SelectCategoryItem", new DataMap() { { "ID", model.Category4 } });
+					if (cat != null)
+					{
+						model.Category4Name = cat.Name;
+						if (model.Name.IsNullOrEmpty())
+							model.Name = model.Name + ">" + cat.Name;
+					}
+				}
+
+				if (model.Category5 != null)
+				{
+					var cat = DaoFactory.InstanceBiz.QueryForObject<CategoryItemModel>("SelectCategoryItem", new DataMap() { { "ID", model.Category5 } });
+					if (cat != null)
+					{
+						model.Category5Name = cat.Name;
+						if (model.Name.IsNullOrEmpty())
+							model.Name = model.Name + ">" + cat.Name;
+					}
+				}
+
+				if (model.ID == null)
+				{
+					var map = new DataMap()
+					{
+						{ "Category1", model.Category1 },
+						{ "Category2", model.Category2 },
+						{ "Category3", model.Category3 },
+						{ "Category4", model.Category4 },
+						{ "Category5", model.Category5 }
+					};
+					var exists = DaoFactory.InstanceBiz.QueryForObject<CategoryModel>("SelectCategory", map);
+					if (exists == null)
+					{
+						model.CreatedBy = req.User.UserId;
+						model.CreatedByName = req.User.UserName;
+						var id = DaoFactory.InstanceBiz.Insert("InsertCategory", model);
+						model.ID = id.ToIntegerNullToNull();
+					}
+					else
+					{
+						throw new System.Exception("이미 등록된 카테고리입니다.");
+					}
+				}
 				else
-					parentID = null;
-			}
+				{
+					model.UpdatedBy = req.User.UserId;
+					model.UpdatedByName = req.User.UserName;
+					DaoFactory.InstanceBiz.Update("UpdateCategory", model);
+				}
 
-			DataMap map = new DataMap();
-			map.SetValue("ID", model.ID);
-			for (int i = 0; i < catlist.Count; i++)
-			{
-				map.SetValue("Category" + (i + 1).ToString(), catlist[i]);
+				req.Result.ReturnValue = model.ID;
+				req.Result.Count = 1;
+				req.Error.Number = 0;
 			}
-			DaoFactory.InstanceBiz.Update("UpdateCategoryLevel", map);
+			catch
+			{
+				throw;
+			}
 		}
-		
+
+		public static void SaveCategoryItem(this WasRequest req)
+		{
+			try
+			{
+				var model = req.Data.JsonToAnyType<CategoryItemModel>();
+				if (model.ID == null)
+				{
+					var exists = DaoFactory.InstanceBiz.QueryForObject<CategoryModel>("SelectCategoryItemByName", new DataMap() { { "Name", model.Name } });
+					if (exists == null)
+					{
+						model.CreatedBy = req.User.UserId;
+						model.CreatedByName = req.User.UserName;
+						var id = DaoFactory.InstanceBiz.Insert("InsertCategoryItem", model);
+						model.ID = id.ToIntegerNullToNull();
+					}
+					else
+					{
+						throw new System.Exception("이미 등록된 카테고리항목입니다.");
+					}
+				}
+				else
+				{
+					model.UpdatedBy = req.User.UserId;
+					model.UpdatedByName = req.User.UserName;
+					DaoFactory.InstanceBiz.Update("UpdateCategoryItem", model);
+				}
+
+				req.Result.ReturnValue = model.ID;
+				req.Result.Count = 1;
+				req.Error.Number = 0;
+			}
+			catch
+			{
+				throw;
+			}
+		}
+
 		public static IList<ProductModel> GetProductList(DataMap parameter)
 		{
 			return DaoFactory.InstanceBiz.QueryForList<ProductModel>("SelectProductList", parameter);

@@ -59,6 +59,7 @@ namespace IKaan.Win.View.Scrap.Common
 			lupSite.BindData("ScrapSite");
 			lupBrand.BindData("ScrapBrand", "All", false, new DataMap() { { "SiteID", lupSite.EditValue } });
 			lupCategory.BindData("ScrapCategory", "All", false, new DataMap() { { "SiteID", lupSite.EditValue } });
+			lupImageServer.BindData("ImageServer");
 
 			InitGrid();
 
@@ -393,8 +394,20 @@ namespace IKaan.Win.View.Scrap.Common
 			if (lcTabList.SelectedTabPage.Name != lcGroupProduct.Name)
 				return;
 
+			if (lupImageServer.EditValue == null)
+				return;
+
 			try
 			{
+				var imageServer = new ImageServerInfo()
+				{
+					FtpUrl = lupImageServer.GetValue(1).ToStringNullToNull(),
+					ID = lupImageServer.GetValue(2).ToStringNullToNull(),
+					PW = lupImageServer.GetValue(3).ToStringNullToNull(),
+					CdnUrl = lupImageServer.GetValue(4).ToStringNullToNull(),
+					RootDir = lupImageServer.GetValue(5).ToStringNullToNull()
+				};
+
 				var list = gridProducts.GetFilteredData<ScrapProductModel>().Where(x => x.Checked == "Y").ToList();
 				if (list == null || list.Count == 0)
 				{
@@ -412,8 +425,8 @@ namespace IKaan.Win.View.Scrap.Common
 
 					foreach (var image in images)
 					{
-						var url = FTPHandler.UploadScrapProduct(lupSite.GetValue(1).ToString(), image.Name, data.BrandName.Replace(".", "").Replace("/", "").Replace(":", "").Replace("+", ""));
-						image.Url = ConstsVar.IMG_URL + url;
+						var url = FTPHandler.UploadScrapProduct(imageServer, lupSite.GetValue(1).ToString(), image.Name, data.BrandName.Replace(".", "").Replace("/", "").Replace(":", "").Replace("+", ""));
+						image.Url = GlobalVar.ImageServerInfo.CdnUrl + url;
 						using (var res = WasHandler.Execute<ScrapProductImageModel>("Scrap", "Save", "Update", image, "ID"))
 						{
 							if (res.Error.Number != 0)

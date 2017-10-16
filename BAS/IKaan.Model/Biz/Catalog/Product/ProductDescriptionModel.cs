@@ -2,21 +2,21 @@
 using System.Runtime.Serialization;
 using IKaan.Model.Common.Base;
 
-namespace IKaan.Model.Biz.Catalog
+namespace IKaan.Model.Biz.Catalog.Product
 {
 	[DataContract]
-	public class ProductChannelGoodsModel : ModelBase
+	public class ProductDescriptionModel : ModelBase
 	{
 		[DataMember]
 		[Display(Name = "상품ID")]
 		public int? ProductID { get; set; }
 
 		[DataMember]
-		[Display(Name = "채널ID")]
-		public int? ChannelID { get; set; }
+		[Display(Name = "상세설명")]
+		public string Description { get; set; }
 
 		[DataMember]
-		[Display(Name = "채널상품ID")]
-		public int? ChannelGoodsID { get; set; }
+		[Display(Name = "상세설명(RTF)")]
+		public string DescriptionRTF { get; set; }
 	}
 }

@@ -77,7 +77,7 @@ namespace IKaan.Win.View.Scrap.Smaps
 				if (model.image.IsNullOrEmpty() == false)
 				{
 					loadImageUrl = model.image;
-					picImage.LoadAsync(ConstsVar.IMG_URL + model.image);
+					picImage.LoadAsync(GlobalVar.ImageServerInfo.CdnUrl + model.image);
 				}
 				else
 				{
@@ -107,7 +107,7 @@ namespace IKaan.Win.View.Scrap.Smaps
 					string path = picImage.GetLoadedImageLocation();
 					if (path.IsNullOrEmpty() == false)
 					{
-						string url = FTPHandler.UploadSmapsAgency(path, txtname.EditValue.ToString());
+						string url = FTPHandler.UploadSmapsAgency(null, path, txtname.EditValue.ToString());
 						model.image = url;
 						model.image_width = ImageUtils.GetSizePixel(path).Width.ToStringNullToEmpty();
 						model.image_height = ImageUtils.GetSizePixel(path).Height.ToStringNullToEmpty();
@@ -117,7 +117,7 @@ namespace IKaan.Win.View.Scrap.Smaps
 				{
 					if (loadImageUrl.IsNullOrEmpty() == false)
 					{
-						FTPHandler.DeleteFile(loadImageUrl);
+						FTPHandler.DeleteFile(null, loadImageUrl);
 						loadImageUrl = string.Empty;
 					}
 				}

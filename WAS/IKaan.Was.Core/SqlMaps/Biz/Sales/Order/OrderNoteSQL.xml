@@ -22,7 +22,7 @@
 					
 				FROM	dbo.TOrderNote AA WITH (NOLOCK)
 				WHERE	AA.OrderID = #OrderID#
-				OrderNote BY RowNo
+				ORDER BY RowNo
 			]]>
 		</select>
 		<select id="SelectOrderNote" parameterClass="DataMap" resultClass="OrderNoteModel" >

@@ -50,10 +50,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base\Common\FileUploadModel.cs" />
+    <Compile Include="Biz\Catalog\Category\CategoryItemModel.cs" />
     <Compile Include="Biz\Master\Channel\ChannelAttributeModel.cs" />
     <Compile Include="Biz\Master\Brand\BrandAttributeModel.cs" />
     <Compile Include="Biz\Master\Common\BusinessLinksModel.cs" />
-    <Compile Include="Biz\Catalog\ProductChannelGoodsModel.cs" />
+    <Compile Include="Biz\Catalog\Product\ProductChannelGoodsModel.cs" />
     <Compile Include="Biz\Sales\Order\OrderListModel.cs" />
     <Compile Include="Biz\Sales\Shipment\ShipmentInvoiceModel.cs" />
     <Compile Include="Biz\Sales\Shipment\ShipmentItemModel.cs" />
@@ -89,11 +90,11 @@
     <Compile Include="Biz\Organization\DepartmentHistoryModel.cs" />
     <Compile Include="Biz\Organization\EmployeeModel.cs" />
     <Compile Include="Biz\Organization\DepartmentModel.cs" />
-    <Compile Include="Biz\Catalog\ProductAttributeModel.cs" />
-    <Compile Include="Biz\Catalog\ProductInfoNoticeModel.cs" />
+    <Compile Include="Biz\Catalog\Product\ProductAttributeModel.cs" />
+    <Compile Include="Biz\Catalog\Product\ProductInfoNoticeModel.cs" />
     <Compile Include="Biz\Master\InfoNotice\InfoNoticeItemModel.cs" />
     <Compile Include="Biz\Master\InfoNotice\InfoNoticeModel.cs" />
-    <Compile Include="Biz\Catalog\CategoryModel.cs" />
+    <Compile Include="Biz\Catalog\Category\CategoryModel.cs" />
     <Compile Include="Biz\Master\Partner\PartnerManagerModel.cs" />
     <Compile Include="Biz\Master\Customer\CustomerManagerModel.cs" />
     <Compile Include="Biz\Master\Customer\CustomerContactModel.cs" />
@@ -103,10 +104,10 @@
     <Compile Include="Biz\Master\Common\BusinessModel.cs" />
     <Compile Include="Biz\Search\SearchBrandActivityModel.cs" />
     <Compile Include="Biz\Search\SearchBrandModel.cs" />
-    <Compile Include="Biz\Catalog\ProductItemModel.cs" />
-    <Compile Include="Biz\Catalog\ProductImageModel.cs" />
-    <Compile Include="Biz\Catalog\ProductDescriptionModel.cs" />
-    <Compile Include="Biz\Catalog\ProductModel.cs" />
+    <Compile Include="Biz\Catalog\Product\ProductItemModel.cs" />
+    <Compile Include="Biz\Catalog\Product\ProductImageModel.cs" />
+    <Compile Include="Biz\Catalog\Product\ProductDescriptionModel.cs" />
+    <Compile Include="Biz\Catalog\Product\ProductModel.cs" />
     <Compile Include="Biz\Master\Channel\ChannelModel.cs" />
     <Compile Include="Biz\Master\Brand\BrandImageModel.cs" />
     <Compile Include="Biz\Master\Channel\ChannelBrandModel.cs" />

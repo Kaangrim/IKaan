@@ -123,6 +123,14 @@
 				WHERE	AA.ID = #ID#
 			]]>
 		</select>
+		<select id="SelectCodeByCode" parameterClass="DataMap" resultClass="CodeModel">
+			<![CDATA[
+				SELECT	*
+				FROM	dbo.TCode AA WITH (NOLOCK)
+				WHERE	AA.Code = #Code#
+				AND		AA.ParentCode = #ParentCode#
+			]]>
+		</select>
 		<insert id="InsertCode" parameterClass="CodeModel" resultClass="Int">
 			<![CDATA[
 				INSERT INTO dbo.TCode
