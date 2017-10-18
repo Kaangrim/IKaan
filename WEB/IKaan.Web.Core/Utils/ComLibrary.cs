@@ -5,13 +5,13 @@ using System.Web;
 
 namespace IKaan.Web.Core.Utils
 {
-    public class comLibrary
+    public class ComLibrary
     {
         ///<summary>
         ///Null 일경우 ""리턴
         ///</summary>
         ///<param name="obj">값</param>
-        public static string objC(object obj)
+        public static string ObjC(object obj)
         {
             string strR = "";
             try
@@ -31,7 +31,7 @@ namespace IKaan.Web.Core.Utils
         ///<param name="str">문자열 배열</param>
         ///<param name="des">구분자</param>
         ///<param name="des">문자열</param>
-        public static string getArrayToString(string[] str, string des)
+        public static string GetArrayToString(string[] str, string des)
         {
             int count;
             string rep = "";
@@ -50,7 +50,7 @@ namespace IKaan.Web.Core.Utils
         /// 숫자에서 컴마를 찍고 문자로 변환
         ///</summary>
         ///<param name="ValueS">값</param>
-        public static string setComma(int ValueS)
+        public static string SetComma(int ValueS)
         {
             try
             {
@@ -67,7 +67,7 @@ namespace IKaan.Web.Core.Utils
         ///</summary>
         ///<param name="sTime">시작시간</param>
         ///<param name="eTime">끝시간</param>
-        public static double timeEmp(string sTime, string eTime)
+        public static double TimeEmp(string sTime, string eTime)
         {
             if (sTime.Length < 14 || eTime.Length < 14)
                 return -1;
@@ -101,21 +101,21 @@ namespace IKaan.Web.Core.Utils
         ///초의 값을 HH:MM:SS 의 형식으로
         ///</summary>
         ///<param name="sTimes">시간</param>
-        public static string secTotime(double sTimes)
+        public static string SecTotime(double sTimes)
         {
             int iHour = 0;
-            int iMin  = 0;
-            int iSec  = 0;
+            int iMin = 0;
+            int iSec = 0;
 
-            iHour = (int)(sTimes /3600);
-            sTimes -= iHour*3600;
+            iHour = (int)(sTimes / 3600);
+            sTimes -= iHour * 3600;
 
-            iMin = (int)(sTimes/600);
-            sTimes -= iMin*60;
+            iMin = (int)(sTimes / 600);
+            sTimes -= iMin * 60;
 
             iSec = (int)sTimes;
 
-            return iHour.ToString("00")+":"+iMin.ToString("00")+":"+iSec.ToString("00");
+            return iHour.ToString("00") + ":" + iMin.ToString("00") + ":" + iSec.ToString("00");
         }
 
         ///<summary>
@@ -184,7 +184,7 @@ namespace IKaan.Web.Core.Utils
             {
                 return false;
             }
-            
+
         }
 
         ///<summary>
@@ -195,14 +195,14 @@ namespace IKaan.Web.Core.Utils
         ///<param name="iFG">넘버링</param> 
         ///<param name="iValue">값</param>
         public static string DateCalculate(string sDate, int iFG, int iValue)
-        { 
-            DateTime dt = new DateTime(int.Parse(sDate.Substring(0,4)),
-                int.Parse(sDate.Substring(4,2)),
-                int.Parse(sDate.Substring(6,2)));
+        {
+            DateTime dt = new DateTime(int.Parse(sDate.Substring(0, 4)),
+                int.Parse(sDate.Substring(4, 2)),
+                int.Parse(sDate.Substring(6, 2)));
             string sTemp = null;
 
             switch (iFG)
-            { 
+            {
                 case 0:
                     sTemp = dt.AddYears(iValue).ToString("yyyymmdd");
                     break;

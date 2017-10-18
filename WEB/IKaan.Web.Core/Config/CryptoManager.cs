@@ -1,44 +1,67 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+//네임스페이스 추가
+using System.Text;
 using System.IO;
 using System.Security.Cryptography;
-using System.Text;
-using System.Threading;
 
 namespace IKaan.Web.Core.Config
 {
     public class CryptoManager
     {
-        //sha 암호화시 사용할 키 
-        private static string SHAFrontKey = "KAAN";
-        private static string SHAEndKey = "GRIM";
 
-        public static string EncryptAES256(string EncryptString)
+        //IV(Initialization Vector)
+        private static byte[] iv = { 11, 30, 56, 177, 201, 75, 98, 168 };
+        //Key는 데이터를 암호화하고 복호화시에 사용
+        private static byte[] key = { 27, 111, 125, 118, 234, 61, 14, 64, 105, 116, 188, 9, 100, 20, 138, 7, 31, 22, 215, 91, 241, 1, 254, 180 };
+
+        //aesKey 암호화 복호화시 사용할 키 
+        //private static string aesKey = "abcdefghijklmnopqrstuvwxyz123456";
+
+        //암호화
+        public static string EncryptTripleDES(string str)
         {
-            if (!string.IsNullOrEmpty(EncryptString))
-            {
-                AESManager Aes256 = new AESManager();
-                return Aes256.Encrypt(EncryptString);
-            }
-            else {
-                return null;
-            }
+            //문자를 byte[]으로 변환
+            byte[] str_in = Encoding.UTF8.GetBytes(str.ToCharArray());
+
+            MemoryStream ms = new MemoryStream();
+            TripleDESCryptoServiceProvider tcs = new TripleDESCryptoServiceProvider();
+
+            //key,iv값을 기준으로 CreateEncryptor 메서드를 사용해 암호화
+            CryptoStream cs = new CryptoStream(ms, tcs.CreateEncryptor(key, iv), CryptoStreamMode.Write);
+
+            cs.Write(str_in, 0, str_in.Length);
+            cs.FlushFinalBlock();
+
+            return Convert.ToBase64String(ms.ToArray());
+
         }
 
-        public static string DecryptAES256(string DecryptString)
+
+        //복호화
+        public static string DecryptTripleDES(string str)
         {
-            AESManager Aes256 = new AESManager();
-            return Aes256.Decrypt(DecryptString);
+            //문자열을 byte[]로 변환
+            byte[] str_in = Convert.FromBase64String(str);
+
+            MemoryStream ms = new MemoryStream(str_in, 0, str_in.Length);
+            TripleDESCryptoServiceProvider tcs = new TripleDESCryptoServiceProvider();
+
+            //key,iv값을 기준으로 CreateDecryptor 메서드를 사용해 복호화
+            CryptoStream cs = new CryptoStream(ms, tcs.CreateDecryptor(key, iv), CryptoStreamMode.Read);
+
+            StreamReader sr = new StreamReader(cs);
+            return sr.ReadToEnd();
+
         }
 
-        //SHA256 단방향 암호화
-        public static string EncryptSHA256(string EncryptString)
+        public static string EncSHA256(string str)
         {
-            //문자 암호화 키 적용
-            EncryptString = SHAFrontKey + EncryptString + SHAEndKey;
-
             SHA256 sha = new SHA256Managed();
-            byte[] hash = sha.ComputeHash(Encoding.ASCII.GetBytes(EncryptString));
+            byte[] hash = sha.ComputeHash(Encoding.ASCII.GetBytes(str));
 
             StringBuilder stringBuilder = new StringBuilder();
             foreach (byte b in hash)
@@ -47,15 +70,10 @@ namespace IKaan.Web.Core.Config
             }
             return stringBuilder.ToString();
         }
-
-        //SHA512 단방향 암호화
-        public static string EncryptSHA512(string EncryptString)
+        public static string EncSHA512(string str)
         {
-            //문자 암호화 키 적용
-            EncryptString = SHAFrontKey + EncryptString + SHAEndKey;
-
             SHA512 sha512 = new SHA512Managed();
-            byte[] hash512 = sha512.ComputeHash(Encoding.ASCII.GetBytes(EncryptString));
+            byte[] hash512 = sha512.ComputeHash(Encoding.ASCII.GetBytes(str));
 
             StringBuilder stringBuilder = new StringBuilder();
             foreach (byte b in hash512)
@@ -70,9 +88,9 @@ namespace IKaan.Web.Core.Config
         /// </summary>
         /// <param name="src">대상문자열</param>
         /// <returns>바이트배열 문자열</returns>
-        public string EncryptToByte(string EncryptString)
+        public string EncryptToByte(string src)
         {
-            byte[] bytes = Encoding.Default.GetBytes(EncryptString);
+            byte[] bytes = Encoding.Default.GetBytes(src);
             StringBuilder sb = new StringBuilder();
 
             for (int i = 0; i < bytes.Length; i++)
@@ -92,9 +110,9 @@ namespace IKaan.Web.Core.Config
         /// </summary>
         /// <param name="s">바이트배열 문자열</param>
         /// <returns>대상문자열</returns>
-        public string DecryptFromByte(string EncryptString)
+        public string DecryptFromByte(string s)
         {
-            string[] src = EncryptString.Split('&');
+            string[] src = s.Split('&');
             byte[] bytes = new byte[src.Length];
 
             for (int i = 0; i < src.Length; i++)
@@ -219,6 +237,6 @@ namespace IKaan.Web.Core.Config
 
             return retVal;
         }
-        
+
     }
 }

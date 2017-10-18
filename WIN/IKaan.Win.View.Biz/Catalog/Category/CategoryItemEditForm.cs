@@ -21,7 +21,7 @@ namespace IKaan.Win.View.Biz.Catalog.Category
 				var type = lupCategoryType.EditValue.ToStringNullToEmpty();
 				if (type.IsNullOrEmpty() == false)
 				{
-					lupParentID.BindData("Categories", "None", false, new DataMap() { { "CategoryType", (type.ToIntegerNullToZero() - 1).ToString() } });
+					lupParentID.BindData("CategoryItem", "None", false, new DataMap() { { "CategoryType", (type.ToIntegerNullToZero() - 1).ToString() } });
 				}
 			};
 		}
@@ -54,7 +54,7 @@ namespace IKaan.Win.View.Biz.Catalog.Category
 			lupCategoryType.BindData("CategoryType");
 			spnSortOrder.SetFormat("D", false, HorzAlignment.Near);
 			txtInfoNoticeID.CodeGroup = "InfoNoticeList";
-			lupParentID.BindData("Categories", "None");
+			lupParentID.BindData("CategoryItem", "None");
 		}
 
 		protected override void DataInit()
@@ -83,7 +83,7 @@ namespace IKaan.Win.View.Biz.Catalog.Category
 				SetControlData(model);
 				txtInfoNoticeID.EditValue = model.InfoNoticeID;
 				txtInfoNoticeID.EditText = model.InfoNoticeName;
-				lupParentID.BindData("Categories", "None", false, new DataMap() { { "CategoryType", (lupCategoryType.EditValue.ToIntegerNullToZero() - 1).ToString() } });
+				lupParentID.BindData("CategoryItem", "None", false, new DataMap() { { "CategoryType", (lupCategoryType.EditValue.ToIntegerNullToZero() - 1).ToString() } });
 				lupParentID.EditValue = model.ParentID.ToStringNullToNull();
 
 				SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true, Delete = true });

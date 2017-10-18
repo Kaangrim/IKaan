@@ -14,7 +14,7 @@ using System.Web.Security;
 using System.Security.Principal;
 using System.Security.Cryptography;
 using Newtonsoft.Json;
-
+using IKaan.Web.Core.Config;
 
 public static class UtilManager
 {
@@ -101,23 +101,7 @@ public static class UtilManager
         return strReturn;
     }
 
-    public static string GetSaveKey(string key)
-    {
-        string sUrl = string.Empty;
 
-        try
-        {
-            sUrl = ConfigurationManager.AppSettings[key];
-        }
-        catch
-        {
-            HttpContext.Current.Response.Write("web.config에 " + key + "을(를) 추가 해 주세요.");
-            HttpContext.Current.Response.End();
-        }
-
-        return sUrl;
-    }
-    
 
     public static string GetStringByByte(string pStr, int nLen)
     {
@@ -450,6 +434,8 @@ public static class UtilManager
         return sExtImg;
     }
 
+       
+
     public static string GetSexString(string id)
     {
         string sRtnValue = "";
@@ -716,7 +702,98 @@ public static class UtilManager
         HttpContext.Current.Response.End();
     }
 
-       
+   
+
+    public static string EncryptString(string InputText, string Password = "smsko!@#")
+    {
+
+        // Rihndael class를 선언하고, 초기화 합니다
+        RijndaelManaged RijndaelCipher = new RijndaelManaged();
+
+        //// 입력받은 문자열을 바이트 배열로 변환
+        byte[] PlainText = System.Text.Encoding.Unicode.GetBytes(InputText);
+
+        // 딕셔너리 공격을 대비해서 키를 더더 풀기 어렵게 만들기 위해서
+        //// Salt를 사용합니다.
+        byte[] Salt = Encoding.ASCII.GetBytes(Password.Length.ToString());
+
+        // PasswordDeriveBytes 클래스를 사용해서 SecretKey를 얻습니다.
+        PasswordDeriveBytes SecretKey = new PasswordDeriveBytes(Password, Salt);
+
+        //// Create a encryptor from the existing SecretKey bytes.
+        // encryptor 객체를 SecretKey로부터 만듭니다.
+        // Secret Key에는 32바이트
+        // (Rijndael의 디폴트인 256bit가 바로 32바이트입니다)를 사용하고,
+        // Initialization Vector로 16바이트
+        // (역시 디폴트인 128비트가 바로 16바이트입니다)를 사용합니다
+        ICryptoTransform Encryptor = RijndaelCipher.CreateEncryptor(SecretKey.GetBytes(32), SecretKey.GetBytes(16));
+
+        // 메모리스트림 객체를 선언,초기화
+        MemoryStream memoryStream = new MemoryStream();
+
+        // CryptoStream객체를 암호화된 데이터를 쓰기 위한위한 용도로 선언
+        CryptoStream cryptoStream = new CryptoStream(memoryStream, Encryptor, CryptoStreamMode.Write);
+
+        // 암호화 프로세스가 진행됩니다.
+        cryptoStream.Write(PlainText, 0, PlainText.Length);
+
+        // 암호화 종료
+        cryptoStream.FlushFinalBlock();
+
+        // 암호화된 데이터를 바이트 배열로 담습니다.
+        byte[] CipherBytes = memoryStream.ToArray();
+
+        //// 스트림 해제
+        memoryStream.Close();
+        cryptoStream.Close();
+
+        // 암호화된 데이터를 Base64 인코딩된 문자열로 변환합니다.
+        string EncryptedData = Convert.ToBase64String(CipherBytes);
+
+        //// 최종 결과를 리턴
+        return EncryptedData;
+
+    }
+
+    public static string DecryptString(string InputText, string Password = "")
+    {
+
+        RijndaelManaged RijndaelCipher = new RijndaelManaged();
+
+        byte[] EncryptedData = Convert.FromBase64String(InputText);
+        byte[] Salt = Encoding.ASCII.GetBytes(Password.Length.ToString());
+
+
+        PasswordDeriveBytes SecretKey = new PasswordDeriveBytes(Password, Salt);
+
+        // Decryptor 객체를 만듭니다.
+        ICryptoTransform Decryptor = RijndaelCipher.CreateDecryptor(SecretKey.GetBytes(32), SecretKey.GetBytes(16));
+
+        MemoryStream memoryStream = new MemoryStream(EncryptedData);
+
+        // 데이터 읽기(복호화이므로) 용도로 cryptoStream객체를 선언,선언, 초기화
+        CryptoStream cryptoStream = new CryptoStream(memoryStream, Decryptor, CryptoStreamMode.Read);
+
+        // 복호화된 데이터를 담을 바이트 배열을 선언합니다.선언합니다. 
+        // 길이는 알 수 없지만,없지만, 일단 복호화되기 전의 데이터의 길이보다는
+        // 길지 않을 것이기 때문에 그 길이로 선언합니다
+        byte[] PlainText = new byte[EncryptedData.Length];
+
+        // 복호화 시작
+        int DecryptedCount = cryptoStream.Read(PlainText, 0, PlainText.Length);
+
+        memoryStream.Close(); memoryStream.Close();
+        cryptoStream.Close();
+
+        // 복호화된 데이터를데이터를 문자열로 바꿉니다.
+        string DecryptedData = Encoding.Unicode.GetString(PlainText, 0, DecryptedCount);
+
+        // 최종 결과 리턴리턴 
+        return DecryptedData;
+
+    }
+
+    
     public static RouteValueDictionary GetErrorRoute(string action, string message)
     {
         RouteValueDictionary redirectTargetDictionary = new RouteValueDictionary();
@@ -761,7 +838,44 @@ public static class UtilManager
 
         return isCheck;
     }
-    
+
+    public static string GetBitlyShortenUrl(string url)
+    {
+        string statusCode = string.Empty;
+        string statusText = string.Empty;
+        string shortUrl = string.Empty;
+        string longUrl = string.Empty;
+        string urlToShorten = url;
+
+        using (WebClient wb = new WebClient())
+        {
+            string data = string.Format("http://api.bitly.com/v3/shorten/?login={0}&apiKey={1}&longUrl={2}&format={3}",
+            //CodeManager.GetCodeName("SYS_API_FG", "BITLY_USER_ID"),
+            //CodeManager.GetCodeName("SYS_API_FG", "BITLY_API_KEY"),
+                HttpUtility.UrlEncode(urlToShorten),         // Encode the url we want to shorten
+            "xml");
+
+            System.Xml.XmlDocument xmlDoc = new System.Xml.XmlDocument();
+            xmlDoc.LoadXml(wb.DownloadString(data));
+
+            statusCode = xmlDoc.GetElementsByTagName("status_code")[0].InnerText;
+            statusText = xmlDoc.GetElementsByTagName("status_txt")[0].InnerText;
+            shortUrl = xmlDoc.GetElementsByTagName("url")[0].InnerText;
+            longUrl = xmlDoc.GetElementsByTagName("long_url")[0].InnerText;
+
+            Console.WriteLine(statusCode);      // Outputs "200"
+            Console.WriteLine(statusText);      // Outputs "OK"
+            Console.WriteLine(shortUrl);        // Outputs "http://bit.ly/WVk1qN"
+            Console.WriteLine(longUrl);         // Outputs "http://www.fluxbytes.com/"
+            if (!(statusCode == "200" && statusText == "OK"))
+            {
+                shortUrl = "";
+            }
+
+            return shortUrl;
+        }
+    }
+
 
     public static string GetUniqueFileName(string path, string name)
     {
@@ -789,7 +903,7 @@ public static class UtilManager
 
   
 
-    public static bool MobileCheck()
+    public static bool IsMobile()
     {
         string u = HttpContext.Current.Request.ServerVariables["HTTP_USER_AGENT"];
         Regex b = new Regex(@"(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino", RegexOptions.IgnoreCase | RegexOptions.Multiline);
@@ -804,35 +918,21 @@ public static class UtilManager
         }
     }
 
-    public static bool ValidIpCheck()
+    public static bool isValidIP()
     {
-        bool IpCheck = true;
-        string[] ArrFilterIP = new string[] { "127.0.0.1" };
-        int length = ArrFilterIP.Length;
+        bool isCheck = true;
+        string[] arrFilterIP = new string[] { "127.0.0.1" };
+        int length = arrFilterIP.Length;
 
         for (int i = 0; i < length; i++)
         {
-            if (HttpContext.Current.Request.UserHostAddress.Contains(ArrFilterIP[i]))
+            if (HttpContext.Current.Request.UserHostAddress.Contains(arrFilterIP[i]))
             {
-                IpCheck = false;
+                isCheck = false;
                 break;
             }
         }
 
-        return IpCheck;
-    }
-
-    public static string SSLCheck(string Url, string Port)
-    {
-        if (Port == "443")
-        { 
-            Url = Url.Replace("https://", "http://");
-        }
-        else
-        { 
-            Url = Url.Replace("http://", "https://");
-        }
-
-        return Url;
+        return isCheck;
     }
 }
