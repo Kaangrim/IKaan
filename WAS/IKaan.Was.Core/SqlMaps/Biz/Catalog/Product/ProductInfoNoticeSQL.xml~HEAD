@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectProductInfoNoticeList" parameterClass="DataMap" resultClass="ProductInfoNoticeModel" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID)	AS RowNo
+					,	AA.ID
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
+					
+					,	AA.ProductID
+					,	AA.InfoNoticeItemID
+					,	AA.InfoNoticeValue
+					
+				FROM	dbo.TProductInfoNotice AA WITH (NOLOCK)
+				WHERE	AA.ProductID = #ProductID#
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectProductInfoNotice" parameterClass="DataMap" resultClass="ProductInfoNoticeModel" >
+			<![CDATA[
+				SELECT  AA.*					
+				FROM	dbo.TProductInfoNotice AA WITH (NOLOCK)
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<insert id="InsertProductInfoNotice" parameterClass="ProductInfoNoticeModel" >
+			<![CDATA[
+				INSERT INTO dbo.TProductInfoNotice
+				( 
+					CreatedOn, CreatedBy, CreatedByName,
+					ProductID, InfoNoticeItemID, InfoNoticeValue
+				)
+				VALUES
+				(
+					GetDate(), #CreatedBy#, #CreatedByName#,
+					#ProductID#, #InfoNoticeItemID#, #InfoNoticeValue#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateProductInfoNotice" parameterClass="ProductInfoNoticeModel">
+			<![CDATA[
+				UPDATE  dbo.TProductInfoNotice
+				SET     UpdatedOn		= GetDate()
+					,	UpdatedBy		= #UpdatedBy#
+					,	UpdatedByName	= #UpdatedByName#
+					
+					,	ProductID		= #ProductID#
+					,	InfoNoticeItemID= #InfoNoticeItemID#
+					,	InfoNoticeValue	= #InfoNoticeValue#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
+		<delete id="DeleteProductInfoNotice" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM dbo.TProductInfoNotice WHERE ID = #ID#;
+			]]>
+		</delete>
+
+		<select id="SelectProductInfoNoticeByCategory" parameterClass="DataMap" resultClass="ProductInfoNoticeModel" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY B2.SortOrder, B2.ID)	AS RowNo
+					,	CC.ID
+					,	CC.CreatedOn
+					,	CC.CreatedBy
+					,	CC.CreatedByName
+					,	CC.UpdatedOn
+					,	CC.UpdatedBy
+					,	CC.UpdatedByName
+					
+					,	CC.ProductID		as ProductID
+					,	B2.ID				as InfoNoticeItemID
+					,	B2.ItemName			as InfoNoticeItemName
+					,	CC.InfoNoticeValue	as InfoNoticeValue
+					
+				FROM	dbo.TCategory AA
+						INNER JOIN
+							dbo.TInfoNotice B1
+								ON AA.InfoNoticeID = B1.ID
+						INNER JOIN
+							dbo.TInfoNoticeItem B2
+								ON B1.ID = B2.InfoNoticeID
+						LEFT JOIN
+							dbo.TProductInfoNotice CC
+								ON B2.ID = CC.InfoNoticeItemID
+									AND CC.ProductID = #ProductID#
+				WHERE	AA.ID	 = #CategoryID#
+				AND		B1.UseYn = 'Y'
+				AND		B2.UseYn = 'Y'
+				ORDER BY RowNo
+			]]>
+		</select>
+	</statements>
+</sqlMap>

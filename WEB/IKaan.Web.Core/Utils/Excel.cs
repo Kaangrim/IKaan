@@ -177,8 +177,6 @@ namespace IKaan.Web.Core.Utils
 
 
         /// <summary>
-        /// 이중선
-        /// 2012.08.21
         /// DataTable과 동일한 Excel을 생성한다.
         /// </summary>
         /// <param name="dir"></param>
@@ -221,8 +219,6 @@ namespace IKaan.Web.Core.Utils
         }
 
         /// <summary>
-        /// 이중선
-        /// 2012.10.11
         /// DataTable로 Header값과 동일한 Excel을 생성한다.
         /// </summary>
         /// <param name="dir"></param>
@@ -267,8 +263,6 @@ namespace IKaan.Web.Core.Utils
 
 
         /// <summary>
-        /// 이중선
-        /// 2012.10.11
         /// DataTable로 Header값과 동일한 Excel을 생성한다.
         /// </summary>
         /// <param name="dir"></param>
@@ -331,8 +325,6 @@ namespace IKaan.Web.Core.Utils
         }
 
         /// <summary>
-        /// 봉가윤
-        /// 2015.06.02
         /// DataSet로 Header값과 동일한 Excel을(DataTable당 하나의 sheet생성) 생성한다.
         /// </summary>
         public string ToExcelFromDataSet(string dir, string fileName, System.Data.DataSet r_Ds)
@@ -457,8 +449,6 @@ namespace IKaan.Web.Core.Utils
     public static class ConvertToDataTable
     {
         /// <summary>
-        /// 이중선
-        /// 2012.08.21
         /// List<T>를 DataTable로 형 변환한다.
         /// </summary>
         /// <typeparam name="T"></typeparam>

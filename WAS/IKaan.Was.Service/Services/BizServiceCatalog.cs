@@ -3,7 +3,6 @@ using IKaan.Base.Map;
 using IKaan.Base.Utils;
 using IKaan.Model.Biz.Catalog.Category;
 using IKaan.Model.Biz.Catalog.Product;
-using IKaan.Model.Biz.Master.Common;
 using IKaan.Model.Common.Was;
 using IKaan.Was.Core.Mappers;
 
@@ -162,46 +161,43 @@ namespace IKaan.Was.Service.Services
 			try
 			{
 				var parameter = req.Parameter.JsonToAnyType<DataMap>();
-				var model = DaoFactory.InstanceBiz.QueryForObject<ProductModel>("SelectProduct", parameter);
-				if (model != null)
+				var Product = DaoFactory.InstanceBiz.QueryForObject<ProductModel>("SelectProduct", parameter);
+				if (Product != null)
 				{
 					parameter = new DataMap()
 					{
-						{ "ProductID", model.ID },
-						{ "CategoryID", model.CategoryID }
+						{ "ProductID", Product.ID },
+						{ "CategoryID", Product.CategoryID }
 					};
 
 					//상품상세
-					var description = DaoFactory.InstanceBiz.QueryForObject<ProductDescriptionModel>("SelectProductDescription", parameter);
-					if (description != null)
-					{
-						model.Description = description.Description;
-						model.DescriptionRTF = description.DescriptionRTF;
-					}
+					Product.Description = DaoFactory.InstanceBiz.QueryForObject<ProductDescriptionModel>("SelectProductDescription", parameter);
+					if (Product.Description == null)
+						Product.Description = new ProductDescriptionModel();
 
 					//상품 이미지
-					model.Images = DaoFactory.InstanceBiz.QueryForList<ProductImageModel>("SelectProductImageList", parameter);
-					if (model.Images == null)
-						model.Images = new List<ProductImageModel>();
+					Product.Images = DaoFactory.InstanceBiz.QueryForList<ProductImageModel>("SelectProductImageList", parameter);
+					if (Product.Images == null)
+						Product.Images = new List<ProductImageModel>();
 
 					//상품 옵션
-					model.Items = DaoFactory.InstanceBiz.QueryForList<ProductItemModel>("SelectProductItemList", parameter);
-					if (model.Items == null)
-						model.Items = new List<ProductItemModel>();
+					Product.Items = DaoFactory.InstanceBiz.QueryForList<ProductItemModel>("SelectProductItemList", parameter);
+					if (Product.Items == null)
+						Product.Items = new List<ProductItemModel>();
 
 					//정보고시
-					model.InfoNotices = DaoFactory.InstanceBiz.QueryForList<ProductInfoNoticeModel>("SelectProductInfoNoticeByCategory", parameter);
-					if (model.InfoNotices == null)
-						model.InfoNotices = new List<ProductInfoNoticeModel>();
+					Product.InfoNotices = DaoFactory.InstanceBiz.QueryForList<ProductInfoNoticeModel>("SelectProductInfoNoticeByCategory", parameter);
+					if (Product.InfoNotices == null)
+						Product.InfoNotices = new List<ProductInfoNoticeModel>();
 
 					//상품속성
-					model.Attributes = DaoFactory.InstanceBiz.QueryForList<ProductAttributeModel>("SelectProductAttributeList", parameter);
-					if (model.Attributes == null)
-						model.Attributes = new List<ProductAttributeModel>();
+					Product.Attributes = DaoFactory.InstanceBiz.QueryForList<ProductAttributeModel>("SelectProductAttributeList", parameter);
+					if (Product.Attributes == null)
+						Product.Attributes = new List<ProductAttributeModel>();
 				}
-				req.Data = model;
+				req.Data = Product;
 				req.Result.Count = 1;
-				return model;
+				return Product;
 			}
 			catch
 			{
@@ -213,7 +209,7 @@ namespace IKaan.Was.Service.Services
 		{
 			try
 			{
-				var model = req.Data.JsonToAnyType<ProductModel>();
+				ProductModel model = req.Data.JsonToAnyType<ProductModel>();
 
 				if (model != null)
 				{
@@ -230,37 +226,34 @@ namespace IKaan.Was.Service.Services
 					{
 						model.UpdatedBy = req.User.UserId;
 						model.UpdatedByName = req.User.UserName;
+
 						DaoFactory.InstanceBiz.Update("UpdateProduct", model);
 					}
 					#endregion
 
 					#region 상품상세정보
-					var detail = DaoFactory.InstanceBiz.QueryForObject<ProductDescriptionModel>("SelectProductDescriptionList", new DataMap() { { "ProductID", model.ID } });
+					ProductDescriptionModel detail = DaoFactory.InstanceBiz.QueryForObject<ProductDescriptionModel>("SelectProductDetailList", new DataMap() { { "ProductID", model.ID } });
 					if (detail == null)
 					{
-						var description = new ProductDescriptionModel()
-						{
-							ProductID = model.ID,
-							CreatedBy = req.User.UserId,
-							CreatedByName = req.User.UserName
-						};
-						DaoFactory.InstanceBiz.Insert("InsertProductDescription", description);
+						model.Description.ProductID = model.ID;
+						model.Description.CreatedBy = req.User.UserId;
+						model.Description.CreatedByName = req.User.UserName;
+
+						DaoFactory.InstanceBiz.Insert("InsertProductDetail", model.Description);
 					}
 					else
 					{
-						detail.Description = model.Description;
-						detail.DescriptionRTF = model.DescriptionRTF;
-						detail.UpdatedBy = req.User.UserId;
-						detail.UpdatedByName = req.User.UserName;
+						model.Description.UpdatedBy = req.User.UserId;
+						model.Description.UpdatedByName = req.User.UserName;
 
-						DaoFactory.InstanceBiz.Update("UpdateProductDescription", detail);
+						DaoFactory.InstanceBiz.Update("UpdateProductDetail", model.Description);
 					}
 					#endregion
 
 					#region 품목정보
 					if (model.Items != null && model.Items.Count > 0)
 					{
-						foreach (var item in model.Items)
+						foreach (ProductItemModel item in model.Items)
 						{
 							if (item.ID.IsNullOrEmpty())
 							{
@@ -272,7 +265,7 @@ namespace IKaan.Was.Service.Services
 							}
 							else
 							{
-								var old = DaoFactory.InstanceBiz.QueryForObject<ProductItemModel>("SelectProductItem", new DataMap() { { "ID", item.ID } });
+								ProductItemModel old = DaoFactory.InstanceBiz.QueryForObject<ProductItemModel>("SelectProductItem", new DataMap() { { "ID", item.ID } });
 								if (old != null)
 								{
 									if (old.Option1Type != item.Option1Type ||
@@ -291,104 +284,38 @@ namespace IKaan.Was.Service.Services
 					}
 					#endregion
 
-					#region 이미지
-					if (model.Images != null && model.Images.Count > 0)
-					{
-						foreach (var image in model.Images)
-						{
-							//이미지저장
-							if (image.ImageID == null)
-							{
-								var img = new ImageModel()
-								{
-									Name = image.Name,
-									ImageType = image.ImageType,
-									Url = image.Url,
-									Width = image.Width,
-									Height = image.Height,
-									CreatedBy = req.User.UserId,
-									CreatedByName = req.User.UserName
-								};
-
-								var imgID = DaoFactory.InstanceBiz.Insert("InsertImage", img);
-								image.ImageID = imgID.ToIntegerNullToNull();
-							}
-							else
-							{
-								var img = new ImageModel()
-								{
-									ID = image.ImageID,
-									Name = image.Name,
-									ImageType = image.ImageType,
-									Url = image.Url,
-									Width = image.Width,
-									Height = image.Height,
-									UpdatedBy = req.User.UserId,
-									UpdatedByName = req.User.UserName
-								};
-								DaoFactory.InstanceBiz.Update("UpdateImage", img);
-							}
-
-							if (image.ID.IsNullOrEmpty())
-							{
-								image.ProductID = model.ID;
-								image.CreatedBy = req.User.UserId;
-								image.CreatedByName = req.User.UserName;
-
-								DaoFactory.InstanceBiz.Insert("InsertProductImage", image);
-							}
-							else
-							{
-								var old = DaoFactory.InstanceBiz.QueryForObject<ProductImageModel>("SelectProductImage", new DataMap() { { "ID", image.ID } });
-								if (old != null)
-								{
-									if (old.ImageType != image.ImageType ||
-										old.ImageGroup != image.ImageGroup ||
-										old.ImageID != image.ImageID)
-									{
-										image.UpdatedBy = req.User.UserId;
-										image.UpdatedByName = req.User.UserName;
-
-										DaoFactory.InstanceBiz.Update("UpdateProductImage", image);
-									}
-								}
-							}
-						}
-					}
-					#endregion
-
 					#region 속성저장
 					if (model.Attributes != null && model.Attributes.Count > 0)
 					{
-						foreach (var attribute in model.Attributes)
+						foreach (ProductAttributeModel attr in model.Attributes)
 						{
-							if (attribute.ID.IsNullOrEmpty())
+							if (attr.ID.IsNullOrEmpty())
 							{
-								attribute.ProductID = model.ID;
-								attribute.CreatedBy = req.User.UserId;
-								attribute.CreatedByName = req.User.UserName;
+								attr.ProductID = model.ID;
+								attr.CreatedBy = req.User.UserId;
+								attr.CreatedByName = req.User.UserName;
 
-								DaoFactory.InstanceBiz.Insert("InsertProductAttribute", attribute);
+								DaoFactory.InstanceBiz.Insert("InsertProductAttribute", attr);
 							}
 							else
 							{
-								var old = DaoFactory.InstanceBiz.QueryForObject<ProductAttributeModel>("SelectProductAttribute", new DataMap() { { "ID", attribute.ID } });
+								ProductAttributeModel old = DaoFactory.InstanceBiz.QueryForObject<ProductAttributeModel>("SelectProductAttribute", new DataMap() { { "ID", attr.ID } });
 								if (old != null)
 								{
-									if (attribute.AttributeValue.IsNullOrEmpty())
+									if (attr.AttributeName.IsNullOrEmpty())
 									{
-										DaoFactory.InstanceBiz.Delete("DeleteProductAttribute", new DataMap() { { "ID", attribute.ID } });
+										DaoFactory.InstanceBiz.Delete("DeleteProductAttribute", new DataMap() { { "ID", attr.ID } });
 									}
 									else
 									{
-										if (old.AttributeTypeID != attribute.AttributeTypeID ||
-											old.AttributeID != attribute.AttributeID ||
-											old.AttributeValue != attribute.AttributeValue)
+										if (old.AttributeTypeID != attr.AttributeTypeID ||
+											old.AttributeID != attr.AttributeID ||
+											old.AttributeName != attr.AttributeName)
 										{
-											attribute.UpdatedBy = req.User.UserId;
-											attribute.UpdatedByName = req.User.UserName;
+											attr.UpdatedBy = req.User.UserId;
+											attr.UpdatedByName = req.User.UserName;
 
-											DaoFactory.InstanceBiz.Update("UpdateProductAttribute", attribute);
+											DaoFactory.InstanceBiz.Update("UpdateProductAttribute", attr);
 										}
 									}
 								}

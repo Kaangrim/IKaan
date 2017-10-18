@@ -1,16 +1,23 @@
 ﻿<!DOCTYPE html>
-
-<html>
+<html lang="ko">
 <head>
-    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>@ViewBag.Title</title>
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+    <meta name="subject" content="">
+    <meta name="title" content="칸그림 SCM">
+    <meta name="author" content="">
+    <meta name="keywords" content="">
+    @Html.Partial("_Css")
+    @Html.Partial("_Scripts")
 </head>
 <body>
-    <div>
-
-    </div>
-    <div>
-        @RenderBody()
+    <div id="wrap">
+        @Html.Partial("_Header")
+        <main>
+            @RenderBody()
+        </main>
+        @Html.Partial("_Footer")
     </div>
 </body>
 </html>

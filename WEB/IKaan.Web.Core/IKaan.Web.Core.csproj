@@ -44,10 +44,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Application.Crypto, Version=1.0.0.0, Culture=neutral, PublicKeyToken=45013237c0f56530, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Application.Crypto.dll</HintPath>
-    </Reference>
     <Reference Include="ExcelLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\ExcelLibrary.1.2011.7.31\lib\ExcelLibrary.dll</HintPath>
     </Reference>
@@ -127,31 +123,36 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Config\AES256Manager.cs" />
+    <Compile Include="Config\AESManager.cs" />
     <Compile Include="Config\CacheManager.cs" />
     <Compile Include="Config\CookieManager.cs" />
     <Compile Include="Config\CryptoManager.cs" />
-    <Compile Include="Config\PushManager.cs" />
     <Compile Include="Config\UtilManager.cs" />
+    <Compile Include="Helper\EntityHelper.cs" />
+    <Compile Include="Helper\JsonHelper.cs" />
+    <Compile Include="Helper\SqlHelper.cs" />
+    <Compile Include="Helper\SqlParameterCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\ComLibrary.cs" />
     <Compile Include="Utils\ComUtils.cs" />
     <Compile Include="Utils\Excel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\BAS\IKaan.Base\IKaan.Base.csproj">
-      <Project>{949db77a-078c-4ae7-ba66-a7109848b8c4}</Project>
-      <Name>IKaan.Base</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\BAS\IKaan.Model\IKaan.Model.csproj">
-      <Project>{1eb3a6af-8899-400c-a6ea-e4cff97ce1fc}</Project>
-      <Name>IKaan.Model</Name>
+    <ProjectReference Include="..\IKaan.Web.Model\IKaan.Web.Model.csproj">
+      <Project>{d5011cf5-4f13-468d-b6b1-3e0533bb30c8}</Project>
+      <Name>IKaan.Web.Model</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />

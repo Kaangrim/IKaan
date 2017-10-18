@@ -79,10 +79,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SCM\Account.cs" />
+    <Compile Include="SCM\Biz\ContactModel.cs" />
+    <Compile Include="SCM\System.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="SCM\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
