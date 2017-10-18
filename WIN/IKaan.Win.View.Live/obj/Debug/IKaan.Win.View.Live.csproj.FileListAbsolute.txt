@@ -184,3 +184,9 @@ D:\Repositories\IKaan\WIN\IKaan.Win.View.Live\bin\Debug\ru\DevExpress.Diagram.v1
 D:\Repositories\IKaan\WIN\IKaan.Win.View.Live\obj\Debug\IKaan.Win.View.Live.ChannelOrder.ChannelOrderListForm.resources
 D:\Repositories\IKaan\WIN\IKaan.Win.View.Live\obj\Debug\IKaan.Win.View.Live.csproj.GenerateResource.Cache
 D:\Repositories\IKaan\WIN\IKaan.Win.View.Live\obj\Debug\IKaan.Win.View.Live.dll.licenses
+D:\Project\IKaan\WIN\IKaan.Win.View.Live\obj\Debug\IKaan.Win.View.Live.csprojResolveAssemblyReference.cache
+D:\Project\IKaan\WIN\IKaan.Win.View.Live\obj\Debug\IKaan.Win.View.Live.ChannelOrder.ChannelOrderListForm.resources
+D:\Project\IKaan\WIN\IKaan.Win.View.Live\obj\Debug\IKaan.Win.View.Live.csproj.GenerateResource.Cache
+D:\Project\IKaan\WIN\IKaan.Win.View.Live\obj\Debug\IKaan.Win.View.Live.dll.licenses
+D:\Project\IKaan\WIN\IKaan.Win.View.Live\obj\Debug\IKaan.Win.View.Live.dll
+D:\Project\IKaan\WIN\IKaan.Win.View.Live\obj\Debug\IKaan.Win.View.Live.pdb

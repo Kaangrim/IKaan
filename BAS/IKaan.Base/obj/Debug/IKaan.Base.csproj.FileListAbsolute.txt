@@ -40,3 +40,16 @@ D:\Repositories\IKaan\BAS\IKaan.Base\obj\Debug\IKaan.Base.csprojResolveAssemblyR
 D:\Repositories\IKaan\BAS\IKaan.Base\obj\Debug\IKaan.Base.dll
 D:\Repositories\IKaan\BAS\IKaan.Base\obj\Debug\IKaan.Base.pdb
 D:\Repositories\IKaan\BAS\IKaan.Base\obj\Debug\IKaan.Base.csproj.CoreCompileInputs.cache
+D:\Project\IKaan\BAS\IKaan.Base\bin\Debug\IKaan.Base.dll
+D:\Project\IKaan\BAS\IKaan.Base\bin\Debug\IKaan.Base.pdb
+D:\Project\IKaan\BAS\IKaan.Base\bin\Debug\IKaan.Model.dll
+D:\Project\IKaan\BAS\IKaan.Base\bin\Debug\Itenso.TimePeriod.dll
+D:\Project\IKaan\BAS\IKaan.Base\bin\Debug\log4net.dll
+D:\Project\IKaan\BAS\IKaan.Base\bin\Debug\Newtonsoft.Json.dll
+D:\Project\IKaan\BAS\IKaan.Base\bin\Debug\IKaan.Model.pdb
+D:\Project\IKaan\BAS\IKaan.Base\bin\Debug\log4net.xml
+D:\Project\IKaan\BAS\IKaan.Base\bin\Debug\Newtonsoft.Json.xml
+D:\Project\IKaan\BAS\IKaan.Base\obj\Debug\IKaan.Base.csprojResolveAssemblyReference.cache
+D:\Project\IKaan\BAS\IKaan.Base\obj\Debug\IKaan.Base.csproj.CoreCompileInputs.cache
+D:\Project\IKaan\BAS\IKaan.Base\obj\Debug\IKaan.Base.dll
+D:\Project\IKaan\BAS\IKaan.Base\obj\Debug\IKaan.Base.pdb
