@@ -12,6 +12,10 @@ namespace IKaan.Model.Biz.Master.Attribute
 		public string Name { get; set; }
 
 		[DataMember]
+		[Display(Name = "코드")]
+		public string Code { get; set; }
+
+		[DataMember]
 		[Display(Name = "속성유형ID")]
 		public int AttributeTypeID { get; set; }
 
@@ -22,5 +26,9 @@ namespace IKaan.Model.Biz.Master.Attribute
 		[DataMember]
 		[Display(Name = "설명")]
 		public string Description { get; set; }
+
+		[DataMember]
+		[Display(Name = "속성유형명")]
+		public string AttributeTypeName { get; set; }
 	}
 }

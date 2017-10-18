@@ -53,11 +53,11 @@ namespace IKaan.Win.View.Biz.Catalog.Category
 			txtUpdatedOn.SetEnable(false);
 			txtUpdatedByName.SetEnable(false);
 
-			lupCategory1.BindData("Categories", "None", false, new DataMap() { { "CategoryType", "1" } });
-			lupCategory2.BindData("Categories", "None", false, new DataMap() { { "CategoryType", "2" } });
-			lupCategory3.BindData("Categories", "None", false, new DataMap() { { "CategoryType", "3" } });
-			lupCategory4.BindData("Categories", "None", false, new DataMap() { { "CategoryType", "4" } });
-			lupCategory5.BindData("Categories", "None", false, new DataMap() { { "CategoryType", "5" } });
+			lupCategory1.BindData("CategoryItem", "None", false, new DataMap() { { "CategoryType", "1" } });
+			lupCategory2.BindData("CategoryItem", "None", false, new DataMap() { { "CategoryType", "2" } });
+			lupCategory3.BindData("CategoryItem", "None", false, new DataMap() { { "CategoryType", "3" } });
+			lupCategory4.BindData("CategoryItem", "None", false, new DataMap() { { "CategoryType", "4" } });
+			lupCategory5.BindData("CategoryItem", "None", false, new DataMap() { { "CategoryType", "5" } });
 
 			spnSortOrder.SetFormat("D", false, HorzAlignment.Near);
 			txtInfoNoticeID.CodeGroup = "InfoNoticeList";

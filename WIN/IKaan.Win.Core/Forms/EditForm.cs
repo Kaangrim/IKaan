@@ -990,6 +990,7 @@ namespace IKaan.Win.Core.Forms
 					}
 					else if (item.Control.GetType() == typeof(CheckEdit))
 					{
+						(item.Control as CheckEdit).Checked = true;
 					}
 				};
 			}

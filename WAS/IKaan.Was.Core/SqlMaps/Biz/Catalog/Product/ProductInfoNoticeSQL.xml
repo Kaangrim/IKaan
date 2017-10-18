@@ -83,7 +83,7 @@
 					
 					,	CC.ProductID		as ProductID
 					,	B2.ID				as InfoNoticeItemID
-					,	B2.ItemName			as InfoNoticeItemName
+					,	B2.Name				as InfoNoticeItemName
 					,	CC.InfoNoticeValue	as InfoNoticeValue
 					
 				FROM	dbo.TCategory AA

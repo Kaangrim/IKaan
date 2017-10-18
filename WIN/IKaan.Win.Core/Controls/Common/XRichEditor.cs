@@ -39,11 +39,11 @@ namespace IKaan.Win.Core.Controls.Common
 				editor.Options.Fields.UseCurrentCultureDateTimeFormat = false;
 				editor.Options.HorizontalRuler.Visibility = RichEditRulerVisibility.Hidden;
 				editor.Options.MailMerge.KeepLastParagraph = false;
-				editor.Options.VerticalRuler.Visibility = RichEditRulerVisibility.Hidden;
-
-				InitFont();
-
+				editor.Options.VerticalRuler.Visibility = RichEditRulerVisibility.Hidden;								
 				editor.EndUpdate();
+
+				editor.Document.Delete(editor.Document.Range);
+				editor.CreateNewDocument();
 			}
 			catch
 			{
@@ -66,6 +66,7 @@ namespace IKaan.Win.Core.Controls.Common
 					editor.Document.DefaultCharacterProperties.FontName = AppearanceObject.DefaultFont.FontFamily.Name;
 				}
 			}
+			editor.Document.DefaultCharacterProperties.FontSize = 10f;
 		}
 		private void InitPage()
 		{
@@ -112,6 +113,8 @@ namespace IKaan.Win.Core.Controls.Common
 			}
 			set
 			{
+				if (editor.Document == null)
+					editor.CreateNewDocument();
 				editor.Document.Text = value;
 			}
 		}
@@ -147,8 +150,23 @@ namespace IKaan.Win.Core.Controls.Common
 
 		public void Clear()
 		{
-			editor.RtfText =
-				editor.Text = null;
+			this.editor.Document.Delete(this.editor.Document.Range);
+			this.editor.CreateNewDocument();
+		}
+
+		public void InitDocument()
+		{
+			editor.ActiveViewType = RichEditViewType.Draft;
+			editor.Options.HorizontalRuler.Visibility = RichEditRulerVisibility.Visible;
+			editor.Options.VerticalRuler.Visibility = RichEditRulerVisibility.Visible;
+			editor.Document.Unit = DevExpress.Office.DocumentUnit.Millimeter;
+
+			for (int i = 0; i < this.editor.Document.Sections.Count; i++)
+			{
+				editor.Document.Sections[i].Page.PaperKind = System.Drawing.Printing.PaperKind.A4;
+				editor.Document.Sections[i].Page.Landscape = false;
+				editor.Document.Sections[i].Margins.Left = 2.0f;
+			}
 		}
 	}
 }

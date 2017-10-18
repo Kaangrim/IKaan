@@ -55,6 +55,8 @@
     <Compile Include="Biz\Master\Brand\BrandAttributeModel.cs" />
     <Compile Include="Biz\Master\Common\BusinessLinksModel.cs" />
     <Compile Include="Biz\Catalog\Product\ProductChannelGoodsModel.cs" />
+    <Compile Include="Biz\Sales\Delivery\DeliveryOrderItemModel.cs" />
+    <Compile Include="Biz\Sales\Delivery\DeliveryOrderModel.cs" />
     <Compile Include="Biz\Sales\Order\OrderListModel.cs" />
     <Compile Include="Biz\Sales\Shipment\ShipmentInvoiceModel.cs" />
     <Compile Include="Biz\Sales\Shipment\ShipmentItemModel.cs" />

@@ -20,7 +20,11 @@
 					,	AA.ImageType
 					,	AA.ImageGroup
 					,	AA.ImageID
-					,	BB.Url			as ImageUrl
+					,	BB.Name
+					,	BB.Url
+					,	null			as Path
+					,	BB.Width
+					,	BB.Height
 					
 					,	M1.Name			as ImageTypeName
 					,	M2.Name			as ImageGroupName
@@ -44,8 +48,8 @@
 		<select id="SelectProductImage" parameterClass="DataMap" resultClass="ProductImageModel" >
 			<![CDATA[
 				SELECT  AA.*
-					,	BB.Name		as FileName
-					,	BB.Url		as ImageUrl
+					,	BB.Name
+					,	BB.Url
 					,	BB.Width
 					,	BB.Height
 					

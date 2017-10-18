@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
+using System.Windows.Forms;
 using DevExpress.Utils;
 using DevExpress.XtraEditors.Controls;
-using DevExpress.XtraLayout;
-using DevExpress.XtraTab.Buttons;
+using DevExpress.XtraEditors.Repository;
+using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraTab.ViewInfo;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
@@ -27,19 +27,92 @@ namespace IKaan.Win.View.Biz.Catalog.Product
 		{
 			InitializeComponent();
 
-			lcTab.SelectedPageChanged += (object sender, LayoutTabPageChangedEventArgs e) =>
-			{
-				TabButtonEnabled();
-			};
 			lcTab.CustomHeaderButtonClick += (object sender, CustomHeaderButtonEventArgs e) =>
 			{
-				if (e.Button.Tag.ToStringNullToEmpty() == "DEL")
+				if (e.Button.Tag.ToStringNullToEmpty() == "BAT")
+				{
+					try
+					{
+						using (var form = new ProductOptionEditForm())
+						{
+							form.Text = "옵션일괄등록";
+							form.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+							form.IsLoadingRefresh = true;
+							if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+							{
+								if (form.ReturnData != null)
+								{
+									foreach (var item in (form.ReturnData as List<ProductItemModel>))
+									{
+										if ((gridItems.DataSource as List<ProductItemModel>).Where(x =>
+											 x.Option1Type == item.Option1Type &&
+											 x.Option1Name == item.Option1Name &&
+											 x.Option2Type == item.Option2Type &&
+											 x.Option2Name == item.Option2Name).Any())
+											continue;
+
+										gridItems.AddRow(item);
+									}
+								}
+							}
+						}
+					}
+					catch (Exception ex)
+					{
+						ShowErrBox(ex);
+					}
+				}
+				else if (e.Button.Tag.ToStringNullToEmpty() == "ADD")
+				{
+					if (lcTab.SelectedTabPage.Name == lcGroupOption.Name)
+					{
+						gridItems.AddRow(new ProductItemModel());
+						gridItems.SetFocus(gridItems.RowCount - 1, "Option1Type");
+					}
+					else if (lcTab.SelectedTabPage.Name == lcGroupImages.Name)
+					{
+						gridImages.AddRow(new ProductImageModel()
+						{
+							ImageType = null,
+							ImageGroup = null
+						});
+						gridImages.SetFocus(gridImages.RowCount - 1, "ImageType");
+					}
+					else if (lcTab.SelectedTabPage.Name == lcGroupAttribute.Name)
+					{
+						if (lupAttributeType.EditValue == null)
+						{
+							ShowMsgBox("속성유형을 선택하세요!!!");
+							lupAttributeType.Focus();
+							return;
+						}
+						if (lupAttributeValue.EditValue == null)
+						{
+							ShowMsgBox("속성값을 선택하세요!!!");
+							lupAttributeValue.Focus();
+							return;
+						}
+
+						gridAttributes.AddRow(new ProductAttributeModel()
+						{
+							ProductID = txtID.EditValue.ToIntegerNullToNull(),
+							AttributeTypeID = lupAttributeType.EditValue.ToIntegerNullToNull(),
+							AttributeTypeName = lupAttributeType.Text,
+							ValueType = lupAttributeType.GetValue(1).ToStringNullToNull(),
+							AttributeID = lupAttributeValue.EditValue.ToIntegerNullToNull(),
+							AttributeName = lupAttributeValue.Text,
+							AttributeCode = lupAttributeValue.GetValue(2).ToStringNullToNull(),
+							AttributeValue = lupAttributeValue.Text							
+						});
+					}
+				}
+				else if (e.Button.Tag.ToStringNullToEmpty() == "DEL")
 				{
 					if (lcTab.SelectedTabPage.Name == lcGroupOption.Name)
 					{
 						DeleteOption();
 					}
-					else if (lcTab.SelectedTabPage.Name == lcGroupImage.Name)
+					else if (lcTab.SelectedTabPage.Name == lcGroupImages.Name)
 					{
 						DeleteImage();
 					}
@@ -51,164 +124,27 @@ namespace IKaan.Win.View.Biz.Catalog.Product
 				LoadInfoNotice();
 			};
 
-			btnCreateOption.Click += (object sender, EventArgs e) =>
+			lupAttributeType.EditValueChanged += (object sender, EventArgs e)=>
 			{
-				try
-				{
-					if (lupOption1Type.EditValue.IsNullOrEmpty() == false && txtOption1Name.EditValue.IsNullOrEmpty())
-						throw new Exception("옵션유형(1)을 선택했으면 옵션값(1)을 입력해야 합니다.");
-
-					if (lupOption2Type.EditValue.IsNullOrEmpty() == false && txtOption2Name.EditValue.IsNullOrEmpty())
-						throw new Exception("옵션유형(2)을 선택했으면 옵션값(2)을 입력해야 합니다.");
-
-					if (txtOption1Name.EditValue.IsNullOrEmpty() && txtOption2Name.EditValue.IsNullOrEmpty())
-						return;
-
-					if (gridItem.DataSource == null)
-						gridItem.DataSource = new List<ProductItemModel>();
-
-					string option1 = txtOption1Name.Text;
-					string option2 = txtOption2Name.Text;
-					//string[] opt1 = option1.Split(',');
-					//string[] opt2 = option2.Split(',');
-
-					if (option1.IsNullOrEmpty() == false && option2.IsNullOrEmpty() == false)
-					{
-						foreach (string opt1 in option1.Split(','))
-						{
-							foreach (string opt2 in option2.Split(','))
-							{
-								if ((gridItem.DataSource as List<ProductItemModel>).Where(x => x.Option1Name == opt1 && x.Option2Name == opt2).Any() == false)
-								{
-									gridItem.AddRow(new ProductItemModel()
-									{
-										Option1Type = lupOption1Type.EditValue.ToString(),
-										Option1Name = opt1,
-										Option2Type = lupOption2Type.EditValue.ToString(),
-										Option2Name = opt2,
-										RowState = "INSERT"
-									});
-								}
-							}
-						}
-					}
-					else
-					{
-						if (option1.IsNullOrEmpty() == false)
-						{
-							foreach (string opt1 in option1.Split(','))
-							{
-								if ((gridItem.DataSource as List<ProductItemModel>).Where(x => x.Option1Name == opt1).Any() == false)
-								{
-									gridItem.AddRow(new ProductItemModel()
-									{
-										Option1Type = lupOption1Type.EditValue.ToString(),
-										Option1Name = opt1,
-										RowState = "INSERT"
-									});
-								}
-							}
-						}
-						else if (option2.IsNullOrEmpty() == false)
-						{
-							foreach (string opt2 in option2.Split(','))
-							{
-								if ((gridItem.DataSource as List<ProductItemModel>).Where(x => x.Option2Name == opt2).Any() == false)
-								{
-									gridItem.AddRow(new ProductItemModel()
-									{
-										Option2Type = lupOption2Type.EditValue.ToString(),
-										Option2Name = opt2,
-										RowState = "INSERT"
-									});
-								}
-							}
-						}
-					}
-				}
-				catch(Exception ex)
-				{
-					ShowErrBox(ex);
-				}
-			};
-			btnSaveImage.Click += (object sender, EventArgs e) =>
-			{
-				var imagePath = picImage.GetLoadedImageLocation();
-				if (imagePath.IsNullOrEmpty())
-				{
-					ShowMsgBox("먼저 이미지를 선택하세요!!!");
-					return;
-				}
-
-				if (gridImage.DataSource == null)
-					gridImage.DataSource = new List<ProductImageModel>();
-
-				gridImage.MainView.BeginUpdate();
-				(gridImage.DataSource as List<ProductImageModel>).Add(new ProductImageModel()
-				{
-					ImageType = lupImageType.EditValue.ToStringNullToEmpty(),
-					ImageTypeName = lupImageType.Text,
-					ImageGroup = lupImageGroup.EditValue.ToStringNullToEmpty(),
-					ImageGroupName = lupImageGroup.Text,
-					ImageUrl = imagePath,
-					RowState = "INSERT"
-				});
-				gridImage.MainView.EndUpdate();
-			};
-
-			picImage.Properties.ImageChanged += (object sender, EventArgs e) =>
-			{
-				try
-				{
-					var path = picImage.GetLoadedImageLocation();
-					var size = ImageUtils.GetSizePixel(path);
-					if (path.IsNullOrEmpty() == false)
-					{
-						esImageInfo.Text =
-							" 경로명 : " + Path.GetDirectoryName(path) + Environment.NewLine +
-							" 파일명 : " + Path.GetFileName(path) + Environment.NewLine +
-							" 사이즈 : " + size.Width + "px, " + size.Height + "px";
-						esImageInfo.TextVisible = true;
-					}
-				}
-				catch(Exception ex)
-				{
-					ShowErrBox(ex);
-				}
-			};
-
-			picSub1Image.Click += (object sender, EventArgs e) =>
-			{
-				if (picSub1Image.Tag.IsNullOrEmpty() == false)
-					picMainImage.LoadAsync(string.Format("{0}/{1}", GlobalVar.ImageServerInfo.CdnUrl, picSub1Image.Tag));
-			};
-			picSub2Image.Click += (object sender, EventArgs e) =>
-			{
-				if (picSub2Image.Tag.IsNullOrEmpty() == false)
-					picMainImage.LoadAsync(string.Format("{0}/{1}", GlobalVar.ImageServerInfo.CdnUrl, picSub2Image.Tag));
-			};
-			picSub3Image.Click += (object sender, EventArgs e) =>
-			{
-				if (picSub3Image.Tag.IsNullOrEmpty() == false)
-					picMainImage.LoadAsync(string.Format("{0}/{1}", GlobalVar.ImageServerInfo.CdnUrl, picSub3Image.Tag));
+				lupAttributeValue.BindData("Attribute", "", false, new DataMap() { { "AttributeTypeID", lupAttributeType.EditValue } });
 			};
 		}
 
 		protected override void OnShown(EventArgs e)
 		{
 			base.OnShown(e);
-			txtGoodsName.Focus();
+			txtName.Focus();
 		}
 
 		protected override void InitButton()
 		{
 			base.InitButton();
-			SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true });
+			SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true, SaveAndClose = true });
 		}
 		protected override void InitControls()
 		{
-			lcItemGoodsCode.Tag = true;
-			lcItemGoodsName.Tag = true;
+			lcItemCode.Tag = true;
+			lcItemName.Tag = true;
 			lupCategoryID.Tag = true;
 			lupBrandID.Tag = true;
 
@@ -217,10 +153,10 @@ namespace IKaan.Win.View.Biz.Catalog.Product
 			SetFieldNames();
 
 			lcGroupAttribute.Text = DomainUtils.GetFieldName("Attribute");
-			lcGroupDetail.Text = DomainUtils.GetFieldName("GoodsDetail");
-			lcGroupImage.Text = DomainUtils.GetFieldName("GoodsImage");
-			lcGroupOption.Text = DomainUtils.GetFieldName("GoodsOption");
-			lcGroupInfoNotice.Text = DomainUtils.GetFieldName("InfoNotice");
+			lcGroupDetail.Text = DomainUtils.GetFieldName("Description");
+			lcGroupImages.Text = DomainUtils.GetFieldName("Image");
+			lcGroupOption.Text = DomainUtils.GetFieldName("Option");
+			lcGroupInfoNotices.Text = DomainUtils.GetFieldName("InfoNotice");
 
 			txtID.SetEnable(false);
 			txtCreatedOn.SetEnable(false);
@@ -228,57 +164,29 @@ namespace IKaan.Win.View.Biz.Catalog.Product
 			txtUpdatedOn.SetEnable(false);
 			txtUpdatedByName.SetEnable(false);
 
-			lupCategoryID.BindData("CategoryList", "카테고리선택");
-			lupBrandID.BindData("BrandList", "브랜드선택");
-			lupOption1Type.BindData("OptionType", "None");
-			lupOption2Type.BindData("OptionType", "None");
-			lupImageType.BindData("ImageType", null, false, new DataMap() { { "Option2", "Y" } });
-			lupImageGroup.BindData("ImageGroup");
+			lupCategoryID.BindData("Categories", "==카테고리선택==");
+			lupBrandID.BindData("BrandList", "==브랜드선택==");
+			lupProductType.BindData("ProductType");
+			lupAttributeType.BindData("AttributeType");
+			lupAttributeValue.BindData("Attribute", "", false, new DataMap() { { "AttributeTypeID", lupAttributeType.EditValue } });
 
 			spnListPrice.SetFormat("N0", false);
 			spnSalePrice.SetFormat("N0", false);
 
-			picImage.Properties.SizeMode = PictureSizeMode.Squeeze;
-			picMainImage.Properties.SizeMode = PictureSizeMode.Squeeze;
-			picSub1Image.Properties.SizeMode = PictureSizeMode.Squeeze;
-			picSub2Image.Properties.SizeMode = PictureSizeMode.Squeeze;
-			picSub3Image.Properties.SizeMode = PictureSizeMode.Squeeze;
-
 			InitGrid();
 
 			lcTab.SelectedTabPageIndex = 0;
-			TabButtonEnabled();
+			lcTab.SelectedTabPageIndex = 0;
 		}
 
 		void InitGrid()
 		{
-			#region GoodsAttribute
-			gridAttribute.Init();
-			gridAttribute.AddGridColumns(
-				new XGridColumn() { FieldName = "RowNo", Width = 40, HorzAlignment = HorzAlignment.Center },
-				new XGridColumn() { FieldName = "ID", Visible = false },
-				new XGridColumn() { FieldName = "GoodsID", Visible = false },
-				new XGridColumn() { FieldName = "AttrType", Visible = false },
-				new XGridColumn() { FieldName = "AttrTypeName", Width = 100 },
-				new XGridColumn() { FieldName = "AttrCode", Width = 80 },
-				new XGridColumn() { FieldName = "AttrName", Width = 100 },
-				new XGridColumn() { FieldName = "CreatedOn" },
-				new XGridColumn() { FieldName = "CreatedByName" },
-				new XGridColumn() { FieldName = "UpdatedOn" },
-				new XGridColumn() { FieldName = "UpdatedByName" }
-			);
-			gridAttribute.ColumnFix("RowNo");
-			gridAttribute.SetRespositoryItemTextEdit("AttrCode");
-			gridAttribute.SetRespositoryItemTextEdit("AttrName");
-			gridAttribute.SetEditable("AttrType", "AttrCode", "AttrName");
-			#endregion
-
 			#region GoodsItem
-			gridItem.Init();
-			gridItem.AddGridColumns(
+			gridItems.Init();
+			gridItems.AddGridColumns(
 				new XGridColumn() { FieldName = "RowNo" },
-				new XGridColumn() { FieldName = "ID", Width = 80, HorzAlignment = HorzAlignment.Center },
-				new XGridColumn() { FieldName = "GoodsID", Visible = false },
+				new XGridColumn() { FieldName = "ID", Visible = false },
+				new XGridColumn() { FieldName = "ProductID", Visible = false },
 				new XGridColumn() { FieldName = "Option1Type", Width = 100 },
 				new XGridColumn() { FieldName = "Option1Name", Width = 100 },
 				new XGridColumn() { FieldName = "Option2Type", Width = 100 },
@@ -288,36 +196,103 @@ namespace IKaan.Win.View.Biz.Catalog.Product
 				new XGridColumn() { FieldName = "UpdatedOn" },
 				new XGridColumn() { FieldName = "UpdatedByName" }
 			);
-			gridItem.ColumnFix("RowNo");
-			gridItem.SetRepositoryItemLookUpEdit("Option1Type", "OptionType", "None");
-			gridItem.SetRepositoryItemLookUpEdit("Option2Type", "OptionType", "None");
+			gridItems.ColumnFix("RowNo");
+			gridItems.SetRepositoryItemLookUpEdit("Option1Type", "OptionType", "None");
+			gridItems.SetRepositoryItemLookUpEdit("Option2Type", "OptionType", "None");
+			gridItems.SetEditable("Option1Type", "Option1Name", "Option2Type", "Option2Name");
 			#endregion
 
 			#region GoodsImage
-			gridImage.Init();
-			gridImage.AddGridColumns(
+			gridImages.Init();
+			gridImages.AddGridColumns(
 				new XGridColumn() { FieldName = "RowNo" },
 				new XGridColumn() { FieldName = "ID", Visible = false },
-				new XGridColumn() { FieldName = "GoodsID", Visible = false },
-				new XGridColumn() { FieldName = "ImageType", Visible = false },
-				new XGridColumn() { FieldName = "ImageTypeName", Width = 80, HorzAlignment = HorzAlignment.Center },
-				new XGridColumn() { FieldName = "ImageGroup", Visible = false },
-				new XGridColumn() { FieldName = "ImageGroupName", Width = 80, HorzAlignment = HorzAlignment.Center },
-				new XGridColumn() { FieldName = "ImageUrl", Width = 200 },
+				new XGridColumn() { FieldName = "ProductID", Visible = false },
+				new XGridColumn() { FieldName = "ImageType", Width = 100 },
+				new XGridColumn() { FieldName = "ImageGroup", Width = 100 },
+				new XGridColumn() { FieldName = "Name", CaptionCode = "ImageName", Width = 200 },
+				new XGridColumn() { FieldName = "Url", Width = 200 },
+				new XGridColumn() { FieldName = "Path", Width = 200 },
+				new XGridColumn() { FieldName = "Width", Width = 80, HorzAlignment = HorzAlignment.Far, FormatType = FormatType.Numeric, FormatString = "N0" },
+				new XGridColumn() { FieldName = "Height", Width = 80, HorzAlignment = HorzAlignment.Far, FormatType = FormatType.Numeric, FormatString = "N0" },
 				new XGridColumn() { FieldName = "CreatedOn" },
 				new XGridColumn() { FieldName = "CreatedByName" },
 				new XGridColumn() { FieldName = "UpdatedOn" },
 				new XGridColumn() { FieldName = "UpdatedByName" }
 			);
-			gridImage.ColumnFix("RowNo");
+			gridImages.ColumnFix("RowNo");
+			gridImages.SetRepositoryItemButtonEdit("Name");
+			gridImages.SetRepositoryItemLookUpEdit("ImageType", "ImageType", "None");
+			gridImages.SetRepositoryItemLookUpEdit("ImageGroup", "ImageGroup", "None");
+			gridImages.SetEditable("ImageType", "ImageGroup", "Name");
+			(gridImages.MainView.Columns["Name"].ColumnEdit as RepositoryItemButtonEdit).TextEditStyle = TextEditStyles.DisableTextEditor;
+			(gridImages.MainView.Columns["Name"].ColumnEdit as RepositoryItemButtonEdit).ButtonClick += (object sender, ButtonPressedEventArgs e) =>
+			{
+				try
+				{
+					var image = ImageUtils.SelectImage();
+					if (image != null)
+					{
+						gridImages.SetValue(gridImages.FocusedRowHandle, "Name", image.Name);
+						gridImages.SetValue(gridImages.FocusedRowHandle, "Path", image.Url);
+						gridImages.SetValue(gridImages.FocusedRowHandle, "Width", image.Width);
+						gridImages.SetValue(gridImages.FocusedRowHandle, "Height", image.Height);
+					}
+				}
+				catch(Exception ex)
+				{
+					ShowErrBox(ex);
+				}
+			};
+			gridImages.RowCellClick += (object sender, RowCellClickEventArgs e)=>
+			{
+				if (e.RowHandle < 0)
+					return;
+
+				if (e.Button == MouseButtons.Left && e.Clicks == 1)
+				{
+					GridView view = sender as GridView;
+					if (view.GetRowCellValue(e.RowHandle, "Path").IsNullOrEmpty() == false)
+					{
+						picImage.LoadImage(view.GetRowCellValue(e.RowHandle, "Path").ToStringNullToEmpty());
+					}
+					else
+					{
+						if (view.GetRowCellValue(e.RowHandle, "Url").IsNullOrEmpty() == false)
+							picImage.LoadImage(GlobalVar.ImageServerInfo.CdnUrl + view.GetRowCellValue(e.RowHandle, "Url").ToStringNullToEmpty());
+					}
+				}
+			};
+			#endregion
+
+			#region GoodsAttribute
+			gridAttributes.Init();
+			gridAttributes.AddGridColumns(
+				new XGridColumn() { FieldName = "RowNo", Width = 40, HorzAlignment = HorzAlignment.Center },
+				new XGridColumn() { FieldName = "ID", Visible = false },
+				new XGridColumn() { FieldName = "ProductID", Visible = false },				
+				new XGridColumn() { FieldName = "AttributeTypeID", Visible = false },
+				new XGridColumn() { FieldName = "AttributeID", Visible = false },
+				new XGridColumn() { FieldName = "AttributeTypeName", Width = 100 },
+				new XGridColumn() { FieldName = "AttributeValue", Width = 200 },
+				new XGridColumn() { FieldName = "ValueType", Visible = false },
+				new XGridColumn() { FieldName = "AttributeName", Visible = false },
+				new XGridColumn() { FieldName = "AttributeCode", Visible = false },
+				new XGridColumn() { FieldName = "CreatedOn" },
+				new XGridColumn() { FieldName = "CreatedByName" },
+				new XGridColumn() { FieldName = "UpdatedOn" },
+				new XGridColumn() { FieldName = "UpdatedByName" }
+			);
+			gridAttributes.ColumnFix("RowNo");
+			gridAttributes.SetEditable("AttributeValue");
 			#endregion
 
 			#region Info Notice
-			gridInfoNotice.Init();
-			gridInfoNotice.AddGridColumns(
+			gridInfoNotices.Init();
+			gridInfoNotices.AddGridColumns(
 				new XGridColumn() { FieldName = "RowNo" },
 				new XGridColumn() { FieldName = "ID", Visible = false },
-				new XGridColumn() { FieldName = "GoodsID", Visible = false },
+				new XGridColumn() { FieldName = "ProductID", Visible = false },
 				new XGridColumn() { FieldName = "InfoNoticeItemID", Visible = false },
 				new XGridColumn() { FieldName = "InfoNoticeItemName", Width = 150 },
 				new XGridColumn() { FieldName = "InfoNoticeValue", Width = 200 },
@@ -326,9 +301,9 @@ namespace IKaan.Win.View.Biz.Catalog.Product
 				new XGridColumn() { FieldName = "UpdatedOn" },
 				new XGridColumn() { FieldName = "UpdatedByName" }
 			);
-			gridInfoNotice.ColumnFix("RowNo");
-			gridInfoNotice.SetRespositoryItemTextEdit("InfoNoticeValue");
-			gridInfoNotice.SetEditable("InfoNoticeValue");
+			gridInfoNotices.ColumnFix("RowNo");
+			gridInfoNotices.SetRespositoryItemTextEdit("InfoNoticeValue");
+			gridInfoNotices.SetEditable("InfoNoticeValue");
 			#endregion
 		}
 
@@ -337,28 +312,14 @@ namespace IKaan.Win.View.Biz.Catalog.Product
 			ClearControlData<ProductModel>();
 			rteDescription.Clear();
 
-			gridItem.Clear<ProductItemModel>();
-			gridImage.Clear<ProductImageModel>();
-			gridAttribute.Clear<ProductAttributeModel>();
-			gridInfoNotice.Clear<ProductInfoNoticeModel>();
+			gridItems.Clear<ProductItemModel>();
+			gridImages.Clear<ProductImageModel>();
+			gridAttributes.Clear<ProductAttributeModel>();
+			gridInfoNotices.Clear<ProductInfoNoticeModel>();
 
-			picImage.EditValue = null;
-			picMainImage.EditValue = null;
-			picMainImage.Tag = null;
-			picSub1Image.EditValue = null;
-			picSub1Image.Tag = null;
-			picSub2Image.EditValue = null;
-			picSub2Image.Tag = null;
-			picSub3Image.EditValue = null;
-			picSub3Image.Tag = null;
-
-			chkUseYn.Checked = true;
-			
-			esImageInfo.TextVisible = false;
-			TabButtonEnabled();
-			SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true });
+			SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true, SaveAndClose = true });
 			EditMode = EditModeEnum.New;
-			txtGoodsCode.Focus();
+			txtCode.Focus();
 		}
 
 		protected override void DataLoad(object param = null)
@@ -371,72 +332,29 @@ namespace IKaan.Win.View.Biz.Catalog.Product
 
 			try
 			{
-				var model = WasHandler.GetData<ProductModel>("Biz", "GetData", "Select", new DataMap()
+				var model = WasHandler.GetData<ProductModel>("Biz", "GetData", "Select", new DataMap() { { "ID", param } });
+				if (model != null)
 				{
-					{ "ID", param }
-				});
+					SetControlData(model);
+					rteDescription.EditValue = model.DescriptionRTF;
 
-				if (model == null)
-					throw new Exception("조회할 데이터가 없습니다.");
+					if (model.Items == null)
+						model.Items = new List<ProductItemModel>();
+					if (model.Images == null)
+						model.Images = new List<ProductImageModel>();
+					if (model.Attributes == null)
+						model.Attributes = new List<ProductAttributeModel>();
+					if (model.InfoNotices == null)
+						model.InfoNotices = new List<ProductInfoNoticeModel>();
 
-				SetControlData(model);
-
-				if (model.Description == null)
-					model.Description = new ProductDescriptionModel();
-				if (model.Items == null)
-					model.Items = new List<ProductItemModel>();
-				if (model.Images == null)
-					model.Images = new List<ProductImageModel>();
-				if (model.Attributes == null)
-					model.Attributes = new List<ProductAttributeModel>();
-				if (model.InfoNotices == null)
-					model.InfoNotices = new List<ProductInfoNoticeModel>();
-
-				rteDescription.EditValue = model.Description.DescriptionRTF;
-
-				gridItem.DataSource = model.Items;
-				gridImage.DataSource = model.Images;
-				gridAttribute.DataSource = model.Attributes;
-				gridInfoNotice.DataSource = model.InfoNotices;
-
-				picMainImage.EditValue = null;
-				picSub1Image.EditValue = null;
-				picSub2Image.EditValue = null;
-				picSub3Image.EditValue = null;
-
-				if (model.Images != null && model.Images.Count > 0)
-				{
-					int i = 0;
-					foreach (var image in model.Images)
-					{
-						i++;
-						if (i > 3)
-							break;
-
-						if (i == 1)
-						{
-							picMainImage.LoadAsync(string.Format("{0}/{1}", GlobalVar.ImageServerInfo.CdnUrl, image.ImageUrl));
-							picSub1Image.LoadAsync(string.Format("{0}/{1}", GlobalVar.ImageServerInfo.CdnUrl, image.ImageUrl));
-							picSub1Image.Tag = image.ImageUrl;
-						}
-						else if (i == 2)
-						{
-							picSub2Image.LoadAsync(string.Format("{0}/{1}", GlobalVar.ImageServerInfo.CdnUrl, image.ImageUrl));
-							picSub2Image.Tag = image.ImageUrl;
-						}
-						else if (i == 3)
-						{
-							picSub3Image.LoadAsync(string.Format("{0}/{1}", GlobalVar.ImageServerInfo.CdnUrl, image.ImageUrl));
-							picSub3Image.Tag = image.ImageUrl;
-						}
-					}
+					gridItems.DataSource = model.Items;
+					gridImages.DataSource = model.Images;
+					gridAttributes.DataSource = model.Attributes;
+					gridInfoNotices.DataSource = model.InfoNotices;
 				}
-
-				btnCreateOption.Enabled = true;
-				TabButtonEnabled();
-				SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true, Delete = true });
+				SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true, SaveAndClose = true, Delete = true });
 				this.EditMode = EditModeEnum.Modify;
-				txtGoodsCode.Focus();
+				txtCode.Focus();
 			}
 			catch (Exception ex)
 			{
@@ -446,53 +364,65 @@ namespace IKaan.Win.View.Biz.Catalog.Product
 
 		protected override void DataSave(object arg, SaveCallback callback)
 		{
+			//유효성 검사
 			if (DataValidate() == false) return;
 
 			try
 			{
 				var model = this.GetControlData<ProductModel>();
-				model.Description = new ProductDescriptionModel()
+				model.Description = rteDescription.EditText;
+				model.DescriptionRTF = rteDescription.EditValue;
+
+				model.Items = gridItems.DataSource as List<ProductItemModel>;				
+				model.Attributes = gridAttributes.DataSource as List<ProductAttributeModel>;
+				model.InfoNotices = gridInfoNotices.DataSource as List<ProductInfoNoticeModel>;
+				model.Images = gridImages.DataSource as List<ProductImageModel>;
+
+				//유효성검사
+				foreach(var item in model.Items)
 				{
-					Description = rteDescription.EditText,
-					DescriptionRTF = rteDescription.EditValue
-				};
+					if (item.Option1Type.IsNullOrEmpty() == false && item.Option1Name.IsNullOrEmpty())
+						throw new Exception("옵션유형(1)을 선택하였으면 옵션값(1)을 입력해야 합니다.");
+					if (item.Option1Name.IsNullOrEmpty() == false && item.Option1Type.IsNullOrEmpty())
+						throw new Exception("옵션값(1)을 입력하였으면 옵션유형(1)을 선택해야 합니다.");
+					if (item.Option2Type.IsNullOrEmpty() == false && item.Option2Name.IsNullOrEmpty())
+						throw new Exception("옵션유형(2)을 선택하였으면 옵션값(2)을 입력해야 합니다.");
+					if (item.Option2Name.IsNullOrEmpty() == false && item.Option2Type.IsNullOrEmpty())
+						throw new Exception("옵션값(2)을 입력하였으면 옵션유형(2)을 선택해야 합니다.");
+				}
 
-				model.Items = (gridItem.DataSource == null) ? null : gridItem.DataSource as List<ProductItemModel>;				
-				model.Attributes = (gridAttribute.DataSource == null) ? null : gridAttribute.DataSource as List<ProductAttributeModel>;
-				model.InfoNotices = (gridInfoNotice.DataSource == null) ? null : gridInfoNotice.DataSource as List<ProductInfoNoticeModel>;
-				model.Images = null;
+				foreach(var image in model.Images)
+				{
+					if (image.ImageType.IsNullOrEmpty())
+						throw new Exception("이미지유형을 선택하세요!!!");
+					if (image.ImageGroup.IsNullOrEmpty())
+						throw new Exception("이미지그룹을 선택하세요!!!");
+					if (image.Url.IsNullOrEmpty() && image.Path.IsNullOrEmpty())
+						throw new Exception("이미지를 선택해야 합니다!!!");
+				}
 
-				//이미지를 제외한 정보 저장
+				foreach(var attribute in model.Attributes)
+				{
+					if (attribute.AttributeTypeID == null)
+						throw new Exception("속성유형을 선택해야 합니다.");
+					if (attribute.AttributeValue.IsNullOrEmpty())
+						throw new Exception("속성값을 입력해야 합니다.");
+				}
+
+				//이미지 파일저장
+				foreach (var image in model.Images.Where(x => x.Path.IsNullOrEmpty() == false))
+				{
+					var url = FTPHandler.UploadGoods(GlobalVar.ImageServerInfo, image.Path, model.BrandID.ToString(), model.Code, image.ImageType, image.ImageGroup);
+					image.Url = url;
+				}
+
+				//정보 저장
 				using (var res = WasHandler.Execute<ProductModel>("Biz", "Save", (this.EditMode == EditModeEnum.New) ? "Insert" : "Update", model, "ID"))
 				{
 					if (res.Error.Number != 0)
 						throw new Exception(res.Error.Message);
 
 					model.ID = res.Result.ReturnValue.ToIntegerNullToNull();
-				}
-
-				model.Description = null;
-				model.Items = null;
-				model.Attributes = null;
-				model.InfoNotices = null;
-				model.Images = (gridImage.DataSource == null) ? null : gridImage.DataSource as List<ProductImageModel>;
-
-				//이미지 파일저장
-				if (model.Images != null && model.Images.Count > 0) {
-					//FTP저장
-					foreach (var image in model.Images.Where(x => x.RowState == "INSERT"))
-					{
-						var url = FTPHandler.UploadGoods(GlobalVar.ImageServerInfo, image.ImageUrl, model.BrandID.ToString(), model.ID.ToString(), image.ImageType, image.ImageGroup);
-						image.ImageUrl = url;
-						image.ProductID = model.ID;
-					}
-
-					//이미지정보 저장
-					using (var res = WasHandler.Execute<ProductImageModel>("Biz", "Save", (this.EditMode == EditModeEnum.New) ? "Insert" : "Update", model, "ID"))
-					{
-						if (res.Error.Number != 0)
-							throw new Exception(res.Error.Message);
-					}
 				}
 
 				ShowMsgBox("저장하였습니다.");
@@ -509,7 +439,7 @@ namespace IKaan.Win.View.Biz.Catalog.Product
 			try
 			{
 				var map = new DataMap() { { "ID", txtID.EditValue } };
-				using (var res = WasHandler.Execute<DataMap>("Biz", "Delete", "DeleteGoods", map, "ID"))
+				using (var res = WasHandler.Execute<DataMap>("Biz", "Delete", "DeleteProduct", map, "ID"))
 				{
 					if (res.Error.Number != 0)
 						throw new Exception(res.Error.Message);
@@ -523,49 +453,23 @@ namespace IKaan.Win.View.Biz.Catalog.Product
 				ShowErrBox(ex);
 			}
 		}
-
-		private void TabButtonEnabled()
-		{
-			try
-			{				
-				lcTab.CustomHeaderButtons.OfType<CustomHeaderButton>().ToList().ForEach(x =>
-				{
-					if (lcTab.SelectedTabPage.Name == lcGroupOption.Name ||
-					    lcTab.SelectedTabPage.Name == lcGroupImage.Name)
-					{
-						if (x.Tag.ToStringNullToEmpty() == "DEL")
-							x.Visible = true;
-						else
-							x.Visible = false;
-					}
-					else
-					{
-						x.Visible = false;
-					}
-				});
-			}
-			catch(Exception ex)
-			{
-				ShowErrBox(ex);
-			}
-		}
-		
+				
 		private void DeleteOption()
 		{
 			try
 			{
-				if (gridItem.DataSource == null || gridItem.RowCount == 0 || gridItem.FocusedRowHandle < 0)
+				if (gridItems.DataSource == null || gridItems.RowCount == 0 || gridItems.FocusedRowHandle < 0)
 					return;
 
-				if (gridItem.GetValue(gridItem.FocusedRowHandle, "ID").IsNullOrEmpty())
+				if (gridItems.GetValue(gridItems.FocusedRowHandle, "ID").IsNullOrEmpty())
 				{
-					gridItem.DeleteRow(gridItem.FocusedRowHandle);
-					gridItem.UpdateCurrentRow();
+					gridItems.DeleteRow(gridItems.FocusedRowHandle);
+					gridItems.UpdateCurrentRow();
 				}
 				else
 				{
-					var map = new DataMap() { { "ID", gridItem.GetValue(gridItem.FocusedRowHandle, "ID") } };
-					using (var res = WasHandler.Execute<DataMap>("Biz", "Delete", "DeleteGoodsItem", map, "ID"))
+					var map = new DataMap() { { "ID", gridItems.GetValue(gridItems.FocusedRowHandle, "ID") } };
+					using (var res = WasHandler.Execute<DataMap>("Biz", "Delete", "DeleteProductItem", map, "ID"))
 					{
 						if (res.Error.Number != 0)
 							throw new Exception(res.Error.Message);
@@ -585,18 +489,18 @@ namespace IKaan.Win.View.Biz.Catalog.Product
 		{
 			try
 			{
-				if (gridImage.DataSource == null || gridImage.RowCount == 0 || gridImage.FocusedRowHandle < 0)
+				if (gridImages.DataSource == null || gridImages.RowCount == 0 || gridImages.FocusedRowHandle < 0)
 					return;
 
-				if (gridImage.GetValue(gridImage.FocusedRowHandle, "ID").IsNullOrEmpty())
+				if (gridImages.GetValue(gridImages.FocusedRowHandle, "ID").IsNullOrEmpty())
 				{
-					gridImage.DeleteRow(gridImage.FocusedRowHandle);
-					gridImage.UpdateCurrentRow();
+					gridImages.DeleteRow(gridImages.FocusedRowHandle);
+					gridImages.UpdateCurrentRow();
 				}
 				else
 				{
-					var map = new DataMap() { { "ID", gridImage.GetValue(gridImage.FocusedRowHandle, "ID") } };
-					using (var res = WasHandler.Execute<DataMap>("Biz", "Delete", "DeleteGoodsImage", map, "ID"))
+					var map = new DataMap() { { "ID", gridImages.GetValue(gridImages.FocusedRowHandle, "ID") } };
+					using (var res = WasHandler.Execute<DataMap>("Biz", "Delete", "DeleteProductImage", map, "ID"))
 					{
 						if (res.Error.Number != 0)
 							throw new Exception(res.Error.Message);
@@ -617,11 +521,11 @@ namespace IKaan.Win.View.Biz.Catalog.Product
 			try
 			{
 				DataMap map = new DataMap()
-			{
-				{ "CategoryID", lupCategoryID.EditValue },
-				{ "GoodsID", txtID.EditValue }
-			};
-				gridInfoNotice.BindList<ProductInfoNoticeModel>("Biz", "GetList", "SelectGoodsInfoNoticeByCategory", map);
+				{
+					{ "CategoryID", lupCategoryID.EditValue },
+					{ "ProductID", txtID.EditValue }
+				};
+				gridInfoNotices.BindList<ProductInfoNoticeModel>("Biz", "GetList", "SelectProductInfoNoticeByCategory", map);
 			}
 			catch (Exception ex)
 			{

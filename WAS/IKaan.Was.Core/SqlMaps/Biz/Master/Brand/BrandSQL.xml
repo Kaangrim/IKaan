@@ -18,6 +18,7 @@
 					
 					,	AA.Name
 					,	AA.Code
+					,	AA.EngName
 					,	AA.Url
 					,	AA.Category
 					,	AA.Style
@@ -92,12 +93,12 @@
 				INSERT INTO dbo.TBrand
 				( 
 					CreatedOn, CreatedBy, CreatedByName,
-					Name, Code, Url, Category, Style, UseYn, Description, DescriptionRTF
+					Name, Code, EngName, Url, Category, Style, UseYn, Description, DescriptionRTF
 				)
 				VALUES
 				(
 					GetDate(), #CreatedBy#, #CreatedByName#,
-					#Name#, #Code#, #Url#, #Category#, #Style#, #UseYn#, #Description#, #DescriptionRTF#
+					#Name#, #Code#, #EngName#, #Url#, #Category#, #Style#, #UseYn#, #Description#, #DescriptionRTF#
 				)
 			]]>
 			<selectKey type="post" property="ID" resultClass="Int">
@@ -115,6 +116,7 @@
 					
 					,	Name			= #Name#
 					,	Code			= #Code#
+					,	EngName			= #EngName#
 					,	Url				= #Url#
 					,	Category		= #Category#
 					,	Style			= #Style#

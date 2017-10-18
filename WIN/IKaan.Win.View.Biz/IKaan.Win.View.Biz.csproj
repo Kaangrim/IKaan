@@ -69,11 +69,35 @@
     <Compile Include="Catalog\Category\CategoryListForm.designer.cs">
       <DependentUpon>CategoryListForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Catalog\Product\ProductOptionEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Catalog\Product\ProductOptionEditForm.designer.cs">
+      <DependentUpon>ProductOptionEditForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Master\Address\AddressListForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Master\Address\AddressListForm.designer.cs">
       <DependentUpon>AddressListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Master\Attribute\AttributeEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Master\Attribute\AttributeEditForm.designer.cs">
+      <DependentUpon>AttributeEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Master\Attribute\AttributeTypeEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Master\Attribute\AttributeTypeEditForm.designer.cs">
+      <DependentUpon>AttributeTypeEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Master\Attribute\AttributeListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Master\Attribute\AttributeListForm.designer.cs">
+      <DependentUpon>AttributeListForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Master\Brand\BrandFromScrapForm.cs">
       <SubType>Form</SubType>
@@ -350,6 +374,7 @@
   <ItemGroup>
     <Folder Include="Master\Manufacturer\" />
     <Folder Include="Sales\Account\" />
+    <Folder Include="Sales\Delivery\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Catalog\Category\CategoryItemEditForm.resx">
@@ -361,8 +386,20 @@
     <EmbeddedResource Include="Catalog\Category\CategoryListForm.resx">
       <DependentUpon>CategoryListForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Catalog\Product\ProductOptionEditForm.resx">
+      <DependentUpon>ProductOptionEditForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Master\Address\AddressListForm.resx">
       <DependentUpon>AddressListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Master\Attribute\AttributeEditForm.resx">
+      <DependentUpon>AttributeEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Master\Attribute\AttributeTypeEditForm.resx">
+      <DependentUpon>AttributeTypeEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Master\Attribute\AttributeListForm.resx">
+      <DependentUpon>AttributeListForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Master\Brand\BrandFromScrapForm.resx">
       <DependentUpon>BrandFromScrapForm.cs</DependentUpon>

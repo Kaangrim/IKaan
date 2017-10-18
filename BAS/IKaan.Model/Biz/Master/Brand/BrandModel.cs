@@ -14,8 +14,12 @@ namespace IKaan.Model.Biz.Master.Brand
 		public string Name { get; set; }
 
 		[DataMember]
-		[Display(Name = "브랜드코드")]
+		[Display(Name = "코드")]
 		public string Code { get; set; }
+
+		[DataMember]
+		[Display(Name = "영문명")]
+		public string EngName { get; set; }
 
 		[DataMember]
 		[Display(Name = "URL")]

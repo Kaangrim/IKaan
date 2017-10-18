@@ -16,11 +16,19 @@ namespace IKaan.Model.Biz.Master.Attribute
 		public string Code { get; set; }
 
 		[DataMember]
+		[Display(Name = "값형식")]
+		public string ValueType { get; set; }
+
+		[DataMember]
 		[Display(Name = "사용여부")]
 		public string UseYn { get; set; }
 
 		[DataMember]
 		[Display(Name = "설명")]
 		public string Description { get; set; }
+
+		[DataMember]
+		[Display(Name = "값형식명")]
+		public string ValueTypeName { get; set; }
 	}
 }

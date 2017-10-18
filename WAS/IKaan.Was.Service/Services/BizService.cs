@@ -4,6 +4,7 @@ using IKaan.Base.Map;
 using IKaan.Base.Utils;
 using IKaan.Model.Biz.Catalog.Category;
 using IKaan.Model.Biz.Catalog.Product;
+using IKaan.Model.Biz.Master.Attribute;
 using IKaan.Model.Biz.Master.Brand;
 using IKaan.Model.Biz.Master.Channel;
 using IKaan.Model.Biz.Master.Common;
@@ -75,6 +76,12 @@ namespace IKaan.Was.Service.Services
 							break;
 						case "Address":
 							req.SetList<AddressModel>();
+							break;
+						case "Attribute":
+							req.SetList<AttributeModel>();
+							break;
+						case "AttributeType":
+							req.SetList<AttributeTypeModel>();
 							break;
 						case "Business":
 							req.SetList<BusinessModel>();
@@ -212,6 +219,12 @@ namespace IKaan.Was.Service.Services
 							break;
 						case "Product":
 							req.GetProductData();
+							break;
+						case "Attribute":
+							req.SetData<AttributeModel>();
+							break;
+						case "AttributeType":
+							req.SetData<AttributeTypeModel>();
 							break;
 						case "Address":
 							req.SetData<AddressModel>();
@@ -416,6 +429,12 @@ namespace IKaan.Was.Service.Services
 									break;
 								case "ProductImage":
 									req.SaveProductImage();
+									break;
+								case "Attribute":
+									req.SaveData<AttributeModel>();
+									break;
+								case "AttributeType":
+									req.SaveData<AttributeTypeModel>();
 									break;
 								case "Address":
 									req.SaveData<AddressModel>();

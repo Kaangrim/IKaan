@@ -1048,6 +1048,81 @@
 				SELECT	aa.ID								as ID
 					,	CONVERT(VARCHAR, aa.ID)				as Code
 					,	aa.Name								as Name
+					,	ISNULL(c1.Name, '') +
+						ISNULL('>'+c2.Name, '') +
+						ISNULL('>'+c3.Name, '') + 
+						ISNULL('>'+c4.Name, '') +
+						ISNULL('>'+c5.Name, '')				as ListName
+					,	aa.Name								as DispName
+					,	CONVERT(VARCHAR, aa.ID)				as Value
+					,	ROW_NUMBER() OVER 
+							(ORDER BY 
+								aa.SortOrder,
+								ISNULL(c1.SortOrder, 0), 
+								ISNULL(c2.SortOrder, 0),
+								ISNULL(c3.SortOrder, 0),
+								ISNULL(c4.SortOrder, 0),
+								ISNULL(c5.SortOrder, 0),
+								aa.ID)						as SortOrder
+					,	0																						as MaxLength
+					,	CASE WHEN aa.Category1 IS NOT NULL THEN CONVERT(VARCHAR, aa.Category1) ELSE NULL END	as Option1
+					,	CASE WHEN aa.Category2 IS NOT NULL THEN CONVERT(VARCHAR, aa.Category2) ELSE NULL END	as Option2
+					,	CASE WHEN aa.Category3 IS NOT NULL THEN CONVERT(VARCHAR, aa.Category3) ELSE NULL END	as Option3
+					,	CASE WHEN aa.Category4 IS NOT NULL THEN CONVERT(VARCHAR, aa.Category4) ELSE NULL END	as Option4
+					,	CASE WHEN aa.Category5 IS NOT NULL THEN CONVERT(VARCHAR, aa.Category5) ELSE NULL END	as Option5
+					,	null								as Option6
+					,	null								as Option7
+					,	null								as Option8
+					,	null								as Option9
+				FROM	IKBiz.dbo.TCategory aa WITH (NOLOCK)
+						LEFT JOIN
+							IKBiz.dbo.TCategoryItem c1 WITH (NOLOCK)
+								ON aa.Category1 = c1.ID
+						LEFT JOIN
+							IKBiz.dbo.TCategoryItem c2 WITH (NOLOCK)
+								ON aa.Category2 = c2.ID
+						LEFT JOIN
+							IKBiz.dbo.TCategoryItem c3 WITH (NOLOCK)
+								ON aa.Category3 = c3.ID
+						LEFT JOIN
+							IKBiz.dbo.TCategoryItem c4 WITH (NOLOCK)
+								ON aa.Category4 = c4.ID
+						LEFT JOIN
+							IKBiz.dbo.TCategoryItem c5 WITH (NOLOCK)
+								ON aa.Category5 = c5.ID						
+				WHERE	1=1
+			]]>
+			<isNotEmpty property="UseYn">
+				<![CDATA[
+					AND	aa.UseYn = #UseYn#
+				]]>
+			</isNotEmpty>
+			<isEmpty property="UseYn">
+				<![CDATA[
+					AND	aa.UseYn = 'Y'
+				]]>
+			</isEmpty>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(
+							aa.Name				Like '%'+#FindText#+'%'	OR
+							isnull(c1.Name, '') Like '%'+#FindText#+'%'	OR
+							isnull(c2.Name, '') Like '%'+#FindText#+'%'	OR
+							isnull(c3.Name, '') Like '%'+#FindText#+'%'	OR
+							isnull(c4.Name, '') Like '%'+#FindText#+'%'	OR
+							isnull(c5.Name, '') Like '%'+#FindText#+'%'
+						)
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY SortOrder, Name
+			]]>
+		</select>
+		<select id="SelectCodeHelpCategoryItem" parameterClass="DataMap" resultClass="UCodeHelp" >
+			<![CDATA[
+				SELECT	aa.ID								as ID
+					,	CONVERT(VARCHAR, aa.ID)				as Code
+					,	aa.Name								as Name
 					,	aa.Name								as ListName
 					,	aa.Name								as DispName
 					,	CONVERT(VARCHAR, aa.ID)				as Value
@@ -1109,6 +1184,94 @@
 					,	null								as Option9
 				FROM	IKBiz.dbo.TInfoNotice aa WITH (NOLOCK)
 				WHERE	1=1
+			]]>
+			<isNotEmpty property="UseYn">
+				<![CDATA[
+					AND	aa.UseYn = #UseYn#
+				]]>
+			</isNotEmpty>
+			<isEmpty property="UseYn">
+				<![CDATA[
+					AND	aa.UseYn = 'Y'
+				]]>
+			</isEmpty>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(
+							CONVERT(VARCHAR, aa.ID) = #FindText#	OR
+							aa.Name	Like '%'+#FindText#+'%'
+						)
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY SortOrder, Name
+			]]>
+		</select>
+		<select id="SelectCodeHelpAttributeType" parameterClass="DataMap" resultClass="UCodeHelp" >
+			<![CDATA[
+				SELECT	aa.ID									as ID
+					,	CONVERT(VARCHAR, aa.ID)					as Code
+					,	aa.Name									as Name
+					,	aa.Name									as ListName
+					,	aa.Name									as DispName
+					,	CONVERT(VARCHAR, aa.ID)					as Value
+					,	ROW_NUMBER() OVER (ORDER BY aa.Name)	as SortOrder
+					,	0										as MaxLength
+					,	aa.ValueType							as Option1
+					,	null									as Option2
+					,	null									as Option3
+					,	null									as Option4
+					,	null									as Option5
+					,	null									as Option6
+					,	null									as Option7
+					,	null									as Option8
+					,	null									as Option9
+				FROM	IKBiz.dbo.TAttributeType aa WITH (NOLOCK)
+				WHERE	1=1
+			]]>
+			<isNotEmpty property="UseYn">
+				<![CDATA[
+					AND	aa.UseYn = #UseYn#
+				]]>
+			</isNotEmpty>
+			<isEmpty property="UseYn">
+				<![CDATA[
+					AND	aa.UseYn = 'Y'
+				]]>
+			</isEmpty>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(
+							CONVERT(VARCHAR, aa.ID) = #FindText#	OR
+							aa.Name	Like '%'+#FindText#+'%'
+						)
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY SortOrder, Name
+			]]>
+		</select>
+		<select id="SelectCodeHelpAttribute" parameterClass="DataMap" resultClass="UCodeHelp" >
+			<![CDATA[
+				SELECT	aa.ID									as ID
+					,	CONVERT(VARCHAR, aa.ID)					as Code
+					,	aa.Name									as Name
+					,	aa.Name									as ListName
+					,	aa.Name									as DispName
+					,	CONVERT(VARCHAR, aa.ID)					as Value
+					,	ROW_NUMBER() OVER (ORDER BY aa.Name)	as SortOrder
+					,	0										as MaxLength
+					,	CONVERT(VARCHAR, aa.AttributeTypeID)	as Option1
+					,	aa.Code									as Option2
+					,	aa.Name									as Option3
+					,	null									as Option4
+					,	null									as Option5
+					,	null									as Option6
+					,	null									as Option7
+					,	null									as Option8
+					,	null									as Option9
+				FROM	IKBiz.dbo.TAttribute aa WITH (NOLOCK)
+				WHERE	aa.AttributeTypeID = #AttributeTypeID#
 			]]>
 			<isNotEmpty property="UseYn">
 				<![CDATA[

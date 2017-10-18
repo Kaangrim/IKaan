@@ -472,3 +472,7 @@ D:\Repositories\IKaan\WIN\IKaan.Win.View.Biz\obj\Debug\IKaan.Win.View.Biz.Catalo
 D:\Repositories\IKaan\WIN\IKaan.Win.View.Biz\obj\Debug\IKaan.Win.View.Biz.Catalog.Product.TGoodsChannelEditForm.resources
 D:\Repositories\IKaan\WIN\IKaan.Win.View.Biz\obj\Debug\IKaan.Win.View.Biz.Catalog.Product.ProductEditForm.resources
 D:\Repositories\IKaan\WIN\IKaan.Win.View.Biz\obj\Debug\IKaan.Win.View.Biz.Catalog.Product.ProductListForm.resources
+D:\Repositories\IKaan\WIN\IKaan.Win.View.Biz\obj\Debug\IKaan.Win.View.Biz.Master.Attribute.AttributeEditForm.resources
+D:\Repositories\IKaan\WIN\IKaan.Win.View.Biz\obj\Debug\IKaan.Win.View.Biz.Master.Attribute.AttributeTypeEditForm.resources
+D:\Repositories\IKaan\WIN\IKaan.Win.View.Biz\obj\Debug\IKaan.Win.View.Biz.Master.Attribute.AttributeListForm.resources
+D:\Repositories\IKaan\WIN\IKaan.Win.View.Biz\obj\Debug\IKaan.Win.View.Biz.Catalog.Product.ProductOptionEditForm.resources
