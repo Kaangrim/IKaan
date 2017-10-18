@@ -7,7 +7,7 @@
 	<statements>
 		<select id="SelectSmapsLookbookList" parameterClass="DataMap" resultClass="SmapsLookbookModel" >
 			<![CDATA[
-				SELECT  ROW_NUMBER() OVER (ORDER BY AA.title)	as RowNo
+				SELECT  ROW_NUMBER() OVER (ORDER BY SA.name, SB.name, AA.title)	as RowNo
 					,	AA.ID
 					,	AA.CreatedOn
 					,	AA.CreatedBy
@@ -16,7 +16,6 @@
 					,	AA.UpdatedBy
 					,	AA.UpdatedByName
 					
-					,	AA.RequestID
 					,	AA.uid
 					,	AA.agency_uid
 					,	AA.brand_uid
@@ -26,19 +25,37 @@
 					,	AA.active_date_end
 					,	AA.notice
 					
-					,	AA.RequestID
-					,	BB.Status
+					,	SA.name			as agency_name
+					,	SB.name			as brand_name
+					
+					,	AA.ApiRequestID
+					,	M3.Name			as ApiType
+					,	M4.Name			as Status
 					,	BB.RequestDate
 					
 				FROM	IKScrap.dbo.TSmapsLookbook AA WITH (NOLOCK)
 						LEFT JOIN
-							IKScrap.dbo.TSmapsRequest BB WITH (NOLOCK)
-								ON AA.RequestID = BB.ID
+							IKScrap.dbo.TApiRequest BB WITH (NOLOCK)
+								ON AA.ApiRequestID = BB.ID
+						LEFT JOIN
+							IKScrap.dbo.TSmapsAgency SA WITH (NOLOCK)
+								ON AA.agency_uid = SA.uid
+						LEFT JOIN
+							IKScrap.dbo.TSmapsBrand SB WITH (NOLOCK)
+								ON AA.brand_uid = SB.uid
+						LEFT JOIN
+							IKBase.dbo.TCode M3 WITH (NOLOCK)
+								ON BB.ApiType = M3.Code
+									AND M3.ParentCode = 'ApiType'
+						LEFT JOIN
+							IKBase.dbo.TCode M4 WITH (NOLOCK)
+								ON BB.Status = M4.Code
+									AND M4.ParentCode = 'ApiStatus'
 				WHERE	1=1
 			]]>
-			<isNotEmpty property="RequestID">
+			<isNotEmpty property="ApiRequestID">
 				<![CDATA[
-					AND	AA.RequestID = #RequestID#
+					AND	AA.ApiRequestID = #ApiRequestID#
 				]]>
 			</isNotEmpty>
 			<isNotEmpty property="AgencyUid">
@@ -76,18 +93,47 @@
 				WHERE	AA.uid = #uid#
 			]]>
 		</select>
+		<select id="SelectSmapsLookbookByBrand" parameterClass="DataMap" resultClass="SmapsLookbookModel" >
+			<![CDATA[
+				SELECT  AA.*
+				FROM	IKScrap.dbo.TSmapsLookbook AA WITH (NOLOCK)
+				WHERE	1=1
+				AND		AA.brand_uid = #brand_uid#
+			]]>
+			<isNotEmpty property="agency_uid">
+			<![CDATA[
+				AND	AA.agency_uid = #agency_uid#
+			]]>
+			</isNotEmpty>
+			<![CDATA[
+				AND		AA.ID	= 
+								(	
+									SELECT	MAX(ID)
+									FROM	IKScrap.dbo.TSmapsLookbook WITH (NOLOCK)
+									WHERE	1=1
+									AND		brand_uid = #brand_uid#
+			]]>
+			<isNotEmpty property="agency_uid">
+			<![CDATA[
+									AND		agency_uid = #agency_uid#
+			]]>
+			</isNotEmpty>
+			<![CDATA[
+								)
+			]]>
+		</select>
 		<insert id="InsertSmapsLookbook" parameterClass="SmapsLookbookModel" >
 			<![CDATA[
 				INSERT INTO dbo.TSmapsLookbook
 				( 
 					CreatedOn, CreatedBy, CreatedByName,
-					RequestID,
+					ApiRequestID,
 					uid, agency_uid, brand_uid, title, marketing, active_date_start, active_date_end, notice
 				)
 				VALUES
 				(
 					GetDate(), #CreatedBy#, #CreatedByName#,
-					#RequestID#,
+					#ApiRequestID#,
 					#uid#, #agency_uid#, #brand_uid#, #title#, #marketing#, #active_date_start#, #active_date_end#, #notice#
 				)
 			]]>
@@ -104,7 +150,7 @@
 					,	UpdatedBy		= #UpdatedBy#
 					,	UpdatedByName	= #UpdatedByName#
 					
-					,	RequestID			= #RequestID#
+					,	ApiRequestID		= #ApiRequestID#
 					,	uid					= #uid#
 					,	agency_uid			= #agency_uid#
 					,	brand_uid			= #brand_uid#

@@ -40,7 +40,7 @@ namespace IKaan.Win.View.Biz.Activity
 					}
 					else if (e.Button.Kind == ButtonPredefines.Delete)
 					{
-						FTPHandler.DeleteFile(txtBrandLogoUrl.Text);
+						FTPHandler.DeleteFile(null, txtBrandLogoUrl.Text);
 						picBrandLogo.EditValue = null;
 						txtBrandLogoUrl.EditValue = null;
 						txtBrandLogoUrl.Tag = null;
@@ -73,7 +73,7 @@ namespace IKaan.Win.View.Biz.Activity
 					 }
 					 else if (e.Button.Kind == ButtonPredefines.Delete)
 					 {
-						 FTPHandler.DeleteFile(txtBrandMainUrl.Text);
+						 FTPHandler.DeleteFile(null, txtBrandMainUrl.Text);
 						 picBrandMain.EditValue = null;
 						 txtBrandMainUrl.EditValue = null;
 						 txtBrandMainUrl.Tag = null;
@@ -261,12 +261,12 @@ namespace IKaan.Win.View.Biz.Activity
 				SetControlData(model);
 				if (model.BrandLogoUrl.IsNullOrEmpty() == false)
 				{
-					string logoUrl = ConstsVar.IMG_URL + model.BrandLogoUrl;
+					string logoUrl = GlobalVar.ImageServerInfo.CdnUrl + model.BrandLogoUrl;
 					picBrandLogo.LoadAsync(logoUrl);
 				}
 				if (model.BrandMainUrl.IsNullOrEmpty() == false)
 				{
-					string imageUrl = ConstsVar.IMG_URL + model.BrandMainUrl;
+					string imageUrl = GlobalVar.ImageServerInfo.CdnUrl + model.BrandMainUrl;
 					picBrandMain.LoadAsync(imageUrl);
 				}
 				gridActivities.DataSource = model.Activities ?? new List<SearchBrandActivityModel>();
@@ -309,7 +309,7 @@ namespace IKaan.Win.View.Biz.Activity
 					//브랜드로고가 변경되었다면 다시 업로드한다.
 					if (txtBrandLogoUrl.Tag.ToBooleanNullToFalse())
 					{
-						string logopath = FTPHandler.UploadSearchBrand(txtBrandLogoUrl.Text, id, "LOGO");
+						string logopath = FTPHandler.UploadSearchBrand(null, txtBrandLogoUrl.Text, id, "LOGO");
 						txtBrandLogoUrl.EditValue = logopath;
 						iChanged++;
 					}
@@ -318,7 +318,7 @@ namespace IKaan.Win.View.Biz.Activity
 					//브랜드대표이지가 변경되었다면 다시 업로드한다.
 					if (txtBrandMainUrl.Tag.ToBooleanNullToFalse())
 					{
-						string mainpath = FTPHandler.UploadSearchBrand(txtBrandMainUrl.Text, id, "MAIN");
+						string mainpath = FTPHandler.UploadSearchBrand(null, txtBrandMainUrl.Text, id, "MAIN");
 						txtBrandMainUrl.EditValue = mainpath;
 						iChanged++;
 					}
@@ -363,7 +363,7 @@ namespace IKaan.Win.View.Biz.Activity
 					{
 						string logopath = txtBrandLogoUrl.Text;
 						if (logopath.IsNullOrEmpty() == false)
-							FTPHandler.DeleteFile(logopath);
+							FTPHandler.DeleteFile(null, logopath);
 					}
 					catch(Exception ex)
 					{
@@ -374,14 +374,14 @@ namespace IKaan.Win.View.Biz.Activity
 					{
 						string mainpath = txtBrandMainUrl.Text;
 						if (mainpath.IsNullOrEmpty() == false)
-							FTPHandler.DeleteFile(mainpath);
+							FTPHandler.DeleteFile(null, mainpath);
 					}
 					catch(Exception ex)
 					{
 						throw new Exception("브랜드 대표 이미지 삭제 중 오류가 발생하였습니다.", ex);
 					}
 
-					FTPHandler.DeleteDirectory(ConstsVar.IMG_URL_SEARCH_BRAND + "/" + id);
+					FTPHandler.DeleteDirectory(null, ConstsVar.IMG_URL_SEARCH_BRAND + "/" + id);
 					DataDelete();
 					ShowMsgBox("삭제하였습니다.");
 					callback(arg, null);

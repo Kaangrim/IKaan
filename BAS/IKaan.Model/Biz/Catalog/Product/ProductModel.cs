@@ -98,7 +98,11 @@ namespace IKaan.Model.Biz.Catalog.Product
 
 		[DataMember]
 		[Display(Name = "상품상세")]
-		public ProductDescriptionModel Description { get; set; }
+		public string Description { get; set; }
+
+		[DataMember]
+		[Display(Name = "상품상세")]
+		public string DescriptionRTF { get; set; }
 
 		[DataMember]
 		[Display(Name = "상품속성")]
@@ -118,7 +122,6 @@ namespace IKaan.Model.Biz.Catalog.Product
 
 		public ProductModel()
 		{
-			Description = new ProductDescriptionModel();
 			Images = new List<ProductImageModel>();
 			Items = new List<ProductItemModel>();
 			InfoNotices = new List<ProductInfoNoticeModel>();

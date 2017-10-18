@@ -43,6 +43,14 @@
 				WHERE	AA.ID = #ID#
 			]]>
 		</select>
+		<select id="SelectCompanyStoreExists" parameterClass="DataMap" resultClass="CompanyStoreModel" >
+			<![CDATA[
+				SELECT  AA.*
+				FROM	dbo.TCompanyStore AA WITH (NOLOCK)
+				WHERE	AA.CompanyID= #CompanyID#
+				AND		AA.StoreID	= #StoreID#
+			]]>
+		</select>
 		<insert id="InsertCompanyStore" parameterClass="CompanyStoreModel" >
 			<![CDATA[
 				INSERT INTO dbo.TCompanyStore

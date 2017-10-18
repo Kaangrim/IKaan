@@ -6,17 +6,18 @@
 		public const string REGISTRY_ROOT = @"Software\IKaan\Biz";
 		public const string REGISTRY_FORM_SIZE = @"Layouts\MainLayout\FormSize";
 		public const string REGISTRY_LOOK_AND_FEEL = @"Layouts\LookAndFeel";
-		public const string REGISTRY_LOGIN_INFO = @"LoginInfo";
 		public const string REGISTRY_FORM_STYLE = @"Layouts\FormStyle";
+		public const string REGISTRY_GRID_LAYOUT = @"Layouts\GridLayout";
+
+		public const string REGISTRY_LOGIN_INFO = @"LoginInfo";
 		public const string REGISTRY_SERVER_CONFIG = @"ServerConfig";
 		public const string REGISTRY_CULTURE = @"Culture";
-		public const string REGISTRY_DASHBOARD = @"Dashboard";
-		public const string REGISTRY_GRID_LAYOUT = @"Layouts\GridLayout";
+		public const string REGISTRY_DASHBOARD = @"Dashboard";		
 		public const string REGISTRY_FILE_PATH = @"FilePath";
 
 		//Application
 		public const string APP_PATH = @"C:\IKaan";
-		public const string APP_PATH_GOODS = @"C:\IKaan\Goods\";
+		public const string APP_PATH_PRODUCT = @"C:\IKaan\Product\";
 		public const string APP_CRYPT_KEY = @"IKaan.V2017";
 		public const string APP_PASSWORD = "IKaan.V2017";
 		
@@ -62,6 +63,9 @@
 		public const string IMG_URL_BUSINESS = @"/Images/Business";
 		public const string IMG_URL_BANK = @"/Images/Bank";
 		public const string IMG_URL_STORE = @"/Images/Store";
+		public const string IMG_URL_PRODUCT_SCRAP = @"/Images/Scrap/Product";
+		public const string IMG_URL_SMAPS = @"/Images/Smaps";
+		public const string IMG_URL_SMAPS_AGENCY = @"/Images/Smaps/Agency";
 
 		public const string FILE_DEFINE_GOODS = "{0}_{1}{2}";			//{0} 상품ID, {1} M, D, L, {2} M, S
 		public const string FILE_DEFINE_BRAND_LOGO = "{0}_LOGO";	//{0} : 브랜드ID

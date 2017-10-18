@@ -30,5 +30,13 @@ namespace IKaan.Model.Biz.Master.Common
 		[DataMember]
 		[Display(Name = "팩스번호")]
 		public string FaxNo { get; set; }
+
+		[DataMember]
+		[Display(Name = "사용여부")]
+		public string UseYn { get; set; }
+
+		[DataMember]
+		[Display(Name = "설명")]
+		public string Description { get; set; }
 	}
 }

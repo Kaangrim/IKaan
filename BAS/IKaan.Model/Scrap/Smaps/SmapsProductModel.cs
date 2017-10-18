@@ -1,32 +1,24 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
-using IKaan.Model.Common.Base;
 
 namespace IKaan.Model.Scrap.Smaps
 {
 	[DataContract]
-	public class SmapsProductModel : ModelBase
+	public class SmapsProductModel : SmapsBaseModel
 	{
 		[DataMember]
-		[Display(Name = "요청ID")]
-		public int? RequestID { get; set; }
-
-		[DataMember]
-		[Display(Name = "UID")]
-		public int? uid { get; set; }
-
-		[DataMember]
 		[Display(Name = "대행사UID")]
-		public int agency_uid { get; set; }
+		public int? agency_uid { get; set; }
 
 		[DataMember]
 		[Display(Name = "브랜드UID")]
-		public int brand_uid { get; set; }
+		public int? brand_uid { get; set; }
 
 		[DataMember]
 		[Display(Name = "룩북UID")]
-		public int lookbook_uid { get; set; }
+		public int? lookbook_uid { get; set; }
 
 		[DataMember]
 		[Display(Name = "상품명")]
@@ -46,7 +38,7 @@ namespace IKaan.Model.Scrap.Smaps
 
 		[DataMember]
 		[Display(Name = "카테고리UID")]
-		public int category_uid { get; set; }
+		public int? category_uid { get; set; }
 
 		[DataMember]
 		[Display(Name = "성별")]
@@ -66,7 +58,7 @@ namespace IKaan.Model.Scrap.Smaps
 
 		[DataMember]
 		[Display(Name = "옵션수")]
-		public int option { get; set; }
+		public int? option { get; set; }
 
 		[DataMember]
 		[Display(Name = "사이즈UID")]
@@ -86,7 +78,7 @@ namespace IKaan.Model.Scrap.Smaps
 
 		[DataMember]
 		[Display(Name = "입고일")]
-		public DateTime option_add_date { get; set; }
+		public string option_add_date { get; set; }
 
 		[DataMember]
 		[Display(Name = "이미지경로")]
@@ -107,5 +99,21 @@ namespace IKaan.Model.Scrap.Smaps
 		[DataMember]
 		[Display(Name = "메인이미지여부")]
 		public string is_main { get; set; }
+
+		[DataMember]
+		[Display(Name = "대행사명")]
+		public string agency_name { get; set; }
+
+		[DataMember]
+		[Display(Name = "브랜드명")]
+		public string brand_name { get; set; }
+
+		[DataMember]
+		[Display(Name = "룩북명")]
+		public string lookbook_name { get; set; }
+
+		[DataMember]
+		[Display(Name = "카테고리명")]
+		public string category_name { get; set; }
 	}
 }

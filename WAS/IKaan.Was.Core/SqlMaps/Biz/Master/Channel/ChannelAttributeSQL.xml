@@ -19,10 +19,10 @@
 					,	AA.ChannelID
 					,	AA.AttributeTypeID
 					,	AA.AttributeID
-					,	AA.AttributeName
+					,	AA.AttributeValue
 					
-					,	BB.AttributeTypeName
-					,	CC.AttributeItemName
+					,	BB.Name				as AttributeTypeName
+					,	CC.Name				as AttributeName
 					
 				FROM	dbo.TChannelAttribute AA WITH (NOLOCK)
 						INNER JOIN
@@ -47,12 +47,12 @@
 				INSERT INTO dbo.TChannelAttribute
 				( 
 					CreatedOn, CreatedBy, CreatedByName,
-					ChannelID, AttributeTypeID, AttributeID, AttributeName
+					ChannelID, AttributeTypeID, AttributeID, AttributeValue
 				)
 				VALUES
 				(
 					GetDate(), #CreatedBy#, #CreatedByName#,
-					#ChannelID#, #AttributeTypeID#, #AttributeID#, #AttributeName#
+					#ChannelID#, #AttributeTypeID#, #AttributeID#, #AttributeValue#
 				)
 			]]>
 			<selectKey type="post" property="ID" resultClass="Int">
@@ -71,7 +71,7 @@
 					,	ChannelID		= #ChannelID#
 					,	AttributeTypeID	= #AttributeTypeID#
 					,	AttributeID		= #AttributeID#
-					,	AttributeName	= #AttributeName#
+					,	AttributeValue	= #AttributeValue#
 				WHERE	ID				= #ID#
 			]]>
 		</update>

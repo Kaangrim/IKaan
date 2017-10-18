@@ -14,6 +14,10 @@ namespace IKaan.Model.Biz.Organization
 		public string Name { get; set; }
 
 		[DataMember]
+		[Display(Name = "영문명")]
+		public string EngName { get; set; }
+
+		[DataMember]
 		[Display(Name = "사원유형")]
 		public string EmployeeType { get; set; }
 
@@ -52,6 +56,10 @@ namespace IKaan.Model.Biz.Organization
 		[DataMember]
 		[Display(Name = "이미지")]
 		public ImageModel Image { get; set; }
+
+		[DataMember]
+		[Display(Name = "사원유형명")]
+		public string EmployeeTypeName { get; set; }
 
 		[DataMember]
 		[Display(Name = "부서명")]

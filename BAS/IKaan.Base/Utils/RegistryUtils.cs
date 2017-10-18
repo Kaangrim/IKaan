@@ -5,7 +5,7 @@ namespace IKaan.Base.Utils
 {
 	public class RegistryUtils
 	{
-		private static string RegRootPath = ConstsVar.REG_ROOT;
+		private static string RegRootPath = BaseConstsVar.REG_ROOT;
 
 		public static string GetValue(string path, string key)
 		{

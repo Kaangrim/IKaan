@@ -186,6 +186,11 @@ namespace IKaan.Win.Core.Controls.Grid
 
 		public RepositoryItemLookUpEdit GetRepositoryItemLookUpEdit(string valueMember, string displayMember)
 		{
+			if (string.IsNullOrEmpty(valueMember))
+				valueMember = "Code";
+			if (string.IsNullOrEmpty(displayMember))
+				displayMember = "ListName";
+
 			var edit = new RepositoryItemLookUpEdit()
 			{
 				ValueMember = valueMember,
@@ -200,6 +205,11 @@ namespace IKaan.Win.Core.Controls.Grid
 
 		public RepositoryItemLookUpEdit GetRepositoryItemLookUpEdit(string valueMember, string displayMember, LookUpColumnInfo[] columns)
 		{
+			if (string.IsNullOrEmpty(valueMember))
+				valueMember = "Code";
+			if (string.IsNullOrEmpty(displayMember))
+				displayMember = "ListName";
+
 			var edit = new RepositoryItemLookUpEdit()
 			{
 				ValueMember = valueMember,

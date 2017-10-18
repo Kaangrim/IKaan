@@ -18,10 +18,17 @@
 					
 					,	AA.Name
 					,	AA.Code
+					,	AA.ValueType
 					,	AA.UseYn
 					,	AA.Description
 					
+					,	M1.Name			as ValueTypeName
+					
 				FROM	dbo.TAttributeType AA WITH (NOLOCK)
+						LEFT JOIN
+							IKBase.dbo.TCode M1 WITH (NOLOCK)
+								ON AA.ValueType = M1.Code
+									AND M1.ParentCode = 'ValueType'
 				WHERE	1=1
 			]]>
 			<isNotEmpty property="FindText">
@@ -45,12 +52,12 @@
 				INSERT INTO dbo.TAttributeType
 				( 
 					CreatedOn, CreatedBy, CreatedByName,
-					Name, Code, UseYn, Description
+					Name, Code, ValueType, UseYn, Description
 				)
 				VALUES
 				(
 					GetDate(), #CreatedBy#, #CreatedByName#,					
-					#Name#, #Code#, #UseYn#, #Description#
+					#Name#, #Code#, #ValueType#, #UseYn#, #Description#
 				)
 			]]>
 			<selectKey type="post" property="ID" resultClass="Int">
@@ -68,6 +75,7 @@
 					
 					,	Name			= #Name#
 					,	Code			= #Code#
+					,	ValueType		= #ValueType#
 					,	UseYn			= #UseYn#
 					,	Description		= #Description#
 				WHERE	ID				= #ID#

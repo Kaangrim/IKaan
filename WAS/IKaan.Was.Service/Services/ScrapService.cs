@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
 using IKaan.Model.Common.Was;
+using IKaan.Model.Scrap.Api;
 using IKaan.Model.Scrap.Common;
 using IKaan.Model.Scrap.Mapping;
 using IKaan.Model.Scrap.Smaps;
@@ -39,23 +40,26 @@ namespace IKaan.Was.Service.Services
 				{
 					switch (req.ModelName.Replace("Model", ""))
 					{
+						case "ApiRequest":
+							req.SetList<ApiRequestModel>();
+							break;
 						case "ScrapBrand":
 							req.SetList<ScrapBrandModel>();
 							break;
 						case "ScrapProduct":
 							req.SetList<ScrapProductModel>();
 							break;
+						case "ScrapProductImage":
+							req.SetList<ScrapProductImageModel>();
+							break;
 						case "ScrapSite":
 							req.SetList<ScrapSiteModel>();
 							break;
-						case "ScrapColor":
-							req.SetList<ScrapColorModel>();
-							break;
-						case "ScrapSize":
-							req.SetList<ScrapSizeModel>();
-							break;
 						case "ScrapCategory":
 							req.SetList<ScrapCategoryModel>();
+							break;
+						case "ScrapOption":
+							req.SetList<ScrapOptionModel>();
 							break;
 						case "SmapsAgency":
 							req.SetList<SmapsAgencyModel>();
@@ -81,9 +85,6 @@ namespace IKaan.Was.Service.Services
 						case "SmapsUser":
 							req.SetList<SmapsUserModel>();
 							break;
-						case "SmapsRequest":
-							req.SetList<SmapsRequestModel>();
-							break;
 						case "ScrapBrandToSmaps":
 							req.SetList<ScrapBrandToSmapsModel>();
 							break;
@@ -92,12 +93,6 @@ namespace IKaan.Was.Service.Services
 							break;
 						case "ScrapProductToSmaps":
 							req.SetList<ScrapProductToSmapsModel>();
-							break;
-						case "ScrapColorToSmaps":
-							req.SetList<ScrapColorToSmapsModel>();
-							break;
-						case "ScrapSizeToSmaps":
-							req.SetList<ScrapSizeToSmapsModel>();
 							break;
 					}
 				}
@@ -148,23 +143,26 @@ namespace IKaan.Was.Service.Services
 				{
 					switch (req.ModelName.Replace("Model", ""))
 					{
+						case "ApiRequest":
+							req.SetData<ApiRequestModel>();
+							break;
 						case "ScrapBrand":
 							req.SetData<ScrapBrandModel>();
 							break;
 						case "ScrapProduct":
 							req.GetScrapProduct();
 							break;
+						case "ScrapProductImage":
+							req.SetData<ScrapProductImageModel>();
+							break;
 						case "ScrapSite":
 							req.SetData<ScrapSiteModel>();
 							break;
-						case "ScrapColor":
-							req.SetData<ScrapColorModel>();
-							break;
-						case "ScrapSize":
-							req.SetData<ScrapSizeModel>();
-							break;
 						case "ScrapCategory":
 							req.SetData<ScrapCategoryModel>();
+							break;
+						case "ScrapOption":
+							req.SetData<ScrapOptionModel>();
 							break;
 						case "SmapsAgency":
 							req.SetData<SmapsAgencyModel>();
@@ -190,9 +188,6 @@ namespace IKaan.Was.Service.Services
 						case "SmapsUser":
 							req.SetData<SmapsUserModel>();
 							break;
-						case "SmapsRequest":
-							req.SetData<SmapsRequestModel>();
-							break;
 						case "ScrapBrandToSmaps":
 							req.SetData<ScrapBrandToSmapsModel>();
 							break;
@@ -201,12 +196,6 @@ namespace IKaan.Was.Service.Services
 							break;
 						case "ScrapProductToSmaps":
 							req.SetData<ScrapProductToSmapsModel>();
-							break;
-						case "ScrapColorToSmaps":
-							req.SetData<ScrapColorToSmapsModel>();
-							break;
-						case "ScrapSizeToSmaps":
-							req.SetData<ScrapSizeToSmapsModel>();
 							break;
 					}
 				}
@@ -279,20 +268,23 @@ namespace IKaan.Was.Service.Services
 
 							switch (reqId)
 							{
+								case "ApiRequest":
+									req.SaveApiRequest();
+									break;
 								case "ScrapBrand":
 									req.SaveScrapBrand();
 									break;
 								case "ScrapProduct":
 									req.SaveScrapProduct();
 									break;
+								case "ScrapProductImage":
+									req.SaveScrapProductImage();
+									break;
 								case "ScrapSite":
 									req.SaveScrapSite();
 									break;
-								case "ScrapColor":
-									req.SaveScrapColor();
-									break;
-								case "ScrapSize":
-									req.SaveScrapSize();
+								case "ScrapOption":
+									req.SaveScrapOption();
 									break;
 								case "SmapsAgency":
 									req.SaveSmapsAgency();
@@ -318,9 +310,6 @@ namespace IKaan.Was.Service.Services
 								case "SmapsUser":
 									req.SaveSmapsUser();
 									break;
-								case "SmapsRequest":
-									req.SaveSmapsRequest();
-									break;
 								case "ScrapBrandToSmaps":
 									req.SaveScrapBrandToSmaps();
 									break;
@@ -338,6 +327,9 @@ namespace IKaan.Was.Service.Services
 								//	break;
 								case "BatchScrapOption":
 									req.BatchScrapOption();
+									break;
+								case "BatchProductReady":
+									req.BatchProductReady();
 									break;
 							}
 						}

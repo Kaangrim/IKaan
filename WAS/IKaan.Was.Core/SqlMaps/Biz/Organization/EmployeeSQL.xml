@@ -17,6 +17,7 @@
 					,	AA.UpdatedByName
 					
 					,	AA.Name
+					,	AA.EngName
 					,	AA.EmployeeNo
 					,	AA.EmployeeType
 					,	AA.Email
@@ -28,6 +29,7 @@
 					
 					,	DD.Name			as DepartmentName
 					,	BB.Position
+					,	M1.Name			as EmployeeTypeName
 					
 				FROM	dbo.TEmployee AA WITH (NOLOCK)
 						LEFT JOIN
@@ -38,6 +40,10 @@
 						LEFT JOIN
 							dbo.TDepartment DD WITH (NOLOCK)
 								ON BB.DepartmentID = DD.ID
+						LEFT JOIN
+							IKBase.dbo.TCode M1 WITH (NOLOCK)
+								ON AA.EmployeeType = M1.Code
+									AND M1.ParentCode = 'EmployeeType'
 				WHERE	1=1
 			]]>
 			<isNotEmpty property="FindText">
@@ -69,12 +75,12 @@
 				INSERT INTO dbo.TEmployee
 				( 
 					CreatedOn, CreatedBy, CreatedByName,
-					Name, EmployeeNo, EmployeeType, Email, PhoneNo, MobileNo, FaxNo, UseYn, Description
+					Name, EngName, EmployeeNo, EmployeeType, Email, PhoneNo, MobileNo, FaxNo, UseYn, Description, ImageID
 				)
 				VALUES
 				(
 					GetDate(), #CreatedBy#, #CreatedByName#,
-					#Name#, #EmployeeNo#, #EmployeeType#, #Email#, #PhoneNo#, #MobileNo#, #FaxNo#, #UseYn#, #Description#
+					#Name#, #EngName#, #EmployeeNo#, #EmployeeType#, #Email#, #PhoneNo#, #MobileNo#, #FaxNo#, #UseYn#, #Description#, #ImageID#
 				)
 			]]>
 			<selectKey type="post" property="ID" resultClass="Int">
@@ -91,6 +97,7 @@
 					,	UpdatedByName	= #UpdatedByName#
 					
 					,	Name			= #Name#
+					,	EngName			= #EngName#
 					,	EmployeeNo		= #EmployeeNo#
 					,	EmployeeType	= #EmployeeType#
 					,	Email			= #Email#
@@ -99,6 +106,7 @@
 					,	FaxNo			= #FaxNo#
 					,	UseYn			= #UseYn#
 					,	Description		= #Description#
+					,	ImageID			= #ImageID#
 				WHERE	ID				= #ID#
 			]]>
 		</update>

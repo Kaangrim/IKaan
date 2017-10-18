@@ -22,7 +22,9 @@
 					,	AA.AttributeValue
 					
 					,	BB.Name				as AttributeTypeName
+					,	BB.ValueType		as ValueType
 					,	CC.Name				as AttributeName
+					,	CC.Code				as AttributeCode
 					
 				FROM	dbo.TProductAttribute AA WITH (NOLOCK)
 						INNER JOIN

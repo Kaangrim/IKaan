@@ -22,13 +22,9 @@
 					,	AA.EndDate
 					,	AA.Description
 					
-					,	BB.PartnerName
-					,	CC.BrandName
+					,	CC.Name			as BrandName
 					
 				FROM	dbo.TPartnerBrand AA WITH (NOLOCK)
-						LEFT JOIN
-							dbo.TPartner BB WITH (NOLOCK)
-								ON AA.PartnerID = BB.ID
 						LEFT JOIN
 							dbo.TBrand CC WITH (NOLOCK)
 								ON AA.BrandID = CC.ID
@@ -52,13 +48,9 @@
 			<![CDATA[
 				SELECT  AA.*
 					
-					,	BB.PartnerName
-					,	CC.BrandName
+					,	CC.Name		as BrandName
 					
 				FROM	dbo.TPartnerBrand AA WITH (NOLOCK)
-						LEFT JOIN
-							dbo.TPartner BB WITH (NOLOCK)
-								ON AA.PartnerID = BB.ID
 						LEFT JOIN
 							dbo.TBrand CC WITH (NOLOCK)
 								ON AA.BrandID = CC.ID

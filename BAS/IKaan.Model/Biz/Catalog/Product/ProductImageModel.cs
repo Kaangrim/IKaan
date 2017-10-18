@@ -24,15 +24,23 @@ namespace IKaan.Model.Biz.Catalog.Product
 		public int? ImageID { get; set; }
 
 		[DataMember]
-		[Display(Name = "이미지유형명")]
-		public string ImageTypeName{ get; set; }
+		[Display(Name = "이미지명(파일명)")]
+		public string Name { get; set; }
 
 		[DataMember]
-		[Display(Name = "이미지그룹명")]
-		public string ImageGroupName { get; set; }
+		[Display(Name = "URL")]
+		public string Url { get; set; }
 
 		[DataMember]
-		[Display(Name = "이미지URL")]
-		public string ImageUrl { get; set; }
+		[Display(Name = "로컬경로")]
+		public string Path { get; set; }
+
+		[DataMember]
+		[Display(Name = "Width")]
+		public int Width { get; set; }
+
+		[DataMember]
+		[Display(Name = "Height")]
+		public int Height { get; set; }
 	}
 }

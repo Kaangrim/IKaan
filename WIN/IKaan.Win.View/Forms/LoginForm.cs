@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Windows.Forms;
 using DevExpress.XtraEditors;
 using IKaan.Base.Map;
@@ -9,6 +10,7 @@ using IKaan.Win.Core.Resources;
 using IKaan.Win.Core.Variables;
 using IKaan.Win.Core.Was.Handler;
 using IKaan.Model.Common.UserModels ;
+using IKaan.Win.Core.Model;
 
 namespace IKaan.Win.View.Forms
 {
@@ -124,6 +126,39 @@ namespace IKaan.Win.View.Forms
 				{
 					RegistryUtils.SetValue(ConstsVar.REGISTRY_LOGIN_INFO, "LoginId", txtLoginId.EditValue.ToStringNullToEmpty());
 					RegistryUtils.SetValue(ConstsVar.REGISTRY_LOGIN_INFO, "Password", txtPassword.EditValue.ToStringNullToEmpty());
+				}
+
+				if (GlobalVar.Codes != null)
+				{
+					//이미지서버경로
+					var imageServer = GlobalVar.Codes.Where(x => x.GroupCode == "System" && x.Code == "ImageServerInfo").SingleOrDefault();
+					if (imageServer != null)
+					{
+						var imageServerSetting = GlobalVar.Codes.Where(x => x.GroupCode == "ImageServer" && x.Code == imageServer.Value).SingleOrDefault();
+						if (imageServerSetting != null)
+						{
+							GlobalVar.ImageServerInfo = new ImageServerInfo()
+							{
+								FtpUrl = imageServerSetting.Option1,
+								ID = imageServerSetting.Option2,
+								PW = imageServerSetting.Option3,
+								CdnUrl = imageServerSetting.Option4,
+								RootDir = imageServerSetting.Option5
+							};
+						}
+					}
+
+					if (GlobalVar.ImageServerInfo == null)
+					{
+						GlobalVar.ImageServerInfo = new ImageServerInfo()
+						{
+							FtpUrl = ConstsVar.IMG_FTP_URL,
+							ID = ConstsVar.IMG_FTP_ID,
+							PW = ConstsVar.IMG_FTP_PW,
+							CdnUrl = ConstsVar.IMG_URL,
+							RootDir = ConstsVar.IMG_URL_ROOT
+						};
+					}
 				}
 
 				SetModifiedCount();

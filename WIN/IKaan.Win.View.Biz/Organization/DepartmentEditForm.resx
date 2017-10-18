@@ -120,22 +120,20 @@
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="lcGroupEdit2.CaptionImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAACt0RVh0VGl0
-        bGUAQ3VzdG9tZXJFbXBsb3llZXM7Q3VzdG9tZXI7RW1wbG95ZWVzOwu+pY4AAABzSURBVDhPvZLBCYAw
-        DEWzk3O4lGQor53Du3cniP5AQEJojREfPJDW/5tCSURKhosZiZmloha85duC1lpoj38n2PZD5mVV8Q1S
-        E1jYBKkJhgUjSlewsHEv0YKewE72gvB9e6MwxF4Y8F4/Tz6MNeyFgecKnVHSPiuyqk3TAAAAAElFTkSu
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAZdEVYdFNvZnR3YXJlAEFkb2JlIEltYWdlUmVhZHlxyWU8AAAAEnRFWHRUaXRsZQBMaXN0O0J1
+        bGxldDtRc385AAAAWklEQVQ4T2P4//8/RRhDwMbGhhGIQTReDFMP01QAxA9ANJJBzEDMggWzgmh0A0Ca
+        /4NoJANAfJwYpg6mGMMFxGKsgqRgrIKkYDBBsRegmkGBMxqIIzEQ/zMAAEU1ijjtzZ+zAAAAAElFTkSu
         QmCC
 </value>
   </data>
   <data name="lcGroupEdit3.CaptionImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABJ0RVh0VGl0
-        bGUATmV3O05ld0l0ZW07G3xQPAAAASNJREFUOE9j8G3agRO3tLT8x4WBgAGEkTXwAfEUIH4KxK9B7G8/
-        f4MUYgBcBiwF4v9oeAFIJQyAxEAAlwG/QArQ8HeQSnSA7BVkAz5ANcFxdM8+qBZUAHUBhgGrYRphuHPN
-        BbhCdAwTRzbACIjh3gho2fn/zrOPYIUHDx7ESqMbAMJhcX37/4PwoSvPwYpAAKQBhPG5IAyIHwGxElgG
-        CF68//Y/eeLB/8dvvISKoHoFxgdpNgDin0AMcvr5Z2+//n/y5sv/7OlHwF4JbN31/9Grz3AN2AzACDx0
-        3L/hElgDrjB4ha4BHYPCBARgYYFuwH10Deg4bcohsAZcLnAB4rNA/AOmAYaDgP4vnH3s//XH78EacLkA
-        jsGiJAAMA0ACpOGW/wBLhtFDQkcW/AAAAABJRU5ErkJggg==
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAZdEVYdFNvZnR3YXJlAEFkb2JlIEltYWdlUmVhZHlxyWU8AAAAEnRFWHRUaXRsZQBMaXN0O0J1
+        bGxldDtRc385AAAAWklEQVQ4T2P4//8/RRhDwMbGhhGIQTReDFMP01QAxA9ANJJBzEDMggWzgmh0A0Ca
+        /4NoJANAfJwYpg6mGMMFxGKsgqRgrIKkYDBBsRegmkGBMxqIIzEQ/zMAAEU1ijjtzZ+zAAAAAElFTkSu
+        QmCC
 </value>
   </data>
 </root>

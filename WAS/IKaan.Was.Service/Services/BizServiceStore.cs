@@ -37,33 +37,29 @@ namespace IKaan.Was.Service.Services
 				var model = req.Data.JsonToAnyType<StoreModel>();
 				if (model != null)
 				{
-					if (model.Image != null)
+					var imageID = model.ImageID;
+					if (imageID == null)
 					{
-						if (model.ImageID == null)
+						if (model.Image != null)
 						{
 							model.Image.CreatedBy = req.User.UserId;
 							model.Image.CreatedByName = req.User.UserName;
-							object imageId = DaoFactory.InstanceBiz.Insert("InsertImage", model.Image);
-							model.Image.ID = imageId.ToIntegerNullToNull();
-							model.ImageID = imageId.ToIntegerNullToNull();
-						}
-						else
-						{
-							model.Image.UpdatedBy = req.User.UserId;
-							model.Image.UpdatedByName = req.User.UserName;
-							DaoFactory.InstanceBiz.Update("UpdateImage", model.Image);
+							var id = DaoFactory.InstanceBiz.Insert("InsertImage", model.Image);
+							model.Image.ID = id.ToIntegerNullToNull();
 						}
 					}
 					else
 					{
-						if (model.ID != null)
+						if (model.Image != null)
 						{
-							var old = DaoFactory.InstanceBiz.QueryForObject<StoreModel>("SelectStore", new DataMap() { { "ID", model.ID } });
-							if (old != null)
-							{
-								DaoFactory.InstanceBiz.Delete("DeleteImage", new DataMap() { { "ID", old.ImageID } });
-								model.ImageID = null;
-							}
+							model.Image.ID = imageID;
+							model.Image.UpdatedBy = req.User.UserId;
+							model.Image.UpdatedByName = req.User.UserName;
+							DaoFactory.InstanceBiz.Update("UpdateImage", model.Image);
+						}
+						else
+						{
+							model.ImageID = null;
 						}
 					}
 
@@ -79,6 +75,11 @@ namespace IKaan.Was.Service.Services
 						model.UpdatedBy = req.User.UserId;
 						model.UpdatedByName = req.User.UserName;
 						DaoFactory.InstanceBiz.Update("UpdateStore", model);
+
+						if (imageID != null && model.Image == null)
+						{
+							DaoFactory.InstanceBiz.Delete("DeleteImage", new DataMap() { { "ID", imageID } });
+						}
 					}
 
 					req.Result.Count = 1;

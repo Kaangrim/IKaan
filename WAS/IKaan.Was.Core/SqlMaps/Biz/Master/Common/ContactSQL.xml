@@ -22,6 +22,7 @@
 					,	AA.PhoneNo
 					,	AA.MobileNo
 					,	AA.FaxNo
+					,	AA.UseYn
 					
 					,	M1.Name			as ContactTypeName
 					
@@ -43,6 +44,16 @@
 						)
 				]]>
 			</isNotEmpty>
+			<isNotEmpty property="UseYn">
+				<![CDATA[
+					AND	AA.UseYn = #UseYn#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="ContactType">
+				<![CDATA[
+					AND	AA.ContactType = #ContactType#
+				]]>
+			</isNotEmpty>
 			<![CDATA[
 				ORDER BY RowNo
 			]]>
@@ -59,12 +70,12 @@
 				INSERT INTO dbo.TContact
 				( 
 					CreatedOn, CreatedBy, CreatedByName,
-					Name, ContactType, Email, PhoneNo, MobileNo, FaxNo
+					Name, ContactType, Email, PhoneNo, MobileNo, FaxNo, UseYn, Description
 				)
 				VALUES
 				(
 					GetDate(), #CreatedBy#, #CreatedByName#,
-					#Name#, #ContactType#, #Email#, #PhoneNo#, #MobileNo#, #FaxNo#
+					#Name#, #ContactType#, #Email#, #PhoneNo#, #MobileNo#, #FaxNo#, 'Y', #Description#
 				)
 			]]>
 			<selectKey type="post" property="ID" resultClass="Int">
@@ -86,6 +97,8 @@
 					,	PhoneNo			= #PhoneNo#
 					,	MobileNo		= #MobileNo#
 					,	FaxNo			= #FaxNo#
+					,	UseYn			= #UseYn#
+					,	Description		= #Description#
 				WHERE	ID				= #ID#
 			]]>
 		</update>

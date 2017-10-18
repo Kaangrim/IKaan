@@ -14,40 +14,43 @@ namespace IKaan.Win.Core.Handler
 {
 	public class FTPHandler
 	{
-		private static string url = ConstsVar.IMG_FTP_URL;
-		private static string id = ConstsVar.IMG_FTP_ID;
-		private static string pw = ConstsVar.IMG_FTP_PW;
 		private static int index = 0;
 		private static int parentID = 0;
 
-		public static void Download(string remotePath, string localPath)
+		public static void Download(ImageServerInfo server, string remotePath, string localPath)
 		{
+			if (server == null)
+				server = GlobalVar.ImageServerInfo;
+
 			string fileName = Path.GetFileName(localPath);
 			if (remotePath.IsNullOrEmpty())
 				remotePath = "/LIB/" + fileName;
 
 			using (var ftp = new FtpClient())
 			{
-				ftp.Host = url;
-				ftp.Credentials = new System.Net.NetworkCredential(id, pw);
+				ftp.Host = server.FtpUrl;
+				ftp.Credentials = new System.Net.NetworkCredential(server.ID, server.PW);
 				ftp.Connect();
 				ftp.UploadFile(localPath, remotePath);
 				ftp.Disconnect();
 			}
 		}
 
-		public static void Upload(string localPath, string remotePath)
+		public static void Upload(ImageServerInfo server, string localPath, string remotePath)
 		{
 			try
 			{
+				if (server == null)
+					server = GlobalVar.ImageServerInfo;
+
 				string fileName = Path.GetFileName(localPath);
 				if (remotePath.IsNullOrEmpty())
 					remotePath = "/LIB/" + fileName;
 
 				using (var ftp = new FtpClient())
 				{
-					ftp.Host = url;
-					ftp.Credentials = new System.Net.NetworkCredential(id, pw);
+					ftp.Host = server.FtpUrl;
+					ftp.Credentials = new System.Net.NetworkCredential(server.ID, server.PW);
 					ftp.Connect();
 					if (ftp.FileExists(remotePath))
 						ftp.DeleteFile(remotePath);
@@ -60,10 +63,13 @@ namespace IKaan.Win.Core.Handler
 				throw;
 			}
 		}
-		public static string UploadGoods(string localPath, string brandID, string goodsID, string type, string group)
+		public static string UploadGoods(ImageServerInfo server, string localPath, string brandID, string goodsID, string type, string group)
 		{
 			try
 			{
+				if (server == null)
+					server = GlobalVar.ImageServerInfo;
+
 				if (localPath.IsNullOrEmpty())
 					throw new Exception("로컬 파일 경로가 정확하지 않습니다.");
 				
@@ -79,8 +85,8 @@ namespace IKaan.Win.Core.Handler
 
 				using (var ftp = new FtpClient())
 				{
-					ftp.Host = url;
-					ftp.Credentials = new System.Net.NetworkCredential(id, pw);
+					ftp.Host = server.FtpUrl;
+					ftp.Credentials = new System.Net.NetworkCredential(server.ID, server.PW);
 					ftp.Connect();
 					if (ftp.DirectoryExists(remotePath) == false)
 						ftp.CreateDirectory(remotePath);
@@ -96,10 +102,13 @@ namespace IKaan.Win.Core.Handler
 				throw;
 			}
 		}
-		public static string UploadSearchBrand(string localPath, string brandID, string type)
+		public static string UploadSearchBrand(ImageServerInfo server, string localPath, string brandID, string type)
 		{
 			try
 			{
+				if (server == null)
+					server = GlobalVar.ImageServerInfo;
+
 				if (localPath.IsNullOrEmpty())
 					throw new Exception("로컬 파일 경로가 정확하지 않습니다.");
 
@@ -118,8 +127,8 @@ namespace IKaan.Win.Core.Handler
 
 				using (var ftp = new FtpClient())
 				{
-					ftp.Host = url;
-					ftp.Credentials = new System.Net.NetworkCredential(id, pw);
+					ftp.Host = server.FtpUrl;
+					ftp.Credentials = new System.Net.NetworkCredential(server.ID, server.PW);
 					ftp.Connect();
 					if (ftp.DirectoryExists(remotePath) == false)
 						ftp.CreateDirectory(remotePath);
@@ -135,13 +144,15 @@ namespace IKaan.Win.Core.Handler
 				throw;
 			}
 		}
-		public static string UploadBrand(string localPath, string brandID, string type)
+		public static string UploadBrand(ImageServerInfo server, string localPath, string brandID, string type)
 		{
 			try
 			{
+				if (server == null)
+					server = GlobalVar.ImageServerInfo;
+
 				if (localPath.IsNullOrEmpty())
 					throw new Exception("로컬 파일 경로가 정확하지 않습니다.");
-
 				
 				FileInfo info = new FileInfo(localPath);
 				string ext = info.Extension;
@@ -151,8 +162,8 @@ namespace IKaan.Win.Core.Handler
 
 				using (var ftp = new FtpClient())
 				{
-					ftp.Host = url;
-					ftp.Credentials = new System.Net.NetworkCredential(id, pw);
+					ftp.Host = server.FtpUrl;
+					ftp.Credentials = new System.Net.NetworkCredential(server.ID, server.PW);
 					ftp.Connect();
 					if (ftp.DirectoryExists(remotePath) == false)
 						ftp.CreateDirectory(remotePath);
@@ -168,13 +179,15 @@ namespace IKaan.Win.Core.Handler
 				throw;
 			}
 		}
-		public static string UploadEmployee(string localPath, string employeeNo)
+		public static string UploadEmployee(ImageServerInfo server, string localPath, string employeeNo)
 		{
 			try
 			{
+				if (server == null)
+					server = GlobalVar.ImageServerInfo;
+
 				if (localPath.IsNullOrEmpty())
 					throw new Exception("로컬 파일 경로가 정확하지 않습니다.");
-
 
 				FileInfo info = new FileInfo(localPath);
 				string ext = info.Extension;
@@ -184,8 +197,8 @@ namespace IKaan.Win.Core.Handler
 
 				using (var ftp = new FtpClient())
 				{
-					ftp.Host = url;
-					ftp.Credentials = new System.Net.NetworkCredential(id, pw);
+					ftp.Host = server.FtpUrl;
+					ftp.Credentials = new System.Net.NetworkCredential(server.ID, server.PW);
 					ftp.Connect();
 					if (ftp.DirectoryExists(remotePath) == false)
 						ftp.CreateDirectory(remotePath);
@@ -201,13 +214,15 @@ namespace IKaan.Win.Core.Handler
 				throw;
 			}
 		}
-		public static string UploadBusiness(string localPath, string bizNo)
+		public static string UploadBusiness(ImageServerInfo server, string localPath, string bizNo)
 		{
 			try
 			{
+				if (server == null)
+					server = GlobalVar.ImageServerInfo;
+
 				if (localPath.IsNullOrEmpty())
 					throw new Exception("로컬 파일 경로가 정확하지 않습니다.");
-
 
 				FileInfo info = new FileInfo(localPath);
 				string ext = info.Extension;
@@ -217,8 +232,8 @@ namespace IKaan.Win.Core.Handler
 
 				using (var ftp = new FtpClient())
 				{
-					ftp.Host = url;
-					ftp.Credentials = new System.Net.NetworkCredential(id, pw);
+					ftp.Host = server.FtpUrl;
+					ftp.Credentials = new System.Net.NetworkCredential(server.ID, server.PW);
 					ftp.Connect();
 					if (ftp.DirectoryExists(remotePath) == false)
 						ftp.CreateDirectory(remotePath);
@@ -234,13 +249,15 @@ namespace IKaan.Win.Core.Handler
 				throw;
 			}
 		}
-		public static string UploadBank(string localPath, string bankName, string accountNo)
+		public static string UploadBank(ImageServerInfo server, string localPath, string bankName, string accountNo)
 		{
 			try
 			{
+				if (server == null)
+					server = GlobalVar.ImageServerInfo;
+
 				if (localPath.IsNullOrEmpty())
 					throw new Exception("로컬 파일 경로가 정확하지 않습니다.");
-
 
 				FileInfo info = new FileInfo(localPath);
 				string ext = info.Extension;
@@ -250,8 +267,8 @@ namespace IKaan.Win.Core.Handler
 
 				using (var ftp = new FtpClient())
 				{
-					ftp.Host = url;
-					ftp.Credentials = new System.Net.NetworkCredential(id, pw);
+					ftp.Host = server.FtpUrl;
+					ftp.Credentials = new System.Net.NetworkCredential(server.ID, server.PW);
 					ftp.Connect();
 					if (ftp.DirectoryExists(remotePath) == false)
 						ftp.CreateDirectory(remotePath);
@@ -267,13 +284,15 @@ namespace IKaan.Win.Core.Handler
 				throw;
 			}
 		}
-		public static string UploadStore(string localPath, string storeName)
+		public static string UploadStore(ImageServerInfo server, string localPath, string storeName)
 		{
 			try
 			{
+				if (server == null)
+					server = GlobalVar.ImageServerInfo;
+
 				if (localPath.IsNullOrEmpty())
 					throw new Exception("로컬 파일 경로가 정확하지 않습니다.");
-
 
 				FileInfo info = new FileInfo(localPath);
 				string ext = info.Extension;
@@ -283,8 +302,8 @@ namespace IKaan.Win.Core.Handler
 
 				using (var ftp = new FtpClient())
 				{
-					ftp.Host = url;
-					ftp.Credentials = new System.Net.NetworkCredential(id, pw);
+					ftp.Host = server.FtpUrl;
+					ftp.Credentials = new System.Net.NetworkCredential(server.ID, server.PW);
 					ftp.Connect();
 					if (ftp.DirectoryExists(remotePath) == false)
 						ftp.CreateDirectory(remotePath);
@@ -301,17 +320,95 @@ namespace IKaan.Win.Core.Handler
 			}
 		}
 
-		public static void DeleteFile(string remotePath)
+		public static string UploadScrapProduct(ImageServerInfo server, string siteUrl, string imageName, string brandName)
 		{
 			try
 			{
+				if (server == null)
+					server = GlobalVar.ImageServerInfo;
+
+				string localPath = GlobalVar.ScrapInfo.ProductFilePath + "\\" + siteUrl.Replace(".", "").Replace("/", "").Replace(":", "") + "\\" + brandName + "\\" + imageName;
+				if (localPath.IsNullOrEmpty())
+					throw new Exception("로컬 파일 경로가 정확하지 않습니다.");
+
+				string fileName = imageName;
+
+				if (fileName.IsNullOrEmpty())
+					throw new Exception("업로드 이미지 구분이 올바르지 않습니다.");
+
+				string remotePath = string.Format("{0}/{1}", ConstsVar.IMG_URL_PRODUCT_SCRAP, brandName);
+				string remoteFull = string.Format("{0}/{1}", remotePath, fileName);
+
+				using (var ftp = new FtpClient())
+				{
+					ftp.Host = server.FtpUrl;
+					ftp.Credentials = new System.Net.NetworkCredential(server.ID, server.PW);
+					ftp.Connect();
+					if (ftp.DirectoryExists(remotePath) == false)
+						ftp.CreateDirectory(remotePath);
+					if (ftp.FileExists(remoteFull))
+						ftp.DeleteFile(remoteFull);
+					ftp.UploadFile(localPath, remoteFull);
+					ftp.Disconnect();
+				}
+				return remoteFull;
+			}
+			catch
+			{
+				throw;
+			}
+		}
+
+		public static string UploadSmapsAgency(ImageServerInfo server, string localPath, string agencyName)
+		{
+			try
+			{
+				if (server == null)
+					server = GlobalVar.ImageServerInfo;
+
+				if (localPath.IsNullOrEmpty())
+					throw new Exception("로컬 파일 경로가 정확하지 않습니다.");
+
+				var info = new FileInfo(localPath);
+				string ext = info.Extension;
+				string fileName = agencyName + ext;
+				string remotePath = ConstsVar.IMG_URL_SMAPS_AGENCY;
+				string remoteFull = remotePath + "/" + fileName;
+
+				using (var ftp = new FtpClient())
+				{
+					ftp.Host = server.FtpUrl;
+					ftp.Credentials = new System.Net.NetworkCredential(server.ID, server.PW);
+					ftp.Connect();
+					if (ftp.DirectoryExists(remotePath) == false)
+						ftp.CreateDirectory(remotePath);
+					if (ftp.FileExists(remoteFull))
+						ftp.DeleteFile(remoteFull);
+					ftp.UploadFile(localPath, remoteFull);
+					ftp.Disconnect();
+				}
+				return remoteFull;
+			}
+			catch
+			{
+				throw;
+			}
+		}
+
+		public static void DeleteFile(ImageServerInfo server, string remotePath)
+		{
+			try
+			{
+				if (server == null)
+					server = GlobalVar.ImageServerInfo;
+
 				if (remotePath.IsNullOrEmpty())
 					return;
 
 				using (var ftp = new FtpClient())
 				{
-					ftp.Host = url;
-					ftp.Credentials = new System.Net.NetworkCredential(id, pw);
+					ftp.Host = server.FtpUrl;
+					ftp.Credentials = new System.Net.NetworkCredential(server.ID, server.PW);
 					ftp.Connect();
 					if (ftp.FileExists(remotePath))
 						ftp.DeleteFile(remotePath);
@@ -323,17 +420,20 @@ namespace IKaan.Win.Core.Handler
 				throw;
 			}
 		}
-		public static void DeleteDirectory(string remotePath)
+		public static void DeleteDirectory(ImageServerInfo server, string remotePath)
 		{
 			try
 			{
+				if (server == null)
+					server = GlobalVar.ImageServerInfo;
+
 				if (remotePath.IsNullOrEmpty())
 					return;
 
 				using (var ftp = new FtpClient())
 				{
-					ftp.Host = url;
-					ftp.Credentials = new System.Net.NetworkCredential(id, pw);
+					ftp.Host = server.FtpUrl;
+					ftp.Credentials = new System.Net.NetworkCredential(server.ID, server.PW);
 					ftp.Connect();
 					if (ftp.DirectoryExists(remotePath))
 						ftp.DeleteDirectory(remotePath);
@@ -346,14 +446,17 @@ namespace IKaan.Win.Core.Handler
 			}
 		}
 
-		public static IList<FtpList> GetDirectoriesReclusive(string rootDir = null, Control progressBar = null)
+		public static IList<FtpList> GetDirectoriesReclusive(ImageServerInfo server, string rootDir = null, Control progressBar = null)
 		{
+			if (server == null)
+				server = GlobalVar.ImageServerInfo;
+
 			List<FtpList> list = new List<FtpList>();
 
 			using (var ftp = new FtpClient())
 			{
-				ftp.Host = url;
-				ftp.Credentials = new System.Net.NetworkCredential(id, pw);
+				ftp.Host = server.FtpUrl;
+				ftp.Credentials = new System.Net.NetworkCredential(server.ID, server.PW);
 				ftp.Connect();
 
 				if (rootDir.IsNullOrEmpty())
@@ -412,14 +515,17 @@ namespace IKaan.Win.Core.Handler
 			return list;
 		}
 
-		public static IList<FtpList> GetFiles(string rootDir = null, Control progressBar = null)
+		public static IList<FtpList> GetFiles(ImageServerInfo server, string rootDir = null, Control progressBar = null)
 		{
+			if (server == null)
+				server = GlobalVar.ImageServerInfo;
+
 			List<FtpList> list = new List<FtpList>();
 
 			using (var ftp = new FtpClient())
 			{
-				ftp.Host = url;
-				ftp.Credentials = new System.Net.NetworkCredential(id, pw);
+				ftp.Host = server.FtpUrl;
+				ftp.Credentials = new System.Net.NetworkCredential(server.ID, server.PW);
 				ftp.Connect();
 
 				if (rootDir.IsNullOrEmpty())
@@ -468,15 +574,18 @@ namespace IKaan.Win.Core.Handler
 			return list;
 		}
 
-		public static IList<FtpList> GetList(string rootDir = null, FtpListType listType = FtpListType.All, Control progressBar = null)
+		public static IList<FtpList> GetList(ImageServerInfo server, string rootDir = null, FtpListType listType = FtpListType.All, Control progressBar = null)
 		{
+			if (server == null)
+				server = GlobalVar.ImageServerInfo;
+
 			index = 0;
 			List<FtpList> list = new List<FtpList>();
 
 			using (var ftp = new FtpClient())
 			{
-				ftp.Host = url;
-				ftp.Credentials = new System.Net.NetworkCredential(id, pw);
+				ftp.Host = server.FtpUrl;
+				ftp.Credentials = new System.Net.NetworkCredential(server.ID, server.PW);
 				ftp.Connect();
 
 				if (rootDir.IsNullOrEmpty())

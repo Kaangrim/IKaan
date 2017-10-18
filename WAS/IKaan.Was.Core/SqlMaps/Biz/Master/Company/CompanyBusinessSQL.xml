@@ -21,9 +21,9 @@
 					,	AA.StartDate
 					,	AA.EndDate
 					
-					,	BB.Name
-					,	BB.BizNo
-					,	BB.RepName
+					,	BB.Name			as BizName
+					,	BB.BizNo		as BizNo
+					,	BB.RepName		as RepName
 					
 				FROM	dbo.TCompanyBusiness AA WITH (NOLOCK)
 						LEFT JOIN
@@ -47,11 +47,11 @@
 		</select>
 		<select id="SelectCompanyBusiness" parameterClass="DataMap" resultClass="CompanyBusinessModel" >
 			<![CDATA[
-				SELECT  AA.*					
+				SELECT  AA.*
 				FROM	dbo.TCompanyBusiness AA WITH (NOLOCK)
 				WHERE	AA.ID = #ID#
 			]]>
-		</select>
+		</select>		
 		<insert id="InsertCompanyBusiness" parameterClass="CompanyBusinessModel" >
 			<![CDATA[
 				INSERT INTO dbo.TCompanyBusiness

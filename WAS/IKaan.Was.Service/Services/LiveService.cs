@@ -170,6 +170,10 @@ namespace IKaan.Was.Service.Services
 									{
 										req.SaveChannelOrderBrand();
 									}
+									else if (req.SqlId.Equals("InsertChannelOrderToBizOrder"))
+									{
+										req.SaveChannelOrderToBizOrder();
+									}
 									else
 									{
 										req.SaveChannelOrder();

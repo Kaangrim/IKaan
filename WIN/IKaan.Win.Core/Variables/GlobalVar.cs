@@ -12,6 +12,8 @@ namespace IKaan.Win.Core.Variables
 			UserInfo = new UserInfo();
 			SkinInfo = new SkinInfo();
 			MainInfo = new MainInfo();
+			ScrapInfo = new ScrapInfo();
+			ImageServerInfo = new ImageServerInfo();
 			Codes = new List<UCodeLookup>();
 		}
 
@@ -24,6 +26,10 @@ namespace IKaan.Win.Core.Variables
 		public static SkinInfo SkinInfo { get; set; }
 
 		public static MainInfo MainInfo { get; set; }
+
+		public static ScrapInfo ScrapInfo { get; set; }
+
+		public static ImageServerInfo ImageServerInfo { get; set; }
 
 		public static IList<UCodeLookup> Codes { get; set; }
 		

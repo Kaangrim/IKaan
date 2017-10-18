@@ -55,6 +55,15 @@
     <Compile Include="Common\EmailService.cs" />
     <Compile Include="Services\BaseServicePartial.cs" />
     <Compile Include="Services\BizService.cs" />
+    <Compile Include="Services\BizServiceBrand.cs" />
+    <Compile Include="Services\BizServicePartner.cs" />
+    <Compile Include="Services\BizServiceOrganization.cs" />
+    <Compile Include="Services\BizServiceCompany.cs" />
+    <Compile Include="Services\BizServiceCustomer.cs" />
+    <Compile Include="Services\BizServiceCatalog.cs" />
+    <Compile Include="Services\BizServiceOrder.cs" />
+    <Compile Include="Services\BizServiceSearching.cs" />
+    <Compile Include="Services\BizServiceSales.cs" />
     <Compile Include="Services\BizServiceStore.cs" />
     <Compile Include="Services\BizServicePartial.cs" />
     <Compile Include="Services\LiveService.cs" />
@@ -65,6 +74,7 @@
     <Compile Include="Common\CodeHelpService.cs" />
     <Compile Include="Common\ReportService.cs" />
     <Compile Include="Services\LiveServicePartial.cs" />
+    <Compile Include="Services\ScrapServiceApi.cs" />
     <Compile Include="Services\ScrapServiceScrapToSmaps.cs" />
     <Compile Include="Services\ScrapServiceSmaps.cs" />
     <Compile Include="Services\ScrapServicePartial.cs" />

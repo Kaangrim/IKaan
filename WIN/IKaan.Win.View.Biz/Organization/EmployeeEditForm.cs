@@ -34,28 +34,6 @@ namespace IKaan.Win.View.Biz.Organization
 					}
 				}
 			};
-			picImage.EditValueChanged += delegate (object sender, EventArgs e)
-			{
-				if (this.IsLoaded)
-				{
-					txtImageUrl.EditValue = picImage.GetLoadedImageLocation();
-					if (picImage.EditValue.IsNullOrEmpty() == false)
-					{
-						btnUploadImage.Enabled = true;
-					}
-				}
-			};
-			picImage.LoadCompleted += delegate (object sender, EventArgs e)
-			{
-				txtImageUrl.EditValue = loadUrl;
-				btnUploadImage.Enabled = false;
-				if (picImage.EditValue != null)
-					btnDeleteImage.Enabled = true;
-			};
-			btnUploadImage.Click += delegate (object sender, EventArgs e)
-			{
-				UploadImage();
-			};
 		}
 
 		protected override void OnShown(EventArgs e)
@@ -74,18 +52,19 @@ namespace IKaan.Win.View.Biz.Organization
 			base.InitControls();
 
 			lcItemEmployeeNo.Tag = true;
-			lcItemEmployeeName.Tag = true;
+			lcItemName.Tag = true;
 
 			SetFieldNames();
+
+			lcItemName.SetFieldName("EmployeeName");
 
 			txtID.SetEnable(false);
 			txtCreatedOn.SetEnable(false);
 			txtCreatedByName.SetEnable(false);
 			txtUpdatedOn.SetEnable(false);
 			txtUpdatedByName.SetEnable(false);
-			txtPersonID.SetEnable(false);
-			txtImageUrl.SetEnable(false);
 
+			lupEmployeeType.BindData("EmployeeType");
 			lupFindDepartment.BindData("DepartmentList", "All");
 
 			InitGrid();
@@ -98,8 +77,9 @@ namespace IKaan.Win.View.Biz.Organization
 			gridList.AddGridColumns(
 				new XGridColumn() { FieldName = "RowNo", Width = 40 },
 				new XGridColumn() { FieldName = "ID", Visible = false },
-				new XGridColumn() { FieldName = "EmployeeName", Width = 100 },
+				new XGridColumn() { FieldName = "Name", CaptionCode = "EmployeeName", Width = 100 },
 				new XGridColumn() { FieldName = "EmployeeNo", Width = 100 },
+				new XGridColumn() { FieldName = "EmployeeTypeName", Width = 100 },
 				new XGridColumn() { FieldName = "DepartmentName", Width = 150 },
 				new XGridColumn() { FieldName = "Position", Width = 100 },
 				new XGridColumn() { FieldName = "UseYn", Width = 80, HorzAlignment = HorzAlignment.Center },
@@ -172,23 +152,12 @@ namespace IKaan.Win.View.Biz.Organization
 		{
 			ClearControlData<EmployeeModel>();
 
-			txtEngName.Clear();
-			txtEmail.Clear();
-			txtPhoneNo1.Clear();
-			txtPhoneNo2.Clear();
-			txtFaxNo.Clear();
 			picImage.EditValue = null;
-			txtImageUrl.Clear();
 			loadUrl = string.Empty;
 
 			gridAppointment.Clear<AppointmentModel>();
 
 			lcTab.CustomHeaderButtons[0].Enabled = false;
-
-			picImage.Properties.ShowMenu = false;
-
-			btnUploadImage.Enabled = false;
-			btnDeleteImage.Enabled = false;
 
 			SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true });
 			EditMode = EditModeEnum.New;
@@ -222,23 +191,17 @@ namespace IKaan.Win.View.Biz.Organization
 				if (model.Image != null && model.Image.Url.IsNullOrEmpty() == false)
 				{
 					loadUrl = model.Image.Url;
-					picImage.LoadAsync(ConstsVar.IMG_URL + loadUrl);
-					txtImageUrl.EditValue = loadUrl;
+					picImage.LoadAsync(GlobalVar.ImageServerInfo.CdnUrl + loadUrl);
 				}
 
 				txtEmail.EditValue = model.Email;
-				txtPhoneNo1.EditValue = model.PhoneNo;
-				txtPhoneNo2.EditValue = model.MobileNo;
+				txtPhoneNo.EditValue = model.PhoneNo;
+				txtMobileNo.EditValue = model.MobileNo;
 				txtFaxNo.EditValue = model.FaxNo;
 
 				gridAppointment.DataSource = model.Appointments;
 
 				lcTab.CustomHeaderButtons[0].Enabled = true;
-
-				if (txtPersonID.EditValue.ToStringNullToEmpty() != "")
-				{
-					picImage.Properties.ShowMenu = true;
-				}
 
 				SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true, Delete = true });
 				this.EditMode = EditModeEnum.Modify;
@@ -345,13 +308,10 @@ namespace IKaan.Win.View.Biz.Organization
 		{
 			try
 			{
-				if (txtPersonID.EditValue == null)
-					return;
-
-				string url = FTPHandler.UploadEmployee(picImage.GetLoadedImageLocation(), txtEmployeeNo.EditValue.ToString());
+				string url = FTPHandler.UploadEmployee(null, picImage.GetLoadedImageLocation(), txtEmployeeNo.EditValue.ToString());
 				var map = new DataMap()
 				{
-					{ "ID", txtPersonID.EditValue },
+					{ "ID", txtID.EditValue },
 					{ "ImageUrl", url }
 				};
 
@@ -373,14 +333,11 @@ namespace IKaan.Win.View.Biz.Organization
 		{
 			try
 			{
-				if (txtPersonID.EditValue == null)
-					return;
-
-				FTPHandler.DeleteFile(txtImageUrl.EditValue.ToString());
+				FTPHandler.DeleteFile(null, loadUrl);
 
 				var map = new DataMap()
 				{
-					{ "ID", txtPersonID.EditValue },
+					{ "ID", txtID.EditValue },
 					{ "ImageUrl", null }
 				};
 				using (var res = WasHandler.Execute<DataMap>("Biz", "SavePersonImageUrl", "UpdatePersonImageUrl", map, "ID"))
@@ -390,7 +347,6 @@ namespace IKaan.Win.View.Biz.Organization
 
 					ShowMsgBox("삭제하였습니다.");
 					picImage.EditValue = null;
-					txtImageUrl.EditValue = null;
 					loadUrl = string.Empty;
 				}
 			}

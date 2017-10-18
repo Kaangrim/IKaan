@@ -20,6 +20,10 @@ namespace IKaan.Model.Scrap.Common
 		public string Name { get; set; }
 
 		[DataMember]
+		[Display(Name = "브랜드영문명")]
+		public string EngName { get; set; }
+
+		[DataMember]
 		[Display(Name = "브랜드URL")]
 		public string Url { get; set; }
 

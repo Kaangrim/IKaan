@@ -1,29 +1,37 @@
 ﻿using System;
-using System.Windows.Forms;
 using DevExpress.Utils;
-using DevExpress.XtraGrid.Views.Grid;
 using IKaan.Base.Map;
-using IKaan.Model.Biz.Catalog;
-using IKaan.Win.Core.Controls.Grid;
+using IKaan.Base.Utils;
+using IKaan.Model.Biz.Catalog.Category;
 using IKaan.Win.Core.Enum;
 using IKaan.Win.Core.Forms;
 using IKaan.Win.Core.Model;
 using IKaan.Win.Core.Utils;
 using IKaan.Win.Core.Was.Handler;
 
-namespace IKaan.Win.View.Biz.Catalog
+namespace IKaan.Win.View.Biz.Catalog.Category
 {
 	public partial class CategoryEditForm : EditForm
 	{
 		public CategoryEditForm()
 		{
 			InitializeComponent();
+
+			lupCategory1.ButtonClick += this.LupCategory1_ButtonClick;
+		}
+
+		private void LupCategory1_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
+		{
+			if (e.Button.Kind == DevExpress.XtraEditors.Controls.ButtonPredefines.Plus)
+			{
+				ShowEdit();
+			}
 		}
 
 		protected override void OnShown(EventArgs e)
 		{
 			base.OnShown(e);
-			txtFindText.Focus();
+			txtName.Focus();
 		}
 
 		protected override void InitButton()
@@ -37,117 +45,60 @@ namespace IKaan.Win.View.Biz.Catalog
 
 			SetFieldNames();
 
+			lcItemName.SetFieldName("CategoryName");
+
 			txtID.SetEnable(false);
 			txtCreatedOn.SetEnable(false);
 			txtCreatedByName.SetEnable(false);
 			txtUpdatedOn.SetEnable(false);
 			txtUpdatedByName.SetEnable(false);
 
-			txtCategory1.SetEnable(false);
-			txtCategory2.SetEnable(false);
-			txtCategory3.SetEnable(false);
-			txtCategory4.SetEnable(false);
-			txtCategory5.SetEnable(false);
-
-			txtCategory1Name.SetEnable(false);
-			txtCategory2Name.SetEnable(false);
-			txtCategory3Name.SetEnable(false);
-			txtCategory4Name.SetEnable(false);
-			txtCategory5Name.SetEnable(false);
+			lupCategory1.BindData("CategoryItem", "None", false, new DataMap() { { "CategoryType", "1" } });
+			lupCategory2.BindData("CategoryItem", "None", false, new DataMap() { { "CategoryType", "2" } });
+			lupCategory3.BindData("CategoryItem", "None", false, new DataMap() { { "CategoryType", "3" } });
+			lupCategory4.BindData("CategoryItem", "None", false, new DataMap() { { "CategoryType", "4" } });
+			lupCategory5.BindData("CategoryItem", "None", false, new DataMap() { { "CategoryType", "5" } });
 
 			spnSortOrder.SetFormat("D", false, HorzAlignment.Near);
-
-			lupFindCategoryID.BindData("CategoryList", "All");
-			lupParentID.BindData("CategoryList", "Root");
 			txtInfoNoticeID.CodeGroup = "InfoNoticeList";
-
-			InitGrid();
-		}
-
-		void InitGrid()
-		{
-			#region List
-			gridList.Init();
-			gridList.AddGridColumns(
-				new XGridColumn() { FieldName = "RowNo" },
-				new XGridColumn() { FieldName = "ID", Visible = false },
-				new XGridColumn() { FieldName = "CategoryName", Visible = false },
-				new XGridColumn() { FieldName = "HierName", CaptionCode = "CategoryName", Width = 200 },
-				new XGridColumn() { FieldName = "UseYn", Width = 80, HorzAlignment = HorzAlignment.Center },
-				new XGridColumn() { FieldName = "CreatedOn" },
-				new XGridColumn() { FieldName = "CreatedByName" },
-				new XGridColumn() { FieldName = "UpdatedOn" },
-				new XGridColumn() { FieldName = "UpdatedByName" }
-			);
-			gridList.SetRepositoryItemCheckEdit("UseYn");
-			gridList.ColumnFix("RowNo");
-
-			gridList.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
-			{
-				if (e.RowHandle < 0)
-					return;
-
-				try
-				{
-					if (e.Button == MouseButtons.Left && e.Clicks == 1)
-					{
-						GridView view = sender as GridView;
-						DetailDataLoad(view.GetRowCellValue(e.RowHandle, "ID"));
-					}
-				}
-				catch(Exception ex)
-				{
-					ShowErrBox(ex);
-				}
-			};
-			#endregion
-		}
-
-		protected override void LoadForm()
-		{
-			base.LoadForm();
-			DataLoad();
 		}
 
 		protected override void DataInit()
 		{
 			ClearControlData<CategoryModel>();
-
+			txtInfoNoticeID.Clear();
 			SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true });
 			EditMode = EditModeEnum.New;
-			txtCategoryName.Focus();
+			txtName.Focus();
 		}
 
 		protected override void DataLoad(object param = null)
 		{
-			gridList.BindList<CategoryModel>("Biz", "GetList", "Select", new DataMap() { { "FindText", txtFindText.EditValue } });
-
-			if (param != null)
-				DetailDataLoad(param);
-			else
+			if (param == null)
+			{
 				DataInit();
-		}
+				return;
+			}
 
-		void DetailDataLoad(object id)
-		{
 			try
 			{
-				var model = WasHandler.GetData<CategoryModel>("Biz", "GetData", "Select", new DataMap()
-				{
-					{ "ID", id },
-					{ "CategoryID", id }
-				});
-				if (model == null)
-					throw new Exception("조회할 데이터가 없습니다.");
+				var model = WasHandler.GetData<CategoryModel>("Biz", "GetData", "Select", new DataMap() { { "ID", param } });
 
 				SetControlData(model);
+				lupCategory1.EditValue = model.Category1.ToStringNullToNull();
+				lupCategory2.EditValue = model.Category2.ToStringNullToNull();
+				lupCategory3.EditValue = model.Category3.ToStringNullToNull();
+				lupCategory4.EditValue = model.Category4.ToStringNullToNull();
+				lupCategory5.EditValue = model.Category5.ToStringNullToNull();
+				txtInfoNoticeID.EditValue = model.InfoNoticeID;
+				txtInfoNoticeID.EditText = model.InfoNoticeName;
 
 				SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true, Delete = true });
 				this.EditMode = EditModeEnum.Modify;
-				txtCategoryName.Focus();
+				txtName.Focus();
 
 			}
-			catch(Exception ex)
+			catch (Exception ex)
 			{
 				ShowErrBox(ex);
 			}
@@ -158,7 +109,8 @@ namespace IKaan.Win.View.Biz.Catalog
 			try
 			{
 				var model = this.GetControlData<CategoryModel>();
-				using (var res = WasHandler.Execute<CategoryModel>("Biz", "Save", (this.EditMode == EditModeEnum.New) ? "Insert" : "Update", model, "ID"))
+				model.InfoNoticeID = txtInfoNoticeID.EditValue.ToIntegerNullToNull();
+				using (var res = WasHandler.Execute<CategoryModel>("Biz", "Save", "Insert", model, "ID"))
 				{
 					if (res.Error.Number != 0)
 						throw new Exception(res.Error.Message);
@@ -177,18 +129,29 @@ namespace IKaan.Win.View.Biz.Catalog
 		{
 			try
 			{
-				using (var res = WasHandler.Execute<DataMap>("Biz", "Delete", "DeleteCategory", new DataMap() { { "ID", txtID.EditValue } }, "ID"))
+				using (var res = WasHandler.Execute<DataMap>("Biz", "Delete", "DeleteCategory", new DataMap() { { "ID", txtID.EditValue } }))
 				{
 					if (res.Error.Number != 0)
 						throw new Exception(res.Error.Message);
-
-					ShowMsgBox("삭제하였습니다.");
-					callback(arg, null);
 				}
+				ShowMsgBox("삭제하였습니다.");
+				callback(arg, null);
 			}
 			catch (Exception ex)
 			{
 				ShowErrBox(ex);
+			}
+		}
+
+		protected override void ShowEdit(object data = null)
+		{
+			using(var form = new CategoryItemEditForm())
+			{
+				form.Text = "카테고리항목등록";
+				form.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+				form.IsLoadingRefresh = true;
+				form.ParamsData = data;
+				if (form.ShowDialog() == System.Windows.Forms.DialogResult.OK) { }
 			}
 		}
 	}

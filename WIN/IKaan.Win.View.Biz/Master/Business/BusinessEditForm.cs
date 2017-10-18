@@ -4,6 +4,7 @@ using DevExpress.Utils;
 using DevExpress.XtraEditors.Controls;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
+using IKaan.Base.Variables;
 using IKaan.Model.Biz.Master.Common;
 using IKaan.Win.Core.Controls.Grid;
 using IKaan.Win.Core.Enum;
@@ -19,7 +20,8 @@ namespace IKaan.Win.View.Biz.Master.Business
 {
 	public partial class BusinessEditForm : EditForm
 	{
-		private string loadUrl = string.Empty;
+		private object id = null;
+		private object addressID = null;
 
 		public BusinessEditForm()
 		{
@@ -38,6 +40,17 @@ namespace IKaan.Win.View.Biz.Master.Business
 							txtPostalCode.EditValue = data.ZoneCode + "(" + data.PostalNo + ")";
 						txtAddressLine1.EditValue = data.Address1;
 						txtAddressLine2.EditValue = data.Address2;
+						lupCountry.EditValue = "KOR";
+
+						if (data.Address1.IsNullOrEmpty() == false)
+						{
+							var address = data.Address1.Split(' ');
+							if (address != null && address.Length > 0)
+							{
+								txtCity.EditValue = address[0].ToStringNullToEmpty();
+								txtStateProvince.EditValue = address[1].ToStringNullToEmpty();
+							}
+						}
 					}
 				}
 			};
@@ -62,12 +75,10 @@ namespace IKaan.Win.View.Biz.Master.Business
 
 			lcItemName.SetFieldName("BizName");
 
-			txtID.SetEnable(false);
 			txtCreatedOn.SetEnable(false);
 			txtCreatedByName.SetEnable(false);
 			txtUpdatedOn.SetEnable(false);
 			txtUpdatedByName.SetEnable(false);
-			txtAddressID.SetEnable(false);
 
 			InitCombo();
 			InitGrid();
@@ -105,17 +116,12 @@ namespace IKaan.Win.View.Biz.Master.Business
 		protected override void DataInit()
 		{
 			ClearControlData<BusinessModel>();
+			ClearControlData<AddressModel>();
 			gridLinks.Clear<BusinessLinksModel>();
 
-			txtAddressID.Clear();
-			txtPostalCode.Clear();
-			txtCity.Clear();
-			txtStateProvince.Clear();
-			txtAddressLine1.Clear();
-			txtAddressLine2.Clear();
-
-			loadUrl = string.Empty;
-			picImage.EditValue = null;
+			id = null;
+			addressID = null;
+			picImage.Clear();
 
 			SetToolbarButtons(new ToolbarButtons() { New = true, Refresh = true, Save = true, SaveAndNew = true });
 			EditMode = EditModeEnum.New;
@@ -131,6 +137,9 @@ namespace IKaan.Win.View.Biz.Master.Business
 					throw new Exception("조회할 데이터가 없습니다.");
 
 				SetControlData(model);
+				id = model.ID;
+				addressID = model.AddressID;
+
 				if (model.Address != null)
 				{
 					txtPostalCode.EditValue = model.Address.PostalCode;
@@ -145,14 +154,14 @@ namespace IKaan.Win.View.Biz.Master.Business
 					model.Links = new List<BusinessLinksModel>();
 				gridLinks.DataSource = model.Links;
 
-				loadUrl = model.Image.Url;
-				if (loadUrl.IsNullOrEmpty())
+				picImage.ImageID = model.ImageID;
+				if (model.Image.Url.IsNullOrEmpty())
 				{
-					picImage.EditValue = null;
+					picImage.Clear();
 				}
 				else
 				{
-					picImage.LoadAsync(ConstsVar.IMG_URL + loadUrl);
+					picImage.LoadImage(GlobalVar.ImageServerInfo.CdnUrl + model.Image.Url);
 				}
 
 				SetToolbarButtons(new ToolbarButtons() { New = true, Save = true, SaveAndClose = true, SaveAndNew = true, Delete = true });
@@ -171,6 +180,10 @@ namespace IKaan.Win.View.Biz.Master.Business
 			try
 			{
 				var model = this.GetControlData<BusinessModel>();
+				model.ID = id.ToIntegerNullToNull();
+				model.AddressID = addressID.ToIntegerNullToNull();
+				model.ImageID = picImage.ImageID.ToIntegerNullToNull();
+
 				model.Address = new AddressModel()
 				{
 					ID = model.AddressID,
@@ -182,22 +195,35 @@ namespace IKaan.Win.View.Biz.Master.Business
 					AddressLine2 = txtAddressLine2.EditValue.ToStringNullToNull()
 				};
 
+				model.Image = new ImageModel
+				{
+					ID = picImage.ImageID.ToIntegerNullToNull(),
+					ImageType = BaseConstsImageType.BUSINESS
+				};
+
 				//이미지 업로드
 				if (picImage.EditValue != null)
 				{
-					string path = picImage.GetLoadedImageLocation();
+					string path = picImage.ImagePath;
 					if (path.IsNullOrEmpty() == false)
 					{
-						string url = FTPHandler.UploadBusiness(picImage.GetLoadedImageLocation(), txtBizNo.EditValue.ToString().Replace("-", ""));
+						string url = FTPHandler.UploadBusiness(GlobalVar.ImageServerInfo, path, txtBizNo.EditValue.ToString().Replace("-", ""));
 						model.Image.Url = url;
+						model.Image.Name = picImage.GetFileName();
+						model.Image.Width = picImage.ImageWidth;
+						model.Image.Height = picImage.ImageHeight;
+					}
+					else
+					{
+						model.Image = null;
 					}
 				}
 				else
 				{
-					if (loadUrl.IsNullOrEmpty() == false)
+					if (picImage.ImageUrl.IsNullOrEmpty() == false)
 					{
-						FTPHandler.DeleteFile(loadUrl);
-						loadUrl = string.Empty;
+						FTPHandler.DeleteFile(null, picImage.ImageUrl);
+						model.Image.Url = null;
 					}
 				}
 
@@ -220,13 +246,12 @@ namespace IKaan.Win.View.Biz.Master.Business
 		{
 			try
 			{
-				if (loadUrl.IsNullOrEmpty() == false)
+				if (picImage.ImageUrl.IsNullOrEmpty() == false)
 				{
-					FTPHandler.DeleteFile(loadUrl);
-					loadUrl = string.Empty;
+					FTPHandler.DeleteFile(null, picImage.ImageUrl);
 				}
 
-				using (var res = WasHandler.Execute<DataMap>("Biz", "Delete", "DeleteBusiness", new DataMap() { { "ID", txtID.EditValue } }, "ID"))
+				using (var res = WasHandler.Execute<DataMap>("Biz", "Delete", "DeleteBusiness", new DataMap() { { "ID", id } }))
 				{
 					if (res.Error.Number != 0)
 						throw new Exception(res.Error.Message);

@@ -42,6 +42,8 @@ namespace IKaan.Win.View.Base.Common
 
 			SetFieldNames();
 
+			lupImageServer.BindData("ImageServer");
+
 			InitTree();
 		}
 
@@ -183,12 +185,16 @@ namespace IKaan.Win.View.Base.Common
 			{
 				try
 				{
+					if (lupImageServer.EditValue == null)
+						return;
+
+					var cdnUrl = lupImageServer.GetValue(4).ToStringNullToNull();
 					var tree = sender as XTree;
 					var info = tree.CalcHitInfo(tree.PointToClient(MousePosition));
 
 					if (info.HitInfoType == HitInfoType.Cell && !info.Node.HasChildren && info.Node["Type"].ToString() == "F")
 					{
-						string filePath = string.Concat(ConstsVar.IMG_URL, info.Node["FullName"].ToString());
+						string filePath = string.Concat(cdnUrl, info.Node["FullName"].ToString());
 						picImage.LoadAsync(filePath);
 						memFileInfo.Text = filePath;
 					}
@@ -230,7 +236,19 @@ namespace IKaan.Win.View.Base.Common
 			treeFiles.DataSource = null;
 			esPath.Text = " ";
 
-			var list = FTPHandler.GetList("/", FtpListType.Directory, pbarDir);
+			if (lupImageServer.EditValue == null)
+				return;
+
+			var imageServer = new ImageServerInfo()
+			{
+				FtpUrl = lupImageServer.GetValue(1).ToStringNullToNull(),
+				ID = lupImageServer.GetValue(2).ToStringNullToNull(),
+				PW = lupImageServer.GetValue(3).ToStringNullToNull(),
+				CdnUrl = lupImageServer.GetValue(4).ToStringNullToNull(),
+				RootDir = lupImageServer.GetValue(5).ToStringNullToNull()
+			};
+
+			var list = FTPHandler.GetList(imageServer, "/", FtpListType.Directory, pbarDir);
 			treeDirectories.DataSource = list;
 			if (list != null && list.Count > 0)
 			{
@@ -247,12 +265,25 @@ namespace IKaan.Win.View.Base.Common
 		{
 			try
 			{
+				if (lupImageServer.EditValue == null)
+					return;
+
+				var imageServer = new ImageServerInfo()
+				{
+					FtpUrl = lupImageServer.GetValue(1).ToStringNullToNull(),
+					ID = lupImageServer.GetValue(2).ToStringNullToNull(),
+					PW = lupImageServer.GetValue(3).ToStringNullToNull(),
+					CdnUrl = lupImageServer.GetValue(4).ToStringNullToNull(),
+					RootDir = lupImageServer.GetValue(5).ToStringNullToNull()
+				};
+
 				picImage.EditValue = null;
 				memFileInfo.EditValue = null;
 				esPath.Text = id.ToStringNullToEmpty();
-				var list = FTPHandler.GetList(id.ToString(), FtpListType.All, pBarFiles);				
+				var list = FTPHandler.GetList(imageServer, id.ToString(), FtpListType.All, pBarFiles);				
 				treeFiles.DataSource = list;
 				treeFiles.ExpandLevel(1);
+				txtFindText.Focus();
 			}
 			catch(Exception ex)
 			{
@@ -274,10 +305,22 @@ namespace IKaan.Win.View.Base.Common
 		{
 			try
 			{
+				if (lupImageServer.EditValue == null)
+					return;
+
+				var imageServer = new ImageServerInfo()
+				{
+					FtpUrl = lupImageServer.GetValue(1).ToStringNullToNull(),
+					ID = lupImageServer.GetValue(2).ToStringNullToNull(),
+					PW = lupImageServer.GetValue(3).ToStringNullToNull(),
+					CdnUrl = lupImageServer.GetValue(4).ToStringNullToNull(),
+					RootDir = lupImageServer.GetValue(5).ToStringNullToNull()
+				};
+
 				var info = DialogUtils.OpenImageFile();
 				if (info != null)
 				{
-					FTPHandler.Upload(info.FullName, esPath.Text + "/" + info.Name);
+					FTPHandler.Upload(imageServer, info.FullName, esPath.Text + "/" + info.Name);
 					DetailDataLoad(esPath.Text);
 				}
 			}
@@ -291,6 +334,18 @@ namespace IKaan.Win.View.Base.Common
 		{
 			try
 			{
+				if (lupImageServer.EditValue == null)
+					return;
+
+				var imageServer = new ImageServerInfo()
+				{
+					FtpUrl = lupImageServer.GetValue(1).ToStringNullToNull(),
+					ID = lupImageServer.GetValue(2).ToStringNullToNull(),
+					PW = lupImageServer.GetValue(3).ToStringNullToNull(),
+					CdnUrl = lupImageServer.GetValue(4).ToStringNullToNull(),
+					RootDir = lupImageServer.GetValue(5).ToStringNullToNull()
+				};
+
 				var node = treeFiles.FocusedNode;
 				if (node != null)
 				{
@@ -303,13 +358,13 @@ namespace IKaan.Win.View.Base.Common
 						{
 							if (MsgBox.Show("선택한 파일을 삭제하겠습니까?" + Environment.NewLine + fullName, "확인!!", MessageBoxButtons.YesNo) != DialogResult.Yes)
 								return;
-							FTPHandler.DeleteFile(fullName);
+							FTPHandler.DeleteFile(imageServer, fullName);
 						}
 						else if (type == "D")
 						{
 							if (MsgBox.Show("선택한 폴더를 삭제하겠습니까?" + Environment.NewLine + fullName, "확인!!", MessageBoxButtons.YesNo) != DialogResult.Yes)
 								return;
-							FTPHandler.DeleteDirectory(fullName);
+							FTPHandler.DeleteDirectory(imageServer, fullName);
 						}
 						DetailDataLoad(esPath.Text);
 					}

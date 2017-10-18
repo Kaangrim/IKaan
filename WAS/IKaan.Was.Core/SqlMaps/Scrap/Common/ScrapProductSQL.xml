@@ -30,6 +30,7 @@
 					,	AA.CategoryName
 					,	AA.CategoryID
 					,	AA.Gender
+					,	AA.Season
 					
 					,	BB.Name				as BrandName
 					
@@ -76,8 +77,9 @@
 					CreatedOn, CreatedBy, CreatedByName,
 					SiteID, BrandCode, 
 					Code, Name, Url, ListPrice, SalePrice, 
-					Option1Type, Option1Name, Option2Type, Option2Name, 
-					CategoryName, CategoryID, Gender,
+					Option1Type, Option1Name,
+					Option2Type, Option2Name,
+					CategoryName, CategoryID, Gender, Season,
 					Description
 				)
 				VALUES
@@ -85,8 +87,9 @@
 					GetDate(), #CreatedBy#, #CreatedByName#,
 					#SiteID#, #BrandCode#, 
 					#Code#, #Name#, #Url#, #ListPrice#, #SalePrice#, 
-					#Option1Type#, #Option1Name#, #Option2Type#, #Option2Name#, 
-					#CategoryName#, #CategoryID#, #Gender#,
+					#Option1Type#, #Option1Name#,
+					#Option2Type#, #Option2Name#,
+					#CategoryName#, #CategoryID#, #Gender#, #Season#,
 					#Description#
 				)
 			]]>
@@ -117,6 +120,7 @@
 					,	CategoryName	= #CategoryName#
 					,	CategoryID		= #CategoryID#
 					,	Gender			= #Gender#
+					,	Season			= #Season#
 					,	Description		= #Description#
 				WHERE	ID				= #ID#
 			]]>
@@ -143,6 +147,20 @@
 				WHERE	AA.SiteID		= #SiteID#
 				AND		AA.CategoryName	= #CategoryName#
 				AND		AA.CategoryID IS NULL
+			]]>
+		</select>
+		<select id="SelectScrapProductByBrand" parameterClass="DataMap" resultClass="ScrapProductModel" >
+			<![CDATA[
+				SELECT  AA.*
+				FROM	dbo.TScrapProduct AA WITH (NOLOCK)
+						INNER JOIN
+							dbo.TScrapBrand BB WITH (NOLOCK)
+								ON AA.BrandCode = BB.Code
+						INNER JOIN
+							dbo.TScrapBrandToSmaps BS WITH (NOLOCK)
+								ON BB.ID = BS.ScrapBrandID
+				WHERE	AA.SiteID		= #SiteID#
+				AND		BS.SmapsBrandID = #SmapsBrandID#
 			]]>
 		</select>
 	</statements>

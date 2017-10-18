@@ -1,13 +1,14 @@
 ﻿using System;
+using System.Linq;
 using System.Windows.Forms;
 using IKaan.Base.Map;
+using IKaan.Model.Common.UserModels;
 using IKaan.Win.Core.Forms;
 using IKaan.Win.Core.Helper;
+using IKaan.Win.Core.Model;
 using IKaan.Win.Core.Resources;
-using IKaan.Win.Core.Utils;
 using IKaan.Win.Core.Variables;
 using IKaan.Win.Core.Was.Handler;
-using IKaan.Model.Common.UserModels ;
 
 namespace IKaan.Win.View.Forms
 {
@@ -143,6 +144,25 @@ namespace IKaan.Win.View.Forms
 				int count = (list == null) ? 0 : list.Count;
 				prgCodes.Properties.Maximum = count;
 				GlobalVar.Codes = list;
+
+				//이미지서버경로
+				var imageServer = GlobalVar.Codes.Where(x => x.GroupCode == "System" && x.Code == "ImageServerInfo").SingleOrDefault();
+				if (imageServer != null)
+				{
+					var imageServerSetting = GlobalVar.Codes.Where(x => x.GroupCode == "ImageServer" && x.Code == imageServer.Value).SingleOrDefault();
+					if (imageServerSetting != null)
+					{
+						GlobalVar.ImageServerInfo = new ImageServerInfo()
+						{
+							FtpUrl = imageServerSetting.Option1,
+							ID = imageServerSetting.Option2,
+							PW = imageServerSetting.Option3,
+							CdnUrl = imageServerSetting.Option4,
+							RootDir = imageServerSetting.Option5
+						};
+					}
+				}
+
 				prgCodes.EditValue = count;
 				SetMessage("공통코드를 다운로드하였습니다.");
 				Application.DoEvents();

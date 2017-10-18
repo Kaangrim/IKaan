@@ -25,6 +25,10 @@ namespace IKaan.Model.Biz.Organization
 		public int? ManagerID { get; set; }
 
 		[DataMember]
+		[Display(Name = "정렬순서")]
+		public int? SortOrder { get; set; }
+
+		[DataMember]
 		[Display(Name = "시작일")]
 		public DateTime? StartDate { get; set; }
 

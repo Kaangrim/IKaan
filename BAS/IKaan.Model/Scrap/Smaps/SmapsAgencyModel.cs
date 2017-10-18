@@ -6,16 +6,8 @@ using IKaan.Model.Common.Base;
 namespace IKaan.Model.Scrap.Smaps
 {
 	[DataContract]
-	public class SmapsAgencyModel : ModelBase
+	public class SmapsAgencyModel : SmapsBaseModel
 	{
-		[DataMember]
-		[Display(Name = "요청ID")]
-		public int? RequestID { get; set; }
-
-		[DataMember]
-		[Display(Name = "UID")]
-		public int? uid { get; set; }
-
 		[DataMember]
 		[Display(Name = "유형")]
 		public string type { get; set; }
@@ -34,11 +26,11 @@ namespace IKaan.Model.Scrap.Smaps
 
 		[DataMember]
 		[Display(Name = "이용기간 시작일")]
-		public DateTime sv_start_date { get; set; }
+		public DateTime? sv_start_date { get; set; }
 
 		[DataMember]
 		[Display(Name = "이용기간 종료일")]
-		public DateTime sv_end_date { get; set; }
+		public DateTime? sv_end_date { get; set; }
 
 		[DataMember]
 		[Display(Name = "주소")]
@@ -115,5 +107,13 @@ namespace IKaan.Model.Scrap.Smaps
 		[DataMember]
 		[Display(Name = "이미지높이")]
 		public string image_height { get; set; }
+
+		[DataMember]
+		[Display(Name = "등급명")]
+		public string grade_name { get; set; }
+
+		[DataMember]
+		[Display(Name = "유형명")]
+		public string type_name { get; set; }
 	}
 }

@@ -25,12 +25,32 @@ namespace IKaan.Model.Biz.Master.Customer
 		public string Description { get; set; }
 
 		[DataMember]
-		[Display(Name = "은행계좌")]
-		public BankAccountModel BankAccount { get; set; }
+		[Display(Name = "은행계좌명")]
+		public string BankAccountName { get; set; }
+
+		[DataMember]
+		[Display(Name = "은행명")]
+		public string BankName { get; set; }
+
+		[DataMember]
+		[Display(Name = "계좌번호")]
+		public string AccountNo { get; set; }
+
+		[DataMember]
+		[Display(Name = "예금주명")]
+		public string Depositor { get; set; }
+
+		[DataMember]
+		[Display(Name = "은행계좌이미지ID")]
+		public int? ImageID { get; set; }
+
+		[DataMember]
+		[Display(Name = "이미지")]
+		public ImageModel Image { get; set; }
 
 		public CustomerBankAccountModel()
 		{
-			BankAccount = new BankAccountModel();
+			Image = new ImageModel();
 		}
 	}
 }

@@ -21,7 +21,7 @@
 					,	AA.BankAccountType
 					,	AA.Description
 					
-					,	BB.Name
+					,	BB.Name				as BankAccountName
 					,	BB.BankName
 					,	BB.AccountNo
 					,	BB.Depositor
@@ -38,21 +38,16 @@
 			<![CDATA[
 				SELECT  AA.*
 				
-					,	BB.Name
+					,	BB.Name			as BankAccountName
 					,	BB.BankName
 					,	BB.AccountNo
 					,	BB.Depositor
 					,	BB.ImageID
 					
-					,	CC.ImageUrl
-					
 				FROM	dbo.TCompanyBankAccount AA WITH (NOLOCK)
 						LEFT JOIN
 							dbo.TBankAccount BB with (nolock)
 								ON AA.BankAccountID = BB.ID
-						LEFT JOIN
-							dbo.TImage CC with (nolock)
-								ON BB.ImageID = CC.ID
 				WHERE	AA.ID = #ID#
 			]]>
 		</select>

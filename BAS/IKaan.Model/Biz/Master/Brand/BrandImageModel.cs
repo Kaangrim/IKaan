@@ -21,6 +21,14 @@ namespace IKaan.Model.Biz.Master.Brand
 		public string ImageType { get; set; }
 
 		[DataMember]
+		[Display(Name = "이미지구분명")]
+		public string ImageTypeName { get; set; }
+
+		[DataMember]
+		[Display(Name = "이미지경로")]
+		public string ImageUrl { get; set; }
+
+		[DataMember]
 		[Display(Name = "이미지")]
 		public ImageModel Image { get; set; }
 	}

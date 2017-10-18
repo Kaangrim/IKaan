@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="editorButtonImageOptions4.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="editorButtonImageOptions2.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
         dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAAbdEVYdFRpdGxlAEFkZDtQbHVzO0JhcnM7UmliYm9u
@@ -128,15 +128,22 @@
         gg==
 </value>
   </data>
-  <data name="editorButtonImageOptions5.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="lcGroupBrand.CaptionImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAAjdEVYdFRpdGxlAENhbmNlbDtTdG9wO0V4aXQ7QmFy
-        cztSaWJib247TJaWsgAAAMxJREFUOE+lk8ENwjAQBCmFQvxOWUj8SRX0AeKVdiJRANxYbLQ5LpEQj1Hw
-        +nblO5tDay0zBGMwBfMHfqOxt6r3xTG4BM/gtQF71FC7CkC4BpWpgtoeogBSveCR1pWGpwfQlx/7HKDz
-        3dPwDIgMR+I9QBMYZBbUqH5EYMIS4BS4wWHPaydErslFqEKyGeatgHxs8P5FD8gtVGaRQ3oLe0Pk2Lmd
-        ryHma5TBe6605RohP6RbWlfa8pDg76esEFK9nQx71HQzeID44e/cDm/PqEtwFbYenQAAAABJRU5ErkJg
-        gg==
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAZdEVYdFNvZnR3YXJlAEFkb2JlIEltYWdlUmVhZHlxyWU8AAAAEnRFWHRUaXRsZQBMaXN0O0J1
+        bGxldDtRc385AAAAWklEQVQ4T2P4//8/RRhDwMbGhhGIQTReDFMP01QAxA9ANJJBzEDMggWzgmh0A0Ca
+        /4NoJANAfJwYpg6mGMMFxGKsgqRgrIKkYDBBsRegmkGBMxqIIzEQ/zMAAEU1ijjtzZ+zAAAAAElFTkSu
+        QmCC
+</value>
+  </data>
+  <data name="lcGroupSetting.CaptionImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAZdEVYdFNvZnR3YXJlAEFkb2JlIEltYWdlUmVhZHlxyWU8AAAAEnRFWHRUaXRsZQBMaXN0O0J1
+        bGxldDtRc385AAAAWklEQVQ4T2P4//8/RRhDwMbGhhGIQTReDFMP01QAxA9ANJJBzEDMggWzgmh0A0Ca
+        /4NoJANAfJwYpg6mGMMFxGKsgqRgrIKkYDBBsRegmkGBMxqIIzEQ/zMAAEU1ijjtzZ+zAAAAAElFTkSu
+        QmCC
 </value>
   </data>
 </root>

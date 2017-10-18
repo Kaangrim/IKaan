@@ -22,10 +22,47 @@
 					,	AA.Description
 					
 					,	M1.Name			as CustomerTypeName
+					,	BB.BizName
+					,	BB.RepName
+					,	BB.BizNo
+					
+					,	EE.Name			as EmployeeName
+					,	DD.Name			as DepartmentName
 					
 				FROM	dbo.TCustomer AA WITH (NOLOCK)
 						LEFT JOIN
-							dbo.TCode M1 WITH (NOLOCK)
+						(
+							SELECT	B1.CustomerID
+								,	B1.BusinessID
+								,	B2.Name			as BizName
+								,	B2.RepName		as RepName
+								,	B2.BizNo		as BizNo
+							FROM	dbo.TCustomerBusiness B1
+									INNER JOIN
+										dbo.TBusiness B2
+											ON B1.BusinessID = B2.ID
+							WHERE	B1.StartDate < DATEADD(DAY, 1, GETDATE())
+							AND		ISNULL(B1.EndDate, GETDATE()) > DATEADD(DAY, -1, GETDATE())
+						) BB ON AA.ID = BB.CustomerID
+						LEFT JOIN
+							dbo.TCustomerManager CM WITH (NOLOCK)
+								ON AA.ID = CM.CustomerID
+									AND CM.StartDate < DATEADD(DAY, 1, GETDATE())
+									AND ISNULL(CM.EndDate, GETDATE()) > DATEADD(DAY, -1, GETDATE())
+						LEFT JOIN
+							dbo.TEmployee EE WITH (NOLOCK)
+								ON CM.EmployeeID = EE.ID
+						LEFT JOIN
+							dbo.TAppointment FF WITH (NOLOCK)
+								ON CM.EmployeeID = FF.EmployeeID
+									AND FF.StartDate < DATEADD(DAY, 1, GETDATE())
+									AND ISNULL(FF.EndDate, GETDATE()) > DATEADD(DAY, -1, GETDATE())
+									AND FF.MainYn = 'Y'
+						LEFT JOIN
+							dbo.TDepartment DD WITH (NOLOCK)
+								ON FF.DepartmentID = DD.ID
+						LEFT JOIN
+							IKBase.dbo.TCode M1 WITH (NOLOCK)
 								ON AA.CustomerType = M1.Code
 									AND M1.ParentCode = 'CustomerType'
 				WHERE	1=1				
@@ -35,6 +72,16 @@
 					AND	(
 							AA.Name	LIKE '%' + #FindText# + '%'
 						)
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="CustomerType">
+				<![CDATA[
+					AND	AA.CustomerType	= #CustomerType#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="UseYn">
+				<![CDATA[
+					AND	AA.UseYn = #UseYn#
 				]]>
 			</isNotEmpty>
 			<![CDATA[
@@ -87,5 +134,17 @@
 				DELETE FROM dbo.TCustomer WHERE ID = #ID#;
 			]]>
 		</delete>
+		<select id="SelectCustomerBusinessCurrent" parameterClass="DataMap" resultClass="BusinessModel" >
+			<![CDATA[
+				SELECT  BB.*
+				FROM	dbo.TCustomerBusiness AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.TBusiness BB WITH (NOLOCK)
+								ON AA.BusinessID = BB.ID									
+				WHERE	AA.CustomerID = #CustomerID#
+				AND		AA.StartDate < DATEADD(DAY, 1, GETDATE())
+				AND		ISNULL(AA.EndDate, GETDATE()) > DATEADD(DAY, -1, GETDATE())
+			]]>
+		</select>
 	</statements>
 </sqlMap>

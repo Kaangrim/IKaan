@@ -28,72 +28,81 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions3 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions4 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
 			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions2 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions3 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ScrapListForm));
 			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions1 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
 			this.lcGroupSearch = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.esSearchTitle = new DevExpress.XtraLayout.EmptySpaceItem();
 			this.emptySpaceItem2 = new DevExpress.XtraLayout.EmptySpaceItem();
-			this.lcItemFindText = new DevExpress.XtraLayout.LayoutControlItem();
-			this.txtFindText = new DevExpress.XtraEditors.TextEdit();
 			this.lcItemBrand = new DevExpress.XtraLayout.LayoutControlItem();
 			this.lupBrand = new IKaan.Win.Core.Controls.Common.XLookup();
-			this.lcItemSite = new DevExpress.XtraLayout.LayoutControlItem();
-			this.lupSite = new IKaan.Win.Core.Controls.Common.XLookup();
 			this.lcItemCategory = new DevExpress.XtraLayout.LayoutControlItem();
 			this.lupCategory = new IKaan.Win.Core.Controls.Common.XLookup();
+			this.lcItemSite = new DevExpress.XtraLayout.LayoutControlItem();
+			this.lupSite = new IKaan.Win.Core.Controls.Common.XLookup();
+			this.lcItemFindText = new DevExpress.XtraLayout.LayoutControlItem();
+			this.txtFindText = new DevExpress.XtraEditors.TextEdit();
+			this.lcButtonOptionDiv = new DevExpress.XtraLayout.LayoutControlItem();
+			this.btnOptionDiv = new DevExpress.XtraEditors.SimpleButton();
+			this.lcButtonImageUpload = new DevExpress.XtraLayout.LayoutControlItem();
+			this.btnImageUpload = new DevExpress.XtraEditors.SimpleButton();
 			this.lcTabList = new DevExpress.XtraLayout.TabbedControlGroup();
 			this.lcGroupBrand = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.layoutControlItem1 = new DevExpress.XtraLayout.LayoutControlItem();
-			this.gridBrandList = new IKaan.Win.Core.Controls.Grid.XGrid();
+			this.gridBrands = new IKaan.Win.Core.Controls.Grid.XGrid();
 			this.lcGroupCategory = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.layoutControlItem4 = new DevExpress.XtraLayout.LayoutControlItem();
-			this.gridCategoryList = new IKaan.Win.Core.Controls.Grid.XGrid();
-			this.lcGroupColor = new DevExpress.XtraLayout.LayoutControlGroup();
+			this.gridCategories = new IKaan.Win.Core.Controls.Grid.XGrid();
+			this.lcGroupOption = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.layoutControlItem5 = new DevExpress.XtraLayout.LayoutControlItem();
-			this.gridColorList = new IKaan.Win.Core.Controls.Grid.XGrid();
-			this.lcGroupSize = new DevExpress.XtraLayout.LayoutControlGroup();
-			this.layoutControlItem6 = new DevExpress.XtraLayout.LayoutControlItem();
-			this.gridSizeList = new IKaan.Win.Core.Controls.Grid.XGrid();
+			this.gridOptions = new IKaan.Win.Core.Controls.Grid.XGrid();
 			this.lcGroupProduct = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.layoutControlItem7 = new DevExpress.XtraLayout.LayoutControlItem();
-			this.gridProductList = new IKaan.Win.Core.Controls.Grid.XGrid();
+			this.gridProducts = new IKaan.Win.Core.Controls.Grid.XGrid();
 			this.lcGroupEditBase = new DevExpress.XtraLayout.LayoutControlGroup();
+			this.lupImageServer = new IKaan.Win.Core.Controls.Common.XLookup();
+			this.lcItemImageServer = new DevExpress.XtraLayout.LayoutControlItem();
 			((System.ComponentModel.ISupportInitialize)(this.lc)).BeginInit();
 			this.lc.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupBase)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupSearch)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.esSearchTitle)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemFindText)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.txtFindText.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemBrand)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lupBrand.Properties)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemSite)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lupSite.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemCategory)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lupCategory.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemSite)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lupSite.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemFindText)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtFindText.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcButtonOptionDiv)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcButtonImageUpload)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcTabList)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupBrand)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupCategory)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcGroupColor)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcGroupOption)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcGroupSize)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupProduct)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupEditBase)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lupImageServer.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemImageServer)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// lc
 			// 
-			this.lc.Controls.Add(this.gridProductList);
-			this.lc.Controls.Add(this.gridSizeList);
-			this.lc.Controls.Add(this.gridColorList);
-			this.lc.Controls.Add(this.gridCategoryList);
-			this.lc.Controls.Add(this.gridBrandList);
+			this.lc.Controls.Add(this.lupImageServer);
+			this.lc.Controls.Add(this.btnImageUpload);
+			this.lc.Controls.Add(this.btnOptionDiv);
+			this.lc.Controls.Add(this.gridProducts);
+			this.lc.Controls.Add(this.gridOptions);
+			this.lc.Controls.Add(this.gridCategories);
+			this.lc.Controls.Add(this.gridBrands);
 			this.lc.Controls.Add(this.lupCategory);
 			this.lc.Controls.Add(this.lupSite);
 			this.lc.Controls.Add(this.lupBrand);
@@ -123,7 +132,10 @@
             this.lcItemBrand,
             this.lcItemCategory,
             this.lcItemSite,
-            this.lcItemFindText});
+            this.lcItemFindText,
+            this.lcButtonOptionDiv,
+            this.lcButtonImageUpload,
+            this.lcItemImageServer});
 			this.lcGroupSearch.Location = new System.Drawing.Point(0, 0);
 			this.lcGroupSearch.Name = "lcGroupSearch";
 			this.lcGroupSearch.Padding = new DevExpress.XtraLayout.Utils.Padding(4, 4, 4, 4);
@@ -149,7 +161,7 @@
 			this.esSearchTitle.Size = new System.Drawing.Size(216, 40);
 			this.esSearchTitle.SizeConstraintsType = DevExpress.XtraLayout.SizeConstraintsType.Custom;
 			this.esSearchTitle.Text = "검색조건";
-			this.esSearchTitle.TextSize = new System.Drawing.Size(83, 0);
+			this.esSearchTitle.TextSize = new System.Drawing.Size(103, 0);
 			this.esSearchTitle.TextVisible = true;
 			// 
 			// emptySpaceItem2
@@ -157,25 +169,8 @@
 			this.emptySpaceItem2.AllowHotTrack = false;
 			this.emptySpaceItem2.Location = new System.Drawing.Point(0, 204);
 			this.emptySpaceItem2.Name = "emptySpaceItem2";
-			this.emptySpaceItem2.Size = new System.Drawing.Size(216, 331);
+			this.emptySpaceItem2.Size = new System.Drawing.Size(216, 238);
 			this.emptySpaceItem2.TextSize = new System.Drawing.Size(0, 0);
-			// 
-			// lcItemFindText
-			// 
-			this.lcItemFindText.Control = this.txtFindText;
-			this.lcItemFindText.Location = new System.Drawing.Point(0, 163);
-			this.lcItemFindText.Name = "lcItemFindText";
-			this.lcItemFindText.Size = new System.Drawing.Size(216, 41);
-			this.lcItemFindText.TextLocation = DevExpress.Utils.Locations.Top;
-			this.lcItemFindText.TextSize = new System.Drawing.Size(83, 14);
-			// 
-			// txtFindText
-			// 
-			this.txtFindText.Location = new System.Drawing.Point(31, 190);
-			this.txtFindText.Name = "txtFindText";
-			this.txtFindText.Size = new System.Drawing.Size(212, 20);
-			this.txtFindText.StyleController = this.lc;
-			this.txtFindText.TabIndex = 4;
 			// 
 			// lcItemBrand
 			// 
@@ -184,7 +179,7 @@
 			this.lcItemBrand.Name = "lcItemBrand";
 			this.lcItemBrand.Size = new System.Drawing.Size(216, 41);
 			this.lcItemBrand.TextLocation = DevExpress.Utils.Locations.Top;
-			this.lcItemBrand.TextSize = new System.Drawing.Size(83, 14);
+			this.lcItemBrand.TextSize = new System.Drawing.Size(103, 14);
 			// 
 			// lupBrand
 			// 
@@ -196,38 +191,12 @@
 			this.lupBrand.NullText = "[EditValue is null]";
 			this.lupBrand.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions3, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions4, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
 			this.lupBrand.SelectedIndex = -1;
 			this.lupBrand.Size = new System.Drawing.Size(212, 20);
 			this.lupBrand.StyleController = this.lc;
 			this.lupBrand.TabIndex = 32;
 			this.lupBrand.ValueMember = "";
-			// 
-			// lcItemSite
-			// 
-			this.lcItemSite.Control = this.lupSite;
-			this.lcItemSite.Location = new System.Drawing.Point(0, 40);
-			this.lcItemSite.Name = "lcItemSite";
-			this.lcItemSite.Size = new System.Drawing.Size(216, 41);
-			this.lcItemSite.TextLocation = DevExpress.Utils.Locations.Top;
-			this.lcItemSite.TextSize = new System.Drawing.Size(83, 14);
-			// 
-			// lupSite
-			// 
-			this.lupSite.DisplayMember = "";
-			this.lupSite.GroupCode = null;
-			this.lupSite.ListMember = "ListName";
-			this.lupSite.Location = new System.Drawing.Point(31, 67);
-			this.lupSite.Name = "lupSite";
-			this.lupSite.NullText = "[EditValue is null]";
-			this.lupSite.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions2, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
-			this.lupSite.SelectedIndex = -1;
-			this.lupSite.Size = new System.Drawing.Size(212, 20);
-			this.lupSite.StyleController = this.lc;
-			this.lupSite.TabIndex = 33;
-			this.lupSite.ValueMember = "";
 			// 
 			// lcItemCategory
 			// 
@@ -236,7 +205,7 @@
 			this.lcItemCategory.Name = "lcItemCategory";
 			this.lcItemCategory.Size = new System.Drawing.Size(216, 41);
 			this.lcItemCategory.TextLocation = DevExpress.Utils.Locations.Top;
-			this.lcItemCategory.TextSize = new System.Drawing.Size(83, 14);
+			this.lcItemCategory.TextSize = new System.Drawing.Size(103, 14);
 			// 
 			// lupCategory
 			// 
@@ -248,237 +217,277 @@
 			this.lupCategory.NullText = "[EditValue is null]";
 			this.lupCategory.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions2, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
 			this.lupCategory.SelectedIndex = -1;
 			this.lupCategory.Size = new System.Drawing.Size(212, 20);
 			this.lupCategory.StyleController = this.lc;
 			this.lupCategory.TabIndex = 34;
 			this.lupCategory.ValueMember = "";
 			// 
+			// lcItemSite
+			// 
+			this.lcItemSite.Control = this.lupSite;
+			this.lcItemSite.Location = new System.Drawing.Point(0, 40);
+			this.lcItemSite.Name = "lcItemSite";
+			this.lcItemSite.Size = new System.Drawing.Size(216, 41);
+			this.lcItemSite.TextLocation = DevExpress.Utils.Locations.Top;
+			this.lcItemSite.TextSize = new System.Drawing.Size(103, 14);
+			// 
+			// lupSite
+			// 
+			this.lupSite.DisplayMember = "";
+			this.lupSite.GroupCode = null;
+			this.lupSite.ListMember = "ListName";
+			this.lupSite.Location = new System.Drawing.Point(31, 67);
+			this.lupSite.Name = "lupSite";
+			this.lupSite.NullText = "[EditValue is null]";
+			this.lupSite.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo),
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions3, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
+			this.lupSite.SelectedIndex = -1;
+			this.lupSite.Size = new System.Drawing.Size(212, 20);
+			this.lupSite.StyleController = this.lc;
+			this.lupSite.TabIndex = 33;
+			this.lupSite.ValueMember = "";
+			// 
+			// lcItemFindText
+			// 
+			this.lcItemFindText.Control = this.txtFindText;
+			this.lcItemFindText.Location = new System.Drawing.Point(0, 163);
+			this.lcItemFindText.Name = "lcItemFindText";
+			this.lcItemFindText.Size = new System.Drawing.Size(216, 41);
+			this.lcItemFindText.TextLocation = DevExpress.Utils.Locations.Top;
+			this.lcItemFindText.TextSize = new System.Drawing.Size(103, 14);
+			// 
+			// txtFindText
+			// 
+			this.txtFindText.Location = new System.Drawing.Point(31, 190);
+			this.txtFindText.Name = "txtFindText";
+			this.txtFindText.Size = new System.Drawing.Size(212, 20);
+			this.txtFindText.StyleController = this.lc;
+			this.txtFindText.TabIndex = 4;
+			// 
+			// lcButtonOptionDiv
+			// 
+			this.lcButtonOptionDiv.Control = this.btnOptionDiv;
+			this.lcButtonOptionDiv.Location = new System.Drawing.Point(0, 442);
+			this.lcButtonOptionDiv.Name = "lcButtonOptionDiv";
+			this.lcButtonOptionDiv.Size = new System.Drawing.Size(216, 26);
+			this.lcButtonOptionDiv.TextSize = new System.Drawing.Size(0, 0);
+			this.lcButtonOptionDiv.TextVisible = false;
+			// 
+			// btnOptionDiv
+			// 
+			this.btnOptionDiv.Location = new System.Drawing.Point(31, 452);
+			this.btnOptionDiv.Name = "btnOptionDiv";
+			this.btnOptionDiv.Size = new System.Drawing.Size(212, 22);
+			this.btnOptionDiv.StyleController = this.lc;
+			this.btnOptionDiv.TabIndex = 43;
+			this.btnOptionDiv.Text = "옵션수집";
+			// 
+			// lcButtonImageUpload
+			// 
+			this.lcButtonImageUpload.Control = this.btnImageUpload;
+			this.lcButtonImageUpload.Location = new System.Drawing.Point(0, 509);
+			this.lcButtonImageUpload.Name = "lcButtonImageUpload";
+			this.lcButtonImageUpload.Size = new System.Drawing.Size(216, 26);
+			this.lcButtonImageUpload.TextSize = new System.Drawing.Size(0, 0);
+			this.lcButtonImageUpload.TextVisible = false;
+			// 
+			// btnImageUpload
+			// 
+			this.btnImageUpload.Location = new System.Drawing.Point(31, 519);
+			this.btnImageUpload.Name = "btnImageUpload";
+			this.btnImageUpload.Size = new System.Drawing.Size(212, 22);
+			this.btnImageUpload.StyleController = this.lc;
+			this.btnImageUpload.TabIndex = 44;
+			this.btnImageUpload.Text = "이미지업로드";
+			// 
 			// lcTabList
 			// 
 			this.lcTabList.Location = new System.Drawing.Point(0, 0);
 			this.lcTabList.Name = "lcTabList";
 			this.lcTabList.Padding = new DevExpress.XtraLayout.Utils.Padding(2, 2, 2, 2);
-			this.lcTabList.SelectedTabPage = this.lcGroupProduct;
-			this.lcTabList.SelectedTabPageIndex = 4;
+			this.lcTabList.SelectedTabPage = this.lcGroupBrand;
+			this.lcTabList.SelectedTabPageIndex = 0;
 			this.lcTabList.Size = new System.Drawing.Size(736, 548);
 			this.lcTabList.TabPages.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.lcGroupBrand,
             this.lcGroupCategory,
-            this.lcGroupColor,
-            this.lcGroupSize,
+            this.lcGroupOption,
             this.lcGroupProduct});
 			// 
 			// lcGroupBrand
 			// 
+			this.lcGroupBrand.CaptionImage = ((System.Drawing.Image)(resources.GetObject("lcGroupBrand.CaptionImage")));
 			this.lcGroupBrand.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem1});
 			this.lcGroupBrand.Location = new System.Drawing.Point(0, 0);
 			this.lcGroupBrand.Name = "lcGroupBrand";
-			this.lcGroupBrand.Size = new System.Drawing.Size(726, 514);
+			this.lcGroupBrand.Size = new System.Drawing.Size(726, 512);
 			this.lcGroupBrand.Text = "Brand";
 			// 
 			// layoutControlItem1
 			// 
-			this.layoutControlItem1.Control = this.gridBrandList;
+			this.layoutControlItem1.Control = this.gridBrands;
 			this.layoutControlItem1.Location = new System.Drawing.Point(0, 0);
 			this.layoutControlItem1.Name = "layoutControlItem1";
-			this.layoutControlItem1.Size = new System.Drawing.Size(726, 514);
+			this.layoutControlItem1.Size = new System.Drawing.Size(726, 512);
 			this.layoutControlItem1.TextSize = new System.Drawing.Size(0, 0);
 			this.layoutControlItem1.TextVisible = false;
 			// 
-			// gridBrandList
+			// gridBrands
 			// 
-			this.gridBrandList.Compress = false;
-			this.gridBrandList.DataSource = null;
-			this.gridBrandList.Editable = true;
-			this.gridBrandList.FocusedRowHandle = -2147483648;
-			this.gridBrandList.GridViewType = IKaan.Win.Core.Controls.Grid.GridViewType.GridView;
-			this.gridBrandList.Location = new System.Drawing.Point(259, 33);
-			this.gridBrandList.Name = "gridBrandList";
-			this.gridBrandList.PageFooterCenter = null;
-			this.gridBrandList.PageFooterLeft = null;
-			this.gridBrandList.PageFooterRight = null;
-			this.gridBrandList.PageHeaderCenter = null;
-			this.gridBrandList.PageHeaderLeft = null;
-			this.gridBrandList.PageHeaderRight = null;
-			this.gridBrandList.Pager = null;
-			this.gridBrandList.PrintFooter = null;
-			this.gridBrandList.PrintHeader = null;
-			this.gridBrandList.ReadOnly = false;
-			this.gridBrandList.ShowFooter = false;
-			this.gridBrandList.ShowGroupPanel = false;
-			this.gridBrandList.Size = new System.Drawing.Size(722, 510);
-			this.gridBrandList.TabIndex = 37;
+			this.gridBrands.Compress = false;
+			this.gridBrands.DataSource = null;
+			this.gridBrands.Editable = true;
+			this.gridBrands.FocusedRowHandle = -2147483648;
+			this.gridBrands.GridViewType = IKaan.Win.Core.Controls.Grid.GridViewType.GridView;
+			this.gridBrands.Location = new System.Drawing.Point(259, 35);
+			this.gridBrands.Name = "gridBrands";
+			this.gridBrands.PageFooterCenter = null;
+			this.gridBrands.PageFooterLeft = null;
+			this.gridBrands.PageFooterRight = null;
+			this.gridBrands.PageHeaderCenter = null;
+			this.gridBrands.PageHeaderLeft = null;
+			this.gridBrands.PageHeaderRight = null;
+			this.gridBrands.Pager = null;
+			this.gridBrands.PrintFooter = null;
+			this.gridBrands.PrintHeader = null;
+			this.gridBrands.ReadOnly = false;
+			this.gridBrands.ShowFooter = false;
+			this.gridBrands.ShowGroupPanel = false;
+			this.gridBrands.Size = new System.Drawing.Size(722, 508);
+			this.gridBrands.TabIndex = 37;
 			// 
 			// lcGroupCategory
 			// 
+			this.lcGroupCategory.CaptionImage = ((System.Drawing.Image)(resources.GetObject("lcGroupCategory.CaptionImage")));
 			this.lcGroupCategory.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem4});
 			this.lcGroupCategory.Location = new System.Drawing.Point(0, 0);
 			this.lcGroupCategory.Name = "lcGroupCategory";
-			this.lcGroupCategory.Size = new System.Drawing.Size(726, 514);
+			this.lcGroupCategory.Size = new System.Drawing.Size(726, 512);
 			this.lcGroupCategory.Text = "Category";
 			// 
 			// layoutControlItem4
 			// 
-			this.layoutControlItem4.Control = this.gridCategoryList;
+			this.layoutControlItem4.Control = this.gridCategories;
 			this.layoutControlItem4.Location = new System.Drawing.Point(0, 0);
 			this.layoutControlItem4.Name = "layoutControlItem4";
-			this.layoutControlItem4.Size = new System.Drawing.Size(726, 514);
+			this.layoutControlItem4.Size = new System.Drawing.Size(726, 512);
 			this.layoutControlItem4.TextSize = new System.Drawing.Size(0, 0);
 			this.layoutControlItem4.TextVisible = false;
 			// 
-			// gridCategoryList
+			// gridCategories
 			// 
-			this.gridCategoryList.Compress = false;
-			this.gridCategoryList.DataSource = null;
-			this.gridCategoryList.Editable = true;
-			this.gridCategoryList.FocusedRowHandle = -2147483648;
-			this.gridCategoryList.GridViewType = IKaan.Win.Core.Controls.Grid.GridViewType.GridView;
-			this.gridCategoryList.Location = new System.Drawing.Point(259, 33);
-			this.gridCategoryList.Name = "gridCategoryList";
-			this.gridCategoryList.PageFooterCenter = null;
-			this.gridCategoryList.PageFooterLeft = null;
-			this.gridCategoryList.PageFooterRight = null;
-			this.gridCategoryList.PageHeaderCenter = null;
-			this.gridCategoryList.PageHeaderLeft = null;
-			this.gridCategoryList.PageHeaderRight = null;
-			this.gridCategoryList.Pager = null;
-			this.gridCategoryList.PrintFooter = null;
-			this.gridCategoryList.PrintHeader = null;
-			this.gridCategoryList.ReadOnly = false;
-			this.gridCategoryList.ShowFooter = false;
-			this.gridCategoryList.ShowGroupPanel = false;
-			this.gridCategoryList.Size = new System.Drawing.Size(722, 510);
-			this.gridCategoryList.TabIndex = 39;
+			this.gridCategories.Compress = false;
+			this.gridCategories.DataSource = null;
+			this.gridCategories.Editable = true;
+			this.gridCategories.FocusedRowHandle = -2147483648;
+			this.gridCategories.GridViewType = IKaan.Win.Core.Controls.Grid.GridViewType.GridView;
+			this.gridCategories.Location = new System.Drawing.Point(259, 35);
+			this.gridCategories.Name = "gridCategories";
+			this.gridCategories.PageFooterCenter = null;
+			this.gridCategories.PageFooterLeft = null;
+			this.gridCategories.PageFooterRight = null;
+			this.gridCategories.PageHeaderCenter = null;
+			this.gridCategories.PageHeaderLeft = null;
+			this.gridCategories.PageHeaderRight = null;
+			this.gridCategories.Pager = null;
+			this.gridCategories.PrintFooter = null;
+			this.gridCategories.PrintHeader = null;
+			this.gridCategories.ReadOnly = false;
+			this.gridCategories.ShowFooter = false;
+			this.gridCategories.ShowGroupPanel = false;
+			this.gridCategories.Size = new System.Drawing.Size(722, 508);
+			this.gridCategories.TabIndex = 39;
 			// 
-			// lcGroupColor
+			// lcGroupOption
 			// 
-			this.lcGroupColor.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+			this.lcGroupOption.CaptionImage = ((System.Drawing.Image)(resources.GetObject("lcGroupOption.CaptionImage")));
+			this.lcGroupOption.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem5});
-			this.lcGroupColor.Location = new System.Drawing.Point(0, 0);
-			this.lcGroupColor.Name = "lcGroupColor";
-			this.lcGroupColor.Size = new System.Drawing.Size(726, 514);
-			this.lcGroupColor.Text = "Color";
+			this.lcGroupOption.Location = new System.Drawing.Point(0, 0);
+			this.lcGroupOption.Name = "lcGroupOption";
+			this.lcGroupOption.Size = new System.Drawing.Size(726, 512);
+			this.lcGroupOption.Text = "Option";
 			// 
 			// layoutControlItem5
 			// 
-			this.layoutControlItem5.Control = this.gridColorList;
+			this.layoutControlItem5.Control = this.gridOptions;
 			this.layoutControlItem5.Location = new System.Drawing.Point(0, 0);
 			this.layoutControlItem5.Name = "layoutControlItem5";
-			this.layoutControlItem5.Size = new System.Drawing.Size(726, 514);
+			this.layoutControlItem5.Size = new System.Drawing.Size(726, 512);
 			this.layoutControlItem5.TextSize = new System.Drawing.Size(0, 0);
 			this.layoutControlItem5.TextVisible = false;
 			// 
-			// gridColorList
+			// gridOptions
 			// 
-			this.gridColorList.Compress = false;
-			this.gridColorList.DataSource = null;
-			this.gridColorList.Editable = true;
-			this.gridColorList.FocusedRowHandle = -2147483648;
-			this.gridColorList.GridViewType = IKaan.Win.Core.Controls.Grid.GridViewType.GridView;
-			this.gridColorList.Location = new System.Drawing.Point(259, 33);
-			this.gridColorList.Name = "gridColorList";
-			this.gridColorList.PageFooterCenter = null;
-			this.gridColorList.PageFooterLeft = null;
-			this.gridColorList.PageFooterRight = null;
-			this.gridColorList.PageHeaderCenter = null;
-			this.gridColorList.PageHeaderLeft = null;
-			this.gridColorList.PageHeaderRight = null;
-			this.gridColorList.Pager = null;
-			this.gridColorList.PrintFooter = null;
-			this.gridColorList.PrintHeader = null;
-			this.gridColorList.ReadOnly = false;
-			this.gridColorList.ShowFooter = false;
-			this.gridColorList.ShowGroupPanel = false;
-			this.gridColorList.Size = new System.Drawing.Size(722, 510);
-			this.gridColorList.TabIndex = 40;
-			// 
-			// lcGroupSize
-			// 
-			this.lcGroupSize.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
-            this.layoutControlItem6});
-			this.lcGroupSize.Location = new System.Drawing.Point(0, 0);
-			this.lcGroupSize.Name = "lcGroupSize";
-			this.lcGroupSize.Size = new System.Drawing.Size(726, 514);
-			this.lcGroupSize.Text = "Size";
-			// 
-			// layoutControlItem6
-			// 
-			this.layoutControlItem6.Control = this.gridSizeList;
-			this.layoutControlItem6.Location = new System.Drawing.Point(0, 0);
-			this.layoutControlItem6.Name = "layoutControlItem6";
-			this.layoutControlItem6.Size = new System.Drawing.Size(726, 514);
-			this.layoutControlItem6.TextSize = new System.Drawing.Size(0, 0);
-			this.layoutControlItem6.TextVisible = false;
-			// 
-			// gridSizeList
-			// 
-			this.gridSizeList.Compress = false;
-			this.gridSizeList.DataSource = null;
-			this.gridSizeList.Editable = true;
-			this.gridSizeList.FocusedRowHandle = -2147483648;
-			this.gridSizeList.GridViewType = IKaan.Win.Core.Controls.Grid.GridViewType.GridView;
-			this.gridSizeList.Location = new System.Drawing.Point(259, 33);
-			this.gridSizeList.Name = "gridSizeList";
-			this.gridSizeList.PageFooterCenter = null;
-			this.gridSizeList.PageFooterLeft = null;
-			this.gridSizeList.PageFooterRight = null;
-			this.gridSizeList.PageHeaderCenter = null;
-			this.gridSizeList.PageHeaderLeft = null;
-			this.gridSizeList.PageHeaderRight = null;
-			this.gridSizeList.Pager = null;
-			this.gridSizeList.PrintFooter = null;
-			this.gridSizeList.PrintHeader = null;
-			this.gridSizeList.ReadOnly = false;
-			this.gridSizeList.ShowFooter = false;
-			this.gridSizeList.ShowGroupPanel = false;
-			this.gridSizeList.Size = new System.Drawing.Size(722, 510);
-			this.gridSizeList.TabIndex = 41;
+			this.gridOptions.Compress = false;
+			this.gridOptions.DataSource = null;
+			this.gridOptions.Editable = true;
+			this.gridOptions.FocusedRowHandle = -2147483648;
+			this.gridOptions.GridViewType = IKaan.Win.Core.Controls.Grid.GridViewType.GridView;
+			this.gridOptions.Location = new System.Drawing.Point(259, 35);
+			this.gridOptions.Name = "gridOptions";
+			this.gridOptions.PageFooterCenter = null;
+			this.gridOptions.PageFooterLeft = null;
+			this.gridOptions.PageFooterRight = null;
+			this.gridOptions.PageHeaderCenter = null;
+			this.gridOptions.PageHeaderLeft = null;
+			this.gridOptions.PageHeaderRight = null;
+			this.gridOptions.Pager = null;
+			this.gridOptions.PrintFooter = null;
+			this.gridOptions.PrintHeader = null;
+			this.gridOptions.ReadOnly = false;
+			this.gridOptions.ShowFooter = false;
+			this.gridOptions.ShowGroupPanel = false;
+			this.gridOptions.Size = new System.Drawing.Size(722, 508);
+			this.gridOptions.TabIndex = 40;
 			// 
 			// lcGroupProduct
 			// 
+			this.lcGroupProduct.CaptionImage = ((System.Drawing.Image)(resources.GetObject("lcGroupProduct.CaptionImage")));
 			this.lcGroupProduct.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
             this.layoutControlItem7});
 			this.lcGroupProduct.Location = new System.Drawing.Point(0, 0);
 			this.lcGroupProduct.Name = "lcGroupProduct";
-			this.lcGroupProduct.Size = new System.Drawing.Size(726, 514);
+			this.lcGroupProduct.Size = new System.Drawing.Size(726, 512);
 			this.lcGroupProduct.Text = "Product";
 			// 
 			// layoutControlItem7
 			// 
-			this.layoutControlItem7.Control = this.gridProductList;
+			this.layoutControlItem7.Control = this.gridProducts;
 			this.layoutControlItem7.Location = new System.Drawing.Point(0, 0);
 			this.layoutControlItem7.Name = "layoutControlItem7";
-			this.layoutControlItem7.Size = new System.Drawing.Size(726, 514);
+			this.layoutControlItem7.Size = new System.Drawing.Size(726, 512);
 			this.layoutControlItem7.TextSize = new System.Drawing.Size(0, 0);
 			this.layoutControlItem7.TextVisible = false;
 			// 
-			// gridProductList
+			// gridProducts
 			// 
-			this.gridProductList.Compress = false;
-			this.gridProductList.DataSource = null;
-			this.gridProductList.Editable = true;
-			this.gridProductList.FocusedRowHandle = -2147483648;
-			this.gridProductList.GridViewType = IKaan.Win.Core.Controls.Grid.GridViewType.GridView;
-			this.gridProductList.Location = new System.Drawing.Point(259, 33);
-			this.gridProductList.Name = "gridProductList";
-			this.gridProductList.PageFooterCenter = null;
-			this.gridProductList.PageFooterLeft = null;
-			this.gridProductList.PageFooterRight = null;
-			this.gridProductList.PageHeaderCenter = null;
-			this.gridProductList.PageHeaderLeft = null;
-			this.gridProductList.PageHeaderRight = null;
-			this.gridProductList.Pager = null;
-			this.gridProductList.PrintFooter = null;
-			this.gridProductList.PrintHeader = null;
-			this.gridProductList.ReadOnly = false;
-			this.gridProductList.ShowFooter = false;
-			this.gridProductList.ShowGroupPanel = false;
-			this.gridProductList.Size = new System.Drawing.Size(722, 510);
-			this.gridProductList.TabIndex = 42;
+			this.gridProducts.Compress = false;
+			this.gridProducts.DataSource = null;
+			this.gridProducts.Editable = true;
+			this.gridProducts.FocusedRowHandle = -2147483648;
+			this.gridProducts.GridViewType = IKaan.Win.Core.Controls.Grid.GridViewType.GridView;
+			this.gridProducts.Location = new System.Drawing.Point(259, 35);
+			this.gridProducts.Name = "gridProducts";
+			this.gridProducts.PageFooterCenter = null;
+			this.gridProducts.PageFooterLeft = null;
+			this.gridProducts.PageFooterRight = null;
+			this.gridProducts.PageHeaderCenter = null;
+			this.gridProducts.PageHeaderLeft = null;
+			this.gridProducts.PageHeaderRight = null;
+			this.gridProducts.Pager = null;
+			this.gridProducts.PrintFooter = null;
+			this.gridProducts.PrintHeader = null;
+			this.gridProducts.ReadOnly = false;
+			this.gridProducts.ShowFooter = false;
+			this.gridProducts.ShowGroupPanel = false;
+			this.gridProducts.Size = new System.Drawing.Size(722, 508);
+			this.gridProducts.TabIndex = 42;
 			// 
 			// lcGroupEditBase
 			// 
@@ -489,6 +498,32 @@
 			this.lcGroupEditBase.Name = "lcGroupEditBase";
 			this.lcGroupEditBase.Size = new System.Drawing.Size(736, 548);
 			this.lcGroupEditBase.TextVisible = false;
+			// 
+			// lupImageServer
+			// 
+			this.lupImageServer.DisplayMember = "";
+			this.lupImageServer.GroupCode = null;
+			this.lupImageServer.ListMember = "ListName";
+			this.lupImageServer.Location = new System.Drawing.Point(31, 495);
+			this.lupImageServer.Name = "lupImageServer";
+			this.lupImageServer.NullText = "[EditValue is null]";
+			this.lupImageServer.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo),
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
+			this.lupImageServer.SelectedIndex = -1;
+			this.lupImageServer.Size = new System.Drawing.Size(212, 20);
+			this.lupImageServer.StyleController = this.lc;
+			this.lupImageServer.TabIndex = 45;
+			this.lupImageServer.ValueMember = "";
+			// 
+			// lcItemImageServer
+			// 
+			this.lcItemImageServer.Control = this.lupImageServer;
+			this.lcItemImageServer.Location = new System.Drawing.Point(0, 468);
+			this.lcItemImageServer.Name = "lcItemImageServer";
+			this.lcItemImageServer.Size = new System.Drawing.Size(216, 41);
+			this.lcItemImageServer.TextLocation = DevExpress.Utils.Locations.Top;
+			this.lcItemImageServer.TextSize = new System.Drawing.Size(103, 14);
 			// 
 			// ScrapListForm
 			// 
@@ -506,26 +541,28 @@
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupSearch)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.esSearchTitle)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.emptySpaceItem2)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemFindText)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.txtFindText.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemBrand)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lupBrand.Properties)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcItemSite)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lupSite.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemCategory)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lupCategory.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemSite)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lupSite.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemFindText)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.txtFindText.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcButtonOptionDiv)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcButtonImageUpload)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcTabList)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupBrand)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem1)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupCategory)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem4)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcGroupColor)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcGroupOption)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem5)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcGroupSize)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem6)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupProduct)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem7)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupEditBase)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lupImageServer.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcItemImageServer)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -545,20 +582,23 @@
 		private Core.Controls.Common.XLookup lupCategory;
 		private DevExpress.XtraLayout.LayoutControlItem lcItemCategory;
 		private DevExpress.XtraLayout.LayoutControlGroup lcGroupEditBase;
-		private Core.Controls.Grid.XGrid gridBrandList;
+		private Core.Controls.Grid.XGrid gridBrands;
 		private DevExpress.XtraLayout.LayoutControlGroup lcGroupBrand;
 		private DevExpress.XtraLayout.LayoutControlItem layoutControlItem1;
-		private Core.Controls.Grid.XGrid gridCategoryList;
+		private Core.Controls.Grid.XGrid gridCategories;
 		private DevExpress.XtraLayout.LayoutControlGroup lcGroupCategory;
 		private DevExpress.XtraLayout.LayoutControlItem layoutControlItem4;
-		private Core.Controls.Grid.XGrid gridSizeList;
-		private Core.Controls.Grid.XGrid gridColorList;
-		private DevExpress.XtraLayout.LayoutControlGroup lcGroupSize;
-		private DevExpress.XtraLayout.LayoutControlItem layoutControlItem6;
-		private DevExpress.XtraLayout.LayoutControlGroup lcGroupColor;
+		private Core.Controls.Grid.XGrid gridOptions;
+		private DevExpress.XtraLayout.LayoutControlGroup lcGroupOption;
 		private DevExpress.XtraLayout.LayoutControlItem layoutControlItem5;
 		private DevExpress.XtraLayout.LayoutControlGroup lcGroupProduct;
-		private Core.Controls.Grid.XGrid gridProductList;
+		private Core.Controls.Grid.XGrid gridProducts;
 		private DevExpress.XtraLayout.LayoutControlItem layoutControlItem7;
+		private DevExpress.XtraEditors.SimpleButton btnOptionDiv;
+		private DevExpress.XtraLayout.LayoutControlItem lcButtonOptionDiv;
+		private DevExpress.XtraEditors.SimpleButton btnImageUpload;
+		private DevExpress.XtraLayout.LayoutControlItem lcButtonImageUpload;
+		private Core.Controls.Common.XLookup lupImageServer;
+		private DevExpress.XtraLayout.LayoutControlItem lcItemImageServer;
 	}
 }

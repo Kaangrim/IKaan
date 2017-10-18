@@ -65,6 +65,10 @@ namespace IKaan.Model.Scrap.Common
 		public string Gender { get; set; }
 
 		[DataMember]
+		[Display(Name = "시즌")]
+		public string Season { get; set; }
+
+		[DataMember]
 		[Display(Name = "설명")]
 		public string Description { get; set; }
 

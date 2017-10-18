@@ -15,6 +15,8 @@ namespace IKaan.Win.View.Biz.Master.Brand
 		public BrandListForm()
 		{
 			InitializeComponent();
+
+			btnFromScrap.Click += (object sender, EventArgs e) => { FromScrap(); };
 		}
 
 		protected override void OnShown(EventArgs e)
@@ -53,8 +55,9 @@ namespace IKaan.Win.View.Biz.Master.Brand
 				new XGridColumn() { FieldName = "RowNo" },
 				new XGridColumn() { FieldName = "ID", Visible = false },
 				new XGridColumn() { FieldName = "Name", CaptionCode = "BrandName", Width = 200 },
-				new XGridColumn() { FieldName = "Category", CaptionCode = "BrandCategory", Width = 150, HorzAlignment = HorzAlignment.Center },
-				new XGridColumn() { FieldName = "Style", CaptionCode = "BrandStyle", Width = 150, HorzAlignment = HorzAlignment.Center },
+				new XGridColumn() { FieldName = "Code", CaptionCode = "BrandCode", Width = 100 },
+				new XGridColumn() { FieldName = "CategoryName", CaptionCode = "BrandCategoryName", Width = 150, HorzAlignment = HorzAlignment.Center },
+				new XGridColumn() { FieldName = "StyleName", CaptionCode = "BrandStyleName", Width = 150, HorzAlignment = HorzAlignment.Center },
 				new XGridColumn() { FieldName = "UseYn", Width = 80, HorzAlignment = HorzAlignment.Center },
 				new XGridColumn() { FieldName = "Description", Width = 200 },
 				new XGridColumn() { FieldName = "CreatedOn" },
@@ -63,6 +66,7 @@ namespace IKaan.Win.View.Biz.Master.Brand
 				new XGridColumn() { FieldName = "UpdatedByName" }
 			);
 			gridList.ColumnFix("RowNo");
+			gridList.SetRepositoryItemCheckEdit("UseYn");
 
 			gridList.RowCellClick += delegate (object sender, RowCellClickEventArgs e)
 			{
@@ -82,12 +86,6 @@ namespace IKaan.Win.View.Biz.Master.Brand
 					ShowErrBox(ex);
 				}
 			};
-		}
-
-		protected override void LoadForm()
-		{
-			base.LoadForm();
-			DataLoad();
 		}
 
 		protected override void DataLoad(object param = null)
@@ -113,6 +111,19 @@ namespace IKaan.Win.View.Biz.Master.Brand
 				form.StartPosition = FormStartPosition.CenterScreen;
 				form.IsLoadingRefresh = true;
 				form.ParamsData = data;
+				if (form.ShowDialog() == DialogResult.OK)
+				{
+					DataLoad();
+				}
+			}
+		}
+
+		private void FromScrap()
+		{
+			using (var form = new BrandFromScrapForm())
+			{
+				form.Text = "브랜드등록(From 스크랩)";
+				form.StartPosition = FormStartPosition.CenterScreen;
 				if (form.ShowDialog() == DialogResult.OK)
 				{
 					DataLoad();

@@ -683,6 +683,94 @@
 				ORDER BY SortOrder, Name
 			]]>
 		</select>
+		<select id="SelectCodeHelpStoreList" parameterClass="DataMap" resultClass="UCodeHelp" >
+			<![CDATA[
+				SELECT	aa.ID								as ID
+					,	CONVERT(VARCHAR, aa.ID)				as Code
+					,	aa.Name								as Name
+					,	aa.Name								as ListName
+					,	aa.Name								as DispName
+					,	CONVERT(VARCHAR, aa.ID)				as Value
+					,	ROW_NUMBER() OVER (ORDER BY aa.ID)	as SortOrder
+					,	0									as MaxLength
+					,	null								as Option1
+					,	null								as Option2
+					,	null								as Option3
+					,	null								as Option4
+					,	null								as Option5
+					,	null								as Option6
+					,	null								as Option7
+					,	null								as Option8
+					,	null								as Option9
+				FROM	IKBiz.dbo.TStore aa WITH (NOLOCK)
+				WHERE	1=1
+			]]>
+			<isNotEmpty property="UseYn">
+				<![CDATA[
+					AND	aa.UseYn = #UseYn#
+				]]>
+			</isNotEmpty>
+			<isEmpty property="UseYn">
+				<![CDATA[
+					AND	aa.UseYn = 'Y'
+				]]>
+			</isEmpty>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(
+							CONVERT(VARCHAR, aa.ID) = #FindText#	OR
+							aa.Name	Like '%'+#FindText#+'%'
+						)
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY SortOrder, Name
+			]]>
+		</select>
+		<select id="SelectCodeHelpCompanyList" parameterClass="DataMap" resultClass="UCodeHelp" >
+			<![CDATA[
+				SELECT	aa.ID								as ID
+					,	CONVERT(VARCHAR, aa.ID)				as Code
+					,	aa.Name								as Name
+					,	aa.Name								as ListName
+					,	aa.Name								as DispName
+					,	CONVERT(VARCHAR, aa.ID)				as Value
+					,	ROW_NUMBER() OVER (ORDER BY aa.ID)	as SortOrder
+					,	0									as MaxLength
+					,	null								as Option1
+					,	null								as Option2
+					,	null								as Option3
+					,	null								as Option4
+					,	null								as Option5
+					,	null								as Option6
+					,	null								as Option7
+					,	null								as Option8
+					,	null								as Option9
+				FROM	IKBiz.dbo.TCompany aa WITH (NOLOCK)
+				WHERE	1=1
+			]]>
+			<isNotEmpty property="UseYn">
+				<![CDATA[
+					AND	aa.UseYn = #UseYn#
+				]]>
+			</isNotEmpty>
+			<isEmpty property="UseYn">
+				<![CDATA[
+					AND	aa.UseYn = 'Y'
+				]]>
+			</isEmpty>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(
+							CONVERT(VARCHAR, aa.ID) = #FindText#	OR
+							aa.Name	Like '%'+#FindText#+'%'
+						)
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY SortOrder, Name
+			]]>
+		</select>		
 		<select id="SelectCodeHelpCustomerList" parameterClass="DataMap" resultClass="UCodeHelp" >
 			<![CDATA[
 				SELECT	aa.ID								as ID
@@ -727,35 +815,196 @@
 				ORDER BY SortOrder, Name
 			]]>
 		</select>
+		<select id="SelectCodeHelpPartnerList" parameterClass="DataMap" resultClass="UCodeHelp" >
+			<![CDATA[
+				SELECT	aa.ID								as ID
+					,	CONVERT(VARCHAR, aa.ID)				as Code
+					,	aa.Name								as Name
+					,	aa.Name								as ListName
+					,	aa.Name								as DispName
+					,	CONVERT(VARCHAR, aa.ID)				as Value
+					,	ROW_NUMBER() OVER (ORDER BY aa.ID)	as SortOrder
+					,	0									as MaxLength
+					,	null								as Option1
+					,	null								as Option2
+					,	null								as Option3
+					,	null								as Option4
+					,	null								as Option5
+					,	null								as Option6
+					,	null								as Option7
+					,	null								as Option8
+					,	null								as Option9
+				FROM	IKBiz.dbo.TPartner aa WITH (NOLOCK)
+				WHERE	1=1
+			]]>
+			<isNotEmpty property="UseYn">
+				<![CDATA[
+					AND	aa.UseYn = #UseYn#
+				]]>
+			</isNotEmpty>
+			<isEmpty property="UseYn">
+				<![CDATA[
+					AND	aa.UseYn = 'Y'
+				]]>
+			</isEmpty>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(
+							CONVERT(VARCHAR, aa.ID) = #FindText#	OR
+							aa.Name	Like '%'+#FindText#+'%'
+						)
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY SortOrder, Name
+			]]>
+		</select>
+		<select id="SelectCodeHelpMemberList" parameterClass="DataMap" resultClass="UCodeHelp" >
+			<![CDATA[
+				SELECT	aa.ID								as ID
+					,	CONVERT(VARCHAR, aa.ID)				as Code
+					,	aa.Name								as Name
+					,	aa.Name								as ListName
+					,	aa.Name								as DispName
+					,	CONVERT(VARCHAR, aa.ID)				as Value
+					,	ROW_NUMBER() OVER (ORDER BY aa.ID)	as SortOrder
+					,	0									as MaxLength
+					,	null								as Option1
+					,	null								as Option2
+					,	null								as Option3
+					,	null								as Option4
+					,	null								as Option5
+					,	null								as Option6
+					,	null								as Option7
+					,	null								as Option8
+					,	null								as Option9
+				FROM	IKBiz.dbo.TMember aa WITH (NOLOCK)
+				WHERE	1=1
+			]]>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(
+							CONVERT(VARCHAR, aa.ID) = #FindText#	OR
+							aa.Name	Like '%'+#FindText#+'%'
+						)
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY SortOrder, Name
+			]]>
+		</select>
+
 		<select id="SelectCodeHelpCategoryList" parameterClass="DataMap" resultClass="UCodeHelp" >
 			<![CDATA[
-				WITH CTE (ID, Name, Path, ParentID, HierID, Level)
+				WITH CAT (ID, Code, Name, Level, ParentCode, SortOrder)
 				AS
 				(
-					SELECT	AA.ID															as ID
-						,	AA.Name															as Name
-						,	CONVERT(VARCHAR(1000), AA.Name)									as Path
-						,	AA.ParentID														as ParentID
-						,	CONVERT(VARCHAR(1000), 
-								RIGHT('000000' + CONVERT(VARCHAR, AA.SortOrder, AA.ID), 6))	as HierID
-						,	1																as Level
-					FROM	IKBiz.dbo.TCategory aa
-					WHERE	AA.ParentID IS NULL
-					AND		AA.UseYn = 'Y'
+					SELECT	DISTINCT
+							AA.Category1											as ID
+						,	RIGHT('00000000' + CONVERT(VARCHAR, AA.ID), 8) + 
+							RIGHT('00000000' + CONVERT(VARCHAR, AA.Category1), 8)	as Code
+						,	BB.Name
+						,	1				as Level
+						,	NULL			as ParentCode
+						,	AA.SortOrder	as SortOrder
+					FROM	IKBiz.dbo.TCategory AA
+							INNER JOIN
+								IKBiz.dbo.TCategoryItem BB 
+									ON AA.Category1 = BB.ID
+					WHERE	AA.Category1 IS NOT NULL
+					AND		AA.UseYn	= 'Y'
 					UNION ALL
-					SELECT	AA.ID															as ID
-						,	AA.Name															as Name
-						,	CONVERT(VARCHAR(1000), bb.Path + ' ▶ ' + AA.Name)				as Path
-						,	AA.ParentID														as ParentID
-						,	CONVERT(VARCHAR(1000), 
+					SELECT	DISTINCT
+							Category2												as ID
+						,	RIGHT('00000000' + CONVERT(VARCHAR, AA.ID), 8) + 
+							RIGHT('00000000' + CONVERT(VARCHAR, AA.Category2), 8)	as Code
+						,	BB.Name
+						,	2														as Level
+						,	RIGHT('00000000' + CONVERT(VARCHAR, AA.ID), 8) + 
+							RIGHT('00000000' + CONVERT(VARCHAR, AA.Category1), 8)	as ParentCode
+						,	AA.SortOrder											as SortOrder
+					FROM	IKBiz.dbo.TCategory AA
+							INNER JOIN
+								IKBiz.dbo.TCategoryItem BB 
+									ON AA.Category2 = BB.ID
+					WHERE	AA.Category2 IS NOT NULL
+					AND		AA.UseYn	= 'Y'
+					UNION ALL
+					SELECT	DISTINCT
+							Category3												as ID
+						,	RIGHT('00000000' + CONVERT(VARCHAR, AA.ID), 8) + 
+							RIGHT('00000000' + CONVERT(VARCHAR, AA.Category3), 8)	as Code
+						,	BB.Name
+						,	3														as Level
+						,	RIGHT('00000000' + CONVERT(VARCHAR, AA.ID), 8) + 
+							RIGHT('00000000' + CONVERT(VARCHAR, AA.Category2), 8)	as ParentCode
+						,	AA.SortOrder											as SortOrder
+					FROM	IKBiz.dbo.TCategory AA
+							INNER JOIN
+								IKBiz.dbo.TCategoryItem BB 
+									ON AA.Category3 = BB.ID
+					WHERE	AA.Category3 IS NOT NULL
+					AND		AA.UseYn	= 'Y'
+					UNION ALL
+					SELECT	DISTINCT
+							Category4												as ID
+						,	RIGHT('00000000' + CONVERT(VARCHAR, AA.ID), 8) + 
+							RIGHT('00000000' + CONVERT(VARCHAR, AA.Category4), 8)	as Code
+						,	BB.Name
+						,	4														as Level
+						,	RIGHT('00000000' + CONVERT(VARCHAR, AA.ID), 8) + 
+							RIGHT('00000000' + CONVERT(VARCHAR, AA.Category3), 8)	as ParentCode
+						,	AA.SortOrder											as SortOrder
+					FROM	IKBiz.dbo.TCategory AA
+							INNER JOIN
+								IKBiz.dbo.TCategoryItem BB 
+									ON AA.Category4 = BB.ID
+					WHERE	AA.Category4 IS NOT NULL
+					AND		AA.UseYn	= 'Y'
+					UNION ALL
+					SELECT	DISTINCT
+							Category5												as ID
+						,	RIGHT('00000000' + CONVERT(VARCHAR, AA.ID), 8) + 
+							RIGHT('00000000' + CONVERT(VARCHAR, AA.Category5), 8)	as Code
+						,	BB.Name
+						,	5														as Level
+						,	RIGHT('00000000' + CONVERT(VARCHAR, AA.ID), 8) + 
+							RIGHT('00000000' + CONVERT(VARCHAR, AA.Category4), 8)	as ParentCode
+						,	AA.SortOrder											as SortOrder
+					FROM	IKBiz.dbo.TCategory AA
+							INNER JOIN
+								IKBiz.dbo.TCategoryItem BB 
+									ON AA.Category5 = BB.ID
+					WHERE	AA.Category5 IS NOT NULL
+					AND		AA.UseYn	= 'Y'
+				)
+				, CTE (ID, Code, Name, Path, ParentCode, HierID, Level)
+				AS
+				(
+					SELECT	AA.ID																as ID
+						,	AA.Code
+						,	AA.Name																as Name
+						,	CONVERT(VARCHAR(MAX), AA.Name)										as Path
+						,	AA.ParentCode														as ParentCode
+						,	CONVERT(VARCHAR(MAX), 
+								RIGHT('000000' + CONVERT(VARCHAR, AA.SortOrder), 6) + AA.Code)	as HierID
+						,	1																	as Level
+					FROM	CAT aa
+					WHERE	aa.ParentCode IS NULL
+					UNION ALL
+					SELECT	AA.ID																as ID
+						,	AA.Code																as Code
+						,	AA.Name																as Name
+						,	CONVERT(VARCHAR(MAX), bb.Path + ' ▶ ' + AA.Name)					as Path
+						,	AA.ParentCode														as ParentCode
+						,	CONVERT(VARCHAR(MAX), 
 								bb.HierID + '-' + 
-								RIGHT('000000'+CONVERT(VARCHAR, AA.SortOrder, AA.ID), 6))	as HierID
-						,	bb.Level + 1													as Level
-					FROM	IKBiz.dbo.TCategory aa
+								RIGHT('000000'+CONVERT(VARCHAR, AA.SortOrder), 6) + AA.Code)	as HierID
+						,	bb.Level + 1														as Level
+					FROM	CAT aa
 							INNER JOIN 
 								CTE bb 
-									on AA.ParentID = bb.ID
-					WHERE	AA.UseYn = 'Y'
+									on AA.ParentCode = bb.Code
 				)
 				SELECT	aa.ID									as ID					
 					,	CONVERT(VARCHAR, aa.ID)					as Code
@@ -770,9 +1019,9 @@
 					,	CONVERT(VARCHAR, aa.ID)					as Value
 					,	ROW_NUMBER() OVER (ORDER BY aa.HierID)	as SortOrder
 					,	0										as MaxLength
-					,	aa.ID									as Option1
+					,	CONVERT(VARCHAR, aa.ID)					as Option1
 					,	aa.HierID								as Option2
-					,	null									as Option3
+					,	aa.ParentCode							as Option3
 					,	null									as Option4
 					,	null									as Option5
 					,	null									as Option6
@@ -782,6 +1031,126 @@
 				FROM	CTE aa
 				WHERE	1=1
 			]]>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(
+							aa.Code	= #FindText#	OR
+							aa.Name	Like '%'+#FindText#+'%'
+						)
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY SortOrder, Name
+			]]>
+		</select>
+		<select id="SelectCodeHelpCategories" parameterClass="DataMap" resultClass="UCodeHelp" >
+			<![CDATA[
+				SELECT	aa.ID								as ID
+					,	CONVERT(VARCHAR, aa.ID)				as Code
+					,	aa.Name								as Name
+					,	ISNULL(c1.Name, '') +
+						ISNULL('>'+c2.Name, '') +
+						ISNULL('>'+c3.Name, '') + 
+						ISNULL('>'+c4.Name, '') +
+						ISNULL('>'+c5.Name, '')				as ListName
+					,	aa.Name								as DispName
+					,	CONVERT(VARCHAR, aa.ID)				as Value
+					,	ROW_NUMBER() OVER 
+							(ORDER BY 
+								aa.SortOrder,
+								ISNULL(c1.SortOrder, 0), 
+								ISNULL(c2.SortOrder, 0),
+								ISNULL(c3.SortOrder, 0),
+								ISNULL(c4.SortOrder, 0),
+								ISNULL(c5.SortOrder, 0),
+								aa.ID)						as SortOrder
+					,	0																						as MaxLength
+					,	CASE WHEN aa.Category1 IS NOT NULL THEN CONVERT(VARCHAR, aa.Category1) ELSE NULL END	as Option1
+					,	CASE WHEN aa.Category2 IS NOT NULL THEN CONVERT(VARCHAR, aa.Category2) ELSE NULL END	as Option2
+					,	CASE WHEN aa.Category3 IS NOT NULL THEN CONVERT(VARCHAR, aa.Category3) ELSE NULL END	as Option3
+					,	CASE WHEN aa.Category4 IS NOT NULL THEN CONVERT(VARCHAR, aa.Category4) ELSE NULL END	as Option4
+					,	CASE WHEN aa.Category5 IS NOT NULL THEN CONVERT(VARCHAR, aa.Category5) ELSE NULL END	as Option5
+					,	null								as Option6
+					,	null								as Option7
+					,	null								as Option8
+					,	null								as Option9
+				FROM	IKBiz.dbo.TCategory aa WITH (NOLOCK)
+						LEFT JOIN
+							IKBiz.dbo.TCategoryItem c1 WITH (NOLOCK)
+								ON aa.Category1 = c1.ID
+						LEFT JOIN
+							IKBiz.dbo.TCategoryItem c2 WITH (NOLOCK)
+								ON aa.Category2 = c2.ID
+						LEFT JOIN
+							IKBiz.dbo.TCategoryItem c3 WITH (NOLOCK)
+								ON aa.Category3 = c3.ID
+						LEFT JOIN
+							IKBiz.dbo.TCategoryItem c4 WITH (NOLOCK)
+								ON aa.Category4 = c4.ID
+						LEFT JOIN
+							IKBiz.dbo.TCategoryItem c5 WITH (NOLOCK)
+								ON aa.Category5 = c5.ID						
+				WHERE	1=1
+			]]>
+			<isNotEmpty property="UseYn">
+				<![CDATA[
+					AND	aa.UseYn = #UseYn#
+				]]>
+			</isNotEmpty>
+			<isEmpty property="UseYn">
+				<![CDATA[
+					AND	aa.UseYn = 'Y'
+				]]>
+			</isEmpty>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(
+							aa.Name				Like '%'+#FindText#+'%'	OR
+							isnull(c1.Name, '') Like '%'+#FindText#+'%'	OR
+							isnull(c2.Name, '') Like '%'+#FindText#+'%'	OR
+							isnull(c3.Name, '') Like '%'+#FindText#+'%'	OR
+							isnull(c4.Name, '') Like '%'+#FindText#+'%'	OR
+							isnull(c5.Name, '') Like '%'+#FindText#+'%'
+						)
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY SortOrder, Name
+			]]>
+		</select>
+		<select id="SelectCodeHelpCategoryItem" parameterClass="DataMap" resultClass="UCodeHelp" >
+			<![CDATA[
+				SELECT	aa.ID								as ID
+					,	CONVERT(VARCHAR, aa.ID)				as Code
+					,	aa.Name								as Name
+					,	aa.Name								as ListName
+					,	aa.Name								as DispName
+					,	CONVERT(VARCHAR, aa.ID)				as Value
+					,	ROW_NUMBER() OVER (ORDER BY aa.SortOrder, aa.ID)	as SortOrder
+					,	0									as MaxLength
+					,	aa.CategoryType						as Option1
+					,	null								as Option2
+					,	null								as Option3
+					,	null								as Option4
+					,	null								as Option5
+					,	null								as Option6
+					,	null								as Option7
+					,	null								as Option8
+					,	null								as Option9
+				FROM	IKBiz.dbo.TCategoryItem aa WITH (NOLOCK)
+				WHERE	1=1
+				AND		aa.CategoryType = #CategoryType#
+			]]>
+			<isNotEmpty property="UseYn">
+				<![CDATA[
+					AND	aa.UseYn = #UseYn#
+				]]>
+			</isNotEmpty>
+			<isEmpty property="UseYn">
+				<![CDATA[
+					AND	aa.UseYn = 'Y'
+				]]>
+			</isEmpty>
 			<isNotEmpty property="FindText">
 				<![CDATA[
 					AND	(
@@ -815,6 +1184,94 @@
 					,	null								as Option9
 				FROM	IKBiz.dbo.TInfoNotice aa WITH (NOLOCK)
 				WHERE	1=1
+			]]>
+			<isNotEmpty property="UseYn">
+				<![CDATA[
+					AND	aa.UseYn = #UseYn#
+				]]>
+			</isNotEmpty>
+			<isEmpty property="UseYn">
+				<![CDATA[
+					AND	aa.UseYn = 'Y'
+				]]>
+			</isEmpty>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(
+							CONVERT(VARCHAR, aa.ID) = #FindText#	OR
+							aa.Name	Like '%'+#FindText#+'%'
+						)
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY SortOrder, Name
+			]]>
+		</select>
+		<select id="SelectCodeHelpAttributeType" parameterClass="DataMap" resultClass="UCodeHelp" >
+			<![CDATA[
+				SELECT	aa.ID									as ID
+					,	CONVERT(VARCHAR, aa.ID)					as Code
+					,	aa.Name									as Name
+					,	aa.Name									as ListName
+					,	aa.Name									as DispName
+					,	CONVERT(VARCHAR, aa.ID)					as Value
+					,	ROW_NUMBER() OVER (ORDER BY aa.Name)	as SortOrder
+					,	0										as MaxLength
+					,	aa.ValueType							as Option1
+					,	null									as Option2
+					,	null									as Option3
+					,	null									as Option4
+					,	null									as Option5
+					,	null									as Option6
+					,	null									as Option7
+					,	null									as Option8
+					,	null									as Option9
+				FROM	IKBiz.dbo.TAttributeType aa WITH (NOLOCK)
+				WHERE	1=1
+			]]>
+			<isNotEmpty property="UseYn">
+				<![CDATA[
+					AND	aa.UseYn = #UseYn#
+				]]>
+			</isNotEmpty>
+			<isEmpty property="UseYn">
+				<![CDATA[
+					AND	aa.UseYn = 'Y'
+				]]>
+			</isEmpty>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(
+							CONVERT(VARCHAR, aa.ID) = #FindText#	OR
+							aa.Name	Like '%'+#FindText#+'%'
+						)
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY SortOrder, Name
+			]]>
+		</select>
+		<select id="SelectCodeHelpAttribute" parameterClass="DataMap" resultClass="UCodeHelp" >
+			<![CDATA[
+				SELECT	aa.ID									as ID
+					,	CONVERT(VARCHAR, aa.ID)					as Code
+					,	aa.Name									as Name
+					,	aa.Name									as ListName
+					,	aa.Name									as DispName
+					,	CONVERT(VARCHAR, aa.ID)					as Value
+					,	ROW_NUMBER() OVER (ORDER BY aa.Name)	as SortOrder
+					,	0										as MaxLength
+					,	CONVERT(VARCHAR, aa.AttributeTypeID)	as Option1
+					,	aa.Code									as Option2
+					,	aa.Name									as Option3
+					,	null									as Option4
+					,	null									as Option5
+					,	null									as Option6
+					,	null									as Option7
+					,	null									as Option8
+					,	null									as Option9
+				FROM	IKBiz.dbo.TAttribute aa WITH (NOLOCK)
+				WHERE	aa.AttributeTypeID = #AttributeTypeID#
 			]]>
 			<isNotEmpty property="UseYn">
 				<![CDATA[
@@ -1056,7 +1513,7 @@
 		<select id="SelectCodeHelpSmapsAgency" parameterClass="DataMap" resultClass="UCodeHelp" >
 			<![CDATA[
 				SELECT	aa.ID								as ID
-					,	CONVERT(VARCHAR, aa.uid)			as Code
+					,	CONVERT(VARCHAR, aa.ID)				as Code
 					,	aa.name								as Name
 					,	aa.name								as ListName
 					,	aa.name								as DispName
@@ -1089,7 +1546,7 @@
 		<select id="SelectCodeHelpSmapsBrand" parameterClass="DataMap" resultClass="UCodeHelp" >
 			<![CDATA[
 				SELECT	aa.ID								as ID
-					,	CONVERT(VARCHAR, aa.uid)			as Code
+					,	CONVERT(VARCHAR, aa.ID)				as Code
 					,	aa.name								as Name
 					,	aa.name								as ListName
 					,	aa.name								as DispName
@@ -1129,7 +1586,7 @@
 		<select id="SelectCodeHelpSmapsLookbook" parameterClass="DataMap" resultClass="UCodeHelp" >
 			<![CDATA[
 				SELECT	aa.ID								as ID
-					,	CONVERT(VARCHAR, aa.uid)			as Code
+					,	CONVERT(VARCHAR, aa.ID)				as Code
 					,	aa.title							as Name
 					,	aa.title							as ListName
 					,	aa.title							as DispName
@@ -1176,7 +1633,7 @@
 		<select id="SelectCodeHelpSmapsCategory" parameterClass="DataMap" resultClass="UCodeHelp" >
 			<![CDATA[
 				SELECT	aa.ID								as ID
-					,	CONVERT(VARCHAR, aa.uid)			as Code
+					,	CONVERT(VARCHAR, aa.ID)				as Code
 					,	aa.name								as Name
 					,	aa.name								as ListName
 					,	aa.name								as DispName
@@ -1209,7 +1666,7 @@
 		<select id="SelectCodeHelpSmapsColor" parameterClass="DataMap" resultClass="UCodeHelp" >
 			<![CDATA[
 				SELECT	aa.ID								as ID
-					,	aa.value							as Code
+					,	CONVERT(VARCHAR, aa.ID)				as Code
 					,	aa.text								as Name
 					,	aa.text								as ListName
 					,	aa.text								as DispName
@@ -1242,7 +1699,7 @@
 		<select id="SelectCodeHelpSmapsSize" parameterClass="DataMap" resultClass="UCodeHelp" >
 			<![CDATA[
 				SELECT	aa.ID								as ID
-					,	CONVERT(VARCHAR, aa.uid)			as Code
+					,	CONVERT(VARCHAR, aa.ID)				as Code
 					,	aa.text								as Name
 					,	aa.text								as ListName
 					,	aa.text								as DispName
@@ -1283,7 +1740,7 @@
 		<select id="SelectCodeHelpSmapsUser" parameterClass="DataMap" resultClass="UCodeHelp" >
 			<![CDATA[
 				SELECT	aa.ID								as ID
-					,	CONVERT(VARCHAR, aa.uid)			as Code
+					,	CONVERT(VARCHAR, aa.ID)				as Code
 					,	aa.name								as Name
 					,	aa.name								as ListName
 					,	aa.name								as DispName

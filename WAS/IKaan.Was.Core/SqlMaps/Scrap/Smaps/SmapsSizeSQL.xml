@@ -21,19 +21,33 @@
 					,	AA.category_uid
 					,	AA.sex
 					
-					,	AA.RequestID
-					,	BB.Status
+					,	cc.name			as category_name
+					
+					,	AA.ApiRequestID
+					,	M3.Name			as ApiType
+					,	M4.Name			as Status
 					,	BB.RequestDate
 					
 				FROM	IKScrap.dbo.TSmapsSize AA WITH (NOLOCK)
 						LEFT JOIN
-							IKScrap.dbo.TSmapsRequest BB WITH (NOLOCK)
-								ON AA.RequestID = BB.ID
+							IKScrap.dbo.TApiRequest BB WITH (NOLOCK)
+								ON AA.ApiRequestID = BB.ID
+						LEFT JOIN
+							IKScrap.dbo.TSmapsCategory CC WITH (NOLOCK)
+								ON AA.category_uid = CC.uid
+						LEFT JOIN
+							IKBase.dbo.TCode M3 WITH (NOLOCK)
+								ON BB.ApiType = M3.Code
+									AND M3.ParentCode = 'ApiType'
+						LEFT JOIN
+							IKBase.dbo.TCode M4 WITH (NOLOCK)
+								ON BB.Status = M4.Code
+									AND M4.ParentCode = 'ApiStatus'
 				WHERE	1=1
 			]]>
-			<isNotEmpty property="RequestID">
+			<isNotEmpty property="ApiRequestID">
 				<![CDATA[
-					AND	AA.RequestID = #RequestID#
+					AND	AA.ApiRequestID = #ApiRequestID#
 				]]>
 			</isNotEmpty>
 			<isNotEmpty property="CategoryUid">
@@ -71,18 +85,36 @@
 				WHERE	AA.uid = #uid#
 			]]>
 		</select>
+		<select id="SelectSmapsSizeByName" parameterClass="DataMap" resultClass="SmapsSizeModel" >
+			<![CDATA[
+				SELECT  AA.*		
+				FROM	IKScrap.dbo.TSmapsSize AA WITH (NOLOCK)
+				WHERE	AA.category_uid = #category_uid#
+				AND		AA.sex			= #sex#
+				and		AA.text			= #text#
+			]]>
+		</select>
+		<select id="SelectSmapsSizeOne" parameterClass="DataMap" resultClass="SmapsSizeModel" >
+			<![CDATA[
+				SELECT  TOP 1 AA.*		
+				FROM	IKScrap.dbo.TSmapsSize AA WITH (NOLOCK)
+				WHERE	AA.category_uid = #category_uid#
+				AND		AA.sex			= #sex#
+				ORDER BY AA.uid
+			]]>
+		</select>
 		<insert id="InsertSmapsSize" parameterClass="SmapsSizeModel" >
 			<![CDATA[
 				INSERT INTO dbo.TSmapsSize
 				( 
 					CreatedOn, CreatedBy, CreatedByName,
-					RequestID,
+					ApiRequestID,
 					uid, text, category_uid, sex
 				)
 				VALUES
 				(
 					GetDate(), #CreatedBy#, #CreatedByName#,
-					#RequestID#,
+					#ApiRequestID#,
 					#uid#, #text#, #category_uid#, #sex#
 				)
 			]]>
@@ -99,7 +131,7 @@
 					,	UpdatedBy		= #UpdatedBy#
 					,	UpdatedByName	= #UpdatedByName#
 					
-					,	RequestID		= #RequestID#
+					,	ApiRequestID	= #ApiRequestID#
 					,	uid				= #uid#
 					,	text			= #text#
 					,	category_uid	= #category_uid#

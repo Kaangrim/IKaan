@@ -1,5 +1,4 @@
-﻿using System;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -146,8 +145,7 @@ namespace IKaan.Base.Utils
 
 		public static bool IsNumeric(this string str)
 		{
-			int numChk = 0;
-			bool isNum = int.TryParse(str, out numChk);
+			bool isNum = int.TryParse(str, out int numChk);
 			return isNum;
 		}
 
@@ -282,6 +280,27 @@ namespace IKaan.Base.Utils
 			}
 
 			return data;
+		}
+
+		public static string ToOnlyNumber(this string str)
+		{
+			return Regex.Replace(str, @"[^0-9]", "");
+		}
+		public static string ToOnlyEnglish(this string str)
+		{
+			return Regex.Replace(str, @"[^a-zA-Z|\x20]", "");
+		}
+		public static string ToOnlyKorean(this string str)
+		{
+			return Regex.Replace(str, @"[^가-힣|\x20]", "");
+		}
+		public static string ToOnlyText(this string str)
+		{
+			return Regex.Replace(str, @"[^0-9a-zA-Z가-힣|\x20]", "");
+		}
+		public static string ToRemoveCrlfTab(this string str)
+		{
+			return str.Replace("\r", "").Replace("\n", "").Replace("\r\n", "").Replace("\t", "");
 		}
 	}
 }

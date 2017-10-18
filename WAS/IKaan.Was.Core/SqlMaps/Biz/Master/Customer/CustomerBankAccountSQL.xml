@@ -23,7 +23,15 @@
 					
 					,	M1.Name				as BankAccountTypeName
 					
+					,	BB.Name				as BankAccountName
+					,	BB.BankName
+					,	BB.AccountNo
+					,	BB.Depositor
+					
 				FROM	dbo.TCustomerBankAccount AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.TBankAccount BB WITH (NOLOCK)
+								ON AA.BankAccountID = BB.ID
 						LEFT JOIN
 							IKBase.dbo.TCode M1 with (nolock)
 								ON AA.BankAccountType = M1.Code
@@ -34,8 +42,17 @@
 		</select>
 		<select id="SelectCustomerBankAccount" parameterClass="DataMap" resultClass="CustomerBankAccountModel" >
 			<![CDATA[
-				SELECT  AA.*					
+				SELECT  AA.*
+				
+					,	BB.Name			as BankAccountName
+					,	BB.BankName
+					,	BB.AccountNo
+					,	BB.Depositor
+					,	BB.ImageID
 				FROM	dbo.TCustomerBankAccount AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.TBankAccount BB with (nolock)
+								ON AA.BankAccountID = BB.ID
 				WHERE	AA.ID = #ID#
 			]]>
 		</select>

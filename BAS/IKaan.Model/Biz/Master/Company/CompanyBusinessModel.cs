@@ -44,5 +44,10 @@ namespace IKaan.Model.Biz.Master.Company
 		[DataMember]
 		[Display(Name = "사업자정보")]
 		public BusinessModel Business { get; set; }
+
+		public CompanyBusinessModel()
+		{
+			Business = new BusinessModel();
+		}
 	}
 }

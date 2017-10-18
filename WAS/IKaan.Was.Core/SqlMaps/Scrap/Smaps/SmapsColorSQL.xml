@@ -19,19 +19,28 @@
 					,	AA.value
 					,	AA.text
 					
-					,	AA.RequestID
-					,	BB.Status
+					,	AA.ApiRequestID
+					,	M3.Name			as ApiType
+					,	M4.Name			as Status
 					,	BB.RequestDate
 					
 				FROM	IKScrap.dbo.TSmapsColor AA WITH (NOLOCK)
 						LEFT JOIN
-							IKScrap.dbo.TSmapsRequest BB WITH (NOLOCK)
-								ON AA.RequestID = BB.ID
+							IKScrap.dbo.TApiRequest BB WITH (NOLOCK)
+								ON AA.ApiRequestID = BB.ID
+						LEFT JOIN
+							IKBase.dbo.TCode M3 WITH (NOLOCK)
+								ON BB.ApiType = M3.Code
+									AND M3.ParentCode = 'ApiType'
+						LEFT JOIN
+							IKBase.dbo.TCode M4 WITH (NOLOCK)
+								ON BB.Status = M4.Code
+									AND M4.ParentCode = 'ApiStatus'
 				WHERE	1=1
 			]]>
-			<isNotEmpty property="RequestID">
+			<isNotEmpty property="ApiRequestID">
 				<![CDATA[
-					AND	AA.RequestID = #RequestID#
+					AND	AA.ApiRequestID = #ApiRequestID#
 				]]>
 			</isNotEmpty>
 			<isNotEmpty property="ColorValue">
@@ -64,18 +73,25 @@
 				WHERE	AA.value = #value#
 			]]>
 		</select>
+		<select id="SelectSmapsColorByCode" parameterClass="DataMap" resultClass="SmapsColorModel" >
+			<![CDATA[
+				SELECT  *					
+				FROM	IKScrap.dbo.TSmapsColor AA WITH (NOLOCK)
+				WHERE	AA.value = #value#
+			]]>
+		</select>
 		<insert id="InsertSmapsColor" parameterClass="SmapsColorModel" >
 			<![CDATA[
 				INSERT INTO dbo.TSmapsColor
 				( 
 					CreatedOn, CreatedBy, CreatedByName,
-					RequestID,
+					ApiRequestID,
 					value, text
 				)
 				VALUES
 				(
 					GetDate(), #CreatedBy#, #CreatedByName#,
-					#RequestID#,
+					#ApiRequestID#,
 					#value#, #text#
 				)
 			]]>
@@ -92,7 +108,7 @@
 					,	UpdatedBy		= #UpdatedBy#
 					,	UpdatedByName	= #UpdatedByName#
 					
-					,	RequestID		= #RequestID#
+					,	ApiRequestID	= #ApiRequestID#
 					,	value			= #value#
 					,	text			= #text#
 				WHERE	ID				= #ID#

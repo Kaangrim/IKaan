@@ -12,9 +12,9 @@
 				(
 					SELECT	AA.ID		as ID
 						,	CAST(RIGHT('0000' + 
-									CONVERT(VARCHAR, ROW_NUMBER() OVER (ORDER BY AA.Name, AA.ID)), 4) AS VARCHAR(MAX))	as HierID
-						,	1																							as Level
-						,	CAST(ROW_NUMBER() OVER (ORDER BY AA.Name, AA.ID) AS VARCHAR(MAX))							as SeqNo
+									CONVERT(VARCHAR, ROW_NUMBER() OVER (ORDER BY AA.SortOrder, AA.Name, AA.ID)), 4) AS VARCHAR(MAX))	as HierID
+						,	1																											as Level
+						,	CAST(ROW_NUMBER() OVER (ORDER BY AA.SortOrder, AA.Name, AA.ID) AS VARCHAR(MAX))								as SeqNo
 					FROM	dbo.TDepartment AA WITH (NOLOCK)
 					WHERE	1=1
 			]]>
@@ -32,10 +32,10 @@
 					UNION ALL
 					SELECT	AA.ID			as ID
 						,	CAST(BB.HierID + 
-								 RIGHT('0000' + CONVERT(VARCHAR, ROW_NUMBER() OVER (ORDER BY AA.Name, AA.ID)), 4) AS VARCHAR(MAX))	as HierID
-						,	BB.Level + 1																							as Level
+								 RIGHT('0000' + CONVERT(VARCHAR, ROW_NUMBER() OVER (ORDER BY AA.SortOrder, AA.Name, AA.ID)), 4) AS VARCHAR(MAX))	as HierID
+						,	BB.Level + 1																											as Level
 						,	CAST(BB.SeqNo + '.' + 
-								 CONVERT(VARCHAR, ROW_NUMBER() OVER (ORDER BY AA.Name, AA.ID)) AS VARCHAR(MAX))						as SeqNo
+								 CONVERT(VARCHAR, ROW_NUMBER() OVER (ORDER BY AA.SortOrder, AA.Name, AA.ID)) AS VARCHAR(MAX))						as SeqNo
 					FROM	dbo.TDepartment AA WITH (NOLOCK)
 							INNER JOIN 
 								CTE BB 
@@ -54,6 +54,7 @@
 					,	AA.ParentID
 					,	AA.ManagerID
 					,	AA.UseYn
+					,	AA.SortOrder
 					
 					,	EE.Name			as ManagerName
 					
@@ -102,12 +103,12 @@
 				INSERT INTO dbo.TDepartment
 				( 
 					CreatedOn, CreatedBy, CreatedByName,
-					Name, ParentID, UseYn, ManagerID
+					Name, ParentID, UseYn, ManagerID, SortOrder
 				)
 				VALUES
 				(
 					GetDate(), #CreatedBy#, #CreatedByName#,
-					#Name#, #ParentID#, #UseYn#, #ManagerID#
+					#Name#, #ParentID#, #UseYn#, #ManagerID#, #SortOrder#
 				)
 			]]>
 			<selectKey type="post" property="ID" resultClass="Int">
@@ -127,6 +128,7 @@
 					,	ParentID		= #ParentID#
 					,	UseYn			= #UseYn#
 					,	ManagerID		= #ManagerID#
+					,	SortOrder		= #SortOrder#
 				WHERE	ID				= #ID#
 			]]>
 		</update>

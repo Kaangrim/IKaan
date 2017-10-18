@@ -20,7 +20,17 @@
 					,	AA.ImageID
 					,	AA.ImageType
 					
+					,	M1.Name			as ImageTypeName
+					,	II.Url			as ImageUrl
+					
 				FROM	dbo.TBrandImage AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.TImage II WITH (NOLOCK)
+								ON AA.ImageID = II.ID
+						LEFT JOIN
+							IKBase.dbo.TCode M1 WITH (NOLOCK)
+								ON AA.ImageType = M1.Code
+									AND M1.ParentCode = 'ImageType'
 				WHERE	AA.BrandID = #BrandID#
 				ORDER BY RowNo
 			]]>

@@ -65,9 +65,19 @@
 		</select>
 		<select id="SelectScrapCategoryToSmapsExists" parameterClass="DataMap" resultClass="ScrapCategoryToSmapsModel" >
 			<![CDATA[
-				SELECT  *					
+				SELECT  *
 				FROM	IKScrap.dbo.TScrapCategoryToSmaps WITH (NOLOCK)
 				WHERE	ScrapCategoryID	= #ScrapCategoryID#
+			]]>
+		</select>
+		<select id="SelectScrapCategoryToSmapsID" parameterClass="DataMap" resultClass="SmapsCategoryModel" >
+			<![CDATA[
+				SELECT  BB.*
+				FROM	IKScrap.dbo.TScrapCategoryToSmaps AA WITH (NOLOCK)
+						LEFT JOIN
+							IKScrap.dbo.TSmapsCategory BB WITH (NOLOCK)
+								ON AA.SmapsCategoryID = BB.ID
+				WHERE	AA.ScrapCategoryID	= #ScrapCategoryID#
 			]]>
 		</select>
 		<insert id="InsertScrapCategoryToSmaps" parameterClass="ScrapCategoryToSmapsModel" >

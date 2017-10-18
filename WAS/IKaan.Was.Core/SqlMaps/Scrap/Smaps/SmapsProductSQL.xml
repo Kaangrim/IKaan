@@ -7,7 +7,7 @@
 	<statements>
 		<select id="SelectSmapsProductList" parameterClass="DataMap" resultClass="SmapsProductModel" >
 			<![CDATA[
-				SELECT  ROW_NUMBER() OVER (ORDER BY AA.uid)	as RowNo
+				SELECT  ROW_NUMBER() OVER (ORDER BY SA.name, SB.name, SL.title, SC.name, AA.ID	)	as RowNo
 					,	AA.ID
 					,	AA.CreatedOn
 					,	AA.CreatedBy
@@ -29,7 +29,7 @@
 					,	AA.memo
 					,	AA.caution
 					,	AA.tag
-					,	AA.option
+					,	AA.[option]
 					,	AA.option_size_uid
 					,	AA.option_size_view
 					,	AA.option_color
@@ -38,20 +38,48 @@
 					,	AA.image
 					,	AA.image_width
 					,	AA.image_height
+					,	AA.is_thumbnail
+					,	AA.is_main
 					
-					,	AA.RequestID
-					,	BB.Status
+					,	SA.name				as agency_name
+					,	SB.name				as brand_name
+					,	SL.title			as lookbook_name
+					,	SC.name				as category_name
+					
+					,	AA.ApiRequestID
+					,	M3.Name			as ApiType
+					,	M4.Name			as Status
 					,	BB.RequestDate
 					
 				FROM	IKScrap.dbo.TSmapsProduct AA WITH (NOLOCK)
 						LEFT JOIN
-							IKScrap.dbo.TSmapsRequest BB WITH (NOLOCK)
-								ON AA.RequestID = BB.ID
+							IKScrap.dbo.TApiRequest BB WITH (NOLOCK)
+								ON AA.ApiRequestID = BB.ID
+						LEFT JOIN
+							IKScrap.dbo.TSmapsAgency SA WITH (NOLOCK)
+								ON AA.agency_uid = SA.uid
+						LEFT JOIN
+							IKScrap.dbo.TSmapsBrand SB WITH (NOLOCK)
+								ON AA.brand_uid = SB.uid
+						LEFT JOIN
+							IKScrap.dbo.TSmapsLookbook SL WITH (NOLOCK)
+								ON AA.lookbook_uid = SL.uid
+						LEFT JOIN
+							IKScrap.dbo.TSmapsCategory SC WITH (NOLOCK)
+								ON AA.category_uid = SC.uid
+						LEFT JOIN
+							IKBase.dbo.TCode M3 WITH (NOLOCK)
+								ON BB.ApiType = M3.Code
+									AND M3.ParentCode = 'ApiType'
+						LEFT JOIN
+							IKBase.dbo.TCode M4 WITH (NOLOCK)
+								ON BB.Status = M4.Code
+									AND M4.ParentCode = 'ApiStatus'
 				WHERE	1=1
 			]]>
-			<isNotEmpty property="RequestID">
+			<isNotEmpty property="ApiRequestID">
 				<![CDATA[
-					AND	AA.RequestID = #RequestID#
+					AND	AA.ApiRequestID = #ApiRequestID#
 				]]>
 			</isNotEmpty>
 			<isNotEmpty property="AgencyUid">
@@ -77,8 +105,8 @@
 			<isNotEmpty property="FindText">
 				<![CDATA[
 					AND	(
-							AA.product_nmae  LIKE '%'+#FindText#+'%' OR
-							AA.product_number    LIKE '%'+#FindText#+'%'
+							AA.product_name		LIKE '%'+#FindText#+'%' OR
+							AA.product_number   LIKE '%'+#FindText#+'%'
 						)
 				]]>
 			</isNotEmpty>
@@ -105,17 +133,17 @@
 				INSERT INTO IKScrap.dbo.TSmapsProduct
 				( 
 					CreatedOn, CreatedBy, CreatedByName,
-					RequestID,
+					ApiRequestID,
 					uid, agency_uid, brand_uid, lookbook_uid, 
 					product_name, product_number, product_price, product_unset_price,
 					category_uid, sex, memo, caution, tag, 
-					option, option_size_uid, option_size_view, option_color, option_color_view, option_add_date,
+					[option], option_size_uid, option_size_view, option_color, option_color_view, option_add_date,
 					image, image_width, image_height, is_thumbnail, is_main
 				)
 				VALUES
 				(
 					GetDate(), #CreatedBy#, #CreatedByName#,
-					#RequestID#,
+					#ApiRequestID#,
 					#uid#, #agency_uid#, #brand_uid#, #lookbook_uid#, 
 					#product_name#, #product_number#, #product_price#, #product_unset_price#,
 					#category_uid#, #sex#, #memo#, #caution#, #tag#, 
@@ -136,7 +164,7 @@
 					,	UpdatedBy		= #UpdatedBy#
 					,	UpdatedByName	= #UpdatedByName#
 					
-					,	RequestID			= #RequestID#
+					,	ApiRequestID		= #ApiRequestID#
 					,	uid					= #uid#
 					,	agency_uid			= #agency_uid#
 					,	brand_uid			= #brand_uid#
@@ -150,7 +178,7 @@
 					,	memo				= #memo#
 					,	caution				= #caution#
 					,	tag					= #tag#
-					,	option				= #option#
+					,	[option]			= #option#
 					,	option_size_uid		= #option_size_uid#
 					,	option_size_view	= #option_size_view#
 					,	option_color		= #option_color#

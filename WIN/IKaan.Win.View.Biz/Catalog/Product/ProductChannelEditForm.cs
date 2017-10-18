@@ -4,7 +4,7 @@ using IKaan.Base.Utils;
 using IKaan.Win.Core.Forms;
 using IKaan.Win.Core.Model;
 
-namespace IKaan.Win.View.Biz.Catalog
+namespace IKaan.Win.View.Biz.Catalog.Product
 {
 	public partial class TGoodsChannelEditForm : EditForm
 	{

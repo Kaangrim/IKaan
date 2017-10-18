@@ -25,7 +25,35 @@ namespace IKaan.Model.Biz.Master.Partner
 		public string Description { get; set; }
 
 		[DataMember]
-		[Display(Name = "주소")]
-		public AddressModel Address { get; set; }
+		[Display(Name = "주소유형명")]
+		public string AddressTypeName { get; set; }
+
+		[DataMember]
+		[Display(Name = "우편번호")]
+		public string PostalCode { get; set; }
+
+		[DataMember]
+		[Display(Name = "국가코드")]
+		public string Country { get; set; }
+
+		[DataMember]
+		[Display(Name = "시/도")]
+		public string City { get; set; }
+
+		[DataMember]
+		[Display(Name = "시/구/군")]
+		public string StateProvince { get; set; }
+
+		[DataMember]
+		[Display(Name = "주소1")]
+		public string AddressLine1 { get; set; }
+
+		[DataMember]
+		[Display(Name = "주소2")]
+		public string AddressLine2 { get; set; }
+
+		[DataMember]
+		[Display(Name = "국가명")]
+		public string CountryName { get; set; }
 	}
 }

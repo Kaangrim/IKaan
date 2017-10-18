@@ -24,7 +24,7 @@ namespace IKaan.Was.Controllers
 				{ "UseYn", UseYn }
 			};
 
-			var model = BizServicePartial.GetProductList(map);
+			var model = BizServiceCatalog.GetProductList(map);
             return View("GoodsList", model);
         }
 

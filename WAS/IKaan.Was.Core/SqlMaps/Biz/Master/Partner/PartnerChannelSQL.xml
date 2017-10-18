@@ -22,13 +22,9 @@
 					,	AA.EndDate
 					,	AA.Description
 					
-					,	BB.PartnerName
-					,	CC.ChannelName
+					,	CC.Name			as ChannelName
 					
 				FROM	dbo.TPartnerChannel AA WITH (NOLOCK)
-						LEFT JOIN
-							dbo.TPartner BB WITH (NOLOCK)
-								ON AA.PartnerID = BB.ID
 						LEFT JOIN
 							dbo.TChannel CC WITH (NOLOCK)
 								ON AA.ChannelID = CC.ID
@@ -52,13 +48,9 @@
 			<![CDATA[
 				SELECT  AA.*
 					
-					,	BB.PartnerName
-					,	CC.ChannelName
+					,	CC.Name		as ChannelName
 					
 				FROM	dbo.TPartnerChannel AA WITH (NOLOCK)
-						LEFT JOIN
-							dbo.TPartner BB WITH (NOLOCK)
-								ON AA.PartnerID = BB.ID
 						LEFT JOIN
 							dbo.TChannel CC WITH (NOLOCK)
 								ON AA.ChannelID = CC.ID
