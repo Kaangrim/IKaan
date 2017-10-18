@@ -1,0 +1,191 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectCategoryList" parameterClass="DataMap" resultClass="CategoryModel" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER 
+							(ORDER BY 
+								ISNULL(C1.SortOrder, 9999), C1.Name, 
+								ISNULL(C2.SortOrder, 9999), C2.Name,
+								ISNULL(C3.SortOrder, 9999), C3.Name,
+								ISNULL(C4.SortOrder, 9999), C4.Name,
+								ISNULL(C5.SortOrder, 9999), C5.Name)	AS RowNo
+					,	AA.ID
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
+					
+					,	AA.Name
+					,	AA.Category1
+					,	AA.Category2
+					,	AA.Category3
+					,	AA.Category4
+					,	AA.Category5
+					,	AA.SortOrder
+					,	AA.UseYn
+					,	AA.InfoNoticeID
+					,	AA.Description
+					
+					,	C1.Name			as Category1Name
+					,	C2.Name			as Category2Name
+					,	C3.Name			as Category3Name
+					,	C4.Name			as Category4Name
+					,	C5.Name			as Category5Name
+					
+					,	II.Name			as InfoNoticeName
+					
+				FROM	dbo.TCategory AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.TCategoryItem C1 WITH (NOLOCK)
+								ON AA.Category1 = C1.ID
+						LEFT JOIN
+							dbo.TCategoryItem C2 WITH (NOLOCK)
+								ON AA.Category2 = C2.ID
+						LEFT JOIN
+							dbo.TCategoryItem C3 WITH (NOLOCK)
+								ON AA.Category3 = C3.ID
+						LEFT JOIN
+							dbo.TCategoryItem C4 WITH (NOLOCK)
+								ON AA.Category4 = C4.ID
+						LEFT JOIN
+							dbo.TCategoryItem C5 WITH (NOLOCK)
+								ON AA.Category5 = C5.ID
+						LEFT JOIN
+							dbo.TInfoNotice II WITH (NOLOCK)
+								ON AA.InfoNoticeID = II.ID
+				WHERE	1=1				
+			]]>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	AA.Name LIKE '%' + #FindText# + '%'
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="Category1">
+				<![CDATA[
+					AND	AA.Category1 = #Category1#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="Category2">
+				<![CDATA[
+					AND	AA.Category2 = #Category2#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="Category3">
+				<![CDATA[
+					AND	AA.Category3 = #Category3#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="Category4">
+				<![CDATA[
+					AND	AA.Category4 = #Category4#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="Category5">
+				<![CDATA[
+					AND	AA.Category5 = #Category5#
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectCategory" parameterClass="DataMap" resultClass="CategoryModel" >
+			<![CDATA[
+				SELECT  AA.*
+					,	BB.Name		as InfoNoticeName
+				FROM	dbo.TCategory AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.TInfoNotice BB WITH (NOLOCK)
+								ON AA.InfoNoticeID = BB.ID
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<insert id="InsertCategory" parameterClass="CategoryModel" >
+			<![CDATA[
+				INSERT INTO dbo.TCategory
+				( 
+					CreatedOn, CreatedBy, CreatedByName,
+					Name, 
+					Category1, Category2, Category3, Category4, Category5,
+					InfoNoticeID, UseYn, SortOrder, Description
+				)
+				VALUES
+				(
+					GetDate(), #CreatedBy#, #CreatedByName#,
+					#Name#, 
+					#Category1#, #Category2#, #Category3#, #Category4#, #Category5#,
+					#InfoNoticeID#, #UseYn#, #SortOrder#, #Description#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateCategory" parameterClass="CategoryModel">
+			<![CDATA[
+				UPDATE  dbo.TCategory
+				SET     UpdatedOn	= GetDate()
+					,	UpdatedBy	= #UpdatedBy#
+					,	UpdatedByName= #UpdatedByName#
+					
+					,	Name		= #Name#
+					,	Category1	= #Category1#
+					,	Category2	= #Category2#
+					,	Category3	= #Category3#
+					,	Category4	= #Category4#
+					,	Category5	= #Category5#
+					,	InfoNoticeID= #InfoNoticeID#
+					,	UseYn		= #UseYn#
+					,	SortOrder	= #SortOrder#
+					,	Description	= #Description#
+				WHERE	ID			= #ID#
+			]]>
+		</update>
+		<delete id="DeleteCategory" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM dbo.TCategory WHERE ID = #ID#;
+			]]>
+		</delete>
+		<select id="SelectCategoryExists" parameterClass="DataMap" resultClass="CategoryModel" >
+			<![CDATA[
+				SELECT  AA.*
+				FROM	dbo.TCategory AA WITH (NOLOCK)
+				WHERE	1=1				
+			]]>
+			<isNotEmpty property="Category1">
+				<![CDATA[
+					AND	AA.Category1 = #Category1#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="Category2">
+				<![CDATA[
+					AND	AA.Category2 = #Category2#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="Category3">
+				<![CDATA[
+					AND	AA.Category3 = #Category3#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="Category4">
+				<![CDATA[
+					AND	AA.Category4 = #Category4#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="Category5">
+				<![CDATA[
+					AND	AA.Category5 = #Category5#
+				]]>
+			</isNotEmpty>
+		</select>
+	</statements>
+</sqlMap>

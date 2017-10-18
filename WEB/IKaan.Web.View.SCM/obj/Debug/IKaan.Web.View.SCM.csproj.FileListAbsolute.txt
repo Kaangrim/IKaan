@@ -1,3 +1,9 @@
+D:\Project\IKaan\WEB\IKaan.Web.View.SCM\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\Project\IKaan\WEB\IKaan.Web.View.SCM\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\Project\IKaan\WEB\IKaan.Web.View.SCM\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\Project\IKaan\WEB\IKaan.Web.View.SCM\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+D:\Project\IKaan\WEB\IKaan.Web.View.SCM\bin\roslyn\System.IO.Compression.dll
+D:\Project\IKaan\WEB\IKaan.Web.View.SCM\bin\roslyn\VBCSCompiler.exe
 D:\Project\IKaan\WEB\IKaan.Web.View.SCM\bin\roslyn\csc.exe
 D:\Project\IKaan\WEB\IKaan.Web.View.SCM\bin\roslyn\csc.exe.config
 D:\Project\IKaan\WEB\IKaan.Web.View.SCM\bin\roslyn\csc.rsp
@@ -5,13 +11,9 @@ D:\Project\IKaan\WEB\IKaan.Web.View.SCM\bin\roslyn\csi.exe
 D:\Project\IKaan\WEB\IKaan.Web.View.SCM\bin\roslyn\csi.exe.config
 D:\Project\IKaan\WEB\IKaan.Web.View.SCM\bin\roslyn\csi.rsp
 D:\Project\IKaan\WEB\IKaan.Web.View.SCM\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
-D:\Project\IKaan\WEB\IKaan.Web.View.SCM\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
 D:\Project\IKaan\WEB\IKaan.Web.View.SCM\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
-D:\Project\IKaan\WEB\IKaan.Web.View.SCM\bin\roslyn\Microsoft.CodeAnalysis.dll
 D:\Project\IKaan\WEB\IKaan.Web.View.SCM\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
-D:\Project\IKaan\WEB\IKaan.Web.View.SCM\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
 D:\Project\IKaan\WEB\IKaan.Web.View.SCM\bin\roslyn\Microsoft.CSharp.Core.targets
-D:\Project\IKaan\WEB\IKaan.Web.View.SCM\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
 D:\Project\IKaan\WEB\IKaan.Web.View.SCM\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
 D:\Project\IKaan\WEB\IKaan.Web.View.SCM\bin\roslyn\Microsoft.VisualBasic.Core.targets
 D:\Project\IKaan\WEB\IKaan.Web.View.SCM\bin\roslyn\Microsoft.Win32.Primitives.dll
@@ -21,7 +23,6 @@ D:\Project\IKaan\WEB\IKaan.Web.View.SCM\bin\roslyn\System.Console.dll
 D:\Project\IKaan\WEB\IKaan.Web.View.SCM\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
 D:\Project\IKaan\WEB\IKaan.Web.View.SCM\bin\roslyn\System.Diagnostics.Process.dll
 D:\Project\IKaan\WEB\IKaan.Web.View.SCM\bin\roslyn\System.Diagnostics.StackTrace.dll
-D:\Project\IKaan\WEB\IKaan.Web.View.SCM\bin\roslyn\System.IO.Compression.dll
 D:\Project\IKaan\WEB\IKaan.Web.View.SCM\bin\roslyn\System.IO.FileSystem.dll
 D:\Project\IKaan\WEB\IKaan.Web.View.SCM\bin\roslyn\System.IO.FileSystem.DriveInfo.dll
 D:\Project\IKaan\WEB\IKaan.Web.View.SCM\bin\roslyn\System.IO.FileSystem.Primitives.dll
@@ -44,11 +45,7 @@ D:\Project\IKaan\WEB\IKaan.Web.View.SCM\bin\roslyn\System.Xml.XPath.XDocument.dl
 D:\Project\IKaan\WEB\IKaan.Web.View.SCM\bin\roslyn\vbc.exe
 D:\Project\IKaan\WEB\IKaan.Web.View.SCM\bin\roslyn\vbc.exe.config
 D:\Project\IKaan\WEB\IKaan.Web.View.SCM\bin\roslyn\vbc.rsp
-D:\Project\IKaan\WEB\IKaan.Web.View.SCM\bin\roslyn\VBCSCompiler.exe
 D:\Project\IKaan\WEB\IKaan.Web.View.SCM\bin\roslyn\VBCSCompiler.exe.config
-D:\Project\IKaan\WEB\IKaan.Web.View.SCM\bin\IKaan.Web.View.SCM.dll.config
-D:\Project\IKaan\WEB\IKaan.Web.View.SCM\bin\IKaan.Web.View.SCM.dll
-D:\Project\IKaan\WEB\IKaan.Web.View.SCM\bin\IKaan.Web.View.SCM.pdb
 D:\Project\IKaan\WEB\IKaan.Web.View.SCM\bin\EntityFramework.dll
 D:\Project\IKaan\WEB\IKaan.Web.View.SCM\bin\EntityFramework.SqlServer.dll
 D:\Project\IKaan\WEB\IKaan.Web.View.SCM\bin\IKaan.Web.Core.dll
@@ -70,7 +67,6 @@ D:\Project\IKaan\WEB\IKaan.Web.View.SCM\bin\System.Web.Webpages.dll
 D:\Project\IKaan\WEB\IKaan.Web.View.SCM\bin\System.Web.Webpages.Razor.dll
 D:\Project\IKaan\WEB\IKaan.Web.View.SCM\bin\SX.dll
 D:\Project\IKaan\WEB\IKaan.Web.View.SCM\bin\ExcelLibrary.dll
-D:\Project\IKaan\WEB\IKaan.Web.View.SCM\bin\Application.Crypto.dll
 D:\Project\IKaan\WEB\IKaan.Web.View.SCM\bin\IKaan.Web.Core.pdb
 D:\Project\IKaan\WEB\IKaan.Web.View.SCM\bin\IKaan.Web.Core.dll.config
 D:\Project\IKaan\WEB\IKaan.Web.View.SCM\bin\IKaan.Web.Model.pdb
@@ -106,3 +102,6 @@ D:\Project\IKaan\WEB\IKaan.Web.View.SCM\obj\Debug\IKaan.Web.View.SCM.csprojResol
 D:\Project\IKaan\WEB\IKaan.Web.View.SCM\obj\Debug\IKaan.Web.View.SCM.csproj.CoreCompileInputs.cache
 D:\Project\IKaan\WEB\IKaan.Web.View.SCM\obj\Debug\IKaan.Web.View.SCM.dll
 D:\Project\IKaan\WEB\IKaan.Web.View.SCM\obj\Debug\IKaan.Web.View.SCM.pdb
+D:\Project\IKaan\WEB\IKaan.Web.View.SCM\bin\IKaan.Web.View.SCM.dll.config
+D:\Project\IKaan\WEB\IKaan.Web.View.SCM\bin\IKaan.Web.View.SCM.dll
+D:\Project\IKaan\WEB\IKaan.Web.View.SCM\bin\IKaan.Web.View.SCM.pdb

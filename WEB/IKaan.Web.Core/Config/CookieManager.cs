@@ -3,179 +3,133 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web;
-using IKaan.Application.Crypto;
+
 namespace IKaan.Web.Core.Config
 {
     public class CookieManager
     {
-        public readonly string __EncPassword = "ikaanwebscm";
-        private string __Domain;
-        private Dictionary<string, HttpCookie> CookieDic;
+        public static void AddCookieEncrypt(string key, string value)
+        {            
+            if (!String.IsNullOrEmpty(value))
+            {
+                string groupKey = UtilManager.GetSaveKey("AuthCookieKey");
+                HttpContext.Current.Response.Cookies[groupKey][key] = CryptoManager.EncryptAES256(value.ToString());
+            }
 
-
-        public CookieManager(string Domain)
-        {
-            __Domain = Domain;
-            CookieDic = new Dictionary<string, HttpCookie>();
         }
 
-        public void SetCookieValue(string cookienameByParent, string cookienameByChild, string cookievalue, DateTime ExpiresTime, System.Text.Encoding Enc)
+        public static void AddCookieExpires(int days)
         {
-            HttpCookie cookie = HttpContext.Current.Request.Cookies[cookienameByParent];
+            string groupKey = UtilManager.GetSaveKey("AuthCookieKey");
+            HttpContext.Current.Response.Cookies[groupKey].Expires = DateTime.Now.AddDays(days);
+        }
 
-            if (cookie == null)
+        public static void AddCookie(string key, string value)
+        {
+            if (!String.IsNullOrEmpty(value)) { 
+                string groupKey = UtilManager.GetSaveKey("AuthCookieKey");
+                HttpContext.Current.Response.Cookies[groupKey][key] = value.ToString();
+            }
+        }
+
+        public static void AddCookieDomain(string value)
+        {
+            string groupKey = UtilManager.GetSaveKey("AuthCookieKey");
+            HttpContext.Current.Response.Cookies[groupKey].Domain = value.ToString();
+        }
+        public static void AddCookiePath(string value)
+        {
+            string groupKey = UtilManager.GetSaveKey("AuthCookieKey");
+            HttpContext.Current.Response.Cookies[groupKey].Path = value.ToString();
+        }
+
+        public static void AddCookieHttpOnly(bool value)
+        {
+            string groupKey = UtilManager.GetSaveKey("AuthCookieKey");
+            HttpContext.Current.Request.Cookies[groupKey].HttpOnly = value;
+        }
+
+        public static void ClearCookie()
+        {
+            HttpContext.Current.Response.Cookies.Clear();
+        }
+
+
+        public static string GetCookieDecrypt(string key)
+        {
+            string groupKey = UtilManager.GetSaveKey("AuthCookieKey");
+
+            string sRtnValue = "";
+
+            if (!HttpContext.Current.User.Identity.IsAuthenticated)
+            { 
+                return null;
+            }
+
+            if (HttpContext.Current.Request.Cookies[groupKey] != null)
             {
-                cookie = new HttpCookie(cookienameByParent)
+                if (HttpContext.Current.Request.Cookies[groupKey][key] != null)
+                { 
+                    sRtnValue = CryptoManager.DecryptAES256(HttpContext.Current.Request.Cookies[groupKey][key]);
+                }
+            }
+
+
+            return sRtnValue;
+        }
+
+        public static string GetCookie(string key)
+        {
+            string groupKey = UtilManager.GetSaveKey("AuthCookieKey");
+
+            string sRtnValue = "";
+
+            if (!HttpContext.Current.User.Identity.IsAuthenticated)
+                return null;
+
+            if (HttpContext.Current.Request.Cookies[groupKey] != null)
+            {
+                if (HttpContext.Current.Request.Cookies[groupKey][key] != null)
                 {
-                    Domain = __Domain,
-                    Path = "/",
-                    Expires = ExpiresTime
-                };
+                    sRtnValue = HttpContext.Current.Request.Cookies[groupKey][key];
+                }
             }
 
-            cookie[cookienameByChild] = HttpUtility.UrlEncode(cookievalue, Enc);
-
-            HttpContext.Current.Response.Cookies.Add(cookie);
+            return sRtnValue;
         }
 
-        public void SetCookieValue(string cookienameByParent, string cookienameByChild, string cookievalue)
+        public static string GetLoginID()
         {
-            SetCookieValue(cookienameByParent, cookienameByChild, cookievalue, DateTime.Now.AddYears(1), System.Text.Encoding.UTF8);
-        }
+            string GetLoginID;
 
-        public void SetCookieValue(string cookienameByParent, string cookievalue)
-        {
-            SetCookieValue(cookienameByParent, cookievalue, null);
-        }
-
-        public void SetCookieValue(string cookienameByParent, string cookievalue, DateTime ExpiresTime)
-        {
-            SetCookieValue(cookienameByParent, cookievalue, null, ExpiresTime, System.Text.Encoding.UTF8);
-        }
-
-        public void SetCookieValue(string CookieNameByParent, string CookieNameByChild, string CookieValue, System.Text.Encoding Enc)
-        {
-            SetCookieValue(CookieNameByParent, CookieNameByChild, CookieValue, DateTime.Now.AddYears(1), Enc);
-        }
-        
-
-        #region Get GetCookieValue, 암호화 포함
-
-        private HttpCookie GetHttpCookie(string cookienameByParent)
-        {
-            if (!CookieDic.ContainsKey(cookienameByParent))
+            if (HttpContext.Current.User.Identity.IsAuthenticated)
             {
-                CookieDic[cookienameByParent] = HttpContext.Current.Request.Cookies[cookienameByParent];
-            }
-
-            return CookieDic[cookienameByParent];
-        }
-
-        public string GetCookieValue(string cookienameByParent)
-        {
-            HttpCookie Cookie = GetHttpCookie(cookienameByParent);
-            if (Cookie == null) return string.Empty;
-            //return GetHttpCookie(cookienameByParent).Value;
-            return Cookie.Value;
-        }
-
-        /// <summary>
-        /// 쿠키 값 조회
-        /// </summary>
-        /// <param name="CookieNameByParent"></param>
-        /// <param name="cookienameByChild"></param>
-        /// <param name="Decryption">쿠키 복호화 여부</param>
-        /// <returns></returns>
-        public string GetCookieValue(string CookieNameByParent, string cookienameByChild, bool Decryption = false)
-        {
-            if (!Decryption)
-            {
-                string returnvalue = null;
-                HttpCookie cookie = GetHttpCookie(CookieNameByParent);
-                if (cookie != null && cookie.HasKeys) returnvalue = cookie[cookienameByChild];
-                return returnvalue == null ? String.Empty : HttpUtility.UrlDecode(returnvalue);
+                GetLoginID = CryptoManager.DecryptAES256(HttpContext.Current.User.Identity.Name);
             }
             else
             {
-                string CurCookie = GetCookieValue(CookieNameByParent);
-
-                if (string.IsNullOrEmpty(CurCookie)) return string.Empty;
-
-                CryptoParams Params = new CryptoParams();
-                Params.SetCryptoParams(HttpUtility.UrlDecode(CurCookie), __EncPassword);
-
-                return Params.GetParameter(cookienameByChild);
+                GetLoginID = null;
             }
+
+            return GetLoginID;
+
         }
 
-        #endregion
+        
 
-        #region SetCookieEncryption, GetCookieDecryption
-
-        public void SetCookieEncryption(string CookieNameByParent, string CookieNameByChild, string CookieValue)
+        public static string GetIPAddress()
         {
-            HttpCookie CurCookie = GetHttpCookie(CookieNameByParent);
+            return HttpContext.Current.Request.UserHostAddress;
 
-            CryptoParams Params = new CryptoParams();
-            Params.SetCryptoParams(HttpUtility.UrlDecode(CurCookie.Value), __EncPassword);
-            Params.SetParameter(CookieNameByChild, CookieValue);
-
-            SetCookieValue(CookieNameByChild, HttpUtility.UrlEncode(Params.GetParamsString(true)), null, DateTime.Now.AddYears(1), System.Text.Encoding.UTF8);
-
-            CurCookie.Value = HttpUtility.UrlEncode(Params.GetParamsString(true));
-            HttpContext.Current.Response.Cookies.Add(CurCookie);
         }
 
-        #endregion 
 
-        public void RemoveCookieValue(string cookienameByParent)
+        public static string GetSessionID()
         {
-            SetCookieValue(cookienameByParent, "");
-        }
+            return HttpContext.Current.Session.SessionID;
 
-        /// <summary>
-        /// 쿠키를 굽는다.
-        /// </summary>
-        /// <param name="strCookieName">쿠키명</param>
-        /// <param name="strCookieValue">쿠키에 구울 값</param>
-        public void SetCookie(string strCookieName, string strCookieValue, string domain)
-        {
-            HttpCookie hc = new HttpCookie(strCookieName);
-            hc.Expires = DateTime.Now.AddYears(1);    //쿠키를 1년동안 유지한다
-            hc.Domain = domain;
-            hc.Path = "/";
-            hc.Value = HttpContext.Current.Server.UrlEncode(strCookieValue);
-            HttpContext.Current.Response.Cookies.Add(hc);
         }
 
 
-        /// <summary>
-        /// Cookies 값이 있는지 없는지 검사를 한다.
-        /// </summary>
-        /// <param name="strCookieName">쿠키명</param>
-        /// <returns>true, false 로 여부를 알려 준다.</returns>
-        public bool IsCookieValue(string strCookieName)
-        {
-            HttpCookieCollection hcc = new HttpCookieCollection();
-            HttpCookie LocalCookie;
-            hcc = HttpContext.Current.Request.Cookies;
-            string[] arrCookies = hcc.AllKeys;
-            bool booReturnValue = false;
-            for (int intNo = 0; intNo < arrCookies.Length; intNo++)
-            {
-                LocalCookie = hcc[arrCookies[intNo]];
-                if (LocalCookie.Name == strCookieName)
-                {
-                    booReturnValue = true;
-                    break;
-                }
-            }
-            return booReturnValue;
-        }
-
-        public void Dispose()
-        {
-           
-        }
     }
 }

@@ -50,10 +50,10 @@ D:\Project\IKaan\WEB\IKaan.Web.Service\bin\IKaan.Web.Service.dll.config
 D:\Project\IKaan\WEB\IKaan.Web.Service\bin\IKaan.Web.Service.dll
 D:\Project\IKaan\WEB\IKaan.Web.Service\bin\IKaan.Web.Service.pdb
 D:\Project\IKaan\WEB\IKaan.Web.Service\bin\IKaan.Web.Core.dll
+D:\Project\IKaan\WEB\IKaan.Web.Service\bin\IKaan.Web.Model.dll
 D:\Project\IKaan\WEB\IKaan.Web.Service\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 D:\Project\IKaan\WEB\IKaan.Web.Service\bin\SX.dll
 D:\Project\IKaan\WEB\IKaan.Web.Service\bin\ExcelLibrary.dll
-D:\Project\IKaan\WEB\IKaan.Web.Service\bin\Application.Crypto.dll
 D:\Project\IKaan\WEB\IKaan.Web.Service\bin\Newtonsoft.Json.dll
 D:\Project\IKaan\WEB\IKaan.Web.Service\bin\System.Web.WebPages.dll
 D:\Project\IKaan\WEB\IKaan.Web.Service\bin\Microsoft.Web.Infrastructure.dll
@@ -61,6 +61,8 @@ D:\Project\IKaan\WEB\IKaan.Web.Service\bin\System.Web.Razor.dll
 D:\Project\IKaan\WEB\IKaan.Web.Service\bin\System.Web.WebPages.Deployment.dll
 D:\Project\IKaan\WEB\IKaan.Web.Service\bin\IKaan.Web.Core.pdb
 D:\Project\IKaan\WEB\IKaan.Web.Service\bin\IKaan.Web.Core.dll.config
+D:\Project\IKaan\WEB\IKaan.Web.Service\bin\IKaan.Web.Model.pdb
+D:\Project\IKaan\WEB\IKaan.Web.Service\bin\IKaan.Web.Model.dll.config
 D:\Project\IKaan\WEB\IKaan.Web.Service\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 D:\Project\IKaan\WEB\IKaan.Web.Service\bin\SX.xml
 D:\Project\IKaan\WEB\IKaan.Web.Service\bin\Newtonsoft.Json.xml

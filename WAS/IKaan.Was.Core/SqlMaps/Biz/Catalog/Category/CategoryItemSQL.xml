@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectCategoryItemList" parameterClass="DataMap" resultClass="CategoryItemModel" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.UseYn Desc, AA.CategoryType, AA.SortOrder, AA.Name)	AS RowNo
+					,	AA.ID
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
+					
+					,	AA.Name
+					,	AA.CategoryType
+					,	AA.UseYn
+					,	AA.SortOrder
+					,	AA.Description
+					,	AA.InfoNoticeID
+					,	AA.ParentID
+					
+					,	M1.Name			as CategoryTypeName					
+					,	II.Name			as InfoNoticeName
+					,	PP.Name			as ParentName
+					
+				FROM	dbo.TCategoryItem AA WITH (NOLOCK)
+						LEFT JOIN
+							IKBase.dbo.TCode M1 WITH (NOLOCK)
+								ON AA.CategoryType = M1.Code
+									AND M1.ParentCode = 'CategoryType'
+						LEFT JOIN
+							dbo.TCategoryItem PP WITH (NOLOCK)
+								ON AA.ParentID = PP.ID
+						LEFT JOIN
+							dbo.TInfoNotice II WITH (NOLOCK)
+								ON AA.InfoNoticeID = II.ID
+				WHERE	1=1				
+			]]>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	AA.Name LIKE '%' + #FindText# + '%'
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="CategoryType">
+				<![CDATA[
+					AND	AA.CategoryType = #CategoryType#
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectCategoryItem" parameterClass="DataMap" resultClass="CategoryItemModel" >
+			<![CDATA[
+				SELECT  AA.*
+				FROM	dbo.TCategoryItem AA WITH (NOLOCK)
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<select id="SelectCategoryItemByName" parameterClass="DataMap" resultClass="CategoryItemModel" >
+			<![CDATA[
+				SELECT  AA.*
+				FROM	dbo.TCategoryItem AA WITH (NOLOCK)
+				WHERE	AA.Name = #Name#
+			]]>
+		</select>
+		<insert id="InsertCategoryItem" parameterClass="CategoryItemModel" >
+			<![CDATA[
+				INSERT INTO dbo.TCategoryItem
+				( 
+					CreatedOn, CreatedBy, CreatedByName,
+					Name, CategoryType, UseYn, SortOrder, Description, InfoNoticeID, ParentID
+				)
+				VALUES
+				(
+					GetDate(), #CreatedBy#, #CreatedByName#,
+					#Name#, #CategoryType#, #UseYn#, #SortOrder#, #Description#, #InfoNoticeID#, #ParentID#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateCategoryItem" parameterClass="CategoryItemModel">
+			<![CDATA[
+				UPDATE  dbo.TCategoryItem
+				SET     UpdatedOn		= GetDate()
+					,	UpdatedBy		= #UpdatedBy#
+					,	UpdatedByName	= #UpdatedByName#
+					
+					,	Name			= #Name#
+					,	CategoryType	= #CategoryType#
+					,	UseYn			= #UseYn#
+					,	SortOrder		= #SortOrder#
+					,	Description		= #Description#
+					,	InfoNoticeID	= #InfoNoticeID#
+					,	ParentID		= #ParentID#
+				WHERE	ID = #ID#
+			]]>
+		</update>
+		<delete id="DeleteCategoryItem" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM dbo.TCategoryItem WHERE ID = #ID#;
+			]]>
+		</delete>
+	</statements>
+</sqlMap>

@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectShipmentList" parameterClass="DataMap" resultClass="ShipmentModel" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID, BB.ID)	as RowNo
+					,	AA.ID
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
+					
+					,	AA.OrderID
+					,	AA.TrackingNo
+					,	AA.TotalWeight
+					,	AA.ShippedDate
+					,	AA.DeliveryDate
+					,	AA.Status
+					,	AA.Description
+					
+					,	BB.ID		as ShipmentItemID
+					,	BB.ShipmentID
+					,	BB.OrderItemID
+					,	BB.ShippedQty
+					
+				FROM	dbo.TShipment AA WITH (NOLOCK)
+						INNER JOIN
+							dbo.TShipmentItem BB WITH (NOLOCK)
+								ON AA.ID = BB.ShipmentID
+				WHERE	AA.OrderID = #OrderID#
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectShipment" parameterClass="DataMap" resultClass="ShipmentModel" >
+			<![CDATA[
+				SELECT  AA.*					
+				FROM	dbo.TShipment AA WITH (NOLOCK)
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<insert id="InsertShipment" parameterClass="ShipmentModel" >
+			<![CDATA[
+				INSERT INTO dbo.TShipment
+				( 
+					CreatedOn, CreatedBy, CreatedByName,
+					OrderID, TrackingNo, TotalWeight, ShippedDate, DeliveryDate, Status, Description
+				)
+				VALUES
+				(
+					GetDate(), #CreatedBy#, #CreatedByName#,
+					#OrderID#, #TrackingNo#, #TotalWeight#, #ShippedDate#, #DeliveryDate#, #Status#, #Description#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateShipment" parameterClass="ShipmentModel">
+			<![CDATA[
+				UPDATE  dbo.TShipment
+				SET     UpdatedOn		= GetDate()
+					,	UpdatedBy		= #UpdatedBy#
+					,	UpdatedByName	= #UpdatedByName#
+					
+					,	TrackingNo		= #TrackingNo#
+					,	TotalWeight		= #TotalWeight#
+					,	ShippedDate		= #ShippedDate#
+					,	DeliveryDate	= #DeliveryDate#
+					,	Status			= #Status#
+					,	Description		= #Description#
+				WHERE	ID = #ID#
+			]]>
+		</update>
+		<delete id="DeleteShipment" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM	dbo.TShipment WHERE ID = #ID#;
+			]]>
+		</delete>
+	</statements>
+</sqlMap>

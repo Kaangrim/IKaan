@@ -2,8 +2,7 @@ D:\Project\IKaan\WEB\IKaan.Web.Core\bin\IKaan.Web.Core.dll.config
 D:\Project\IKaan\WEB\IKaan.Web.Core\bin\IKaan.Web.Core.dll
 D:\Project\IKaan\WEB\IKaan.Web.Core\bin\IKaan.Web.Core.pdb
 D:\Project\IKaan\WEB\IKaan.Web.Core\bin\ExcelLibrary.dll
-D:\Project\IKaan\WEB\IKaan.Web.Core\bin\IKaan.Base.dll
-D:\Project\IKaan\WEB\IKaan.Web.Core\bin\IKaan.Model.dll
+D:\Project\IKaan\WEB\IKaan.Web.Core\bin\IKaan.Web.Model.dll
 D:\Project\IKaan\WEB\IKaan.Web.Core\bin\JFramework.Core.dll
 D:\Project\IKaan\WEB\IKaan.Web.Core\bin\log4net.dll
 D:\Project\IKaan\WEB\IKaan.Web.Core\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
@@ -19,9 +18,8 @@ D:\Project\IKaan\WEB\IKaan.Web.Core\bin\System.Web.Razor.dll
 D:\Project\IKaan\WEB\IKaan.Web.Core\bin\System.Web.WebPages.Deployment.dll
 D:\Project\IKaan\WEB\IKaan.Web.Core\bin\System.Web.WebPages.dll
 D:\Project\IKaan\WEB\IKaan.Web.Core\bin\System.Web.WebPages.Razor.dll
-D:\Project\IKaan\WEB\IKaan.Web.Core\bin\Itenso.TimePeriod.dll
-D:\Project\IKaan\WEB\IKaan.Web.Core\bin\IKaan.Base.pdb
-D:\Project\IKaan\WEB\IKaan.Web.Core\bin\IKaan.Model.pdb
+D:\Project\IKaan\WEB\IKaan.Web.Core\bin\IKaan.Web.Model.pdb
+D:\Project\IKaan\WEB\IKaan.Web.Core\bin\IKaan.Web.Model.dll.config
 D:\Project\IKaan\WEB\IKaan.Web.Core\bin\JFramework.Core.xml
 D:\Project\IKaan\WEB\IKaan.Web.Core\bin\log4net.xml
 D:\Project\IKaan\WEB\IKaan.Web.Core\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml

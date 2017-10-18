@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectApiRequestList" parameterClass="DataMap" resultClass="ApiRequestModel" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID)	as RowNo
+					,	AA.ID
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
+					
+					,	AA.ApiName
+					,	AA.ApiType
+					,	AA.ApiModel
+					,	AA.RequestDate
+					,	AA.Status
+					,	AA.SendData
+					,	AA.ReceiveData
+					
+				FROM	IKScrap.dbo.TApiRequest AA WITH (NOLOCK)
+				WHERE	1=1
+			]]>
+			<isNotEmpty property="ApiName">
+				<![CDATA[
+					AND	AA.ApiName = #ApiName#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="ApiType">
+				<![CDATA[
+					AND	AA.ApiType = #ApiType#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="ApiModel">
+				<![CDATA[
+					AND	AA.ApiModel = #ApiModel#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="StartRequestDate">
+				<![CDATA[
+					AND	AA.RequestDate > DATEADD(DAY, -1, #StartRequestDate#)
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="EndRequestDate">
+				<![CDATA[
+					AND	AA.RequestDate < DATEADD(DAY, 1, #EndRequestDate#)
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="FindText">
+				<![CDATA[
+					AND	(
+							AA.SendData		LIKE '%'+#FindText#+'%' OR
+							AA.ReceiveData	LIKE '%'+#FindText#+'%'
+						)
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectApiRequest" parameterClass="DataMap" resultClass="ApiRequestModel" >
+			<![CDATA[
+				SELECT  *					
+				FROM	IKScrap.dbo.TApiRequest AA WITH (NOLOCK)
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<insert id="InsertApiRequest" parameterClass="ApiRequestModel" >
+			<![CDATA[
+				INSERT INTO dbo.TApiRequest
+				( 
+					CreatedOn, CreatedBy, CreatedByName,
+					ApiName, ApiType, ApiModel, RequestDate, Status, SendData, ReceiveData
+				)
+				VALUES
+				(
+					GetDate(), #CreatedBy#, #CreatedByName#,
+					#ApiName#, #ApiType#, #ApiModel#, #RequestDate#, #Status#, #SendData#, #ReceiveData#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateApiRequest" parameterClass="ApiRequestModel">
+			<![CDATA[
+				UPDATE  IKScrap.dbo.TApiRequest
+				SET     UpdatedOn		= GetDate()
+					,	UpdatedBy		= #UpdatedBy#
+					,	UpdatedByName	= #UpdatedByName#
+					
+					,	ApiName			= #ApiName#
+					,	ApiType			= #ApiType#
+					,	ApiModel		= #ApiModel#
+					,	RequestDate		= #RequestDate#
+					,	Status			= #Status#
+					,	SendData		= #SendData#
+					,	ReceiveData		= #ReceiveData#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
+		<delete id="DeleteApiRequest" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM	IKScrap.dbo.TApiRequest WHERE ID = #ID#;
+			]]>
+		</delete>
+	</statements>
+</sqlMap>
