@@ -203,10 +203,15 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="SqlMaps\Biz\Catalog\Category\CategoryItemSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\Biz\Sales\DeliveryOrder\DeliveryOrderSQL.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SqlMaps\Biz\Sales\DeliveryOrder\DeliveryOrderItemSQL.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <Content Include="SqlMaps\Report\ReportSQL.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="SqlMaps\Biz\Sales\DeliveryOrder\" />
     <Folder Include="SqlMaps\Biz\Sales\Return\" />
   </ItemGroup>
   <ItemGroup>

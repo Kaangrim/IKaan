@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectDeliveryOrderList" parameterClass="DataMap" resultClass="DeliveryOrderModel" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY SS.Name, CC.Name, AA.DeliveryOrderDate, AA.OrderDate)	as RowNo
+					,	AA.ID
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
+					
+					,	AA.DeliveryOrderDate
+					,	AA.OrderDate
+					,	AA.StoreID
+					,	AA.ChannelID
+					,	CC.Name				as ChannelName
+					,	AA.MemberID
+					,	MM.Name				as MemberName
+					,	AA.TotalOrderQty
+					,	AA.TotalOrderAmt
+					,	AA.TotalDiscountAmt
+					,	AA.TotalCouponAmt
+					,	AA.TotalDeliveryFee
+					,	AA.TotalSupplyAmt
+					,	AA.Status
+					,	M1.Name				as StatusName
+					,	AA.Description					
+				FROM	dbo.TDeliveryOrder AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.TStore SS WITH (NOLOCK)
+								ON AA.StoreID = SS.ID
+						LEFT JOIN
+							dbo.TChannel CC WITH (NOLOCK)
+								ON AA.ChannelID = CC.ID
+						LEFT JOIN
+							dbo.TMember MM WITH  (NOLOCK)
+								ON AA.MemberID = MM.ID
+						LEFT JOIN
+							IKBase.dbo.TCode M1 WITH (NOLOCK)
+								ON AA.Status = M1.Code
+									AND M1.ParentCode = 'DeliveryOrderStatus'
+				WHERE	AA.DeliveryOrderDate > DATEADD(DAY, -1, #StartDate#)
+				AND		AA.DeliveryOrderDate < DATEADD(DAY, 1, #EndDate#)
+			]]>
+			<isNotEmpty property="StoreID">
+				<![CDATA[
+					AND	AA.StoreID = #StoreID#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="ChannelID">
+				<![CDATA[
+					AND	AA.ChannelID = #ChannelID#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="MemberID">
+				<![CDATA[
+					AND	AA.MemberID = #MemberID#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="Status">
+				<![CDATA[
+					AND	AA.Status = #Status#
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectDeliveryOrder" parameterClass="DataMap" resultClass="DeliveryOrderModel" >
+			<![CDATA[
+				SELECT  AA.*					
+					,	MM.Name				as MemberName
+					,	CC.Name				as ChannelName
+					
+				FROM	dbo.TDeliveryOrder AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.TChannel CC WITH (NOLOCK)
+								ON AA.ChannelID = CC.ID
+						LEFT JOIN
+							dbo.TMember MM WITH (NOLOCK)
+								ON AA.MemberID = MM.ID
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<insert id="InsertDeliveryOrder" parameterClass="DeliveryOrderModel" >
+			<![CDATA[
+				INSERT INTO dbo.TDeliveryOrder
+				( 
+					CreatedOn, CreatedBy, CreatedByName,
+					StoreID, ChannelID, MemberID,
+					DeliveryOrderDate, OrderDate, OrderID,
+					TotalOrderQty, TotalOrderAmt, TotalDiscountAmt, TotalCouponAmt, TotalDeliveryFee, TotalSupplyAmt,
+					Description, Status
+				)
+				VALUES
+				(
+					GetDate(), #CreatedBy#, #CreatedByName#,
+					#StoreID#, #ChannelID#, #MemberID#,
+					#DeliveryOrderDate#, #OrderDate#, #OrderID#,
+					#TotalOrderQty#, #TotalOrderAmt#, #TotalDiscountAmt#, #TotalCouponAmt#, #TotalDeliveryFee#, #TotalSupplyAmt#,
+					#Description#, #Status#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateDeliveryOrder" parameterClass="DeliveryOrderModel">
+			<![CDATA[
+				UPDATE  dbo.TDeliveryOrder
+				SET     UpdatedOn			= GetDate()
+					,	UpdatedBy			= #UpdatedBy#
+					,	UpdatedByName		= #UpdatedByName#
+					
+					,	DeliveryOrderDate	= #DeliveryOrderDate#
+					,	OrderDate			= #OrderDate#
+					,	OrderID				= #OrderID#
+					,	StoreID				= #StoreID#
+					,	ChannelID			= #ChannelID#
+					,	MemberID			= #MemberID#
+					,	TotalOrderQty		= #TotalOrderQty#
+					,	TotalOrderAmt		= #TotalOrderAmt#
+					,	TotalDiscountAmt	= #TotalDiscountAmt#
+					,	TotalCouponAmt		= #TotalCouponAmt#
+					,	TotalDeliveryFee	= #TotalDeliveryFee#
+					,	TotalSupplyAmt		= #TotalSupplyAmt#
+					,	Description			= #Description#
+					,	Status				= #Status#
+				WHERE	ID = #ID#
+			]]>
+		</update>
+		<update id="UpdateDeliveryOrderTotal" parameterClass="DataMap">
+			<![CDATA[
+				UPDATE  AA
+				SET     AA.TotalOrderQty	= ISNULL(BB.TotalOrderQty, 0)
+					,	AA.TotalOrderAmt	= ISNULL(BB.TotalOrderAmt, 0)
+					,	AA.TotalDiscountAmt	= ISNULL(BB.TotalDiscountAmt, 0)
+					,	AA.TotalCouponAmt	= ISNULL(BB.TotalCouponAmt, 0)
+					,	AA.TotalDeliveryFee	= ISNULL(BB.TotalDeliveryFee, 0)
+					,	AA.TotalSupplyAmt	= ISNULL(BB.TotalSupplyAmt, 0)
+				FROM	dbo.TDeliveryOrder AA
+						LEFT JOIN
+						(
+							SELECT	DeliveryOrderID
+								,	SUM(OrderQty, 0)		as TotalOrderQty
+								,	SUM(OrderAmt, 0)		as TotalOrderAmt
+								,	SUM(DiscountAmt, 0)		as TotalDiscountAmt
+								,	SUM(CouponAmt, 0)		as TotalCouponAmt
+								,	SUM(DeliveryFee, 0)		as TotalDeliveryFee
+								,	SUM(SupplyAmt, 0)		as TotalSupplyAmt
+							FROM	dbo.TDeliveryOrderItem WITH (NOLOCK)
+							WHERE	DeliveryOrderID = #ID#
+							GROUP BY
+								DeliveryOrderID
+						) BB
+							ON AA.ID = BB.DeliveryOrderID
+				WHERE	AA.ID = #ID#
+			]]>
+		</update>
+		<delete id="DeleteDeliveryOrder" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM	dbo.TDeliveryOrder WHERE ID = #ID#;
+			]]>
+		</delete>
+	</statements>
+</sqlMap>

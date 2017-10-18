@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectDeliveryOrderItemList" parameterClass="DataMap" resultClass="DeliveryOrderItemModel" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID)	as RowNo
+					,	AA.ID
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
+					
+					,	AA.DeliveryOrderID
+					,	AA.OrderItemID
+					,	AA.ProductID
+					,	AA.ProductName
+					,	AA.ProductCode
+					,	AA.ProductItemID
+					,	AA.Option1
+					,	AA.Option2
+					,	AA.Bundle
+					,	AA.OrderQty
+					,	AA.SalePrice
+					,	AA.OrderAmt
+					,	AA.DiscountAmt
+					,	AA.CouponAmt
+					,	AA.DeliveryFee
+					,	AA.SupplyPrice
+					,	AA.SupplyAmt
+					,	AA.CancelYn
+					,	AA.CancelDate
+					,	AA.Currency
+					,	AA.LocalSalePrice
+					,	AA.DeliveryOrderTime
+					,	AA.Status
+					
+					,	PP.BrandID
+					,	BB.Name		as BrandName
+					
+					,	ISNULL(SD.ShippedQty, 0)	as ShippedQty
+					
+				FROM	dbo.TDeliveryOrderItem AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.TProduct PP WITH  (NOLOCK)
+								ON AA.ProductID = PP.ID
+						LEFT JOIN
+							DBO.TBrand BB WITH (NOLOCK)
+								ON PP.BrandID = BB.ID
+						LEFT JOIN
+						(
+							SELECT	AA.OrderID
+								,	BB.DeliveryOrderItemID
+								,	SUM(BB.ShippedQty)	as ShippedQty
+							FROM	dbo.TShipment AA WITH (NOLOCK)
+									INNER JOIN
+										dbo.TShipmentItem BB WITH (NOLOCK)
+											ON AA.ID = BB.ShipmentID
+							WHERE	AA.OrderID = #OrderID#
+							GROUP BY
+								AA.OrderID, BB.DeliveryOrderItemID
+						) SD ON AA.OrderID = SD.OrderID
+				WHERE	AA.OrderID = #OrderID#
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectDeliveryOrderItem" parameterClass="DataMap" resultClass="DeliveryOrderItemModel" >
+			<![CDATA[
+				SELECT  AA.*
+				FROM	dbo.TDeliveryOrderItem AA WITH (NOLOCK)
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<insert id="InsertDeliveryOrderItem" parameterClass="DeliveryOrderItemModel" >
+			<![CDATA[
+				INSERT INTO dbo.TDeliveryOrderItem
+				( 
+					CreatedOn, CreatedBy, CreatedByName,
+					DeliveryOrderID, OrderItemID,
+					ProductID, ProductName, ProductCode, ProductItemID,
+					Option1, Option2, Bundle, 
+					OrderQty, SalePrice, OrderAmt, DiscountAmt, CouponAmt, DeliveryFee, SupplyPrice, SupplyAmt,
+					CancelYn, CancelDate, ChannelOrderSeq, Currency, LocalSalePrice, DeliveryOrderTime, Status
+				)
+				VALUES
+				(
+					GetDate(), #CreatedBy#, #CreatedByName#,
+					#DeliveryOrderID#, #OrderItemID#,
+					#ProductID#, #ProductName#, #ProductCode#, #ProductItemID#,
+					#Option1#, #Option2#, #Bundle#, 
+					#OrderQty#, #SalePrice#, #OrderAmt#, #DiscountAmt#, #CouponAmt#, #DeliveryFee#, #SupplyPrice#, #SupplyAmt#,
+					'N', null, #ChannelOrderSeq#, #Currency#, #LocalSalePrice#, #DeliveryOrderTime#, #Status#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateTDeliveryOrderItem" parameterClass="DeliveryOrderItemModel">
+			<![CDATA[
+				UPDATE  dbo.TDeliveryOrderItem
+				SET     UpdatedOn			= GetDate()
+					,	UpdatedBy			= #UpdatedBy#
+					,	UpdatedByName		= #UpdatedByName#
+					
+					,	DeliveryOrderID		= #DeliveryOrderID#
+					,	OrderItemID			= #OrderItemID#
+					,	ProductID			= #ProductID#
+					,	ProductName			= #ProductName#
+					,	ProductCode			= #ProductCode#
+					,	ProductItemID		= #ProductItemID#
+					,	Option1				= #Option1#
+					,	Option2				= #Option2#
+					,	Bundle				= #Bundle#
+					,	OrderQty			= #OrderQty#
+					,	SalePrice			= #SalePrice#
+					,	OrderAmt			= #OrderAmt#
+					,	DiscountAmt			= #DiscountAmt#
+					,	CouponAmt			= #CouponAmt#
+					,	DeliveryFee			= #DeliveryFee#
+					,	SupplyPrice			= #SupplyPrice#
+					,	SupplyAmt			= #SupplyAmt#
+					,	CancelYn			= #CancelYn#
+					,	CancelDate			= #CancelDate#
+					,	ChannelOrderSeq		= #ChannelOrderSeq#
+					,	Currency			= #Currency#
+					,	LocalSalePrice		= #LocalSalePrice#
+					,	DeliveryOrderTime	= #DeliveryOrderTime#
+					,	Status				= #Status#
+				WHERE	ID = #ID#
+			]]>
+		</update>
+		<delete id="DeleteDeliveryOrderItem" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM	dbo.TDeliveryOrderItem WHERE ID = #ID#;
+			]]>
+		</delete>
+		<delete id="DeleteDeliveryOrderItemByOrderID" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM	dbo.TDeliveryOrderItem WHERE OrderID = #OrderID#;
+			]]>
+		</delete>
+		<select id="SelectDeliveryOrderItemByProductCode" parameterClass="DataMap" resultClass="DeliveryOrderItemModel" >
+			<![CDATA[
+				SELECT  AA.*					
+				FROM	dbo.TDeliveryOrderItem AA WITH (NOLOCK)
+						INNER JOIN
+							dbo.TDeliveryOrder BB WITH (NOLOCK)
+								ON AA.DeliveryOrderID = BB.ID
+				WHERE	BB.StoreID = #StoreID#
+				AND		BB.ChannelID = #ChannelID#
+				AND		AA.ProductCode = #ProductCode#
+			]]>
+		</select>
+	</statements>
+</sqlMap>

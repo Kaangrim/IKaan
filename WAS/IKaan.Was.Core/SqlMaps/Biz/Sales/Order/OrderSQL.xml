@@ -116,7 +116,7 @@
 				]]>
 			</selectKey>
 		</insert>
-		<update id="UpdateTOrder" parameterClass="OrderModel">
+		<update id="UpdateOrder" parameterClass="OrderModel">
 			<![CDATA[
 				UPDATE  dbo.TOrder
 				SET     UpdatedOn			= GetDate()
@@ -141,16 +141,32 @@
 				WHERE	ID = #ID#
 			]]>
 		</update>
-		<update id="UpdateTOrderTotal" parameterClass="OrderModel">
+		<update id="UpdateOrderTotal" parameterClass="OrderModel">
 			<![CDATA[
-				UPDATE  dbo.TOrder
-				SET     TotalOrderQty		= #TotalOrderQty#
-					,	TotalOrderAmt		= #TotalOrderAmt#
-					,	TotalDiscountAmt	= #TotalDiscountAmt#
-					,	TotalCouponAmt		= #TotalCouponAmt#
-					,	TotalDeliveryFee	= #TotalDeliveryFee#
-					,	TotalSupplyAmt		= #TotalSupplyAmt#
-				WHERE	ID = #ID#
+				UPDATE  AA
+				SET     AA.TotalOrderQty	= ISNULL(BB.TotalOrderQty, 0)
+					,	AA.TotalOrderAmt	= ISNULL(BB.TotalOrderAmt, 0)
+					,	AA.TotalDiscountAmt	= ISNULL(BB.TotalDiscountAmt, 0)
+					,	AA.TotalCouponAmt	= ISNULL(BB.TotalCouponAmt, 0)
+					,	AA.TotalDeliveryFee	= ISNULL(BB.TotalDeliveryFee, 0)
+					,	AA.TotalSupplyAmt	= ISNULL(BB.TotalSupplyAmt, 0)
+				FROM	dbo.TOrder AA
+						LEFT JOIN
+						(
+							SELECT	OrderID
+								,	SUM(OrderQty, 0)		as TotalOrderQty
+								,	SUM(OrderAmt, 0)		as TotalOrderAmt
+								,	SUM(DiscountAmt, 0)		as TotalDiscountAmt
+								,	SUM(CouponAmt, 0)		as TotalCouponAmt
+								,	SUM(DeliveryFee, 0)		as TotalDeliveryFee
+								,	SUM(SupplyAmt, 0)		as TotalSupplyAmt
+							FROM	dbo.TOrderItem WITH (NOLOCK)
+							WHERE	OrderID = #ID#
+							GROUP BY
+								OrderID
+						) BB
+							ON AA.ID = BB.OrderID
+				WHERE	AA.ID = #ID#
 			]]>
 		</update>
 		<delete id="DeleteOrder" parameterClass="DataMap">

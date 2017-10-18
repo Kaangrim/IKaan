@@ -28,11 +28,12 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions6 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
-			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions2 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
-			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions1 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions3 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
 			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions5 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
 			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions4 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions2 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+			DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions1 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OrderListForm));
 			this.gridList = new IKaan.Win.Core.Controls.Grid.XGrid();
 			this.lcGroupSearch = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.esSearchTitle = new DevExpress.XtraLayout.EmptySpaceItem();
@@ -53,13 +54,13 @@
 			this.lupMemberID = new IKaan.Win.Core.Controls.Common.XLookup();
 			this.lcItemStatus = new DevExpress.XtraLayout.LayoutControlItem();
 			this.lupStatus = new IKaan.Win.Core.Controls.Common.XLookup();
+			this.lcButtonDeliveryOrder = new DevExpress.XtraLayout.LayoutControlItem();
+			this.btnDeliveryOrder = new DevExpress.XtraEditors.SimpleButton();
+			this.lcButtonOrderCancel = new DevExpress.XtraLayout.LayoutControlItem();
+			this.btnOrderCancel = new DevExpress.XtraEditors.SimpleButton();
 			this.lcTabList = new DevExpress.XtraLayout.TabbedControlGroup();
 			this.lcGroupLists = new DevExpress.XtraLayout.LayoutControlGroup();
 			this.layoutControlItem3 = new DevExpress.XtraLayout.LayoutControlItem();
-			this.btnDeliveryOrder = new DevExpress.XtraEditors.SimpleButton();
-			this.lcButtonDeliveryOrder = new DevExpress.XtraLayout.LayoutControlItem();
-			this.btnOrderCancel = new DevExpress.XtraEditors.SimpleButton();
-			this.lcButtonOrderCancel = new DevExpress.XtraLayout.LayoutControlItem();
 			((System.ComponentModel.ISupportInitialize)(this.lc)).BeginInit();
 			this.lc.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupBase)).BeginInit();
@@ -84,11 +85,11 @@
 			((System.ComponentModel.ISupportInitialize)(this.lupMemberID.Properties)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemStatus)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lupStatus.Properties)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcButtonDeliveryOrder)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcButtonOrderCancel)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcTabList)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupLists)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcButtonDeliveryOrder)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcButtonOrderCancel)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// lc
@@ -127,7 +128,7 @@
 			this.gridList.Editable = true;
 			this.gridList.FocusedRowHandle = -2147483648;
 			this.gridList.GridViewType = IKaan.Win.Core.Controls.Grid.GridViewType.GridView;
-			this.gridList.Location = new System.Drawing.Point(259, 33);
+			this.gridList.Location = new System.Drawing.Point(259, 35);
 			this.gridList.Name = "gridList";
 			this.gridList.PageFooterCenter = null;
 			this.gridList.PageFooterLeft = null;
@@ -141,7 +142,7 @@
 			this.gridList.ReadOnly = false;
 			this.gridList.ShowFooter = false;
 			this.gridList.ShowGroupPanel = false;
-			this.gridList.Size = new System.Drawing.Size(722, 510);
+			this.gridList.Size = new System.Drawing.Size(722, 508);
 			this.gridList.TabIndex = 7;
 			// 
 			// lcGroupSearch
@@ -276,7 +277,7 @@
 			this.lupStoreID.NullText = "[EditValue is null]";
 			this.lupStoreID.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions6, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions3, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
 			this.lupStoreID.SelectedIndex = -1;
 			this.lupStoreID.Size = new System.Drawing.Size(212, 20);
 			this.lupStoreID.StyleController = this.lc;
@@ -302,7 +303,7 @@
 			this.lupChannelID.NullText = "[EditValue is null]";
 			this.lupChannelID.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions2, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions5, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
 			this.lupChannelID.SelectedIndex = -1;
 			this.lupChannelID.Size = new System.Drawing.Size(212, 20);
 			this.lupChannelID.StyleController = this.lc;
@@ -328,7 +329,7 @@
 			this.lupBrandID.NullText = "[EditValue is null]";
 			this.lupBrandID.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions4, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
 			this.lupBrandID.SelectedIndex = -1;
 			this.lupBrandID.Size = new System.Drawing.Size(212, 20);
 			this.lupBrandID.StyleController = this.lc;
@@ -354,7 +355,7 @@
 			this.lupMemberID.NullText = "[EditValue is null]";
 			this.lupMemberID.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions5, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions2, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
 			this.lupMemberID.SelectedIndex = -1;
 			this.lupMemberID.Size = new System.Drawing.Size(212, 20);
 			this.lupMemberID.StyleController = this.lc;
@@ -380,42 +381,21 @@
 			this.lupStatus.NullText = "[EditValue is null]";
 			this.lupStatus.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo),
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions4, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Redo, "", -1, true, true, false, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), "재구성")});
 			this.lupStatus.SelectedIndex = -1;
 			this.lupStatus.Size = new System.Drawing.Size(212, 20);
 			this.lupStatus.StyleController = this.lc;
 			this.lupStatus.TabIndex = 37;
 			this.lupStatus.ValueMember = "";
 			// 
-			// lcTabList
+			// lcButtonDeliveryOrder
 			// 
-			this.lcTabList.Location = new System.Drawing.Point(250, 0);
-			this.lcTabList.Name = "lcTabList";
-			this.lcTabList.Padding = new DevExpress.XtraLayout.Utils.Padding(2, 2, 2, 2);
-			this.lcTabList.SelectedTabPage = this.lcGroupLists;
-			this.lcTabList.SelectedTabPageIndex = 0;
-			this.lcTabList.Size = new System.Drawing.Size(736, 548);
-			this.lcTabList.TabPages.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
-            this.lcGroupLists});
-			// 
-			// lcGroupLists
-			// 
-			this.lcGroupLists.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
-            this.layoutControlItem3});
-			this.lcGroupLists.Location = new System.Drawing.Point(0, 0);
-			this.lcGroupLists.Name = "lcGroupLists";
-			this.lcGroupLists.Padding = new DevExpress.XtraLayout.Utils.Padding(4, 4, 4, 4);
-			this.lcGroupLists.Size = new System.Drawing.Size(726, 514);
-			this.lcGroupLists.Text = "조회결과";
-			// 
-			// layoutControlItem3
-			// 
-			this.layoutControlItem3.Control = this.gridList;
-			this.layoutControlItem3.Location = new System.Drawing.Point(0, 0);
-			this.layoutControlItem3.Name = "layoutControlItem3";
-			this.layoutControlItem3.Size = new System.Drawing.Size(726, 514);
-			this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
-			this.layoutControlItem3.TextVisible = false;
+			this.lcButtonDeliveryOrder.Control = this.btnDeliveryOrder;
+			this.lcButtonDeliveryOrder.Location = new System.Drawing.Point(0, 483);
+			this.lcButtonDeliveryOrder.Name = "lcButtonDeliveryOrder";
+			this.lcButtonDeliveryOrder.Size = new System.Drawing.Size(216, 26);
+			this.lcButtonDeliveryOrder.TextSize = new System.Drawing.Size(0, 0);
+			this.lcButtonDeliveryOrder.TextVisible = false;
 			// 
 			// btnDeliveryOrder
 			// 
@@ -426,14 +406,14 @@
 			this.btnDeliveryOrder.TabIndex = 38;
 			this.btnDeliveryOrder.Text = "배송요청";
 			// 
-			// lcButtonDeliveryOrder
+			// lcButtonOrderCancel
 			// 
-			this.lcButtonDeliveryOrder.Control = this.btnDeliveryOrder;
-			this.lcButtonDeliveryOrder.Location = new System.Drawing.Point(0, 483);
-			this.lcButtonDeliveryOrder.Name = "lcButtonDeliveryOrder";
-			this.lcButtonDeliveryOrder.Size = new System.Drawing.Size(216, 26);
-			this.lcButtonDeliveryOrder.TextSize = new System.Drawing.Size(0, 0);
-			this.lcButtonDeliveryOrder.TextVisible = false;
+			this.lcButtonOrderCancel.Control = this.btnOrderCancel;
+			this.lcButtonOrderCancel.Location = new System.Drawing.Point(0, 509);
+			this.lcButtonOrderCancel.Name = "lcButtonOrderCancel";
+			this.lcButtonOrderCancel.Size = new System.Drawing.Size(216, 26);
+			this.lcButtonOrderCancel.TextSize = new System.Drawing.Size(0, 0);
+			this.lcButtonOrderCancel.TextVisible = false;
 			// 
 			// btnOrderCancel
 			// 
@@ -448,14 +428,36 @@
 			this.btnOrderCancel.TabIndex = 39;
 			this.btnOrderCancel.Text = "주문취소";
 			// 
-			// lcButtonOrderCancel
+			// lcTabList
 			// 
-			this.lcButtonOrderCancel.Control = this.btnOrderCancel;
-			this.lcButtonOrderCancel.Location = new System.Drawing.Point(0, 509);
-			this.lcButtonOrderCancel.Name = "lcButtonOrderCancel";
-			this.lcButtonOrderCancel.Size = new System.Drawing.Size(216, 26);
-			this.lcButtonOrderCancel.TextSize = new System.Drawing.Size(0, 0);
-			this.lcButtonOrderCancel.TextVisible = false;
+			this.lcTabList.Location = new System.Drawing.Point(250, 0);
+			this.lcTabList.Name = "lcTabList";
+			this.lcTabList.Padding = new DevExpress.XtraLayout.Utils.Padding(2, 2, 2, 2);
+			this.lcTabList.SelectedTabPage = this.lcGroupLists;
+			this.lcTabList.SelectedTabPageIndex = 0;
+			this.lcTabList.Size = new System.Drawing.Size(736, 548);
+			this.lcTabList.TabPages.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.lcGroupLists});
+			// 
+			// lcGroupLists
+			// 
+			this.lcGroupLists.CaptionImage = ((System.Drawing.Image)(resources.GetObject("lcGroupLists.CaptionImage")));
+			this.lcGroupLists.Items.AddRange(new DevExpress.XtraLayout.BaseLayoutItem[] {
+            this.layoutControlItem3});
+			this.lcGroupLists.Location = new System.Drawing.Point(0, 0);
+			this.lcGroupLists.Name = "lcGroupLists";
+			this.lcGroupLists.Padding = new DevExpress.XtraLayout.Utils.Padding(4, 4, 4, 4);
+			this.lcGroupLists.Size = new System.Drawing.Size(726, 512);
+			this.lcGroupLists.Text = "조회결과";
+			// 
+			// layoutControlItem3
+			// 
+			this.layoutControlItem3.Control = this.gridList;
+			this.layoutControlItem3.Location = new System.Drawing.Point(0, 0);
+			this.layoutControlItem3.Name = "layoutControlItem3";
+			this.layoutControlItem3.Size = new System.Drawing.Size(726, 512);
+			this.layoutControlItem3.TextSize = new System.Drawing.Size(0, 0);
+			this.layoutControlItem3.TextVisible = false;
 			// 
 			// OrderListForm
 			// 
@@ -491,11 +493,11 @@
 			((System.ComponentModel.ISupportInitialize)(this.lupMemberID.Properties)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcItemStatus)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lupStatus.Properties)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcButtonDeliveryOrder)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.lcButtonOrderCancel)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcTabList)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.lcGroupLists)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.layoutControlItem3)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcButtonDeliveryOrder)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.lcButtonOrderCancel)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
