@@ -97,10 +97,6 @@
       <Project>{8bfcd979-c083-41b2-8715-5936a1587986}</Project>
       <Name>IKaan.Win.View.Biz</Name>
     </ProjectReference>
-    <ProjectReference Include="..\IKaan.Win.View.Live\IKaan.Win.View.Live.csproj">
-      <Project>{b6bcf752-d03f-4a69-80a1-e4827cae2bcf}</Project>
-      <Name>IKaan.Win.View.Live</Name>
-    </ProjectReference>
     <ProjectReference Include="..\IKaan.Win.View.Scrap\IKaan.Win.View.Scrap.csproj">
       <Project>{6af024e0-3d47-4127-887b-5edc9db036ae}</Project>
       <Name>IKaan.Win.View.Scrap</Name>

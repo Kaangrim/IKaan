@@ -50,7 +50,7 @@ namespace IKaan.Was.Service.Utils
 			else if (req.ServiceId.StartsWith("Scrap"))
 				data = DaoFactory.InstanceScrap.QueryForObject<T>(sqlId, parameter);
 			else if (req.ServiceId.StartsWith("Live"))
-				data = DaoFactory.InstanceLive.QueryForObject<T>(sqlId, parameter);
+				data = DaoFactory.InstanceBiz.QueryForObject<T>(sqlId, parameter);
 			else if (req.ServiceId.StartsWith("B2B"))
 				data = DaoFactory.InstanceB2B.QueryForObject<T>(sqlId, parameter);
 			else
@@ -73,7 +73,7 @@ namespace IKaan.Was.Service.Utils
 			else if (req.ServiceId.StartsWith("Scrap"))
 				data = DaoFactory.InstanceScrap.QueryForList<T>(sqlId, parameter);
 			else if (req.ServiceId.StartsWith("Live"))
-				data = DaoFactory.InstanceLive.QueryForList<T>(sqlId, parameter);
+				data = DaoFactory.InstanceBiz.QueryForList<T>(sqlId, parameter);
 			else if (req.ServiceId.StartsWith("B2B"))
 				data = DaoFactory.InstanceB2B.QueryForList<T>(sqlId, parameter);
 			else
@@ -103,7 +103,7 @@ namespace IKaan.Was.Service.Utils
 					else if (req.ServiceId.StartsWith("Scrap"))
 						id = DaoFactory.InstanceScrap.Insert(sqlId, model);
 					else if (req.ServiceId.StartsWith("Live"))
-						id = DaoFactory.InstanceLive.Insert(sqlId, model);
+						id = DaoFactory.InstanceBiz.Insert(sqlId, model);
 					else if (req.ServiceId.StartsWith("B2B"))
 						id = DaoFactory.InstanceB2B.Insert(sqlId, model);
 					else
@@ -120,7 +120,7 @@ namespace IKaan.Was.Service.Utils
 					else if (req.ServiceId.StartsWith("Scrap"))
 						DaoFactory.InstanceScrap.Update(sqlId, model);
 					else if (req.ServiceId.StartsWith("Live"))
-						DaoFactory.InstanceLive.Update(sqlId, model);
+						DaoFactory.InstanceBiz.Update(sqlId, model);
 					else if (req.ServiceId.StartsWith("B2B"))
 						DaoFactory.InstanceB2B.Update(sqlId, model);
 					else
@@ -153,7 +153,7 @@ namespace IKaan.Was.Service.Utils
 					else if (req.ServiceId.StartsWith("Scrap"))
 						rm = DaoFactory.InstanceScrap.QueryForObject<T>(sqlId, data);
 					else if (req.ServiceId.StartsWith("Live"))
-						rm = DaoFactory.InstanceLive.QueryForObject<T>(sqlId, data);
+						rm = DaoFactory.InstanceBiz.QueryForObject<T>(sqlId, data);
 					else if (req.ServiceId.StartsWith("B2B"))
 						rm = DaoFactory.InstanceB2B.QueryForObject<T>(sqlId, data);
 					else
@@ -174,7 +174,7 @@ namespace IKaan.Was.Service.Utils
 						else if (req.ServiceId.StartsWith("Scrap"))
 							DaoFactory.InstanceScrap.Insert(sqlId, data);
 						else if (req.ServiceId.StartsWith("Live"))
-							DaoFactory.InstanceLive.Insert(sqlId, data);
+							DaoFactory.InstanceBiz.Insert(sqlId, data);
 						else if (req.ServiceId.StartsWith("B2B"))
 							DaoFactory.InstanceB2B.Insert(sqlId, data);
 						else
@@ -194,7 +194,7 @@ namespace IKaan.Was.Service.Utils
 					else if (req.ServiceId.StartsWith("Scrap"))
 						DaoFactory.InstanceScrap.Update(sqlId, data);
 					else if (req.ServiceId.StartsWith("Live"))
-						DaoFactory.InstanceLive.Update(sqlId, data);
+						DaoFactory.InstanceBiz.Update(sqlId, data);
 					else if (req.ServiceId.StartsWith("B2B"))
 						DaoFactory.InstanceB2B.Update(sqlId, data);
 					else
@@ -220,7 +220,7 @@ namespace IKaan.Was.Service.Utils
 				else if (req.ServiceId.StartsWith("Scrap"))
 					rm = DaoFactory.InstanceScrap.QueryForObject<T>(sqlId, data);
 				else if (req.ServiceId.StartsWith("Live"))
-					rm = DaoFactory.InstanceLive.QueryForObject<T>(sqlId, data);
+					rm = DaoFactory.InstanceBiz.QueryForObject<T>(sqlId, data);
 				else if (req.ServiceId.StartsWith("B2B"))
 					rm = DaoFactory.InstanceB2B.QueryForObject<T>(sqlId, data);
 				else
@@ -236,7 +236,7 @@ namespace IKaan.Was.Service.Utils
 					else if (req.ServiceId.StartsWith("Scrap"))
 						DaoFactory.InstanceScrap.Delete(sqlId, parameter);
 					else if (req.ServiceId.StartsWith("Live"))
-						DaoFactory.InstanceLive.Delete(sqlId, parameter);
+						DaoFactory.InstanceBiz.Delete(sqlId, parameter);
 					else if (req.ServiceId.StartsWith("B2B"))
 						DaoFactory.InstanceB2B.Delete(sqlId, parameter);
 					else

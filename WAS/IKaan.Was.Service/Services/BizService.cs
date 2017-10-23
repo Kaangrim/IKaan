@@ -107,6 +107,15 @@ namespace IKaan.Was.Service.Services
 						case "Partner":
 							req.SetList<PartnerModel>();
 							break;
+						case "ChannelOrder":
+							req.SetList<ChannelOrderModel>();
+							break;
+						case "ChannelOrderCancel":
+							req.SetList<ChannelOrderCancelModel>();
+							break;
+						case "ChannelOrderReturn":
+							req.SetList<ChannelOrderReturnModel>();
+							break;
 						case "Order":
 							req.SetList<OrderModel>();
 							break;
@@ -325,6 +334,15 @@ namespace IKaan.Was.Service.Services
 						case "PartnerBankAccount":
 							req.GetPartnerBankAccount();
 							break;
+						case "ChannelOrder":
+							req.SetData<ChannelOrderModel>();
+							break;
+						case "ChannelOrderCancel":
+							req.SetData<ChannelOrderCancelModel>();
+							break;
+						case "ChannelOrderReturn":
+							req.SetData<ChannelOrderReturnModel>();
+							break;
 						case "Order":
 							req.GetOrder();
 							break;
@@ -516,6 +534,26 @@ namespace IKaan.Was.Service.Services
 									break;
 								case "PartnerStore":
 									req.SavePartnerStore();
+									break;
+								case "ChannelOrder":
+									if (req.SqlId.Equals("UpdateChannelOrderBrand"))
+									{
+										req.SaveChannelOrderBrand();
+									}
+									else if (req.SqlId.Equals("InsertChannelOrderToBizOrder"))
+									{
+										req.SaveChannelOrderToBizOrder();
+									}
+									else
+									{
+										req.SaveChannelOrder();
+									}
+									break;
+								case "ChannelOrderCancel":
+									req.SaveChannelOrderCancel();
+									break;
+								case "ChannelOrderReturn":
+									req.SaveChannelOrderReturn();
 									break;
 								case "Order":
 									req.SaveOrder();

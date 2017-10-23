@@ -133,9 +133,6 @@
     <Compile Include="Biz\Sales\Analysis\OrderSumSalesModel.cs" />
     <Compile Include="Biz\Sales\Analysis\OrderSumByChannelModel.cs" />
     <Compile Include="Biz\Sales\Analysis\OrderSumModel.cs" />
-    <Compile Include="Live\ChannelOrderReturnModel.cs" />
-    <Compile Include="Live\ChannelOrderCancelModel.cs" />
-    <Compile Include="Live\ChannelOrderModel.cs" />
     <Compile Include="Scrap\Api\ApiResultModel.cs" />
     <Compile Include="Scrap\Common\ScrapOptionModel.cs" />
     <Compile Include="Scrap\Common\ScrapCategoryModel.cs" />
@@ -220,7 +217,7 @@
     <Compile Include="Scrap\Smaps\SmapsAgencyModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Chang\" />
+    <Folder Include="B2C\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -64,8 +64,7 @@
     <EmbeddedResource Include="Config\SqlMapScrap.config" />
     <EmbeddedResource Include="Config\SqlMapBiz.config" />
     <EmbeddedResource Include="Config\SqlMapBase.config" />
-    <EmbeddedResource Include="Config\SqlMapLive.config" />
-    <EmbeddedResource Include="Config\SqlMapB2B.config" />
+    <EmbeddedResource Include="Config\SqlMapB2C.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -150,9 +149,6 @@
     <EmbeddedResource Include="SqlMaps\Biz\Master\Common\ContactSQL.xml" />
     <EmbeddedResource Include="SqlMaps\Biz\Master\Customer\CustomerContactSQL.xml" />
     <EmbeddedResource Include="SqlMaps\Biz\Master\Customer\CustomerManagerSQL.xml" />
-    <EmbeddedResource Include="SqlMaps\Live\ChannelOrderSQL.xml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="SqlMaps\Biz\Master\Channel\ChannelSettingSQL.xml" />
     <EmbeddedResource Include="SqlMaps\Base\Common\HolidaySQL.xml" />
     <EmbeddedResource Include="SqlMaps\Biz\Master\Common\StoreSQL.xml" />
@@ -209,6 +205,7 @@
     <EmbeddedResource Include="SqlMaps\Biz\Sales\DeliveryOrder\DeliveryOrderItemSQL.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <Content Include="SqlMaps\Biz\Sales\Order\ChannelOrderSQL.xml" />
     <Content Include="SqlMaps\Report\ReportSQL.xml" />
   </ItemGroup>
   <ItemGroup>

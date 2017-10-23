@@ -261,6 +261,12 @@
     <Compile Include="Master\Address\AddressEditForm.designer.cs">
       <DependentUpon>AddressEditForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Sales\Order\ChannelOrderListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Sales\Order\ChannelOrderListForm.designer.cs">
+      <DependentUpon>ChannelOrderListForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Sales\Order\OrderNoteEditForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -481,6 +487,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Master\Address\AddressEditForm.resx">
       <DependentUpon>AddressEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Sales\Order\ChannelOrderListForm.resx">
+      <DependentUpon>ChannelOrderListForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Sales\Order\OrderNoteEditForm.resx">
       <DependentUpon>OrderNoteEditForm.cs</DependentUpon>

@@ -11,8 +11,7 @@ namespace IKaan.Was.Core.Mappers
 		private static ISqlMapper mapper = null;
 		private static ISqlMapper mapperBiz = null;
 		private static ISqlMapper mapperScrap = null;
-		private static ISqlMapper mapperLive = null;
-		private static ISqlMapper mapperB2B = null;
+		private static ISqlMapper mapperB2C = null;
 
 		public static ISqlMapper Instance
 		{
@@ -95,48 +94,21 @@ namespace IKaan.Was.Core.Mappers
 			}
 		}
 
-		public static ISqlMapper InstanceLive
-		{
-			get
-			{
-				try
-				{
-					if (mapperLive == null)
-					{
-						lock (syncLock)
-						{
-							if (mapperLive == null)
-							{
-								var dom = new DomSqlMapBuilder();
-								var sqlMapConfig = Resources.GetEmbeddedResourceAsXmlDocument("Config.SqlMapLive.config, IKaan.Was.Core");
-								mapperLive = dom.Configure(sqlMapConfig);
-							}
-						}
-					}
-				}
-				catch
-				{
-					throw;
-				}
-				return mapperLive;
-			}
-		}
-
 		public static ISqlMapper InstanceB2B
 		{
 			get
 			{
 				try
 				{
-					if (mapperB2B == null)
+					if (mapperB2C == null)
 					{
 						lock (syncLock)
 						{
-							if (mapperB2B == null)
+							if (mapperB2C == null)
 							{
 								var dom = new DomSqlMapBuilder();
-								var sqlMapConfig = Resources.GetEmbeddedResourceAsXmlDocument("Config.SqlMapB2B.config, IKaan.Was.Core");
-								mapperB2B = dom.Configure(sqlMapConfig);
+								var sqlMapConfig = Resources.GetEmbeddedResourceAsXmlDocument("Config.SqlMapB2C.config, IKaan.Was.Core");
+								mapperB2C = dom.Configure(sqlMapConfig);
 							}
 						}
 					}
@@ -145,7 +117,7 @@ namespace IKaan.Was.Core.Mappers
 				{
 					throw;
 				}
-				return mapperB2B;
+				return mapperB2C;
 			}
 		}
 	}

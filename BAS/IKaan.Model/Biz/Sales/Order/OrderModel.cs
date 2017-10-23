@@ -19,6 +19,10 @@ namespace IKaan.Model.Biz.Sales.Order
 		public DateTime OrderDate { get; set; }
 
 		[DataMember]
+		[Display(Name = "주문시간")]
+		public string OrderTime { get; set; }
+
+		[DataMember]
 		[Display(Name = "주문번호")]
 		public string OrderNo { get; set; }
 

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using IKaan.Base.Map;
 using IKaan.Base.Utils;
 using IKaan.Model.Base.Common;
+using IKaan.Model.Biz.Sales.Order;
 using IKaan.Model.Common.Was;
-using IKaan.Model.Live;
 using IKaan.Was.Core.Mappers;
 
 namespace IKaan.Was.Service.Common
@@ -18,7 +18,7 @@ namespace IKaan.Was.Service.Common
 			string orderSeq = string.Empty;
 			string goodsCode = string.Empty;
 
-			DaoFactory.InstanceLive.BeginTransaction();
+			DaoFactory.InstanceBiz.BeginTransaction();
 			try
 			{
 				foreach (var data in datalist)
@@ -46,7 +46,7 @@ namespace IKaan.Was.Service.Common
 							{ "OrderSeq", orderSeq },
 							{ "GoodsCode", goodsCode }
 						};
-						var channelorder = DaoFactory.InstanceLive.QueryForObject<ChannelOrderModel>("SelectChannelOrderByOrderNo", map);
+						var channelorder = DaoFactory.InstanceBiz.QueryForObject<ChannelOrderModel>("SelectChannelOrderByOrderNo", map);
 						if (channelorder != null)
 						{
 							if (data.Option1.IsNullOrEmpty())
@@ -57,7 +57,7 @@ namespace IKaan.Was.Service.Common
 							else
 								channelorder.Option1 = channelorder.Option1 + Environment.NewLine + data.Option1;
 
-							DaoFactory.InstanceLive.Update("UpdateChannelOrder", channelorder);
+							DaoFactory.InstanceBiz.Update("UpdateChannelOrder", channelorder);
 						}
 					}
 					else
@@ -69,7 +69,7 @@ namespace IKaan.Was.Service.Common
 								{ "ChannelID", data.ChannelID },
 								{ "GoodsCode", data.GoodsCode }
 							};
-							var find = DaoFactory.InstanceLive.QueryForObject<ChannelOrderModel>("SelectChannelOrderByGoodsCode", findMap);
+							var find = DaoFactory.InstanceBiz.QueryForObject<ChannelOrderModel>("SelectChannelOrderByGoodsCode", findMap);
 							if (find != null && find.BrandID != null)
 							{
 								data.BrandID = find.BrandID;
@@ -95,23 +95,23 @@ namespace IKaan.Was.Service.Common
 							{ "OrderSeq", data.OrderSeq },
 							{ "GoodsCode", data.GoodsCode }
 						};
-						var channelorder = DaoFactory.InstanceLive.QueryForObject<ChannelOrderModel>("SelectChannelOrderByOrderNo", map);
+						var channelorder = DaoFactory.InstanceBiz.QueryForObject<ChannelOrderModel>("SelectChannelOrderByOrderNo", map);
 						if (channelorder != null)
-							DaoFactory.InstanceLive.Delete("DeleteChannelOrder", new DataMap() { { "ID", channelorder.ID } });
+							DaoFactory.InstanceBiz.Delete("DeleteChannelOrder", new DataMap() { { "ID", channelorder.ID } });
 
 						//저장
-						object id = DaoFactory.InstanceLive.Insert("InsertChannelOrder", data);
+						object id = DaoFactory.InstanceBiz.Insert("InsertChannelOrder", data);
 						data.ID = id.ToIntegerNullToNull();
 						orderNo = data.OrderNo;
 						orderSeq = data.OrderSeq;
 						goodsCode = data.GoodsCode;
 					}
 				}
-				DaoFactory.InstanceLive.CommitTransaction();
+				DaoFactory.InstanceBiz.CommitTransaction();
 			}
 			catch (Exception ex)
 			{
-				DaoFactory.InstanceLive.RollBackTransaction();
+				DaoFactory.InstanceBiz.RollBackTransaction();
 				throw ex;
 			}
 		}
