@@ -205,7 +205,7 @@
     <EmbeddedResource Include="SqlMaps\Biz\Sales\DeliveryOrder\DeliveryOrderItemSQL.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <Content Include="SqlMaps\Biz\Sales\Order\ChannelOrderSQL.xml" />
+    <EmbeddedResource Include="SqlMaps\Biz\Sales\Order\ChannelOrderSQL.xml" />
     <Content Include="SqlMaps\Report\ReportSQL.xml" />
   </ItemGroup>
   <ItemGroup>

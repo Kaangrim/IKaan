@@ -39,6 +39,12 @@
     <Reference Include="DevExpress.XtraGrid.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraLayout.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraPivotGrid.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="HtmlAgilityPack, Version=1.6.1.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\HtmlAgilityPack.1.6.1\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -291,6 +297,66 @@
     <Compile Include="Sales\Shipment\ShipmentListForm.designer.cs">
       <DependentUpon>ShipmentListForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Scrap\Common\ScrapBrandEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Scrap\Common\ScrapBrandEditForm.designer.cs">
+      <DependentUpon>ScrapBrandEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Scrap\Common\ScrapCategoryEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Scrap\Common\ScrapCategoryEditForm.designer.cs">
+      <DependentUpon>ScrapCategoryEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Scrap\Common\ScrapEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Scrap\Common\ScrapEditForm.designer.cs">
+      <DependentUpon>ScrapEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Scrap\Common\ScrapListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Scrap\Common\ScrapListForm.designer.cs">
+      <DependentUpon>ScrapListForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Scrap\Common\ScrapOptionEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Scrap\Common\ScrapOptionEditForm.designer.cs">
+      <DependentUpon>ScrapOptionEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Scrap\Common\ScrapProductEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Scrap\Common\ScrapProductEditForm.designer.cs">
+      <DependentUpon>ScrapProductEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Scrap\Common\ScrapProductViewForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Scrap\Common\ScrapProductViewForm.designer.cs">
+      <DependentUpon>ScrapProductViewForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Scrap\Common\ScrapSiteEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Scrap\Common\ScrapSiteEditForm.designer.cs">
+      <DependentUpon>ScrapSiteEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Scrap\Smaps\SmapsAgencyEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Scrap\Smaps\SmapsAgencyEditForm.designer.cs">
+      <DependentUpon>SmapsAgencyEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Scrap\Smaps\SmapsListForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Scrap\Smaps\SmapsListForm.designer.cs">
+      <DependentUpon>SmapsListForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Search\SearchBrandActivityEditForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -503,6 +569,36 @@
     <EmbeddedResource Include="Sales\Shipment\ShipmentListForm.resx">
       <DependentUpon>ShipmentListForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Scrap\Common\ScrapBrandEditForm.resx">
+      <DependentUpon>ScrapBrandEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scrap\Common\ScrapCategoryEditForm.resx">
+      <DependentUpon>ScrapCategoryEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scrap\Common\ScrapEditForm.resx">
+      <DependentUpon>ScrapEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scrap\Common\ScrapListForm.resx">
+      <DependentUpon>ScrapListForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scrap\Common\ScrapOptionEditForm.resx">
+      <DependentUpon>ScrapOptionEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scrap\Common\ScrapProductEditForm.resx">
+      <DependentUpon>ScrapProductEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scrap\Common\ScrapProductViewForm.resx">
+      <DependentUpon>ScrapProductViewForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scrap\Common\ScrapSiteEditForm.resx">
+      <DependentUpon>ScrapSiteEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scrap\Smaps\SmapsAgencyEditForm.resx">
+      <DependentUpon>SmapsAgencyEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scrap\Smaps\SmapsListForm.resx">
+      <DependentUpon>SmapsListForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Search\SearchBrandActivityEditForm.resx">
       <DependentUpon>SearchBrandActivityEditForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -549,6 +645,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\BAS\IKaan.Base\IKaan.Base.csproj">
