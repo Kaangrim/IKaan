@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectOrderSumProductList" parameterClass="DataMap" resultClass="OrderSumProductModel" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY BB.Name, CC.Name)	as RowNo
+					,	AA.ID
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
+					
+					,	AA.StoreID
+					,	AA.ChannelID
+					,	AA.BrandID
+					,	AA.ProductID
+					,	AA.OrderDate
+					,	AA.OrderQty
+					,	AA.OrderAmt
+					
+					,	CC.Name			as ChannelName
+					,	BB.Name			as BrandName
+					,	PP.Name			as ProductName
+					
+				FROM	dbo.TOrderSumProduct AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.TChannel CC WITH (NOLOCK)
+								ON AA.ChannelID = CC.ID
+						LEFT JOIN
+							dbo.TBrand BB WITH (NOLOCK)
+								ON AA.BrandID = BB.ID
+						LEFT JOIN
+							dbo.TProduct PP WITH (NOLOCK)
+								ON AA.ProductID = PP.ID
+				WHERE	AA.OrderDate >= #StartDate#
+				AND		AA.OrderDate <= #EndDate#
+			]]>
+			<isNotEmpty property="StoreID">
+				<![CDATA[
+					AND	AA.StoreID = #StoreID#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="ChannelID">
+				<![CDATA[
+					AND	AA.ChannelID = #ChannelID#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="BrandID">
+				<![CDATA[
+					AND	AA.BrandID = #BrandID#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="ProductID">
+				<![CDATA[
+					AND	AA.ProductID = #ProductID#
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectOrderSumProduct" parameterClass="DataMap" resultClass="OrderSumProductModel" >
+			<![CDATA[
+				SELECT  AA.*
+					,	BB.Name				as BrandName
+					,	CC.Name				as ChannelName
+					,	PP.Name				as ProductName
+				FROM	dbo.TOrderSumProduct AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.TBrand BB WITH (NOLOCK)
+								ON AA.BrandID = BB.ID
+						LEFT JOIN
+							dbo.TChannel CC WITH (NOLOCK)
+								ON AA.ChannelID = CC.ID
+						LEFT JOIN
+							dbo.TProduct PP WITH (NOLOCK)
+								ON AA.ProductID = PP.ID
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		
+		<insert id="InsertOrderSumProduct" parameterClass="OrderSumProductModel" >
+			<![CDATA[
+				INSERT INTO dbo.TOrderSumProduct
+				( 
+					CreatedOn, CreatedBy, CreatedByName,
+					StoreID, ChannelID, BrandID, ProductID, OrderDate, OrderQty, OrderAmt
+				)
+				VALUES
+				(
+					GetDate(), #CreatedBy#, #CreatedByName#,
+					#StoreID#, #ChannelID#, #BrandID#, #ProductID#, #OrderDate#, #OrderQty#, #OrderAmt#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateOrderSumProduct" parameterClass="OrderSumProductModel">
+			<![CDATA[
+				UPDATE  dbo.TOrderSum
+				SET     UpdatedOn		= GetDate()
+					,	UpdatedBy		= #UpdatedBy#
+					,	UpdatedByName	= #UpdatedByName#
+					
+					,	StoreID			= #StoreID#
+					,	ChannelID		= #ChannelID#
+					,	BrandID			= #BrandID#
+					,	ProductID		= #ProductID#
+					,	OrderDate		= #OrderDate#
+					,	OrderQty		= #OrderQty#
+					,	OrderAmt		= #OrderAmt#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
+		<delete id="DeleteOrderSumProduct" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM	dbo.TOrderSumProduct WHERE ID = #ID#;
+			]]>
+		</delete>
+		
+		<select id="SelectOrderSumProductDuplicate" parameterClass="DataMap" resultClass="OrderSumProductModel" >
+			<![CDATA[
+				SELECT  AA.*					
+				FROM	dbo.TOrderSumProduct AA WITH (NOLOCK)
+				WHERE	AA.StoreID		= #StoreID#
+				AND		AA.ChannelID	= #ChannelID#
+				AND		AA.BrandID		= #BrandID#
+				AND		AA.ProductID	= #ProductID#
+				AND		AA.OrderDate	= CONVERT(DATETIME, CONVERT(VARCHAR(8), #OrderDate#, 112), 112)
+			]]>
+		</select>
+
+		<delete id="DeleteOrderSumProductByChannel" parameterClass="DataMap">
+			<![CDATA[
+				DELETE 
+				FROM	dbo.TOrderSumProduct
+				WHERE	StoreID		= #StoreID#
+				AND		ChannelID	= #ChannelID#
+				AND		OrderDate	= #OrderDate#
+			]]>
+		</delete>
+		<delete id="DeleteOrderSumProductByBrand" parameterClass="DataMap">
+			<![CDATA[
+				DELETE 
+				FROM	dbo.TOrderSumProduct 
+				WHERE	StoreID		= #StoreID#
+				AND		BrandID		= #BrandID#
+				AND		OrderDate	= #OrderDate#
+			]]>
+		</delete>
+		<delete id="DeleteOrderSumProductByOrderDate" parameterClass="DataMap">
+			<![CDATA[
+				DELETE 
+				FROM	dbo.TOrderSumProduct
+				WHERE	StoreID		= #StoreID#
+				AND		OrderDate	= #OrderDate#
+			]]>
+		</delete>
+		
+	</statements>
+</sqlMap>

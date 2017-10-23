@@ -1,0 +1,273 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectOrderSumDayList" parameterClass="DataMap" resultClass="OrderSumDayModel" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY BB.Name, CC.Name)	as RowNo
+					,	AA.ID
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
+					
+					,	AA.StoreID
+					,	AA.ChannelID
+					,	AA.BrandID
+					,	AA.OrderDate
+					,	AA.OrderQty
+					,	AA.OrderAmt
+					
+					,	CC.Name			as ChannelName
+					,	BB.Name			as BrandName
+					
+				FROM	dbo.TOrderSumDay AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.TChannel CC WITH (NOLOCK)
+								ON AA.ChannelID = CC.ID
+						LEFT JOIN
+							dbo.TBrand BB WITH (NOLOCK)
+								ON AA.BrandID = BB.ID
+				WHERE	AA.OrderDate >= #StartDate#
+				AND		AA.OrderDate <= #EndDate#
+			]]>
+			<isNotEmpty property="StoreID">
+				<![CDATA[
+					AND	AA.StoreID = #StoreID#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="ChannelID">
+				<![CDATA[
+					AND	AA.ChannelID = #ChannelID#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="BrandID">
+				<![CDATA[
+					AND	AA.BrandID = #BrandID#
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectOrderSumDay" parameterClass="DataMap" resultClass="OrderSumDayModel" >
+			<![CDATA[
+				SELECT  AA.*
+					,	BB.Name				as BrandName
+					,	CC.Name				as ChannelName
+				FROM	dbo.TOrderSumDay AA WITH (NOLOCK)
+						LEFT JOIN
+							dbo.TBrand BB WITH (NOLOCK)
+								ON AA.BrandID = BB.ID
+						LEFT JOIN
+							dbo.TChannel CC WITH (NOLOCK)
+								ON AA.ChannelID = CC.ID
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		
+		<insert id="InsertOrderSumDay" parameterClass="OrderSumDayModel" >
+			<![CDATA[
+				INSERT INTO dbo.TOrderSumDay
+				( 
+					CreatedOn, CreatedBy, CreatedByName,
+					StoreID, ChannelID, BrandID, OrderDate, OrderQty, OrderAmt
+				)
+				VALUES
+				(
+					GetDate(), #CreatedBy#, #CreatedByName#,
+					#StoreID#, #ChannelID#, #BrandID#, #OrderDate#, #OrderQty#, #OrderAmt#
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateOrderSumDay" parameterClass="OrderSumDayModel">
+			<![CDATA[
+				UPDATE  dbo.TOrderSum
+				SET     UpdatedOn		= GetDate()
+					,	UpdatedBy		= #UpdatedBy#
+					,	UpdatedByName	= #UpdatedByName#
+					
+					,	StoreID			= #StoreID#
+					,	ChannelID		= #ChannelID#
+					,	BrandID			= #BrandID#
+					,	OrderDate		= #OrderDate#
+					,	OrderQty		= #OrderQty#
+					,	OrderAmt		= #OrderAmt#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
+		<delete id="DeleteOrderSumDay" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM	dbo.TOrderSumDay WHERE ID = #ID#;
+			]]>
+		</delete>
+		
+		<select id="SelectOrderSumDayDuplicate" parameterClass="DataMap" resultClass="OrderSumDayModel" >
+			<![CDATA[
+				SELECT  AA.*					
+				FROM	dbo.TOrderSumDay AA WITH (NOLOCK)
+				WHERE	AA.StoreID		= #StoreID#
+				AND		AA.ChannelID	= #ChannelID#
+				AND		AA.BrandID		= #BrandID#
+				AND		AA.OrderDate	= CONVERT(DATETIME, CONVERT(VARCHAR(8), #OrderDate#, 112), 112)
+			]]>
+		</select>
+
+		<delete id="DeleteOrderSumDayByChannel" parameterClass="DataMap">
+			<![CDATA[
+				DELETE 
+				FROM	dbo.TOrderSumDay
+				WHERE	StoreID		= #StoreID#
+				AND		ChannelID	= #ChannelID#
+				AND		OrderDate	= #OrderDate#
+			]]>
+		</delete>
+		<delete id="DeleteOrderSumDayByBrand" parameterClass="DataMap">
+			<![CDATA[
+				DELETE 
+				FROM	dbo.TOrderSumDay 
+				WHERE	StoreID		= #StoreID#
+				AND		BrandID		= #BrandID#
+				AND		OrderDate	= #OrderDate#
+			]]>
+		</delete>
+		<delete id="DeleteOrderSumDayByOrderDate" parameterClass="DataMap">
+			<![CDATA[
+				DELETE 
+				FROM	dbo.TOrderSumDay
+				WHERE	StoreID		= #StoreID#
+				AND		OrderDate	= #OrderDate#
+			]]>
+		</delete>
+
+		<select id="SelectOrderSumDayListByChannel" parameterClass="DataMap" resultClass="OrderSumDayModel" >
+			<![CDATA[
+				SELECT	ROW_NUMBER() OVER (ORDER BY CC.Name)	as  RowNo
+					,	BB.ID
+					,	BB.CreatedOn
+					,	BB.CreatedBy
+					,	BB.CreatedByName
+					,	BB.UpdatedOn
+					,	BB.UpdatedBy
+					,	BB.UpdatedByName
+					
+					,	BB.StoreID
+					,	AA.ChannelID
+					,	AA.BrandID
+					,	CC.Name					as BrandName
+					,	AA.ChannelMargin
+					,	AA.BrandMargin
+					,	BB.OrderDate
+					,	ISNULL(BB.OrderQty, 0)	as OrderQty
+					,	ISNULL(BB.OrderAmt, 0)	as OrderAmt
+					
+				FROM	(
+							SELECT	AA.ChannelID
+								,	AA.BrandID
+								,	AA.ChannelMargin
+								,	AA.BrandMargin
+							FROM	dbo.TChannelBrand AA WITH (NOLOCK)
+							WHERE	AA.ChannelID = #ChannelID#
+							AND		AA.StartDate <= CONVERT(DATETIME, CONVERT(VARCHAR(8), #OrderDate#, 112), 112)
+							AND		ISNULL(AA.EndDate, DATEADD(DAY, 1, CONVERT(DATETIME, CONVERT(VARCHAR(8), #OrderDate#, 112), 112))) >= CONVERT(DATETIME, CONVERT(VARCHAR(8), #OrderDate#, 112), 112)
+						) AA
+						LEFT JOIN
+						(
+							SELECT	ID
+								,	CreatedOn
+								,	CreatedBy
+								,	CreatedByName
+								,	UpdatedOn
+								,	UpdatedBy
+								,	UpdatedByName
+								,	StoreID
+								,	ChannelID
+								,	BrandID
+								,	OrderDate
+								,	OrderQty
+								,	OrderAmt
+							FROM	dbo.TOrderSumDay WITH (NOLOCK)
+							WHERE	StoreID		= #StoreID#
+							AND		ChannelID	= #ChannelID#
+							AND		OrderDate	= CONVERT(DATETIME, CONVERT(VARCHAR(8), #OrderDate#, 112), 112)
+						) BB
+							ON AA.ChannelID = BB.ChannelID
+								AND AA.BrandID = BB.BrandID
+						LEFT JOIN
+							dbo.TBrand CC WITH (NOLOCK)
+								ON AA.BrandID = CC.ID
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectOrderSumDayListByBrand" parameterClass="DataMap" resultClass="OrderSumListModel" >
+			<![CDATA[
+				SELECT	ROW_NUMBER() OVER (ORDER BY CC.Name)	as  RowNo
+					,	BB.ID
+					,	BB.CreatedOn
+					,	BB.CreatedBy
+					,	BB.CreatedByName
+					,	BB.UpdatedOn
+					,	BB.UpdatedBy
+					,	BB.UpdatedByName
+					
+					,	BB.StoreID			as StoreID
+					,	AA.BrandID			as BrandID
+					,	AA.ChannelID		as ChannelID
+					,	CC.Name				as ChannelName
+					,	AA.ChannelMargin
+					,	AA.BrandMargin
+					,	BB.OrderDate
+					,	ISNULL(BB.OrderQty, 0)	as OrderQty
+					,	ISNULL(BB.OrderAmt, 0)	as OrderAmt
+					
+				FROM	(
+							SELECT	AA.ChannelID
+								,	AA.BrandID
+								,	AA.ChannelMargin
+								,	AA.BrandMargin
+							FROM	dbo.TChannelBrand AA WITH (NOLOCK)
+							WHERE	AA.BrandID = #BrandID#
+							AND		AA.StartDate <= CONVERT(DATETIME, CONVERT(VARCHAR(8), #OrderDate#, 112), 112)
+							AND		ISNULL(AA.EndDate, DATEADD(DAY, 1, CONVERT(DATETIME, CONVERT(VARCHAR(8), #OrderDate#, 112), 112))) >= CONVERT(DATETIME, CONVERT(VARCHAR(8), #OrderDate#, 112), 112)
+						) AA
+						LEFT JOIN
+						(
+							SELECT	ID
+								,	CreatedOn
+								,	CreatedBy
+								,	CreatedByName
+								,	UpdatedOn
+								,	UpdatedBy
+								,	UpdatedByName
+								,	StoreID
+								,	ChannelID
+								,	BrandID
+								,	OrderDate
+								,	OrderQty
+								,	OrderAmt
+							FROM	dbo.TOrderSumDay WITH (NOLOCK)
+							WHERE	StoreID		= #StoreID#
+							AND		BrandID		= #BrandID#
+							AND		OrderDate	= CONVERT(DATETIME, CONVERT(VARCHAR(8), #OrderDate#, 112), 112)
+						) BB
+							ON AA.ChannelID = BB.ChannelID
+								AND AA.BrandID = BB.BrandID
+						LEFT JOIN
+							dbo.TChannel CC WITH (NOLOCK)
+								ON AA.ChannelID = CC.ID
+				ORDER BY RowNo
+			]]>
+		</select>
+		
+	</statements>
+</sqlMap>

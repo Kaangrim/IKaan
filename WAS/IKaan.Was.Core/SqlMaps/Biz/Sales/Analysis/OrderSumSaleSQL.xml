@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectOrderSumSaleList" parameterClass="DataMap" resultClass="OrderSumSaleModel" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY CC.Name, BB.Name, AA.ChannelMargin, AA.BrandMargin)	as RowNo
+					
+					,	AA.StoreID
+					,	SS.Name			as StoreName
+					
+					,	AA.ChannelID
+					,	CC.Name			as ChannelName
+					,	E2.Name			as ChannelManager
+					
+					,	AA.BrandID
+					,	BB.Name			as BrandName
+					,	E1.Name			as BrandManager
+					
+					,	AA.OrderQty
+					,	AA.OrderAmt
+					
+					,	AA.ChannelMargin
+					,	AA.OrderAmt * AA.ChannelMargin/100.0			as ChannelAccAmt
+					
+					,	(100.0 - AA.BrandMargin)						as BrandMargin
+					,	AA.OrderAmt * (100.0 - AA.BrandMargin)/100.0	as BrandAccAmt
+					
+					,	AA.BrandMargin - 
+						AA.ChannelMargin								as SaleMargin
+					,	AA.OrderAmt -
+						AA.OrderAmt * AA.ChannelMargin/100.0 -
+						AA.OrderAmt * (100.0 - AA.BrandMargin)/100.0	as SaleAmt
+					
+				FROM	(
+							SELECT	AA.StoreID
+								,	AA.ChannelID
+								,	AA.BrandID
+								,	CB.ChannelMargin
+								,	CB.BrandMargin
+								,	SUM(AA.OrderQty)	as OrderQty
+								,	SUM(AA.OrderAmt)	as OrderAmt
+							FROM	dbo.TOrderSumDay AA WITH (NOLOCK)
+									LEFT JOIN
+										dbo.TChannelBrand CB WITH (NOLOCK)
+											ON AA.ChannelID = CB.ChannelID
+												AND AA.BrandID = CB.BrandID
+												AND CB.StartDate <= AA.OrderDate
+												AND ISNULL(CB.EndDate, DATEADD(DAY, 1, AA.OrderDate)) >= AA.OrderDate
+							WHERE	AA.OrderDate >= #StartDate#
+							AND		AA.OrderDate <= #EndDate#
+			]]>
+			<isNotEmpty property="StoreID">
+				<![CDATA[
+							AND		AA.StoreID = #StoreID#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="ChannelID">
+				<![CDATA[
+							AND		AA.ChannelID = #ChannelID#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="BrandID">
+				<![CDATA[
+							AND		AA.BrandID = #BrandID#
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+							GROUP BY AA.StoreID, AA.ChannelID, AA.BrandID, CB.ChannelMargin, CB.BrandMargin						
+						) AA						
+						LEFT JOIN
+							dbo.TBrand BB WITH (NOLOCK)
+								ON AA.BrandID = BB.ID
+						LEFT JOIN
+							dbo.TBrandManager B1 WITH (NOLOCK)
+								ON AA.BrandID = B1.BrandID
+									AND B1.StartDate <= #EndDate#
+									AND ISNULL(B1.EndDate, DATEADD(DAY, 1, #EndDate#)) >= #EndDate#
+						LEFT JOIN
+							dbo.TEmployee E1 WITH (NOLOCK)
+								ON B1.EmployeeID = E1.ID
+						LEFT JOIN
+							dbo.TChannel CC WITH (NOLOCK)
+								ON AA.ChannelID = CC.ID
+						LEFT JOIN
+							dbo.TChannelManager C1 WITH (NOLOCK)
+								ON AA.ChannelID = C1.ChannelID
+									AND C1.StartDate <= #EndDate#
+									AND ISNULL(C1.EndDate, DATEADD(DAY, 1, #EndDate#)) >= #EndDate#
+						LEFT JOIN
+							dbo.TEmployee E2 WITH (NOLOCK)
+								ON C1.EmployeeID = E2.ID
+						LEFT JOIN
+							dbo.TStore SS WITH (NOLOCK)
+								ON AA.StoreID = SS.ID
+				ORDER BY RowNo
+			]]>
+		</select>
+		
+	</statements>
+</sqlMap>

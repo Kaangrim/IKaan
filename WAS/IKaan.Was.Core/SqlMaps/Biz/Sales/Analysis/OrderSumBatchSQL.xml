@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>		
+		<update id="MergeOrderSumDayByChannelOrderDate" parameterClass="DataMap" >
+			<![CDATA[
+				MERGE dbo.TOrderSumDay as T
+				USING
+				(
+					SELECT	AA.StoreID
+						,	AA.ChannelID
+						,	PP.BrandID
+						,	AA.OrderDate
+						,	SUM(BB.OrderQty)	as OrderQty
+						,	SUM(BB.OrderAmt)	as OrderAmt
+					FROM	dbo.TOrder AA WITH (NOLOCK)
+							INNER JOIN
+								dbo.TOrderItem BB WITH (NOLOCK)
+									ON AA.ID = BB.OrderID
+							INNER JOIN
+								dbo.TProduct PP WITH (NOLOCK)
+									ON BB.ProductID = PP.ID
+					WHERE	AA.StoreID	 = #StoreID#
+					AND		AA.ChannelID = #ChannelID#
+					AND		AA.OrderDate = CONVERT(DATETIME, CONVERT(VARCHAR(8), #OrderDate#, 112), 112)
+					AND		AA.Status NOT IN ('8','9')
+					AND		BB.CancelYn = 'N'
+					GROUP BY
+						AA.StoreID, AA.ChannelID, PP.BrandID, AA.OrderDate
+				) as S
+					ON T.StoreID = S.StoreID
+						AND T.ChannelID = S.ChannelID
+						AND T.BrandID   = S.BrandID
+						AND T.OrderDate = S.OrderDate
+				WHEN NOT MATCHED BY TARGET 
+					THEN
+						INSERT 
+							(CreatedOn, CreatedBy, CreatedByName, StoreID, ChannelID, BrandID, OrderDate, OrderQty, OrderAmt)
+						VALUES
+							(GetDate(), #CreatedBy#, #CreatedByName#, S.StoreID, S.ChannelID, S.BrandID, S.OrderDate, S.OrderQty, S.OrderAmt)
+				WHEN MATCHED 
+					THEN
+						UPDATE	
+						SET		T.OrderQty		= S.OrderQty
+							,	T.OrderAmt		= S.OrderAmt
+							,	T.UpdatedOn		= GetDate()
+							,	T.UpdatedBy		= #UpdatedBy#
+							,	T.UpdatedByName = #UpdatedByName#
+				WHEN NOT MATCHED BY SOURCE
+					THEN DELETE
+				;
+			]]>
+		</update>
+		<update id="MergeOrderSumProductByChannelOrderDate" parameterClass="DataMap" >
+			<![CDATA[
+				MERGE dbo.TOrderSumProduct as T
+				USING
+				(
+					SELECT	AA.StoreID
+						,	AA.ChannelID
+						,	PP.BrandID
+						,	BB.ProductID
+						,	AA.OrderDate
+						,	SUM(BB.OrderQty)	as OrderQty
+						,	SUM(BB.OrderAmt)	as OrderAmt
+					FROM	dbo.TOrder AA WITH (NOLOCK)
+							INNER JOIN
+								dbo.TOrderItem BB WITH (NOLOCK)
+									ON AA.ID = BB.OrderID
+							INNER JOIN
+								dbo.TProduct PP WITH (NOLOCK)
+									ON BB.ProductID = PP.ID
+					WHERE	AA.StoreID	 = #StoreID#
+					AND		AA.ChannelID = #ChannelID#
+					AND		AA.OrderDate = CONVERT(DATETIME, CONVERT(VARCHAR(8), #OrderDate#, 112), 112)
+					AND		AA.Status NOT IN ('8','9')
+					AND		BB.CancelYn = 'N'
+					GROUP BY
+						AA.StoreID, AA.ChannelID, PP.BrandID, BB.ProductID, AA.OrderDate
+				) as S
+					ON T.StoreID = S.StoreID
+						AND T.ChannelID = S.ChannelID
+						AND T.BrandID   = S.BrandID
+						AND T.ProductID = S.ProductID
+						AND T.OrderDate = S.OrderDate
+				WHEN NOT MATCHED BY TARGET 
+					THEN
+						INSERT 
+							(CreatedOn, CreatedBy, CreatedByName, StoreID, ChannelID, BrandID, ProductID, OrderDate, OrderQty, OrderAmt)
+						VALUES
+							(GetDate(), #CreatedBy#, #CreatedByName#, S.StoreID, S.ChannelID, S.BrandID, S.ProductID, S.OrderDate, S.OrderQty, S.OrderAmt)
+				WHEN MATCHED 
+					THEN
+						UPDATE	
+						SET		T.OrderQty		= S.OrderQty
+							,	T.OrderAmt		= S.OrderAmt
+							,	T.UpdatedOn		= GetDate()
+							,	T.UpdatedBy		= #UpdatedBy#
+							,	T.UpdatedByName = #UpdatedByName#
+				WHEN NOT MATCHED BY SOURCE
+					THEN DELETE
+				;
+			]]>
+		</update>
+		<update id="MergeOrderSumTimeByChannelOrderDate" parameterClass="DataMap" >
+			<![CDATA[
+				MERGE dbo.TOrderSumTime as T
+				USING
+				(
+					SELECT	AA.StoreID
+						,	AA.ChannelID
+						,	PP.BrandID
+						,	BB.ProductID
+						,	AA.OrderDate
+						,	AA.OrderTime
+						,	SUM(BB.OrderQty)	as OrderQty
+						,	SUM(BB.OrderAmt)	as OrderAmt
+					FROM	dbo.TOrder AA WITH (NOLOCK)
+							INNER JOIN
+								dbo.TOrderItem BB WITH (NOLOCK)
+									ON AA.ID = BB.OrderID
+							INNER JOIN
+								dbo.TProduct PP WITH (NOLOCK)
+									ON BB.ProductID = PP.ID
+					WHERE	AA.StoreID	 = #StoreID#
+					AND		AA.ChannelID = #ChannelID#
+					AND		AA.OrderDate = CONVERT(DATETIME, CONVERT(VARCHAR(8), #OrderDate#, 112), 112)
+					AND		AA.Status NOT IN ('8','9')
+					AND		BB.CancelYn = 'N'
+					GROUP BY
+						AA.StoreID, AA.ChannelID, PP.BrandID, BB.ProductID, AA.OrderDate, AA.OrderTime
+				) as S
+					ON T.StoreID = S.StoreID
+						AND T.ChannelID = S.ChannelID
+						AND T.BrandID   = S.BrandID
+						AND T.ProductID = S.ProductID
+						AND T.OrderDate = S.OrderDate
+						AND	T.OrderTime = S.OrderTime
+				WHEN NOT MATCHED BY TARGET 
+					THEN
+						INSERT 
+							(CreatedOn, CreatedBy, CreatedByName, StoreID, ChannelID, BrandID, ProductID, OrderDate, OrderTime, OrderQty, OrderAmt)
+						VALUES
+							(GetDate(), #CreatedBy#, #CreatedByName#, S.StoreID, S.ChannelID, S.BrandID, S.ProductID, S.OrderDate, S.OrderTime, S.OrderQty, S.OrderAmt)
+				WHEN MATCHED 
+					THEN
+						UPDATE	
+						SET		T.OrderQty		= S.OrderQty
+							,	T.OrderAmt		= S.OrderAmt
+							,	T.UpdatedOn		= GetDate()
+							,	T.UpdatedBy		= #UpdatedBy#
+							,	T.UpdatedByName = #UpdatedByName#
+				WHEN NOT MATCHED BY SOURCE
+					THEN DELETE
+				;
+			]]>
+		</update>
+	</statements>
+</sqlMap>

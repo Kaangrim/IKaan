@@ -1,0 +1,232 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<sqlMap
+	namespace="IKaan.Was.Core.SqlMaps"
+	xmlns="http://ibatis.apache.org/mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<statements>
+		<select id="SelectChannelOrderList" parameterClass="DataMap" resultClass="ChannelOrderModel" >
+			<![CDATA[
+				SELECT  ROW_NUMBER() OVER (ORDER BY AA.ID)	AS RowNo
+					,	AA.ID
+					,	AA.CreatedOn
+					,	AA.CreatedBy
+					,	AA.CreatedByName
+					,	AA.UpdatedOn
+					,	AA.UpdatedBy
+					,	AA.UpdatedByName
+					
+					,	AA.StoreID
+					,	AA.ChannelID
+					,	AA.OrderDate
+					,	AA.OrderNo
+					,	AA.OrderSeq
+					,	AA.GoodsCode
+					,	AA.GoodsName
+					,	AA.Option1
+					,	AA.Option2
+					,	AA.Orderer
+					,	AA.OrdererEmail
+					,	AA.OrdererMobile
+					,	AA.OrdererTelNo
+					,	AA.Recipient
+					,	AA.RecipientMobile
+					,	AA.RecipientTelNo
+					,	AA.PostalCode
+					,	AA.RecipientAddress
+					,	AA.Description
+					,	AA.OrderQty
+					,	AA.SupplyPrice
+					,	AA.SupplyAmt
+					,	AA.SalePrice
+					,	AA.SaleAmt
+					,	AA.DeliveryFee
+					,	AA.CouponAmt
+					,	AA.DealNo
+					,	AA.BrandID
+					,	AA.DueDate
+					,	AA.GiftName
+					,	AA.Status
+					,	AA.FileUploadID
+					,	AA.OrderID
+					,	AA.OrderItemID
+					
+					,	CC.Name				as ChannelName
+					,	BB.Name				as BrandName
+					,	M1.Name				as StatusName
+										
+				FROM	dbo.TChannelOrder AA WITH (NOLOCK)
+						LEFT JOIN
+							IKBiz.dbo.TChannel CC WITH (NOLOCK)
+								ON AA.ChannelID = CC.ID
+						LEFT JOIN
+							IKBiz.dbo.TBrand BB WITH (NOLOCK)
+								ON AA.BrandID = BB.ID
+						LEFT JOIN
+							IKBase.dbo.TCode M1 WITH (NOLOCK)
+								ON AA.Status = M1.Code
+									AND M1.ParentCode = 'ChannelOrderStatus'
+				WHERE	1=1
+				AND		AA.OrderDate = #OrderDate#
+			]]>
+			<isNotEmpty property="StoreID">
+				<![CDATA[
+					AND	AA.StoreID = #StoreID#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="ChannelID">
+				<![CDATA[
+					AND	AA.ChannelID = #ChannelID#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="BrandID">
+				<![CDATA[
+					AND	AA.BrandID = #BrandID#
+				]]>
+			</isNotEmpty>
+			<![CDATA[
+				ORDER BY RowNo
+			]]>
+		</select>
+		<select id="SelectChannelOrder" parameterClass="DataMap" resultClass="ChannelOrderModel" >
+			<![CDATA[
+				SELECT  *
+				FROM	dbo.TChannelOrder AA WITH (NOLOCK)
+				WHERE	AA.ID = #ID#
+			]]>
+		</select>
+		<select id="SelectChannelOrderByOrderNo" parameterClass="DataMap" resultClass="ChannelOrderModel" >
+			<![CDATA[
+				SELECT  *
+				FROM	dbo.TChannelOrder AA WITH (NOLOCK)
+				WHERE	1=1
+				AND		AA.StoreID = #StoreID#
+			]]>
+			<isNotEmpty property="OrderNo">
+				<![CDATA[
+					AND	AA.OrderNo = #OrderNo#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="OrderSeq">
+				<![CDATA[
+					AND	AA.OrderSeq = #OrderSeq#
+				]]>
+			</isNotEmpty>
+			<isNotEmpty property="GoodsCode">
+				<![CDATA[
+					AND	AA.GoodsCode = #GoodsCode#
+				]]>
+			</isNotEmpty>
+		</select>
+		<select id="SelectChannelOrderByGoodsCode" parameterClass="DataMap" resultClass="ChannelOrderModel" >
+			<![CDATA[
+				SELECT  TOP 1 AA.*
+				FROM	dbo.TChannelOrder AA WITH (NOLOCK)
+				WHERE	AA.StoreID	 = #StoreID#
+				AND		AA.ChannelID = #ChannelID#
+				AND		AA.GoodsCode = #GoodsCode#
+				AND		AA.BrandID	IS NOT NULL
+				ORDER BY AA.ID DESC
+			]]>
+		</select>
+		<insert id="InsertChannelOrder" parameterClass="ChannelOrderModel" >
+			<![CDATA[
+				INSERT INTO dbo.TChannelOrder
+				( 
+					CreatedOn, CreatedBy, CreatedByName,					
+					StoreID, ChannelID, OrderDate, OrderNo, OrderSeq,
+					GoodsCode, GoodsName, Option1, Option2, 
+					Orderer, OrdererEmail, OrdererMobile, OrdererTelNo,
+					Recipient, RecipientMobile, RecipientTelNo, PostalCode, RecipientAddress,
+					Description,
+					OrderQty, SupplyPrice, SupplyAmt, SalePrice, SaleAmt, DeliveryFee, CouponAmt,
+					DealNo, BrandID, DueDate, GiftName,
+					Status
+				)
+				VALUES
+				(
+					GetDate(), #CreatedBy#, #CreatedByName#,
+					#StoreID#, #ChannelID#, #OrderDate#, #OrderNo#, #OrderSeq#,
+					#GoodsCode#, #GoodsName#, #Option1#, #Option2#, 
+					#Orderer#, #OrdererEmail#, #OrdererMobile#, #OrdererTelNo#,
+					#Recipient#, #RecipientMobile#, #RecipientTelNo#, #PostalCode#, #RecipientAddress#,
+					#Description#,
+					#OrderQty#, #SupplyPrice#, #SupplyAmt#, #SalePrice#, #SaleAmt#, #DeliveryFee#, #CouponAmt#,
+					#DealNo#, #BrandID#, #DueDate#, #GiftName#,
+					'0'
+				)
+			]]>
+			<selectKey type="post" property="ID" resultClass="Int">
+				<![CDATA[
+					SELECT @@IDENTITY AS ID
+				]]>
+			</selectKey>
+		</insert>
+		<update id="UpdateChannelOrder" parameterClass="ChannelOrderModel">
+			<![CDATA[
+				UPDATE  dbo.TChannelOrder
+				SET     UpdatedOn		= GetDate()
+					,	UpdatedBy		= #UpdatedBy#
+					,	UpdatedByName	= #UpdatedByName#
+					
+					,	StoreID			= #StoreID#
+					,	ChannelID		= #ChannelID#
+					,	OrderDate		= #OrderDate#
+					,	OrderNo			= #OrderNo#
+					,	OrderSeq		= #OrderSeq#
+					,	GoodsCode		= #GoodsCode#
+					,	GoodsName		= #GoodsName#
+					,	Option1			= #Option1#
+					,	Option2			= #Option2#
+					,	Orderer			= #Orderer#
+					,	OrdererEmail	= #OrdererEmail#
+					,	OrdererMobile	= #OrdererMobile#
+					,	OrdererTelNo	= #OrdererTelNo#
+					,	Recipient		= #Recipient#
+					,	RecipientMobile	= #RecipientMobile#
+					,	RecipientTelNo	= #RecipientTelNo#
+					,	PostalCode		= #PostalCode#
+					,	RecipientAddress= #RecipientAddress#
+					,	Description		= #Description#
+					,	OrderQty		= #OrderQty#
+					,	SupplyPrice		= #SupplyPrice#
+					,	SupplyAmt		= #SupplyAmt#
+					,	SalePrice		= #SalePrice#
+					,	SaleAmt			= #SaleAmt#
+					,	DeliveryFee		= #DeliveryFee#
+					,	CouponAmt		= #CouponAmt#
+					,	DealNo			= #DealNo#
+					,	BrandID			= #BrandID#
+					,	DueDate			= #DueDate#
+					,	GiftName		= #GiftName#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
+		<delete id="DeleteChannelOrder" parameterClass="DataMap">
+			<![CDATA[
+				DELETE FROM dbo.TChannelOrder WHERE ID = #ID#;
+			]]>
+		</delete>
+		<update id="UpdateChannelOrderBrand" parameterClass="ChannelOrderModel">
+			<![CDATA[
+				UPDATE  dbo.TChannelOrder
+				SET     UpdatedOn		= GetDate()
+					,	UpdatedBy		= #UpdatedBy#
+					,	UpdatedByName	= #UpdatedByName#
+					
+					,	BrandID			= #BrandID#
+				WHERE	ID				= #ID#
+			]]>
+		</update>
+		<update id="UpdateChannelOrderOrderID" parameterClass="ChannelOrderModel">
+			<![CDATA[
+				UPDATE  dbo.TChannelOrder
+				SET     OrderID		= #OrderID#
+					,	OrderItemID = #OrderItemID#
+					,	BrandID		= #BrandID#
+					,	Status		= '7'
+				WHERE	ID = #ID#
+			]]>
+		</update>
+	</statements>
+</sqlMap>

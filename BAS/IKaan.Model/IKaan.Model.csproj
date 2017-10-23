@@ -57,7 +57,14 @@
     <Compile Include="Biz\Catalog\Product\ProductChannelGoodsModel.cs" />
     <Compile Include="Biz\Sales\Delivery\DeliveryOrderItemModel.cs" />
     <Compile Include="Biz\Sales\Delivery\DeliveryOrderModel.cs" />
+    <Compile Include="Biz\Sales\Order\ChannelOrderCancelModel.cs" />
+    <Compile Include="Biz\Sales\Order\ChannelOrderModel.cs" />
+    <Compile Include="Biz\Sales\Order\ChannelOrderReturnModel.cs" />
     <Compile Include="Biz\Sales\Order\OrderListModel.cs" />
+    <Compile Include="Biz\Sales\Order\OrderStateModel.cs" />
+    <Compile Include="Biz\Sales\Order\OrderToDeliveryOrderItemModel.cs" />
+    <Compile Include="Biz\Sales\Order\OrderToDeliveryOrderModel.cs" />
+    <Compile Include="Biz\Sales\Order\OrderWorkModel.cs" />
     <Compile Include="Biz\Sales\Shipment\ShipmentInvoiceModel.cs" />
     <Compile Include="Biz\Sales\Shipment\ShipmentItemModel.cs" />
     <Compile Include="Biz\Sales\Shipment\ShipmentModel.cs" />
